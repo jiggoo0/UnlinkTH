@@ -50,13 +50,11 @@ export default function HomePage() {
   /* -----------------------------------------
      FEATURED DATA (Memoized)
   ----------------------------------------- */
-  // ดึงเฉพาะโปรเจกต์ที่เสร็จสมบูรณ์มาโชว์ 2 รายการ
   const featuredProjects = React.useMemo(
     () => allProjects.filter((p) => p.status === 'Completed').slice(0, 2),
     [],
   )
 
-  // ดึงเฉพาะบริการที่เป็น Popular มาโชว์ 3 รายการแรก
   const featuredServices = React.useMemo(
     () => allServices.filter((s) => s.popular).slice(0, 3),
     [],
@@ -120,11 +118,11 @@ export default function HomePage() {
           </Link>
         </div>
 
+        {/* ✅ FIXED: Removed unused 'index' prop to match ServiceListRow's updated Props */}
         <div className="border-t border-slate-950 dark:border-slate-100">
-          {featuredServices.map((service, index) => (
+          {featuredServices.map((service) => (
             <ServiceListRow
               key={service.id}
-              index={index}
               service={service}
               icon={iconMap[service.iconName] ?? <Shield size={22} />}
             />
@@ -218,7 +216,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Decorative Elements */}
           <div className="pointer-events-none absolute top-0 right-0 h-full w-1/2 bg-gradient-to-l from-blue-600/10 to-transparent" />
           <div className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-blue-600/5 blur-[120px]" />
         </div>

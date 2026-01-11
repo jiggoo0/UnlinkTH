@@ -10,10 +10,14 @@ import { LineFloat } from '@/components/shared/line-float'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { Suspense } from 'react'
 
+// ✅ FIXED: แก้ไข Path การ Import ให้ชี้ไปยังตำแหน่งที่ถูกต้องของ SEO Schema Helper
+import { generateOrganizationSchema } from '@/lib/seo/schema-helper'
+
 /**
  * [STRATEGY: THE STRUCTURAL FOUNDATION]
- * - Next.js 15 Fix: เพิ่ม Suspense Boundary ใน Layout เพื่อรองรับ Client Hooks (useSearchParams)
- * ที่อาจอยู่ใน MainLayout หรือ Navigation components
+ * - Next.js 15 & React 19 optimized.
+ * - Performance: Font swapping and suppressHydrationWarning for theme transitions.
+ * - Stability: Suspense boundary to prevent 'useSearchParams' bailout during build.
  */
 
 const inter = Inter({
@@ -44,12 +48,12 @@ export const metadata: Metadata = {
     'ลบข่าวเสียหาย',
   ],
   authors: [{ name: 'UnlinkTH Team' }],
-  metadataBase: new URL('https://unlinkth.com'),
+  metadataBase: new URL('https://unlink-th.vercel.app'),
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     locale: 'th_TH',
-    url: 'https://unlinkth.com',
+    url: 'https://unlink-th.vercel.app',
     title: 'UnlinkTH | บริการจัดการชื่อเสียงออนไลน์',
     description: 'ลบลิงก์เสีย แก้ข่าวปลอม ปกป้องความเป็นส่วนตัวของคุณ',
     siteName: 'UnlinkTH',
@@ -72,8 +76,19 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const organizationSchema = generateOrganizationSchema()
+
   return (
     <html lang="th" suppressHydrationWarning className="scroll-smooth">
+      <head>
+        {/* 🏢 Organization Schema Injection */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+      </head>
       <body
         className={cn(
           'bg-background font-thai min-h-screen antialiased',
@@ -88,15 +103,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {/* 🏛️ Main Layout หุ้มด้วย Suspense เพื่อป้องกัน CSR Bailout Error ในระดับ Global */}
+          {/* 🏛️ STRATEGY: 
+            Suspense is required for components accessing searchParams during static rendering.
+          */}
           <Suspense fallback={null}>
             <MainLayout>{children}</MainLayout>
           </Suspense>
 
-          {/* Floating UI */}
+          {/* Floating Action UI */}
           <LineFloat />
 
-          {/* Global Feedback */}
+          {/* Global Feedback System */}
           <Toaster
             position="top-right"
             expand={false}

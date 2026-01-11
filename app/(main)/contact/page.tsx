@@ -4,11 +4,12 @@
 
 import React from 'react'
 import { ContactForm } from '@/components/contact/ContactForm'
-import { TrustBadge } from '@/components/shared/trust-badge'
 import { Clock, Shield, Lock, Fingerprint } from 'lucide-react'
 
 /**
  * [STRATEGY: THE STRUCTURAL MINIMALIST - CONTACT ARCHITECTURE]
+ * - Secure Environment: สร้างบรรยากาศความปลอดภัยด้วย Visual Cues (Fingerprint, Encryption labels)
+ * - Authority & Trust: เน้นย้ำเรื่อง SLA และนโยบาย Zero-Retention
  */
 
 export default function ContactPage() {
@@ -16,6 +17,7 @@ export default function ContactPage() {
     <main className="min-h-screen bg-white selection:bg-blue-100 dark:bg-slate-950">
       <div className="container mx-auto px-6 pt-32 pb-24 md:pt-48 md:pb-40">
         <div className="grid grid-cols-1 gap-20 lg:grid-cols-12 xl:gap-24">
+          {/* 🏛️ Left Column: Trust Context & Mission Control */}
           <div className="flex flex-col justify-between lg:col-span-5">
             <div className="space-y-12">
               <div className="flex items-center gap-4">
@@ -31,12 +33,14 @@ export default function ContactPage() {
                   </span>
                 </div>
               </div>
+
               <h1 className="text-7xl leading-[0.8] font-black tracking-tighter text-slate-950 uppercase md:text-9xl dark:text-white">
                 Secure <br />
                 <span className="font-light text-slate-100 italic dark:text-slate-800">
                   Inquiry
                 </span>
               </h1>
+
               <div className="max-w-md space-y-6 border-l-2 border-blue-600 pl-8">
                 <p className="font-thai text-xl leading-relaxed font-medium text-slate-500 dark:text-slate-400">
                   กรุณากรอกรายละเอียดเพื่อให้ผู้เชี่ยวชาญประเมินสถานการณ์เบื้องต้น
@@ -46,6 +50,8 @@ export default function ContactPage() {
                 </p>
               </div>
             </div>
+
+            {/* SLA & Security Metrics */}
             <div className="mt-20 space-y-1 border-t border-slate-100 pt-10 dark:border-slate-800">
               {[
                 {
@@ -81,6 +87,8 @@ export default function ContactPage() {
               ))}
             </div>
           </div>
+
+          {/* 🏛️ Right Column: Secure Form UI */}
           <div className="relative lg:col-span-7">
             <div className="relative border-2 border-slate-950 bg-white p-8 md:p-14 dark:border-slate-800 dark:bg-slate-950">
               <div className="mb-14 border-b border-slate-50 pb-8 dark:border-slate-900">
@@ -100,18 +108,5 @@ export default function ContactPage() {
         </div>
       </div>
     </main>
-  )
-}
-
-function ContactMethod({ label, val }: { label: string; val: string }) {
-  return (
-    <div className="space-y-1">
-      <span className="text-[9px] font-black tracking-widest text-slate-400 uppercase">
-        {label}
-      </span>
-      <p className="cursor-pointer text-sm font-black text-slate-950 transition-colors hover:text-blue-600 dark:text-white">
-        {val}
-      </p>
-    </div>
   )
 }

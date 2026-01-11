@@ -5,22 +5,21 @@
 import React from 'react'
 import Link from 'next/link'
 import { CheckCircle2, ArrowRight, ShieldCheck } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { ServiceItem } from '@/types/service'
 
 /**
  * [STRATEGY: ROW-BASED OPERATIONAL UI]
  * - ดีไซน์แบบรายการปฏิบัติงานทางการแพทย์/เทคนิค (Clinical/Technical Audit Style)
  * - เน้นความรวดเร็วในการสแกนข้อมูล (Fast-scanning)
+ * - Optimization: ลบ unused 'cn' และ 'index' props เพื่อผ่านการตรวจสอบ Lint
  */
 
 type Props = {
   service: ServiceItem
   icon: React.ReactNode
-  index: number
 }
 
-export function ServiceListRow({ service, icon, index }: Props) {
+export function ServiceListRow({ service, icon }: Props) {
   // ใช้ ID จาก Data จริงมาเป็นรหัสอ้างอิง
   const serviceCode = `UN-${service.id}`
 

@@ -1,5 +1,6 @@
 /** @format */
-import { Metadata } from 'next'
+
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import {
@@ -8,8 +9,6 @@ import {
   Clock,
   BarChart3,
   ShieldCheck,
-  Calendar,
-  Lock,
 } from 'lucide-react'
 import { getProjectBySlug, allProjects } from '@/data/case/all-cases'
 import { ServiceStatus } from '@/components/cases/ServiceStatus'
@@ -20,7 +19,11 @@ interface CasePageProps {
   params: Promise<{ slug: string }>
 }
 
-// ✅ ระบุ Type ให้ตรงกับที่ ServiceStatus คาดหวัง
+/**
+ * [STRATEGY: CASE STUDY PRECISION]
+ * การแสดงผล Case Study ต้องสะท้อนถึง Authority และ Confidentiality
+ * ใช้ ProjectStatus type เพื่อควบคุมความถูกต้องของสถานะงาน
+ */
 type ProjectStatus = 'Completed' | 'In Progress' | 'Pending'
 
 export async function generateStaticParams() {
@@ -33,6 +36,7 @@ export async function generateMetadata({
   const { slug } = await params
   const project = getProjectBySlug(slug)
   if (!project) return { title: 'Not Found | UnlinkTH' }
+
   return {
     title: `${project.title} | ผลลัพธ์การดำเนินงาน`,
     description: project.description.substring(0, 160),
@@ -53,6 +57,7 @@ export default async function ProjectDetailPage({ params }: CasePageProps) {
       />
       <main className="min-h-screen bg-white pt-32 pb-24 selection:bg-blue-100 dark:bg-slate-950">
         <div className="container mx-auto max-w-5xl px-6">
+          {/* Navigation */}
           <nav className="mb-12">
             <Link
               href="/cases"
@@ -66,13 +71,13 @@ export default async function ProjectDetailPage({ params }: CasePageProps) {
             </Link>
           </nav>
 
+          {/* Header Section */}
           <header className="mb-16 space-y-8">
             <div className="flex flex-wrap items-center gap-4">
               <span className="flex items-center gap-2 bg-slate-900 px-3 py-1 text-[10px] font-black tracking-widest text-white uppercase dark:bg-blue-600">
                 <ShieldCheck size={12} />
                 {project.category}
               </span>
-              {/* ✅ แก้ไข Type Assertion */}
               <ServiceStatus status={project.status as ProjectStatus} />
             </div>
             <h1 className="font-thai text-4xl font-black tracking-tighter text-slate-900 uppercase md:text-6xl dark:text-white">
@@ -80,6 +85,7 @@ export default async function ProjectDetailPage({ params }: CasePageProps) {
             </h1>
           </header>
 
+          {/* Visual Evidence */}
           <section className="mb-16">
             <BeforeAfterSlider
               beforeImg="/images/projects/case-financial.jpg"
@@ -88,6 +94,7 @@ export default async function ProjectDetailPage({ params }: CasePageProps) {
             />
           </section>
 
+          {/* Key Metrics */}
           <div className="mb-16 grid gap-px border border-slate-200 bg-slate-200 md:grid-cols-3 dark:border-slate-800 dark:bg-slate-800">
             <div className="bg-slate-50 p-8 dark:bg-slate-900">
               <span className="flex items-center gap-2 text-[10px] font-black tracking-widest text-slate-400 uppercase">
@@ -107,6 +114,7 @@ export default async function ProjectDetailPage({ params }: CasePageProps) {
             </div>
           </div>
 
+          {/* Content Body */}
           <div className="grid gap-16 md:grid-cols-12">
             <aside className="space-y-8 md:col-span-5">
               <div className="space-y-4">
@@ -114,13 +122,12 @@ export default async function ProjectDetailPage({ params }: CasePageProps) {
                   Contextual Background
                 </h2>
                 <div className="font-thai text-lg leading-relaxed text-slate-600 italic dark:text-slate-400">
-                  {/* ✅ แก้ไข HTML Entity */}
                   &quot;{project.description}&quot;
                 </div>
               </div>
             </aside>
+
             <section className="space-y-8 md:col-span-7">
-              {/* ส่วน Operational Steps... */}
               <h2 className="flex items-center gap-3 border-b border-slate-200 pb-4 text-[11px] font-black tracking-widest uppercase dark:border-slate-800 dark:text-white">
                 <BarChart3 size={18} className="text-blue-600" /> Operational
                 Protocol

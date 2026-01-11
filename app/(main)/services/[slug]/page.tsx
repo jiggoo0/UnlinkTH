@@ -138,7 +138,8 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                       </div>
                     </div>
                     <p className="font-thai relative z-10 text-[11px] text-slate-500 italic">
-                      * ปฏิบัติการภายใต้กรอบกฎหมายดิจิทัลและมาตรฐานความปลอดภัยสูงสุด
+                      *
+                      ปฏิบัติการภายใต้กรอบกฎหมายดิจิทัลและมาตรฐานความปลอดภัยสูงสุด
                     </p>
                   </div>
                 </div>

@@ -12,12 +12,12 @@ import {
   Lock,
   ChevronRight,
 } from 'lucide-react'
-import { cn } from '@/lib/utils'
 
 /**
  * [STRATEGY: THE STRUCTURAL MINIMALIST]
  * - Dossier Layout: เปลี่ยนข้อกำหนดเป็นแฟ้มบันทึกข้อตกลงเชิงยุทธศาสตร์
  * - Visual Trust: ใช้เส้นสายที่คมชัด (0.5px border) และ Contrast ที่สูง
+ * - Clean Code: Removed unused 'cn' utility to satisfy ESLint constraints.
  */
 
 export default function TermsPage() {

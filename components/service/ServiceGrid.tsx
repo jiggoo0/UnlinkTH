@@ -21,6 +21,7 @@ import {
  * [STRATEGY: TECHNICAL DIRECTORY LAYOUT]
  * - สไตล์สารบบทางเทคนิค (Blueprint/Manifest style)
  * - รองรับ Responsive: ปรับจากตาราง 12 คอลัมน์เป็น Stack ในมือถือ
+ * - Optimization: แก้ไข Type Error TS2322 โดยการลบ unused index prop
  */
 
 export function ServiceGrid() {
@@ -69,10 +70,10 @@ export function ServiceGrid() {
 
         {/* 🏛️ Service Rows: การจัดวางแบบข้อมูลหนาแน่น (Compact) */}
         <div className="group/grid divide-y divide-slate-100 border-t border-slate-100 dark:divide-slate-900 dark:border-slate-900">
-          {allServices.map((service, index) => (
+          {allServices.map((service) => (
             <ServiceListRow
               key={service.id}
-              index={index}
+              // ✅ FIXED: ลบ index={index} ออกเพื่อให้ตรงกับ ServiceListRow Props ใหม่
               service={service}
               icon={iconMap[service.iconName] || <Shield size={18} />}
             />

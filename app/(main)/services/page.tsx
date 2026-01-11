@@ -11,7 +11,7 @@ import {
   Globe,
   EyeOff,
   Zap,
-  ArrowRight, // ✅ แก้ไข: เพิ่มการ Import ArrowRight เพื่อล้าง Error TS2304
+  ArrowRight,
 } from 'lucide-react'
 
 // Data Layer
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
 }
 
-// 🏛️ Icon Registry (ใช้สำหรับการแสดงผลใน Server Component)
+// 🏛️ Icon Registry
 const iconMap: Record<string, React.ReactNode> = {
   search: <Search size={20} strokeWidth={1.5} />,
   shield: <Shield size={20} strokeWidth={1.5} />,
@@ -58,13 +58,12 @@ const iconMap: Record<string, React.ReactNode> = {
 export default function ServicesPage() {
   return (
     <main className="min-h-screen bg-white pt-32 pb-0 transition-colors duration-500 selection:bg-blue-100 dark:bg-slate-950">
-      {/* 🏛️ SEO Component */}
       <Seo
         title="Operational Services"
         description="โซลูชันการจัดการชื่อเสียงออนไลน์และข้อมูลดิจิทัลอย่างเป็นระบบ"
       />
 
-      {/* 🏛️ HEADER: Contextual Framing */}
+      {/* 🏛️ HEADER */}
       <section className="container mx-auto mb-24 max-w-6xl px-6">
         <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
           <SectionHeading
@@ -83,9 +82,9 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 🏛️ SERVICES LIST: Operational Directory */}
+      {/* 🏛️ SERVICES LIST */}
       <section className="container mx-auto max-w-6xl px-6">
-        {/* Table Header (Desktop Only) */}
+        {/* Table Header */}
         <div className="mb-6 hidden grid-cols-12 border-b border-slate-900 pb-6 text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase md:grid dark:border-slate-100">
           <div className="col-span-1">ID</div>
           <div className="col-span-5">Service Protocol</div>
@@ -93,12 +92,11 @@ export default function ServicesPage() {
           <div className="col-span-2 text-right">Details</div>
         </div>
 
-        {/* List Rows - แสดงผลข้อมูลทั้งหมดจาก Data Layer */}
+        {/* ✅ FIXED: Removed 'index' from .map and component props */}
         <div className="divide-y divide-slate-100 border-t border-slate-100 md:border-t-0 dark:divide-slate-900 dark:border-slate-900">
-          {allServices.map((service, index) => (
+          {allServices.map((service) => (
             <ServiceListRow
               key={service.id}
-              index={index}
               service={service}
               icon={
                 iconMap[service.iconName] || (
@@ -110,12 +108,12 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 🏛️ PRICING: Transactional Trust */}
+      {/* 🏛️ PRICING */}
       <section className="mt-40 border-t border-slate-100 bg-slate-50/30 dark:border-slate-900 dark:bg-slate-900/10">
         <PricingSection />
       </section>
 
-      {/* 🏛️ FOOTER CALL: Immediate Assistance */}
+      {/* 🏛️ FOOTER CALL */}
       <section className="border-t border-slate-100 bg-white py-32 text-center dark:border-slate-900 dark:bg-slate-950">
         <div className="container mx-auto px-6">
           <div className="mx-auto max-w-2xl">

@@ -6,9 +6,13 @@
  * และเพิ่มโอกาสในการแสดง Rich Snippets (Star Ratings, Service Details)
  */
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://unlinkth.com'
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://unlink-th.vercel.app'
 
-// 1. 🏢 Organization Schema: ยืนยันความน่าเชื่อถือขององค์กร
+/**
+ * 1. 🏢 Organization Schema: ยืนยันความน่าเชื่อถือขององค์กร
+ * ใช้เพื่อเชื่อมโยง Social Media และข้อมูลติดต่อหลักของแบรนด์
+ */
 export const generateOrganizationSchema = () => {
   return {
     '@context': 'https://schema.org',
@@ -37,7 +41,10 @@ export const generateOrganizationSchema = () => {
   }
 }
 
-// 2. 🛠️ Service Schema: ระบุรายละเอียด Protocol รายบริการ
+/**
+ * 2. 🛠️ Service Schema: ระบุรายละเอียด Protocol รายบริการ
+ * ช่วยให้ Search Engine เข้าใจขอบเขตการแก้ปัญหาของแต่ละบริการ
+ */
 export const generateServiceSchema = (service: {
   title: string
   description: string
@@ -76,7 +83,10 @@ export const generateServiceSchema = (service: {
   }
 }
 
-// 3. ❓ FAQ Schema: เพิ่มพื้นที่บนหน้า Google Search
+/**
+ * 3. ❓ FAQ Schema: เพิ่มพื้นที่บนหน้า Google Search
+ * ช่วยให้คำถาม-คำตอบแสดงผลโดยตรงบนหน้าผลการค้นหา (Rich Results)
+ */
 export const generateFaqSchema = (
   faqs: { question: string; answer: string }[],
 ) => {

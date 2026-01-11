@@ -5,13 +5,14 @@
 import React from 'react'
 import * as Accordion from '@radix-ui/react-accordion'
 import { Plus, Fingerprint, Activity } from 'lucide-react'
-import { faqData } from '@/data/faq' // สมมติว่าโครงสร้าง data มี id, category, question, answer
+import { faqData } from '@/data/faq'
 import { cn } from '@/lib/utils'
 
 /**
  * [STRATEGY: THE STRUCTURAL MINIMALIST]
  * - Dossier Approach: มองคำถามเป็น ID เคสเพื่อสร้าง Authority
  * - Performance: ใช้ Radix UI เพื่อความเร็วและ Accessibility (A11y)
+ * - Clean Code: Removed unused 'index' parameter in map function.
  */
 
 export function FaqSection() {
@@ -64,7 +65,8 @@ export function FaqSection() {
             collapsible
             className="w-full space-y-2"
           >
-            {faqData.map((item, index) => (
+            {/* ✅ Removed unused 'index' to satisfy ESLint */}
+            {faqData.map((item) => (
               <Accordion.Item
                 key={item.id}
                 value={item.id}

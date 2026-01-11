@@ -1,12 +1,16 @@
 # 📑 รายงานสรุปโปรเจกต์และบริบท AI (Full Context)
+
 _สร้างเมื่อ: 2026-01-09 07:16:47_
+
 > **Status:** Fresh Scan | รวมข้อมูลวิเคราะห์ Route & Code
 
 ## 🔴 1. สถานะสุขภาพโปรเจกต์ล่าสุด
+
 ✅ **READY FOR DEPLOY** (ผ่านการตรวจสอบทุกขั้นตอน)
 
 ### 📍 Production Route Map
-```text
+
+````text
 ```text
 Route (app)                                         Size  First Load JS
 ┌ ○ /                                            8.51 kB         172 kB
@@ -40,8 +44,9 @@ Route (app)                                         Size  First Load JS
 ○  (Static)   prerendered as static content
 ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
 ƒ  (Dynamic)  server-rendered on demand
-```
-```
+````
+
+````
 
 ## 📊 2. สถิติไฟล์แบ่งตามนามสกุล
 ```text
@@ -53,9 +58,10 @@ Route (app)                                         Size  First Load JS
       1 svg
       1 ico
       1 css
-```
+````
 
 ## 📁 3. โครงสร้างโฟลเดอร์ (Tree)
+
 ```text
 📂 app
   📄 favicon.ico
@@ -188,7 +194,9 @@ Route (app)                                         Size  First Load JS
 ```
 
 ## 📄 4. เนื้อหาโค้ดและบริบททางเทคนิค
+
 #### 🔍 Path: ai-context.md
+
 ```markdown
 🧠 AI_CONTEXT — UNLINKTH
 (Human‑Centric + Technical Authority)
@@ -231,25 +239,39 @@ UNLINKTH = บริการจัดการและลบข้อมูล
 - Production Ready: ลบ console.\* ออก และ Body size limit API ไม่เกิน 2mb
   > ทุกการสื่อสารและการเขียนโค้ดต่อจากนี้ จะยึดถือเอกสารชุดนี้เป็นเกณฑ์สูงสุด
 ```
+
 ---
 
 #### 🔍 Path: pre-deploy-report.md
-```markdown
+
+````markdown
 # 🚀 Pre-deploy Inspection Report
+
 Generated at: 2026-01-09 07:10:15
 Branch: N/A
 
 ## 🔐 1. Environment Check
+
 ✅ Status: .env file exists and verified.
-## 🛠️  2. Auto-Fix Procedure
+
+## 🛠️ 2. Auto-Fix Procedure
+
 ✅ Status: Auto-fix completed or no issues found.
+
 ## 🧹 3. Code Linting (ESLint)
+
 ✅ Status: Linting passed.
+
 ## ⌨️ 4. Type Safety Check
+
 ✅ Status: TypeScript verified.
-## 🏗️  5. Production Build Test
+
+## 🏗️ 5. Production Build Test
+
 ✅ Status: Build successfully optimized.
+
 ### 📊 Route Statistics & Bundle Size
+
 ```text
 Route (app)                                         Size  First Load JS
 ┌ ○ /                                            8.51 kB         172 kB
@@ -285,14 +307,18 @@ Route (app)                                         Size  First Load JS
 ○  (Static)   prerendered as static content
 ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
 ƒ  (Dynamic)  server-rendered on demand
-
 ```
+````
 
 ---
+
 ## 🏆 Summary Result
+
 ### ✅ READY FOR DEPLOY
+
 All protocols verified: Lint passed, Types safe, and Build successful. Deployment is highly recommended.
-```
+
+````
 ---
 
 #### 🔍 Path: app/globals.css
@@ -428,10 +454,12 @@ All protocols verified: Lint passed, Types safe, and Build successful. Deploymen
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-```
+````
+
 ---
 
 #### 🔍 Path: app/layout.tsx
+
 ```typescript
 /** @format */
 
@@ -545,9 +573,11 @@ export default function RootLayout({
   )
 }
 ```
+
 ---
 
 #### 🔍 Path: app/not-found.tsx
+
 ```typescript
 /** @format */
 
@@ -657,9 +687,11 @@ export default function NotFound() {
   )
 }
 ```
+
 ---
 
 #### 🔍 Path: data/services/service-map.ts
+
 ```typescript
 /** @format */
 
@@ -728,9 +760,11 @@ export function getRelatedServices(
     .slice(0, limit)
 }
 ```
+
 ---
 
 #### 🔍 Path: app/(main)/services/[slug]/page.tsx
+
 ```typescript
 /** @format */
 
@@ -915,9 +949,11 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   )
 }
 ```
+
 ---
 
 #### 🔍 Path: package.json
+
 ```json
 {
   "name": "unlinkth",
@@ -972,9 +1008,11 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   }
 }
 ```
+
 ---
 
 #### 🔍 Path: next.config.ts
+
 ```typescript
 import type { NextConfig } from 'next'
 
@@ -1057,9 +1095,11 @@ const nextConfig: NextConfig = {
 
 export default nextConfig
 ```
+
 ---
 
 #### 🔍 Path: lib/supabase.ts
+
 ```typescript
 /** @format */
 
@@ -1092,9 +1132,11 @@ export const createClientComponentClient = () =>
  * เนื่องจากต้องมีการจัดการ Cookies ที่ฝั่ง Server
  */
 ```
+
 ---
 
 #### 🔍 Path: types/service.ts
+
 ```typescript
 /** @format */
 
@@ -1146,13 +1188,18 @@ export interface ServiceDetail extends ServiceItem {
   }[]
 }
 ```
+
 ---
 
 #### 🔍 Path: .env
+
 ```text
+
 ```
+
 ---
 
 ## 📝 บทสรุป
+
 การสแกนเสร็จสิ้น ข้อมูลถูกจัดรูปแบบให้ AI ประมวลผลได้ทันที
 . Format code in: Optimized

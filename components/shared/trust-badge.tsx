@@ -3,7 +3,7 @@
 'use client'
 
 import React from 'react'
-import { ShieldCheck, Lock, EyeOff, Zap, ShieldAlert } from 'lucide-react'
+import { ShieldCheck, Lock, EyeOff, Zap } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 /**
@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils'
  * - แนวคิด: "The Invisible Safety"
  * - การจัดวาง: ใช้ Negative space และเส้นแบ่งที่บางเฉียบ (0.5px)
  * - Typography: เน้นการอ่านแบบสแกนผ่าน Uppercase tracking กว้าง
+ * - Optimization: ลบ unused 'ShieldAlert' icon เพื่อผ่านการตรวจสอบ Lint
  */
 
 interface TrustBadgeProps {

@@ -1,5 +1,7 @@
 /** @format */
+
 'use client'
+
 import { usePathname } from 'next/navigation'
 import { constructMetadata } from '@/lib/seo/seo-helper'
 import {
@@ -29,7 +31,7 @@ export const Seo = ({
   const metadata = constructMetadata({ title, description, image })
   const currentUrl = `${SITE_URL}${pathname}`
 
-  // ✅ แก้ไข: ระบุ Type ให้ชัดเจนแทน any
+  // ✅ แก้ไข: จัดการ Schema Objects ด้วย Type ที่ถูกต้อง
   const schemas: Record<string, unknown>[] = [
     generateOrganizationSchema() as Record<string, unknown>,
   ]
@@ -48,13 +50,28 @@ export const Seo = ({
     <>
       <title>{String(metadata.title)}</title>
       <meta name="description" content={metadata.description || ''} />
+
+      {/* ✅ แก้ไข Warning: นำ keywords มาใช้งานใน Meta Tag */}
+      {keywords.length > 0 && (
+        <meta name="keywords" content={keywords.join(', ')} />
+      )}
+
       <link rel="canonical" href={currentUrl} />
       <meta property="og:type" content={article ? 'article' : 'website'} />
+      <meta property="og:url" content={currentUrl} />
+      <meta property="og:title" content={String(metadata.title)} />
+      <meta property="og:description" content={metadata.description || ''} />
       <meta property="og:image" content={image || '/images/og-main.jpg'} />
-      {/* ส่วน Render อื่นๆ... */}
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={String(metadata.title)} />
+      <meta name="twitter:description" content={metadata.description || ''} />
+      <meta name="twitter:image" content={image || '/images/og-main.jpg'} />
+
+      {/* 🛠️ Schema Injection */}
       {schemas.map((schema, index) => (
         <script
-          key={index}
+          key={`schema-${index}`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />

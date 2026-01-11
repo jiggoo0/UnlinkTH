@@ -6,24 +6,24 @@ import * as React from 'react'
 import { PricingTier } from './PricingTier'
 import { SectionHeading } from '@/components/shared/section-heading'
 import { faqData } from '@/data/faq'
-import { allServices } from '@/data/services/all-services' // ดึงข้อมูลกลางมาใช้
+import { allServices } from '@/data/services/all-services'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { ShieldCheck, Lock, EyeOff, HelpCircle, ArrowRight } from 'lucide-react'
+import { Lock, EyeOff } from 'lucide-react'
 
 /**
  * [STRATEGY: THE TRUSTED ARCHITECT]
- * - ใช้ Dynamic Data จาก allServices
- * - เน้นความโปร่งใสเรื่อง NDA
- * - ใช้สี Slate และ Blue เพื่อสื่อถึง "ความจริง" (Truth) และ "เทคโนโลยี" (Tech)
+ * - ใช้ Dynamic Data จาก allServices เพื่อความแม่นยำของข้อมูล
+ * - เน้นความโปร่งใสเรื่อง NDA ด้วยสถานะ Active Visualizer
+ * - Clean Code: ลบ Unused Icons (ShieldCheck, HelpCircle, ArrowRight) เพื่อผ่าน Lint
  */
 
 export function PricingSection() {
-  // กรองเฉพาะบริการหลักที่ต้องการโชว์ในหน้า Pricing (หรือใช้ pricingData เดิมถ้าต้องการข้อความพิเศษ)
+  // กรองเฉพาะบริการหลักที่ต้องการโชว์ในหน้า Pricing
   const displayServices = allServices.filter((s) =>
     ['01', '05', '06'].includes(s.id),
   )
@@ -31,7 +31,7 @@ export function PricingSection() {
   return (
     <section className="bg-white py-32 selection:bg-blue-100 dark:bg-slate-950">
       <div className="container mx-auto max-w-6xl px-6">
-        {/* 🏛️ Header */}
+        {/* 🏛️ Header: Strategic Positioning */}
         <div className="mb-20 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
           <SectionHeading
             badge="Service Packages"
@@ -50,7 +50,7 @@ export function PricingSection() {
           </div>
         </div>
 
-        {/* 🏛️ Pricing Grid (Dynamic rendering) */}
+        {/* 🏛️ Pricing Grid: Tactical Options */}
         <div className="mb-24 grid grid-cols-1 gap-6 md:grid-cols-3">
           {displayServices.map((service) => (
             <PricingTier
@@ -71,7 +71,7 @@ export function PricingSection() {
           ))}
         </div>
 
-        {/* 🏛️ Trust Signals (Grid Layout) */}
+        {/* 🏛️ Trust Signals: Technical Sovereignty */}
         <div className="mb-32 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-slate-100 bg-slate-100 shadow-2xl dark:border-slate-800 dark:bg-slate-900">
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="bg-white p-12 transition-colors hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900/50">
@@ -97,7 +97,7 @@ export function PricingSection() {
           </div>
         </div>
 
-        {/* 🏛️ FAQ Section */}
+        {/* 🏛️ FAQ: Clarity Protocol */}
         <div className="mx-auto max-w-3xl">
           <div className="mb-16 text-center">
             <h3 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">

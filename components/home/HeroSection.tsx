@@ -7,13 +7,13 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { ShieldCheck, ArrowRight, Lock, Fingerprint } from 'lucide-react'
-import { cn } from '@/lib/utils'
 
 /**
  * [STRATEGY: THE SPECIALIST HERO]
  * - ไม่ขายฝัน: เน้นคำว่า "ตรวจสอบ" และ "ประเมิน"
  * - Typography: ใช้ Contrast ของน้ำหนักฟอนต์เพื่อเน้น "ความเป็นส่วนตัว"
  * - Layout: เน้นความเป็นระเบียบ (Grid-based) เพื่อสื่อถึงระเบียบวิธีวิจัย
+ * - Optimization: Removed unused 'cn' utility to satisfy ESLint.
  */
 
 export function HeroSection() {
