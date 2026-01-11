@@ -6,16 +6,29 @@ import { allProjects } from '@/data/case/all-cases'
 
 /**
  * [STRATEGY: DYNAMIC SEARCH ARCHITECTURE]
- * - แก้ไข TS2339: จัดการปัญหา missing 'updatedAt' โดยใช้ fallback จาก 'date' หรือ 'now'
- * - Precision: กำหนดลำดับความสำคัญ (Priority) ตามโครงสร้าง Conversion Funnel
+ * - แก้ไข: ใช้ Type Interface แทน 'any' เพื่อให้ผ่าน Strict Linting
+ * - Precision: ปรับปรุงการจัดการ Date เพื่อความสดใหม่ของข้อมูล (Freshness)
  */
 
+// 1. กำหนด Interface เพื่อรองรับข้อมูลจาก Data Source โดยไม่ต้องใช้ any
+interface ServiceWithMeta {
+  slug: string
+  updatedAt?: string | Date
+}
+
+interface ProjectWithMeta {
+  slug: string
+  updatedAt?: string | Date
+  date?: string | Date
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://unlinkth.com'
+  // ✅ ปรับปรุง: ใช้ URL ใหม่ที่ตัดสินใจเลือกใช้ทำธุรกิจจริง
+  const siteUrl = 'https://unlink-th.vercel.app'
   const now = new Date()
 
-  // 1. 🏛️ Static Routes: หน้าหลักและหน้าสำคัญเชิงกฎหมาย
-  const staticRoutes = [
+  // 1. 🏛️ Static Routes: โครงสร้างหลักของเว็บไซต์
+  const staticRoutes: MetadataRoute.Sitemap = [
     { route: '', priority: 1.0, frequency: 'daily' as const },
     { route: '/services', priority: 0.9, frequency: 'weekly' as const },
     { route: '/cases', priority: 0.8, frequency: 'weekly' as const },
@@ -30,30 +43,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority,
   }))
 
-  // 2. 🛠️ Dynamic Service Routes: เส้นทางบริการรายย่อย
-  const serviceRoutes = allServices.map((service) => ({
+  // 2. 🛠️ Dynamic Service Routes: แก้ไขปัญหา Long-tail Keywords รายบริการ
+  const serviceRoutes: MetadataRoute.Sitemap = (
+    allServices as unknown as ServiceWithMeta[]
+  ).map((service) => ({
     url: `${siteUrl}/services/${service.slug}`,
-    // ✅ แก้ไข: ใช้ service.updatedAt หากไม่มีให้ใช้ now
-    lastModified:
-      'updatedAt' in service ? new Date(service.updatedAt as string) : now,
+    lastModified: service.updatedAt ? new Date(service.updatedAt) : now,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }))
 
-  // 3. 📂 Dynamic Case Routes: เส้นทางผลงาน (Case Studies)
-  const caseRoutes = allProjects.map((project) => ({
-    url: `${siteUrl}/cases/${project.slug}`,
-    /** * ✅ แก้ไขปัญหา Property 'updatedAt' missing:
-     * ใช้ 'updatedAt' จาก interface ใหม่ที่เราเพิ่งอัปเดต หรือ fallback ไปที่ 'date'
-     */
-    lastModified: project.updatedAt
-      ? new Date(project.updatedAt)
-      : project.date
-        ? new Date(project.date)
-        : now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }))
+  // 3. 📂 Dynamic Case Routes: แสดงจุดจบของงาน (Outcomes)
+  const caseRoutes: MetadataRoute.Sitemap = (
+    allProjects as unknown as ProjectWithMeta[]
+  ).map((project) => {
+    let finalDate = now
+
+    if (project.updatedAt) {
+      finalDate = new Date(project.updatedAt)
+    } else if (project.date) {
+      finalDate = new Date(project.date)
+    }
+
+    return {
+      url: `${siteUrl}/cases/${project.slug}`,
+      lastModified: finalDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }
+  })
 
   return [...staticRoutes, ...serviceRoutes, ...caseRoutes]
 }

@@ -5,7 +5,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, ArrowRight, ShieldCheck } from 'lucide-react'
+import { Menu, X, ArrowRight, Lock } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Logo } from './logo'
@@ -13,15 +13,15 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 /**
  * [STRATEGY: ADAPTIVE NAVIGATION SYSTEM]
- * - ปรับปรุง Mobile Menu ให้ใช้ Framer Motion เพื่อความลื่นไหลระดับ Native App
- * - เพิ่ม Glassmorphism Effect ที่คมชัดขึ้นสำหรับ Dark Mode
- * - ปรับปรุง Accessibility (ARIA) และ Interaction Feedback
+ * - Technical Authority: แสดงสถานะความปลอดภัย (Secure Status) ในจุดที่มองเห็นง่าย
+ * - Human-Centric: ปรับภาษาปุ่มให้ดูเป็นการช่วยเหลือ (Consult) มากกว่าแค่การติดต่อ
+ * - Performance: ใช้ Framer Motion เฉพาะจุดที่จำเป็นตาม AI Context (Functional Only)
  */
 
 const NAV_LINKS = [
   { name: 'หน้าแรก', href: '/' },
-  { name: 'บริการ', href: '/services' },
-  { name: 'ผลงาน', href: '/cases' },
+  { name: 'บริการของเรา', href: '/services' },
+  { name: 'กรณีศึกษา', href: '/cases' },
   { name: 'คำถามที่พบบ่อย', href: '/faq' },
 ]
 
@@ -32,13 +32,11 @@ export function Navbar() {
   const [isVisible, setIsVisible] = React.useState(true)
   const lastScrollY = React.useRef(0)
 
-  // 🧠 Scroll Intelligence: ควบคุมการแสดงผลตามพฤติกรรมการไถหน้าจอ
   React.useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
       setScrolled(currentScrollY > 20)
 
-      // ซ่อน Navbar เมื่อไถลง และแสดงเมื่อไถขึ้น
       if (currentScrollY > lastScrollY.current && currentScrollY > 150) {
         setIsVisible(false)
         setIsOpen(false)
@@ -52,7 +50,6 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // ล็อก Scroll เมื่อเปิดเมนูมือถือ
   React.useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -60,6 +57,11 @@ export function Navbar() {
       document.body.style.overflow = 'unset'
     }
   }, [isOpen])
+
+  // ปิดเมนูเมื่อมีการเปลี่ยนเส้นทาง
+  React.useEffect(() => {
+    setIsOpen(false)
+  }, [pathname])
 
   return (
     <nav
@@ -74,7 +76,7 @@ export function Navbar() {
           className={cn(
             'flex items-center justify-between rounded-full border px-6 py-2.5 transition-all duration-500 md:py-3',
             scrolled
-              ? 'border-slate-200/50 bg-white/70 shadow-2xl backdrop-blur-xl dark:border-slate-800/30 dark:bg-slate-950/70'
+              ? 'border-slate-200/50 bg-white/80 shadow-2xl backdrop-blur-xl dark:border-slate-800/30 dark:bg-slate-950/80'
               : 'border-transparent bg-transparent',
           )}
         >
@@ -92,14 +94,13 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    'group relative py-2 text-[10px] font-black tracking-[0.25em] uppercase transition-all',
+                    'group font-thai relative py-2 text-[10px] font-black tracking-[0.25em] uppercase transition-all',
                     isActive
                       ? 'text-blue-600'
                       : 'text-slate-400 hover:text-slate-900 dark:hover:text-white',
                   )}
                 >
                   {link.name}
-                  {/* Indicator Line */}
                   <span
                     className={cn(
                       'absolute bottom-0 left-0 h-0.5 rounded-full bg-blue-600 transition-all duration-300',
@@ -112,10 +113,18 @@ export function Navbar() {
           </div>
 
           {/* 🛠️ Desktop Actions */}
-          <div className="hidden items-center gap-4 md:flex">
+          <div className="hidden items-center gap-6 md:flex">
+            {/* 🛡️ Secure Status Indicator */}
+            <div className="flex items-center gap-2 rounded-full border border-slate-200/50 bg-slate-100 px-3 py-1 dark:border-slate-800 dark:bg-slate-900">
+              <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+              <span className="text-[9px] font-black tracking-widest text-slate-500 uppercase dark:text-slate-400">
+                SECURED
+              </span>
+            </div>
+
             <Button
               asChild
-              className="group h-11 rounded-full bg-slate-950 px-8 text-[10px] font-black tracking-widest text-white uppercase shadow-lg transition-all duration-500 hover:bg-blue-600 hover:shadow-blue-600/25 active:scale-95 dark:bg-white dark:text-slate-950 dark:hover:bg-blue-600 dark:hover:text-white"
+              className="group h-11 rounded-full bg-slate-950 px-8 text-[10px] font-black tracking-widest text-white uppercase shadow-lg transition-all duration-500 hover:bg-blue-600 hover:shadow-blue-600/25 active:scale-95 dark:bg-blue-700 dark:hover:bg-blue-600"
             >
               <Link href="/contact" className="flex items-center gap-3">
                 Secure Consult{' '}
@@ -129,14 +138,14 @@ export function Navbar() {
 
           {/* 📱 Mobile Trigger */}
           <button
-            className="relative z-[110] flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-900 transition-all active:scale-75 md:hidden dark:bg-slate-900 dark:text-white"
+            className="relative z-[110] flex h-10 w-10 items-center justify-center rounded-full bg-slate-950 text-white transition-all active:scale-75 md:hidden dark:bg-white dark:text-slate-950"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle Navigation"
           >
             {isOpen ? (
-              <X size={20} strokeWidth={3} />
+              <X size={18} strokeWidth={3} />
             ) : (
-              <Menu size={20} strokeWidth={3} />
+              <Menu size={18} strokeWidth={3} />
             )}
           </button>
         </div>
@@ -146,31 +155,33 @@ export function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: '-100%' }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: '-100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
             className="fixed inset-0 z-[100] flex flex-col bg-white px-8 pt-32 pb-12 dark:bg-slate-950"
           >
-            {/* Background Accent */}
-            <div className="absolute top-0 right-0 -z-10 h-64 w-64 bg-blue-600/5 blur-[100px]" />
+            <div className="absolute top-0 right-0 -z-10 h-64 w-64 bg-blue-600/10 blur-[120px]" />
 
-            <div className="flex flex-col gap-6">
-              <span className="text-[10px] font-black tracking-[0.4em] text-blue-600 uppercase">
-                Main Directory
-              </span>
-              <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-10">
+              <div className="flex items-center gap-2">
+                <span className="h-px w-8 bg-blue-600" />
+                <span className="text-[10px] font-black tracking-[0.4em] text-blue-600 uppercase">
+                  Menu Directory
+                </span>
+              </div>
+              <div className="flex flex-col gap-6">
                 {NAV_LINKS.map((link, index) => (
                   <motion.div
                     key={link.href}
-                    initial={{ x: -20, opacity: 0 }}
+                    initial={{ x: 20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.1 + index * 0.05 }}
                   >
                     <Link
                       href={link.href}
                       className={cn(
-                        'text-5xl font-black tracking-tighter uppercase transition-colors',
+                        'font-thai text-5xl font-black tracking-tighter uppercase transition-colors',
                         pathname === link.href
                           ? 'text-blue-600'
                           : 'text-slate-950 dark:text-white',
@@ -186,15 +197,23 @@ export function Navbar() {
             <div className="mt-auto space-y-8">
               <div className="h-px w-full bg-slate-100 dark:bg-slate-900" />
               <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-slate-400 uppercase">
-                  <ShieldCheck size={14} className="text-blue-600" />
-                  Encrypted Connection
+                <div className="flex items-center justify-between text-[10px] font-bold tracking-widest text-slate-400 uppercase">
+                  <div className="flex items-center gap-2">
+                    <Lock size={12} className="text-emerald-500" />
+                    Privacy Protocol Active
+                  </div>
+                  <span className="text-blue-600">v1.5.7</span>
                 </div>
                 <Button
                   asChild
-                  className="h-16 w-full rounded-2xl bg-blue-600 text-[11px] font-black tracking-[0.2em] uppercase shadow-2xl shadow-blue-600/20"
+                  className="h-16 w-full rounded-2xl bg-slate-950 text-[11px] font-black tracking-[0.2em] uppercase shadow-2xl dark:bg-blue-600"
                 >
-                  <Link href="/contact">Start Protection Protocol</Link>
+                  <Link
+                    href="/contact"
+                    className="flex items-center justify-center gap-3"
+                  >
+                    Start Protection Protocol <ArrowRight size={16} />
+                  </Link>
                 </Button>
               </div>
             </div>

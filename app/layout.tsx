@@ -9,16 +9,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { LineFloat } from '@/components/shared/line-float'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { Suspense } from 'react'
-
-// ✅ FIXED: แก้ไข Path การ Import ให้ชี้ไปยังตำแหน่งที่ถูกต้องของ SEO Schema Helper
 import { generateOrganizationSchema } from '@/lib/seo/schema-helper'
-
-/**
- * [STRATEGY: THE STRUCTURAL FOUNDATION]
- * - Next.js 15 & React 19 optimized.
- * - Performance: Font swapping and suppressHydrationWarning for theme transitions.
- * - Stability: Suspense boundary to prevent 'useSearchParams' bailout during build.
- */
 
 const inter = Inter({
   subsets: ['latin'],
@@ -33,29 +24,56 @@ const kanit = Kanit({
   display: 'swap',
 })
 
+/**
+ * [STRATEGY: HUMAN-CENTRIC SEO FOUNDATION]
+ * - ปรับเปลี่ยน Metadata ให้เน้นปัญหาของลูกค้า (Long-tail Intent)
+ * - กำหนดความปลอดภัยด้วย Robots tags เพื่อสร้าง Technical Authority
+ */
+
 export const metadata: Metadata = {
   title: {
-    default: 'UnlinkTH | บริการลบลิงก์และจัดการชื่อเสียงออนไลน์มืออาชีพ',
-    template: '%s | UnlinkTH',
+    default:
+      'UnlinkTH | ที่ปรึกษาจัดการชื่อเสียงและลบข้อมูลออนไลน์เพื่อโอกาสใหม่ในชีวิต',
+    template: '%s | UnlinkTH Management',
   },
   description:
-    'ที่ปรึกษาเฉพาะทางด้านการกู้คืนชื่อเสียง ลบข้อมูลเสียบน Google และจัดการข้อมูลส่วนตัวรั่วไหล ดำเนินการรวดเร็ว เป็นความลับ และเห็นผลจริง',
+    'จัดการข้อมูลออนไลน์ที่กระทบชื่อเสียงและโอกาสในชีวิตของคุณอย่างมืออาชีพ ด้วยเทคนิค SEO Displacement และสิทธิ์ตามกฎหมาย PDPA เพื่อการเริ่มต้นใหม่ที่ปลอดภัยและเป็นความลับ',
   keywords: [
-    'ลบประวัติเสีย',
-    'ลบลิงก์ Google',
-    'จัดการชื่อเสียงออนไลน์',
-    'กู้ชื่อเสียงบริษัท',
-    'ลบข่าวเสียหาย',
+    'วิธีลบชื่อออกจาก Google',
+    'ลบประวัติเสียออนไลน์',
+    'จัดการชื่อเสียงออนไลน์ (ORM)',
+    'ที่ปรึกษาลบข่าวเสียหาย',
+    'กู้คืนภาพลักษณ์ดิจิทัล',
+    'กฎหมาย PDPA ลบข้อมูล',
   ],
   authors: [{ name: 'UnlinkTH Team' }],
   metadataBase: new URL('https://unlink-th.vercel.app'),
-  alternates: { canonical: '/' },
+  alternates: {
+    canonical: 'https://unlink-th.vercel.app', // ✅ บังคับให้ Google สนใจโดเมนนี้เป็นหลัก
+  },
+  // ✅ เพิ่มการจัดการ Icons ให้ครบถ้วน
+  icons: {
+    icon: '/icon.png',
+    apple: '/apple-icon.png',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
     type: 'website',
     locale: 'th_TH',
     url: 'https://unlink-th.vercel.app',
-    title: 'UnlinkTH | บริการจัดการชื่อเสียงออนไลน์',
-    description: 'ลบลิงก์เสีย แก้ข่าวปลอม ปกป้องความเป็นส่วนตัวของคุณ',
+    title: 'UnlinkTH | คืนสิทธิ์ในการถูกจดจำ ในแบบที่คุณต้องการ',
+    description:
+      'ที่ปรึกษาเฉพาะทางด้านการจัดการชื่อเสียงออนไลน์ จัดการข่าวเสียและปกป้องความเป็นส่วนตัว',
     siteName: 'UnlinkTH',
     images: [{ url: '/images/og-main.jpg', width: 1200, height: 630 }],
   },
@@ -68,7 +86,6 @@ export const viewport: Viewport = {
   ],
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
 }
 
 export default function RootLayout({
@@ -81,7 +98,6 @@ export default function RootLayout({
   return (
     <html lang="th" suppressHydrationWarning className="scroll-smooth">
       <head>
-        {/* 🏢 Organization Schema Injection */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -103,19 +119,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {/* 🏛️ STRATEGY: 
-            Suspense is required for components accessing searchParams during static rendering.
-          */}
           <Suspense fallback={null}>
             <MainLayout>{children}</MainLayout>
           </Suspense>
 
-          {/* Floating Action UI */}
           <LineFloat />
 
-          {/* Global Feedback System */}
           <Toaster
-            position="top-right"
+            position="bottom-right" // ✅ ปรับตำแหน่งให้ไม่บัง Navigation ในมือถือ
             expand={false}
             richColors
             closeButton
