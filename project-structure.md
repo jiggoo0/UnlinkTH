@@ -1,139 +1,142 @@
 # 📁 รายงานโครงสร้างโปรเจกต์
+
 _สร้างเมื่อ: Mon Jan 12 06:23:48 +07 2026_
 
 ## 🌳 Folder Structure
+
 📂 app
-  📄 favicon.ico
-  📄 layout.tsx
-  📄 globals.css
-  📂 (main)
-    📂 services
-      📄 page.tsx
-      📂 [slug]
-        📄 page.tsx
-    📂 cases
-      📄 page.tsx
-      📂 [slug]
-        📄 page.tsx
-    📂 contact
-      📄 page.tsx
-    📄 page.tsx
-    📂 terms
-      📄 page.tsx
-    📂 about
-      📄 page.tsx
-    📂 faq
-      📄 page.tsx
-    📂 privacy
-      📄 page.tsx
-  📂 api
-    📂 send-mail
-      📄 route.ts
-    📂 line-notify
-      📄 route.ts
-    📂 contact
-      📄 route.ts
-  📄 sitemap.ts
-  📄 error.tsx
-  📄 robots.ts
-  📄 not-found.tsx
+📄 favicon.ico
+📄 layout.tsx
+📄 globals.css
+📂 (main)
+📂 services
+📄 page.tsx
+📂 [slug]
+📄 page.tsx
+📂 cases
+📄 page.tsx
+📂 [slug]
+📄 page.tsx
+📂 contact
+📄 page.tsx
+📄 page.tsx
+📂 terms
+📄 page.tsx
+📂 about
+📄 page.tsx
+📂 faq
+📄 page.tsx
+📂 privacy
+📄 page.tsx
+📂 api
+📂 send-mail
+📄 route.ts
+📂 line-notify
+📄 route.ts
+📂 contact
+📄 route.ts
+📄 sitemap.ts
+📄 error.tsx
+📄 robots.ts
+📄 not-found.tsx
 📂 components
-  📂 ui
-    📄 button.tsx
-    📄 badge.tsx
-    📄 dialog.tsx
-    📄 card.tsx
-    📄 input.tsx
-    📄 sonner.tsx
-    📄 skeleton.tsx
-    📄 table.tsx
-    📄 select.tsx
-    📄 sheet.tsx
-    📄 accordion.tsx
-    📄 label.tsx
-    📄 textarea.tsx
-    📄 separator.tsx
-    📄 tooltip.tsx
-    📄 switch.tsx
-    📄 form.tsx
-  📂 layout
-    📄 MainLayout.tsx
-  📂 shared
-    📄 trust-badge.tsx
-    📄 StatsCounter.tsx
-    📄 line-float.tsx
-    📄 before-after-slider.tsx
-    📄 theme-provider.tsx
-    📄 logo.tsx
-    📄 whatsapp-float.tsx
-    📄 google-analytics.tsx
-    📄 elements.tsx
-    📄 section-heading.tsx
-    📄 Footer.tsx
-    📄 Navbar.tsx
-  📂 cases
-    📄 ProjectCard.tsx
-    📄 ProjectFilter.tsx
-    📄 ServiceStatus.tsx
-  📂 contact
-    📄 ContactForm.tsx
-  📂 home
-    📄 HeroSection.tsx
-    📄 FaqSection.tsx
-  📂 seo
-    📄 Seo.tsx
-  📂 service
-    📄 PricingSection.tsx
-    📄 ServiceCard.tsx
-    📄 ServiceGrid.tsx
-    📄 ServiceListRow.tsx
-    📄 PricingTier.tsx
+📂 ui
+📄 button.tsx
+📄 badge.tsx
+📄 dialog.tsx
+📄 card.tsx
+📄 input.tsx
+📄 sonner.tsx
+📄 skeleton.tsx
+📄 table.tsx
+📄 select.tsx
+📄 sheet.tsx
+📄 accordion.tsx
+📄 label.tsx
+📄 textarea.tsx
+📄 separator.tsx
+📄 tooltip.tsx
+📄 switch.tsx
+📄 form.tsx
+📂 layout
+📄 MainLayout.tsx
+📂 shared
+📄 trust-badge.tsx
+📄 StatsCounter.tsx
+📄 line-float.tsx
+📄 before-after-slider.tsx
+📄 theme-provider.tsx
+📄 logo.tsx
+📄 whatsapp-float.tsx
+📄 google-analytics.tsx
+📄 elements.tsx
+📄 section-heading.tsx
+📄 Footer.tsx
+📄 Navbar.tsx
+📂 cases
+📄 ProjectCard.tsx
+📄 ProjectFilter.tsx
+📄 ServiceStatus.tsx
+📂 contact
+📄 ContactForm.tsx
+📂 home
+📄 HeroSection.tsx
+📄 FaqSection.tsx
+📂 seo
+📄 Seo.tsx
+📂 service
+📄 PricingSection.tsx
+📄 ServiceCard.tsx
+📄 ServiceGrid.tsx
+📄 ServiceListRow.tsx
+📄 PricingTier.tsx
 📂 lib
-  📄 supabase.ts
-  📄 utils.ts
-  📂 seo
-    📄 seo-helper.ts
-    📄 schema-helper.ts
-  📂 constants
-    📄 links.ts
+📄 supabase.ts
+📄 utils.ts
+📂 seo
+📄 seo-helper.ts
+📄 schema-helper.ts
+📂 constants
+📄 links.ts
 📂 hooks
-  📄 use-toast.tsx
+📄 use-toast.tsx
 📂 types
-  📄 service.ts
-  📄 database.types.ts
-  📄 project.ts
+📄 service.ts
+📄 database.types.ts
+📄 project.ts
 📂 scripts
-  📄 clean-project.sh
-  📂 dev
-    📄 backup-project.sh
-    📄 project-summary.sh
-    📄 tree-projects.sh
-  📄 pre-deploy-check.sh
+📄 clean-project.sh
+📂 dev
+📄 backup-project.sh
+📄 project-summary.sh
+📄 tree-projects.sh
+📄 pre-deploy-check.sh
 📂 public
-  📄 robots.txt
-  📂 images
-    📄 grid-pattern.svg
-    📄 og-main.jpg
-    📂 projects
-      📄 case-financial.jpg
-      📄 case-identity-protection.jpg
-      📄 case-privacy-recovery.jpg
-      📄 case-rebalancing.jpg
+📄 robots.txt
+📂 images
+📄 grid-pattern.svg
+📄 og-main.jpg
+📂 projects
+📄 case-financial.jpg
+📄 case-identity-protection.jpg
+📄 case-privacy-recovery.jpg
+📄 case-rebalancing.jpg
 📂 data
-  📂 case
-    📄 case-1.ts
-    📄 case-2.ts
-    📄 case-3.ts
-    📄 all-cases.ts
-    📄 case-4.ts
-  📄 faq.ts
-  📂 services
-    📄 all-services.ts
-    📄 service-map.ts
-    📄 services-1.ts
-    📄 services-2.ts
+📂 case
+📄 case-1.ts
+📄 case-2.ts
+📄 case-3.ts
+📄 all-cases.ts
+📄 case-4.ts
+📄 faq.ts
+📂 services
+📄 all-services.ts
+📄 service-map.ts
+📄 services-1.ts
+📄 services-2.ts
 
 ## 📦 ตรวจหา package.json
+
 ```json
 พบ package.json ที่ root ของโปรเจกต์
 
@@ -192,13 +195,16 @@ _สร้างเมื่อ: Mon Jan 12 06:23:48 +07 2026_
 ```
 
 ## 📝 ผลการวิเคราะห์และปัญหาที่พบ
-________
+
+---
+
 🔍 ตรวจพบรายงานการตรวจสอบล่าสุด:
 
 ✅ สถานะปัจจุบัน: **READY FOR DEPLOY**
 
 ### 📍 Production Route Map
-```text
+
+````text
 ```text
 Route (app)                                         Size  First Load JS
 ┌ ○ /                                            8.68 kB         174 kB
@@ -232,10 +238,12 @@ Route (app)                                         Size  First Load JS
 ○  (Static)   prerendered as static content
 ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
 ƒ  (Dynamic)  server-rendered on demand
-```
+````
+
 ```
 ### ⚠️ Issues Highlight
 ✅ ไม่พบปัญหาสำคัญในรายงานล่าสุด
 
 ---
 Status: Scanning process completed successfully.
+```

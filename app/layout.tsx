@@ -15,6 +15,8 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
+  preload: true,
+  fallback: ['system-ui', 'sans-serif'],
 })
 
 const kanit = Kanit({
@@ -22,60 +24,64 @@ const kanit = Kanit({
   weight: ['300', '400', '500', '700'],
   variable: '--font-kanit',
   display: 'swap',
+  preload: true,
+  fallback: ['Tahoma', 'sans-serif'],
 })
 
 /**
- * [STRATEGY: HUMAN-CENTRIC SEO FOUNDATION]
- * - ปรับเปลี่ยน Metadata ให้เน้นปัญหาของลูกค้า (Long-tail Intent)
- * - กำหนดความปลอดภัยด้วย Robots tags เพื่อสร้าง Technical Authority
+ * [STRATEGY: CANONICAL AUTHORITY]
+ * - ปรับ metadataBase ให้ตรงกับโดเมนที่ใช้งานจริงเพื่อความถูกต้องของ Social Graph
+ * - ใช้ URL: https://unlink-th.vercel.app
  */
-
 export const metadata: Metadata = {
   title: {
     default:
-      'UnlinkTH | ที่ปรึกษาจัดการชื่อเสียงและลบข้อมูลออนไลน์เพื่อโอกาสใหม่ในชีวิต',
-    template: '%s | UnlinkTH Management',
+      'UnlinkTH | ที่ปรึกษาจัดการข้อมูลออนไลน์และสิทธิ์ในการถูกลืม (PDPA)',
+    template: '%s | UnlinkTH Reputation Management',
   },
   description:
-    'จัดการข้อมูลออนไลน์ที่กระทบชื่อเสียงและโอกาสในชีวิตของคุณอย่างมืออาชีพ ด้วยเทคนิค SEO Displacement และสิทธิ์ตามกฎหมาย PDPA เพื่อการเริ่มต้นใหม่ที่ปลอดภัยและเป็นความลับ',
+    'เราช่วยคุณควบคุมผลการค้นหาและจัดการชื่อเสียงออนไลน์ (ORM) ภายใต้กฎหมาย PDPA เพื่อปกป้องความเป็นส่วนตัวและกู้คืนโอกาสทางธุรกิจ ข้อมูลของคุณเป็นความลับสูงสุด (NDA Standard)',
   keywords: [
-    'วิธีลบชื่อออกจาก Google',
+    'วิธีจัดการชื่อเสียในกูเกิล',
     'ลบประวัติเสียออนไลน์',
-    'จัดการชื่อเสียงออนไลน์ (ORM)',
-    'ที่ปรึกษาลบข่าวเสียหาย',
-    'กู้คืนภาพลักษณ์ดิจิทัล',
-    'กฎหมาย PDPA ลบข้อมูล',
+    'Right to be forgotten Thailand',
+    'ที่ปรึกษาจัดการชื่อเสียงออนไลน์',
+    'PDPA ลบข้อมูลส่วนบุคคล',
+    'SEO Displacement Service',
   ],
-  authors: [{ name: 'UnlinkTH Team' }],
+  authors: [{ name: 'UnlinkTH Professional Team' }],
+  // ✅ อัปเดต metadataBase เป็น Vercel Domain ตามคำสั่ง
   metadataBase: new URL('https://unlink-th.vercel.app'),
   alternates: {
-    canonical: 'https://unlink-th.vercel.app', // ✅ บังคับให้ Google สนใจโดเมนนี้เป็นหลัก
+    canonical: 'https://unlink-th.vercel.app',
   },
-  // ✅ เพิ่มการจัดการ Icons ให้ครบถ้วน
   icons: {
-    icon: '/icon.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png' },
+    ],
     apple: '/apple-icon.png',
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
   openGraph: {
     type: 'website',
     locale: 'th_TH',
     url: 'https://unlink-th.vercel.app',
-    title: 'UnlinkTH | คืนสิทธิ์ในการถูกจดจำ ในแบบที่คุณต้องการ',
+    title: 'UnlinkTH | จัดการตัวตนดิจิทัลของคุณให้ถูกต้องตามกฎหมาย',
     description:
-      'ที่ปรึกษาเฉพาะทางด้านการจัดการชื่อเสียงออนไลน์ จัดการข่าวเสียและปกป้องความเป็นส่วนตัว',
+      'ปกป้องชื่อเสียงออนไลน์ด้วยทีมผู้เชี่ยวชาญด้านกฎหมายและเทคโนโลยีการจัดการข้อมูล',
     siteName: 'UnlinkTH',
-    images: [{ url: '/images/og-main.jpg', width: 1200, height: 630 }],
+    images: [
+      {
+        url: '/images/og-main.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'UnlinkTH Reputation Protocol',
+      },
+    ],
   },
 }
 
@@ -86,6 +92,7 @@ export const viewport: Viewport = {
   ],
   width: 'device-width',
   initialScale: 1,
+  maximumScale: 5,
 }
 
 export default function RootLayout({
@@ -107,8 +114,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          'bg-background font-thai min-h-screen antialiased',
-          'selection:bg-blue-600/10 selection:text-blue-600',
+          'bg-background font-thai min-h-screen antialiased transition-colors duration-300',
           inter.variable,
           kanit.variable,
         )}
@@ -116,21 +122,22 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          enableSystem
+          enableSystem={false}
           disableTransitionOnChange
         >
-          <Suspense fallback={null}>
+          <Suspense fallback={<div className="bg-background min-h-screen" />}>
             <MainLayout>{children}</MainLayout>
           </Suspense>
 
           <LineFloat />
 
           <Toaster
-            position="bottom-right" // ✅ ปรับตำแหน่งให้ไม่บัง Navigation ในมือถือ
+            position="bottom-right"
             expand={false}
             richColors
             closeButton
             theme="light"
+            style={{ zIndex: 9999 }}
           />
         </ThemeProvider>
       </body>
