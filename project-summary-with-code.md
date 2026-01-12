@@ -1,19 +1,15 @@
 # 📑 รายงานสรุปโปรเจกต์และบริบท AI (Full Context)
-
-_สร้างเมื่อ: 2026-01-12 05:02:52_
-
+_สร้างเมื่อ: 2026-01-12 06:24:27_
 > **Status:** Fresh Scan | รวมข้อมูลวิเคราะห์ Route & Code
 
 ## 🔴 1. สถานะสุขภาพโปรเจกต์ล่าสุด
-
 ✅ **READY FOR DEPLOY** (ผ่านการตรวจสอบทุกขั้นตอน)
 
 ### 📍 Production Route Map
-
-````text
+```text
 ```text
 Route (app)                                         Size  First Load JS
-┌ ○ /                                            8.67 kB         174 kB
+┌ ○ /                                            8.68 kB         174 kB
 ├ ○ /_not-found                                    138 B         101 kB
 ├ ○ /about                                       5.42 kB         151 kB
 ├ ƒ /api/contact                                   138 B         101 kB
@@ -26,7 +22,7 @@ Route (app)                                         Size  First Load JS
 ├   ├ /cases/personal-data-privacy-recovery
 ├   └ /cases/contextual-information-rebalancing
 ├ ○ /contact                                     4.31 kB         123 kB
-├ ○ /faq                                          3.9 kB         160 kB
+├ ○ /faq                                         3.91 kB         160 kB
 ├ ○ /privacy                                     5.45 kB         144 kB
 ├ ○ /robots.txt                                    138 B         101 kB
 ├ ○ /services                                    3.15 kB         169 kB
@@ -44,9 +40,8 @@ Route (app)                                         Size  First Load JS
 ○  (Static)   prerendered as static content
 ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
 ƒ  (Dynamic)  server-rendered on demand
-````
-
-````
+```
+```
 
 ## 📊 2. สถิติไฟล์แบ่งตามนามสกุล
 ```text
@@ -58,10 +53,9 @@ Route (app)                                         Size  First Load JS
       1 svg
       1 ico
       1 css
-````
+```
 
 ## 📁 3. โครงสร้างโฟลเดอร์ (Tree)
-
 ```text
 📂 app
   📄 favicon.ico
@@ -171,6 +165,7 @@ Route (app)                                         Size  First Load JS
     📄 tree-projects.sh
   📄 pre-deploy-check.sh
 📂 public
+  📄 robots.txt
   📂 images
     📄 grid-pattern.svg
     📄 og-main.jpg
@@ -179,7 +174,6 @@ Route (app)                                         Size  First Load JS
       📄 case-identity-protection.jpg
       📄 case-privacy-recovery.jpg
       📄 case-rebalancing.jpg
-  📄 robots.txt
 📂 data
   📂 case
     📄 case-1.ts
@@ -196,9 +190,7 @@ Route (app)                                         Size  First Load JS
 ```
 
 ## 📄 4. เนื้อหาโค้ดและบริบททางเทคนิค
-
 #### 🔍 Path: ai-context.md
-
 ```markdown
 # 🧠 AI_CONTEXT — UNLINKTH
 
@@ -266,42 +258,28 @@ _(Human‑Centric + Technical Authority | Updated: 2026)_
 
 > **คำสั่งสูงสุด:** ทุกการทำงานหลังจากนี้ AI ต้องสวมบทบาทเป็น "Senior Architect & Reputation Consultant" ของ Unlinkth เท่านั้น
 ```
-
 ---
 
 #### 🔍 Path: pre-deploy-report.md
-
-````markdown
+```markdown
 # 🚀 Pre-deploy Inspection Report
-
-Generated at: 2026-01-12 04:59:30
+Generated at: 2026-01-12 06:18:07
 Branch: main
 
 ## 🔐 1. Environment Check
-
 ✅ Status: .env file exists and verified.
-
-## 🛠️ 2. Auto-Fix Procedure
-
+## 🛠️  2. Auto-Fix Procedure
 ✅ Status: Auto-fix completed or no issues found.
-
 ## 🧹 3. Code Linting (ESLint)
-
 ✅ Status: Linting passed.
-
 ## ⌨️ 4. Type Safety Check
-
 ✅ Status: TypeScript verified.
-
-## 🏗️ 5. Production Build Test
-
+## 🏗️  5. Production Build Test
 ✅ Status: Build successfully optimized.
-
 ### 📊 Route Statistics & Bundle Size
-
 ```text
 Route (app)                                         Size  First Load JS
-┌ ○ /                                            8.67 kB         174 kB
+┌ ○ /                                            8.68 kB         174 kB
 ├ ○ /_not-found                                    138 B         101 kB
 ├ ○ /about                                       5.42 kB         151 kB
 ├ ƒ /api/contact                                   138 B         101 kB
@@ -314,7 +292,7 @@ Route (app)                                         Size  First Load JS
 ├   ├ /cases/personal-data-privacy-recovery
 ├   └ /cases/contextual-information-rebalancing
 ├ ○ /contact                                     4.31 kB         123 kB
-├ ○ /faq                                          3.9 kB         160 kB
+├ ○ /faq                                         3.91 kB         160 kB
 ├ ○ /privacy                                     5.45 kB         144 kB
 ├ ○ /robots.txt                                    138 B         101 kB
 ├ ○ /services                                    3.15 kB         169 kB
@@ -334,18 +312,14 @@ Route (app)                                         Size  First Load JS
 ○  (Static)   prerendered as static content
 ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
 ƒ  (Dynamic)  server-rendered on demand
+
 ```
-````
 
 ---
-
 ## 🏆 Summary Result
-
 ### ✅ READY FOR DEPLOY
-
 All protocols verified: Lint passed, Types safe, and Build successful. Deployment is highly recommended.
-
-````
+```
 ---
 
 #### 🔍 Path: app/globals.css
@@ -481,12 +455,10 @@ All protocols verified: Lint passed, Types safe, and Build successful. Deploymen
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-````
-
+```
 ---
 
 #### 🔍 Path: app/layout.tsx
-
 ```typescript
 /** @format */
 
@@ -522,7 +494,8 @@ const kanit = Kanit({
 
 export const metadata: Metadata = {
   title: {
-    default: 'UnlinkTH | ที่ปรึกษาจัดการชื่อเสียงและลบข้อมูลออนไลน์เพื่อโอกาสใหม่ในชีวิต',
+    default:
+      'UnlinkTH | ที่ปรึกษาจัดการชื่อเสียงและลบข้อมูลออนไลน์เพื่อโอกาสใหม่ในชีวิต',
     template: '%s | UnlinkTH Management',
   },
   description:
@@ -561,7 +534,8 @@ export const metadata: Metadata = {
     locale: 'th_TH',
     url: 'https://unlink-th.vercel.app',
     title: 'UnlinkTH | คืนสิทธิ์ในการถูกจดจำ ในแบบที่คุณต้องการ',
-    description: 'ที่ปรึกษาเฉพาะทางด้านการจัดการชื่อเสียงออนไลน์ จัดการข่าวเสียและปกป้องความเป็นส่วนตัว',
+    description:
+      'ที่ปรึกษาเฉพาะทางด้านการจัดการชื่อเสียงออนไลน์ จัดการข่าวเสียและปกป้องความเป็นส่วนตัว',
     siteName: 'UnlinkTH',
     images: [{ url: '/images/og-main.jpg', width: 1200, height: 630 }],
   },
@@ -626,11 +600,9 @@ export default function RootLayout({
   )
 }
 ```
-
 ---
 
 #### 🔍 Path: app/not-found.tsx
-
 ```typescript
 /** @format */
 
@@ -740,11 +712,9 @@ export default function NotFound() {
   )
 }
 ```
-
 ---
 
 #### 🔍 Path: data/services/service-map.ts
-
 ```typescript
 /** @format */
 
@@ -813,11 +783,9 @@ export function getRelatedServices(
     .slice(0, limit)
 }
 ```
-
 ---
 
 #### 🔍 Path: app/(main)/services/[slug]/page.tsx
-
 ```typescript
 /** @format */
 
@@ -1003,11 +971,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   )
 }
 ```
-
 ---
 
 #### 🔍 Path: package.json
-
 ```json
 {
   "name": "unlinkth",
@@ -1062,11 +1028,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   }
 }
 ```
-
 ---
 
 #### 🔍 Path: next.config.ts
-
 ```typescript
 import type { NextConfig } from 'next'
 
@@ -1149,11 +1113,9 @@ const nextConfig: NextConfig = {
 
 export default nextConfig
 ```
-
 ---
 
 #### 🔍 Path: lib/supabase.ts
-
 ```typescript
 /** @format */
 
@@ -1186,11 +1148,9 @@ export const createClientComponentClient = () =>
  * เนื่องจากต้องมีการจัดการ Cookies ที่ฝั่ง Server
  */
 ```
-
 ---
 
 #### 🔍 Path: types/service.ts
-
 ```typescript
 /** @format */
 
@@ -1242,18 +1202,13 @@ export interface ServiceDetail extends ServiceItem {
   }[]
 }
 ```
-
 ---
 
 #### 🔍 Path: .env
-
 ```text
-
 ```
-
 ---
 
 ## 📝 บทสรุป
-
 การสแกนเสร็จสิ้น ข้อมูลถูกจัดรูปแบบให้ AI ประมวลผลได้ทันที
 . Format code in: Optimized
