@@ -1,113 +1,76 @@
 /** @format */
 
+import { WikiIconName } from './articles'
+
+/**
+ * [STRATEGY: KNOWLEDGE GRAPH v4.0]
+ * - Schema: ออกแบบให้รองรับการทำ Hover Tooltips ในหน้าบทความ
+ * - Categorization: แยกประเภทคำศัพท์ตามโดเมน (Legal, Technical, Privacy)
+ * - Mapping: ใช้ term เป็น ID หลักเพื่อทำ O(1) Lookup ใน WikiService
+ */
+
 export interface GlossaryTerm {
-  term: string
-  definition: string
-  relevance: string
+  readonly id: string
+  readonly term: string
+  readonly definition: string
+  readonly category: 'legal' | 'technical' | 'security' | 'general'
+  readonly iconName: WikiIconName
+  readonly relatedTerms?: readonly string[]
 }
 
-export const wikiGlossary: GlossaryTerm[] = [
-  // --- A - D ---
+export const wikiGlossary: readonly GlossaryTerm[] = [
   {
-    term: 'AES-256 Encryption',
+    id: 'g1',
+    term: 'Right to Erasure',
     definition:
-      'มาตรฐานการเข้ารหัสข้อมูลขั้นสูงสุดที่ได้รับการยอมรับทั่วโลก ซึ่งต้องใช้เวลานับล้านปีในการถอดรหัสด้วยเทคโนโลยีปัจจุบัน',
-    relevance:
-      'ใช้เพื่อปกป้องข้อมูลความลับของลูกค้า Unlink ในระหว่างการดำเนินงานลบข้อมูล',
+      'สิทธิในการขอให้ผู้ควบคุมข้อมูลส่วนบุคคลลบหรือทำลายข้อมูลส่วนบุคคลของตน หรือทำให้ข้อมูลนั้นไม่สามารถระบุตัวบุคคลได้ เมื่อข้อมูลนั้นหมดความจำเป็น',
+    category: 'legal',
+    iconName: 'Scale',
+    relatedTerms: ['PDPA', 'Right to be Forgotten'],
   },
   {
-    term: 'Cache Removal',
+    id: 'g2',
+    term: 'De-indexing',
     definition:
-      'การแจ้งให้ Search Engine ลบข้อมูลสำเนา (Snapshot) ของเว็บไซต์ที่ถูกลบไปแล้วแต่ยังปรากฏอยู่ในหน้าผลการค้นหา',
-    relevance:
-      'ช่วยให้รูปภาพหรือข้อความที่ลบไปแล้วหายไปจากการค้นหาของ Google อย่างถาวรและรวดเร็วขึ้น',
+      'กระบวนการนำที่อยู่เว็บไซต์ (URL) ออกจากดัชนีของ Search Engine ทำให้ไม่ปรากฏผลลัพธ์เมื่อมีการค้นหาผ่านคีย์เวิร์ดที่เกี่ยวข้อง',
+    category: 'technical',
+    iconName: 'ShieldCheck',
+    relatedTerms: ['Outdated Content', 'Cache'],
   },
   {
-    term: 'Data Controller (ผู้ควบคุมข้อมูล)',
+    id: 'g3',
+    term: 'Digital Footprint',
     definition:
-      'บุคคลหรือนิติบุคคลที่มีอำนาจหน้าที่ตัดสินใจเกี่ยวกับการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลตามกฎหมาย PDPA',
-    relevance:
-      'คือเป้าหมายหลักที่ทีมกฎหมายของเราจะประสานงานด้วยเพื่อบังคับใช้สิทธิการถูกลบของคุณ',
+      'ร่องรอยกิจกรรมต่างๆ ที่ผู้ใช้งานทิ้งไว้บนโลกอินเทอร์เน็ต ทั้งที่ตั้งใจ (โพสต์, คอมเมนต์) และไม่ตั้งใจ (Log files, Cookies)',
+    category: 'security',
+    iconName: 'Fingerprint',
+    relatedTerms: ['OSINT', 'Privacy'],
   },
   {
-    term: 'Digital Footprint Audit',
+    id: 'g4',
+    term: 'ORM',
     definition:
-      'การตรวจสอบร่องรอยดิจิทัลทั้งหมดที่เชื่อมโยงกับบุคคลหรือองค์กร ทั้งในฐานข้อมูลสาธารณะ โซเชียลมีเดีย และ Deep Web',
-    relevance:
-      'เป็นขั้นตอนแรก (Protocol 0) ของ Unlink เพื่อประเมินขอบเขตความเสียหายก่อนเริ่มงาน',
+      'Online Reputation Management: กลยุทธ์การบริหารจัดการและควบควบคุมภาพลักษณ์ของบุคคลหรือองค์กรบนโลกออนไลน์',
+    category: 'general',
+    iconName: 'RefreshCcw',
+    relatedTerms: ['Crisis Management', 'Branding'],
   },
   {
-    term: 'Doxing (ด็อกซิง)',
+    id: 'g5',
+    term: 'Doxing',
     definition:
-      'การรวบรวมและเผยแพร่ข้อมูลส่วนตัวของผู้อื่น (เช่น ที่อยู่ เบอร์โทรศัพท์) บนอินเทอร์เน็ตโดยมีเจตนาประสงค์ร้าย',
-    relevance:
-      'เป็นวิกฤตที่ Unlink มีโปรโตคอลเร่งด่วนเพื่อสกัดกั้นการกระจายข้อมูลและลบเนื้อหาต้นทาง',
-  },
-
-  // --- E - O ---
-  {
-    term: 'Extra-territorial Applicability',
-    definition:
-      'การบังคับใช้กฎหมายข้ามพรมแดน ซึ่งหมายถึง PDPA ของไทยสามารถคุ้มครองคุณได้แม้เว็บไซต์จะตั้งอยู่ในต่างประเทศ',
-    relevance:
-      'ใช้เป็นข้ออ้างอิงทางกฎหมายหลักเมื่อต้องประสานงานกับแพลตฟอร์มอย่าง Facebook, Google หรือ X',
+      'การรวบรวมและนำข้อมูลส่วนตัวของผู้อื่นมาเผยแพร่ต่อสาธารณะโดยไม่ได้รับอนุญาต เพื่อวัตถุประสงค์ในการประจานหรือคุกคาม',
+    category: 'security',
+    iconName: 'EyeOff',
+    relatedTerms: ['Cyberbullying', 'Privacy Leak'],
   },
   {
-    term: 'Injunction (คำสั่งคุ้มครองชั่วคราว)',
+    id: 'g6',
+    term: 'Data Controller',
     definition:
-      'คำสั่งศาลที่สั่งให้ระงับการกระทำใดๆ (เช่น การเผยแพร่ข่าว) ในระหว่างที่การพิจารณาคดียังไม่สิ้นสุด',
-    relevance:
-      'เป็นเครื่องมือทางกฎหมายที่ทีมทนายความของเราใช้เพื่อหยุดความเสียหายที่เกิดขึ้นอย่างรวดเร็ว',
+      'บุคคลหรือนิติบุคคลที่มีอำนาจหน้าที่ตัดสินใจเกี่ยวกับการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคล',
+    category: 'legal',
+    iconName: 'Gavel',
+    relatedTerms: ['Data Processor', 'PDPA'],
   },
-  {
-    term: 'Metadata',
-    definition:
-      'ข้อมูลที่อธิบายรายละเอียดของข้อมูล (เช่น วันที่ถ่ายภาพ พิกัด GPS ในไฟล์รูปภาพ) ซึ่งมักถูกมองข้าม',
-    relevance:
-      'ทีมเทคนิคของเราจะทำลาย Metadata เหล่านี้เพื่อป้องกันไม่ให้ใครตามรอยต้นทางของข้อมูลคุณได้อีก',
-  },
-  {
-    term: 'OSINT (Open Source Intelligence)',
-    definition:
-      'การรวบรวมและวิเคราะห์ข้อมูลจากแหล่งที่เปิดเผยเป็นสาธารณะ เพื่อหาความเชื่อมโยงที่ซ่อนอยู่',
-    relevance:
-      'เทคนิคที่ทีมวิเคราะห์ใช้ในการสืบหาตัวตนของผู้ที่โจมตีหรือปล่อยข้อมูลของคุณ',
-  },
-
-  // --- P - Z ---
-  {
-    term: 'Personal Data (ข้อมูลส่วนบุคคล)',
-    definition:
-      'ข้อมูลเกี่ยวกับบุคคลซึ่งทำให้สามารถระบุตัวบุคคลนั้นได้ไม่ว่าทางตรงหรือทางอ้อม',
-    relevance:
-      'หัวใจสำคัญของกฎหมาย PDPA ที่ Unlink ใช้ปกป้องและกู้คืนสิทธิให้กับคุณ',
-  },
-  {
-    term: 'Right to be Forgotten (สิทธิที่จะถูกลืม)',
-    definition:
-      'แนวคิดทางกฎหมายสากลที่ให้สิทธิบุคคลในการขอให้ลบข้อมูลส่วนตัวที่ล้าสมัย ไม่ถูกต้อง หรือไม่มีความจำเป็นอีกต่อไป',
-    relevance:
-      'ปรัชญาหลักและบริการหลักของ Unlink เพื่อมอบอิสรภาพดิจิทัลให้กับลูกค้า',
-  },
-  {
-    term: 'SERP (Search Engine Results Page)',
-    definition:
-      'หน้าแสดงผลลัพธ์การค้นหาของ Search Engine (เช่น Google) เมื่อมีการค้นหาคีย์เวิร์ดใดๆ',
-    relevance:
-      'พื้นที่สมรภูมิหลักที่ Unlink เข้าไปบริหารจัดการเพื่อให้ชื่อของคุณปรากฏแต่ข้อมูลที่เป็นบวก',
-  },
-  {
-    term: 'SERP Suppression',
-    definition:
-      'เทคนิคการใช้ Content Engineering เพื่อผลักดันผลการค้นหาเชิงลบให้ออกจากหน้าแรกของ Google โดยใช้เนื้อหาเชิงบวกแทน',
-    relevance:
-      'ยุทธศาสตร์ทางเลือกที่ทรงพลังเมื่อไม่สามารถลบข้อมูลต้นทางได้ (เช่น ข่าวจากสำนักข่าวใหญ่)',
-  },
-  {
-    term: 'URL De-indexing',
-    definition:
-      'กระบวนการนำที่อยู่เว็บไซต์ (URL) ออกจากระบบฐานข้อมูลการค้นหา ทำให้ไม่พบเว็บไซต์นั้นเมื่อพิมพ์ค้นหา',
-    relevance:
-      'วิธีการหลักที่เราใช้เพื่อให้ข้อมูลที่เสียหาย "ล่องหน" ไปจากสายตาของสาธารณชน',
-  },
-]
+] as const

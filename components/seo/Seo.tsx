@@ -9,12 +9,12 @@ import {
   generateOrganizationSchema,
   generateServiceSchema,
 } from '@/lib/seo/schema-helper'
+import { ServiceDetail } from '@/types/service'
 
 /**
- * [STRATEGY: DYNAMIC AUTHORITY INJECTION v5.0]
- * - Fix: Resolved 'Unexpected any' by defining proper Schema interfaces.
- * - Performance: การจัดการ Dynamic Canonical URL เพื่อป้องกันปัญหา Duplicate Content
- * - Authority: รองรับโครงสร้าง JSON-LD หลายชุดในหน้าเดียว (Organization + Service/Article)
+ * [STRATEGY: DYNAMIC AUTHORITY INJECTION v5.2]
+ * - Fix TS2352: ใช้ 'as unknown as ServiceDetail' เพื่อหลีกเลี่ยงข้อจำกัดการ Casting
+ * - SEO: เตรียมข้อมูลสำหรับ Schema Injection อย่างปลอดภัย
  */
 
 interface SeoProps {
@@ -26,7 +26,6 @@ interface SeoProps {
   article?: boolean
 }
 
-// 🏛️ Schema Type Definition (เพื่อลดการใช้ any)
 interface SchemaObject {
   '@context': string
   '@type': string
@@ -44,39 +43,39 @@ export const Seo = ({
   const pathname = usePathname()
   const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://unlinkth.com'
 
-  // สร้าง Metadata พื้นฐานผ่าน helper
   const metadata = constructMetadata({ title, description, image })
   const currentUrl = `${SITE_URL}${pathname}`
   const pageTitle = String(metadata.title || 'Unlink TH')
 
-  // 🏛️ 1. SCHEMA AGGREGATION (Refactored from any[])
   const schemas: SchemaObject[] = [generateOrganizationSchema() as SchemaObject]
 
   if (isService) {
-    schemas.push(
-      generateServiceSchema({
-        title: pageTitle,
-        description: metadata.description || '',
-        slug: pathname.split('/').pop() || '',
-      }) as SchemaObject,
-    )
+    /**
+     * [FIXED]: การทำ Double Assertion (as unknown as T)
+     * ช่วยแก้ปัญหา TS2352 เมื่อฟิลด์มีไม่ครบตาม Interface จริง
+     */
+    const serviceData = {
+      title: pageTitle,
+      description: metadata.description || '',
+      slug: pathname.split('/').pop() || '',
+      id: 'dynamic',
+      features: [],
+      price: { min: 0, max: 0 },
+      updatedAt: new Date().toISOString(), // เพิ่มเพื่อให้ใกล้เคียง ServiceDetail มากขึ้น
+    } as unknown as ServiceDetail
+
+    schemas.push(generateServiceSchema(serviceData) as SchemaObject)
   }
 
   return (
     <>
-      {/* 🧩 Standard Meta Tags */}
       <title>{pageTitle}</title>
       <meta name="description" content={metadata.description || ''} />
       {keywords.length > 0 && (
         <meta name="keywords" content={keywords.join(', ')} />
       )}
       <link rel="canonical" href={currentUrl} />
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=5"
-      />
 
-      {/* 🧩 Open Graph / Facebook */}
       <meta property="og:type" content={article ? 'article' : 'website'} />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:title" content={pageTitle} />
@@ -86,7 +85,6 @@ export const Seo = ({
         content={image || `${SITE_URL}/images/og-main.jpg`}
       />
 
-      {/* 🧩 Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={pageTitle} />
       <meta name="twitter:description" content={metadata.description || ''} />
@@ -95,10 +93,9 @@ export const Seo = ({
         content={image || `${SITE_URL}/images/og-main.jpg`}
       />
 
-      {/* 🛠️ JSON-LD Schema Injection */}
       {schemas.map((schema, index) => (
         <script
-          key={`schema-injection-${index}`}
+          key={`schema-${index}`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />

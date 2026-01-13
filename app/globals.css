@@ -2,30 +2,31 @@
 
 @import 'tailwindcss';
 
-/* * [STRATEGY: THE INTELLIGENCE CORE v4.2]
- * - Typeface: Anuphan (Thai) + Inter (Latin) เพื่อความอ่านง่ายในเชิงเทคนิค
- * - Interaction: เพิ่มระบบ "Tactical Glass" และ "Cyber Glow" 
- * - Optimization: รองรับทั้ง Light และ Dark Mode ในระดับตัวแปร CSS
+/* * [STRATEGY: THE INTELLIGENCE CORE v5.0]
+ * - Typeface: ผสาน Anuphan (Thai) เข้ากับระบบ Typography เพื่อแก้ปัญหาช่องไฟ (Line-height)
+ * - Design System: ใช้ระบบ 8pt Grid ร่วมกับ Radius แบบ Squircle
+ * - Visual: เพิ่ม 'Technical Overlays' สำหรับการแสดงผลแบบ High-end Institution
  */
 
 @theme {
-  /* 🏛️ Typography Framework: ความสมดุลระหว่างความทันสมัยและทางการ */
+  /* 🏛️ Typography Hierarchy */
   --font-sans: 'Inter', 'Anuphan', ui-sans-serif, system-ui;
   --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
   --font-thai: 'Anuphan', sans-serif;
 
-  /* 🏛️ Border Radius System: ระบบ Squircle ที่สม่ำเสมอทั่วทั้งแอป */
-  --radius-3xl: 2.5rem; /* 40px - สำหรับ Main Hero/Bunker */
-  --radius-2xl: 1.5rem; /* 24px - สำหรับ Card ทั่วไป */
-  --radius-xl: 1rem; /* 16px - สำหรับ Inner Component */
-  --radius-lg: 0.75rem; /* 12px - สำหรับ Button/Input */
+  /* 🏛️ Border Radius System: Institutional Consistency */
+  --radius-4xl: 3rem; /* 48px - สำหรับ Container ใหญ่พิเศษ */
+  --radius-3xl: 2.5rem; /* 40px - สำหรับ Main Cards/Bunkers */
+  --radius-2xl: 1.5rem; /* 24px - สำหรับ Inner Modules */
+  --radius-xl: 1rem; /* 16px - สำหรับปุ่มหลัก/Input */
+  --radius-lg: 0.75rem; /* 12px - สำหรับ Elements ขนาดเล็ก */
 
-  /* 🏛️ Operational Animations: การเคลื่อนไหวที่ดูเป็นเครื่องจักรแม่นยำ */
-  --animate-accordion-down: accordion-down 0.3s cubic-bezier(0.87, 0, 0.13, 1);
-  --animate-accordion-up: accordion-up 0.3s cubic-bezier(0.87, 0, 0.13, 1);
-  --animate-scanline: scanline 4s linear infinite;
+  /* 🏛️ Operational Animations: Machine-grade Precision */
+  --animate-accordion-down: accordion-down 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  --animate-accordion-up: accordion-up 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  --animate-scanline: scanline 6s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
-  --animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
+  --animate-pulse-subtle: pulse-subtle 3s ease-in-out infinite;
 
   @keyframes scanline {
     from {
@@ -33,7 +34,7 @@
       opacity: 0;
     }
     50% {
-      opacity: 0.5;
+      opacity: 0.3;
     }
     to {
       transform: translateY(100%);
@@ -46,100 +47,126 @@
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-12px);
+      transform: translateY(-15px);
     }
   }
-  @keyframes glow-pulse {
+  @keyframes pulse-subtle {
     0%,
     100% {
-      filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.3));
+      opacity: 1;
+      transform: scale(1);
     }
     50% {
-      filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6));
+      opacity: 0.85;
+      transform: scale(0.98);
     }
   }
 
-  /* 🛡️ Operational Variable Mapping */
+  /* 🛡️ Variable-to-Theme Mapping */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-border: var(--border);
   --color-ring: var(--ring);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
 }
 
 @layer base {
   :root {
-    /* 🏛️ Light Mode: Professional Clean */
+    /* 🏛️ Light Mode: Professional Gallery */
     --background: #ffffff;
     --foreground: #020617;
     --primary: #2563eb;
     --primary-foreground: #ffffff;
-    --border: #e2e8f0;
-    --input: #e2e8f0;
-    --ring: rgba(37, 99, 235, 0.1);
+    --muted: #f8fafc;
+    --muted-foreground: #64748b;
+    --border: #f1f5f9;
+    --input: #f1f5f9;
+    --ring: rgba(37, 99, 235, 0.08);
   }
 
   .dark {
-    /* 🏛️ Dark Mode: Tactical Deep Navy */
+    /* 🏛️ Dark Mode: Deep Tactical Space */
     --background: #020617;
     --foreground: #f8fafc;
     --primary: #3b82f6;
     --primary-foreground: #ffffff;
+    --muted: #0f172a;
+    --muted-foreground: #94a3b8;
     --border: #1e293b;
     --input: #1e293b;
-    --ring: rgba(59, 130, 246, 0.2);
+    --ring: rgba(59, 130, 246, 0.15);
   }
 }
 
 @layer base {
   * {
-    @apply border-border transition-colors duration-200 outline-none;
+    @apply border-border transition-all duration-300 ease-out outline-none;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: 'cv11', 'ss01', 'tnum';
+    font-feature-settings: 'cv11', 'ss01', 'tnum', 'case';
     scroll-behavior: smooth;
   }
 
-  /* Thai Font Line-Height Optimization */
+  /* 🇹🇭 Thai Typography Optimization */
   .font-thai {
-    line-height: 1.6;
-    letter-spacing: -0.01em;
+    @apply leading-[1.8] tracking-normal;
+    text-underline-offset: 4px;
   }
 
+  /* 🏛️ Heading System */
   h1,
   h2,
   h3,
-  h4 {
-    @apply tracking-tighter text-balance;
+  h4,
+  h5 {
+    @apply font-sans font-black tracking-tighter text-balance;
   }
 }
 
 @layer utilities {
-  /* 🛡️ Secure Dot Pattern: พื้นหลังลายจุดแบบทางการ */
+  /* 🛡️ Strategic Layout Utils */
   .bg-tactical-grid {
     background-image: radial-gradient(
       circle,
-      var(--border) 1.2px,
-      transparent 1.2px
+      var(--border) 1px,
+      transparent 1px
     );
-    background-size: 32px 32px;
+    background-size: 40px 40px;
   }
 
-  /* 🛡️ Operational Glass: เอฟเฟกต์กระจกที่ดูแพง */
-  .glass-morphism {
-    @apply bg-background/70 border border-white/10 backdrop-blur-xl;
+  /* 🛡️ Glass-morphism v2: Institutional Grade */
+  .glass-effect {
+    @apply border border-white/10 backdrop-blur-2xl dark:border-white/5;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.01)
+    );
   }
 
-  /* 🛡️ Cyber Glow: แสงสว่างรอบวัตถุเมื่อสถานะ Active */
-  .glow-blue {
-    box-shadow: 0 0 40px -10px rgba(59, 130, 246, 0.4);
+  /* 🛡️ Cyber Glow: Active state indicators */
+  .glow-primary {
+    filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.25));
   }
 
-  /* 🛡️ Masking for Security Graphics */
-  .mask-radial {
-    mask-image: radial-gradient(circle, black 30%, transparent 100%);
+  /* 🛡️ Content Masks */
+  .mask-fade-out {
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   }
+}
+
+/* Custom Scrollbar: Minimalist Technical Style */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-slate-200 transition-colors hover:bg-blue-500/50 dark:bg-slate-800;
 }

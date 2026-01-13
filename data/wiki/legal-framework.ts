@@ -1,93 +1,76 @@
 /** @format */
 
+import { WikiIconName } from './articles'
+
 /**
- * [STRATEGY: LEGAL COMPLIANCE DATA v4.4]
- * - Philosophy: ข้อมูลกฎหมายคือกระดูกสันหลังของความน่าเชื่อถือ
- * - Structure: จัดกลุ่มตามขอบเขตอำนาจศาล (Jurisdiction) เพื่อให้ง่ายต่อการอ้างอิง
+ * [STRATEGY: LEGAL COMPLIANCE ARCHITECTURE v4.5]
+ * - Structure: อ้างอิงโครงสร้างตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)
+ * - Mapping: ใช้ 'section' เป็น Key หลักในการเชื่อมโยงกับบทความ Wiki
+ * - Display: รองรับการแสดงผลแบบ "Legal Card" ที่มีระดับความสำคัญ (Priority)
  */
 
 export interface LegalArticle {
-  readonly section: string
-  readonly law: string
-  readonly description: string
-  readonly application: string
+  readonly id: string
+  readonly section: string // มาตราที่อ้างอิง เช่น "Section 33"
+  readonly title: string // ชื่อหัวข้อมาตรา
+  readonly description: string // รายละเอียดโดยย่อ
+  readonly fullText?: string // ตัวบทกฎหมายฉบับเต็ม
+  readonly category: 'PDPA' | 'Cybercrime' | 'CivilCode'
+  readonly iconName: WikiIconName
+  readonly severity: 'low' | 'medium' | 'high' // ระดับความสำคัญ/โทษ
 }
 
 export const legalFrameworks: readonly LegalArticle[] = [
-  // --- PDPA (กฎหมายไทย) ---
   {
-    section: 'มาตรา 33',
-    law: 'พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)',
+    id: 'law-33',
+    section: 'Section 33',
+    category: 'PDPA',
+    iconName: 'Scale',
+    title: 'สิทธิในการขอให้ลบหรือทำลายข้อมูล',
     description:
-      'สิทธิในการขอให้ลบ หรือทำลาย หรือทำให้ข้อมูลส่วนบุคคลเป็นข้อมูลที่ไม่สามารถระบุตัวบุคคลได้',
-    application:
-      'ใช้เมื่อข้อมูลหมดความจำเป็น, เจ้าของข้อมูลถอนความยินยอม หรือข้อมูลถูกเก็บรวบรวมโดยไม่ชอบด้วยกฎหมาย',
+      'เจ้าของข้อมูลมีสิทธิขอให้ผู้ควบคุมข้อมูลดำเนินการลบ หรือทำลาย หรือทำให้ข้อมูลส่วนบุคคลเป็นข้อมูลที่ไม่สามารถระบุตัวบุคคลได้',
+    severity: 'high',
+    fullText:
+      'ในกรณีที่ผู้ควบคุมข้อมูลส่วนบุคคลประมวลผลข้อมูลโดยปราศจากฐานทางกฎหมาย หรือข้อมูลหมดความจำเป็น...',
   },
   {
-    section: 'มาตรา 34',
-    law: 'พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)',
+    id: 'law-27',
+    section: 'Section 27',
+    category: 'PDPA',
+    iconName: 'Lock',
+    title: 'การห้ามมิให้ใช้หรือเปิดเผยข้อมูลโดยไม่ได้รับอนุญาต',
     description:
-      'สิทธิขอให้ระงับการใช้ข้อมูลส่วนบุคคล (Right to Restriction of Processing)',
-    application:
-      'ใช้ในกรณีที่ต้องการให้หยุดใช้ข้อมูลชั่วคราวระหว่างรอการตรวจสอบความถูกต้อง หรือในระหว่างการโต้แย้งสิทธิ',
+      'ห้ามมิให้ผู้ควบคุมข้อมูลส่วนบุคคลใช้หรือเปิดเผยข้อมูลส่วนบุคคล โดยปราศจากความยินยอมของเจ้าของข้อมูล',
+    severity: 'high',
   },
   {
-    section: 'มาตรา 30',
-    law: 'พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)',
+    id: 'cyber-14',
+    section: 'Section 14',
+    category: 'Cybercrime',
+    iconName: 'Gavel',
+    title: 'การนำเข้าข้อมูลเท็จสู่ระบบคอมพิวเตอร์',
     description:
-      'สิทธิในการเข้าถึงและขอรับสำเนาข้อมูลส่วนบุคคล (Right of Access)',
-    application:
-      'ใช้ตรวจสอบว่าเว็บไซต์หรือองค์กรต่างๆ มีการเก็บข้อมูลอะไรของเราไว้บ้าง เพื่อนำไปสู่การขอแก้หรือขอลบในลำดับถัดไป',
+      'การนำเข้าข้อมูลที่บิดเบือน หรือข้อมูลอันเป็นเท็จที่น่าจะเกิดความเสียหายแก่ประชาชน หรือความมั่นคง',
+    severity: 'high',
   },
   {
-    section: 'มาตรา 73',
-    law: 'พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)',
+    id: 'civil-420',
+    section: 'Section 420',
+    category: 'CivilCode',
+    iconName: 'Scale',
+    title: 'การทำละเมิดต่อผู้อื่น',
     description:
-      'ความรับผิดทางแพ่ง: การเรียกค่าสินไหมทดแทนจากการละเมิดข้อมูลส่วนบุคคล',
-    application:
-      'ใช้เมื่อการรั่วไหลของข้อมูลสร้างความเสียหายต่อชื่อเสียงหรือทรัพย์สิน เพื่อเรียกค่าชดเชยจากผู้ควบคุมข้อมูล',
-  },
-
-  // --- GDPR (มาตรฐานยุโรป) ---
-  {
-    section: 'Article 17',
-    law: 'GDPR (EU General Data Protection Regulation)',
-    description: 'Right to Erasure (สิทธิในการถูกลืม - Right to be Forgotten)',
-    application:
-      'เป็นมาตรฐานที่ Google และแพลตฟอร์มระดับโลกใช้พิจารณาการแจ้งลบลิงก์ที่ล้าสมัยหรือทำลายชื่อเสียง',
+      'ผู้ใดจงใจหรือประมาทเลินเล่อ ทำต่อบุคคลอื่นโดยผิดกฎหมายให้เขาเสียหายถึงแก่ชีวิต ร่างกาย อนามัย หรือสิทธิอย่างใดอย่างหนึ่ง',
+    severity: 'medium',
   },
   {
-    section: 'Article 21',
-    law: 'GDPR (EU General Data Protection Regulation)',
-    description: 'Right to Object (สิทธิในการคัดค้านการประมวลผล)',
-    application:
-      'ใช้สั่งให้แพลตฟอร์มหยุดนำข้อมูลของเราไปใช้ในระบบการค้นหา (Indexing) หรือการทำโปรไฟล์โฆษณา',
-  },
-
-  // --- กฎหมายคอมพิวเตอร์ และ กฎหมายหมิ่นประมาท ---
-  {
-    section: 'มาตรา 14',
-    law: 'พ.ร.บ. ว่าด้วยการกระทำความผิดเกี่ยวกับคอมพิวเตอร์',
+    id: 'law-30',
+    section: 'Section 30',
+    category: 'PDPA',
+    iconName: 'Fingerprint',
+    title: 'สิทธิในการขอเข้าถึงข้อมูลส่วนบุคคล',
     description:
-      'การนำข้อมูลปลอมหรือข้อมูลอันเป็นเท็จเข้าสู่ระบบคอมพิวเตอร์ที่ก่อให้เกิดความเสียหาย',
-    application:
-      'ใช้ประสานงานกับกระทรวง DES หรือตำรวจไซเบอร์ เพื่อขอคำสั่งศาลในการปิดกั้นเว็บไซต์ต้นทาง',
-  },
-  {
-    section: 'มาตรา 326-328',
-    law: 'ประมวลกฎหมายอาญา (ความผิดฐานหมิ่นประมาท)',
-    description:
-      'การใส่ความผู้อื่นต่อบุคคลที่สาม โดยประการที่น่าจะทำให้ผู้อื่นนั้นเสียชื่อเสียง ถูกดูหมิ่น หรือถูกเกลียดชัง',
-    application:
-      'ใช้เป็นฐานในการแจ้งลบเนื้อหาบนโซเชียลมีเดียที่เข้าข่ายการโจมตีบุคคล (Character Assassination)',
-  },
-
-  // --- สิทธิระดับสากล ---
-  {
-    section: 'Article 12',
-    law: 'UDHR (Universal Declaration of Human Rights)',
-    description: 'สิทธิในความเป็นส่วนตัว (Right to Privacy) ระดับปฏิญญาสากล',
-    application:
-      'ใช้เป็นหลักการพื้นฐานในการโต้แย้งกับบริษัทข้ามชาติเพื่อปกป้องเกียรติยศและชื่อเสียงของบุคคล',
+      'เจ้าของข้อมูลมีสิทธิขอเข้าถึงและขอรับสำเนาข้อมูลส่วนบุคคลที่เกี่ยวกับตน ซึ่งอยู่ในความรับผิดชอบของผู้ควบคุมข้อมูล',
+    severity: 'low',
   },
 ] as const

@@ -14,57 +14,62 @@ import {
   History,
   BookOpen,
   HelpCircle,
-  ArrowRight,
-  PhoneCall,
+  MessageCircle,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Logo } from './logo'
 
+/**
+ * [STRATEGY: ACCESSIBLE UI v6.1]
+ * - Fix Lint: ลบการนำเข้า 'ArrowRight' ที่ไม่ได้ใช้งาน (Unused Variable)
+ * - Language: ใช้ภาษาพูดที่เข้าใจง่าย ตัดศัพท์เทคนิคออก เพื่อความเป็นกันเอง
+ * - UX: เน้นปุ่มติดต่อ (Contact Button) ให้มีความเด่นชัดสูงสุดทั้ง Desktop และ Mobile
+ */
+
 const MENU_ITEMS = [
   { name: 'หน้าแรก', href: '/', icon: Home },
   { name: 'บริการของเรา', href: '/services', icon: Briefcase },
-  { name: 'ผลงานที่ผ่านมา', href: '/cases', icon: History },
-  { name: 'ศูนย์ความรู้ (Wiki)', href: '/wiki', icon: BookOpen },
-  { name: 'คำถามที่พบบ่อย', href: '/faq', icon: HelpCircle },
+  { name: 'รีวิว/ผลงาน', href: '/cases', icon: History },
+  { name: 'ความรู้เรื่องลบข้อมูล', href: '/wiki', icon: BookOpen },
+  { name: 'ถาม-ตอบ', href: '/faq', icon: HelpCircle },
 ]
 
 export function Navbar() {
   const pathname = usePathname()
   const [isMobileOpen, setIsMobileOpen] = React.useState(false)
 
-  // ปิดเมนูอัตโนมัติเมื่อเปลี่ยนหน้า
   React.useEffect(() => {
     setIsMobileOpen(false)
   }, [pathname])
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-[100] border-b border-slate-100 bg-white/95 backdrop-blur-md">
-      {/* 🏛️ 1. Sub-Header (Desktop Only) */}
-      <div className="hidden border-b border-slate-50 bg-slate-50/50 px-6 py-2 lg:block">
+    <nav className="fixed inset-x-0 top-0 z-[100] border-b border-slate-100 bg-white/95 backdrop-blur-md dark:border-slate-800 dark:bg-slate-950/95">
+      {/* 🏛️ 1. TOP ANNOUNCEMENT (Friendly Tone) */}
+      <div className="hidden border-b border-blue-50 bg-blue-600 px-6 py-2 lg:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <p className="font-thai text-[11px] font-medium text-slate-500">
-            ระบบบริหารจัดการข้อมูลส่วนบุคคลอย่างเป็นธรรม
-            ภายใต้มาตรฐานความปลอดภัยระดับสากล
+          <p className="font-thai text-[12px] font-medium text-white">
+            รับแก้ปัญหาประวัติเสีย ลบข้อมูลไม่ดีบนเน็ต ดูแลด้วยใจ
+            ปรึกษาฟรีไม่มีค่าใช้จ่าย
           </p>
-          <div className="flex items-center gap-4 text-[11px] font-bold tracking-wider text-blue-600 uppercase">
-            <span className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-              สถานะระบบ: ปกติ (Online)
+          <div className="flex items-center gap-4 text-[11px] font-bold text-white uppercase">
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-emerald-400" />
+              เจ้าหน้าที่พร้อมช่วยเหลือ (Online)
             </span>
           </div>
         </div>
       </div>
 
-      {/* 🏛️ 2. Main Navigation Interface */}
+      {/* 🏛️ 2. MAIN NAV */}
       <div className="mx-auto max-w-7xl px-4 lg:px-6">
         <div className="flex h-16 items-center justify-between lg:h-20">
-          {/* ✅ FIXED: นำ <Link> ออก เพราะในคอมโพเนนต์ Logo มี <Link> อยู่แล้ว */}
+          {/* Logo */}
           <div className="flex shrink-0 items-center">
-            <Logo fontSize="text-lg md:text-xl" iconSize={24} />
+            <Logo fontSize="text-xl" iconSize={28} />
           </div>
 
-          {/* Desktop Menu Links */}
-          <div className="hidden items-center gap-1 lg:flex">
+          {/* Desktop Links: เน้นภาษาไทยชัดๆ */}
+          <div className="hidden items-center gap-2 lg:flex">
             {MENU_ITEMS.map((item) => {
               const isActive = pathname === item.href
               const Icon = item.icon
@@ -73,14 +78,14 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    'group flex items-center gap-2 rounded-xl px-4 py-2.5 transition-all duration-300',
+                    'group relative flex items-center gap-2 rounded-full px-5 py-2.5 transition-all duration-300',
                     isActive
-                      ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-                      : 'text-slate-600 hover:bg-slate-100 hover:text-blue-600',
+                      ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400'
+                      : 'text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-white',
                   )}
                 >
-                  <Icon size={16} strokeWidth={isActive ? 2.5 : 2} />
-                  <span className="font-thai text-[14px] font-bold tracking-tight">
+                  <Icon size={18} strokeWidth={isActive ? 2.5 : 2} />
+                  <span className="font-thai text-[15px] font-bold">
                     {item.name}
                   </span>
                 </Link>
@@ -88,75 +93,66 @@ export function Navbar() {
             })}
           </div>
 
-          {/* Contact Hub */}
+          {/* Contact Button: เน้นสีสดใส กระตุ้นการกด */}
           <div className="flex items-center gap-3">
             <Link
               href="/contact"
-              className="hidden items-center gap-2 rounded-full bg-blue-600 px-6 py-2.5 text-white shadow-md transition-all hover:bg-blue-700 active:scale-95 sm:flex"
+              className="hidden items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-white shadow-lg shadow-blue-600/30 transition-all hover:scale-105 hover:bg-blue-700 active:scale-95 sm:flex"
             >
-              <PhoneCall size={16} />
-              <span className="font-thai text-[14px] font-bold">
-                ติดต่อเจ้าหน้าที่
+              <MessageCircle size={18} fill="currentColor" />
+              <span className="font-thai text-[15px] font-bold">
+                ทักหาเราเลย
               </span>
             </Link>
 
-            {/* Mobile Toggle Button */}
+            {/* Mobile Toggle */}
             <button
               onClick={() => setIsMobileOpen(!isMobileOpen)}
-              className="rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-slate-900 transition-all hover:bg-slate-100 active:scale-90 lg:hidden"
+              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-900 transition-all active:scale-90 lg:hidden dark:bg-slate-900 dark:text-white"
             >
-              {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMobileOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* 📱 3. Mobile Menu Overlay */}
+      {/* 📱 3. MOBILE MENU */}
       <AnimatePresence>
         {isMobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="fixed inset-x-0 top-[65px] z-[90] overflow-hidden border-b border-slate-200 bg-white lg:hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="fixed inset-x-0 top-[64px] z-[90] border-b border-slate-200 bg-white p-5 lg:hidden dark:border-slate-800 dark:bg-slate-950"
           >
-            <div className="flex flex-col gap-3 p-5">
+            <div className="flex flex-col gap-3">
               {MENU_ITEMS.map((item) => {
                 const isActive = pathname === item.href
-                const Icon = item.icon
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      'flex items-center gap-4 rounded-2xl px-5 py-4 transition-all',
+                      'flex items-center gap-4 rounded-2xl px-6 py-5 transition-all',
                       isActive
-                        ? 'bg-blue-50 text-blue-600'
-                        : 'text-slate-700 active:bg-slate-50',
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-slate-50 text-slate-700 dark:bg-slate-900 dark:text-slate-400',
                     )}
                   >
-                    <Icon
-                      size={22}
-                      className={isActive ? 'text-blue-600' : 'text-slate-400'}
-                    />
-                    <span className="font-thai text-lg font-bold">
+                    <item.icon size={22} />
+                    <span className="font-thai text-xl font-bold">
                       {item.name}
                     </span>
                   </Link>
                 )
               })}
 
-              <div className="mt-2 h-px w-full bg-slate-100" />
-
               <Link
                 href="/contact"
-                className="flex h-16 items-center justify-center gap-3 rounded-2xl bg-blue-600 text-white shadow-lg transition-colors active:bg-blue-700"
+                className="font-thai mt-4 flex h-20 items-center justify-center gap-3 rounded-3xl bg-emerald-500 text-xl font-bold text-white shadow-xl shadow-emerald-500/20 transition-transform active:scale-95"
               >
-                <PhoneCall size={20} />
-                <span className="font-thai text-lg font-bold">
-                  ปรึกษาเราตอนนี้
-                </span>
-                <ArrowRight size={20} />
+                <MessageCircle size={24} fill="currentColor" />
+                คุยกับเราตอนนี้ฟรี!
               </Link>
             </div>
           </motion.div>

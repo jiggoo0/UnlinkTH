@@ -6,89 +6,119 @@ import { WikiTableOfContents } from '@/components/wiki/WikiTableOfContents'
 import { WikiRelatedPosts } from '@/components/wiki/WikiRelatedPosts'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
+// [FIXED]: เพิ่ม Activity และ ShieldCheck จาก lucide-react เพื่อแก้ปัญหา Error และความเสถียร
+import { Activity, ShieldCheck } from 'lucide-react'
 
 /**
- * [STRATEGY: CONTENT-FIRST RENDERING]
- * - แยก Layout ออกไปไว้ที่ไฟล์ layout.tsx ส่วนกลาง
- * - หน้า Page มีหน้าที่เพียงดึงข้อมูล (Fetch) และแสดงผลเนื้อหา (Content)
- * - รองรับ SEO Dynamic Metadata สำหรับการแชร์ลงโซเชียล
+ * [STRATEGY: PRODUCTION READY v2.8]
+ * - Fix TS2304: เพิ่ม Import 'Activity' จาก lucide-react
+ * - Fix TS2322: ใส่ 'category' ใน Map relatedPosts
+ * - Optimization: ใช้ Component จริงจาก Library แทน SVG Manual เพื่อความสม่ำเสมอ
  */
+
+interface PageProps {
+  params: Promise<{ slug: string }>
+}
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ slug: string }>
-}): Promise<Metadata> {
-  const { slug } = await params
+}: PageProps): Promise<Metadata> {
+  const { slug: rawSlug } = await params
+  const slug = decodeURIComponent(rawSlug)
   const article = WikiService.getArticleBySlug(slug)
 
-  if (!article) return { title: 'ไม่พบเนื้อหา | UnlinkTH' }
+  if (!article) return { title: 'ไม่พบเนื้อหา | Unlink TH' }
 
   return {
-    title: `${article.title} | ศูนย์ความรู้ UnlinkTH`,
+    title: `${article.title} | ศูนย์ความรู้ Unlink TH`,
     description: article.excerpt,
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      type: 'article',
+      url: `https://unlink.th/wiki/${article.slug}`,
+    },
   }
 }
 
-export default async function WikiArticlePage({
-  params,
-}: {
-  params: Promise<{ slug: string }>
-}) {
-  const { slug } = await params
-
-  // 1. ดึงข้อมูลบทความผ่าน slug
+export default async function WikiArticlePage({ params }: PageProps) {
+  const { slug: rawSlug } = await params
+  const slug = decodeURIComponent(rawSlug)
   const article = WikiService.getArticleBySlug(slug)
 
-  // 2. หากไม่พบหน้าบทความ ให้ส่งไป 404
-  if (!article) {
-    notFound()
-  }
+  if (!article) notFound()
 
-  // 3. ดึงบทความที่เกี่ยวข้องในหมวดหมู่เดียวกัน (จำกัด 3 รายการ)
-  const relatedPosts = WikiService.getAllArticles(article.category)
-    .filter((p) => p.slug !== article.slug)
-    .slice(0, 3)
+  // 1. เตรียมข้อมูล Related Posts พร้อมใส่ category ให้ครบตาม Type
+  const relatedPosts = WikiService.getRelatedArticles(slug, 3).map((p) => ({
+    id: p.id,
+    slug: p.slug,
+    title: p.title,
+    excerpt: p.excerpt,
+    iconName: p.iconName,
+    category: p.category,
+  }))
 
   const categoryInfo = WikiService.getCategoryById(article.category)
 
   return (
-    /* ✅ หมายเหตุ: ลบ <WikiLayout> ออกแล้วเพื่อให้ใช้ร่วมกับ Nested Layout 
-      โครงสร้าง Grid จะถูกควบคุมโดย WikiLayout ที่อยู่ในไฟล์ layout.tsx
-    */
     <div className="flex flex-col gap-16 xl:flex-row">
-      {/* ส่วนเนื้อหาบทความหลัก */}
       <article className="min-w-0 flex-1">
         <WikiContent
           title={article.title}
           category={article.category}
-          categoryName={categoryInfo?.title}
+          categoryName={categoryInfo?.title || 'ทั่วไป'}
           date={article.date}
           author={article.author}
-          content={
-            <div
-              className="wiki-article-body"
-              dangerouslySetInnerHTML={{ __html: article.content }}
-            />
-          }
+          content={article.content}
         />
 
-        {/* ส่วนท้าย: บทความที่เกี่ยวข้อง */}
-        <div className="mt-20 border-t border-slate-50 pt-10">
+        <div className="mt-20 border-t border-slate-100 pt-16 dark:border-slate-800">
+          <div className="mb-10 space-y-1">
+            <h3 className="font-thai text-2xl font-black tracking-tight text-slate-900 dark:text-white">
+              บทความที่คุณอาจสนใจ
+            </h3>
+            <p className="font-thai text-sm font-medium text-slate-500">
+              เรียนรู้วิธีจัดการข้อมูลส่วนตัวเพิ่มเติมจากผู้เชี่ยวชาญ
+            </p>
+          </div>
           <WikiRelatedPosts posts={relatedPosts} />
         </div>
       </article>
 
-      {/* สารบัญ (Table of Contents): แสดงผลเฉพาะบนจอใหญ่ (xl) */}
-      <aside className="hidden w-72 shrink-0 xl:block">
-        <div className="sticky top-28 space-y-4">
-          <div className="flex items-center gap-2 px-1">
-            <div className="h-1 w-4 rounded-full bg-blue-600" />
-            <p className="text-[11px] font-black tracking-[0.2em] text-slate-400 uppercase">
-              สารบัญเนื้อหา
-            </p>
+      <aside className="hidden w-80 shrink-0 xl:block">
+        <div className="sticky top-32 space-y-12">
+          {/* Table of Contents */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 text-blue-600">
+              <div className="h-2 w-2 animate-pulse rounded-full bg-blue-600" />
+              <h4 className="font-mono text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase">
+                In this article
+              </h4>
+            </div>
+            <WikiTableOfContents />
           </div>
-          <WikiTableOfContents />
+
+          {/* Expert Review Badge */}
+          <div className="relative overflow-hidden rounded-[2.5rem] border border-blue-50 bg-blue-50/30 p-8 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <div className="relative z-10 space-y-5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-xl shadow-blue-600/20">
+                <ShieldCheck size={24} strokeWidth={2.5} />
+              </div>
+              <div className="space-y-2">
+                <p className="font-thai text-[15px] font-black text-slate-900 dark:text-white">
+                  ข้อมูลตรวจสอบแล้ว
+                </p>
+                <p className="font-thai text-[14px] leading-relaxed font-medium text-slate-500 dark:text-slate-400">
+                  เนื้อหาได้รับการยืนยันความถูกต้องตามหลัก PDPA
+                  และเทคนิคล่าสุดปี 2026 เรียบร้อยแล้ว
+                </p>
+              </div>
+            </div>
+            {/* Background Icon Decoration */}
+            <div className="absolute -right-6 -bottom-6 text-blue-600 opacity-[0.05] dark:opacity-[0.08]">
+              <Activity size={140} />
+            </div>
+          </div>
         </div>
       </aside>
     </div>

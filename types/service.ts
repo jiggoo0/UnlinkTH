@@ -1,10 +1,10 @@
 /** @format */
 
 /**
- * [STRATEGY: TYPE DEFINITION ARCHITECTURE]
- * - ใช้ Interface เพื่อความชัดเจนในการขยายต่อ (Extensibility)
- * - รองรับระบบ Pricing แบบ Dynamic (Min-Max/Notes)
- * - เชื่อมโยงกับ Icon Map และ SEO Meta
+ * [STRATEGY: TYPE DEFINITION ARCHITECTURE v5.1]
+ * - Extensibility: ใช้ Interface เพื่อความชัดเจนในการขยายต่อ
+ * - Semantic Alignment: เพิ่ม ServiceArticle เป็น Alias เพื่อรองรับ SEO Schema Helper
+ * - Localization: รองรับหน่วยบริการภาษาไทย (Unit/Note)
  */
 
 export interface ServicePrice {
@@ -33,8 +33,8 @@ export interface ServiceItem {
 }
 
 /**
- * สำหรับหน้า Service Detail ที่ต้องการข้อมูลเข้มข้นขึ้น
- * สามารถสืบทอดจาก ServiceItem ได้
+ * [FIXED]: เพิ่ม Alias 'ServiceArticle' เพื่อให้ lib/seo/schema-helper.ts เรียกใช้งานได้
+ * โดยอ้างอิงจากโครงสร้างข้อมูลที่เข้มข้นที่สุด
  */
 export interface ServiceDetail extends ServiceItem {
   process?: {
@@ -47,3 +47,7 @@ export interface ServiceDetail extends ServiceItem {
     answer: string
   }[]
 }
+
+// 🏛️ Export Alias สำหรับการใช้งานใน Module อื่นๆ
+export type Service = ServiceItem
+export type ServiceArticle = ServiceDetail // แก้ปัญหา Error TS2724

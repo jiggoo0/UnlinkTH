@@ -1,69 +1,65 @@
 # 📑 รายงานสรุปโปรเจกต์และบริบท AI (Full Context)
-
-_สร้างเมื่อ: 2026-01-13 07:47:53_
-
+_สร้างเมื่อ: 2026-01-14 04:28:29_
 > **Status:** Fresh Scan | รวมข้อมูลวิเคราะห์ Route & Code
 
 ## 🔴 1. สถานะสุขภาพโปรเจกต์ล่าสุด
-
 ✅ **READY FOR DEPLOY** (ผ่านการตรวจสอบทุกขั้นตอน)
 
 ### 📍 Production Route Map
-
-````text
+```text
 ```text
 Route (app)                                         Size  First Load JS
-┌ ○ /                                            6.02 kB         177 kB
-├ ○ /_not-found                                    138 B         102 kB
-├ ○ /about                                       5.42 kB         152 kB
-├ ƒ /api/contact                                   138 B         102 kB
-├ ƒ /api/line-notify                               138 B         102 kB
-├ ƒ /api/send-mail                                 138 B         102 kB
-├ ○ /cases                                       4.94 kB         159 kB
-├ ● /cases/[slug]                                9.37 kB         121 kB
+┌ ○ /                                              11 kB         184 kB
+├ ○ /_not-found                                    149 B         102 kB
+├ ○ /about                                       8.87 kB         158 kB
+├ ƒ /api/contact                                   149 B         102 kB
+├ ƒ /api/line-notify                               149 B         102 kB
+├ ƒ /api/send-mail                                 149 B         102 kB
+├ ○ /cases                                       5.54 kB         165 kB
+├ ● /cases/[slug]                                10.1 kB         122 kB
 ├   ├ /cases/financial-reputation-recovery
 ├   ├ /cases/second-chance-reputation-protocol
 ├   ├ /cases/personal-data-privacy-recovery
 ├   └ /cases/contextual-information-rebalancing
-├ ○ /contact                                     4.32 kB         124 kB
-├ ○ /faq                                         3.91 kB         161 kB
-├ ○ /privacy                                     5.45 kB         145 kB
-├ ○ /robots.txt                                    138 B         102 kB
-├ ○ /services                                    3.15 kB         170 kB
-├ ● /services/[slug]                             2.38 kB         152 kB
+├ ○ /contact                                     8.32 kB         164 kB
+├ ○ /faq                                         7.92 kB         169 kB
+├ ○ /privacy                                     6.13 kB         145 kB
+├ ○ /robots.txt                                    149 B         102 kB
+├ ○ /services                                    6.46 kB         167 kB
+├ ● /services/[slug]                             2.65 kB         152 kB
 ├   ├ /services/name-risk-audit
-├   ├ /services/single-link-management
+├   ├ /services/google-de-indexing
 ├   ├ /services/impersonation-account
 ├   └ [+3 more paths]
-├ ○ /sitemap.xml                                   138 B         102 kB
-└ ○ /terms                                       3.68 kB         105 kB
+├ ○ /sitemap.xml                                   149 B         102 kB
+├ ○ /terms                                       5.66 kB         145 kB
+├ ○ /wiki                                          138 B         160 kB
+├ ƒ /wiki/[slug]                                 7.41 kB         157 kB
+└ ƒ /wiki/category/[slug]                          138 B         160 kB
 + First Load JS shared by all                     101 kB
-  ├ chunks/0044af8c-d6052738d8f188a8.js          54.2 kB
-  ├ chunks/532-d98d5e620fcae01a.js               45.3 kB
+  ├ chunks/0044af8c-4ea3504232728e76.js          54.2 kB
+  ├ chunks/2532-c613ac8a761eb937.js              45.3 kB
   └ other shared chunks (total)                  1.93 kB
 ○  (Static)   prerendered as static content
 ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
 ƒ  (Dynamic)  server-rendered on demand
-````
-
-````
+```
+```
 
 ## 📊 2. สถิติไฟล์แบ่งตามนามสกุล
 ```text
-     56 tsx
-     23 ts
+     73 tsx
+     28 ts
       5 sh
-      4 jpg
-      1 webp
-      1 txt
+      4 webp
       1 svg
+      1 png
+      1 jpg
       1 ico
-      1 html
       1 css
-````
+```
 
 ## 📁 3. โครงสร้างโฟลเดอร์ (Tree)
-
 ```text
 📂 app
   📄 favicon.ico
@@ -80,6 +76,7 @@ Route (app)                                         Size  First Load JS
         📄 page.tsx
     📂 contact
       📄 page.tsx
+    📄 layout.tsx
     📄 page.tsx
     📂 terms
       📄 page.tsx
@@ -100,6 +97,16 @@ Route (app)                                         Size  First Load JS
   📄 error.tsx
   📄 robots.ts
   📄 not-found.tsx
+  📂 (wiki-hub)
+    📄 layout.tsx
+    📂 wiki
+      📂 [slug]
+        📄 page.tsx
+      📂 category
+        📂 [slug]
+          📄 page.tsx
+      📄 page.tsx
+      📄 layout.tsx
 📂 components
   📂 ui
     📄 button.tsx
@@ -121,19 +128,31 @@ Route (app)                                         Size  First Load JS
     📄 form.tsx
   📂 layout
     📄 MainLayout.tsx
+  📂 wiki
+    📄 WikiLayout.tsx
+    📄 WikiHero.tsx
+    📄 WikiCard.tsx
+    📄 WikiSidebar.tsx
+    📄 WikiContent.tsx
+    📄 WikiTableOfContents.tsx
+    📄 WikiRelatedPosts.tsx
+    📄 WikiBreadcrumbs.tsx
   📂 shared
     📄 trust-badge.tsx
     📄 StatsCounter.tsx
     📄 line-float.tsx
     📄 before-after-slider.tsx
     📄 theme-provider.tsx
+    📄 grid-pattern.tsx
     📄 logo.tsx
     📄 whatsapp-float.tsx
-    📄 google-analytics.tsx
+    📄 confidentiality-seal.tsx
     📄 elements.tsx
     📄 section-heading.tsx
     📄 Footer.tsx
     📄 Navbar.tsx
+    📄 legal-badge.tsx
+    📄 confidentiality-banner.tsx
   📂 cases
     📄 ProjectCard.tsx
     📄 ProjectFilter.tsx
@@ -159,12 +178,14 @@ Route (app)                                         Size  First Load JS
     📄 schema-helper.ts
   📂 constants
     📄 links.ts
+  📄 wiki.ts
 📂 hooks
   📄 use-toast.tsx
 📂 types
   📄 service.ts
   📄 database.types.ts
   📄 project.ts
+  📄 wiki.ts
 📂 scripts
   📄 clean-project.sh
   📂 dev
@@ -173,16 +194,15 @@ Route (app)                                         Size  First Load JS
     📄 tree-projects.sh
   📄 pre-deploy-check.sh
 📂 public
-  📄 robots.txt
-  📄 googleb7d3dce206ee0fb0.html
   📂 images
     📄 grid-pattern.svg
     📄 og-main.jpg
     📂 projects
-      📄 case-financial.jpg
-      📄 case-privacy-recovery.jpg
+      📄 case-rebalancing.webp
+      📄 case-financial.webp
       📄 case-second-chance.webp
-      📄 case-rebalancing.jpg
+      📄 case-privacy-recovery.webp
+    📄 noise.png
 📂 data
   📂 case
     📄 case-1.ts
@@ -190,399 +210,383 @@ Route (app)                                         Size  First Load JS
     📄 case-3.ts
     📄 all-cases.ts
     📄 case-4.ts
-  📄 faq.ts
   📂 services
     📄 all-services.ts
     📄 service-map.ts
     📄 services-1.ts
     📄 services-2.ts
+  📂 wiki
+    📄 articles.ts
+    📄 faq-data.ts
+    📄 glossary.ts
+    📄 legal-framework.ts
 ```
 
 ## 📄 4. เนื้อหาโค้ดและบริบททางเทคนิค
-
 #### 🔍 Path: ai-context.md
+```markdown
+​📂 Master AI-Context: Unlink TH Project 2026
+​1. วิสัยทัศน์และเป้าหมายเชิงกลยุทธ์ (Strategic Goals)
+​ชื่อโครงการ: Unlink TH
+​พันธกิจหลัก: เปลี่ยน "ความกังวลจากข้อมูลเชิงลบ" ให้เป็น "ความมั่นใจด้วยกระบวนการมืออาชีพ" โดยมุ่งเน้นการสร้างสถาบันที่น่าเชื่อถือระดับสูง (Institutional Trust)
+​กลุ่มเป้าหมาย: _ บุคคลธรรมดา: ผู้ที่ถูกละเมิดความเป็นส่วนตัว หรือต้องการโอกาสครั้งที่สองในสังคม
+​องค์กร: ธุรกิจที่ได้รับความเสียหายจากข้อมูลเท็จหรือการถูกโจมตีทางไซเบอร์
+​2. อัตลักษณ์และการออกแบบ (Design Philosophy - Enterprise SaaS)
+​Core Style: Clean, Minimalist, Systematic และเน้นความน่าเชื่อถือระดับสถาบันการเงิน
+​Visual Identity:
+​Palette: Navy (#0A192F - ความมั่นคง), Bright Blue (#0070F3 - นวัตกรรม), Green (#10B981 - ความปลอดภัย)
+​Components: การใช้ Card Design พร้อม Soft Shadows, ไอคอน Lucide React และ Interactive Dashboards เพื่อแสดงค่า Reputation Score
+​Tech Stack: Next.js 15 (App Router), Tailwind CSS 4.0, Framer Motion, Shadcn/UI
+​3. กลยุทธ์เนื้อหาและการสื่อสาร (Tone, Voice & Anti-AI)
+​Persona: "The Empathetic Expert" — ผู้เชี่ยวชาญที่เปี่ยมด้วยความเข้าใจ ให้เกียรติ และไม่ตัดสิน
+​Inclusive Content: _ เขียนให้เป็นมิตร เข้าถึงได้ทุกฐานระดับชั้นและทุกช่วงอายุในสังคมไทย
+​ภาษาต้องสุภาพ เรียบง่ายแต่มีระดับ (Sophisticated Simplicity) ไม่ลดค่าเว็บไซต์จนดูเหมือนตลาดล่าง
+​Anti-AI Pattern:
+​ห้ามใช้ AI Clichés (เช่น "In today's digital age...")
+​ใช้ Rhythmic Prose (ประโยคสั้น-ยาวสลับกัน) เพื่อความเป็นธรรมชาติ
+​เน้นคำว่า "คุณ" (User-centric) เป็นหลัก
+​4. สถาปัตยกรรมข้อมูลและระบบเทคนิค (Information & Technical)
+​Sitemap: เน้น Hero Section ที่ขับเคลื่อนด้วยผลลัพธ์ (Outcome-driven), บริการแยกหมวดหมู่ชัดเจน (De-indexing, SEO Suppression), และเน้นความลับลูกค้า 100%
+​Conversion Hooks: \* Multi-step Form (React Hook Form + Zod) เพื่อลดความล้าในการกรอกข้อมูล
+​Sticky Navbar/Footer พร้อม CTA "ปรึกษาด่วน" ที่ปรากฏอยู่เสมอ
+​เน้น Mobile First เนื่องจากผู้ใช้มักค้นหาปัญหาเร่งด่วนผ่านมือถือ
+​SEO Strategy: ใช้ Semantic HTML และ Targeting Keywords ที่เน้นการใช้สิทธิตามกฎหมาย เช่น "การใช้สิทธิถูกลืม", "จัดการชื่อเสียงออนไลน์"
+​5. ระเบียบปฏิบัติสำหรับการพัฒนา (Developer Protocol)
+​Dev-to-Dev Mode: ไม่ต้องอธิบายพื้นฐาน เน้นอธิบายการตัดสินใจเชิงสถาปัตยกรรม (Architectural Decisions)
+​Production-Ready: โค้ดต้องสมบูรณ์พร้อม Deploy, มี Type-safe, และ Optimized (Core Web Vitals)
+​Security First: หากการออกแบบขัดกับความปลอดภัย ให้ยึดความปลอดภัยและความเป็นส่วนตัวของข้อมูลลูกค้าเป็นอันดับหนึ่งเสมอ
+​6. ตารางการใช้คำ (Terminology Control)
+​✅ ควรใช้: การบริหารจัดการชื่อเสียงดิจิทัล, การลดระดับการสืบค้น (De-indexing), การขอใช้สิทธิถูกลืม, ความเป็นส่วนตัว
+​❌ ห้ามใช้: รับจ้างลบ, แฮ็กข้อมูล, ทางลัด, รับจ้างด่ากลับ 7. กลไกทางจิตวิทยาและคำนิยาม (Psychological Triggers & Terminology)
+การสื่อสารต้องสร้างความรู้สึกปลอดภัยตั้งแต่แรกเห็น โดยใช้กลไกทางจิตวิทยาในการปรับทัศนคติของผู้ใช้งาน:
 
-`````markdown
-📂 Master AI-Context: Online Reputation Management (ORM) Project 2026
+- Security First: ใช้ Visual Cues เช่น ไอคอนแม่กุญแจและข้อความยืนยันการเข้ารหัส (Encryption) เพื่อสร้างความอุ่นใจให้กับผู้ที่กำลังกังวลเรื่องความเป็นส่วนตัว
+- Loss Aversion: ชี้ให้เห็นถึง "ต้นทุนของโอกาส" (Opportunity Cost) และผลกระทบในระยะยาวหากไม่จัดการข้อมูลเชิงลบในทันที
+- Terminology Control:
+  - ✅ ใช้: การบริหารจัดการชื่อเสียงดิจิทัล, การลดระดับการสืบค้น (De-indexing), การขอใช้สิทธิถูกลืม, การปกป้องข้อมูลส่วนบุคคล
+  - ❌ หลีกเลี่ยง: รับจ้างลบ, แฮ็กข้อมูล, ทางลัด, รับจ้างด่ากลับ (เพื่อรักษามาตรฐานสถาบันมืออาชีพ)
 
-1. Project Overview & Strategic Goals
+8. ระเบียบปฏิบัติการพัฒนาระดับสูง (High-Level Developer Protocol)
+   เน้นการทำงานแบบ Dev-to-Dev เพื่อประสิทธิภาพสูงสุดในระดับ Enterprise SaaS:
 
-- Project Name: Unlink TH
-- Primary Goal: เสริมสร้างความเชื่อมั่น (Establishing Trust) และเปลี่ยนสถานะผู้เข้าชมที่กำลังเผชิญปัญหา "ข้อมูลเชิงลบในระบบดิจิทัล" ให้เป็นผู้รับคำปรึกษาผ่านกระบวนการที่เป็นมืออาชีพ
-- Target Audience: \* Individuals: บุคคลที่ถูกละเมิดความเป็นส่วนตัว หรือต้องการโอกาสครั้งที่สอง (Second Chance) ในสังคม
-  - Corporations: องค์กรที่ได้รับความเสียหายจากข้อมูลเท็จหรือการโจมตีทางไซเบอร์
+- No Hand-holding: ข้ามการอธิบายทฤษฎีพื้นฐาน แต่ให้เน้นอธิบายการตัดสินใจเชิงสถาปัตยกรรม (Architectural Decisions) ว่าทำไมถึงเลือกใช้ Pattern นั้นๆ
+- Production-Ready Standard: โค้ดที่ส่งต้องอยู่ในระดับที่ Deploy ได้ทันที (Linted, Typed, Optimized) แม้จะเป็นการแก้ไขจุดเล็กน้อยก็ตาม
+- Maximized Potential: ดึงศักยภาพสูงสุดของ Next.js 15 และ Library ที่มีอยู่ (Framer Motion, Zod, TanStack Query) มาใช้ เช่นการทำ Compound Components หรือ Advanced Animations
+- Scalable Ideas: นำเสนอแนวทางที่รองรับการขยายตัวในอนาคต เช่น Dynamic Slots หรือโครงสร้างแบบ Multi-tenancy
 
-2. Design Philosophy & UI/UX (Enterprise SaaS Standard)
+9. การจัดการกรณีผิดพลาดและการแก้ไขทันที (Failure Handling & Correction)
+   ระเบียบเมื่อเกิดข้อขัดแย้งหรือข้อผิดพลาดทางเทคนิค:
 
-- Core Style: Clean, Minimalist, Systematic และเน้นความน่าเชื่อถือระดับสถาบันการเงิน
-- Visual Identity:
-  - Color Palette: \* #0A192F (Navy Blue): สื่อถึงความมั่นคงและความเป็นมืออาชีพ
-    - #0070F3 (Bright Blue): สื่อถึงความทันสมัยและนวัตกรรม
-    - #10B981 (Green): สื่อถึงความปลอดภัยและความสำเร็จ
-  - Components: การใช้ Card Design (Soft Shadows), ไอคอนเส้นบาง (Lucide React), และการแสดงผลด้วย Dashboards/Interactive Graphs เพื่อแสดงค่า Reputation Score
-- Tech Stack: Next.js 15 (App Router), Tailwind CSS 4.0, Framer Motion (Smooth Transitions), Shadcn/UI
+- Conflict Resolution: หากการออกแบบ UI และ Logic ขัดแย้งกัน ให้ยึดถือความปลอดภัยของข้อมูล (Security/Privacy) และอัตราการตอบรับ (Conversion Rate) เป็นลำดับความสำคัญสูงสุด
+- Code Quality Refusal: หากแนวทางที่ได้รับอาจส่งผลเสียต่อ Performance (Sub-optimal) ผมจะโต้แย้งด้วยเหตุผลทางเทคนิคและเสนอทางเลือกที่ประสิทธิภาพสูงกว่าทันที
+- Technical Feedback Loop: หากโค้ดไม่ตรงตามวัตถุประสงค์ ผมจะส่ง Technical Log สั้นๆ เพื่อระบุสาเหตุ (Bug/Logic mismatch) ก่อนส่งโค้ดชุดใหม่ที่สมบูรณ์
 
-3. Tone, Voice & Anti-AI Content Strategy
+10. มาตรฐานการเข้าถึงและจุดเปลี่ยนใจผู้ใช้ (Inclusive Conversion Hooks)
+    กลยุทธ์สุดท้ายเพื่อให้ผู้ใช้ตัดสินใจขอรับคำปรึกษา:
 
-- The Persona: "The Empathetic Expert" (ผู้เชี่ยวชาญที่เปี่ยมด้วยความเข้าใจและเห็นใจ)
-- Tone Guidelines:
-  - Empathetic: ใช้ภาษาที่ปลอบโยน ให้เกียรติ และไม่ตัดสิน (Non-judgmental)
-  - Authoritative: อ้างอิงข้อกำหนดทางกฎหมายและเทคนิคเฉพาะทางอย่างแม่นยำ เช่น SEO Suppression, Right to be Forgotten, และ PDPA Compliance
-- Anti-AI Pattern (Human-Centric Content): \* No Clichés: ห้ามใช้ประโยคซ้ำซากเช่น "In today's digital age..." หรือ "Reputation is everything..."
-  - Hype-free: หลีกเลี่ยงคำโฆษณาที่เกินจริง (No Hyperbole)
-  - Rhythmic Prose: ใช้โครงสร้างประโยคสั้น-ยาวสลับกันเพื่อสร้างจังหวะการอ่านที่เป็นธรรมชาติ
-  - User-Centric: เน้นการสื่อสารโดยใช้คำว่า "คุณ" (Your future, Your privacy) เป็นหลัก
-
-4. Information Architecture (Sitemap)
-
-- Home: Hero Section (Outcome-driven), Trust Badges (Social Proof), Solution Grid, Process (4-Step Workflow)
-- Services: แยกหมวดหมู่ชัดเจน (e.g., De-indexing Service, Review Management, Profile Protection)
-- Case Studies: เน้น Success Stories โดยใช้ชื่อโปรเจกต์นามธรรมเพื่อรักษาความลับ (e.g., Case: Financial Reputation Recovery)
-- Security & Privacy: เน้นย้ำนโยบาย Confidentiality 100% และการทำ NDA (Non-disclosure Agreement)
-
-5. Technical Implementation & Conversion
-
-- Form System: Multi-step Form (React Hook Form + Zod) เพื่อลด Cognitive Load ของลูกค้า
-- Conversion Hooks: Sticky Navbar พร้อม CTA ที่เด่นชัด และ Floating Support Button (Line/WhatsApp)
-- SEO Strategy: เน้น Semantic HTML และ Targeting Keywords เช่น "ลบประวัติเสียบน Google", "จัดการชื่อเสียงออนไลน์", "การใช้สิทธิถูกลืม"
-
-6. Prompting Instructions for AI (Strict Compliance)
-   6.1 For Content Creation
-
-- "ให้ยึดหลัก Empathetic Expert Tone เสมอ ห้ามนำเสนอเนื้อหาที่ดูเป็นสแปมหรือสัญญาในสิ่งที่ผิดกฎหมาย"
-- "เน้นการสื่อสารเรื่องการใช้สิทธิตามกฎหมายความเป็นส่วนตัวและเทคนิค SEO ขั้นสูง (White-hat techniques)"
-  6.2 For Technical Development
-- "ใช้ shadcn/ui และเน้นการเขียน Code ที่รองรับ Responsive Design เป็นอันดับแรก"
-- "โค้ดต้องรองรับ Next.js Optimization (Image priority, Minimal client-side JS) เพื่อผลลัพธ์ Core Web Vitals ที่ดีเยี่ยม"
-
-7. Psychological Triggers & Terminology
-
-- Triggers: \* Security First: ใช้ Visual Cues เช่น ไอคอนแม่กุญแจ และข้อความ Encryption
-  - Loss Aversion: ชี้ให้เห็นถึง Opportunity Cost หากไม่จัดการข้อมูลเชิงลบ
-- Terminology Table:
-  - Use: การบริหารจัดการชื่อเสียงดิจิทัล, การลดระดับการสืบค้น (De-indexing), การขอใช้สิทธิถูกลืม
-  - Avoid: รับจ้างลบ, แฮ็กข้อมูล, ทางลัด, รับจ้างด่ากลับ
-    ​8. High-Level Developer Protocol (Dev-to-Dev Mode)
-    ​No Hand-holding: ไม่ต้องอธิบายพื้นฐาน (No beginner-level explanations) ให้ข้ามส่วนที่อธิบายว่า "Code นี้ทำงานอย่างไร" ในเชิงทฤษฎี แต่เน้นอธิบาย "Architectural Decisions" ว่าทำไมถึงเลือกใช้ Pattern นี้
-    ​Production-Ready Standard: ทุกครั้งที่ส่ง Code ต้องเป็นระดับที่ Deploy ได้ทันที (Linted, Typed, Optimized) แม้จะเป็นการแก้ไขเพียงตัวอักษรเดียว (Single-character fix) ก็ต้องส่ง Code Block ที่สมบูรณ์กลับมาเสมอ
-    ​Maximized Potential: ห้ามเขียนโค้ดแบบพื้นฐาน (Vanilla approach) หากมี Package ที่ติดตั้งอยู่ (เช่น Framer Motion, Zod, TanStack Query) ให้ดึงศักยภาพสูงสุดของ API เหล่านั้นมาใช้ เช่นการใช้ Compound Components, Custom Hooks หรือ Advanced Animations
-    ​Error Correction & Feedback Loop: \* หาก Code ที่ได้รับ ไม่ตรงตามวัตถุประสงค์ (Out of Context) ให้ AI รับทราบและแก้ไขส่งกลับทันทีโดยไม่ต้องรอคำสั่งซ้ำ
-    ​แจ้งรายละเอียดปัญหาที่เกิดขึ้น (Bug/Logic mismatch) ในรูปแบบ Technical Log สั้นๆ ก่อนเริ่มส่งโค้ดชุดใหม่
-    ​Scalable Ideas: เสนอแนวทางที่ต่อยอดได้จริง (Scalable/Maintainable) เช่นการทำ Dynamic Slots หรือการรองรับ Multi-tenancy ในอนาคต
-    ​9. Failure Handling & Instant Correction
-    ​Conflict Resolution: หากมีการขัดกันระหว่าง UI Design และ Logic ให้ยึดความปลอดภัยของข้อมูล (Security/Privacy) และ Conversion Rate เป็นลำดับความสำคัญสูงสุด
-    ​Code Quality Refusal: หาก AI พบว่าวิธีการที่ผู้ใช้เสนออาจทำให้ประสิทธิภาพลดลง (Sub-optimal) AI ต้องแย้งด้วยเหตุผลทางเทคนิคและเสนอทางเลือกที่ดีกว่าทันที```
-
+- Universal Simplicity: เนื้อหาต้องอ่านง่ายสำหรับคนทุกช่วงวัยและทุกฐานระดับชั้น ไม่ใช้คำศัพท์ที่แบ่งแยกสังคม แต่ใช้ภาษาที่ให้เกียรติและดูแพง (Sophisticated Simplicity)
+- Privacy-First Form: ในหน้าฟอร์มติดต่อ (Multi-step Form) ต้องมีข้อความยืนยันความลับ: "เราไม่จัดเก็บข้อมูลส่วนบุคคลของคุณหากไม่มีการตกลงจ้างงาน"
+- Always-Available Consultation: ติดตั้ง Sticky Navbar และ Footer พร้อมปุ่ม "ปรึกษาด่วน" ที่โดดเด่น เพื่อให้เข้าถึงความช่วยเหลือได้ในทุกหน้าที่เลื่อนผ่าน
+- Mobile-First Optimization: ทุกหน้าต้องทำงานได้อย่างลื่นไหลบนมือถือ เพราะเป็นช่องทางหลักที่ผู้ใช้ที่กำลังเดือดร้อนมักใช้ค้นหาความช่วยเหลือ
+```
 ---
 
 #### 🔍 Path: pre-deploy-report.md
-
-````markdown
+```markdown
 # 🚀 Pre-deploy Inspection Report
-
-Generated at: 2026-01-12 10:25:08
+Generated at: 2026-01-14 04:24:39
 Branch: main
 
 ## 🔐 1. Environment Check
-
 ✅ Status: .env file exists and verified.
-
-## 🛠️ 2. Auto-Fix Procedure
-
+## 🛠️  2. Auto-Fix Procedure
 ✅ Status: Auto-fix completed or no issues found.
-
 ## 🧹 3. Code Linting (ESLint)
-
 ✅ Status: Linting passed.
-
 ## ⌨️ 4. Type Safety Check
-
 ✅ Status: TypeScript verified.
-
-## 🏗️ 5. Production Build Test
-
+## 🏗️  5. Production Build Test
 ✅ Status: Build successfully optimized.
-
 ### 📊 Route Statistics & Bundle Size
-
 ```text
 Route (app)                                         Size  First Load JS
-┌ ○ /                                            6.02 kB         177 kB
-├ ○ /_not-found                                    138 B         102 kB
-├ ○ /about                                       5.42 kB         152 kB
-├ ƒ /api/contact                                   138 B         102 kB
-├ ƒ /api/line-notify                               138 B         102 kB
-├ ƒ /api/send-mail                                 138 B         102 kB
-├ ○ /cases                                       4.94 kB         159 kB
-├ ● /cases/[slug]                                9.37 kB         121 kB
+┌ ○ /                                              11 kB         184 kB
+├ ○ /_not-found                                    149 B         102 kB
+├ ○ /about                                       8.87 kB         158 kB
+├ ƒ /api/contact                                   149 B         102 kB
+├ ƒ /api/line-notify                               149 B         102 kB
+├ ƒ /api/send-mail                                 149 B         102 kB
+├ ○ /cases                                       5.54 kB         165 kB
+├ ● /cases/[slug]                                10.1 kB         122 kB
 ├   ├ /cases/financial-reputation-recovery
 ├   ├ /cases/second-chance-reputation-protocol
 ├   ├ /cases/personal-data-privacy-recovery
 ├   └ /cases/contextual-information-rebalancing
-├ ○ /contact                                     4.32 kB         124 kB
-├ ○ /faq                                         3.91 kB         161 kB
-├ ○ /privacy                                     5.45 kB         145 kB
-├ ○ /robots.txt                                    138 B         102 kB
-├ ○ /services                                    3.15 kB         170 kB
-├ ● /services/[slug]                             2.38 kB         152 kB
+├ ○ /contact                                     8.32 kB         164 kB
+├ ○ /faq                                         7.92 kB         169 kB
+├ ○ /privacy                                     6.13 kB         145 kB
+├ ○ /robots.txt                                    149 B         102 kB
+├ ○ /services                                    6.46 kB         167 kB
+├ ● /services/[slug]                             2.65 kB         152 kB
 ├   ├ /services/name-risk-audit
-├   ├ /services/single-link-management
+├   ├ /services/google-de-indexing
 ├   ├ /services/impersonation-account
 ├   └ [+3 more paths]
-├ ○ /sitemap.xml                                   138 B         102 kB
-└ ○ /terms                                       3.68 kB         105 kB
+├ ○ /sitemap.xml                                   149 B         102 kB
+├ ○ /terms                                       5.66 kB         145 kB
+├ ○ /wiki                                          138 B         160 kB
+├ ƒ /wiki/[slug]                                 7.41 kB         157 kB
+└ ƒ /wiki/category/[slug]                          138 B         160 kB
 + First Load JS shared by all                     101 kB
-  ├ chunks/0044af8c-d6052738d8f188a8.js          54.2 kB
-  ├ chunks/532-d98d5e620fcae01a.js               45.3 kB
+  ├ chunks/0044af8c-4ea3504232728e76.js          54.2 kB
+  ├ chunks/2532-c613ac8a761eb937.js              45.3 kB
   └ other shared chunks (total)                  1.93 kB
 
 
 ○  (Static)   prerendered as static content
 ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
 ƒ  (Dynamic)  server-rendered on demand
-```
-````
-`````
 
 ```
 
 ---
-
 ## 🏆 Summary Result
-
 ### ✅ READY FOR DEPLOY
-
 All protocols verified: Lint passed, Types safe, and Build successful. Deployment is highly recommended.
-
 ```
-
 ---
 
 #### 🔍 Path: app/globals.css
-
 ```css
+/** @format */
+
 @import 'tailwindcss';
 
-/* ==========================================================================
-   ⚡ Structural Minimalist Design System - Tailwind 4 + CSS Variables
-   - Precision radius, transition, color mapping
-   - Full Dark/Light support
-   ========================================================================== */
+/* * [STRATEGY: THE INTELLIGENCE CORE v5.0]
+ * - Typeface: ผสาน Anuphan (Thai) เข้ากับระบบ Typography เพื่อแก้ปัญหาช่องไฟ (Line-height)
+ * - Design System: ใช้ระบบ 8pt Grid ร่วมกับ Radius แบบ Squircle
+ * - Visual: เพิ่ม 'Technical Overlays' สำหรับการแสดงผลแบบ High-end Institution
+ */
 
-/* ================================
-   1. Custom Variant for Dark
-   ================================ */
-@custom-variant dark (&:is(.dark *));
-
-/* ================================
-   2. Theme Tokens
-   ================================ */
 @theme {
-  /* Typography */
-  --font-sans: var(--font-kanit), var(--font-inter), ui-sans-serif, system-ui;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* 🏛️ Typography Hierarchy */
+  --font-sans: 'Inter', 'Anuphan', ui-sans-serif, system-ui;
+  --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
+  --font-thai: 'Anuphan', sans-serif;
 
-  /* Color Mapping */
+  /* 🏛️ Border Radius System: Institutional Consistency */
+  --radius-4xl: 3rem; /* 48px - สำหรับ Container ใหญ่พิเศษ */
+  --radius-3xl: 2.5rem; /* 40px - สำหรับ Main Cards/Bunkers */
+  --radius-2xl: 1.5rem; /* 24px - สำหรับ Inner Modules */
+  --radius-xl: 1rem; /* 16px - สำหรับปุ่มหลัก/Input */
+  --radius-lg: 0.75rem; /* 12px - สำหรับ Elements ขนาดเล็ก */
+
+  /* 🏛️ Operational Animations: Machine-grade Precision */
+  --animate-accordion-down: accordion-down 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  --animate-accordion-up: accordion-up 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  --animate-scanline: scanline 6s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-subtle: pulse-subtle 3s ease-in-out infinite;
+
+  @keyframes scanline {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    to {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+  @keyframes pulse-subtle {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.85;
+      transform: scale(0.98);
+    }
+  }
+
+  /* 🛡️ Variable-to-Theme Mapping */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-
-  /* Brand / Feedback */
-  --color-brand-accent: oklch(0.6 0.18 250);
-  --color-success: oklch(0.62 0.17 145);
-
-  /* Structural Radius */
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 6px;
-
-  /* Transitions */
-  --transition-fast: 150ms;
-  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ================================
-   3. Base Variables
-   ================================ */
 @layer base {
   :root {
-    --background: oklch(0.99 0 0);
-    --foreground: oklch(0.25 0.02 260);
-    --primary: oklch(0.25 0.02 260);
-    --primary-foreground: oklch(0.99 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.5 0.02 260);
-    --border: oklch(0.92 0 0);
-    --input: oklch(0.92 0 0);
-    --ring: oklch(0.25 0.02 260);
+    /* 🏛️ Light Mode: Professional Gallery */
+    --background: #ffffff;
+    --foreground: #020617;
+    --primary: #2563eb;
+    --primary-foreground: #ffffff;
+    --muted: #f8fafc;
+    --muted-foreground: #64748b;
+    --border: #f1f5f9;
+    --input: #f1f5f9;
+    --ring: rgba(37, 99, 235, 0.08);
   }
 
   .dark {
-    --background: oklch(0.18 0.01 260);
-    --foreground: oklch(0.98 0 0);
-    --primary: oklch(0.98 0 0);
-    --primary-foreground: oklch(0.18 0.01 260);
-    --muted: oklch(0.25 0.02 260);
-    --muted-foreground: oklch(0.7 0 0);
-    --border: oklch(1 0 0 / 12%);
-    --input: oklch(1 0 0 / 12%);
-    --ring: oklch(0.98 0 0);
+    /* 🏛️ Dark Mode: Deep Tactical Space */
+    --background: #020617;
+    --foreground: #f8fafc;
+    --primary: #3b82f6;
+    --primary-foreground: #ffffff;
+    --muted: #0f172a;
+    --muted-foreground: #94a3b8;
+    --border: #1e293b;
+    --input: #1e293b;
+    --ring: rgba(59, 130, 246, 0.15);
   }
+}
 
-  /* Reset & Globals */
+@layer base {
   * {
-    border-color: var(--border);
-    @apply outline-ring/30;
+    @apply border-border transition-all duration-300 ease-out outline-none;
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    line-height: 1.6;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'cv11', 'ss01', 'tnum', 'case';
+    scroll-behavior: smooth;
   }
 
-  ::selection {
-    background-color: var(--primary);
-    color: var(--primary-foreground);
+  /* 🇹🇭 Thai Typography Optimization */
+  .font-thai {
+    @apply leading-[1.8] tracking-normal;
+    text-underline-offset: 4px;
+  }
+
+  /* 🏛️ Heading System */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply font-sans font-black tracking-tighter text-balance;
   }
 }
 
-/* ================================
-   4. Components
-   ================================ */
-@layer components {
-  /* Card - Structural */
-  .card-structural {
-    @apply bg-background border-border rounded-sm border p-8 transition-all duration-[var(--transition-fast)];
-  }
-  .card-structural:hover {
-    border-color: var(--brand-accent);
-    background-color: oklch(from var(--muted) l c h / 0.3);
+@layer utilities {
+  /* 🛡️ Strategic Layout Utils */
+  .bg-tactical-grid {
+    background-image: radial-gradient(
+      circle,
+      var(--border) 1px,
+      transparent 1px
+    );
+    background-size: 40px 40px;
   }
 
-  /* Buttons */
-  .btn-primary {
-    @apply bg-primary text-primary-foreground hover:bg-brand-accent inline-flex h-14 items-center justify-center rounded-sm px-10 text-[11px] font-black tracking-[0.2em] uppercase transition-all duration-[var(--transition-fast)] ease-[var(--transition-timing)] active:scale-[0.98];
+  /* 🛡️ Glass-morphism v2: Institutional Grade */
+  .glass-effect {
+    @apply border border-white/10 backdrop-blur-2xl dark:border-white/5;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.01)
+    );
   }
 
-  .btn-outline {
-    @apply border-primary text-primary hover:bg-primary hover:text-primary-foreground inline-flex h-14 items-center justify-center rounded-sm border-2 bg-transparent px-10 text-[11px] font-black tracking-[0.2em] uppercase transition-all duration-[var(--transition-fast)] ease-[var(--transition-timing)] active:scale-[0.98];
+  /* 🛡️ Cyber Glow: Active state indicators */
+  .glow-primary {
+    filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.25));
   }
 
-  /* Input - Dossier Style */
-  .input-dossier {
-    @apply border-border focus:border-brand-accent placeholder:text-muted-foreground/50 w-full border-b bg-transparent py-3 text-sm transition-colors outline-none;
+  /* 🛡️ Content Masks */
+  .mask-fade-out {
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   }
 }
 
-/* ================================
-   5. Utilities
-   ================================ */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+/* Custom Scrollbar: Minimalist Technical Style */
+::-webkit-scrollbar {
+  width: 6px;
 }
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-slate-200 transition-colors hover:bg-blue-500/50 dark:bg-slate-800;
 }
 ```
-
 ---
 
 #### 🔍 Path: app/layout.tsx
-
 ```typescript
 /** @format */
 
 import type { Metadata, Viewport } from 'next'
-import { Inter, Kanit } from 'next/font/google'
+import { Inter, Anuphan } from 'next/font/google'
 import './globals.css'
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/shared/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
-import { LineFloat } from '@/components/shared/line-float'
-import { MainLayout } from '@/components/layout/MainLayout'
-import { Suspense } from 'react'
 import { generateOrganizationSchema } from '@/lib/seo/schema-helper'
 
+/** * [STRATEGY: FONT OPTIMIZATION]
+ * รองรับการแสดงผลภาษาไทยที่คมชัดและสบายตาสำหรับผู้ใช้ทุกวัย
+ */
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
   preload: true,
-  fallback: ['system-ui', 'sans-serif'],
 })
 
-const kanit = Kanit({
+const anuphan = Anuphan({
   subsets: ['thai'],
-  weight: ['300', '400', '500', '700'],
-  variable: '--font-kanit',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-anuphan',
   display: 'swap',
   preload: true,
-  fallback: ['Tahoma', 'sans-serif'],
 })
 
 /**
- * [STRATEGY: CANONICAL AUTHORITY]
- * - ปรับ metadataBase ให้ตรงกับโดเมนที่ใช้งานจริงเพื่อความถูกต้องของ Social Graph
- * - ใช้ URL: https://unlink-th.vercel.app
+ * [STRATEGY: SEO & METADATA]
+ * แก้ไขปัญหา metadataBase Warning และตั้งค่า Domain หลัก
  */
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.unlink-th.com'),
   title: {
     default:
-      'UnlinkTH | ที่ปรึกษาจัดการข้อมูลออนไลน์และสิทธิ์ในการถูกลืม (PDPA)',
-    template: '%s | UnlinkTH Reputation Management',
+      'UnlinkTH | ที่ปรึกษาจัดการชื่อเสียงดิจิทัลและการใช้สิทธิถูกลืม (RTBF)',
+    template: '%s | UnlinkTH Reputation Intelligence',
   },
   description:
-    'เราช่วยคุณควบคุมผลการค้นหาและจัดการชื่อเสียงออนไลน์ (ORM) ภายใต้กฎหมาย PDPA เพื่อปกป้องความเป็นส่วนตัวและกู้คืนโอกาสทางธุรกิจ ข้อมูลของคุณเป็นความลับสูงสุด (NDA Standard)',
-  keywords: [
-    'วิธีจัดการชื่อเสียในกูเกิล',
-    'ลบประวัติเสียออนไลน์',
-    'Right to be forgotten Thailand',
-    'ที่ปรึกษาจัดการชื่อเสียงออนไลน์',
-    'PDPA ลบข้อมูลส่วนบุคคล',
-    'SEO Displacement Service',
-  ],
-  authors: [{ name: 'UnlinkTH Professional Team' }],
-  // ✅ อัปเดต metadataBase เป็น Vercel Domain ตามคำสั่ง
-  metadataBase: new URL('https://unlink-th.vercel.app'),
+    'บริการจัดการข้อมูลออนไลน์เชิงลบอย่างถูกวิธีตามกฎหมาย PDPA และหลักการลบข้อมูลถาวร (De-indexing) ปกป้องสิทธิส่วนบุคคลด้วยมาตรฐานความปลอดภัยระดับสถาบัน',
   alternates: {
-    canonical: 'https://unlink-th.vercel.app',
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon.png', type: 'image/png' },
-    ],
-    apple: '/apple-icon.png',
-  },
-  robots: {
-    index: true,
-    follow: true,
+    canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'th_TH',
-    url: 'https://unlink-th.vercel.app',
-    title: 'UnlinkTH | จัดการตัวตนดิจิทัลของคุณให้ถูกต้องตามกฎหมาย',
-    description:
-      'ปกป้องชื่อเสียงออนไลน์ด้วยทีมผู้เชี่ยวชาญด้านกฎหมายและเทคโนโลยีการจัดการข้อมูล',
+    url: 'https://www.unlink-th.com',
     siteName: 'UnlinkTH',
-    images: [
-      {
-        url: '/images/og-main.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'UnlinkTH Reputation Protocol',
-      },
-    ],
+  },
+  verification: {
+    google: 'your-google-verification-code',
   },
 }
 
@@ -593,7 +597,7 @@ export const viewport: Viewport = {
   ],
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
+  viewportFit: 'cover',
 }
 
 export default function RootLayout({
@@ -615,30 +619,33 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          'bg-background font-thai min-h-screen antialiased transition-colors duration-300',
+          'bg-background text-foreground min-h-screen font-sans antialiased',
           inter.variable,
-          kanit.variable,
+          anuphan.variable,
         )}
       >
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          enableSystem={false}
+          enableSystem
           disableTransitionOnChange
         >
-          <Suspense fallback={<div className="bg-background min-h-screen" />}>
-            <MainLayout>{children}</MainLayout>
-          </Suspense>
-
-          <LineFloat />
+          {/* ✅ จุดสำคัญ: {children} จะถูกหุ้มโดย Layout ย่อยในแต่ละ Route Group 
+              - กลุ่ม (main) จะหุ้มด้วย MainLayout (มี Navbar หลัก)
+              - กลุ่ม (wiki-hub) จะหุ้มด้วย WikiLayout (มี Navbar Wiki)
+              ทำให้ไม่มีการซ้อนทับกันที่ Root
+          */}
+          {children}
 
           <Toaster
             position="bottom-right"
-            expand={false}
             richColors
             closeButton
-            theme="light"
+            className="font-sans"
             style={{ zIndex: 9999 }}
+            toastOptions={{
+              style: { borderRadius: '12px' },
+            }}
           />
         </ThemeProvider>
       </body>
@@ -646,388 +653,222 @@ export default function RootLayout({
   )
 }
 ```
-
 ---
 
-#### 🔍 Path: app/not-found.tsx
-
+#### 🔍 Path: data/services/services-1.ts
 ```typescript
 /** @format */
 
-'use client'
-
-import React, { Suspense } from 'react'
-import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
-import { ArrowLeft, ShieldAlert, Search, Terminal } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-
-/**
- * [STRATEGY: THE RESILIENT 404]
- * - Next.js 15 Fix: หุ้ม useSearchParams ด้วย Suspense เพื่อป้องกัน Build Error
- * - UI: ใช้ธีม Institutional Terror/Tech เพื่อรักษา Branding แม้ในหน้า Error
- */
-
-// 1. Component ย่อยสำหรับแสดงผลที่ต้องใช้ SearchParams
-function NotFoundContent() {
-  const searchParams = useSearchParams()
-  const attemptedPath = searchParams.get('path') // ตัวอย่างการดึงค่ามาแสดง (ถ้ามี)
-
-  return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-8xl font-black tracking-tighter text-slate-950 uppercase md:text-9xl dark:text-white">
-          404<span className="text-blue-600">.</span>
-        </h1>
-        <h2 className="text-xl font-black tracking-widest text-slate-400 uppercase">
-          Protocol Breach: Page Not Found
-        </h2>
-      </div>
-
-      <div className="max-w-md border-l-2 border-red-500 bg-slate-50 p-6 dark:bg-slate-900/50">
-        <p className="font-thai text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-          ไม่พบหน้าที่คุณกำลังเรียกใช้ในฐานข้อมูลระบบ
-          {attemptedPath && (
-            <span className="ml-2 font-mono text-red-500">
-              [Attempted: {attemptedPath}]
-            </span>
-          )}
-          <br />
-          ข้อมูลดังกล่าวอาจถูกลบ ย้าย
-          หรือจำกัดการเข้าถึงตามนโยบายความเป็นส่วนตัว
-        </p>
-      </div>
-    </div>
-  )
-}
-
-// 2. Component หลัก (Default Export)
-export default function NotFound() {
-  return (
-    <main className="relative min-h-screen overflow-hidden bg-white selection:bg-blue-100 dark:bg-slate-950">
-      {/* Background Decorative Element */}
-      <div className="absolute top-0 right-0 -mt-20 -mr-20 opacity-[0.03] dark:opacity-[0.05]">
-        <ShieldAlert size={600} />
-      </div>
-
-      <div className="relative z-10 container mx-auto flex min-h-screen flex-col justify-center px-6">
-        {/* หุ้มด้วย Suspense เพื่อแก้ปัญหา Prerendering Error */}
-        <Suspense
-          fallback={
-            <div className="animate-pulse space-y-8">
-              <div className="h-32 w-64 bg-slate-100 dark:bg-slate-800" />
-              <div className="h-20 w-full bg-slate-50 dark:bg-slate-900" />
-            </div>
-          }
-        >
-          <NotFoundContent />
-        </Suspense>
-
-        {/* Action Buttons */}
-        <div className="mt-12 flex flex-col gap-4 sm:flex-row">
-          <Button
-            asChild
-            variant="default"
-            className="h-14 rounded-none bg-slate-950 px-8 text-[11px] font-black tracking-[0.2em] uppercase transition-all hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-white dark:hover:text-slate-950"
-          >
-            <Link href="/" className="flex items-center gap-3">
-              <ArrowLeft size={16} />
-              Return to Core
-            </Link>
-          </Button>
-
-          <Button
-            asChild
-            variant="outline"
-            className="h-14 rounded-none border-2 border-slate-950 px-8 text-[11px] font-black tracking-[0.2em] uppercase dark:border-slate-800"
-          >
-            <Link href="/services" className="flex items-center gap-3">
-              <Search size={16} />
-              Search Protocols
-            </Link>
-          </Button>
-        </div>
-
-        {/* Footer Info */}
-        <div className="mt-20 flex items-center gap-4 text-slate-300 dark:text-slate-800">
-          <Terminal size={14} />
-          <span className="text-[10px] font-bold tracking-[0.4em] uppercase">
-            System Integrity Verified // UnlinkTH
-          </span>
-        </div>
-      </div>
-    </main>
-  )
-}
-```
-
----
-
-#### 🔍 Path: data/services/service-map.ts
-
-```typescript
-/** @format */
-
-import { servicesGroupOne } from './services-1'
-import { servicesGroupTwo } from './services-2'
 import type { ServiceItem } from '@/types/service'
 
 /**
- * [STRATEGY: CENTRALIZED SERVICE REGISTRY]
- * รวมบริการจากทุกกลุ่มเข้าด้วยกัน เพื่อเป็นแหล่งข้อมูลชุดเดียว (Single Source of Truth)
+ * [STRATEGY: UNIVERSAL ACCESSIBILITY v1.3]
+ * - Concept: "ภาษาบ้านๆ ที่น่าเชื่อถือ"
+ * - Language: ลดคำศัพท์ภาษาอังกฤษและคำราชาศัพท์/วิชาการที่เข้าใจยาก
+ * - Goal: ให้ทุกคนอ่านแล้วรู้ทันทีว่า "เราช่วยอะไร" และ "เขาจะได้อะไร"
  */
-const allServices: ServiceItem[] = [...servicesGroupOne, ...servicesGroupTwo]
 
-/**
- * 1) 🏛️ Service Index Map
- * ประสิทธิภาพการเข้าถึง O(1) โดยใช้ slug เป็นคีย์
- */
-export const serviceMap: Record<string, ServiceItem> = allServices.reduce(
-  (acc, service) => {
-    if (service.slug) {
-      acc[service.slug] = service
-    }
-    return acc
+export const servicesGroupOne: ServiceItem[] = [
+  {
+    id: 'SVC-AUDIT-01',
+    slug: 'name-risk-audit',
+    iconName: 'search',
+    title: 'บริการตรวจเช็กชื่อและประวัติออนไลน์',
+    subtitle: 'Digital Reputation Audit',
+    tagline: 'รู้ก่อนสาย... ว่าชื่อของคุณถูกเอาไปพูดถึงในทางไหนบนอินเทอร์เน็ต',
+    description:
+      'เราช่วยค้นหาข้อมูลทุกอย่างที่เกี่ยวกับชื่อของคุณในโลกออนไลน์ เพื่อดูว่ามีจุดไหนที่อาจทำให้คุณเสียชื่อเสียง เสียประวัติ หรือเป็นอุปสรรคต่อการสมัครงานและทำธุรกิจ',
+    features: [
+      'ค้นหาประวัติเชิงลึกทุกช่องทาง',
+      'ประเมินความเสี่ยงรายบุคคล',
+      'วางแผนวิธีแก้ไขแบบเข้าใจง่าย',
+    ],
+    outcome: 'สรุปผลตรวจเช็กและแนวทางแก้ไข',
+    price: { min: 1500, max: 3000, currency: 'THB' },
+    updatedAt: new Date().toISOString(),
   },
-  {} as Record<string, ServiceItem>,
-)
-
-/**
- * 2) 🔍 Search by Slug
- */
-export function getServiceBySlug(slug: string): ServiceItem | undefined {
-  return serviceMap[slug]
-}
-
-/**
- * 3) 🚀 Static Params Generator (Next.js 15 optimization)
- * ✅ FIXED: แก้ไขให้คืนค่าเป็น string[] บริสุทธิ์
- * เพื่อป้องกัน Error [object Object] ในขั้นตอนการ Build
- */
-export function getAllServiceSlugs(): string[] {
-  return allServices.map((service) => service.slug)
-}
-
-/**
- * 4) 🔗 Intelligent Related Services
- * ยุทธศาสตร์: ดึงบริการที่อยู่ในกลุ่มเดียวกัน (Hierarchy) มาแสดงก่อน
- */
-export function getRelatedServices(
-  currentSlug: string,
-  limit = 2,
-): ServiceItem[] {
-  const currentService = serviceMap[currentSlug]
-
-  return allServices
-    .filter((s) => s.slug !== currentSlug)
-    .sort((a, b) => {
-      // Logic: แนะนำบริการที่มีช่วงราคา (Price Range) ใกล้เคียงกัน
-      const diffA = Math.abs(
-        (a.price?.min || 0) - (currentService?.price?.min || 0),
-      )
-      const diffB = Math.abs(
-        (b.price?.min || 0) - (currentService?.price?.min || 0),
-      )
-      return diffA - diffB
-    })
-    .slice(0, limit)
-}
+  {
+    id: 'SVC-REMV-02',
+    slug: 'google-de-indexing',
+    iconName: 'globe',
+    title: 'บริการขอนำข้อมูลออกจากผลการค้นหา Google',
+    subtitle: 'Search Engine De-indexing',
+    tagline:
+      'จัดการข้อมูลเก่า ข้อมูลที่ผิด หรือเรื่องที่ไม่อยากให้คนอื่นค้นเจอ',
+    description:
+      'หากคุณมีประวัติเก่า ข้อมูลที่หลุดออกมา หรือเรื่องราวในอดีตที่ไม่อยากให้ปรากฏเวลาคนเอาชื่อไปค้นใน Google เราช่วยดำเนินการแจ้งขอเอาข้อมูลนั้นออกอย่างถูกต้องตามกฎหมาย',
+    features: [
+      'ทำเรื่องแจ้ง Google อย่างมืออาชีพ',
+      'ลดการมองเห็นข้อมูลที่ไม่ดี',
+      'ล้างข้อมูลเก่าที่ยังค้างในระบบ',
+    ],
+    outcome: 'คนค้นหาชื่อคุณไม่เจอเรื่องแย่ๆ อีกต่อไป',
+    price: { min: 8500, max: 15000, unit: 'ต่อเคส', currency: 'THB' },
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'SVC-IDEN-03',
+    slug: 'impersonation-account',
+    iconName: 'user-check',
+    title: 'บริการจัดการเพจปลอม-เฟซบุ๊กปลอม',
+    subtitle: 'Identity Theft Response',
+    tagline: 'ป้องกันคนเอารูปหรือชื่อของคุณไปแอบอ้างทำเรื่องเสียหาย',
+    description:
+      'ช่วยจัดการและแจ้งปิดบัญชีโซเชียลมีเดียที่เอารูปภาพ หรือชื่อของคุณไปใช้โดยไม่ได้รับอนุญาต เพื่อไม่ให้คนอื่นเข้าใจผิดและป้องกันความเสียหายที่อาจเกิดขึ้นกับคุณ',
+    features: [
+      'แจ้งรายงานปิดบัญชีปลอมทุกช่องทาง',
+      'ช่วยยืนยันตัวตนว่าเป็นตัวจริง',
+      'แนะนำวิธีป้องกันไม่ให้โดนปลอมอีก',
+    ],
+    outcome: 'บัญชีปลอมถูกปิดถาวร',
+    price: { min: 5000, max: 9500, currency: 'THB' },
+    updatedAt: new Date().toISOString(),
+  },
+]
 ```
-
 ---
 
-#### 🔍 Path: app/(main)/services/[slug]/page.tsx
-
+#### 🔍 Path: data/services/services-2.ts
 ```typescript
 /** @format */
 
-import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
-import Link from 'next/link'
-import {
-  ArrowLeft,
-  ArrowRight,
-  ShieldCheck,
-  CheckCircle2,
-  Lock,
-  Activity,
-} from 'lucide-react'
-
-// Data Layer
-import {
-  getServiceBySlug,
-  getAllServiceSlugs,
-} from '@/data/services/service-map'
-
-// UI Components
-import { SectionHeading } from '@/components/shared/section-heading'
-import { Button } from '@/components/ui/button'
-import { Seo } from '@/components/seo/Seo'
+import type { ServiceItem } from '@/types/service'
 
 /**
- * [STRATEGY: HIGH-CONVERSION SERVICE PROTOCOL]
- * - Next.js 15 Compliance: ใช้ Async Params สำหรับ Server Component
- * - Static Generation Fix: แก้ไขการส่งค่า slug ให้เป็น String ที่ชัดเจน ป้องกัน [object Object]
+ * [STRATEGY: UNIVERSAL ACCESSIBILITY v2.2]
+ * - Clarity: เปลี่ยน "Suppression/Mitigation" เป็นภาษาที่คนทั่วไปเข้าใจผลลัพธ์ได้ทันที
+ * - Trust: เน้นย้ำเรื่อง "โอกาส" และ "ความเป็นส่วนตัว" ในภาษาที่เรียบง่าย
+ * - Mapping: แบ่งระดับบริการตาม "ความหนักของปัญหา" เพื่อให้ลูกค้าเลือกถูกกลุ่ม
  */
 
-interface ServicePageProps {
-  params: Promise<{ slug: string }>
-}
+export const servicesGroupTwo: ServiceItem[] = [
+  {
+    id: 'SVC-PROF-04',
+    slug: 'basic-reputation-management',
+    iconName: 'shield',
+    title: 'บริการล้างประวัติออนไลน์ (ชุดเริ่มต้น)',
+    subtitle: 'Standard Reputation Care',
+    tagline: 'เหมาะสำหรับคนทั่วไปที่ต้องการ "เริ่มชีวิตใหม่" หรือสมัครงานใหม่',
+    description:
+      'ช่วยเคลียร์ข้อมูลเก่าๆ ในอินเทอร์เน็ตที่อาจดูไม่ดีเวลาสมัครงาน หรือทำธุรกรรมต่างๆ โดยเน้นจัดการข้อมูลพื้นฐานที่ส่งผลกระทบต่อภาพลักษณ์ของคุณ',
+    features: [
+      'ตรวจเช็กชื่อ-นามสกุล บนโลกออนไลน์ทั้งหมด',
+      'ลบหรือแจ้งให้นำข้อมูลออก 1-3 จุดสำคัญ',
+      'ติดตามผลต่อเนื่องนาน 30 วัน',
+      'รับคู่มือ "วิธีป้องกันไม่ให้ข้อมูลหลุด" เฉพาะคุณ',
+    ],
+    outcome: 'ภาพลักษณ์ออนไลน์ดูสะอาดและน่าเชื่อถือขึ้น',
+    price: {
+      min: 9900,
+      max: 14900,
+      currency: 'THB',
+    },
+    popular: true,
+    caution: ['เหมาะสำหรับข้อมูลทั่วไป ไม่ใช่คดีความรุนแรงหรือเรื่องซับซ้อน'],
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'SVC-ADV-05',
+    slug: 'advanced-identity-management',
+    iconName: 'lock',
+    title: 'บริการจัดการตัวตนระดับมืออาชีพ',
+    subtitle: 'Professional Identity Control',
+    tagline:
+      'ทวงคืนความเป็นส่วนตัวขั้นสูงสุด สำหรับคนที่มีข้อมูลหลุดกระจายหลายที่',
+    description:
+      'หากคุณมีเรื่องราวหรือข้อมูลส่วนตัวหลุดกระจายอยู่หลายเว็บไซต์ เราจะใช้ "สิทธิในการถูกลืม" เพื่อจัดการข้อมูลในระดับที่ลึกขึ้นและครอบคลุมหลายแพลตฟอร์มพร้อมกัน',
+    features: [
+      'วิเคราะห์จุดเสี่ยงรอบด้าน (ทั้งเว็บไทยและต่างประเทศ)',
+      'เรียงลำดับความสำคัญในการจัดการ (จุดไหนเจ็บที่สุด ทำก่อน)',
+      'ใช้เทคนิคพิเศษเพื่อลดการมองเห็นข้อมูลที่ไม่ดี',
+      'ระบบเฝ้าระวังความปลอดภัยนาน 60 วัน',
+    ],
+    outcome: 'ควบคุมข้อมูลตัวเองได้สมบูรณ์แบบ',
+    suitableFor: [
+      'เจ้าของธุรกิจ / ผู้บริหาร',
+      'บุคคลที่มีชื่อเสียง',
+      'ครอบครัวที่ต้องการความเป็นส่วนตัวสูง',
+    ],
+    price: {
+      min: 19000,
+      max: 35000,
+      currency: 'THB',
+    },
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'SVC-ENTP-06',
+    slug: 'high-risk-cases',
+    iconName: 'shield-alert',
+    title: 'บริการจัดการเคสยากและเคสความเสี่ยงสูง',
+    subtitle: 'High-Complexity Case Management',
+    tagline:
+      'ดูแลเรื่องที่ละเอียดอ่อน ซับซ้อน และต้องใช้ทีมกฎหมายกับทีมเทคนิคควบคู่กัน',
+    description:
+      'สำหรับปัญหาที่มีความซับซ้อนสูงมาก เช่น ข้อมูลในอดีตที่เป็นคดีความหรือข่าวใหญ่ ซึ่งต้องมีการประสานงานกับทีมงานเบื้องหลังของแพลตฟอร์มโดยตรง',
+    features: [
+      'สืบค้นข้อมูลเชิงลึกในส่วนที่คนทั่วไปมองไม่เห็น',
+      'วางแผนรับมือเฉพาะรายบุคคล (Case by Case)',
+      'ประสานงานตรงกับฝ่ายเทคนิคของเว็บและแพลตฟอร์ม',
+      'รายงานความคืบหน้าแบบลับสุดยอดทุกสัปดาห์',
+    ],
+    outcome: 'ลดความเสี่ยงและจำกัดความเสียหายได้ดีที่สุด',
+    price: {
+      min: 49000,
+      max: 0,
+      note: 'ประเมินราคาตามความยากของเคสเท่านั้น',
+      currency: 'THB',
+    },
+    caution: [
+      'ต้องตรวจเช็กข้อมูลก่อนเพื่อประเมินโอกาสสำเร็จ',
+      'ทำภายใต้ขอบเขตกฎหมายและสิทธิส่วนบุคคลเท่านั้น',
+    ],
+    updatedAt: new Date().toISOString(),
+  },
+]
+```
+---
 
-/* 🏛️ SEO Engine */
-export async function generateMetadata({
-  params,
-}: ServicePageProps): Promise<Metadata> {
-  const { slug } = await params
-  const service = getServiceBySlug(slug)
-
-  if (!service) return { title: 'Service Not Found | UnlinkTH' }
-
-  return {
-    title: `${service.title} | Managed Digital Intelligence | UnlinkTH`,
-    description: service.description,
-  }
-}
-
-/* 🏛️ Static Generation Fix: ป้องกัน Error [object Object] */
-export async function generateStaticParams() {
-  // ดึงค่า slugs มาเป็น string[] (เช่น ['reputation-repair', 'data-removal'])
-  const slugs = getAllServiceSlugs()
-
-  // ✅ คืนค่าเป็น Array ของ Object ที่มี property slug เป็น string เท่านั้น
-  return slugs.map((slug) => ({
-    slug: String(slug),
-  }))
-}
-
-export default async function ServiceDetailPage({ params }: ServicePageProps) {
-  // ✅ Next.js 15 ต้อง await params ก่อนนำค่ามาใช้
-  const { slug } = await params
-  const service = getServiceBySlug(slug)
-
-  if (!service) notFound()
-
-  return (
-    <>
-      <Seo
-        title={service.title}
-        description={service.description}
-        isService={true}
-      />
-
-      <main className="min-h-screen bg-white pt-32 pb-24 selection:bg-blue-100 dark:bg-slate-950">
-        <div className="container mx-auto max-w-6xl px-6">
-          {/* Navigation */}
-          <nav className="mb-12">
-            <Link
-              href="/services"
-              className="group inline-flex items-center gap-2 text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase transition-colors hover:text-blue-600 dark:hover:text-blue-400"
-            >
-              <ArrowLeft
-                size={14}
-                className="transition-transform group-hover:-translate-x-2"
-              />
-              Return to Protocol Directory
-            </Link>
-          </nav>
-
-          <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-12">
-            {/* Content Column */}
-            <div className="space-y-16 lg:col-span-8">
-              <header>
-                <SectionHeading
-                  badge={`Operational ID: ${service.id}`}
-                  title={service.title}
-                  subtitle="Managed Digital Intelligence"
-                  description={service.description}
-                  align="left"
-                  className="mb-0"
-                />
-              </header>
-
-              {/* Capability Card */}
-              <div className="overflow-hidden border border-slate-100 shadow-sm dark:border-slate-800">
-                <div className="grid grid-cols-1 md:grid-cols-2">
-                  <div className="border-b border-slate-100 bg-white p-10 md:border-r md:border-b-0 lg:p-12 dark:border-slate-800 dark:bg-slate-900">
-                    <h4 className="mb-8 flex items-center gap-3 text-[11px] font-black tracking-[0.2em] text-blue-600 uppercase">
-                      <ShieldCheck size={18} strokeWidth={2.5} /> Core
-                      Capabilities
-                    </h4>
-                    <ul className="space-y-6">
-                      {service.features.map((feature, index) => (
-                        <li key={index} className="flex items-start gap-4">
-                          <CheckCircle2
-                            size={12}
-                            className="mt-1 shrink-0 text-blue-600"
-                          />
-                          <span className="font-thai text-[15px] leading-relaxed text-slate-600 dark:text-slate-400">
-                            {feature}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="relative flex flex-col justify-between bg-slate-950 p-10 text-white lg:p-12">
-                    <div className="relative z-10">
-                      <h4 className="mb-8 flex items-center gap-3 text-[11px] font-black tracking-[0.2em] text-blue-400 uppercase">
-                        <Activity size={18} strokeWidth={2.5} /> Strategic
-                        Outcome
-                      </h4>
-                      <div className="mb-6 text-4xl font-black tracking-tighter uppercase lg:text-5xl">
-                        {service.outcome}
-                      </div>
-                    </div>
-                    <p className="font-thai relative z-10 text-[11px] text-slate-500 italic">
-                      *
-                      ปฏิบัติการภายใต้กรอบกฎหมายดิจิทัลและมาตรฐานความปลอดภัยสูงสุด
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Sidebar CTA */}
-            <aside className="lg:sticky lg:top-32 lg:col-span-4">
-              <div className="border-2 border-slate-950 bg-white p-8 shadow-[20px_20px_0px_0px_rgba(0,0,0,0.05)] dark:border-white dark:bg-slate-950">
-                <div className="mb-8 flex items-center gap-3 bg-slate-50 px-4 py-3 dark:bg-slate-900">
-                  <Lock size={16} className="text-blue-600" />
-                  <span className="text-[9px] font-black tracking-[0.2em] uppercase">
-                    Encrypted Data Handling
-                  </span>
-                </div>
-                <h3 className="mb-4 text-2xl font-black tracking-tighter uppercase">
-                  Initiate Inquiry
-                </h3>
-                <p className="font-thai mb-10 text-[14px] text-slate-500">
-                  รับการวิเคราะห์เคสรายบุคคลภายใต้นโยบายรักษาความลับสูงสุด
-                  (Strict NDA)
-                </p>
-                <Button
-                  asChild
-                  className="h-16 w-full rounded-none bg-blue-600 text-[11px] font-black tracking-[0.2em] uppercase transition-all hover:bg-slate-900 dark:hover:bg-white dark:hover:text-slate-950"
-                >
-                  <Link
-                    href="/contact"
-                    className="flex items-center justify-center gap-4"
-                  >
-                    Start Consultation <ArrowRight size={16} />
-                  </Link>
-                </Button>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </main>
-    </>
-  )
+#### 🔍 Path: tsconfig.json
+```json
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
 }
 ```
-
 ---
 
 #### 🔍 Path: package.json
-
 ```json
 {
   "name": "unlinkth",
@@ -1042,6 +883,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   },
   "dependencies": {
     "@hookform/resolvers": "^4.0.0",
+    "@img/sharp-wasm32": "^0.34.5",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-dialog": "^1.1.5",
     "@radix-ui/react-label": "^2.1.1",
@@ -1062,6 +904,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
+    "sharp": "^0.34.5",
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
@@ -1082,11 +925,9 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   }
 }
 ```
-
 ---
 
 #### 🔍 Path: next.config.ts
-
 ```typescript
 /** @format */
 
@@ -1201,11 +1042,9 @@ const nextConfig: NextConfig = {
 
 export default nextConfig
 ```
-
 ---
 
 #### 🔍 Path: lib/supabase.ts
-
 ```typescript
 /** @format */
 
@@ -1238,19 +1077,17 @@ export const createClientComponentClient = () =>
  * เนื่องจากต้องมีการจัดการ Cookies ที่ฝั่ง Server
  */
 ```
-
 ---
 
 #### 🔍 Path: types/service.ts
-
 ```typescript
 /** @format */
 
 /**
- * [STRATEGY: TYPE DEFINITION ARCHITECTURE]
- * - ใช้ Interface เพื่อความชัดเจนในการขยายต่อ (Extensibility)
- * - รองรับระบบ Pricing แบบ Dynamic (Min-Max/Notes)
- * - เชื่อมโยงกับ Icon Map และ SEO Meta
+ * [STRATEGY: TYPE DEFINITION ARCHITECTURE v5.1]
+ * - Extensibility: ใช้ Interface เพื่อความชัดเจนในการขยายต่อ
+ * - Semantic Alignment: เพิ่ม ServiceArticle เป็น Alias เพื่อรองรับ SEO Schema Helper
+ * - Localization: รองรับหน่วยบริการภาษาไทย (Unit/Note)
  */
 
 export interface ServicePrice {
@@ -1279,8 +1116,8 @@ export interface ServiceItem {
 }
 
 /**
- * สำหรับหน้า Service Detail ที่ต้องการข้อมูลเข้มข้นขึ้น
- * สามารถสืบทอดจาก ServiceItem ได้
+ * [FIXED]: เพิ่ม Alias 'ServiceArticle' เพื่อให้ lib/seo/schema-helper.ts เรียกใช้งานได้
+ * โดยอ้างอิงจากโครงสร้างข้อมูลที่เข้มข้นที่สุด
  */
 export interface ServiceDetail extends ServiceItem {
   process?: {
@@ -1293,19 +1130,219 @@ export interface ServiceDetail extends ServiceItem {
     answer: string
   }[]
 }
-```
 
+// 🏛️ Export Alias สำหรับการใช้งานใน Module อื่นๆ
+export type Service = ServiceItem
+export type ServiceArticle = ServiceDetail // แก้ปัญหา Error TS2724
+```
+---
+
+#### 🔍 Path: types/wiki.ts
+```typescript
+/** @format */
+
+/**
+ * [STRATEGY: TYPE DEFINITION ARCHITECTURE v5.1]
+ * - Clarity: กำหนดมาตรฐานข้อมูลสำหรับระบบ Knowledge Base
+ * - Scalability: รองรับการขยายตัวของ Metadata เช่น Tags หรือระดับความลับ
+ */
+
+export type WikiCategoryIcon =
+  | 'scale'
+  | 'shield-check'
+  | 'zap'
+  | 'lock'
+  | 'fingerprint'
+  | 'library'
+
+/**
+ * 🏛️ Category Interface
+ * นิยามของหมวดหมู่หลักในฐานข้อมูลข่าวกรอง
+ */
+export interface WikiCategory {
+  id: string
+  title: string
+  description: string
+  iconName: WikiCategoryIcon
+  articleCount?: number
+}
+
+/**
+ * 🏛️ Article Interface
+ * โครงสร้างข้อมูลของบทความแต่ละชุด (Dossier Record)
+ * FIXED: เพิ่มความยืดหยุ่นของ Content และระบุฟิลด์ Tags ให้ชัดเจน
+ */
+export interface WikiArticle {
+  id: string
+  slug: string
+  title: string
+  excerpt: string
+  content?: string | React.ReactNode // รองรับทั้ง HTML string และ JSX สำหรับ Rich Content
+  category: string // เชื่อมโยงกับ Category ID
+  author: string
+  date: string // ISO Format
+  lastUpdated?: string
+  readingTime?: string
+  tags?: string[] // สำหรับระบบ Filter และ SEO
+  isFeatured?: boolean // สำหรับแสดงในส่วนแนะนำ (Top Protocols)
+}
+
+/**
+ * 🏛️ Search & Filter Types
+ */
+export interface WikiSearchParams {
+  query?: string
+  category?: string
+  tag?: string
+}
+
+/**
+ * 🏛️ Service Result Types
+ */
+export interface WikiServiceResponse {
+  categories: WikiCategory[]
+  featuredArticles: WikiArticle[]
+  recentArticles: WikiArticle[]
+}
+```
+---
+
+#### 🔍 Path: lib/wiki.ts
+```typescript
+/** @format */
+
+import {
+  allWikiArticles,
+  wikiCategories,
+  type WikiArticle,
+  type WikiCategory,
+} from '@/data/wiki/articles'
+import { wikiFAQs, type WikiFAQ } from '@/data/wiki/faq-data'
+import { wikiGlossary, type GlossaryTerm } from '@/data/wiki/glossary'
+import { legalFrameworks, type LegalArticle } from '@/data/wiki/legal-framework'
+
+/**
+ * [STRATEGY: IMMUTABLE DATA SERVICE v6.5]
+ * - Fix: Ensuring Map initialization is robust for Next.js Server Components.
+ * - Fix: Added safety check for 'content' to ensure it's never undefined.
+ * - Performance: O(1) Access for Articles, Categories, and Glossary.
+ */
+
+// 🏛️ Private Data Indexing
+const articleMap = new Map(
+  allWikiArticles.map((a) => [a.slug.toLowerCase().trim(), a]),
+)
+const categoryMap = new Map(
+  wikiCategories.map((c) => [c.id.toLowerCase().trim(), c]),
+)
+const glossaryMap = new Map(
+  wikiGlossary.map((g) => [g.term.toLowerCase().trim(), g]),
+)
+
+export const WikiService = {
+  // 🏛️ 1. Article Retrieval Services
+  /**
+   * ดึงบทความทั้งหมด หรือกรองตามหมวดหมู่
+   */
+  getAllArticles: (categoryId?: string): readonly WikiArticle[] => {
+    if (!categoryId || categoryId === 'ทั้งหมด') return allWikiArticles
+    return allWikiArticles.filter(
+      (article) =>
+        article.category.toLowerCase().trim() ===
+        categoryId.toLowerCase().trim(),
+    )
+  },
+
+  /**
+   * ดึงบทความเดียวจาก Slug (รองรับ Case-insensitive และ Space trimming)
+   */
+  getArticleBySlug: (slug: string): WikiArticle | undefined => {
+    if (!slug) return undefined
+    // Normalize slug ก่อนค้นหา
+    const normalizedSlug = decodeURIComponent(slug).toLowerCase().trim()
+    return articleMap.get(normalizedSlug)
+  },
+
+  /**
+   * ค้นหาบทความที่เกี่ยวข้องในหมวดหมู่เดียวกัน
+   */
+  getRelatedArticles: (
+    currentSlug: string,
+    limit = 3,
+  ): readonly WikiArticle[] => {
+    const current = WikiService.getArticleBySlug(currentSlug)
+    if (!current) return []
+
+    return allWikiArticles
+      .filter(
+        (a) =>
+          a.category.toLowerCase() === current.category.toLowerCase() &&
+          a.slug.toLowerCase() !== current.slug.toLowerCase(),
+      )
+      .slice(0, limit)
+  },
+
+  // 🏛️ 2. Category & Taxonomy Services
+  getCategories: (): readonly WikiCategory[] => wikiCategories,
+
+  getCategoryById: (id: string): WikiCategory | undefined => {
+    if (!id) return undefined
+    return categoryMap.get(id.toLowerCase().trim())
+  },
+
+  // 🏛️ 3. Intelligence Augmentation
+  getGlossaryTerm: (termName: string): GlossaryTerm | undefined => {
+    if (!termName) return undefined
+    return glossaryMap.get(termName.toLowerCase().trim())
+  },
+
+  getLegalReferences: (sections: string[]): readonly LegalArticle[] => {
+    const sectionSet = new Set(sections.map((s) => s.toLowerCase().trim()))
+    return legalFrameworks.filter((framework) =>
+      sectionSet.has(framework.section.toLowerCase().trim()),
+    )
+  },
+
+  // 🏛️ 4. Knowledge Support
+  getFaqsByCategory: (category: WikiFAQ['category']): readonly WikiFAQ[] => {
+    return wikiFAQs.filter(
+      (faq) =>
+        faq.category.toLowerCase().trim() === category.toLowerCase().trim(),
+    )
+  },
+
+  getRandomFaqs: (limit = 3): readonly WikiFAQ[] => {
+    return [...wikiFAQs].sort(() => 0.5 - Math.random()).slice(0, limit)
+  },
+
+  // 🏛️ 5. Search & Internal Linking (Advanced Search Logic)
+  searchArticles: (query: string): readonly WikiArticle[] => {
+    const q = query.toLowerCase().trim()
+    if (!q) return []
+    return allWikiArticles.filter(
+      (a) =>
+        a.title.toLowerCase().includes(q) ||
+        a.excerpt.toLowerCase().includes(q) ||
+        a.content.toLowerCase().includes(q),
+    )
+  },
+
+  suggestInternalLinks: (content: string): string[] => {
+    if (!content) return []
+    const words = content.toLowerCase()
+    return Array.from(glossaryMap.keys()).filter((term) =>
+      words.includes(term.toLowerCase()),
+    )
+  },
+}
+```
 ---
 
 #### 🔍 Path: .env
-
 ```text
-
 ```
-
 ---
 
 ## 📝 บทสรุป
-
 การสแกนเสร็จสิ้น ข้อมูลถูกจัดรูปแบบให้ AI ประมวลผลได้ทันที
 . Format code in: Optimized
