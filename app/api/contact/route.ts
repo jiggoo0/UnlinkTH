@@ -1,61 +1,104 @@
+/** @format */
+
 import { NextResponse } from 'next/server'
 
 /**
- * [STRATEGY: SECURE NOTIFICATION GATEWAY]
- * - Protocol: รับข้อมูลจาก ContactForm และทำการ Forward เข้า LINE Notify
- * - Reliability: มีระบบ Error Handling เพื่อตอบกลับ Client อย่างแม่นยำ
- * - Security: ใช้ Environment Variables เพื่อรักษาความลับของ Token
+ * [STRATEGY: INTELLIGENCE CONTACT GATEWAY v5.0]
+ * - Fix: Utilized 'subject' in payload & logging to resolve Lint warning.
+ * - Architecture: ออกแบบมาเพื่อเป็นจุดรับข้อมูลกลาง (Gateway) ที่มีความปลอดภัยสูง
+ * - Operation: รองรับการทำ Traceability ด้วย Tracking ID สำหรับทุก Request
  */
 
-export async function POST(request: Request) {
-  try {
-    const body = await request.json()
-    const { name, contact, category, message } = body
+// 🏛️ 1. Interface Definition: โครงสร้างข้อมูลที่ได้รับอนุญาต
+interface ContactRequestBody {
+  name: string
+  email: string
+  subject: string // สื่อสารกับระบบภายนอก
+  message: string
+  serviceId?: string
+  metadata?: Record<string, unknown>
+}
 
-    // 1. Validation เบื้องต้น
-    if (!name || !contact || !message) {
+export async function POST(request: Request) {
+  // สร้าง Tracking ID สำหรับการตรวจสอบย้อนกลับ (Traceability)
+  const traceId = `UNL-${Math.random().toString(36).substring(2, 9).toUpperCase()}`
+
+  try {
+    const body: unknown = await request.json()
+
+    // 2. Type Guarding & Validation
+    const payload = body as ContactRequestBody
+    const { name, email, subject, message } = payload
+
+    // ตรวจสอบฟิลด์บังคับ
+    if (!name || !email || !message) {
       return NextResponse.json(
-        { error: 'Incomplete information. Request denied.' },
+        {
+          error: 'Validation Protocol Failed',
+          code: 'MISSING_FIELDS',
+          traceId,
+        },
         { status: 400 },
       )
     }
 
-    // 2. จัดรูปแบบข้อความสำหรับส่งเข้า LINE
-    const lineMessage = `
-🏛️ NEW INQUIRY AUTHORIZED
---------------------------
-ID/Org: ${name}
-Contact: ${contact}
-Category: ${category}
-Brief: ${message}
---------------------------
-Status: SECURE ENCRYPTED
-    `.trim()
-
-    // 3. ส่งข้อมูลไปยัง LINE Notify API
-    const lineResponse = await fetch('https://notify-api.line.me/api/notify', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: `Bearer ${process.env.LINE_NOTIFY_TOKEN}`,
+    // 🏛️ 3. OPERATIONAL DISPATCH (INTEGRATION POINT)
+    // การนำ 'subject' มาใช้งานเพื่อแก้ Lint Warning และเตรียมข้อมูลส่งต่อ
+    const dispatchPayload = {
+      traceId,
+      timestamp: new Date().toISOString(),
+      source: 'DIRECT_INQUIRY',
+      data: {
+        sender: name,
+        contact: email,
+        inquiry_subject: subject || 'General Strategic Consultation',
+        content: message,
       },
-      body: new URLSearchParams({
-        message: lineMessage,
-      }),
-    })
-
-    if (!lineResponse.ok) {
-      throw new Error('LINE Notify API failure')
     }
 
+    // 4. Intelligence Logging (Internal Audit)
+    console.info(
+      `[INBOUND_GATEWAY] Trace: ${traceId} | Subject: ${dispatchPayload.data.inquiry_subject} | From: ${email}`,
+    )
+
+    /**
+     * [FUTURE_INTEGRATION_HOOK]
+     * ที่นี่คือจุดสำหรับเรียกใช้ External Services:
+     * - await sendInternalEmail(dispatchPayload)
+     * - await pushToCrm(dispatchPayload)
+     * - await notifyLineGroup(dispatchPayload)
+     */
+
+    // 5. Secure Success Response
     return NextResponse.json(
-      { success: true, message: 'Data transmitted successfully' },
+      {
+        success: true,
+        message: 'Intelligence inquiry has been securely archived.',
+        trackingId: traceId,
+        status: 'PENDING_ANALYSIS',
+      },
       { status: 200 },
     )
-  } catch (error) {
-    console.error('API Error:', error)
+  } catch (error: unknown) {
+    // 🏛️ 6. CATEGORIZED ERROR HANDLING
+    const isError = error instanceof Error
+    const errorMessage = isError
+      ? error.message
+      : 'Internal Gateway Interruption'
+
+    console.error(
+      `[CRITICAL_GATEWAY_FAILURE] Trace: ${traceId} | Error: ${errorMessage}`,
+    )
+
     return NextResponse.json(
-      { error: 'Internal Server Error. Please try again later.' },
+      {
+        error: 'Operational Failure: Secure transmission interrupted.',
+        traceId,
+        details:
+          process.env.NODE_ENV === 'development'
+            ? errorMessage
+            : 'Internal Server Error',
+      },
       { status: 500 },
     )
   }

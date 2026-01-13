@@ -4,73 +4,97 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { ArrowUpRight, ShieldCheck } from 'lucide-react'
-import { ServiceItem } from '@/types/service' // เปลี่ยนเป็น ServiceItem ตามที่เราย้ายไป
+import {
+  ArrowUpRight,
+  ShieldCheck,
+  Fingerprint,
+  type LucideIcon,
+} from 'lucide-react'
+import { ServiceItem } from '@/types/service'
 import { cn } from '@/lib/utils'
 
 /**
- * [STRATEGY: ARCHITECTURAL SERVICE CARD]
- * - Interaction: ใช้การขยายของเส้น (Line Expansion) เพื่อสื่อถึงการเติบโตและการแก้ไข
- * - Design: เน้นความคมชัดของขอบ (Sharp Edges) เพื่อความดูเป็นทางการ
+ * [STRATEGY: INSTITUTIONAL SERVICE CARD v5.0]
+ * - Fix: Resolved 'jsx-no-comment-textnodes' error by moving comments to JS expressions.
+ * - UX: ใช้ Ease-out-expo transition เพื่อความรู้สึกที่ Premium และ Responsive
+ * - Visual: แถบบ่งชี้สถานะด้านบนสื่อถึงการ 'Active' ระบบเมื่อมีการ Hover
  */
 
 interface ServiceCardProps {
   service: ServiceItem
-  icon: React.ReactNode
+  icon: LucideIcon
   className?: string
 }
 
-export function ServiceCard({ service, icon, className }: ServiceCardProps) {
+export function ServiceCard({
+  service,
+  icon: Icon,
+  className,
+}: ServiceCardProps) {
   return (
     <div
       className={cn(
-        'group relative flex h-full flex-col border border-slate-100 bg-white p-10 transition-all duration-500',
-        'hover:z-10 hover:-translate-y-2 hover:border-blue-600 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-blue-500',
-        'hover:shadow-[0_32px_64px_-16px_rgba(37,99,235,0.12)]',
+        'group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-slate-100 bg-white p-10 transition-all duration-700',
+        'hover:border-blue-600/20 hover:shadow-[0_32px_64px_-16px_rgba(0,112,243,0.12)] dark:border-slate-800 dark:bg-slate-950',
         className,
       )}
     >
-      {/* 🏛️ Decorative Line: ขยายจากขวาไปซ้ายเมื่อ Hover */}
-      <div className="absolute top-0 right-0 h-1 w-0 bg-blue-600 transition-all duration-500 ease-in-out group-hover:w-full" />
+      {/* 🏛️ 1. TOP INDICATOR: แถบสถานะที่จะ Active เมื่อ Hover */}
+      <div className="absolute top-0 right-0 h-[3px] w-0 bg-blue-600 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:w-full" />
 
-      {/* 🏛️ Icon Section */}
-      <div className="relative mb-10 flex h-16 w-16 items-center justify-center border border-slate-100 bg-slate-50 transition-all duration-500 group-hover:border-blue-600 group-hover:bg-blue-600 dark:border-slate-800 dark:bg-slate-900">
-        <div className="z-10 text-slate-950 transition-colors duration-500 group-hover:text-white dark:text-slate-400">
-          {icon}
+      {/* 🏛️ 2. METADATA: Internal Reference Tracking */}
+      <div className="mb-10 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-50 dark:bg-slate-900">
+            <Fingerprint size={14} className="text-blue-600/60" />
+          </div>
+          <span className="font-mono text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase">
+            REF-{service.id.padStart(2, '0')}
+            {/* Note: Internal Reference ID */}
+          </span>
         </div>
-        {/* Glow Effect */}
-        <div className="absolute inset-0 bg-blue-500 opacity-0 blur-2xl transition-opacity group-hover:opacity-20" />
+        <div className="translate-y-2 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+          <ShieldCheck size={18} className="text-emerald-500" />
+        </div>
       </div>
 
-      {/* 🏛️ Text Content */}
-      <div className="flex-grow">
-        <div className="mb-4 flex items-center gap-3">
-          <h3 className="text-xl leading-tight font-black tracking-tighter text-slate-950 uppercase dark:text-white">
-            {service.title}
-          </h3>
-          <div className="-translate-x-2 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100">
-            <ShieldCheck size={16} className="text-blue-600" />
-          </div>
+      {/* 🏛️ 3. ICONOGRAPHY: Squircle Design Core */}
+      <div className="relative mb-8 flex h-20 w-20 items-center justify-center rounded-[1.5rem] border border-slate-100 bg-white shadow-sm transition-all duration-700 group-hover:bg-blue-600 group-hover:shadow-[0_12px_24px_rgba(37,99,235,0.25)] dark:border-slate-800 dark:bg-slate-900">
+        <div className="z-10 text-blue-600 transition-colors duration-500 group-hover:text-white">
+          <Icon size={32} strokeWidth={1.25} />
         </div>
+      </div>
 
-        <p className="font-thai mb-8 line-clamp-3 text-[14px] leading-relaxed text-slate-500 transition-colors group-hover:text-slate-600 dark:text-slate-400 dark:group-hover:text-slate-300">
+      {/* 🏛️ 4. CONTENT AREA */}
+      <div className="flex-grow space-y-4">
+        <h3 className="font-sans text-2xl font-black tracking-tight text-slate-900 uppercase dark:text-white">
+          {service.title}
+        </h3>
+        <p className="font-thai line-clamp-3 text-[15px] leading-relaxed font-medium text-slate-500 transition-colors duration-500 group-hover:text-slate-700 dark:text-slate-400 dark:group-hover:text-slate-200">
           {service.description}
         </p>
       </div>
 
-      {/* 🏛️ Footer: Navigation */}
-      <div className="mt-auto border-t border-slate-50 pt-6 dark:border-slate-900">
+      {/* 🏛️ 5. ACCESS PROTOCOL: Action Footer */}
+      <div className="mt-12 border-t border-slate-50 pt-8 dark:border-slate-900">
         <Link
           href={`/services/${service.slug}`}
-          className="group/link inline-flex items-center gap-4 text-[11px] font-black tracking-[0.3em] text-slate-400 uppercase transition-all hover:text-blue-600 dark:text-slate-500 dark:hover:text-blue-400"
+          className="group/link flex items-center justify-between"
         >
-          <span className="relative">
-            Review Protocol
-            <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-blue-600 transition-all duration-300 group-hover/link:w-full" />
-          </span>
+          <div className="flex flex-col gap-1">
+            <span className="font-mono text-[9px] font-black tracking-[0.25em] text-blue-600 uppercase">
+              Access Protocol
+            </span>
+            <span className="font-thai text-[13px] font-bold text-slate-900 dark:text-white">
+              ตรวจสอบกระบวนการทำงาน
+            </span>
+          </div>
 
-          <div className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-100 bg-white transition-all duration-500 group-hover/link:rotate-45 group-hover/link:border-blue-600 group-hover/link:bg-blue-600 group-hover/link:text-white dark:border-slate-800 dark:bg-slate-900">
-            <ArrowUpRight size={14} />
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-100 bg-slate-50 transition-all duration-500 group-hover/link:border-blue-600 group-hover/link:bg-blue-600 group-hover/link:text-white dark:border-slate-800 dark:bg-slate-900">
+            <ArrowUpRight
+              size={20}
+              className="transition-transform duration-500 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+            />
           </div>
         </Link>
       </div>

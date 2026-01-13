@@ -1,6 +1,6 @@
 # 📁 รายงานโครงสร้างโปรเจกต์
 
-_สร้างเมื่อ: Mon Jan 12 06:23:48 +07 2026_
+_สร้างเมื่อ: Wed Jan 14 00:01:29 +07 2026_
 
 ## 🌳 Folder Structure
 
@@ -19,6 +19,7 @@ _สร้างเมื่อ: Mon Jan 12 06:23:48 +07 2026_
 📄 page.tsx
 📂 contact
 📄 page.tsx
+📄 layout.tsx
 📄 page.tsx
 📂 terms
 📄 page.tsx
@@ -39,6 +40,16 @@ _สร้างเมื่อ: Mon Jan 12 06:23:48 +07 2026_
 📄 error.tsx
 📄 robots.ts
 📄 not-found.tsx
+📂 (wiki-hub)
+📄 layout.tsx
+📂 wiki
+📂 [slug]
+📄 page.tsx
+📂 category
+📂 [slug]
+📄 page.tsx
+📄 page.tsx
+📄 layout.tsx
 📂 components
 📂 ui
 📄 button.tsx
@@ -60,19 +71,31 @@ _สร้างเมื่อ: Mon Jan 12 06:23:48 +07 2026_
 📄 form.tsx
 📂 layout
 📄 MainLayout.tsx
+📂 wiki
+📄 WikiLayout.tsx
+📄 WikiHero.tsx
+📄 WikiCard.tsx
+📄 WikiSidebar.tsx
+📄 WikiContent.tsx
+📄 WikiTableOfContents.tsx
+📄 WikiRelatedPosts.tsx
+📄 WikiBreadcrumbs.tsx
 📂 shared
 📄 trust-badge.tsx
 📄 StatsCounter.tsx
 📄 line-float.tsx
 📄 before-after-slider.tsx
 📄 theme-provider.tsx
+📄 grid-pattern.tsx
 📄 logo.tsx
 📄 whatsapp-float.tsx
-📄 google-analytics.tsx
+📄 confidentiality-seal.tsx
 📄 elements.tsx
 📄 section-heading.tsx
 📄 Footer.tsx
 📄 Navbar.tsx
+📄 legal-badge.tsx
+📄 confidentiality-banner.tsx
 📂 cases
 📄 ProjectCard.tsx
 📄 ProjectFilter.tsx
@@ -98,12 +121,14 @@ _สร้างเมื่อ: Mon Jan 12 06:23:48 +07 2026_
 📄 schema-helper.ts
 📂 constants
 📄 links.ts
+📄 wiki.ts
 📂 hooks
 📄 use-toast.tsx
 📂 types
 📄 service.ts
 📄 database.types.ts
 📄 project.ts
+📄 wiki.ts
 📂 scripts
 📄 clean-project.sh
 📂 dev
@@ -112,14 +137,13 @@ _สร้างเมื่อ: Mon Jan 12 06:23:48 +07 2026_
 📄 tree-projects.sh
 📄 pre-deploy-check.sh
 📂 public
-📄 robots.txt
 📂 images
 📄 grid-pattern.svg
 📄 og-main.jpg
 📂 projects
 📄 case-financial.jpg
-📄 case-identity-protection.jpg
 📄 case-privacy-recovery.jpg
+📄 case-second-chance.webp
 📄 case-rebalancing.jpg
 📂 data
 📂 case
@@ -134,6 +158,11 @@ _สร้างเมื่อ: Mon Jan 12 06:23:48 +07 2026_
 📄 service-map.ts
 📄 services-1.ts
 📄 services-2.ts
+📂 wiki
+📄 articles.ts
+📄 faq-data.ts
+📄 glossary.ts
+📄 legal-framework.ts
 
 ## 📦 ตรวจหา package.json
 
@@ -198,52 +227,8 @@ _สร้างเมื่อ: Mon Jan 12 06:23:48 +07 2026_
 
 ---
 
-🔍 ตรวจพบรายงานการตรวจสอบล่าสุด:
-
-✅ สถานะปัจจุบัน: **READY FOR DEPLOY**
-
-### 📍 Production Route Map
-
-````text
-```text
-Route (app)                                         Size  First Load JS
-┌ ○ /                                            8.68 kB         174 kB
-├ ○ /_not-found                                    138 B         101 kB
-├ ○ /about                                       5.42 kB         151 kB
-├ ƒ /api/contact                                   138 B         101 kB
-├ ƒ /api/line-notify                               138 B         101 kB
-├ ƒ /api/send-mail                                 138 B         101 kB
-├ ○ /cases                                       7.69 kB         156 kB
-├ ● /cases/[slug]                                9.36 kB         121 kB
-├   ├ /cases/financial-reputation-recovery
-├   ├ /cases/identity-protection-cleansing
-├   ├ /cases/personal-data-privacy-recovery
-├   └ /cases/contextual-information-rebalancing
-├ ○ /contact                                     4.31 kB         123 kB
-├ ○ /faq                                         3.91 kB         160 kB
-├ ○ /privacy                                     5.45 kB         144 kB
-├ ○ /robots.txt                                    138 B         101 kB
-├ ○ /services                                    3.15 kB         169 kB
-├ ● /services/[slug]                             2.38 kB         151 kB
-├   ├ /services/name-risk-audit
-├   ├ /services/single-link-management
-├   ├ /services/impersonation-account
-├   └ [+3 more paths]
-├ ○ /sitemap.xml                                   138 B         101 kB
-└ ○ /terms                                       3.68 kB         105 kB
-+ First Load JS shared by all                     101 kB
-  ├ chunks/0044af8c-d6052738d8f188a8.js          54.2 kB
-  ├ chunks/532-abc5cdace1c14129.js               45.2 kB
-  └ other shared chunks (total)                  1.93 kB
-○  (Static)   prerendered as static content
-●  (SSG)      prerendered as static HTML (uses generateStaticParams)
-ƒ  (Dynamic)  server-rendered on demand
-````
-
-```
-### ⚠️ Issues Highlight
-✅ ไม่พบปัญหาสำคัญในรายงานล่าสุด
+⚠️ ไม่พบไฟล์ pre-deploy-report.md กรุณารัน pre-deploy-check.sh ก่อน
 
 ---
+
 Status: Scanning process completed successfully.
-```

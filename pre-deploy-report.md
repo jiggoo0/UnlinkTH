@@ -1,5 +1,5 @@
 # 🚀 Pre-deploy Inspection Report
-Generated at: 2026-01-12 10:25:08
+Generated at: 2026-01-14 00:09:18
 Branch: main
 
 ## 🔐 1. Environment Check
@@ -15,30 +15,33 @@ Branch: main
 ### 📊 Route Statistics & Bundle Size
 ```text
 Route (app)                                         Size  First Load JS
-┌ ○ /                                            6.02 kB         177 kB
-├ ○ /_not-found                                    138 B         102 kB
-├ ○ /about                                       5.42 kB         152 kB
-├ ƒ /api/contact                                   138 B         102 kB
-├ ƒ /api/line-notify                               138 B         102 kB
-├ ƒ /api/send-mail                                 138 B         102 kB
-├ ○ /cases                                       4.94 kB         159 kB
-├ ● /cases/[slug]                                9.37 kB         121 kB
+┌ ○ /                                            13.1 kB         187 kB
+├ ○ /_not-found                                    141 B         102 kB
+├ ○ /about                                       8.85 kB         158 kB
+├ ƒ /api/contact                                   141 B         102 kB
+├ ƒ /api/line-notify                               141 B         102 kB
+├ ƒ /api/send-mail                                 141 B         102 kB
+├ ○ /cases                                       7.41 kB         165 kB
+├ ● /cases/[slug]                                10.1 kB         122 kB
 ├   ├ /cases/financial-reputation-recovery
 ├   ├ /cases/second-chance-reputation-protocol
 ├   ├ /cases/personal-data-privacy-recovery
 ├   └ /cases/contextual-information-rebalancing
-├ ○ /contact                                     4.32 kB         124 kB
-├ ○ /faq                                         3.91 kB         161 kB
-├ ○ /privacy                                     5.45 kB         145 kB
-├ ○ /robots.txt                                    138 B         102 kB
-├ ○ /services                                    3.15 kB         170 kB
-├ ● /services/[slug]                             2.38 kB         152 kB
+├ ○ /contact                                     8.27 kB         164 kB
+├ ○ /faq                                         7.04 kB         168 kB
+├ ○ /privacy                                      6.1 kB         145 kB
+├ ○ /robots.txt                                    141 B         102 kB
+├ ○ /services                                    6.65 kB         168 kB
+├ ● /services/[slug]                              2.6 kB         152 kB
 ├   ├ /services/name-risk-audit
-├   ├ /services/single-link-management
+├   ├ /services/google-de-indexing
 ├   ├ /services/impersonation-account
 ├   └ [+3 more paths]
-├ ○ /sitemap.xml                                   138 B         102 kB
-└ ○ /terms                                       3.68 kB         105 kB
+├ ○ /sitemap.xml                                   141 B         102 kB
+├ ○ /terms                                       5.64 kB         145 kB
+├ ○ /wiki                                          136 B         164 kB
+├ ƒ /wiki/[slug]                                 7.27 kB         157 kB
+└ ƒ /wiki/category/[slug]                          137 B         164 kB
 + First Load JS shared by all                     101 kB
   ├ chunks/0044af8c-d6052738d8f188a8.js          54.2 kB
   ├ chunks/532-d98d5e620fcae01a.js               45.3 kB

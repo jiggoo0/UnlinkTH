@@ -1,6 +1,6 @@
 # 📑 รายงานสรุปโปรเจกต์และบริบท AI (Full Context)
 
-_สร้างเมื่อ: 2026-01-12 06:24:27_
+_สร้างเมื่อ: 2026-01-13 07:47:53_
 
 > **Status:** Fresh Scan | รวมข้อมูลวิเคราะห์ Route & Code
 
@@ -13,33 +13,33 @@ _สร้างเมื่อ: 2026-01-12 06:24:27_
 ````text
 ```text
 Route (app)                                         Size  First Load JS
-┌ ○ /                                            8.68 kB         174 kB
-├ ○ /_not-found                                    138 B         101 kB
-├ ○ /about                                       5.42 kB         151 kB
-├ ƒ /api/contact                                   138 B         101 kB
-├ ƒ /api/line-notify                               138 B         101 kB
-├ ƒ /api/send-mail                                 138 B         101 kB
-├ ○ /cases                                       7.69 kB         156 kB
-├ ● /cases/[slug]                                9.36 kB         121 kB
+┌ ○ /                                            6.02 kB         177 kB
+├ ○ /_not-found                                    138 B         102 kB
+├ ○ /about                                       5.42 kB         152 kB
+├ ƒ /api/contact                                   138 B         102 kB
+├ ƒ /api/line-notify                               138 B         102 kB
+├ ƒ /api/send-mail                                 138 B         102 kB
+├ ○ /cases                                       4.94 kB         159 kB
+├ ● /cases/[slug]                                9.37 kB         121 kB
 ├   ├ /cases/financial-reputation-recovery
-├   ├ /cases/identity-protection-cleansing
+├   ├ /cases/second-chance-reputation-protocol
 ├   ├ /cases/personal-data-privacy-recovery
 ├   └ /cases/contextual-information-rebalancing
-├ ○ /contact                                     4.31 kB         123 kB
-├ ○ /faq                                         3.91 kB         160 kB
-├ ○ /privacy                                     5.45 kB         144 kB
-├ ○ /robots.txt                                    138 B         101 kB
-├ ○ /services                                    3.15 kB         169 kB
-├ ● /services/[slug]                             2.38 kB         151 kB
+├ ○ /contact                                     4.32 kB         124 kB
+├ ○ /faq                                         3.91 kB         161 kB
+├ ○ /privacy                                     5.45 kB         145 kB
+├ ○ /robots.txt                                    138 B         102 kB
+├ ○ /services                                    3.15 kB         170 kB
+├ ● /services/[slug]                             2.38 kB         152 kB
 ├   ├ /services/name-risk-audit
 ├   ├ /services/single-link-management
 ├   ├ /services/impersonation-account
 ├   └ [+3 more paths]
-├ ○ /sitemap.xml                                   138 B         101 kB
+├ ○ /sitemap.xml                                   138 B         102 kB
 └ ○ /terms                                       3.68 kB         105 kB
 + First Load JS shared by all                     101 kB
   ├ chunks/0044af8c-d6052738d8f188a8.js          54.2 kB
-  ├ chunks/532-abc5cdace1c14129.js               45.2 kB
+  ├ chunks/532-d98d5e620fcae01a.js               45.3 kB
   └ other shared chunks (total)                  1.93 kB
 ○  (Static)   prerendered as static content
 ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
@@ -53,10 +53,12 @@ Route (app)                                         Size  First Load JS
      56 tsx
      23 ts
       5 sh
-      5 jpg
+      4 jpg
+      1 webp
       1 txt
       1 svg
       1 ico
+      1 html
       1 css
 ````
 
@@ -172,13 +174,14 @@ Route (app)                                         Size  First Load JS
   📄 pre-deploy-check.sh
 📂 public
   📄 robots.txt
+  📄 googleb7d3dce206ee0fb0.html
   📂 images
     📄 grid-pattern.svg
     📄 og-main.jpg
     📂 projects
       📄 case-financial.jpg
-      📄 case-identity-protection.jpg
       📄 case-privacy-recovery.jpg
+      📄 case-second-chance.webp
       📄 case-rebalancing.jpg
 📂 data
   📂 case
@@ -199,73 +202,76 @@ Route (app)                                         Size  First Load JS
 
 #### 🔍 Path: ai-context.md
 
-```markdown
-# 🧠 AI_CONTEXT — UNLINKTH
+`````markdown
+📂 Master AI-Context: Online Reputation Management (ORM) Project 2026
 
-_(Human‑Centric + Technical Authority | Updated: 2026)_
+1. Project Overview & Strategic Goals
 
-## 🎯 วัตถุประสงค์สูงสุด (Core Objective)
+- Project Name: Unlink TH
+- Primary Goal: เสริมสร้างความเชื่อมั่น (Establishing Trust) และเปลี่ยนสถานะผู้เข้าชมที่กำลังเผชิญปัญหา "ข้อมูลเชิงลบในระบบดิจิทัล" ให้เป็นผู้รับคำปรึกษาผ่านกระบวนการที่เป็นมืออาชีพ
+- Target Audience: \* Individuals: บุคคลที่ถูกละเมิดความเป็นส่วนตัว หรือต้องการโอกาสครั้งที่สอง (Second Chance) ในสังคม
+  - Corporations: องค์กรที่ได้รับความเสียหายจากข้อมูลเท็จหรือการโจมตีทางไซเบอร์
 
-สร้างระบบและเนื้อหาที่ "เปลี่ยนความกังวลเป็นความเชื่อมั่น" AI ต้องสื่อสารเหมือนที่ปรึกษามืออาชีพที่กุมความลับของลูกค้าไว้ และเสนอทางออกที่มี "จุดจบชัดเจน" (Clear Outcome) โดยยึดถือความเป็นธรรมตามกฎหมายและเทคนิค SEO ระดับสูง
+2. Design Philosophy & UI/UX (Enterprise SaaS Standard)
 
----
+- Core Style: Clean, Minimalist, Systematic และเน้นความน่าเชื่อถือระดับสถาบันการเงิน
+- Visual Identity:
+  - Color Palette: \* #0A192F (Navy Blue): สื่อถึงความมั่นคงและความเป็นมืออาชีพ
+    - #0070F3 (Bright Blue): สื่อถึงความทันสมัยและนวัตกรรม
+    - #10B981 (Green): สื่อถึงความปลอดภัยและความสำเร็จ
+  - Components: การใช้ Card Design (Soft Shadows), ไอคอนเส้นบาง (Lucide React), และการแสดงผลด้วย Dashboards/Interactive Graphs เพื่อแสดงค่า Reputation Score
+- Tech Stack: Next.js 15 (App Router), Tailwind CSS 4.0, Framer Motion (Smooth Transitions), Shadcn/UI
 
-## 0️⃣ นิยามธุรกิจ (Core Business Definition)
+3. Tone, Voice & Anti-AI Content Strategy
 
-**UNLINKTH** = ที่ปรึกษาเชิงเทคนิคในการจัดการและจัดระเบียบข้อมูลออนไลน์ (Online Reputation Management - ORM)
+- The Persona: "The Empathetic Expert" (ผู้เชี่ยวชาญที่เปี่ยมด้วยความเข้าใจและเห็นใจ)
+- Tone Guidelines:
+  - Empathetic: ใช้ภาษาที่ปลอบโยน ให้เกียรติ และไม่ตัดสิน (Non-judgmental)
+  - Authoritative: อ้างอิงข้อกำหนดทางกฎหมายและเทคนิคเฉพาะทางอย่างแม่นยำ เช่น SEO Suppression, Right to be Forgotten, และ PDPA Compliance
+- Anti-AI Pattern (Human-Centric Content): \* No Clichés: ห้ามใช้ประโยคซ้ำซากเช่น "In today's digital age..." หรือ "Reputation is everything..."
+  - Hype-free: หลีกเลี่ยงคำโฆษณาที่เกินจริง (No Hyperbole)
+  - Rhythmic Prose: ใช้โครงสร้างประโยคสั้น-ยาวสลับกันเพื่อสร้างจังหวะการอ่านที่เป็นธรรมชาติ
+  - User-Centric: เน้นการสื่อสารโดยใช้คำว่า "คุณ" (Your future, Your privacy) เป็นหลัก
 
-- **วิกฤตของลูกค้า:** ข้อมูลในอดีต, ข่าวลบ, การถูกแอบอ้าง หรือข้อมูลที่ละเมิดความเป็นส่วนตัว (PDPA) ที่ขัดขวางโอกาสในอนาคต
-- **ทางแก้:** ผสานพลังระหว่าง "กฎหมายดิจิทัล" (สิทธิ์ในการถูกลืม) และ "เทคนิค SEO" (การแทนที่ข้อมูล)
-- **ผลลัพธ์:** คืนหน้าแรกของ Google ให้เป็นพื้นที่สีขาวเพื่อให้ลูกค้าเริ่มต้นใหม่ได้จริง
+4. Information Architecture (Sitemap)
 
----
+- Home: Hero Section (Outcome-driven), Trust Badges (Social Proof), Solution Grid, Process (4-Step Workflow)
+- Services: แยกหมวดหมู่ชัดเจน (e.g., De-indexing Service, Review Management, Profile Protection)
+- Case Studies: เน้น Success Stories โดยใช้ชื่อโปรเจกต์นามธรรมเพื่อรักษาความลับ (e.g., Case: Financial Reputation Recovery)
+- Security & Privacy: เน้นย้ำนโยบาย Confidentiality 100% และการทำ NDA (Non-disclosure Agreement)
 
-## 1️⃣ กฎการสื่อสารและการเขียนเนื้อหา (Messaging Rules)
+5. Technical Implementation & Conversion
 
-- **The "Responsible Delete" Framework:** - ห้ามการันตีเกินจริง (No 100% Guarantee): ห้ามใช้คำว่า "ลบได้ทุกอย่าง" หรือ "ลบถาวรทุกกรณี"
-  - ให้ใช้คำว่า "จัดการ" และ "ควบคุม": เช่น "จัดการข้อมูลที่ไม่เป็นธรรม" หรือ "ควบคุมผลการค้นหาเพื่อคืนภาพลักษณ์ใหม่"
-- **Authority Logic:** อธิบายด้วยเหตุผลเสมอ เช่น "เราใช้เทคนิค SEO Displacement เพื่อดันลิงก์ดีทับลิงก์เสียตามกลไกของ Google"
-- **Long-tail Focus:** เน้นการตอบโจทย์ปัญหาจริง เช่น _"วิธีจัดการเมื่อโดนแฉออนไลน์"_ หรือ _"ลบชื่อออกจากผลการค้นหา Google"_
-- **Tone & Voice:** - **Empathy First:** เข้าใจความทุกข์ของลูกค้า
-  - **Authority Second:** เด็ดขาดและชัดเจนในแนวทางแก้ไข
-  - **Confidential Always:** สื่อสารว่าทุกอย่างคือความลับสูงสุด
+- Form System: Multi-step Form (React Hook Form + Zod) เพื่อลด Cognitive Load ของลูกค้า
+- Conversion Hooks: Sticky Navbar พร้อม CTA ที่เด่นชัด และ Floating Support Button (Line/WhatsApp)
+- SEO Strategy: เน้น Semantic HTML และ Targeting Keywords เช่น "ลบประวัติเสียบน Google", "จัดการชื่อเสียงออนไลน์", "การใช้สิทธิถูกลืม"
 
----
+6. Prompting Instructions for AI (Strict Compliance)
+   6.1 For Content Creation
 
-## 2️⃣ มาตรฐานงานเทคนิค (Technical Stack & API)
+- "ให้ยึดหลัก Empathetic Expert Tone เสมอ ห้ามนำเสนอเนื้อหาที่ดูเป็นสแปมหรือสัญญาในสิ่งที่ผิดกฎหมาย"
+- "เน้นการสื่อสารเรื่องการใช้สิทธิตามกฎหมายความเป็นส่วนตัวและเทคนิค SEO ขั้นสูง (White-hat techniques)"
+  6.2 For Technical Development
+- "ใช้ shadcn/ui และเน้นการเขียน Code ที่รองรับ Responsive Design เป็นอันดับแรก"
+- "โค้ดต้องรองรับ Next.js Optimization (Image priority, Minimal client-side JS) เพื่อผลลัพธ์ Core Web Vitals ที่ดีเยี่ยม"
 
-- **Framework:** Next.js 15.5.7 (App Router) + React 19
-- **Language:** TypeScript (Strict Mode) - _Type-safe is a must_
-- **Styling:** Tailwind CSS v4 + shadcn/ui (Minimalist Professionalism)
-- **Backend:** Supabase (SSR + Storage) + Security Headers เข้มงวด
-- **SEO Architecture:** - ควบคุมผ่าน `sitemap.ts`, `robots.ts`
-  - ใช้ `canonical` URL ทุกหน้าเพื่อป้องกัน Duplicate Content
-  - รองรับ Dynamic Routes `[slug]` สำหรับ Services และ Case Studies
+7. Psychological Triggers & Terminology
 
----
-
-## 3️⃣ ข้อตกลงการเขียนโค้ด (Code Behavior Contract)
-
-- **Full Delivery:** ส่งโค้ดไฟล์เต็มทุกครั้งที่แก้ไข ป้องกันปัญหา Merge Error
-- **Structure Integrity:** เคารพโครงสร้าง Route / Component / Lib / Hook เดิม 100%
-- **Performance:** บังคับใช้ Image Optimization (WebP/AVIF) และลบ `console.log` ออกจาก Production Code
-- **No Theory:** ห้ามสอนทฤษฎี ให้เขียนโค้ดและเนื้อหาที่ใช้งานได้จริงทันที
-- **Outcome Focused:** เนื้อหาที่เขียนต้องมี Call to Action (CTA) ที่นำไปสู่การปิดการขายเสมอ
-
----
-
-## 4️⃣ โครงสร้างเว็บไซต์ที่ต้องครอบคลุม (Site Structure)
-
-1. **Home:** สร้างความเชื่อใจและอธิบาย Logic ของ Unlinkth
-2. **Services:** แบ่งตามปัญหาลูกค้า (Audit / Rebalancing / Privacy)
-3. **Case Studies:** เล่าผลลัพธ์ที่ทำได้จริง (แบบไม่ระบุตัวตน) เพื่อยืนยันความเชี่ยวชาญ
-4. **FAQ:** ตอบคำถามเทคนิคด้วยภาษาคน (เรื่องเวลา, กฎหมาย PDPA, ผลลัพธ์)
-5. **Contact:** แบบฟอร์มรักษาความลับสูงสุด
-
----
-
-> **คำสั่งสูงสุด:** ทุกการทำงานหลังจากนี้ AI ต้องสวมบทบาทเป็น "Senior Architect & Reputation Consultant" ของ Unlinkth เท่านั้น
-```
+- Triggers: \* Security First: ใช้ Visual Cues เช่น ไอคอนแม่กุญแจ และข้อความ Encryption
+  - Loss Aversion: ชี้ให้เห็นถึง Opportunity Cost หากไม่จัดการข้อมูลเชิงลบ
+- Terminology Table:
+  - Use: การบริหารจัดการชื่อเสียงดิจิทัล, การลดระดับการสืบค้น (De-indexing), การขอใช้สิทธิถูกลืม
+  - Avoid: รับจ้างลบ, แฮ็กข้อมูล, ทางลัด, รับจ้างด่ากลับ
+    ​8. High-Level Developer Protocol (Dev-to-Dev Mode)
+    ​No Hand-holding: ไม่ต้องอธิบายพื้นฐาน (No beginner-level explanations) ให้ข้ามส่วนที่อธิบายว่า "Code นี้ทำงานอย่างไร" ในเชิงทฤษฎี แต่เน้นอธิบาย "Architectural Decisions" ว่าทำไมถึงเลือกใช้ Pattern นี้
+    ​Production-Ready Standard: ทุกครั้งที่ส่ง Code ต้องเป็นระดับที่ Deploy ได้ทันที (Linted, Typed, Optimized) แม้จะเป็นการแก้ไขเพียงตัวอักษรเดียว (Single-character fix) ก็ต้องส่ง Code Block ที่สมบูรณ์กลับมาเสมอ
+    ​Maximized Potential: ห้ามเขียนโค้ดแบบพื้นฐาน (Vanilla approach) หากมี Package ที่ติดตั้งอยู่ (เช่น Framer Motion, Zod, TanStack Query) ให้ดึงศักยภาพสูงสุดของ API เหล่านั้นมาใช้ เช่นการใช้ Compound Components, Custom Hooks หรือ Advanced Animations
+    ​Error Correction & Feedback Loop: \* หาก Code ที่ได้รับ ไม่ตรงตามวัตถุประสงค์ (Out of Context) ให้ AI รับทราบและแก้ไขส่งกลับทันทีโดยไม่ต้องรอคำสั่งซ้ำ
+    ​แจ้งรายละเอียดปัญหาที่เกิดขึ้น (Bug/Logic mismatch) ในรูปแบบ Technical Log สั้นๆ ก่อนเริ่มส่งโค้ดชุดใหม่
+    ​Scalable Ideas: เสนอแนวทางที่ต่อยอดได้จริง (Scalable/Maintainable) เช่นการทำ Dynamic Slots หรือการรองรับ Multi-tenancy ในอนาคต
+    ​9. Failure Handling & Instant Correction
+    ​Conflict Resolution: หากมีการขัดกันระหว่าง UI Design และ Logic ให้ยึดความปลอดภัยของข้อมูล (Security/Privacy) และ Conversion Rate เป็นลำดับความสำคัญสูงสุด
+    ​Code Quality Refusal: หาก AI พบว่าวิธีการที่ผู้ใช้เสนออาจทำให้ประสิทธิภาพลดลง (Sub-optimal) AI ต้องแย้งด้วยเหตุผลทางเทคนิคและเสนอทางเลือกที่ดีกว่าทันที```
 
 ---
 
@@ -274,7 +280,7 @@ _(Human‑Centric + Technical Authority | Updated: 2026)_
 ````markdown
 # 🚀 Pre-deploy Inspection Report
 
-Generated at: 2026-01-12 06:18:07
+Generated at: 2026-01-12 10:25:08
 Branch: main
 
 ## 🔐 1. Environment Check
@@ -301,33 +307,33 @@ Branch: main
 
 ```text
 Route (app)                                         Size  First Load JS
-┌ ○ /                                            8.68 kB         174 kB
-├ ○ /_not-found                                    138 B         101 kB
-├ ○ /about                                       5.42 kB         151 kB
-├ ƒ /api/contact                                   138 B         101 kB
-├ ƒ /api/line-notify                               138 B         101 kB
-├ ƒ /api/send-mail                                 138 B         101 kB
-├ ○ /cases                                       7.69 kB         156 kB
-├ ● /cases/[slug]                                9.36 kB         121 kB
+┌ ○ /                                            6.02 kB         177 kB
+├ ○ /_not-found                                    138 B         102 kB
+├ ○ /about                                       5.42 kB         152 kB
+├ ƒ /api/contact                                   138 B         102 kB
+├ ƒ /api/line-notify                               138 B         102 kB
+├ ƒ /api/send-mail                                 138 B         102 kB
+├ ○ /cases                                       4.94 kB         159 kB
+├ ● /cases/[slug]                                9.37 kB         121 kB
 ├   ├ /cases/financial-reputation-recovery
-├   ├ /cases/identity-protection-cleansing
+├   ├ /cases/second-chance-reputation-protocol
 ├   ├ /cases/personal-data-privacy-recovery
 ├   └ /cases/contextual-information-rebalancing
-├ ○ /contact                                     4.31 kB         123 kB
-├ ○ /faq                                         3.91 kB         160 kB
-├ ○ /privacy                                     5.45 kB         144 kB
-├ ○ /robots.txt                                    138 B         101 kB
-├ ○ /services                                    3.15 kB         169 kB
-├ ● /services/[slug]                             2.38 kB         151 kB
+├ ○ /contact                                     4.32 kB         124 kB
+├ ○ /faq                                         3.91 kB         161 kB
+├ ○ /privacy                                     5.45 kB         145 kB
+├ ○ /robots.txt                                    138 B         102 kB
+├ ○ /services                                    3.15 kB         170 kB
+├ ● /services/[slug]                             2.38 kB         152 kB
 ├   ├ /services/name-risk-audit
 ├   ├ /services/single-link-management
 ├   ├ /services/impersonation-account
 ├   └ [+3 more paths]
-├ ○ /sitemap.xml                                   138 B         101 kB
+├ ○ /sitemap.xml                                   138 B         102 kB
 └ ○ /terms                                       3.68 kB         105 kB
 + First Load JS shared by all                     101 kB
   ├ chunks/0044af8c-d6052738d8f188a8.js          54.2 kB
-  ├ chunks/532-abc5cdace1c14129.js               45.2 kB
+  ├ chunks/532-d98d5e620fcae01a.js               45.3 kB
   └ other shared chunks (total)                  1.93 kB
 
 
@@ -336,6 +342,9 @@ Route (app)                                         Size  First Load JS
 ƒ  (Dynamic)  server-rendered on demand
 ```
 ````
+`````
+
+```
 
 ---
 
@@ -345,10 +354,12 @@ Route (app)                                         Size  First Load JS
 
 All protocols verified: Lint passed, Types safe, and Build successful. Deployment is highly recommended.
 
-````
+```
+
 ---
 
 #### 🔍 Path: app/globals.css
+
 ```css
 @import 'tailwindcss';
 
@@ -481,7 +492,7 @@ All protocols verified: Lint passed, Types safe, and Build successful. Deploymen
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-````
+```
 
 ---
 
@@ -505,6 +516,8 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
+  preload: true,
+  fallback: ['system-ui', 'sans-serif'],
 })
 
 const kanit = Kanit({
@@ -512,60 +525,64 @@ const kanit = Kanit({
   weight: ['300', '400', '500', '700'],
   variable: '--font-kanit',
   display: 'swap',
+  preload: true,
+  fallback: ['Tahoma', 'sans-serif'],
 })
 
 /**
- * [STRATEGY: HUMAN-CENTRIC SEO FOUNDATION]
- * - ปรับเปลี่ยน Metadata ให้เน้นปัญหาของลูกค้า (Long-tail Intent)
- * - กำหนดความปลอดภัยด้วย Robots tags เพื่อสร้าง Technical Authority
+ * [STRATEGY: CANONICAL AUTHORITY]
+ * - ปรับ metadataBase ให้ตรงกับโดเมนที่ใช้งานจริงเพื่อความถูกต้องของ Social Graph
+ * - ใช้ URL: https://unlink-th.vercel.app
  */
-
 export const metadata: Metadata = {
   title: {
     default:
-      'UnlinkTH | ที่ปรึกษาจัดการชื่อเสียงและลบข้อมูลออนไลน์เพื่อโอกาสใหม่ในชีวิต',
-    template: '%s | UnlinkTH Management',
+      'UnlinkTH | ที่ปรึกษาจัดการข้อมูลออนไลน์และสิทธิ์ในการถูกลืม (PDPA)',
+    template: '%s | UnlinkTH Reputation Management',
   },
   description:
-    'จัดการข้อมูลออนไลน์ที่กระทบชื่อเสียงและโอกาสในชีวิตของคุณอย่างมืออาชีพ ด้วยเทคนิค SEO Displacement และสิทธิ์ตามกฎหมาย PDPA เพื่อการเริ่มต้นใหม่ที่ปลอดภัยและเป็นความลับ',
+    'เราช่วยคุณควบคุมผลการค้นหาและจัดการชื่อเสียงออนไลน์ (ORM) ภายใต้กฎหมาย PDPA เพื่อปกป้องความเป็นส่วนตัวและกู้คืนโอกาสทางธุรกิจ ข้อมูลของคุณเป็นความลับสูงสุด (NDA Standard)',
   keywords: [
-    'วิธีลบชื่อออกจาก Google',
+    'วิธีจัดการชื่อเสียในกูเกิล',
     'ลบประวัติเสียออนไลน์',
-    'จัดการชื่อเสียงออนไลน์ (ORM)',
-    'ที่ปรึกษาลบข่าวเสียหาย',
-    'กู้คืนภาพลักษณ์ดิจิทัล',
-    'กฎหมาย PDPA ลบข้อมูล',
+    'Right to be forgotten Thailand',
+    'ที่ปรึกษาจัดการชื่อเสียงออนไลน์',
+    'PDPA ลบข้อมูลส่วนบุคคล',
+    'SEO Displacement Service',
   ],
-  authors: [{ name: 'UnlinkTH Team' }],
+  authors: [{ name: 'UnlinkTH Professional Team' }],
+  // ✅ อัปเดต metadataBase เป็น Vercel Domain ตามคำสั่ง
   metadataBase: new URL('https://unlink-th.vercel.app'),
   alternates: {
-    canonical: 'https://unlink-th.vercel.app', // ✅ บังคับให้ Google สนใจโดเมนนี้เป็นหลัก
+    canonical: 'https://unlink-th.vercel.app',
   },
-  // ✅ เพิ่มการจัดการ Icons ให้ครบถ้วน
   icons: {
-    icon: '/icon.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png' },
+    ],
     apple: '/apple-icon.png',
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
   openGraph: {
     type: 'website',
     locale: 'th_TH',
     url: 'https://unlink-th.vercel.app',
-    title: 'UnlinkTH | คืนสิทธิ์ในการถูกจดจำ ในแบบที่คุณต้องการ',
+    title: 'UnlinkTH | จัดการตัวตนดิจิทัลของคุณให้ถูกต้องตามกฎหมาย',
     description:
-      'ที่ปรึกษาเฉพาะทางด้านการจัดการชื่อเสียงออนไลน์ จัดการข่าวเสียและปกป้องความเป็นส่วนตัว',
+      'ปกป้องชื่อเสียงออนไลน์ด้วยทีมผู้เชี่ยวชาญด้านกฎหมายและเทคโนโลยีการจัดการข้อมูล',
     siteName: 'UnlinkTH',
-    images: [{ url: '/images/og-main.jpg', width: 1200, height: 630 }],
+    images: [
+      {
+        url: '/images/og-main.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'UnlinkTH Reputation Protocol',
+      },
+    ],
   },
 }
 
@@ -576,6 +593,7 @@ export const viewport: Viewport = {
   ],
   width: 'device-width',
   initialScale: 1,
+  maximumScale: 5,
 }
 
 export default function RootLayout({
@@ -597,8 +615,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          'bg-background font-thai min-h-screen antialiased',
-          'selection:bg-blue-600/10 selection:text-blue-600',
+          'bg-background font-thai min-h-screen antialiased transition-colors duration-300',
           inter.variable,
           kanit.variable,
         )}
@@ -606,21 +623,22 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          enableSystem
+          enableSystem={false}
           disableTransitionOnChange
         >
-          <Suspense fallback={null}>
+          <Suspense fallback={<div className="bg-background min-h-screen" />}>
             <MainLayout>{children}</MainLayout>
           </Suspense>
 
           <LineFloat />
 
           <Toaster
-            position="bottom-right" // ✅ ปรับตำแหน่งให้ไม่บัง Navigation ในมือถือ
+            position="bottom-right"
             expand={false}
             richColors
             closeButton
             theme="light"
+            style={{ zIndex: 9999 }}
           />
         </ThemeProvider>
       </body>
@@ -1070,23 +1088,27 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 #### 🔍 Path: next.config.ts
 
 ```typescript
+/** @format */
+
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   /* 1. การจัดการรูปภาพ (Image Optimization) */
   images: {
-    formats: ['image/avif', 'image/webp'], // ใช้ฟอร์แมตสมัยใหม่เพื่อลดขนาดไฟล์ < 150KB
-    deviceSizes: [640, 750, 828, 1080, 1200], // กำหนดขนาดรูปตามอุปกรณ์
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [375, 640, 750, 828, 1080, 1200], // เพิ่ม 375px สำหรับ Mobile LCP ที่เล็กลง
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.supabase.co', // รองรับรูปภาพ Case Study จาก Supabase Storage
+        hostname: '**.supabase.co',
       },
       {
         protocol: 'https',
-        hostname: 'lh3.googleusercontent.com', // รองรับรูปโปรไฟล์ Google (ถ้ามีระบบรีวิว)
+        hostname: 'lh3.googleusercontent.com',
       },
     ],
+    minimumCacheTTL: 60, // เพิ่มการ Cache รูปภาพเพื่อลดภาระ Server
   },
 
   /* 2. ความปลอดภัย (Security Headers) */
@@ -1097,19 +1119,25 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'X-Frame-Options',
-            value: 'DENY', // ป้องกันการถูกนำเว็บไปใส่ใน iframe (Clickjacking)
+            value: 'DENY',
           },
           {
             key: 'X-Content-Type-Options',
-            value: 'nosniff', // ป้องกันการเดาประเภทไฟล์
+            value: 'nosniff',
           },
           {
             key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
+            value: 'strict-origin-when-cross-origin', // ปรับให้เข้มงวดขึ้นเพื่อรักษาความลับลูกค้า
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()', // ปิดการเข้าถึงฮาร์ดแวร์ที่ไม่จำเป็น
+            value:
+              'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+          },
+          {
+            key: 'Content-Security-Policy', // ป้องกัน XSS เบื้องต้น
+            value:
+              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co;",
           },
         ],
       },
@@ -1118,35 +1146,57 @@ const nextConfig: NextConfig = {
 
   /* 3. ประสิทธิภาพและการตั้งค่า Build */
   experimental: {
-    // ปรับปรุงการจัดการสแต็ก Server Actions
+    // ปรับปรุงการจัดการ Bundle ขนาดเล็ก
+    optimizePackageImports: [
+      'lucide-react',
+      'framer-motion',
+      '@radix-ui/react-icons',
+      'clsx',
+      'tailwind-merge',
+    ],
     serverActions: {
-      bodySizeLimit: '2mb', // จำกัดขนาดการอัปโหลดไฟล์หลักฐาน (สลิป/รูปภาพแบล็กลิสต์)
+      bodySizeLimit: '4mb', // ขยับเป็น 4mb สำหรับรูปภาพหลักฐานความละเอียดสูง
+      allowedOrigins: ['unlinkth.com', '*.unlinkth.com'], // เพิ่มความปลอดภัยให้ Server Actions
     },
   },
 
-  // ข้ามขั้นตอนการเช็คบางอย่างตอน Build เพื่อความรวดเร็ว (แต่ควรเช็คผ่าน CI/CD)
+  // มาตรฐานความปลอดภัยของ Code
   typescript: {
-    ignoreBuildErrors: false, // แนะนำให้เปิดไว้เป็น false เพื่อความเป๊ะของ Type
+    ignoreBuildErrors: false,
   },
   eslint: {
-    ignoreDuringBuilds: true, // ช่วยให้ Deploy บน Vercel ได้เร็วขึ้น
+    ignoreDuringBuilds: false, // แนะนำให้เป็น false เพื่อรักษามาตรฐาน Code Quality ของ Unlinkth
   },
 
-  /* 4. การจัดการ Redirects (ถ้ามี) */
+  /* 4. การจัดการ Redirects */
   async redirects() {
     return [
       {
         source: '/home',
         destination: '/',
-        permanent: true, // ทำ SEO Redirect จากหน้า /home ไปที่ root
+        permanent: true,
       },
     ]
   },
 
-  // ปรับปรุงการทำงานของ Compiler
+  /* 5. Compiler & Minification */
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production', // ลบ console.log ออกในโปรดักชัน
+    removeConsole:
+      process.env.NODE_ENV === 'production'
+        ? {
+            exclude: ['error', 'warn'], // เก็บ error/warn ไว้สำหรับ Debugging ใน Production
+          }
+        : false,
   },
+
+  // เปิดใช้การบีบอัดไฟล์สูงสุด
+  compress: true,
+
+  // ปิดการแสดงผล Powered By Next.js เพื่อความปลอดภัย (Obscurity)
+  poweredByHeader: false,
+
+  // บังคับใช้ React Strict Mode เพื่อความเสถียรของ State
+  reactStrictMode: true,
 }
 
 export default nextConfig

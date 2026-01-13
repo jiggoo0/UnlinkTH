@@ -2,120 +2,137 @@
 
 'use client'
 
-import * as React from 'react'
+import React from 'react'
 import { PricingTier } from './PricingTier'
 import { SectionHeading } from '@/components/shared/section-heading'
 import { faqData } from '@/data/faq'
 import { allServices } from '@/data/services/all-services'
 import {
   Accordion,
-  AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  AccordionContent,
 } from '@/components/ui/accordion'
-import { Lock, EyeOff } from 'lucide-react'
+import { Lock, EyeOff, Terminal, type LucideIcon } from 'lucide-react'
 
 /**
- * [STRATEGY: THE TRUSTED ARCHITECT]
- * - ใช้ Dynamic Data จาก allServices เพื่อความแม่นยำของข้อมูล
- * - เน้นความโปร่งใสเรื่อง NDA ด้วยสถานะ Active Visualizer
- * - Clean Code: ลบ Unused Icons (ShieldCheck, HelpCircle, ArrowRight) เพื่อผ่าน Lint
+ * [STRATEGY: INSTITUTIONAL PRICING v5.1]
+ * - Fix: Resolved TS2322 by renaming 'isHighlighted' to 'highlight' to match PricingTierProps.
+ * - Integrity: Maintaining zero-any policy with SecurityCardProps.
  */
 
+interface SecurityCardProps {
+  readonly id: string
+  readonly icon: LucideIcon
+  readonly title: string
+  readonly description: string
+}
+
 export function PricingSection() {
-  // กรองเฉพาะบริการหลักที่ต้องการโชว์ในหน้า Pricing
+  // กรองเฉพาะ Service ที่ต้องการแสดงผล (01, 05, 06)
   const displayServices = allServices.filter((s) =>
     ['01', '05', '06'].includes(s.id),
   )
 
   return (
-    <section className="bg-white py-32 selection:bg-blue-100 dark:bg-slate-950">
-      <div className="container mx-auto max-w-6xl px-6">
-        {/* 🏛️ Header: Strategic Positioning */}
-        <div className="mb-20 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
+    <section className="relative overflow-hidden bg-white py-32 selection:bg-blue-600/10 lg:py-48 dark:bg-slate-950">
+      {/* 🧩 Background: Engineering Grid */}
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-[0.03] dark:opacity-[0.05]">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:40px_40px]" />
+      </div>
+
+      <div className="relative z-10 container mx-auto max-w-7xl px-6">
+        {/* 🏛️ 1. HEADER: Strategic Positioning */}
+        <div className="mb-24 flex flex-col items-start justify-between gap-10 lg:flex-row lg:items-end">
           <SectionHeading
-            badge="Service Packages"
+            badge="Operational Fees"
             title="Protocol & Pricing"
-            description="เราเริ่มต้นด้วยการประเมินความเป็นไปได้ตามจริง เพื่อหาทางออกที่ยั่งยืนที่สุดสำหรับคุณ"
-            className="mb-0 max-w-2xl"
+            description="การประเมินเคสตามความซับซ้อนและนโยบายแพลตฟอร์ม เพื่อมอบโซลูชันที่มีประสิทธิภาพสูงสุดภายใต้มาตรฐานความปลอดภัยระดับสถาบัน"
+            className="mb-0 max-w-3xl"
           />
-          <div className="flex items-center gap-4 rounded-full border border-blue-100 bg-blue-50/50 px-6 py-3 dark:border-blue-900/30 dark:bg-blue-900/10">
-            <div className="relative flex h-2 w-2">
+
+          {/* NDA Status Indicator */}
+          <div className="flex items-center gap-5 rounded-2xl border border-blue-100 bg-blue-50/30 px-8 py-5 dark:border-blue-900/30 dark:bg-blue-900/10">
+            <div className="relative flex h-3 w-3">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+              <span className="relative inline-flex h-3 w-3 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.4)]"></span>
             </div>
-            <span className="text-[10px] font-black tracking-[0.3em] text-blue-900 uppercase dark:text-blue-400">
-              Strict NDA Compliance Active
-            </span>
+            <div className="space-y-1">
+              <p className="font-mono text-[10px] leading-none font-black tracking-[0.3em] text-blue-600 uppercase">
+                Data Sovereignty
+              </p>
+              <p className="font-mono text-[11px] leading-none font-bold text-slate-900 uppercase dark:text-white">
+                NDA Strict Protocol Active
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* 🏛️ Pricing Grid: Tactical Options */}
-        <div className="mb-24 grid grid-cols-1 gap-6 md:grid-cols-3">
+        {/* 🏛️ 2. PRICING GRID: Selection Tier */}
+        <div className="mb-32 grid grid-cols-1 gap-8 md:grid-cols-3">
           {displayServices.map((service) => (
             <PricingTier
               key={service.id}
               name={service.title}
               price={
                 service.id === '01'
-                  ? `เริ่ม ${service.price.min.toLocaleString()}`
-                  : 'Custom Quote'
+                  ? `฿${service.price.min.toLocaleString()}`
+                  : 'Custom'
               }
+              unit={service.id === '01' ? '/case' : '/project'}
               description={service.tagline || service.description}
               features={service.features}
-              isHighlighted={service.popular}
+              highlight={service.popular} // แก้จาก isHighlighted เป็น highlight
               ctaText={
-                service.id === '01' ? 'เริ่มการประเมิน' : 'ปรึกษาผู้เชี่ยวชาญ'
+                service.id === '01' ? 'Start Assessment' : 'Consult Specialist'
               }
             />
           ))}
         </div>
 
-        {/* 🏛️ Trust Signals: Technical Sovereignty */}
-        <div className="mb-32 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-slate-100 bg-slate-100 shadow-2xl dark:border-slate-800 dark:bg-slate-900">
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="bg-white p-12 transition-colors hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900/50">
-              <Lock size={20} className="mb-6 text-blue-600" />
-              <h4 className="mb-4 text-[11px] font-black tracking-[0.3em] text-slate-900 uppercase dark:text-white">
-                Zero-Access Policy
-              </h4>
-              <p className="font-thai text-[14px] leading-relaxed text-slate-500 dark:text-slate-400">
-                เราทำงานผ่านช่องทางเทคนิคและกฎหมายของแพลตฟอร์มเท่านั้น
-                ไม่มีความจำเป็นต้องขอรหัสผ่านหรือเข้าถึงความเป็นส่วนตัวของคุณ
-              </p>
-            </div>
-            <div className="border-t border-slate-100 bg-white p-12 transition-colors hover:bg-slate-50 md:border-t-0 md:border-l dark:border-slate-900 dark:bg-slate-950 dark:hover:bg-slate-900/50">
-              <EyeOff size={20} className="mb-6 text-blue-600" />
-              <h4 className="mb-4 text-[11px] font-black tracking-[0.3em] text-slate-900 uppercase dark:text-white">
-                Ephemeral Data Handling
-              </h4>
-              <p className="font-thai text-[14px] leading-relaxed text-slate-500 dark:text-slate-400">
-                ข้อมูลทุกอย่างที่ใช้ในกระบวนการจะถูกทำลายทันทีที่ปิดเคส
-                ไม่มีการจัดเก็บข้อมูลลูกค้าเพื่อความปลอดภัยสูงสุดในระยะยาว
-              </p>
-            </div>
+        {/* 🏛️ 3. SECURITY FRAMEWORK */}
+        <div className="mb-40 overflow-hidden rounded-[2.5rem] border border-slate-100 bg-slate-50 shadow-sm dark:border-slate-800 dark:bg-slate-800">
+          <div className="grid grid-cols-1 gap-px bg-slate-100 md:grid-cols-2 dark:bg-slate-800">
+            <SecurityCard
+              id="01"
+              icon={Lock}
+              title="Zero-Access Policy"
+              description="เราทำงานผ่านช่องทางเทคนิคและกฎหมายของแพลตฟอร์มเท่านั้น ไม่มีนโยบายขอรหัสผ่านหรือเข้าถึงข้อมูลส่วนตัวในทุกกรณี"
+            />
+            <SecurityCard
+              id="02"
+              icon={EyeOff}
+              title="Ephemeral Handling"
+              description="ข้อมูลประเมินเคสทั้งหมดจะถูกทำลายทิ้งทันที (Data Purged) เมื่อภารกิจเสร็จสิ้นตามมาตรฐาน Security Lifecycle"
+            />
           </div>
         </div>
 
-        {/* 🏛️ FAQ: Clarity Protocol */}
-        <div className="mx-auto max-w-3xl">
-          <div className="mb-16 text-center">
-            <h3 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">
-              ความชัดเจนคือจุดเริ่มต้นของความไว้ใจ
+        {/* 🏛️ 4. CLARITY ACCORDION: Final Conversion */}
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-16 flex flex-col items-center gap-4 text-center">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600/10 text-blue-600">
+              <Terminal size={28} strokeWidth={1.5} />
+            </div>
+            <h3 className="text-3xl font-black tracking-tight text-slate-900 uppercase dark:text-white">
+              Clarity Protocol
             </h3>
+            <p className="font-medium text-slate-500">
+              คำถามที่พบบ่อยเกี่ยวกับการประเมินราคาและขั้นตอน
+            </p>
           </div>
 
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqData.map((item) => (
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            {faqData.slice(0, 5).map((item) => (
               <AccordionItem
                 key={item.id}
                 value={item.id}
-                className="rounded-2xl border-none bg-slate-50 px-8 py-2 dark:bg-slate-900"
+                className="rounded-3xl border border-slate-100 bg-white px-8 transition-all duration-500 data-[state=open]:border-blue-500/20 data-[state=open]:shadow-xl data-[state=open]:shadow-blue-500/5 dark:border-slate-800 dark:bg-slate-900/40"
               >
-                <AccordionTrigger className="text-left text-[14px] font-bold text-slate-900 hover:no-underline dark:text-slate-200">
+                <AccordionTrigger className="py-8 text-left text-lg font-bold text-slate-900 transition-colors hover:text-blue-600 hover:no-underline dark:text-slate-100">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="font-thai pt-2 pb-6 text-[15px] leading-relaxed text-slate-500">
+                <AccordionContent className="font-thai border-t border-slate-50 pt-6 pb-8 text-[16px] leading-relaxed text-slate-500 dark:border-slate-800 dark:text-slate-400">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -124,5 +141,26 @@ export function PricingSection() {
         </div>
       </div>
     </section>
+  )
+}
+
+function SecurityCard({
+  id,
+  icon: Icon,
+  title,
+  description,
+}: SecurityCardProps) {
+  return (
+    <div className="group bg-white p-14 transition-all duration-700 hover:bg-blue-50/30 dark:bg-slate-950 dark:hover:bg-slate-900/50">
+      <div className="mb-10 flex h-16 w-16 items-center justify-center rounded-[1.25rem] border border-slate-100 bg-white text-slate-900 shadow-sm transition-all duration-700 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white dark:border-slate-800 dark:bg-slate-800">
+        <Icon size={28} strokeWidth={1.5} />
+      </div>
+      <h4 className="mb-4 font-mono text-[11px] font-black tracking-[0.35em] text-blue-600 uppercase">
+        [{id}] {title}
+      </h4>
+      <p className="font-thai text-xl leading-relaxed font-bold text-slate-900 dark:text-slate-200">
+        {description}
+      </p>
+    </div>
   )
 }

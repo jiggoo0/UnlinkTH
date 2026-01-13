@@ -7,26 +7,19 @@ import { LucideIcon } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 /**
- * [STRATEGY: VISUAL AUTHORITY]
- * - แก้ไข TS2339: เพิ่ม 'badge' ลงใน interface เพื่อรองรับข้อมูลจากทุกหน้า
- * - Entrance Animation: ใช้ Framer Motion สร้างจังหวะการเปิดตัวที่ดูเป็นมืออาชีพ
- * - Responsive Design: ปรับ Typography ให้รองรับทั้ง EN (Uppercase) และ TH (Font-Thai)
+ * [STRATEGY: VISUAL AUTHORITY v4.80]
+ * - Animation: ใช้ Bezier Curve [0.22, 1, 0.36, 1] เพื่อสร้างจังหวะเปิดตัวแบบ "Smooth Deceleration"
+ * - Typography: ใช้ระบบ Optical Sizing (Leading 0.85-0.95) เพื่อให้ข้อความตัวใหญ่ดูทรงพลัง
+ * - Geometry: เพิ่ม Blueprint Line เพื่อช่วยนำสายตาจาก Badge ไปยัง Title
  */
 
 interface SectionHeadingProps {
-  /** ไอคอนประกอบหัวข้อ (LucideIcon) */
   icon?: LucideIcon
-  /** ข้อความขนาดเล็กด้านบนเพื่อบอกหมวดหมู่ */
   badge: string
-  /** หัวข้อหลัก (H2) เน้นความหนาและใหญ่ */
   title: string
-  /** หัวข้อย่อยหรือสโลแกนประกอบ (เน้นภาษาไทย) */
   subtitle?: string
-  /** เนื้อหาอธิบายรายละเอียดเพิ่มเติม */
   description?: string
-  /** การจัดวางตำแหน่งเนื้อหา */
   align?: 'left' | 'center'
-  /** เพิ่มเติม Tailwind class */
   className?: string
 }
 
@@ -43,41 +36,41 @@ export function SectionHeading({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        'mb-12 flex flex-col space-y-6',
-        isCenter ? 'mx-auto items-center text-center' : 'items-start text-left',
+        'relative mb-16 flex flex-col',
+        isCenter ? 'items-center text-center' : 'items-start text-left',
         className,
       )}
     >
-      {/* 🏛️ 01: Badge Layer - สร้างการจดจำหมวดหมู่ */}
+      {/* 🏛️ 01: CLASSIFICATION LAYER (Badge & Icon) */}
       <div
         className={cn(
-          'flex items-center gap-3 text-[10px] font-black tracking-[0.4em] text-blue-600 uppercase',
+          'mb-8 flex items-center gap-4 text-[10px] font-black tracking-[0.4em] text-blue-600 uppercase',
           isCenter ? 'justify-center' : '',
         )}
       >
         {Icon && (
-          <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-slate-950 text-white dark:bg-blue-600">
-            <Icon size={14} strokeWidth={2.5} />
+          <div className="flex h-10 w-10 items-center justify-center bg-slate-950 text-white shadow-[4px_4px_0px_0px_rgba(37,99,235,1)] dark:bg-blue-600 dark:shadow-none">
+            <Icon size={18} strokeWidth={2} />
           </div>
         )}
-        <div className="flex flex-col">
-          <span className="relative pb-1">{badge}</span>
+        <div className="flex flex-col gap-1">
+          <span className="font-mono">{badge}</span>
           <div
-            className={cn('h-[2px] w-6 bg-blue-600', isCenter ? 'mx-auto' : '')}
+            className={cn('h-[2px] w-8 bg-blue-600', isCenter && 'mx-auto')}
           />
         </div>
       </div>
 
-      {/* 🏛️ 02: Title & Emphasis Layer - จุดปะทะสายตาหลัก */}
-      <div className="flex flex-col space-y-3">
+      {/* 🏛️ 02: PRIMARY COMMAND LAYER (H2 & Subtitle) */}
+      <div className="flex flex-col space-y-4">
         <h2
           className={cn(
-            'text-4xl leading-[0.95] font-black tracking-tighter text-slate-950 uppercase md:text-6xl dark:text-white',
+            'font-sans text-[clamp(2.5rem,7vw,4.5rem)] leading-[0.85] font-black tracking-[-0.04em] text-slate-950 uppercase dark:text-white',
             isCenter ? 'max-w-4xl' : 'max-w-3xl',
           )}
         >
@@ -87,7 +80,7 @@ export function SectionHeading({
         {subtitle && (
           <span
             className={cn(
-              'font-thai text-xl font-bold tracking-tight text-blue-600/90 italic md:text-2xl',
+              'font-thai block text-xl font-black tracking-tight text-blue-600 md:text-3xl',
               isCenter ? 'mx-auto' : '',
             )}
           >
@@ -96,16 +89,23 @@ export function SectionHeading({
         )}
       </div>
 
-      {/* 🏛️ 03: Narrative Layer - ส่วนขยายความเพื่อความเข้าใจ */}
+      {/* 🏛️ 03: CONTEXTUAL LAYER (Description) */}
       {description && (
-        <p
+        <div
           className={cn(
-            'font-thai max-w-2xl text-[16px] leading-relaxed font-medium text-slate-500 md:text-[18px] dark:text-slate-400',
-            isCenter ? 'mx-auto' : '',
+            'mt-8 border-slate-100 dark:border-slate-800',
+            isCenter ? 'border-t-0' : 'border-l-2 pl-8',
           )}
         >
-          {description}
-        </p>
+          <p
+            className={cn(
+              'font-thai max-w-2xl text-[16px] leading-[1.8] font-medium text-slate-500 md:text-[18px] dark:text-slate-400',
+              isCenter ? 'mx-auto' : '',
+            )}
+          >
+            {description}
+          </p>
+        </div>
       )}
     </motion.div>
   )

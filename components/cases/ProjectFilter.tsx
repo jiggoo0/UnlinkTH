@@ -2,13 +2,14 @@
 
 'use client'
 
+import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 /**
- * [STRATEGY: TACTICAL CATEGORY FILTER]
- * - UX: ใช้ Capsule-style สำหรับ High-speed scannability
- * - Visual: เน้นความขรึม (Authority) และการตอบสนองที่แม่นยำ (Precision)
- * - Accessibility: รองรับทั้ง Light/Dark mode และสภาวะ Focus
+ * [STRATEGY: TACTICAL CATEGORY FILTER v5.0]
+ * - Fix: Removed unused 'AnimatePresence' to resolve Lint warning.
+ * - UX: ใช้ Shared Layout Animation (layoutId) เพื่อสร้างรอยเชื่อมต่อระหว่างสถานะ
+ * - Style: เน้นความขรึมด้วยสี Slate-900 และเพิ่มความมีชีวิตชีวาด้วย Blue-600 ใน Dark Mode
  */
 
 interface ProjectFilterProps {
@@ -23,9 +24,9 @@ export function ProjectFilter({
   onTabChange,
 }: ProjectFilterProps) {
   return (
-    <nav className="relative py-2">
-      {/* 🏛️ Capsule Filter Container */}
-      <div className="flex flex-wrap items-center gap-2 md:gap-3">
+    <nav className="relative py-10" aria-label="Project category filter">
+      {/* 🏛️ 1. CAPSULE TRACK: Container สำหรับระบบการเลือก */}
+      <div className="flex flex-wrap items-center gap-3">
         {categories.map((tab) => {
           const isActive = activeTab === tab
 
@@ -36,30 +37,63 @@ export function ProjectFilter({
               type="button"
               aria-pressed={isActive}
               className={cn(
-                // 🔹 Base: Tactical Typography & Spacing
-                'relative flex items-center justify-center rounded-sm px-5 py-2.5 text-[10px] font-black tracking-[0.2em] uppercase transition-all duration-300',
-
-                // 🔹 State: Interaction Logic
+                'group relative flex items-center justify-center rounded-full px-8 py-3.5 transition-colors duration-300',
+                'focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2',
                 isActive
-                  ? 'bg-slate-900 text-white shadow-md dark:bg-blue-600 dark:shadow-blue-900/20'
-                  : 'bg-slate-50 text-slate-400 hover:bg-slate-100 hover:text-slate-900 dark:bg-slate-900/50 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-200',
-
-                // 🔹 Precision: Active States
-                'focus:ring-1 focus:ring-blue-600 focus:ring-offset-2 focus:outline-none active:scale-95 dark:focus:ring-offset-slate-950',
+                  ? 'text-white'
+                  : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white',
               )}
             >
-              {tab}
-              {/* Dot indicator สำหรับสถานะ Active (Subtle Authority) */}
+              {/* 🏛️ 2. ACTIVE PILL: ตัวบ่งชี้สถานะที่เคลื่อนที่อย่างลื่นไหล */}
               {isActive && (
-                <span className="ml-2 h-1 w-1 animate-pulse rounded-full bg-blue-400" />
+                <motion.div
+                  layoutId="active-pill"
+                  className="absolute inset-0 bg-slate-900 shadow-[0_12px_24px_-8px_rgba(15,23,42,0.3)] dark:bg-blue-600 dark:shadow-[0_12px_24px_-8px_rgba(37,99,235,0.4)]"
+                  style={{ borderRadius: 9999 }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 380,
+                    damping: 30,
+                  }}
+                />
               )}
+
+              {/* 🏛️ 3. HOVER INDICATOR: การตอบสนองเบาๆ เมื่อวางเมาส์ */}
+              {!isActive && (
+                <div className="absolute inset-0 rounded-full bg-slate-100 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-slate-800" />
+              )}
+
+              {/* 🏛️ 4. LABEL DESIGN: ตัวอักษรและสัญลักษณ์สถานะ */}
+              <span className="relative z-10 flex items-center gap-3">
+                <span className="font-mono text-[11px] font-black tracking-[0.3em] uppercase">
+                  {tab}
+                </span>
+
+                {isActive && (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="h-1.5 w-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.8)]"
+                  />
+                )}
+              </span>
             </button>
           )
         })}
       </div>
 
-      {/* 🏛️ Infrastructure Line: เพิ่มความมั่นคงให้ UI */}
-      <div className="mt-8 h-px w-full bg-slate-100 dark:bg-slate-800/50" />
+      {/* 🏛️ 5. STATUS INFRASTRUCTURE: เส้นนำสายตาและตัวบ่งชี้ระบบ */}
+      <div className="relative mt-12 flex items-center gap-5">
+        <div className="h-[1px] flex-grow bg-gradient-to-r from-slate-200 to-transparent dark:from-slate-800" />
+        <div className="flex items-center gap-3 font-mono text-[9px] font-black tracking-[0.5em] text-slate-400 uppercase">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-600/40 opacity-75"></span>
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-600"></span>
+          </span>
+          Protocol_Filter_Active
+        </div>
+        <div className="h-[1px] w-16 bg-gradient-to-l from-slate-200 to-transparent dark:from-slate-800" />
+      </div>
     </nav>
   )
 }

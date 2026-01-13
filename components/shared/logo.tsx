@@ -6,17 +6,16 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 /**
- * [STRATEGY: THE STRUCTURAL LOGO v2]
- * - Fix TS2322: เพิ่ม fontSize และ iconSize เข้าไปใน LogoProps เพื่อรองรับ Navbar/Footer
- * - Symbol: ใช้โครงสร้างสี่เหลี่ยมตัดมุม (Technical Squircle) พร้อม Micro-interaction
- * - Symbol Detail: เพิ่ม Dot สัญลักษณ์สถานะ Intelligence (Active Node)
+ * [STRATEGY: THE STRUCTURAL LOGO v4.28]
+ * - Form: ปรับจากสี่เหลี่ยมคม (Sharp) เป็น Squircle อ่อนๆ (rounded-lg) เพื่อความ Modern High-end
+ * - Interaction: ใช้ Smooth Rotation 180deg พร้อมกับสลับสี (Invert) เมื่อ Hover
+ * - Fix: รองรับระบบ Dynamic Size ผ่าน Style Object เพื่อความแม่นยำสูงสุดในทุกหน้าจอ
  */
 
 interface LogoProps {
   className?: string
   href?: string
   variant?: 'default' | 'compact' | 'minimal'
-  /** ✅ เพิ่ม prop เพื่อแก้ปัญหาจาก Navbar/Footer */
   fontSize?: string
   iconSize?: number
 }
@@ -25,70 +24,90 @@ export const Logo = ({
   className,
   href = '/',
   variant = 'default',
-  fontSize, // รับค่า text-size มาใช้งาน
-  iconSize, // รับค่าขนาดไอคอนมาใช้งาน (ถ้ามี)
+  fontSize,
+  iconSize,
 }: LogoProps) => {
+  // 🏛️ Identity Configuration
+  const defaultIconSize = variant === 'minimal' ? 32 : 40
+  const finalIconSize = iconSize || defaultIconSize
+
   return (
     <Link
       href={href}
       aria-label="UnlinkTH - Reputation Management"
       className={cn(
-        'group inline-flex items-center gap-2.5 transition-opacity select-none hover:opacity-90',
+        'group inline-flex items-center gap-3.5 transition-all duration-300 select-none',
         className,
       )}
     >
-      {/* 🏛️ Symbol Architecture */}
-      <div className="relative">
+      {/* 🏛️ 1. SYMBOL: The Intelligence Core */}
+      <div className="relative shrink-0">
         <div
           className={cn(
-            'flex items-center justify-center bg-slate-950 transition-all duration-300 dark:bg-white',
-            'rotate-0 rounded-sm group-hover:rotate-90', // Micro-interaction
-            variant === 'minimal' ? 'h-8 w-8' : 'h-9 w-9',
-            // ปรับขนาดตาม iconSize หากมีการส่งค่ามา
-            iconSize ? `h-[${iconSize}px] w-[${iconSize}px]` : '',
+            'flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]',
+            'rounded-xl bg-slate-950 dark:bg-white', // 12px Squircle consistency
+            'group-hover:rotate-[180deg] group-hover:bg-blue-600 dark:group-hover:bg-blue-600',
+            'shadow-lg shadow-transparent group-hover:shadow-blue-500/20',
           )}
-          style={iconSize ? { width: iconSize, height: iconSize } : {}}
+          style={{
+            width: `${finalIconSize}px`,
+            height: `${finalIconSize}px`,
+          }}
         >
           <span
             className={cn(
-              'font-black tracking-tighter text-white uppercase dark:text-slate-950',
-              iconSize && iconSize < 20 ? 'text-[10px]' : 'text-sm',
+              'font-black tracking-tighter uppercase transition-colors duration-500',
+              'text-white group-hover:text-white dark:text-slate-950',
+              finalIconSize < 30 ? 'text-[10px]' : 'text-lg',
             )}
           >
             U
           </span>
         </div>
-        {/* Status Node: สื่อถึงความ Active ของระบบ Intelligence */}
-        <div className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full border-2 border-white bg-blue-600 dark:border-slate-950" />
+
+        {/* 🏛️ 2. STATUS NODE: Pulse Indicator */}
+        <div
+          className={cn(
+            'absolute -top-1 -right-1 h-3 w-3 rounded-full border-[2.5px] border-white bg-blue-600 dark:border-slate-950',
+            'animate-pulse shadow-md',
+          )}
+        />
       </div>
 
-      {/* 🏛️ Wordmark Architecture */}
+      {/* 🏛️ 3. WORDMARK: The Brand Voice */}
       {variant !== 'minimal' && (
         <div
           className={cn(
-            'flex flex-col leading-[0.85] tracking-tighter',
+            'flex flex-col tracking-tighter',
             variant === 'compact' ? 'hidden md:flex' : 'flex',
           )}
         >
           <div className="flex items-baseline gap-0.5">
             <span
               className={cn(
-                'font-black text-slate-950 uppercase dark:text-white',
-                fontSize || 'text-lg', // ใช้ fontSize จาก props หรือ default ที่ text-lg
+                'font-black text-slate-950 uppercase transition-colors group-hover:text-blue-600 dark:text-white',
+                fontSize || 'text-2xl leading-none',
               )}
             >
               Unlink
             </span>
             <span
-              className={cn('font-light text-blue-600', fontSize || 'text-lg')}
+              className={cn(
+                'font-light text-blue-600 transition-opacity group-hover:opacity-70',
+                fontSize || 'text-2xl leading-none',
+              )}
             >
               TH
             </span>
           </div>
+
           {variant === 'default' && (
-            <span className="text-[9px] font-black tracking-[0.3em] text-slate-400 uppercase">
-              Intelligence & Privacy
-            </span>
+            <div className="mt-1.5 flex items-center gap-2">
+              <span className="h-[1px] w-3 bg-blue-600/30 transition-all group-hover:w-5 group-hover:bg-blue-600" />
+              <span className="font-mono text-[8px] font-black tracking-[0.4em] text-slate-400 uppercase">
+                Intelligence & Privacy
+              </span>
+            </div>
           )}
         </div>
       )}

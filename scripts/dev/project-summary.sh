@@ -11,13 +11,15 @@ SCAN_FILES=(
   "$REPORT_FILE"
   "app/globals.css"
   "app/layout.tsx"
-  "app/not-found.tsx"
-  "data/services/service-map.ts"
-  "app/(main)/services/[slug]/page.tsx"
+  "data/services/services-1.ts"
+  "data/services/services-2.ts"
+  "tsconfig.json"
   "package.json"
   "next.config.ts"
   "lib/supabase.ts"
   "types/service.ts"
+  "types/wiki.ts"
+  "lib/wiki.ts"
   ".env"
 )
 
