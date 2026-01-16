@@ -1,11 +1,21 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { getCaseBySlug, getAllCases } from "@/lib/mdx"
+import { getCaseBySlug, getAllCases, getGuideBySlug } from "@/lib/mdx"
 import { Typography } from "@/components/ui/typography"
 import { siteConfig } from "@/constants/site-config"
-import { ChevronLeft, Calendar, Share2, ShieldCheck } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import {
+  ChevronLeft,
+  Calendar,
+  Share2,
+  ShieldCheck,
+  Clock,
+  ArrowRight,
+  Bookmark,
+  MessageCircle,
+} from "lucide-react"
 import Link from "next/link"
-import Image from "next/image" // ✅ เพิ่มสำหรับแสดงภาพหน้าปก
+import Image from "next/image"
 import React from "react"
 
 interface Props {
@@ -13,108 +23,117 @@ interface Props {
 }
 
 /**
- * 1. Generate Metadata สำหรับ SEO
+ * 1. SEO Metadata Generation
+ * ✅ แก้ไขปัญหา Property 'description' does not exist โดยการใช้ Fallback Chain
  */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const caseItem = await getCaseBySlug(slug)
+  const item = (await getCaseBySlug(slug)) || (await getGuideBySlug(slug))
 
-  if (!caseItem) return { title: `ไม่พบเคสศึกษา | ${siteConfig.name}` }
+  if (!item) return { title: `ไม่พบเนื้อหา | ${siteConfig.name}` }
 
-  // ✅ ใช้ featuredImage จาก frontmatter ตามโครงสร้างไฟล์ MDX
-  const ogImage = caseItem.frontmatter.featuredImage || siteConfig.ogImage
+  // ป้องกัน Error ด้วยการเช็กทุกความเป็นไปได้ของ Image และ Description
+  const ogImage =
+    item.frontmatter.featuredImage ||
+    item.frontmatter.image ||
+    siteConfig.ogImage
+
+  const description =
+    item.frontmatter.description || item.frontmatter.summary || ""
 
   return {
-    title: `${caseItem.frontmatter.title} | Case Study`,
-    description: caseItem.frontmatter.summary,
+    title: `${item.frontmatter.title} | Unlink Thailand`,
+    description: description,
     openGraph: {
-      title: caseItem.frontmatter.title,
-      description: caseItem.frontmatter.summary,
+      title: item.frontmatter.title,
+      description: description,
       url: `${siteConfig.url}/case-studies/${slug}`,
-      siteName: siteConfig.name,
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: caseItem.frontmatter.title,
-        },
-      ],
+      images: [{ url: ogImage, width: 1200, height: 630 }],
       type: "article",
-      publishedTime: caseItem.frontmatter.date,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: caseItem.frontmatter.title,
-      description: caseItem.frontmatter.summary,
-      images: [ogImage],
     },
   }
 }
 
 /**
- * 2. Static Site Generation (SSG)
+ * 2. SSG Support
  */
 export async function generateStaticParams() {
   const cases = await getAllCases()
-  return cases.map((c) => ({
-    slug: c.slug,
-  }))
+  return cases.map((c) => ({ slug: c.slug }))
 }
 
 /**
- * 3. Main Page Component
+ * 3. Page Component
  */
 export default async function CaseStudyDetailPage({ params }: Props) {
   const { slug } = await params
-  const caseItem = await getCaseBySlug(slug)
 
-  if (!caseItem) notFound()
+  // ตรวจสอบทั้ง 2 แหล่งข้อมูล (Case Study และ Blog/Store)
+  const item = (await getCaseBySlug(slug)) || (await getGuideBySlug(slug))
 
-  const { frontmatter, content } = caseItem
+  if (!item) notFound()
+
+  const { frontmatter, content } = item
+
+  // โลจิกแยกประเภทเนื้อหาเพื่อปรับสี UI
+  const isKnowledge =
+    slug.includes("how-to") ||
+    slug.includes("strategy") ||
+    !slug.includes("clear")
 
   return (
-    <article className="min-h-screen bg-white pb-24 selection:bg-blue-100 selection:text-blue-900">
-      {/* Top Progress Bar - เส้นตกแต่ง */}
-      <div className="h-1.5 w-full bg-slate-100">
-        <div className="h-full w-1/3 bg-blue-600" />
-      </div>
+    <article className="min-h-screen bg-slate-50/50 pb-24 selection:bg-blue-100 selection:text-blue-900">
+      {/* ประดับด้านบนด้วยเส้นสีตามประเภทเนื้อหา */}
+      <div
+        className={`h-1.5 w-full ${isKnowledge ? "bg-emerald-500" : "bg-blue-600"}`}
+      />
 
-      <div className="container mx-auto max-w-4xl px-4 pt-12">
-        {/* Navigation */}
-        <nav className="mb-10">
+      <div className="container mx-auto max-w-4xl px-4 pt-10">
+        {/* Navigation & Actions */}
+        <nav className="mb-12 flex items-center justify-between">
           <Link
             href="/case-studies"
             className="group inline-flex items-center text-sm font-bold text-slate-500 transition-colors hover:text-blue-600"
           >
             <ChevronLeft className="mr-1 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            ย้อนกลับไปหน้ากรณีศึกษา
+            ศูนย์ข้อมูลและเคสศึกษา
           </Link>
+          <div className="flex gap-3">
+            <button className="rounded-full border bg-white p-2 text-slate-400 shadow-sm transition-all hover:text-blue-600">
+              <Share2 className="h-4 w-4" />
+            </button>
+            <button className="rounded-full border bg-white p-2 text-slate-400 shadow-sm transition-all hover:text-blue-600">
+              <Bookmark className="h-4 w-4" />
+            </button>
+          </div>
         </nav>
 
-        {/* Header Section */}
-        <header className="mb-12">
-          <div className="mb-6 flex flex-wrap items-center gap-3">
-            <div className="rounded-full bg-blue-50 px-4 py-1 text-[10px] font-bold tracking-widest text-blue-600 uppercase">
-              {frontmatter.category}
-            </div>
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
+        {/* --- Header Section --- */}
+        <header className="mb-12 text-center md:text-left">
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-3 md:justify-start">
+            <Badge
+              variant="secondary"
+              className="border-slate-200 bg-white px-4 py-1.5 text-xs font-bold shadow-sm"
+            >
+              {frontmatter.category || "General Knowledge"}
+            </Badge>
+            <div className="flex items-center gap-1.5 text-xs font-bold text-blue-600">
               <ShieldCheck className="h-4 w-4" />
-              Verified Case Study
+              {isKnowledge ? "Expert Insight" : "Verified Success"}
             </div>
           </div>
 
           <Typography
             variant="h1"
-            className="mb-8 border-none p-0 text-3xl leading-tight font-black tracking-tighter text-slate-900 md:text-5xl lg:text-6xl"
+            className="mb-8 border-none p-0 text-3xl leading-tight font-black tracking-tight text-slate-900 md:text-5xl"
           >
             {frontmatter.title}
           </Typography>
 
-          <div className="flex flex-wrap items-center gap-6 text-sm font-medium text-slate-500">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-slate-500 md:justify-start">
             <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-slate-400" />
-              <time dateTime={frontmatter.date}>
+              <Calendar className="h-4 w-4" />
+              <time>
                 {new Date(frontmatter.date).toLocaleDateString("th-TH", {
                   year: "numeric",
                   month: "long",
@@ -122,60 +141,68 @@ export default async function CaseStudyDetailPage({ params }: Props) {
                 })}
               </time>
             </div>
-            <span className="hidden text-slate-300 md:block">•</span>
-            <div className="flex items-center gap-2">
-              <Share2 className="h-4 w-4 text-slate-400" />
-              Public Disclosure
+            <div className="flex items-center gap-2 border-l border-slate-200 pl-6">
+              <Clock className="h-4 w-4" />
+              อ่านประมาณ 5-7 นาที
             </div>
           </div>
         </header>
 
-        {/* ✅ Featured Image Section: เพิ่มการแสดงรูปภาพหน้าปก */}
-        {frontmatter.featuredImage && (
-          <div className="relative mb-16 aspect-video overflow-hidden rounded-[2rem] border border-slate-100 bg-slate-50 shadow-2xl shadow-slate-200/50">
-            <Image
-              src={frontmatter.featuredImage}
-              alt={frontmatter.title}
-              fill
-              priority
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 896px"
-            />
-          </div>
-        )}
+        {/* --- Featured Image --- 
+            ✅ แก้ไขปัญหา src undefined โดยการใส่ Fallback (siteConfig.ogImage)
+        */}
+        <div className="relative mb-16 aspect-[21/9] overflow-hidden rounded-[2.5rem] border-4 border-white shadow-2xl shadow-blue-100/50">
+          <Image
+            src={
+              frontmatter.featuredImage ||
+              frontmatter.image ||
+              siteConfig.ogImage
+            }
+            alt={frontmatter.title}
+            fill
+            priority
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 800px"
+          />
+        </div>
 
-        {/* MDX Content */}
-        <main className="prose prose-slate prose-blue prose-headings:scroll-m-20 prose-headings:tracking-tight prose-p:leading-relaxed prose-p:text-slate-600 prose-blockquote:not-italic prose-blockquote:border-l-4 prose-blockquote:border-blue-600 prose-blockquote:bg-blue-50/50 prose-strong:text-slate-900 lg:prose-xl max-w-none">
-          {content}
-        </main>
+        {/* --- MDX Content Area --- */}
+        <div className="rounded-[2.5rem] border border-slate-100 bg-white p-8 shadow-sm md:p-16">
+          <main className="prose prose-slate prose-blue lg:prose-xl prose-headings:text-slate-900 prose-headings:font-black prose-headings:tracking-tight prose-p:text-slate-600 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-900 prose-strong:font-bold prose-img:rounded-3xl prose-img:shadow-lg prose-table:border prose-table:rounded-xl prose-table:overflow-hidden prose-th:bg-slate-50 prose-th:p-4 prose-td:p-4 prose-blockquote:border-l-4 prose-blockquote:border-blue-600 prose-blockquote:bg-blue-50/50 prose-blockquote:rounded-r-2xl prose-blockquote:py-1 max-w-none">
+            {content}
+          </main>
+        </div>
 
-        {/* Call to Action Section */}
-        <footer className="mt-24 border-t border-slate-100 pt-16">
-          <div className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 p-8 text-center text-white md:p-16">
-            {/* Decorative Background */}
-            <div className="absolute top-0 right-0 -mt-24 -mr-24 h-80 w-80 rounded-full bg-blue-600/20 blur-3xl transition-transform duration-1000 group-hover:scale-110" />
-            <div className="absolute bottom-0 left-0 -mb-24 -ml-24 h-80 w-80 rounded-full bg-indigo-600/10 blur-3xl" />
+        {/* --- Footer Conversion --- */}
+        <footer className="mt-20">
+          <div className="relative overflow-hidden rounded-[3rem] bg-slate-950 px-8 py-12 text-center text-white md:px-20 md:py-20">
+            <div className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-blue-600/20 blur-3xl" />
+            <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
 
             <div className="relative z-10">
-              <h3 className="mb-4 text-2xl font-black md:text-4xl">
-                ปรึกษาปัญหาชื่อเสียงออนไลน์
+              <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600">
+                <MessageCircle className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="mb-4 text-3xl font-black md:text-4xl">
+                ปรึกษาเคสชื่อเสียงออนไลน์
               </h3>
-              <p className="mx-auto mb-10 max-w-xl text-lg text-slate-400">
-                เคสของคุณสามารถแก้ไขได้เหมือนกรณีศึกษานี้
-                เราพร้อมประเมินโอกาสความสำเร็จให้เบื้องต้นโดยไม่มีค่าใช้จ่าย
+              <p className="mx-auto mb-10 max-w-lg text-lg text-slate-400">
+                เคสของคุณมีความเฉพาะตัว เรายินดีให้คำปรึกษาเบื้องต้นฟรี
+                เพื่อให้คุณเห็นแนวทางแก้ไขที่ชัดเจนที่สุด
               </p>
+
               <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a
                   href={siteConfig.contact.lineUrl}
                   target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-16 items-center justify-center rounded-full bg-[#06C755] px-10 text-xl font-bold text-white shadow-xl shadow-[#06C755]/20 transition-all hover:translate-y-[-2px] hover:bg-[#05b34c] active:scale-95"
+                  className="group inline-flex h-16 items-center justify-center rounded-full bg-[#06C755] px-10 text-xl font-bold text-white shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95"
                 >
-                  ปรึกษาทาง LINE ทันที
+                  คุยทาง LINE ทันที
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </a>
               </div>
-              <p className="mt-6 text-xs font-medium text-slate-500">
-                * ข้อมูลทั้งหมดจะถูกเก็บเป็นความลับสูงสุดตามมาตรฐาน PDPA
+              <p className="mt-8 text-xs font-medium text-slate-500 italic">
+                * ข้อมูลทุกอย่างเป็นความลับ 100% ตามนโยบายความเป็นส่วนตัว
               </p>
             </div>
           </div>

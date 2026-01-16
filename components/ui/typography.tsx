@@ -1,18 +1,21 @@
 import { cn } from "@/lib/utils"
 import React from "react"
 
-// 1. แยก Individual Components เพื่อใช้ภายในหรือ MDX
-export function H1({
-  children,
-  className,
-}: {
+/**
+ * Typography Components System
+ * ออกแบบมาให้รองรับทั้งการใช้งานทั่วไปใน UI และการ Render ผ่าน MDX
+ */
+
+interface TypographyBaseProps {
   children: React.ReactNode
   className?: string
-}) {
+}
+
+export function H1({ children, className }: TypographyBaseProps) {
   return (
     <h1
       className={cn(
-        "font-heading text-primary scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+        "scroll-m-20 text-4xl font-black tracking-tight text-slate-900 lg:text-5xl",
         className
       )}
     >
@@ -21,17 +24,11 @@ export function H1({
   )
 }
 
-export function H2({
-  children,
-  className,
-}: {
-  children: React.ReactNode
-  className?: string
-}) {
+export function H2({ children, className }: TypographyBaseProps) {
   return (
     <h2
       className={cn(
-        "font-heading text-primary scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+        "scroll-m-20 border-b border-slate-200 pb-2 text-3xl font-extrabold tracking-tight text-slate-900 first:mt-0 lg:text-4xl",
         className
       )}
     >
@@ -40,17 +37,11 @@ export function H2({
   )
 }
 
-export function H3({
-  children,
-  className,
-}: {
-  children: React.ReactNode
-  className?: string
-}) {
+export function H3({ children, className }: TypographyBaseProps) {
   return (
     <h3
       className={cn(
-        "font-heading text-primary scroll-m-20 text-2xl font-semibold tracking-tight",
+        "scroll-m-20 text-2xl font-bold tracking-tight text-slate-900 lg:text-3xl",
         className
       )}
     >
@@ -59,17 +50,11 @@ export function H3({
   )
 }
 
-export function P({
-  children,
-  className,
-}: {
-  children: React.ReactNode
-  className?: string
-}) {
+export function P({ children, className }: TypographyBaseProps) {
   return (
     <p
       className={cn(
-        "font-body text-primary/90 leading-7 [&:not(:first-child)]:mt-6",
+        "leading-7 text-slate-600 [&:not(:first-child)]:mt-6",
         className
       )}
     >
@@ -78,58 +63,54 @@ export function P({
   )
 }
 
-export function Lead({
-  children,
-  className,
-}: {
-  children: React.ReactNode
-  className?: string
-}) {
+export function Lead({ children, className }: TypographyBaseProps) {
   return (
-    <p className={cn("text-muted-foreground font-body text-xl", className)}>
+    <p
+      className={cn(
+        "text-xl leading-relaxed font-medium text-slate-500",
+        className
+      )}
+    >
       {children}
     </p>
   )
 }
 
-export function Muted({
-  children,
-  className,
-}: {
-  children: React.ReactNode
-  className?: string
-}) {
+export function Muted({ children, className }: TypographyBaseProps) {
   return (
-    <span className={cn("text-muted-foreground font-body text-sm", className)}>
+    <span className={cn("text-sm font-medium text-slate-400", className)}>
       {children}
     </span>
   )
 }
 
-export function Large({
-  children,
-  className,
-}: {
-  children: React.ReactNode
-  className?: string
-}) {
+export function Large({ children, className }: TypographyBaseProps) {
   return (
-    <div
-      className={cn(
-        "text-primary font-heading text-lg font-semibold",
-        className
-      )}
-    >
+    <div className={cn("text-lg font-bold text-slate-900", className)}>
       {children}
     </div>
   )
 }
 
-// 2. สร้าง Wrapper "Typography" (เพื่อแก้ปัญหา Error: got undefined)
-interface TypographyProps {
-  variant?: "h1" | "h2" | "h3" | "p" | "lead" | "muted" | "large"
-  children: React.ReactNode
-  className?: string
+export function InlineCode({ children, className }: TypographyBaseProps) {
+  return (
+    <code
+      className={cn(
+        "relative rounded bg-slate-100 px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold text-slate-900",
+        className
+      )}
+    >
+      {children}
+    </code>
+  )
+}
+
+/**
+ * Typography Wrapper:
+ * ใช้สำหรับกรณีต้องการความยืดหยุ่นในการสลับ Tag ผ่าน prop 'variant'
+ */
+interface TypographyProps extends TypographyBaseProps {
+  variant?: "h1" | "h2" | "h3" | "p" | "lead" | "muted" | "large" | "inlineCode"
 }
 
 export function Typography({
@@ -150,6 +131,8 @@ export function Typography({
       return <Muted className={className}>{children}</Muted>
     case "large":
       return <Large className={className}>{children}</Large>
+    case "inlineCode":
+      return <InlineCode className={className}>{children}</InlineCode>
     default:
       return <P className={className}>{children}</P>
   }

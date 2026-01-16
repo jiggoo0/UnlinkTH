@@ -1,54 +1,69 @@
 /**
  * Interface สำหรับข้อมูลผลงาน (Case Study)
- * เพื่อใช้ในการตรวจสอบ Type ทั่วทั้งโปรเจกต์
+ * ปรับปรุงให้ตรงกับ Category และ Path ของไฟล์ MDX ในระบบใหม่
  */
 export interface CaseStudy {
   slug: string
   title: string
   summary: string
-  category: "Negotiation" | "SEO Push" | "Legal" | "Content Removal"
+  category:
+    | "Blacklist Removal"
+    | "Reputation Management"
+    | "Crisis Management"
+    | "Legal & Privacy"
   status: "Success" | "Ongoing"
-  imageUrl?: string
+  imageUrl: string
   date: string
   featured: boolean
 }
 
 /**
  * รายชื่อผลงานที่โดดเด่น (Featured Cases)
- * ข้อมูลนี้จะถูกดึงไปแสดงใน CaseStudySection บนหน้า Landing Page
+ * ข้อมูลนี้จะถูกดึงไปแสดงในหน้าแรก (Landing Page) และหน้าหมวดหมู่
  */
 export const featuredCases: CaseStudy[] = [
   {
-    slug: "clear-blacklist-reputation",
+    slug: "clear-blacklist-misunderstand",
     title: "เคสลบชื่อจากเว็บประจานคนโกง",
     summary:
-      "แก้ปัญหาความเข้าใจผิดจากการติดแบล็กลิสต์มานานกว่า 3 ปี เราใช้เทคนิคการเจรจาเชิงลึกจนแอดมินลบข้อมูลออกภายใน 7 วัน",
-    category: "Negotiation",
+      "แก้ปัญหาความเข้าใจผิดจากการติดแบล็กลิสต์จากการโอนยอดซ้ำซ้อน เราใช้เทคนิคการเจรจาเชิงลึกจนข้อมูลถูกลบออกภายใน 7 วัน",
+    category: "Blacklist Removal",
     status: "Success",
-    imageUrl: "/images/cases/case-blacklist.jpg",
-    date: "2025-11-20",
+    imageUrl: "/images/cases/blacklist-clear.webp",
+    date: "2026-01-15",
     featured: true,
   },
   {
-    slug: "seo-reputation-management",
+    slug: "seo-push-negative-news",
     title: "เคสจัดการข่าวเสียในอดีต (SEO Push)",
     summary:
-      "ข่าวเก่าที่ลบไม่ได้เนื่องจากเป็นสำนักข่าวใหญ่ เราใช้วิธีสร้าง Content Authority ใหม่เพื่อดันผลการค้นหาหน้าแรกให้เป็นเชิงบวก 100%",
-    category: "SEO Push",
+      "ข่าวเก่าบนเว็บข่าวใหญ่ที่ลบไม่ได้ เราใช้วิธีสร้าง Content Authority ใหม่เพื่อดันผลการค้นหาหน้าแรกให้เป็นเชิงบวก 100%",
+    category: "Reputation Management",
     status: "Success",
-    imageUrl: "/images/cases/case-seo.jpg",
-    date: "2025-12-15",
+    imageUrl: "/images/cases/seo-push.webp",
+    date: "2026-01-16",
     featured: true,
   },
   {
-    slug: "legal-privacy-content-removal",
-    title: "เคสลบกระทู้ละเมิดความเป็นส่วนตัว",
+    slug: "online-drama-negotiation",
+    title: "เคสยุติเหตุการณ์ดราม่าออนไลน์",
     summary:
-      "จัดการเนื้อหาที่มีการเปิดเผยข้อมูลส่วนตัว (Doxing) บนเว็บบอร์ดชื่อดังผ่านกระบวนการทางกฎหมายและนโยบายความเป็นส่วนตัว",
-    category: "Legal",
+      "จัดการโพสต์ประจานบนโซเชียลที่มีการแชร์นับพันครั้ง ผ่านกระบวนการไกล่เกลี่ยระหว่างแบรนด์และคู่กรณีอย่างสันติวิธี",
+    category: "Crisis Management",
     status: "Success",
-    imageUrl: "/images/cases/case-legal.jpg",
-    date: "2026-01-05",
+    imageUrl: "/images/cases/negotiation-drama.webp",
+    date: "2026-01-16",
+    featured: true,
+  },
+  {
+    slug: "pdpa-privacy-removal",
+    title: "เคสลบข้อมูลส่วนตัวที่ถูกนำไปใช้ผิดกฎหมาย",
+    summary:
+      "ใช้สิทธิ์ตามกฎหมาย PDPA เพื่อสั่งลบภาพถ่ายและประวัติส่วนตัวออกจากเว็บไซต์บุคคลที่สาม เพื่อคืนความเป็นส่วนตัวให้ลูกค้า",
+    category: "Legal & Privacy",
+    status: "Success",
+    imageUrl: "/images/cases/privacy-legal.webp",
+    date: "2026-01-16",
     featured: false,
   },
 ]
@@ -56,4 +71,10 @@ export const featuredCases: CaseStudy[] = [
 /**
  * Helper function สำหรับดึงเฉพาะเคสที่ต้องการนำมาโชว์ที่หน้าแรก
  */
-export const getFeaturedCases = () => featuredCases.filter((c) => c.featured)
+export const getFeaturedCases = (): CaseStudy[] =>
+  featuredCases.filter((c) => c.featured)
+
+/**
+ * Helper function สำหรับดึงข้อมูลเคสทั้งหมด (สำหรับหน้า Case Studies Archive)
+ */
+export const getAllCasesList = (): CaseStudy[] => featuredCases

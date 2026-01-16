@@ -1,4 +1,4 @@
-เว็บไซต์ทางการของ **Unlink-TH** ผู้เชี่ยวชาญด้านการจัดการชื่อเสียงออนไลน์ (Online Reputation Management) และการนำข้อมูลออกจากระบบคอมพิวเตอร์ (De-indexing/Content Removal) 
+เว็บไซต์ทางการของ **Unlink-TH** ผู้เชี่ยวชาญด้านการจัดการชื่อเสียงออนไลน์ (Online Reputation Management) และการนำข้อมูลออกจากระบบคอมพิวเตอร์ (De-indexing/Content Removal)
 
 [![Next.js 15](https://img.shields.io/badge/Next.js-15.5-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![Tailwind CSS 4](https://img.shields.io/badge/Tailwind-4.0-blue?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
@@ -19,6 +19,7 @@
 โปรเจกต์นี้ใช้สถาปัตยกรรม **Static Site Generation (SSG)** และ **Incremental Static Regeneration (ISR)** เพื่อประสิทธิภาพสูงสุดด้าน SEO และความเร็วในการโหลด (LCP)
 
 ### Core Layers:
+
 1. **App Layer (`/app`):** จัดการ Routing, Server Components และ SEO Metadata
 2. **Component Layer (`/components`):** - `ui/`: อะตอมมิกคอมโพเนนต์พื้นฐาน
    - `shared/`: คอมโพเนนต์ที่ใช้ร่วมกัน เช่น Navbar, Footer, CaseStudySection
@@ -31,10 +32,12 @@
 ## 🛠️ Getting Started
 
 ### Prerequisites
+
 - Node.js 20.x หรือสูงกว่า
 - pnpm 9.x หรือสูงกว่า
 
 ### Installation
+
 ```bash
 # Clone the repository
 git clone [https://github.com/jiggoo0/UnlinkTH.git](https://github.com/jiggoo0/UnlinkTH.git)
@@ -95,3 +98,4 @@ featuredImage: "/images/cases/your-image.webp"
 
 🛡️ License
 Copyright © 2026 Unlink-TH. All rights reserved.
+```

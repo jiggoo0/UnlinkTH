@@ -1,27 +1,36 @@
+"use client"
+
+import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Typography } from "@/components/ui/typography"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
-// ✅ นำเข้า Icon โดยตรงจาก Lucide
-import { Trash2, Scale, Search, ShieldAlert } from "lucide-react"
+// ✅ นำเข้า ArrowRight เพิ่มเติมสำหรับปุ่มดูรายละเอียด
+import {
+  Trash2,
+  Scale,
+  Search,
+  ShieldAlert,
+  HeartHandshake,
+  Zap,
+  ArrowRight,
+} from "lucide-react"
 
 interface ServiceCardProps {
   title: string
   description: string
   suitableFor: string[]
-  iconName: "remove" | "legal" | "seo" | "negotiation" | "default"
+  imageUrl?: string
+  iconName: "remove" | "legal" | "seo" | "consult" | "audit" | "default"
   className?: string
 }
 
-/**
- * ✅ ย้าย Icon Map ออกมาไว้ด้านนอก Component (Static)
- * เพื่อป้องกัน Error: "Cannot create components during render"
- */
 const ICON_MAP = {
   remove: Trash2,
   legal: Scale,
-  seo: Search,
-  negotiation: Trash2,
+  seo: Zap,
+  consult: HeartHandshake,
+  audit: Search,
   default: ShieldAlert,
 }
 
@@ -29,59 +38,88 @@ export default function ServiceCard({
   title,
   description,
   suitableFor,
+  imageUrl,
   iconName,
   className,
 }: ServiceCardProps) {
-  // ✅ เลือก Icon จาก Map โดยตรง (ESLint จะไม่มองว่าเป็นการสร้าง Component ใหม่)
   const SelectedIcon = ICON_MAP[iconName] || ICON_MAP.default
+
+  const finalSrc =
+    imageUrl && imageUrl.trim() !== ""
+      ? imageUrl
+      : "/images/service/service.webp"
 
   return (
     <Card
       className={cn(
-        "group relative h-full overflow-hidden border-slate-200 transition-all duration-300 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-500/5",
+        "group relative flex h-full flex-col overflow-hidden border-slate-200 transition-all duration-500 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/10",
         className
       )}
     >
-      <div className="h-1.5 w-full bg-blue-600 transition-all group-hover:h-2" />
+      {/* 🖼️ Image Section */}
+      <div className="relative h-52 w-full overflow-hidden bg-slate-100">
+        <Image
+          src={finalSrc}
+          alt={title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          priority={false}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-transparent opacity-60" />
 
-      <CardHeader className="pb-4">
-        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 text-blue-600 transition-all duration-300 group-hover:rotate-3 group-hover:bg-blue-600 group-hover:text-white">
-          <SelectedIcon className="h-6 w-6" />
+        <div className="absolute bottom-4 left-6 z-10 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-white shadow-xl transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-blue-600 group-hover:text-white">
+          <SelectedIcon className="h-7 w-7" />
         </div>
-        <CardTitle className="text-xl font-bold tracking-tight text-slate-900 md:text-2xl">
+      </div>
+
+      <CardHeader className="pt-8 pb-4">
+        <CardTitle className="text-xl font-bold tracking-tight text-slate-900 transition-colors group-hover:text-blue-600 md:text-2xl">
           {title}
         </CardTitle>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="flex flex-1 flex-col">
         <Typography
           variant="p"
-          className="mb-6 line-clamp-3 leading-relaxed text-slate-600"
+          className="mb-6 line-clamp-3 min-h-[4.5rem] leading-relaxed text-slate-600"
         >
           {description}
         </Typography>
 
-        <div className="space-y-3">
+        <div className="mb-8 space-y-4">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">
-              เหมาะสำหรับ
+            <span className="text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase">
+              Target Group
             </span>
             <div className="h-px flex-1 bg-slate-100" />
           </div>
 
           <div className="flex flex-wrap gap-2">
-            {suitableFor.map((item) => (
-              <Badge
-                key={item}
-                variant="secondary"
-                className="border-none bg-slate-100 font-medium text-slate-700 transition-colors hover:bg-blue-50 hover:text-blue-700"
-              >
-                {item}
-              </Badge>
-            ))}
+            {suitableFor &&
+              suitableFor.map((item) => (
+                <Badge
+                  key={item}
+                  variant="secondary"
+                  className="border-none bg-blue-50/50 px-3 py-1 text-xs font-medium text-slate-700 transition-all group-hover:bg-blue-600 group-hover:text-white"
+                >
+                  {item}
+                </Badge>
+              ))}
+          </div>
+        </div>
+
+        {/* ✅ เพิ่มปุ่ม "ดูรายละเอียดบริการ" ให้กดง่ายและชัดเจนขึ้น */}
+        <div className="mt-auto border-t border-slate-50 pt-4">
+          <div className="flex items-center text-sm font-bold text-blue-600 transition-all duration-300 group-hover:gap-2">
+            <span>ดูรายละเอียดบริการ</span>
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </div>
         </div>
       </CardContent>
+
+      {/* Decorative Accent Line */}
+      <div className="absolute bottom-0 h-1.5 w-0 bg-blue-600 transition-all duration-500 group-hover:w-full" />
     </Card>
   )
 }

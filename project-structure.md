@@ -3,60 +3,59 @@
 <!--
   Domain: www.unlink-th.com
   Canonical: https://www.unlink-th.com
-  Generated: 2026-01-16 08:00:47
+  Generated: 2026-01-16 14:18:14
   Type: Architecture / Health Report
 -->
 
 > **Project:** www.unlink-th.com
 > **URL:** https://www.unlink-th.com
-> **Generated on:** 2026-01-16 08:00:47
+> **Generated on:** 2026-01-16 14:18:14
 
 ## 🌳 Directory Tree
 The following structure represents the core business logic and UI layers.
 
 ### 📂 app
-  📄 favicon.ico
   📂 **about/**
     📄 page.tsx
   📂 **case-studies/**
     📂 **[slug]/**
       📄 page.tsx
     📄 page.tsx
+  📂 **contact/**
+    📄 page.tsx
   📂 **faq/**
     📄 page.tsx
+  📄 favicon.ico
   📄 globals.css
   📄 layout.tsx
   📄 page.tsx
   📂 **privacy/**
     📄 page.tsx
+  📄 robots.txt
   📂 **services/**
     📂 **[slug]/**
       📄 page.tsx
     📄 page.tsx
   📄 sitemap.ts
-  📂 **contact/**
-    📄 page.tsx
-
-### 📂 actions
 
 ### 📂 components
   📂 **landing/**
-    📄 Methods.tsx
-    📄 Proof.tsx
     📄 ContactCTA.tsx
     📄 Hero.tsx
+    📄 Methods.tsx
+    📄 Proof.tsx
   📂 **seo/**
     📄 JsonLd.tsx
   📂 **shared/**
+    📄 CaseStudySection.tsx
     📄 FaqSection.tsx
     📄 Footer.tsx
     📄 Header.tsx
     📄 Icons.tsx
-    📄 Navbar.tsx
-    📄 ServiceCard.tsx
-    📄 ProtocolStepper.tsx
     📄 LineButton.tsx
-    📄 CaseStudySection.tsx
+    📄 Navbar.tsx
+    📄 ProtocolStepper.tsx
+    📄 ServiceCard.tsx
   📂 **templates/**
     📄 CategoryArchiveTemplate.tsx
   📂 **ui/**
@@ -85,47 +84,53 @@ The following structure represents the core business logic and UI layers.
     📄 server.ts
   📄 utils.ts
 
-### 📂 hooks
-
-### 📂 types
-
 ### 📂 scripts
+  📄 clean-project.sh
   📂 **dev/**
     📄 backup-project.sh
     📄 project-summary.sh
     📄 tree-projects.sh
   📄 pre-deploy-check.sh
   📄 tree.sh
-  📄 clean-project.sh
 
 ### 📂 public
   📂 **images/**
+    📄 Logo.jpg
     📂 **cases/**
-      📄 seo-push.webp
-      📄 negotiation-drama.webp
-      📄 privacy-legal.webp
       📄 blacklist-clear.webp
       📄 defamation-removal.webp
+      📄 negotiation-drama.webp
+      📄 privacy-legal.webp
+      📄 seo-push.webp
     📄 og-main.jpg
-    📄 Logo.jpg
+    📂 **_store/**
+      📄 background-check-guide.webp
+      📄 pdpa-cover.webp
+      📄 seo-push-strategy.webp
+    📂 **service/**
+      📄 service.webp
 
 ### 📂 constants
+  📄 cases.ts
   📄 navigation.ts
   📄 services-data.ts
-  📄 cases.ts
   📄 site-config.ts
 
 ### 📂 providers
   📄 AppProvider.tsx
 
 ### 📂 content
-  📄 faq-data.ts
   📂 **cases/**
-    📄 remove-defamation-post.mdx
     📄 clear-blacklist-misunderstand.mdx
-    📄 seo-push-negative-news.mdx
-    📄 pdpa-privacy-removal.mdx
     📄 online-drama-negotiation.mdx
+    📄 pdpa-privacy-removal.mdx
+    📄 remove-defamation-post.mdx
+    📄 seo-push-negative-news.mdx
+  📄 faq-data.ts
+  📂 **_store/**
+    📄 how-to-fix-negative-google-search-results.mdx
+    📄 online-background-check-for-job-application.mdx
+    📄 right-to-be-forgotten-thailand-pdpa.mdx
 
 ## 📦 Project Dependencies
 Current configuration in `package.json`:
@@ -206,29 +211,31 @@ Current configuration in `package.json`:
 #### 📍 Production Route Map
 ```text
 ```text
-Route (app)                                    Size  First Load JS
-┌ ○ /                                       6.43 kB         171 kB
-├ ○ /_not-found                               990 B         103 kB
-├ ○ /about                                  2.27 kB         113 kB
-├ ○ /case-studies                             161 B         105 kB
-├ ● /case-studies/[slug]                      171 B         111 kB
-├   ├ /case-studies/seo-push-negative-news
-├   ├ /case-studies/remove-defamation-post
+Route (app)                                      Size  First Load JS
+┌ ○ /                                         15.3 kB         177 kB
+├ ○ /_not-found                                 990 B         103 kB
+├ ○ /about                                    2.56 kB         150 kB
+├ ○ /case-studies                             3.05 kB         127 kB
+├ ● /case-studies/[slug]                        171 B         111 kB
+├   ├ /case-studies/online-drama-negotiation
 ├   ├ /case-studies/pdpa-privacy-removal
+├   ├ /case-studies/remove-defamation-post
 ├   └ [+2 more paths]
-├ ○ /contact                                45.7 kB         205 kB
-├ ○ /faq                                       1 kB         118 kB
-├ ○ /privacy                                  128 B         102 kB
-├ ○ /services                                 128 B         102 kB
-├ ● /services/[slug]                        5.63 kB         125 kB
+├ ○ /contact                                  46.1 kB         206 kB
+├ ○ /faq                                      3.46 kB         118 kB
+├ ○ /privacy                                    124 B         102 kB
+├ ○ /robots.txt                                   0 B            0 B
+├ ○ /services                                 5.19 kB         161 kB
+├ ● /services/[slug]                          6.45 kB         125 kB
+├   ├ /services/online-identity-audit
+├   ├ /services/sos-consultation
 ├   ├ /services/content-negotiation
-├   ├ /services/pdpa-legal-removal
-├   └ /services/seo-reputation-push
-└ ○ /sitemap.xml                              128 B         102 kB
-+ First Load JS shared by all                102 kB
-  ├ chunks/291-90e2272a9717bdbd.js          45.7 kB
-  ├ chunks/455135d8-30ce3918f044b0b7.js     54.2 kB
-  └ other shared chunks (total)             1.92 kB
+├   └ [+2 more paths]
+└ ○ /sitemap.xml                                124 B         102 kB
++ First Load JS shared by all                  102 kB
+  ├ chunks/291-90e2272a9717bdbd.js            45.7 kB
+  ├ chunks/455135d8-30ce3918f044b0b7.js       54.2 kB
+  └ other shared chunks (total)               1.92 kB
 ○  (Static)  prerendered as static content
 ●  (SSG)     prerendered as static HTML (uses generateStaticParams)
 ```

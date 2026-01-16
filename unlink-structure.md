@@ -3,13 +3,13 @@
 <!--
   Domain: www.unlink-th.com
   Canonical: https://www.unlink-th.com
-  Generated: 2026-01-16 07:23:09
+  Generated: 2026-01-16 12:41:14
   Type: Architecture / Documentation
 -->
 
 > **Project:** www.unlink-th.com  
 > **URL:** https://www.unlink-th.com  
-> **Generated on:** 2026-01-16 07:23:09
+> **Generated on:** 2026-01-16 12:41:14
 
 ## ⚙️ Root Configuration Files
 
@@ -29,49 +29,48 @@ The following structure represents the core business logic and UI layers.
 
 ### 📂 app
 
-📄 favicon.ico
 📂 **about/**
 📄 page.tsx
 📂 **case-studies/**
 📂 **[slug]/**
 📄 page.tsx
 📄 page.tsx
+📂 **contact/**
+📄 page.tsx
 📂 **faq/**
 📄 page.tsx
+📄 favicon.ico
 📄 globals.css
 📄 layout.tsx
 📄 page.tsx
 📂 **privacy/**
 📄 page.tsx
+📄 robots.txt
 📂 **services/**
 📂 **[slug]/**
 📄 page.tsx
 📄 page.tsx
 📄 sitemap.ts
-📂 **contact/**
-📄 page.tsx
-
-### 📂 actions
 
 ### 📂 components
 
 📂 **landing/**
-📄 Methods.tsx
-📄 Proof.tsx
 📄 ContactCTA.tsx
 📄 Hero.tsx
+📄 Methods.tsx
+📄 Proof.tsx
 📂 **seo/**
 📄 JsonLd.tsx
 📂 **shared/**
+📄 CaseStudySection.tsx
 📄 FaqSection.tsx
 📄 Footer.tsx
 📄 Header.tsx
 📄 Icons.tsx
-📄 Navbar.tsx
-📄 ServiceCard.tsx
-📄 ProtocolStepper.tsx
 📄 LineButton.tsx
-📄 CaseStudySection.tsx
+📄 Navbar.tsx
+📄 ProtocolStepper.tsx
+📄 ServiceCard.tsx
 📂 **templates/**
 📄 CategoryArchiveTemplate.tsx
 📂 **ui/**
@@ -101,28 +100,29 @@ The following structure represents the core business logic and UI layers.
 📄 server.ts
 📄 utils.ts
 
-### 📂 hooks
-
-### 📂 types
-
 ### 📂 public
 
 📂 **images/**
+📄 Logo.jpg
 📂 **cases/**
-📄 seo-push.webp
-📄 negotiation-drama.webp
-📄 privacy-legal.webp
 📄 blacklist-clear.webp
 📄 defamation-removal.webp
+📄 negotiation-drama.webp
+📄 privacy-legal.webp
+📄 seo-push.webp
 📄 og-main.jpg
-📄 1Logo.jpg
-📄 Logo.jpg
+📂 **\_store/**
+📄 background-check-guide.webp
+📄 pdpa-cover.webp
+📄 seo-push-strategy.webp
+📂 **service/**
+📄 service.webp
 
 ### 📂 constants
 
+📄 cases.ts
 📄 navigation.ts
 📄 services-data.ts
-📄 cases.ts
 📄 site-config.ts
 
 ### 📂 providers
@@ -131,16 +131,20 @@ The following structure represents the core business logic and UI layers.
 
 ### 📂 content
 
-📄 faq-data.ts
 📂 **cases/**
-📄 remove-defamation-post.mdx
 📄 clear-blacklist-misunderstand.mdx
-📄 seo-push-negative-news.mdx
-📄 pdpa-privacy-removal.mdx
 📄 online-drama-negotiation.mdx
+📄 pdpa-privacy-removal.mdx
+📄 remove-defamation-post.mdx
+📄 seo-push-negative-news.mdx
+📄 faq-data.ts
+📂 **\_store/**
+📄 how-to-fix-negative-google-search-results.mdx
+📄 online-background-check-for-job-application.mdx
+📄 right-to-be-forgotten-thailand-pdpa.mdx
 
 ---
 
 ---
 
-.ตรวจสอบ .Code และ Code แก้ไขให้ถูกต้อง ปรับปรุงให้ดีขึ้น Update code & format code ให้ถูกต้อง ส่งกับมาในรูปแบ Full code
+. Update code & format ส่งกลับในรูปแบบ Code พร้อมใช้งาน

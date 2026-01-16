@@ -31,33 +31,29 @@ export const viewport: Viewport = {
 
 /**
  * 3. SEO Metadata
- * แก้ไขปัญหา TS2322: Keywords readonly โดยการใช้ Spread Operator [...]
  */
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.name,
+    default: siteConfig.fullName, // ✅ ใช้ชื่อเต็มเพื่อ SEO ที่ดีขึ้นในหน้าแรก
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  // ✅ แก้ไข: ใช้ Spread operator เพื่อแปลง Readonly Array เป็น Mutable Array
-  // เพื่อให้ตรงกับ Type definition ของ Metadata ใน Next.js 15
-  keywords: siteConfig.keywords
-    ? [...siteConfig.keywords]
-    : [
-        "ลบชื่อแบล็คลิสต์",
-        "แก้ไขประวัติออนไลน์",
-        "ลบข้อมูลส่วนตัว",
-        "ทำ SEO ดันชื่อ",
-        "จัดการชื่อเสียออนไลน์",
-      ],
-  authors: [{ name: "Unlink-TH Team" }],
-  creator: "Unlink-TH",
+  // ✅ แก้ไขปัญหา Readonly Array
+  keywords: [...siteConfig.keywords],
+  authors: [{ name: "Unlink Thailand Team" }],
+  creator: "Unlink Thailand",
+  publisher: "Unlink Thailand",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     type: "website",
     locale: "th_TH",
     url: siteConfig.url,
-    title: siteConfig.name,
+    title: siteConfig.fullName,
     description: siteConfig.description,
     siteName: siteConfig.name,
     images: [
@@ -65,13 +61,13 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: siteConfig.name,
+        alt: siteConfig.fullName,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
+    title: siteConfig.fullName,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
   },
@@ -100,8 +96,8 @@ export default function RootLayout({
 
             <Footer />
 
-            {/* ✅ แก้ไข: ลบ Prop 'url' ออกเนื่องจาก LineButton ภายในใช้ siteConfig โดยตรงอยู่แล้ว */}
-            <div className="fixed right-6 bottom-6 z-50 flex flex-col gap-4">
+            {/* Floating Action Button (LINE) */}
+            <div className="fixed right-6 bottom-6 z-50">
               <LineButton />
             </div>
 

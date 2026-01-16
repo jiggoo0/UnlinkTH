@@ -8,15 +8,15 @@
   --font-sans: var(--font-kanit);
   --radius: 0.75rem;
 
-  /* Brand Colors (Refactored to Professional Blue) */
+  /* Brand Colors (Professional Blue & OKLCH) */
   --background: oklch(1 0 0);
   --foreground: oklch(0.12 0.02 252);
 
-  --primary: oklch(0.55 0.18 252); /* Blue 600 */
+  --primary: oklch(0.55 0.18 252); /* Blue 600 - น่าเชื่อถือและมั่นคง */
   --primary-foreground: oklch(0.98 0 0);
 
   /* Utility Colors */
-  --line-green: 142 70% 45%;
+  --line-green: 142 70% 45%; /* สำหรับแบรนด์ LINE โดยเฉพาะ */
   --success: oklch(0.63 0.19 145);
 
   /* Base Components */
@@ -86,6 +86,27 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-line-green: hsl(var(--line-green));
+
+  /* Keyframe Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
 }
 
 @layer base {
@@ -104,15 +125,17 @@
       "calt" 1;
   }
 
-  /* Custom Scrollbar for Premium Feel */
+  /* Custom Scrollbar */
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
   ::-webkit-scrollbar-track {
     @apply bg-slate-50;
   }
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full border-2 border-solid border-slate-50 bg-slate-300 transition-colors hover:bg-slate-400;
+    @apply rounded-full bg-slate-300 transition-colors hover:bg-slate-400;
+    border: 2px solid transparent;
+    background-clip: padding-box;
   }
 
   ::selection {
@@ -120,9 +143,13 @@
   }
 }
 
-/* Typography Helper Classes */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* ช่วยให้รูปภาพในบทความ MDX มีความนุ่มนวล */
+  .prose-img-rounded {
+    @apply rounded-2xl shadow-lg;
   }
 }

@@ -30,13 +30,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // 3. รายการหน้าหลัก (Static Routes)
   const staticRoutes = [
-    "",                // หน้าแรก
-    "/about",          // เกี่ยวกับเรา
-    "/services",       // บริการทั้งหมด
-    "/case-studies",   // ผลงานทั้งหมด
-    "/faq",            // คำถามที่พบบ่อย
-    "/contact",        // ติดต่อเรา
-    "/privacy",        // นโยบายความเป็นส่วนตัว
+    "", // หน้าแรก
+    "/about", // เกี่ยวกับเรา
+    "/services", // บริการทั้งหมด
+    "/case-studies", // ผลงานทั้งหมด
+    "/faq", // คำถามที่พบบ่อย
+    "/contact", // ติดต่อเรา
+    "/privacy", // นโยบายความเป็นส่วนตัว
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
