@@ -1,0 +1,13 @@
+import { MetadataRoute } from 'next'
+import { siteConfig } from '@/constants/site-config'
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: {
+      userAgent: '*',
+      allow: '/',
+      disallow: ['/api/', '/admin/'], // ปิดกั้นส่วนที่เป็นระบบหลังบ้าน (ถ้ามี)
+    },
+    sitemap: `${siteConfig.url}/sitemap.xml`,
+  }
+}
