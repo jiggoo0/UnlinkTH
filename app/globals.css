@@ -1,172 +1,128 @@
-/** @format */
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
 
-@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
 
-/* * [STRATEGY: THE INTELLIGENCE CORE v5.0]
- * - Typeface: ผสาน Anuphan (Thai) เข้ากับระบบ Typography เพื่อแก้ปัญหาช่องไฟ (Line-height)
- * - Design System: ใช้ระบบ 8pt Grid ร่วมกับ Radius แบบ Squircle
- * - Visual: เพิ่ม 'Technical Overlays' สำหรับการแสดงผลแบบ High-end Institution
- */
+:root {
+  /* Font & General */
+  --font-sans: var(--font-kanit);
+  --radius: 0.75rem;
 
-@theme {
-  /* 🏛️ Typography Hierarchy */
-  --font-sans: 'Inter', 'Anuphan', ui-sans-serif, system-ui;
-  --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
-  --font-thai: 'Anuphan', sans-serif;
+  /* Brand Colors (Refactored to Professional Blue) */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.12 0.02 252);
 
-  /* 🏛️ Border Radius System: Institutional Consistency */
-  --radius-4xl: 3rem; /* 48px - สำหรับ Container ใหญ่พิเศษ */
-  --radius-3xl: 2.5rem; /* 40px - สำหรับ Main Cards/Bunkers */
-  --radius-2xl: 1.5rem; /* 24px - สำหรับ Inner Modules */
-  --radius-xl: 1rem; /* 16px - สำหรับปุ่มหลัก/Input */
-  --radius-lg: 0.75rem; /* 12px - สำหรับ Elements ขนาดเล็ก */
+  --primary: oklch(0.55 0.18 252); /* Blue 600 */
+  --primary-foreground: oklch(0.98 0 0);
 
-  /* 🏛️ Operational Animations: Machine-grade Precision */
-  --animate-accordion-down: accordion-down 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-  --animate-accordion-up: accordion-up 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-  --animate-scanline: scanline 6s linear infinite;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-subtle: pulse-subtle 3s ease-in-out infinite;
+  /* Utility Colors */
+  --line-green: 142 70% 45%;
+  --success: oklch(0.63 0.19 145);
 
-  @keyframes scanline {
-    from {
-      transform: translateY(-100%);
-      opacity: 0;
-    }
-    50% {
-      opacity: 0.3;
-    }
-    to {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-  }
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-15px);
-    }
-  }
-  @keyframes pulse-subtle {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.85;
-      transform: scale(0.98);
-    }
-  }
+  /* Base Components */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.12 0.02 252);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.12 0.02 252);
 
-  /* 🛡️ Variable-to-Theme Mapping */
+  --secondary: oklch(0.96 0.01 252);
+  --secondary-foreground: oklch(0.25 0.05 252);
+
+  --muted: oklch(0.96 0.01 252);
+  --muted-foreground: oklch(0.45 0.02 252);
+
+  --accent: oklch(0.92 0.03 252);
+  --accent-foreground: oklch(0.25 0.05 252);
+
+  --destructive: oklch(0.58 0.25 28);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(0.91 0.01 252);
+  --input: oklch(0.91 0.01 252);
+  --ring: oklch(0.55 0.18 252);
+}
+
+.dark {
+  --background: oklch(0.14 0.02 252);
+  --foreground: oklch(0.98 0 0);
+
+  --primary: oklch(0.65 0.15 252);
+  --primary-foreground: oklch(0.14 0.02 252);
+
+  --card: oklch(0.18 0.02 252);
+  --card-foreground: oklch(0.98 0 0);
+
+  --secondary: oklch(0.25 0.03 252);
+  --secondary-foreground: oklch(0.98 0 0);
+
+  --muted: oklch(0.25 0.03 252);
+  --muted-foreground: oklch(0.7 0.02 252);
+
+  --accent: oklch(0.25 0.03 252);
+  --accent-foreground: oklch(0.98 0 0);
+
+  --border: oklch(0.3 0.02 252 / 0.2);
+  --input: oklch(0.3 0.02 252 / 0.3);
+  --ring: oklch(0.65 0.15 252);
+}
+
+@theme inline {
+  --font-sans: var(--font-kanit);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
   --color-border: var(--border);
+  --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-}
-
-@layer base {
-  :root {
-    /* 🏛️ Light Mode: Professional Gallery */
-    --background: #ffffff;
-    --foreground: #020617;
-    --primary: #2563eb;
-    --primary-foreground: #ffffff;
-    --muted: #f8fafc;
-    --muted-foreground: #64748b;
-    --border: #f1f5f9;
-    --input: #f1f5f9;
-    --ring: rgba(37, 99, 235, 0.08);
-  }
-
-  .dark {
-    /* 🏛️ Dark Mode: Deep Tactical Space */
-    --background: #020617;
-    --foreground: #f8fafc;
-    --primary: #3b82f6;
-    --primary-foreground: #ffffff;
-    --muted: #0f172a;
-    --muted-foreground: #94a3b8;
-    --border: #1e293b;
-    --input: #1e293b;
-    --ring: rgba(59, 130, 246, 0.15);
-  }
+  --color-line-green: hsl(var(--line-green));
 }
 
 @layer base {
   * {
-    @apply border-border transition-all duration-300 ease-out outline-none;
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply scroll-smooth;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: 'cv11', 'ss01', 'tnum', 'case';
-    scroll-behavior: smooth;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
 
-  /* 🇹🇭 Thai Typography Optimization */
-  .font-thai {
-    @apply leading-[1.8] tracking-normal;
-    text-underline-offset: 4px;
+  /* Custom Scrollbar for Premium Feel */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-50;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full border-2 border-solid border-slate-50 bg-slate-300 transition-colors hover:bg-slate-400;
   }
 
-  /* 🏛️ Heading System */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    @apply font-sans font-black tracking-tighter text-balance;
+  ::selection {
+    @apply bg-blue-100 text-blue-900;
   }
 }
 
+/* Typography Helper Classes */
 @layer utilities {
-  /* 🛡️ Strategic Layout Utils */
-  .bg-tactical-grid {
-    background-image: radial-gradient(
-      circle,
-      var(--border) 1px,
-      transparent 1px
-    );
-    background-size: 40px 40px;
+  .text-balance {
+    text-wrap: balance;
   }
-
-  /* 🛡️ Glass-morphism v2: Institutional Grade */
-  .glass-effect {
-    @apply border border-white/10 backdrop-blur-2xl dark:border-white/5;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.05),
-      rgba(255, 255, 255, 0.01)
-    );
-  }
-
-  /* 🛡️ Cyber Glow: Active state indicators */
-  .glow-primary {
-    filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.25));
-  }
-
-  /* 🛡️ Content Masks */
-  .mask-fade-out {
-    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-  }
-}
-
-/* Custom Scrollbar: Minimalist Technical Style */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
-::-webkit-scrollbar-thumb {
-  @apply rounded-full bg-slate-200 transition-colors hover:bg-blue-500/50 dark:bg-slate-800;
 }

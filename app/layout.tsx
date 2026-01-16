@@ -1,66 +1,85 @@
-/** @format */
+import type { Metadata, Viewport } from "next"
+import { Kanit } from "next/font/google"
+import "./globals.css"
 
-import type { Metadata, Viewport } from 'next'
-import { Inter, Anuphan } from 'next/font/google'
-import './globals.css'
-import { cn } from '@/lib/utils'
-import { ThemeProvider } from '@/components/shared/theme-provider'
-import { Toaster } from '@/components/ui/sonner'
-import { generateOrganizationSchema } from '@/lib/seo/schema-helper'
+import { siteConfig } from "@/constants/site-config"
+import Navbar from "@/components/shared/Navbar"
+import Footer from "@/components/shared/Footer"
+import LineButton from "@/components/shared/LineButton"
+import { Toaster } from "@/components/ui/sonner"
+import AppProvider from "@/providers/AppProvider"
 
-/** * [STRATEGY: FONT OPTIMIZATION]
- * รองรับการแสดงผลภาษาไทยที่คมชัดและสบายตาสำหรับผู้ใช้ทุกวัย
+/**
+ * 1. ฟอนต์ Kanit สำหรับภาษาไทยและภาษาอังกฤษ
  */
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-  preload: true,
-})
-
-const anuphan = Anuphan({
-  subsets: ['thai'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-anuphan',
-  display: 'swap',
-  preload: true,
+const kanit = Kanit({
+  subsets: ["latin", "thai"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-kanit",
+  display: "swap",
 })
 
 /**
- * [STRATEGY: SEO & METADATA]
- * แก้ไขปัญหา metadataBase Warning และตั้งค่า Domain หลัก
+ * 2. Viewport Configuration (Next.js 15 Standard)
  */
-export const metadata: Metadata = {
-  metadataBase: new URL('https://www.unlink-th.com'),
-  title: {
-    default:
-      'UnlinkTH | ที่ปรึกษาจัดการชื่อเสียงดิจิทัลและการใช้สิทธิถูกลืม (RTBF)',
-    template: '%s | UnlinkTH Reputation Intelligence',
-  },
-  description:
-    'บริการจัดการข้อมูลออนไลน์เชิงลบอย่างถูกวิธีตามกฎหมาย PDPA และหลักการลบข้อมูลถาวร (De-indexing) ปกป้องสิทธิส่วนบุคคลด้วยมาตรฐานความปลอดภัยระดับสถาบัน',
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    type: 'website',
-    locale: 'th_TH',
-    url: 'https://www.unlink-th.com',
-    siteName: 'UnlinkTH',
-  },
-  verification: {
-    google: 'your-google-verification-code',
-  },
+export const viewport: Viewport = {
+  themeColor: "#2563eb",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 }
 
-export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#020617' },
-  ],
-  width: 'device-width',
-  initialScale: 1,
-  viewportFit: 'cover',
+/**
+ * 3. SEO Metadata
+ * แก้ไขปัญหา TS2322: Keywords readonly โดยการใช้ Spread Operator [...]
+ */
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  // ✅ แก้ไข: ใช้ Spread operator เพื่อแปลง Readonly Array เป็น Mutable Array
+  // เพื่อให้ตรงกับ Type definition ของ Metadata ใน Next.js 15
+  keywords: siteConfig.keywords
+    ? [...siteConfig.keywords]
+    : [
+        "ลบชื่อแบล็คลิสต์",
+        "แก้ไขประวัติออนไลน์",
+        "ลบข้อมูลส่วนตัว",
+        "ทำ SEO ดันชื่อ",
+        "จัดการชื่อเสียออนไลน์",
+      ],
+  authors: [{ name: "Unlink-TH Team" }],
+  creator: "Unlink-TH",
+  openGraph: {
+    type: "website",
+    locale: "th_TH",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
 }
 
 export default function RootLayout({
@@ -68,49 +87,27 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const organizationSchema = generateOrganizationSchema()
-
   return (
-    <html lang="th" suppressHydrationWarning className="scroll-smooth">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
-        />
-      </head>
+    <html lang="th" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={cn(
-          'bg-background text-foreground min-h-screen font-sans antialiased',
-          inter.variable,
-          anuphan.variable,
-        )}
+        className={`${kanit.variable} bg-background min-h-screen font-sans antialiased selection:bg-blue-100 selection:text-blue-900`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {/* ✅ จุดสำคัญ: {children} จะถูกหุ้มโดย Layout ย่อยในแต่ละ Route Group 
-              - กลุ่ม (main) จะหุ้มด้วย MainLayout (มี Navbar หลัก)
-              - กลุ่ม (wiki-hub) จะหุ้มด้วย WikiLayout (มี Navbar Wiki)
-              ทำให้ไม่มีการซ้อนทับกันที่ Root
-          */}
-          {children}
+        <AppProvider>
+          <div className="relative flex min-h-screen flex-col">
+            <Navbar />
 
-          <Toaster
-            position="bottom-right"
-            richColors
-            closeButton
-            className="font-sans"
-            style={{ zIndex: 9999 }}
-            toastOptions={{
-              style: { borderRadius: '12px' },
-            }}
-          />
-        </ThemeProvider>
+            <main className="flex-1">{children}</main>
+
+            <Footer />
+
+            {/* ✅ แก้ไข: ลบ Prop 'url' ออกเนื่องจาก LineButton ภายในใช้ siteConfig โดยตรงอยู่แล้ว */}
+            <div className="fixed right-6 bottom-6 z-50 flex flex-col gap-4">
+              <LineButton />
+            </div>
+
+            <Toaster position="top-center" richColors closeButton />
+          </div>
+        </AppProvider>
       </body>
     </html>
   )

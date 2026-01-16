@@ -1,97 +1,138 @@
 #!/bin/bash
 
-# === CONFIG ===
+# ==============================================================================
+# 🚀 www.unlink-th.com: Full Context & Code Analysis Script (Enhanced)
+# ==============================================================================
+# Description: Compiles architectural structure and critical source code into
+# a single markdown file for AI context or technical audits.
+# Domain: https://www.unlink-th.com
+# ==============================================================================
+
+# ⚙️ CONFIGURATION
 OUTPUT_FILE="project-summary-with-code.md"
 REPORT_FILE="pre-deploy-report.md"
-WHITELIST_DIRS=("app" "components" "lib" "hooks" "types" "scripts" "public" "data")
+PROJECT_DOMAIN="www.unlink-th.com"
+PROJECT_URL="https://www.unlink-th.com"
 
-# รายชื่อไฟล์สำคัญสำหรับส่งให้ AI วิเคราะห์
+# Comprehensive Whitelist for Next.js 15 Enterprise Structure
+WHITELIST_DIRS=(
+  "app"
+  "actions"
+  "components"
+  "lib"
+  "hooks"
+  "types"
+  "scripts"
+  "public"
+  "data"
+  "constants"
+  "providers"
+  "content"
+  "styles"
+  "services"
+  "config"
+)
+
+# Critical files for AI context analysis (Included SupabaseSQL.md)
 SCAN_FILES=(
   "ai-context.md"
   "$REPORT_FILE"
   "app/globals.css"
   "app/layout.tsx"
-  "data/services/services-1.ts"
-  "data/services/services-2.ts"
+  "app/page.tsx"
+  "mdx-components.tsx"
+  "constants/navigation.ts"
+  "constants/site-config.ts"
+  "constants/services-data.ts"
+  "constants/cases.ts"
+  "app/case-studies/[slug]/page.tsx"
+  "app/services/[slug]/page.tsx"
+  "components/templates/CategoryArchiveTemplate.tsx"
   "tsconfig.json"
   "package.json"
   "next.config.ts"
-  "lib/supabase.ts"
-  "types/service.ts"
-  "types/wiki.ts"
-  "lib/wiki.ts"
+  "components.json"
+  "lib/mdx.ts"
   ".env"
 )
 
-# ✅ 1. เคลียร์ไฟล์เก่า
+# ✅ 1. INITIALIZATION
 rm -f "$OUTPUT_FILE"
-
-# === EXECUTE ===
-echo "🚀 เริ่มปฏิบัติการสแกน Full Context: UnlinkTH..."
+echo "🚀 Initiating Full Context Scan for $PROJECT_DOMAIN..."
 
 {
-  echo "# 📑 รายงานสรุปโปรเจกต์และบริบท AI (Full Context)"
-  echo "_สร้างเมื่อ: $(date '+%Y-%m-%d %H:%M:%S')_"
-  echo "> **Status:** Fresh Scan | รวมข้อมูลวิเคราะห์ Route & Code"
+  echo "# 📑 Project Context Summary (Full Scan)"
+  echo ""
+  echo "<!--"
+  echo "  Domain: $PROJECT_DOMAIN"
+  echo "  Canonical: $PROJECT_URL"
+  echo "  Generated: $(date '+%Y-%m-%d %H:%M:%S')"
+  echo "  Type: Full Context & Code Analysis"
+  echo "-->"
+  echo ""
+  echo "_Generated on: **$(date '+%Y-%m-%d %H:%M:%S')**_"
+  echo "> **Project:** $PROJECT_DOMAIN"
+  echo "> **URL:** $PROJECT_URL"
+  echo "> **Status:** Production-Ready Analysis | Full System Context | De-indexing Focus"
   echo ""
 
-  # --- 1. วิเคราะห์สุขภาพโปรเจกต์ (Logic จากสคริปต์โครงสร้าง) ---
-  echo "## 🔴 1. สถานะสุขภาพโปรเจกต์ล่าสุด"
+  # --- 1. PROJECT HEALTH STATUS ---
+  echo "## 🔴 1. Project Health & Deployment Readiness"
   if [ -f "$REPORT_FILE" ]; then
-    # 1.1 ตรวจสอบสถานะภาพรวม
     if grep -q "### ✅ READY FOR DEPLOY" "$REPORT_FILE"; then
-      echo "✅ **READY FOR DEPLOY** (ผ่านการตรวจสอบทุกขั้นตอน)"
+      echo "✅ **READY FOR DEPLOY:** The project meets all production standards."
     else
-      echo "❌ **FIX REQUIRED** (โปรดตรวจสอบข้อผิดพลาดด้านล่าง)"
+      echo "❌ **FIX REQUIRED:** Issues detected. Refer to the Issue Highlight section."
     fi
     echo ""
 
-    # 1.2 ดึงรายละเอียด Route Map
     if grep -q "### 📊 Route Statistics" "$REPORT_FILE"; then
       echo "### 📍 Production Route Map"
       echo '```text'
       sed -n '/### 📊 Route Statistics/,/---/p' "$REPORT_FILE" | \
-      grep -v "###" | grep -v -- "---" | sed '/^$/d'
+        grep -v "###" | grep -v -- "---" | sed '/^$/d'
       echo '```'
     fi
   else
-    echo "⚠️ *ไม่พบไฟล์ $REPORT_FILE: กรุณารัน pre-deploy-check.sh*"
+    echo "⚠️ *Warning: \`$REPORT_FILE\` not found. Run \`pre-deploy-check.sh\` for health metrics.*"
   fi
   echo ""
 
-  # --- 2. สถิติไฟล์ ---
-  echo "## 📊 2. สถิติไฟล์แบ่งตามนามสกุล"
+  # --- 2. FILE TYPE DISTRIBUTION ---
+  echo "## 📊 2. File Statistics by Extension"
   echo '```text'
   find "${WHITELIST_DIRS[@]}" -type f 2>/dev/null \
     | sed 's/.*\.//' | sort | uniq -c | sort -nr
   echo '```'
   echo ""
 
-  # --- 3. โครงสร้างโฟลเดอร์ ---
-  echo "## 📁 3. โครงสร้างโฟลเดอร์ (Tree)"
+  # --- 3. ARCHITECTURAL TREE ---
+  echo "## 📁 3. Directory Structure (Architecture Tree)"
   echo '```text'
   for dir in "${WHITELIST_DIRS[@]}"; do
     if [ -d "$dir" ]; then
-      echo "📂 $dir"
-      find "$dir" -maxdepth 10 -mindepth 1 \
-        -path "*/node_modules" -prune -o \
-        -path "*/.*" -prune -o \
-        -print | while read -r path; do
-            depth=$(echo "$path" | tr -cd '/' | wc -c)
-            indent=$(printf '%*s' $((depth * 2)) "")
-            name=$(basename "$path")
-            [ -d "$path" ] && echo "${indent}📂 $name" || echo "${indent}📄 $name"
-          done
+      echo "📂 $dir/"
+      find "$dir" -maxdepth 5 -not -path '*/.*' | while read -r path; do
+        depth=$(temp="${path//[^\/]/}"; echo "${#temp}")
+        indent=$(printf '%*s' $((depth * 2)) "")
+        name=$(basename "$path")
+        if [ -d "$path" ]; then
+          [[ "$path" != "$dir" ]] && echo "${indent}📂 $name/"
+        else
+          echo "${indent}📄 $name"
+        fi
+      done
     fi
   done
   echo '```'
   echo ""
 
-  # --- 4. สแกนเนื้อหาโค้ดไฟล์สำคัญ ---
-  echo "## 📄 4. เนื้อหาโค้ดและบริบททางเทคนิค"
+  # --- 4. SOURCE CODE & TECHNICAL CONTEXT ---
+  echo "## 📄 4. Critical Code Analysis & Environment"
   for file in "${SCAN_FILES[@]}"; do
     if [ -f "$file" ]; then
-      echo "#### 🔍 Path: $file"
+      echo "#### 🔍 Path: \`$file\`"
+
       ext="${file##*.}"
       lang="text"
       case "$ext" in
@@ -100,11 +141,13 @@ echo "🚀 เริ่มปฏิบัติการสแกน Full Contex
         json) lang="json" ;;
         md) lang="markdown" ;;
         css) lang="css" ;;
+        sql) lang="sql" ;;
       esac
 
+      [[ "$file" == *"SupabaseSQL.md"* ]] && lang="sql"
+
       echo '```'"$lang"
-      if [ "$file" = ".env" ]; then
-        # ปิดบังความลับใน .env
+      if [[ "$file" == *".env"* ]]; then
         sed 's/=.*/= "********"/' "$file"
       elif [ "$file" = "package.json" ] && command -v jq >/dev/null 2>&1; then
         jq '{name, version, scripts, dependencies, devDependencies}' package.json
@@ -117,10 +160,12 @@ echo "🚀 เริ่มปฏิบัติการสแกน Full Contex
     fi
   done
 
-  echo "## 📝 บทสรุป"
-  echo "การสแกนเสร็จสิ้น ข้อมูลถูกจัดรูปแบบให้ AI ประมวลผลได้ทันที"
-  echo ". Format code in: Optimized"
+  echo "## 📝 Summary"
+  echo "Architecture scan and context compilation completed successfully."
+  echo "Focus maintained on Privacy, Security, and AI-readiness."
+  echo ""
+  echo "_Report generated by $PROJECT_DOMAIN Internal Automation._"
 
 } > "$OUTPUT_FILE"
 
-echo "✅ สแกนเสร็จสิ้น! รายงานฉบับสมบูรณ์อยู่ที่ → $OUTPUT_FILE"
+echo "✅ Full Scan Complete! Report saved to → $OUTPUT_FILE"

@@ -1,163 +1,133 @@
-/** @format */
+"use client"
 
-'use client'
-
-import * as React from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
+import * as React from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { siteConfig } from "@/constants/site-config"
+import { navigationLinks } from "@/constants/navigation"
+import { Button } from "@/components/ui/button"
+// ✅ แก้ไข: ลบไอคอน X ที่ไม่ได้ใช้งานออก
+import { MessageCircle, Menu, ShieldCheck } from "lucide-react"
+import { cn } from "@/lib/utils"
 import {
-  Menu,
-  X,
-  Home,
-  Briefcase,
-  History,
-  BookOpen,
-  HelpCircle,
-  MessageCircle,
-} from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { Logo } from './logo'
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet"
 
-/**
- * [STRATEGY: ACCESSIBLE UI v6.1]
- * - Fix Lint: ลบการนำเข้า 'ArrowRight' ที่ไม่ได้ใช้งาน (Unused Variable)
- * - Language: ใช้ภาษาพูดที่เข้าใจง่าย ตัดศัพท์เทคนิคออก เพื่อความเป็นกันเอง
- * - UX: เน้นปุ่มติดต่อ (Contact Button) ให้มีความเด่นชัดสูงสุดทั้ง Desktop และ Mobile
- */
-
-const MENU_ITEMS = [
-  { name: 'หน้าแรก', href: '/', icon: Home },
-  { name: 'บริการของเรา', href: '/services', icon: Briefcase },
-  { name: 'รีวิว/ผลงาน', href: '/cases', icon: History },
-  { name: 'ความรู้เรื่องลบข้อมูล', href: '/wiki', icon: BookOpen },
-  { name: 'ถาม-ตอบ', href: '/faq', icon: HelpCircle },
-]
-
-export function Navbar() {
+export default function Navbar() {
   const pathname = usePathname()
-  const [isMobileOpen, setIsMobileOpen] = React.useState(false)
-
-  React.useEffect(() => {
-    setIsMobileOpen(false)
-  }, [pathname])
+  const [isOpen, setIsOpen] = React.useState(false)
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-[100] border-b border-slate-100 bg-white/95 backdrop-blur-md dark:border-slate-800 dark:bg-slate-950/95">
-      {/* 🏛️ 1. TOP ANNOUNCEMENT (Friendly Tone) */}
-      <div className="hidden border-b border-blue-50 bg-blue-600 px-6 py-2 lg:block">
-        <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <p className="font-thai text-[12px] font-medium text-white">
-            รับแก้ปัญหาประวัติเสีย ลบข้อมูลไม่ดีบนเน็ต ดูแลด้วยใจ
-            ปรึกษาฟรีไม่มีค่าใช้จ่าย
-          </p>
-          <div className="flex items-center gap-4 text-[11px] font-bold text-white uppercase">
-            <span className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-400" />
-              เจ้าหน้าที่พร้อมช่วยเหลือ (Online)
-            </span>
-          </div>
-        </div>
-      </div>
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md transition-all">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        {/* Logo Section */}
+        <Link
+          href="/"
+          className="flex items-center space-x-2 transition-opacity hover:opacity-90"
+        >
+          <ShieldCheck className="h-6 w-6 text-blue-600" />
+          <span className="text-xl font-extrabold tracking-tighter text-slate-900">
+            UNLINK<span className="text-blue-600">-TH</span>
+          </span>
+        </Link>
 
-      {/* 🏛️ 2. MAIN NAV */}
-      <div className="mx-auto max-w-7xl px-4 lg:px-6">
-        <div className="flex h-16 items-center justify-between lg:h-20">
-          {/* Logo */}
-          <div className="flex shrink-0 items-center">
-            <Logo fontSize="text-xl" iconSize={28} />
-          </div>
+        {/* Desktop Navigation */}
+        <nav className="hidden items-center gap-8 md:flex">
+          {navigationLinks.map((link) => {
+            const isActive = pathname === link.href
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "text-sm font-semibold transition-colors hover:text-blue-600",
+                  isActive ? "text-blue-600" : "text-slate-600"
+                )}
+              >
+                {link.title}
+              </Link>
+            )
+          })}
 
-          {/* Desktop Links: เน้นภาษาไทยชัดๆ */}
-          <div className="hidden items-center gap-2 lg:flex">
-            {MENU_ITEMS.map((item) => {
-              const isActive = pathname === item.href
-              const Icon = item.icon
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    'group relative flex items-center gap-2 rounded-full px-5 py-2.5 transition-all duration-300',
-                    isActive
-                      ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400'
-                      : 'text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-white',
-                  )}
-                >
-                  <Icon size={18} strokeWidth={isActive ? 2.5 : 2} />
-                  <span className="font-thai text-[15px] font-bold">
-                    {item.name}
-                  </span>
-                </Link>
-              )
-            })}
-          </div>
-
-          {/* Contact Button: เน้นสีสดใส กระตุ้นการกด */}
-          <div className="flex items-center gap-3">
-            <Link
-              href="/contact"
-              className="hidden items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-white shadow-lg shadow-blue-600/30 transition-all hover:scale-105 hover:bg-blue-700 active:scale-95 sm:flex"
-            >
-              <MessageCircle size={18} fill="currentColor" />
-              <span className="font-thai text-[15px] font-bold">
-                ทักหาเราเลย
-              </span>
-            </Link>
-
-            {/* Mobile Toggle */}
-            <button
-              onClick={() => setIsMobileOpen(!isMobileOpen)}
-              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-900 transition-all active:scale-90 lg:hidden dark:bg-slate-900 dark:text-white"
-            >
-              {isMobileOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* 📱 3. MOBILE MENU */}
-      <AnimatePresence>
-        {isMobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="fixed inset-x-0 top-[64px] z-[90] border-b border-slate-200 bg-white p-5 lg:hidden dark:border-slate-800 dark:bg-slate-950"
+          <Button
+            size="sm"
+            className="bg-blue-600 font-bold shadow-md shadow-blue-100 hover:bg-blue-700"
+            asChild
           >
-            <div className="flex flex-col gap-3">
-              {MENU_ITEMS.map((item) => {
-                const isActive = pathname === item.href
-                return (
+            <a
+              href={siteConfig.contact.lineUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MessageCircle className="mr-2 h-4 w-4 fill-current" />
+              ปรึกษาเคสฟรี
+            </a>
+          </Button>
+        </nav>
+
+        {/* Mobile Navigation Trigger (ใช้ Sheet จาก shadcn/ui) */}
+        <div className="md:hidden">
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="text-slate-600">
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Toggle menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <SheetHeader className="border-b pb-4 text-left">
+                <SheetTitle className="flex items-center gap-2">
+                  <ShieldCheck className="h-5 w-5 text-blue-600" />
+                  <span className="font-bold tracking-tight text-slate-900">
+                    เมนูหลัก
+                  </span>
+                </SheetTitle>
+              </SheetHeader>
+
+              <div className="mt-8 flex flex-col gap-6">
+                {navigationLinks.map((link) => (
                   <Link
-                    key={item.href}
-                    href={item.href}
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
                     className={cn(
-                      'flex items-center gap-4 rounded-2xl px-6 py-5 transition-all',
-                      isActive
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-slate-50 text-slate-700 dark:bg-slate-900 dark:text-slate-400',
+                      "text-lg font-bold transition-colors hover:text-blue-600",
+                      pathname === link.href
+                        ? "text-blue-600"
+                        : "text-slate-900"
                     )}
                   >
-                    <item.icon size={22} />
-                    <span className="font-thai text-xl font-bold">
-                      {item.name}
-                    </span>
+                    {link.title}
                   </Link>
-                )
-              })}
+                ))}
 
-              <Link
-                href="/contact"
-                className="font-thai mt-4 flex h-20 items-center justify-center gap-3 rounded-3xl bg-emerald-500 text-xl font-bold text-white shadow-xl shadow-emerald-500/20 transition-transform active:scale-95"
-              >
-                <MessageCircle size={24} fill="currentColor" />
-                คุยกับเราตอนนี้ฟรี!
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+                <div className="flex flex-col gap-4 border-t border-slate-100 pt-4">
+                  <p className="text-sm font-medium text-slate-500">
+                    ช่องทางการติดต่อ
+                  </p>
+                  <Button className="h-12 w-full bg-blue-600 font-bold" asChild>
+                    <a
+                      href={siteConfig.contact.lineUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MessageCircle className="mr-2 h-5 w-5 fill-current" />
+                      แอดไลน์ @204uuzew
+                    </a>
+                  </Button>
+                  <p className="text-center text-xs text-slate-400 italic">
+                    * ปรึกษาเบื้องต้นฟรี ตลอด 24 ชั่วโมง
+                  </p>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
   )
 }
