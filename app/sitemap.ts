@@ -1,49 +1,64 @@
-import { MetadataRoute } from "next"
-import { siteConfig } from "@/constants/site-config"
-import { getAllCases } from "@/lib/mdx"
-import { servicesData } from "@/constants/services-data"
+import { MetadataRoute } from "next";
+import { siteConfig } from "@/constants/site-config";
+import { servicesData } from "@/constants/services-data";
+/**
+ * CRITICAL FIX: ตรวจสอบไฟล์ @/lib/case-studies.ts 
+ * ตรวจสอบว่ามีการส่งออก (export) ฟังก์ชันที่ดึงข้อมูลทั้งหมดหรือไม่
+ * หากใน lib ใช้ชื่ออื่น เช่น 'caseStudies' (ตัวแปร) หรือ 'getAllCaseStudies' 
+ * ให้เปลี่ยนชื่อด้านล่างนี้ให้ตรงกัน
+ */
+import { caseStudies } from "@/lib/case-studies"; 
 
 /**
- * sitemap: ฟังก์ชันสำหรับสร้าง XML Sitemap แบบ Dynamic
- * ช่วยให้ Search Engine (Google, Bing) เข้าถึงทุกหน้าของเว็บไซต์ได้อย่างครบถ้วน
+ * sitemap: ฟังก์ชันสำหรับสร้าง XML Sitemap แบบ Dynamic (Next.js App Router)
+ * ช่วยให้ Google Search Console ตรวจพบหน้าบริการและเคสทั้งหมดแบบอัตโนมัติ
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = siteConfig.url
+  const baseUrl = siteConfig.url;
 
-  // 1. ดึงข้อมูล Case Studies ทั้งหมดจากโฟลเดอร์ content/cases
-  // ระบบจะอ่านไฟล์ .mdx และสร้าง URL ให้โดยอัตโนมัติ
-  const allCases = await getAllCases()
-  const caseEntries = allCases.map((item) => ({
-    url: `${baseUrl}/case-studies/${item.slug}`,
-    lastModified: new Date(item.frontmatter.date || new Date()),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }))
+  // 1. จัดการข้อมูลกรณีศึกษา (Dynamic Case Study Routes)
+  let caseEntries: MetadataRoute.Sitemap = [];
+  try {
+    // ใช้ตัวแปร caseStudies โดยตรงหาก lib ไม่ได้ส่งออกเป็นฟังก์ชัน async
+    const allCases = Array.isArray(caseStudies) ? caseStudies : [];
+    
+    caseEntries = allCases.map((item: any) => ({
+      url: `${baseUrl}/case-studies/${item.slug}`,
+      // ใช้ความสามารถของ JavaScript ในการ fallback วันที่หากไม่มีข้อมูล
+      lastModified: new Date(item.date || item.publishedAt || new Date()),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    }));
+  } catch (error) {
+    console.error("Operational Error: Unable to fetch cases for sitemap:", error);
+  }
 
-  // 2. ดึงข้อมูลบริการ (Services) จาก constants/services-data.ts
-  const serviceEntries = servicesData.map((service) => ({
+  // 2. จัดการข้อมูลบริการ (Dynamic Service Routes)
+  const serviceEntries: MetadataRoute.Sitemap = servicesData.map((service) => ({
     url: `${baseUrl}/services/${service.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }))
+    priority: 0.9,
+  }));
 
-  // 3. รายการหน้าหลัก (Static Routes)
+  // 3. รายการหน้าหลักและหน้าคงที่ (Static Routes)
   const staticRoutes = [
-    "", // หน้าแรก
-    "/about", // เกี่ยวกับเรา
-    "/services", // บริการทั้งหมด
-    "/case-studies", // ผลงานทั้งหมด
-    "/faq", // คำถามที่พบบ่อย
-    "/contact", // ติดต่อเรา
-    "/privacy", // นโยบายความเป็นส่วนตัว
-  ].map((route) => ({
+    "",
+    "/about",
+    "/services",
+    "/case-studies",
+    "/faq",
+    "/contact",
+    "/privacy",
+  ];
+
+  const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: route === "" ? 1.0 : 0.8, // หน้าแรกให้ความสำคัญสูงสุด
-  }))
+    changeFrequency: route === "" ? ("daily" as const) : ("weekly" as const),
+    priority: route === "" ? 1.0 : 0.8,
+  }));
 
-  // รวมทุก Entries เข้าด้วยกัน
-  return [...staticRoutes, ...serviceEntries, ...caseEntries]
+  // รวมชุดข้อมูลทั้งหมดเข้าด้วยกัน
+  return [...staticEntries, ...serviceEntries, ...caseEntries];
 }

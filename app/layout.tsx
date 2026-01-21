@@ -1,79 +1,96 @@
 import type { Metadata, Viewport } from "next"
-import { Kanit } from "next/font/google"
+import { Inter, Noto_Sans_Thai, JetBrains_Mono } from "next/font/google"
+import { siteConfig } from "@/constants/site-config"
+import JsonLd from "@/components/seo/JsonLd"
+import { Header } from "@/components/layout/Header"
+import { Footer } from "@/components/layout/Footer"
+import { cn } from "@/lib/utils"
 import "./globals.css"
 
-import { siteConfig } from "@/constants/site-config"
-import Navbar from "@/components/shared/Navbar"
-import Footer from "@/components/shared/Footer"
-import LineButton from "@/components/shared/LineButton"
-import { Toaster } from "@/components/ui/sonner"
-import AppProvider from "@/providers/AppProvider"
-
 /**
- * 1. ฟอนต์ Kanit สำหรับภาษาไทยและภาษาอังกฤษ
+ *
+ * * Font Configuration:
+ * แยก Sans (English), Noto (Thai), และ Mono เพื่อความคมชัดระดับ Clinical
+ * สอดคล้องกับภาพลักษณ์ผู้เชี่ยวชาญเฉพาะทาง
  */
-const kanit = Kanit({
-  subsets: ["latin", "thai"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-kanit",
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
   display: "swap",
 })
 
-/**
- * 2. Viewport Configuration (Next.js 15 Standard)
- */
+const notoThai = Noto_Sans_Thai({
+  subsets: ["thai"],
+  variable: "--font-thai",
+  display: "swap",
+  weight: ["300", "400", "500", "700"],
+})
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+})
+
 export const viewport: Viewport = {
-  themeColor: "#2563eb",
+  themeColor: "#05070a", // Obsidian Black จาก DNA แบรนด์
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
 }
 
-/**
- * 3. SEO Metadata
- */
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.fullName, // ✅ ใช้ชื่อเต็มเพื่อ SEO ที่ดีขึ้นในหน้าแรก
-    template: `%s | ${siteConfig.name}`,
+    default: siteConfig.seo.defaultTitle,
+    template: siteConfig.seo.titleTemplate,
   },
-  description: siteConfig.description,
-  // ✅ แก้ไขปัญหา Readonly Array
-  keywords: [...siteConfig.keywords],
-  authors: [{ name: "Unlink Thailand Team" }],
-  creator: "Unlink Thailand",
-  publisher: "Unlink Thailand",
+  description: siteConfig.seo.defaultDescription,
+  keywords: siteConfig.seo.keywords,
+  authors: [{ name: "UNLINK Digital Fixers", url: siteConfig.url }],
+  creator: "UNLINK",
+  publisher: "UNLINK",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     type: "website",
     locale: "th_TH",
     url: siteConfig.url,
-    title: siteConfig.fullName,
-    description: siteConfig.description,
+    title: siteConfig.seo.defaultTitle,
+    description: siteConfig.seo.defaultDescription,
     siteName: siteConfig.name,
     images: [
       {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: siteConfig.fullName,
+        alt: "UNLINK Digital Reputation & Data Privacy Management",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.fullName,
-    description: siteConfig.description,
+    title: siteConfig.seo.defaultTitle,
+    description: siteConfig.seo.defaultDescription,
     images: [siteConfig.ogImage],
   },
   icons: {
     icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
+    shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
 }
@@ -83,27 +100,65 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  /**
+   * Organization Schema: ปรับเป็น ProfessionalService
+   * เพื่อสร้าง Trust ในฐานะผู้เชี่ยวชาญเฉพาะทาง (Specialist Fixer)
+   */
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    logo: `${siteConfig.url}/images/Logo.jpg`,
+    image: `${siteConfig.url}${siteConfig.ogImage}`,
+    serviceType: [
+      "Digital Reputation Management",
+      "Data Privacy Solutions",
+      "Content Suppression",
+      "De-indexing Service",
+    ],
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "TH",
+    },
+    knowsAbout: [
+      "PDPA",
+      "SEO Suppression",
+      "Right to Erasure",
+      "Right to be Forgotten",
+      "Digital Crisis Management",
+    ],
+  }
+
   return (
-    <html lang="th" className="scroll-smooth" suppressHydrationWarning>
+    <html
+      lang="th"
+      className={cn(
+        "dark selection:bg-primary/20 selection:text-primary scroll-smooth",
+        inter.variable,
+        notoThai.variable,
+        jetbrains.variable
+      )}
+      suppressHydrationWarning
+    >
       <body
-        className={`${kanit.variable} bg-background min-h-screen font-sans antialiased selection:bg-blue-100 selection:text-blue-900`}
+        className={cn(
+          "bg-background min-h-screen font-sans antialiased",
+          "font-thai" // บังคับใช้ Noto Sans Thai เป็นฟอนต์หลักสำหรับการอ่านเนื้อหา
+        )}
       >
-        <AppProvider>
-          <div className="relative flex min-h-screen flex-col">
-            <Navbar />
+        {/* Structured Data สำหรับช่วยในการทำ Rich Snippets */}
+        <JsonLd data={organizationSchema} />
 
-            <main className="flex-1">{children}</main>
+        {/* Main Application Container */}
+        <div className="relative flex min-h-screen flex-col">
+          <Header />
 
-            <Footer />
+          <main className="flex-1">{children}</main>
 
-            {/* Floating Action Button (LINE) */}
-            <div className="fixed right-6 bottom-6 z-50">
-              <LineButton />
-            </div>
-
-            <Toaster position="top-center" richColors closeButton />
-          </div>
-        </AppProvider>
+          <Footer />
+        </div>
       </body>
     </html>
   )

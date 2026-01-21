@@ -9,13 +9,14 @@
 # ==============================================================================
 
 # ⚙️ CONFIGURATION
-OUTPUT_FILE="unlink-structure.md"
+OUTPUT_FILE="unlink-th-structure.md"
 PROJECT_DOMAIN="www.unlink-th.com"
 PROJECT_URL="https://www.unlink-th.com"
 
 # Directories allowed for scanning (Strictly aligned with Next.js 15 App Router)
 WHITELIST_DIRS=(
   "app"
+  "demo"
   "actions"
   "components"
   "lib"
@@ -29,6 +30,7 @@ WHITELIST_DIRS=(
   "styles"
   "services"
   "config"
+  "viewport"
 )
 
 # Required root-level configuration files

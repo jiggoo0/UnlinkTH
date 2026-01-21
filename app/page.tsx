@@ -1,63 +1,76 @@
 import type { Metadata } from "next"
-import Hero from "@/components/landing/Hero"
-import Methods from "@/components/landing/Methods"
-import Proof from "@/components/landing/Proof"
-import CaseStudySection from "@/components/shared/CaseStudySection"
-import ContactCTA from "@/components/landing/ContactCTA"
-import FaqSection from "@/components/shared/FaqSection"
-import JsonLd from "@/components/seo/JsonLd"
+import { siteConfig } from "@/constants/site-config"
+import Hero from "@/components/sections/Hero"
+import HomeClientSections from "@/components/sections/HomeClientSections"
+import ContactCTA from "@/components/sections/ContactCTA"
 
 /**
- * ✅ Metadata สำหรับหน้าแรก (Landing Page)
- * ปรับปรุงให้มีความเป็นมืออาชีพและเน้น Keyword สำคัญ
+ *
+ * * Metadata Optimization:
+ * ยึดตามกลยุทธ์ "The Digital Fixer" เพื่อสร้าง Trust และ Authority ในหน้าแรก
  */
 export const metadata: Metadata = {
-  title: "Unlink Thailand | บริการลบชื่อแบล็กลิสต์และจัดการชื่อเสียงออนไลน์",
-  description:
-    "กู้คืนความสะอาดให้ชื่อเสียงออนไลน์ของคุณ ปรึกษาฟรี! บริการลบแบล็กลิสต์ จัดการข่าวปลอม และใช้สิทธิ์ PDPA โดยทีมงานมืออาชีพที่เป็นกันเองเหมือนพี่น้อง",
-  alternates: {
-    canonical: "/",
+  title: `${siteConfig.seo.defaultTitle} | บริการระงับการเข้าถึงและจัดการชื่อเสียงดิจิทัล`,
+  description: siteConfig.seo.defaultDescription,
+  alternates: { canonical: siteConfig.url },
+  keywords: siteConfig.seo.keywords,
+  openGraph: {
+    title: siteConfig.seo.defaultTitle,
+    description: siteConfig.seo.defaultDescription,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: "UNLINK Digital Reputation Management",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.seo.defaultTitle,
+    description: siteConfig.seo.defaultDescription,
+    images: [siteConfig.ogImage],
   },
 }
 
+/**
+ * HomePage: ศูนย์กลางปฏิบัติการ (Operational Hub)
+ * ออกแบบโครงสร้างแบบ Layered Architecture เพื่อความลื่นไหลในการโหลด
+ */
 export default function HomePage() {
   return (
-    <>
-      {/* 1. SEO & Structured Data */}
-      <JsonLd />
+    <div className="bg-background relative flex min-h-screen flex-col overflow-hidden">
+      {/* 01: Critical Entry Point - ส่วนสร้าง First Impression */}
+      <Hero />
 
-      <main className="flex min-h-screen flex-col overflow-x-hidden">
-        {/* 2. Hero Section - ดึงดูดความสนใจด้วยปัญหาและทางออก */}
-        <Hero />
-
-        {/* 3. Methods Section - บริการและวิธีการทำงานหลัก */}
-        <section id="services" className="scroll-mt-20">
-          <Methods />
-        </section>
-
-        {/* 4. Case Study Section - โชว์ผลงานจริงจากระบบ MDX */}
-        <section id="cases" className="scroll-mt-20 bg-white">
-          <CaseStudySection />
-        </section>
-
-        {/* 5. Proof Section - แสดงโปรโตคอลการทำงานที่โปร่งใส */}
-        <section id="process" className="scroll-mt-20">
-          <Proof />
-        </section>
-
-        {/* 6. FAQ Section - จัดการข้อสงสัยเบื้องต้น */}
-        <section
-          id="faq"
-          className="scroll-mt-20 bg-slate-50/50 py-16 md:py-24"
-        >
-          <div className="container mx-auto">
-            <FaqSection />
-          </div>
-        </section>
-
-        {/* 7. Contact CTA - ส่วนกระตุ้นการตัดสินใจสุดท้าย */}
-        <ContactCTA />
+      {/* 02: Strategic Content Hub - ส่วนแสดงความเชี่ยวชาญและหลักฐาน */}
+      <main className="relative z-10">
+        <HomeClientSections />
       </main>
-    </>
+
+      {/* 03: Final Conversion Point - ส่วนปิดการขายและสร้างความเชื่อมั่นสุดท้าย */}
+      <section className="border-primary/10 bg-muted/5 relative z-20 border-t py-24 lg:py-40">
+        <ContactCTA />
+      </section>
+
+      {/* 04: Atmospheric Engineering Layer (Background Decor) */}
+      <div
+        className="pointer-events-none fixed inset-0 -z-10"
+        aria-hidden="true"
+      >
+        {/* Top Glow: สร้างมิติแสงบริเวณส่วนหัว */}
+        <div className="bg-primary/5 absolute top-[-5%] left-[-5%] h-[600px] w-[600px] rounded-full blur-[120px]" />
+
+        {/* Bottom Glow: สร้างมิติแสงบริเวณส่วนท้าย */}
+        <div className="bg-primary/10 absolute right-[-5%] bottom-[-5%] h-[500px] w-[500px] rounded-full blur-[100px]" />
+
+        {/* Subtle Scanline Overlay สำหรับบรรยากาศ Technical Lab */}
+        <div className="h-full w-full bg-[linear-gradient(to_bottom,transparent_0%,rgba(255,255,255,0.01)_50%,transparent_100%)] bg-[size:100%_4px] opacity-20" />
+      </div>
+    </div>
   )
 }

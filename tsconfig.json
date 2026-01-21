@@ -12,7 +12,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "plugins": [
       {
         "name": "next"
@@ -28,7 +28,6 @@
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-
     /* ✅ แนะนำให้เพิ่ม (Optional) */
     "noFallthroughCasesInSwitch": true, // ป้องกันลืมใส่ break ใน switch case
     "strictPropertyInitialization": false // กรณีใช้กับพวก Class ที่ถูก init ภายหลัง
@@ -39,7 +38,8 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.md",
-    "**/*.mdx"
+    "**/*.mdx",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": ["node_modules", ".next"] // ✅ เพิ่ม .next ใน exclude เพื่อไม่ให้ตรวจสอบไฟล์ที่ถูก build แล้ว
 }

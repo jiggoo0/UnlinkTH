@@ -1,82 +1,42 @@
-import { siteConfig } from "@/constants/site-config"
+"use client";
 
-export default function JsonLd() {
-  const schema = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": `${siteConfig.url}/#website`,
-        url: siteConfig.url,
-        name: siteConfig.name,
-        description: siteConfig.description,
-        publisher: {
-          "@id": `${siteConfig.url}/#organization`,
-        },
-        inLanguage: "th-TH",
-      },
-      {
-        "@type": "ProfessionalService",
-        "@id": `${siteConfig.url}/#organization`,
-        name: siteConfig.name,
-        image: siteConfig.ogImage,
-        url: siteConfig.url,
-        telephone: siteConfig.contact.phone,
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Bangkok",
-          addressCountry: "TH",
-        },
-        priceRange: "$$",
-        areaServed: "TH",
-        description: siteConfig.description,
-        sameAs: [siteConfig.contact.lineUrl],
-      },
-      {
-        "@type": "Service",
-        serviceType: "Online Reputation Management",
-        provider: {
-          "@id": `${siteConfig.url}/#organization`,
-        },
-        areaServed: {
-          "@type": "Country",
-          name: "Thailand",
-        },
-        hasOfferCatalog: {
-          "@type": "OfferCatalog",
-          name: "Services",
-          itemListElement: [
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "เจรจาลบข้อมูลต้นทาง",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "ยื่นสิทธิ์ตามกฎหมาย PDPA",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "SEO ดันชื่อดีกลบชื่อเสีย",
-              },
-            },
-          ],
-        },
-      },
-    ],
+interface JsonLdProps {
+  /** * ข้อมูล Schema ในรูปแบบ Object ที่จะถูกแปลงเป็น JSON-LD
+   * แนะนำให้ใช้ตามมาตรฐาน Schema.org เช่น ProfessionalService หรือ Article
+   */
+  data: Record<string, any>;
+}
+
+/**
+ * JsonLd Component: Structured Data Injection
+ * หน้าที่: แทรก Structured Data เพื่อช่วยให้ Search Engine (Google)
+ * เข้าใจบริบทของหน้าเว็บ เช่น บริการแก้ปัญหาดิจิทัล (Digital Fixer),
+ * กรณีศึกษา หรือข้อมูลองค์กร เพื่อเพิ่มโอกาสในการปรากฏเป็น Rich Snippets
+ */
+export default function JsonLd({ data }: JsonLdProps) {
+  // 1. ตรวจสอบความถูกต้องของข้อมูลเบื้องต้น
+  if (!data || Object.keys(data).length === 0) {
+    return null;
   }
+
+  /**
+   * 2. Sanitization Strategy:
+   * จัดการกับอักขระพิเศษเพื่อป้องกันปัญหา XSS และเพื่อความถูกต้องของ JSON format
+   * จัดรูปแบบโดยการใช้ JSON.stringify และ escape อักขระที่อาจเป็นอันตราย
+   */
+  const sanitizeJsonLd = (obj: Record<string, any>) => {
+    return JSON.stringify(obj)
+      .replace(/</g, "\\u003c")
+      .replace(/>/g, "\\u003e")
+      .replace(/&/g, "\\u0026");
+  };
 
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      // ป้องกัน Hydration Mismatch จากการแทรกข้อมูลใน Head หรือ Body ระหว่าง SSR และ CSR
+      suppressHydrationWarning 
+      dangerouslySetInnerHTML={{ __html: sanitizeJsonLd(data) }}
     />
-  )
+  );
 }

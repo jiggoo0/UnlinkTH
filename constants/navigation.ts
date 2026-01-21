@@ -1,46 +1,93 @@
+import { siteConfig } from "./site-config";
+
 /**
- * Interface สำหรับรายการลิงก์นำทาง
+ * Navigation Architecture - UNLINK-TH
+ * ระบบการนำทางเชิงยุทธศาสตร์: ออกแบบเพื่อสร้างความเชื่อมั่น (Trust) และความปลอดภัย (Security)
  */
+
 export interface NavItem {
-  title: string
-  href: string
-  description?: string // สำหรับใช้ใน Navigation Menu แบบมีรายละเอียด
-  external?: boolean
+  title: string;
+  href: string;
+  external?: boolean;
+  description?: string; // สำหรับใช้งานใน Navigation Menu / Hover Card
 }
 
 /**
- * เมนูหลักสำหรับ Navbar และ Mobile Menu
+ * Main Navigation (Primary Protocols)
+ * เรียงลำดับตาม User Journey: ค้นหาทางแก้ -> ดูหลักฐาน -> ตรวจสอบตัวตน -> เคลียร์ข้อสงสัย
  */
-export const navigationLinks: NavItem[] = [
-  { title: "หน้าแรก", href: "/" },
-  { title: "บริการของเรา", href: "/services" },
-  { title: "ผลงาน/เคสตัวอย่าง", href: "/case-studies" },
-  { title: "ขั้นตอนทำงาน", href: "/#proof" }, // Anchor link ไปยังส่วน Proof ในหน้าแรก
-  { title: "คำถามที่พบบ่อย", href: "/faq" },
-  { title: "ติดต่อเรา", href: "/contact" },
-]
+export const mainNav: NavItem[] = [
+  {
+    title: "Services",
+    href: "/services",
+    description: "ยุทธศาสตร์การถอดถอนและจัดการข้อมูลเชิงเทคนิค",
+  },
+  {
+    title: "Case Studies",
+    href: "/case-studies",
+    description: "บันทึกปฏิบัติการและผลลัพธ์การจัดการวิกฤตจริง",
+  },
+  {
+    title: "About",
+    href: "/about",
+    description: "มาตรฐานการทำงานและมาตรการรักษาความลับสูงสุด",
+  },
+  {
+    title: "FAQ",
+    href: "/faq",
+    description: "ตอบข้อสงสัยเชิงเทคนิคเกี่ยวกับกระบวนการ UNLINK",
+  },
+];
 
 /**
- * เมนูเสริมสำหรับ Footer (แบ่งตามหมวดหมู่)
+ * Footer Navigation (Resource Logs)
+ * แบ่งหมวดหมู่เพื่อรองรับ SEO (Topical Authority) และการเข้าถึงนโยบายจริยธรรม
  */
-export const footerNavigation = {
+export const footerNav = {
   services: [
-    { title: "ลบข้อมูลแบล็กลิสต์", href: "/services/blacklist-removal" },
-    { title: "จัดการข่าวเสีย (SEO Push)", href: "/services/seo-reputation" },
-    { title: "กฎหมายคุ้มครองข้อมูล", href: "/services/legal-privacy" },
-  ],
-  company: [
-    { title: "เกี่ยวกับเรา", href: "/about" },
-    { title: "นโยบายความเป็นส่วนตัว", href: "/privacy" },
-    { title: "ติดต่อเรา", href: "/contact" },
-  ],
-  support: [
-    { title: "คำถามที่พบบ่อย (FAQ)", href: "/faq" },
-    { title: "ตรวจสอบสถานะเคส", href: "/contact" },
     {
-      title: "ปรึกษาผ่าน LINE",
-      href: "https://line.me/ti/p/@204uuzew",
+      title: "Google De-indexing",
+      href: "/services/how-to-fix-negative-google-search-results",
+    },
+    {
+      title: "Platform Removal",
+      href: "/services/remove-social-media-content-pantip-twitter",
+    },
+    {
+      title: "Digital Cleaning",
+      href: "/services/online-background-check-for-job-application",
+    },
+    {
+      title: "Right to be Forgotten",
+      href: "/services/right-to-be-forgotten-thailand-pdpa",
+    },
+  ] as NavItem[],
+  support: [
+    { title: "Privacy Protocol", href: "/privacy" },
+    { title: "Editorial Policy", href: "/editorial-policy" }, // เพิ่มลิงก์นโยบายจริยธรรม
+    { title: "Operational FAQ", href: "/faq" },
+    { title: "Specialist Liaison", href: "/contact" },
+  ] as NavItem[],
+  social: [
+    {
+      title: "LINE Official",
+      href: siteConfig.contact.lineUrl, // ดึงค่าจาก siteConfig โดยตรงเพื่อความแม่นยำ
       external: true,
     },
-  ],
-}
+    {
+      title: "Facebook",
+      href: siteConfig.links.facebook,
+      external: true,
+    },
+  ] as NavItem[],
+};
+
+/**
+ * Operational Navigation Config
+ */
+export const navigationConfig = {
+  stickyHeader: true,
+  showContactButton: true,
+  contactButtonText: "ประเมินเคสส่วนบุคคล",
+  specialistNote: "*ข้อมูลการสื่อสารทั้งหมดจะถูกทำลาย (Secure Purge) ทันทีหลังการประเมิน",
+};

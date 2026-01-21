@@ -1,202 +1,125 @@
-import {
-  Trash2,
-  Scale,
-  Search,
-  ShieldAlert,
-  Zap,
-  HeartHandshake,
-} from "lucide-react"
+import { Service } from "@/types";
 
 /**
- * Interface สำหรับข้อมูลบริการ (เวอร์ชันสมบูรณ์พร้อมรูปภาพส่วนกลาง)
+ * UNLINK Services Data (2026 Optimized):
+ * รวบรวมข้อมูลบริการที่ปรับจูน Keyword ให้ตรงกับ "ปัญหาที่คนไทยค้นหาจริง"
+ * ใช้สำหรับแสดงผลในหน้าแรกและหน้าบริการรวม
  */
-export interface ServiceItem {
-  id: string
-  slug: string
-  title: string
-  priceDisplay: string
-  targetGroup: string
-  shortDescription: string
-  fullDescription: string
-  imageUrl: string // ✅ ฟิลด์สำหรับรูปภาพ Preview ของบริการ
-  iconName: "remove" | "legal" | "seo" | "consult" | "audit" | "default"
-  suitableFor: string[]
-  features: string[]
-  addOns?: {
-    name: string
-    price: string
-  }[]
-  ctaText: string
-}
-
-/**
- * ✅ Centralized Image Configuration
- * กำหนด Path รูปภาพส่วนกลางเพียงจุดเดียวเพื่อให้ง่ายต่อการแก้ไขในอนาคต
- * อ้างอิงจาก public/images/service/service.webp
- */
-const SHARED_SERVICE_IMAGE = "/images/service/service.webp"
-
-export const servicesData: ServiceItem[] = [
+export const servicesData: Service[] = [
   {
-    id: "audit",
-    slug: "online-identity-audit",
-    title: "ตรวจสุขภาพชื่อ (Online Audit)",
-    priceDisplay: "เริ่มต้น 590.-",
-    targetGroup: "นักศึกษา / คนเริ่มทำงาน / บุคคลทั่วไป",
+    id: "ser-001",
+    slug: "how-to-fix-negative-google-search-results",
+    title: "รับลบลิงก์ Google & ข่าวเสีย (Technical De-indexing)",
     shortDescription:
-      "เช็กประวัติออนไลน์ก่อนเริ่มชีวิตใหม่ เพื่อความมั่นใจ 100%",
-    fullDescription:
-      "บริการตรวจสอบชื่อ-นามสกุล บนโลกออนไลน์อย่างละเอียด ทั้ง Google, Social Media และฐานข้อมูลสาธารณะ พร้อมรายงานสรุปความเสี่ยงและแนวทางแก้ไขเบื้องต้น",
-    imageUrl: SHARED_SERVICE_IMAGE,
-    iconName: "audit",
-    suitableFor: [
-      "ใช้ยื่นสมัครงานบริษัทชั้นนำ",
-      "ตรวจสอบก่อนเริ่มทำธุรกิจใหม่",
-      "เช็กความปลอดภัยของข้อมูลส่วนตัว",
-    ],
+      "บริการถอดถอนรายชื่อ ข่าวอาชญากรรม และลิงก์ข่าวด้านลบออกจากหน้าแรก Google แบบถาวร ด้วยเทคนิควิศวกรรมข้อมูล",
+    description:
+      "เจาะลึกโครงสร้าง Indexing ของ Google เพื่อตัดวงจรการค้นหาข่าวเสียที่ต้นตอ เราไม่ได้แค่ 'ดันลิงก์' แต่เราใช้เทคนิค 'De-indexing' เพื่อแจ้งให้ Google ถอดลิงก์ที่ไม่พึงประสงค์ออกจากฐานข้อมูลถาวร เหมาะสำหรับผู้ที่ต้องการล้างประวัติบนหน้า Search Engine ให้สะอาดบริสุทธิ์",
+    iconName: "Search", // ใช้ไอคอนสื่อถึงการค้นหา
+    category: "Technical",
     features: [
-      "รายงานสรุปผลในรูปแบบ PDF",
-      "วิเคราะห์คะแนนความเสี่ยง (Risk Score)",
-      "คำแนะนำการตั้งค่าความเป็นส่วนตัว",
+      "Permanent De-indexing: ลบลิงก์ออกจาก Google Search ถาวร ไม่กลับมาแสดงซ้ำ",
+      "Negative News Removal: จัดการข่าวเสีย ข่าวคดีความเก่า หรือข่าวที่บิดเบือนข้อเท็จจริง",
+      "Metadata Cleansing: ล้างข้อมูล Cache ที่ตกค้างในระบบ เพื่อไม่ให้สืบค้นเจอแม้ผ่านไปนาน",
+      "Search Console Audit: ตรวจสอบสถานะ URL แบบ Real-time ยืนยันผลลัพธ์ด้วยหลักฐานทางเทคนิค",
     ],
-    addOns: [
-      { name: "ระบบแจ้งเตือนเมื่อมีคนพูดถึงชื่อคุณ (1 ปี)", price: "+490.-" },
-      { name: "คู่มือ Clean-up โซเชียลมีเดียส่วนตัว", price: "+199.-" },
-    ],
-    ctaText: "เริ่มตรวจสุขภาพชื่อ",
+    metadata: {
+      title: "รับลบลิงก์ Google ลบข่าวเสีย และประวัติการค้นหา | UNLINK",
+      description:
+        "บริการลบลิงก์ข่าวเสียออกจาก Google ถาวร ด้วยวิธี De-indexing ที่ปลอดภัยและเห็นผลจริง แก้ไขชื่อติด Google ลบประวัติที่ไม่ต้องการให้ใครเห็น",
+      keywords: [
+        "รับลบลิงก์ Google",
+        "ลบข่าวเสีย",
+        "วิธีลบชื่อออกจาก Google",
+        "จ้างลบประวัติ Google",
+        "De-indexing Service",
+      ],
+    },
   },
   {
-    id: "consult",
-    slug: "sos-consultation",
-    title: "ปรึกษาด่วนกับพี่ชาย (SOS Call)",
-    priceDisplay: "เพียง 300.- / 15 นาที",
-    targetGroup: "คนต้องการคำตอบด่วน / งบน้อย",
+    id: "ser-002",
+    slug: "remove-social-media-content-pantip-twitter",
+    title: "ลบกระทู้ Pantip, รีวิว & ดราม่าโซเชียล (Platform Removal)",
     shortDescription:
-      "คุยตรงจุด หาทางออกทันที สำหรับเคสที่ต้องการความช่วยเหลือเร่งด่วน",
-    fullDescription:
-      "บริการโทรปรึกษาแบบตัวต่อตัว เพื่อประเมินสถานการณ์เบื้องต้น แนะนำวิธีการรับมือ และวิเคราะห์โอกาสในการลบข้อมูลอย่างจริงใจ",
-    imageUrl: SHARED_SERVICE_IMAGE,
-    iconName: "consult",
-    suitableFor: [
-      "เพิ่งโดนโพสต์ประจาน/ขุดประวัติ",
-      "ไม่แน่ใจว่าเคสของตัวเองลบได้ไหม",
-      "ต้องการแนวทางคุยกับคู่กรณีด้วยตนเอง",
-    ],
+      "จัดการดราม่าออนไลน์ ลบกระทู้หมิ่นประมาทใน Pantip, Twitter (X) และรีวิวปลอมใน Google Maps",
+    description:
+      "ปฏิบัติการระงับเหตุบนแพลตฟอร์มโซเชียลมีเดียโดยเฉพาะ ทีมงานของเราเชี่ยวชาญกฎชุมชน (Community Standards) ของแต่ละแพลตฟอร์ม ทั้ง Pantip, Facebook, Twitter และ TikTok เพื่อประสานงานแจ้งลบเนื้อหาที่ละเมิดสิทธิ หมิ่นประมาท หรือคุกคามความเป็นส่วนตัวอย่างเร่งด่วน",
+    iconName: "MessageCircle", // ใช้ไอคอนสื่อถึงโซเชียล/แชท
+    category: "Social",
     features: [
-      "คุยผ่าน Voice Call หรือ Video Call",
-      "สรุปแนวทางแก้ไขให้หลังจบสาย",
-      "นำค่าปรึกษาไปหักลบค่าบริการจริงได้ในภายหลัง",
+      "Pantip & Forum Takedown: ประสานงานลบกระทู้ต้นทางและกระทู้ Archive ที่สร้างความเสียหาย",
+      "Review Management: แจ้งลบรีวิว 1 ดาว หรือรีวิวกลั่นแกล้งบน Google Maps และ Facebook Page",
+      "Social Media Crisis: จัดการโพสต์หมิ่นประมาท รูปหลุด หรือการ Doxing บน Twitter (X)",
+      "Account Reporting: รายงานปิดเพจปลอม หรือบัญชีอวตารที่สร้างขึ้นเพื่อโจมตีคุณ",
     ],
-    ctaText: "จองคิวปรึกษาด่วน",
+    metadata: {
+      title: "รับลบกระทู้ Pantip ลบรีวิว Google Maps และดราม่าโซเชียล | UNLINK",
+      description:
+        "บริการแจ้งลบกระทู้ Pantip ลบรีวิวแย่ๆ และจัดการดราม่าบน Twitter/Facebook ผู้เชี่ยวชาญกฎชุมชน ดำเนินการรวดเร็ว หยุดความเสียหายทันที",
+      keywords: [
+        "ลบกระทู้ Pantip",
+        "ลบรีวิว Google Maps",
+        "แจ้งลบ Twitter",
+        "รับปิดเพจปลอม",
+        "Cyberbullying Solution",
+      ],
+    },
   },
   {
-    id: "remove",
-    slug: "content-negotiation",
-    title: "เจรจาลบข้อมูลต้นทาง",
-    priceDisplay: "เริ่มต้น 3,500.- / จุด",
-    targetGroup: "คนทำงาน / เจ้าของธุรกิจขนาดเล็ก",
+    id: "ser-003",
+    slug: "online-background-check-for-job-application",
+    title: "ลบประวัติอาชญากรรมออนไลน์ & ตรวจสอบตัวตน (Digital Cleaning)",
     shortDescription:
-      "ลบชื่อจากต้นตอด้วยการเจรจาเชิงลึก และสิทธิ์ความเป็นส่วนตัว",
-    fullDescription:
-      "เน้นการประสานงานโดยตรงกับแอดมินหรือเจ้าของเว็บ โดยใช้เทคนิคการเจรจาที่นุ่มนวลแต่มีหลักการ เพื่อขอให้ลบข้อมูลออกจากระบบอย่างถาวร",
-    imageUrl: SHARED_SERVICE_IMAGE,
-    iconName: "remove",
-    suitableFor: [
-      "กระทู้ประจานในเว็บบอร์ดชื่อดัง",
-      "เว็บไซต์แบล็กลิสต์/เช็คเครดิตนอกระบบ",
-      "ข้อมูลหลุดบนบล็อกส่วนตัว",
-    ],
+      "คลีนประวัติออนไลน์ ลบชื่อจากเว็บประกาศจับ หรือ Blacklist เก่า เพื่อเตรียมพร้อมสมัครงานและทำธุรกิจ",
+    description:
+      "บริการ 'Deep Clean' ประวัติออนไลน์สำหรับบุคคลที่ต้องการเริ่มต้นใหม่ เราตรวจสอบและดำเนินการลบชื่อของคุณออกจากเว็บไซต์ Blacklist (ที่เคลียร์จบแล้ว), เว็บประกาศจับเก่า หรือฐานข้อมูลสาธารณะที่อาจส่งผลกระทบต่อการพิจารณารับเข้าทำงาน (Background Check) หรือการขอสินเชื่อ",
+    iconName: "Fingerprint", // ใช้ไอคอนสื่อถึงอัตลักษณ์/ประวัติ
+    category: "Personal",
     features: [
-      "ประสานงานโดยผู้เชี่ยวชาญ (พี่ชายแสนดี)",
-      "รักษาความลับลูกค้าเป็นความลับสูงสุด",
-      "ติดตามผลจนกว่าข้อมูลจะถูกลบจริง",
+      "Blacklist Cleansing: ลบชื่อออกจากเว็บ Blacklist Online กรณีที่มีการชดใช้ค่าเสียหายแล้ว",
+      "Criminal Record Privacy: จัดการข่าวกระทำความผิดในอดีตที่ศาลตัดสินแล้ว หรือคดีสิ้นสุดแล้ว",
+      "Name-Check Pre-screening: ตรวจสอบความสะอาดของชื่อ-นามสกุลในระบบดิจิทัล ก่อนคุณไปสมัครงาน",
+      "Privacy Hardening: ตั้งค่าบัญชีส่วนตัวให้ปลอดภัยจากการถูกขุดประวัติย้อนหลัง",
     ],
-    addOns: [
-      { name: "บริการเก็บหลักฐาน (Log) เพื่อดำเนินคดี", price: "+900.-" },
-      { name: "เร่งด่วน (เริ่มงานภายใน 3 ชม.)", price: "+1,500.-" },
-    ],
-    ctaText: "ปรึกษาเคสลบข้อมูล",
+    metadata: {
+      title: "ลบประวัติอาชญากรรมออนไลน์ ลบชื่อ Blacklist ตรวจสอบประวัติ | UNLINK",
+      description:
+        "บริการคลีนประวัติออนไลน์ ลบชื่อจากเว็บ Blacklist และข่าวคดีความเก่า เตรียมตัวสมัครงานอย่างมั่นใจ กู้คืนความน่าเชื่อถือให้ชื่อเสียงของคุณ",
+      keywords: [
+        "ลบประวัติอาชญากรรมออนไลน์",
+        "ลบชื่อ Blacklist",
+        "เช็คประวัติอาชญากรรม",
+        "ลบประวัติเสื่อมเสีย",
+        "Digital Footprint Cleaning",
+      ],
+    },
   },
   {
-    id: "legal",
-    slug: "pdpa-legal-removal",
-    title: "ใช้สิทธิ์ PDPA ลบข้อมูลผิดกฎหมาย",
-    priceDisplay: "ประเมินตามเคส",
-    targetGroup: "ผู้ที่โดนละเมิดสิทธิ์ / ผู้ที่ศาลตัดสินเป็นที่สิ้นสุดแล้ว",
+    id: "ser-004",
+    slug: "right-to-be-forgotten-thailand-pdpa",
+    title: "ทนาย PDPA & สิทธิในการถูกลืม (Legal Takedown)",
     shortDescription:
-      "ใช้สิทธิ์ 'ลืมฉัน' (Right to be Forgotten) ตามกฎหมาย PDPA",
-    fullDescription:
-      "ดำเนินการยื่นคำร้องต่อแพลตฟอร์มใหญ่ เช่น Google, Facebook หรือสำนักข่าว เพื่อขอให้ปลดข้อมูลที่ผิดกฎหมาย หรือข้อมูลที่ไม่เป็นปัจจุบันออก",
-    imageUrl: SHARED_SERVICE_IMAGE,
-    iconName: "legal",
-    suitableFor: [
-      "ข่าวเก่าที่ศาลยกฟ้องแล้ว",
-      "ข้อมูลบิดเบือนความจริง",
-      "ภาพหรือวิดีโอที่ถูกนำไปใช้โดยไม่ได้รับอนุญาต",
-    ],
+      "ใช้กฎหมาย PDPA บังคับลบข้อมูล ดำเนินคดี พรบ.คอมฯ และใช้สิทธิ Right to be Forgotten",
+    description:
+      "เมื่อเทคนิคทางไอทีต้องทำงานร่วมกับกฎหมาย เรามีทีมที่ปรึกษากฎหมายเชี่ยวชาญด้าน PDPA และ พรบ.คอมพิวเตอร์ ดำเนินการร่างหนังสือโนติส (Notice) ถึงผู้ควบคุมข้อมูล (Data Controller) หรือเว็บไซต์ต้นทาง เพื่อบังคับใช้สิทธิในการลบข้อมูล (Right to Erasure) ตามกฎหมายไทยอย่างเด็ดขาด",
+    iconName: "Scale", // ใช้ไอคอนสื่อถึงกฎหมาย
+    category: "Legal",
     features: [
-      "ร่างเอกสารทางกฎหมายให้ครบถ้วน",
-      "ยื่นเรื่องต่อ Search Engine โดยตรง",
-      "ดูแลโดยผู้เชี่ยวชาญด้านกฎหมายดิจิทัล",
+      "Legal Notice Drafting: ร่างจดหมายเตือนและโนติสอย่างเป็นทางการโดยทนายความลิขสิทธิ์/PDPA",
+      "PDPA Enforcement: บังคับใช้สิทธิตามมาตรา 33-34 เพื่อขอให้ลบหรือระงับข้อมูลส่วนบุคคล",
+      "ISP & Platform Liaison: ประสานงานฝ่ายกฎหมายของ ISP หรือ Platform Provider เพื่อกดดันให้ลบข้อมูล",
+      "Right to be Forgotten: ดำเนินการทางกฎหมายเพื่อให้ข้อมูลของคุณ 'ถูกลืม' จากระบบดิจิทัลอย่างถูกต้อง",
     ],
-    addOns: [
-      {
-        name: "หนังสือรับรองการดำเนินงาน (เพื่อยื่น HR/ธนาคาร)",
-        price: "+1,200.-",
-      },
-      { name: "ล้าง Cache ใน Google (หลังลบต้นทาง)", price: "ฟรี" },
-    ],
-    ctaText: "ตรวจสอบสิทธิ์ PDPA",
+    metadata: {
+      title: "ทนาย PDPA รับปรึกษาสิทธิในการถูกลืม (Right to be Forgotten) | UNLINK",
+      description:
+        "บริการทางกฎหมาย PDPA ยื่นโนติสบังคับลบข้อมูล ใช้สิทธิ Right to be Forgotten ดำเนินการโดยผู้เชี่ยวชาญกฎหมายดิจิทัลและ พรบ.คอมพิวเตอร์",
+      keywords: [
+        "ทนาย PDPA",
+        "สิทธิในการถูกลืม",
+        "ฟ้องหมิ่นประมาทออนไลน์",
+        "พรบ คอมพิวเตอร์",
+        "จ้างทนายลบรูป",
+      ],
+    },
   },
-  {
-    id: "seo",
-    slug: "seo-reputation-push",
-    title: "SEO ดันชื่อดี กลบชื่อเสีย",
-    priceDisplay: "รายเดือน เริ่มต้น 15,000.-",
-    targetGroup: "ผู้บริหาร / แบรนด์ / บุคคลสาธารณะ",
-    shortDescription:
-      "สร้างตัวตนใหม่ที่ขาวสะอาด เพื่อเบียดข่าวลบให้หายไปจากหน้าแรก",
-    fullDescription:
-      "สำหรับกรณีที่ลบต้นทางไม่ได้ เราจะสร้าง Content เชิงบวกที่มีคุณภาพสูง เพื่อดันอันดับขึ้นหน้า 1 Google และเบียดข่าวเสียลงไปหน้าที่ลึกที่สุด",
-    imageUrl: SHARED_SERVICE_IMAGE,
-    iconName: "seo",
-    suitableFor: [
-      "ข่าวสำนักข่าวใหญ่ที่ลบไม่ได้",
-      "กรณีชื่อพ้องกับบุคคลที่มีประวัติเสีย",
-      "การปรับภาพลักษณ์แบรนด์ให้ดูดีขึ้น",
-    ],
-    features: [
-      "สร้าง Content คุณภาพสูงรายเดือน",
-      "จัดการอันดับหน้าแรกของ Google",
-      "สร้างความน่าเชื่อถือใหม่ในระยะยาว",
-    ],
-    addOns: [
-      {
-        name: "สร้างเว็บไซต์ประวัติส่วนตัว (Personal Branding)",
-        price: "+5,000.-",
-      },
-      { name: "รายงานอันดับรายปักษ์ (ทุก 2 สัปดาห์)", price: "ฟรี" },
-    ],
-    ctaText: "กู้ชื่อเสียงด้วย SEO",
-  },
-]
-
-/**
- * ✅ Helper function สำหรับดึง Icon ตามชื่อ
- */
-export const getServiceIcon = (iconName: string) => {
-  switch (iconName) {
-    case "audit":
-      return Search
-    case "remove":
-      return Trash2
-    case "legal":
-      return Scale
-    case "seo":
-      return Zap
-    case "consult":
-      return HeartHandshake
-    default:
-      return ShieldAlert
-  }
-}
+];

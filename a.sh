@@ -1,53 +1,88 @@
 #!/bin/bash
 
-# 1. ย้าย Hero ไปอยู่ใน landing เพื่อให้จัดการหน้าแรกได้ที่เดียว
-if [ -f "components/shared/HeroSection.tsx" ]; then
-    mv components/shared/HeroSection.tsx components/landing/Hero.tsx
-fi
+echo "🔧 Start refactoring project structure for unlink-th.com"
+echo "-------------------------------------------------------"
 
-# 2. เปลี่ยนชื่อ BlogSection เป็น CaseStudySection ให้ล้อไปกับระบบใหม่
-if [ -f "components/shared/BlogSection.tsx" ]; then
-    mv components/shared/BlogSection.tsx components/shared/CaseStudySection.tsx
-fi
-
-# 3. ลบโฟลเดอร์รูปภาพ blog ที่ไม่ได้ใช้แล้ว (ย้ายไปกรณีมีไฟล์)
-if [ -d "public/images/blog" ]; then
-    cp -r public/images/blog/* public/images/cases/ 2>/dev/null
-    rm -rf public/images/blog
-fi
-
-# 4. สร้าง/อัปเดตไฟล์ constants ให้พร้อมใช้งานจริง
-cat <<EOF > constants/site-config.ts
-export const siteConfig = {
-  name: "Unlink-TH",
-  description: "บริการจัดการชื่อเสียออนไลน์ และให้คำปรึกษาการเริ่มต้นใหม่บนโลกดิจิทัล",
-  url: "https://www.unlink-th.com",
-  ogImage: "https://www.unlink-th.com/og.jpg",
-  links: {
-    line: "https://line.me/ti/p/~YOUR_LINE_ID", // เปลี่ยนเป็น ID ของคุณ
-    messenger: "#",
-  },
-  contact: {
-    email: "contact@unlink-th.com",
-    phone: "0XX-XXX-XXXX",
-    lineId: "@unlinkth",
-  },
-  mainNav: [
-    { title: "หน้าแรก", href: "/" },
-    { title: "บริการของเรา", href: "/services" },
-    { title: "เคสตัวอย่าง", href: "/case-studies" },
-    { title: "ถาม-ตอบ", href: "/faq" },
-  ],
+# 1️⃣ ensure next.config.mjs
+if [ ! -f next.config.mjs ]; then
+  echo "➕ Creating minimal next.config.mjs"
+  cat <<EOF > next.config.mjs
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  poweredByHeader: false,
 };
+
+export default nextConfig;
 EOF
+fi
 
-# 5. ลบไฟล์ Provider หรือ Config ที่ซับซ้อนเกินความจำเป็น (ถ้าไม่ได้ใช้จริงๆ)
-# rm -rf providers/AppProvider.tsx  # ปลดคอมเมนต์หากคุณต้องการให้เว็บเป็น Pure Static มากขึ้น
+# 2️⃣ create recommended folders
+echo "📁 Creating recommended directories..."
 
-echo "-----------------------------------------------"
-echo "✅ Final Structure Refined!"
-echo "-----------------------------------------------"
-echo "โครงสร้างปัจจุบันของคุณตอนนี้:"
-echo "1. หน้าหลักจัดการผ่าน: components/landing/ (Hero, Methods, Proof)"
-echo "2. ระบบเคสตัวอย่าง: app/case-studies/ + content/cases/"
-echo "3. การติดต่อ: รวมศูนย์ที่ constants/site-config.ts"
+mkdir -p components/layout
+mkdir -p components/sections
+mkdir -p components/seo
+mkdir -p styles
+mkdir -p lib/content
+mkdir -p types/content
+
+# 3️⃣ move layout-related components
+echo "📦 Moving layout components..."
+mv components/shared/Header.tsx components/layout/ 2>/dev/null
+mv components/shared/Footer.tsx components/layout/ 2>/dev/null
+mv components/shared/Navbar.tsx components/layout/ 2>/dev/null
+
+# 4️⃣ move landing → sections
+echo "📦 Moving landing sections..."
+mv components/landing/* components/sections/ 2>/dev/null
+rmdir components/landing 2>/dev/null
+
+# 5️⃣ ensure LineButton stays shared
+echo "📦 Ensuring LineButton location..."
+mkdir -p components/shared
+mv components/shared/LineButton.tsx components/shared/ 2>/dev/null
+
+# 6️⃣ move FAQ + protocol into sections
+echo "📦 Moving narrative sections..."
+mv components/shared/FaqSection.tsx components/sections/ 2>/dev/null
+mv components/shared/ProtocolStepper.tsx components/sections/ 2>/dev/null
+
+# 7️⃣ normalize lib files
+echo "📦 Normalizing lib structure..."
+mv lib/service.ts lib/services.ts 2>/dev/null
+
+# 8️⃣ move MDX content to pluralized folders
+echo "📚 Normalizing content folders..."
+
+mkdir -p content/services
+mv content/service/* content/services/ 2>/dev/null
+rmdir content/service 2>/dev/null
+
+# 9️⃣ create styles tokens placeholder
+if [ ! -f styles/tokens.css ]; then
+  echo "🎨 Creating styles/tokens.css"
+  cat <<EOF > styles/tokens.css
+:root {
+  --color-bg: #0b0f14;
+  --color-text: #e5e7eb;
+  --color-muted: #9ca3af;
+  --color-accent: #2563eb;
+
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+}
+EOF
+fi
+
+# 10️⃣ warn about unused UI form components
+echo "⚠️ Reminder:"
+echo " - ui/form.tsx, input.tsx, textarea.tsx"
+echo "   should NOT be used for data submission (LINE only)"
+
+echo "-------------------------------------------------------"
+echo "✅ Refactor structure completed (non-destructive)"
+echo "👉 Next step: update import paths + clean unused UI"

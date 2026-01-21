@@ -1,213 +1,217 @@
-import { Metadata } from "next"
-import { notFound } from "next/navigation"
-import { getCaseBySlug, getAllCases, getGuideBySlug } from "@/lib/mdx"
-import { Typography } from "@/components/ui/typography"
-import { siteConfig } from "@/constants/site-config"
-import { Badge } from "@/components/ui/badge"
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { Metadata } from "next";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/constants/site-config";
+import { caseStudies } from "@/lib/case-studies";
 import {
-  ChevronLeft,
-  Calendar,
-  Share2,
-  ShieldCheck,
-  Clock,
-  ArrowRight,
-  Bookmark,
+  ArrowLeft,
+  CheckCircle2,
   MessageCircle,
-} from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
-import React from "react"
+  ShieldAlert,
+  Fingerprint,
+  Clock,
+  Activity,
+} from "lucide-react";
 
 interface Props {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }
 
 /**
- * 1. SEO Metadata Generation
- * ✅ แก้ไขปัญหา Property 'description' does not exist โดยการใช้ Fallback Chain
+ * 
+ * Metadata Generation:
+ * รองรับ Async Params ตามมาตรฐาน Next.js 16 เพื่อประสิทธิภาพ SEO สูงสุด
  */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
-  const item = (await getCaseBySlug(slug)) || (await getGuideBySlug(slug))
+  const { slug } = await params;
+  const item = caseStudies.find((c) => c.slug === slug);
 
-  if (!item) return { title: `ไม่พบเนื้อหา | ${siteConfig.name}` }
-
-  // ป้องกัน Error ด้วยการเช็กทุกความเป็นไปได้ของ Image และ Description
-  const ogImage =
-    item.frontmatter.featuredImage ||
-    item.frontmatter.image ||
-    siteConfig.ogImage
-
-  const description =
-    item.frontmatter.description || item.frontmatter.summary || ""
+  if (!item) return { title: "Case Report Not Found" };
 
   return {
-    title: `${item.frontmatter.title} | Unlink Thailand`,
-    description: description,
+    title: `${item.title} | บันทึกปฏิบัติการจริง`,
+    description: item.incident,
     openGraph: {
-      title: item.frontmatter.title,
-      description: description,
-      url: `${siteConfig.url}/case-studies/${slug}`,
-      images: [{ url: ogImage, width: 1200, height: 630 }],
+      title: item.title,
+      description: item.incident,
       type: "article",
+      images: [
+        {
+          url: item.image || siteConfig.ogImage,
+          width: 1200,
+          height: 630,
+          alt: item.title,
+        },
+      ],
     },
-  }
+  };
 }
 
 /**
- * 2. SSG Support
+ * Case Study Detail Page:
+ * ออกแบบในสไตล์ "Operational Report" (บันทึกปฏิบัติการเชิงเทคนิค)
  */
-export async function generateStaticParams() {
-  const cases = await getAllCases()
-  return cases.map((c) => ({ slug: c.slug }))
-}
+export default async function CaseStudyPage({ params }: Props) {
+  // 1. Unwrapping params (Next.js 16 Requirement)
+  const { slug } = await params;
 
-/**
- * 3. Page Component
- */
-export default async function CaseStudyDetailPage({ params }: Props) {
-  const { slug } = await params
+  // 2. Data Retrieval & Validation
+  const item = caseStudies.find((c) => c.slug === slug);
+  if (!item) notFound();
 
-  // ตรวจสอบทั้ง 2 แหล่งข้อมูล (Case Study และ Blog/Store)
-  const item = (await getCaseBySlug(slug)) || (await getGuideBySlug(slug))
-
-  if (!item) notFound()
-
-  const { frontmatter, content } = item
-
-  // โลจิกแยกประเภทเนื้อหาเพื่อปรับสี UI
-  const isKnowledge =
-    slug.includes("how-to") ||
-    slug.includes("strategy") ||
-    !slug.includes("clear")
+  const lineLink = `https://line.me/ti/p/${siteConfig.contact.lineId.replace(
+    "@",
+    ""
+  )}`;
 
   return (
-    <article className="min-h-screen bg-slate-50/50 pb-24 selection:bg-blue-100 selection:text-blue-900">
-      {/* ประดับด้านบนด้วยเส้นสีตามประเภทเนื้อหา */}
+    <article className="bg-background relative min-h-screen overflow-hidden py-20 lg:py-32">
+      {/* 01: Tactical Background Layer */}
       <div
-        className={`h-1.5 w-full ${isKnowledge ? "bg-emerald-500" : "bg-blue-600"}`}
-      />
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
+        aria-hidden="true"
+      >
+        <div className="h-full w-full bg-[radial-gradient(#808080_1px,transparent_1px)] [background-size:32px_32px]" />
+      </div>
 
-      <div className="container mx-auto max-w-4xl px-4 pt-10">
-        {/* Navigation & Actions */}
-        <nav className="mb-12 flex items-center justify-between">
-          <Link
-            href="/case-studies"
-            className="group inline-flex items-center text-sm font-bold text-slate-500 transition-colors hover:text-blue-600"
-          >
-            <ChevronLeft className="mr-1 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            ศูนย์ข้อมูลและเคสศึกษา
-          </Link>
-          <div className="flex gap-3">
-            <button className="rounded-full border bg-white p-2 text-slate-400 shadow-sm transition-all hover:text-blue-600">
-              <Share2 className="h-4 w-4" />
-            </button>
-            <button className="rounded-full border bg-white p-2 text-slate-400 shadow-sm transition-all hover:text-blue-600">
-              <Bookmark className="h-4 w-4" />
-            </button>
-          </div>
-        </nav>
+      <div className="relative z-10 container mx-auto px-6">
+        {/* 02: Navigation Breadcrumb */}
+        <Link
+          href="/case-studies"
+          className="group text-muted-foreground hover:text-primary mb-12 inline-flex items-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] uppercase transition-colors"
+        >
+          <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
+          Back to Operational Logs
+        </Link>
 
-        {/* --- Header Section --- */}
-        <header className="mb-12 text-center md:text-left">
-          <div className="mb-6 flex flex-wrap items-center justify-center gap-3 md:justify-start">
-            <Badge
-              variant="secondary"
-              className="border-slate-200 bg-white px-4 py-1.5 text-xs font-bold shadow-sm"
-            >
-              {frontmatter.category || "General Knowledge"}
-            </Badge>
-            <div className="flex items-center gap-1.5 text-xs font-bold text-blue-600">
-              <ShieldCheck className="h-4 w-4" />
-              {isKnowledge ? "Expert Insight" : "Verified Success"}
-            </div>
-          </div>
-
-          <Typography
-            variant="h1"
-            className="mb-8 border-none p-0 text-3xl leading-tight font-black tracking-tight text-slate-900 md:text-5xl"
-          >
-            {frontmatter.title}
-          </Typography>
-
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-slate-500 md:justify-start">
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4" />
-              <time>
-                {new Date(frontmatter.date).toLocaleDateString("th-TH", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </time>
-            </div>
-            <div className="flex items-center gap-2 border-l border-slate-200 pl-6">
-              <Clock className="h-4 w-4" />
-              อ่านประมาณ 5-7 นาที
-            </div>
-          </div>
-        </header>
-
-        {/* --- Featured Image --- 
-            ✅ แก้ไขปัญหา src undefined โดยการใส่ Fallback (siteConfig.ogImage)
-        */}
-        <div className="relative mb-16 aspect-[21/9] overflow-hidden rounded-[2.5rem] border-4 border-white shadow-2xl shadow-blue-100/50">
-          <Image
-            src={
-              frontmatter.featuredImage ||
-              frontmatter.image ||
-              siteConfig.ogImage
-            }
-            alt={frontmatter.title}
-            fill
-            priority
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 800px"
-          />
-        </div>
-
-        {/* --- MDX Content Area --- */}
-        <div className="rounded-[2.5rem] border border-slate-100 bg-white p-8 shadow-sm md:p-16">
-          <main className="prose prose-slate prose-blue lg:prose-xl prose-headings:text-slate-900 prose-headings:font-black prose-headings:tracking-tight prose-p:text-slate-600 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-900 prose-strong:font-bold prose-img:rounded-3xl prose-img:shadow-lg prose-table:border prose-table:rounded-xl prose-table:overflow-hidden prose-th:bg-slate-50 prose-th:p-4 prose-td:p-4 prose-blockquote:border-l-4 prose-blockquote:border-blue-600 prose-blockquote:bg-blue-50/50 prose-blockquote:rounded-r-2xl prose-blockquote:py-1 max-w-none">
-            {content}
-          </main>
-        </div>
-
-        {/* --- Footer Conversion --- */}
-        <footer className="mt-20">
-          <div className="relative overflow-hidden rounded-[3rem] bg-slate-950 px-8 py-12 text-center text-white md:px-20 md:py-20">
-            <div className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-blue-600/20 blur-3xl" />
-            <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
-
-            <div className="relative z-10">
-              <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600">
-                <MessageCircle className="h-6 w-6 text-white" />
+        <div className="grid gap-16 lg:grid-cols-12">
+          {/* 03: Main Content Side: The Report Analysis */}
+          <div className="lg:col-span-8">
+            <div className="mb-8 flex flex-wrap items-center gap-4">
+              <Badge
+                variant="outline"
+                className="border-primary/30 bg-primary/5 text-primary px-4 py-1 font-mono text-[10px] tracking-widest uppercase"
+              >
+                {item.category}
+              </Badge>
+              <div className="flex items-center gap-2 opacity-40">
+                <Fingerprint className="text-primary h-4 w-4" />
+                <span className="font-mono text-[10px] tracking-tighter uppercase italic">
+                  Identity Anonymized
+                </span>
               </div>
-              <h3 className="mb-4 text-3xl font-black md:text-4xl">
-                ปรึกษาเคสชื่อเสียงออนไลน์
+            </div>
+
+            <h1 className="text-foreground mb-10 text-4xl font-extrabold tracking-tighter md:text-6xl lg:text-7xl">
+              {item.title}
+            </h1>
+
+            {/* Analysis Summary Matrix */}
+            <div className="mb-16 grid gap-6 sm:grid-cols-2">
+              <div className="border-border/50 bg-muted/5 hover:bg-muted/10 rounded-2xl border p-8 transition-colors">
+                <div className="text-primary mb-4 flex items-center gap-2">
+                  <ShieldAlert className="h-4 w-4" />
+                  <span className="font-mono text-[10px] font-bold tracking-widest uppercase">
+                    Initial Incident
+                  </span>
+                </div>
+                <p className="text-muted-foreground/90 text-sm leading-relaxed">
+                  {item.incident}
+                </p>
+              </div>
+
+              <div className="border-border/50 bg-muted/5 hover:bg-muted/10 rounded-2xl border p-8 transition-colors">
+                <div className="text-primary mb-4 flex items-center gap-2">
+                  <Clock className="h-4 w-4" />
+                  <span className="font-mono text-[10px] font-bold tracking-widest uppercase">
+                    Strategic Protocol
+                  </span>
+                </div>
+                <p className="text-muted-foreground/90 text-sm leading-relaxed">
+                  {item.protocol}
+                </p>
+              </div>
+            </div>
+
+            {/* Operational Narrative Section */}
+            <div className="prose prose-invert border-border/40 text-muted-foreground/80 max-w-none border-t pt-12">
+              <h3 className="text-foreground mb-6 flex items-center gap-3 font-bold">
+                <Activity className="text-primary h-5 w-5" />
+                Technical Analysis & Execution
               </h3>
-              <p className="mx-auto mb-10 max-w-lg text-lg text-slate-400">
-                เคสของคุณมีความเฉพาะตัว เรายินดีให้คำปรึกษาเบื้องต้นฟรี
-                เพื่อให้คุณเห็นแนวทางแก้ไขที่ชัดเจนที่สุด
+              <p className="mb-8 leading-loose">
+                ในการดำเนินการเคสนี้
+                ทีมผู้เชี่ยวชาญได้ทำการวิเคราะห์ความสัมพันธ์ของข้อมูล (Relevance
+                Audit) และพบช่องโหว่ในระดับ Metadata ของลิงก์เป้าหมาย
+                เราจึงดำเนินการระงับเหตุผ่านขั้นตอนปฏิบัติการ
+                ที่ผสมผสานระหว่างเทคนิคการถอดถอนดัชนี (De-indexing)
+                และมาตรการทางกฎหมายเพื่อให้ได้ผลลัพธ์ที่ถาวรและรวดเร็วที่สุด
               </p>
 
-              <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <a
-                  href={siteConfig.contact.lineUrl}
-                  target="_blank"
-                  className="group inline-flex h-16 items-center justify-center rounded-full bg-[#06C755] px-10 text-xl font-bold text-white shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95"
-                >
-                  คุยทาง LINE ทันที
-                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </a>
+              {/* Outcome Verification Box */}
+              <div className="border-primary/20 bg-primary/5 mt-12 overflow-hidden rounded-[2.5rem] border p-10 backdrop-blur-sm">
+                <div className="mb-6 flex items-center gap-3 text-emerald-500">
+                  <CheckCircle2 className="h-6 w-6" />
+                  <span className="font-mono text-xs font-bold tracking-[0.2em] uppercase">
+                    Post-Operation Verification
+                  </span>
+                </div>
+                <p className="text-foreground text-2xl leading-tight font-bold md:text-3xl">
+                  {item.result}
+                </p>
+                <div className="border-primary/10 mt-8 flex items-center justify-between border-t pt-6">
+                  <p className="text-muted-foreground text-sm font-medium italic">
+                    — Impact: {item.impact}
+                  </p>
+                  <Badge className="border-none bg-emerald-500/10 text-[9px] font-black tracking-widest text-emerald-500 uppercase">
+                    Operation Successful
+                  </Badge>
+                </div>
               </div>
-              <p className="mt-8 text-xs font-medium text-slate-500 italic">
-                * ข้อมูลทุกอย่างเป็นความลับ 100% ตามนโยบายความเป็นส่วนตัว
-              </p>
             </div>
           </div>
-        </footer>
+
+          {/* 04: Sidebar CTA: Secure Engagement */}
+          <aside className="lg:col-span-4">
+            <div className="border-primary/20 bg-muted/10 sticky top-24 overflow-hidden rounded-[2.5rem] border p-10 backdrop-blur-md">
+              <div
+                className="absolute -top-6 -right-6 opacity-5"
+                aria-hidden="true"
+              >
+                <ShieldAlert className="text-primary h-32 w-32" />
+              </div>
+
+              <h3 className="relative z-10 mb-4 text-xl font-bold tracking-tight">
+                ปรึกษาเคสของคุณ
+              </h3>
+              <p className="text-muted-foreground relative z-10 mb-10 text-sm leading-relaxed">
+                ส่งร่องรอยดิจิทัลที่คุณกังวลเพื่อให้ Specialist
+                ประเมินความเสี่ยงและความเป็นไปได้เชิงเทคนิคทันทีภายใต้ความลับสูงสุด
+              </p>
+
+              <Button
+                asChild
+                size="lg"
+                className="relative z-10 h-14 w-full rounded-full bg-[#00B900] font-black text-white shadow-xl shadow-green-500/20 transition-all hover:scale-[1.02] hover:bg-[#00A000]"
+              >
+                <Link href={lineLink} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="mr-2 h-6 w-6 fill-current" />
+                  START CONSULTATION
+                </Link>
+              </Button>
+
+              <div className="mt-10 flex flex-col items-center gap-3 opacity-40">
+                <span className="text-muted-foreground font-mono text-[9px] font-bold tracking-[0.4em] uppercase">
+                  Zero-Knowledge Channel
+                </span>
+                <div className="via-primary h-[1px] w-24 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+              </div>
+            </div>
+          </aside>
+        </div>
       </div>
     </article>
-  )
+  );
 }

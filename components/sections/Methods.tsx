@@ -1,0 +1,203 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  DatabaseZap,
+  Scale,
+  SearchCheck,
+  ShieldAlert,
+  Fingerprint,
+  Activity,
+} from "lucide-react";
+
+/**
+ * Technical Methodologies Data
+ * ยุทธศาสตร์ Hybrid (Technical + Legal) ที่เป็นหัวใจของ UNLINK
+ */
+const methods = [
+  {
+    icon: <DatabaseZap className="h-7 w-7 text-primary" />,
+    title: "Technical De-indexing",
+    description:
+      "ปฏิบัติการถอดถอนดัชนีการค้นหาจากระดับอัลกอริทึมของ Search Engine เพื่อตัดเส้นทางการเข้าถึงข้อมูลจากสาธารณะอย่างถาวร",
+    features: [
+      "Cache Removal Protocol",
+      "URL Re-crawl Suppression",
+      "Search Console Optimization",
+    ],
+  },
+  {
+    icon: <Scale className="h-7 w-7 text-primary" />,
+    title: "Legal Enforcement",
+    description:
+      "บังคับใช้สิทธิตามกฎหมาย PDPA (สิทธิในการถูกลืม) และกรอบกฎหมายสากล เพื่อสร้างอำนาจต่อรองในการลบข้อมูลที่ต้นทาง",
+    features: [
+      "PDPA Compliance Notice",
+      "Data Controller Negotiation",
+      "Regulatory Liaison",
+    ],
+  },
+  {
+    icon: <SearchCheck className="h-7 w-7 text-primary" />,
+    title: "Suppression Strategy",
+    description:
+      "ในกรณีที่ไม่สามารถลบต้นทางได้ เราจะใช้ระบบ Reverse SEO เพื่อเจือจางและผลักดันเนื้อหาลบให้พ้นจากพื้นที่การมองเห็น",
+    features: [
+      "Authority Dilution",
+      "Positive Asset Generation",
+      "Rank Suppression",
+    ],
+  },
+];
+
+export default function Methods() {
+  return (
+    <section
+      id="methods"
+      className="relative overflow-hidden bg-background py-24 lg:py-40"
+    >
+      {/* 01: Operational Background Decor - Tactical Grid */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
+        aria-hidden="true"
+      >
+        <div className="h-full w-full bg-[radial-gradient(#808080_1px,transparent_1px)] [background-size:32px_32px]" />
+      </div>
+
+      <div className="container relative z-10 mx-auto px-6">
+        {/* 02: Strategic Header Segment */}
+        <div className="mb-20 flex flex-col justify-between gap-10 md:flex-row md:items-end">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="max-w-3xl"
+          >
+            <div className="mb-6 flex items-center gap-3">
+              <Badge
+                variant="outline"
+                className="border-primary/30 bg-primary/5 px-4 py-1.5 font-mono text-[10px] tracking-[0.2em] text-primary uppercase"
+              >
+                System Methodology
+              </Badge>
+              <div className="flex items-center gap-1.5 opacity-30">
+                <Activity className="h-3 w-3 animate-pulse text-primary" />
+                <span className="font-mono text-[8px] tracking-tighter uppercase">
+                  Analysis Active
+                </span>
+              </div>
+            </div>
+
+            <h2 className="text-4xl font-extrabold leading-[1.1] tracking-tighter text-foreground md:text-6xl lg:text-7xl">
+              กลยุทธ์เชิงเทคนิค <br />
+              <span className="text-3xl font-light italic text-muted-foreground md:text-5xl lg:text-6xl">
+                ที่เหนือกว่าการแจ้งลบแบบทั่วไป
+              </span>
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="hidden pb-4 md:block"
+          >
+            <div className="border-l-2 border-primary/30 pl-8">
+              <p className="max-w-xs text-sm font-medium italic leading-relaxed text-muted-foreground/80 md:text-base">
+                เราประเมินและเลือกใช้วิธีที่เหมาะสมตามโครงสร้างข้อมูล
+                เพื่อให้ได้ผลลัพธ์ที่แม่นยำและป้องกันการเกิดซ้ำ (Re-appearance)
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* 03: Methods Matrix Grid */}
+        
+        <div className="grid gap-8 md:grid-cols-3">
+          {methods.map((method, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+            >
+              <Card className="group relative h-full overflow-hidden border-border/50 bg-muted/5 transition-all duration-500 hover:border-primary/40 hover:bg-muted/10 hover:shadow-2xl hover:shadow-primary/5">
+                <CardContent className="p-10">
+                  {/* Tactical Icon Container */}
+                  <div className="mb-10 inline-flex h-16 w-16 items-center justify-center rounded-2xl border border-border/40 bg-background transition-all duration-500 group-hover:rotate-[10deg] group-hover:border-primary/50 group-hover:shadow-[0_0_25px_rgba(var(--color-primary),0.15)]">
+                    {method.icon}
+                  </div>
+
+                  <h3 className="mb-5 text-2xl font-black tracking-tight text-foreground transition-colors group-hover:text-primary">
+                    {method.title}
+                  </h3>
+                  <p className="mb-10 text-base font-medium leading-relaxed text-muted-foreground/90">
+                    {method.description}
+                  </p>
+
+                  <ul className="space-y-4">
+                    {method.features.map((feature, fIndex) => (
+                      <li
+                        key={`${index}-${fIndex}`}
+                        className="flex items-center text-[11px] font-black tracking-[0.15em] text-foreground/60 transition-colors uppercase group-hover:text-foreground/80"
+                      >
+                        <div className="mr-4 h-1.5 w-1.5 rounded-full bg-primary/40 transition-all group-hover:scale-125 group-hover:bg-primary" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+
+                {/* Tactical Backdrop ID */}
+                <span className="pointer-events-none absolute bottom-4 right-10 select-none font-mono text-8xl font-black italic text-primary/[0.03] transition-all duration-700 group-hover:-translate-y-2 group-hover:text-primary/[0.06]">
+                  0{index + 1}
+                </span>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* 04: Authority & Differentiation Note */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-24 overflow-hidden rounded-[2.5rem] border border-primary/20 bg-primary/5 p-8 backdrop-blur-md lg:p-16"
+        >
+          <div className="flex flex-col items-center gap-12 lg:flex-row">
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-primary/10 shadow-[0_0_30px_rgba(var(--color-primary),0.1)]">
+              <ShieldAlert className="h-10 w-10 text-primary" />
+            </div>
+
+            <div className="flex-1 text-center lg:text-left">
+              <h4 className="mb-4 text-2xl font-bold tracking-tight text-foreground">
+                The Technical Difference
+              </h4>
+              <p className="text-base italic leading-loose text-muted-foreground/80 md:text-lg">
+                เราแตกต่างจากหน่วยงานทั่วไปที่เน้นเพียงปริมาณการรีพอร์ต: UNLINK
+                วิเคราะห์บนพื้นฐานของ
+                <span className="mx-2 font-mono font-black tracking-tighter text-primary underline underline-offset-4 decoration-primary/20 uppercase">
+                  Technical Feasibility
+                </span>
+                และมาตรการถอดถอนระดับ Metadata เพื่อผลลัพธ์ที่ยั่งยืนที่สุด
+              </p>
+            </div>
+
+            <div className="shrink-0">
+              <div className="group flex cursor-default items-center gap-4 rounded-full border border-primary/20 bg-background px-8 py-4 text-[10px] font-black tracking-[0.3em] text-primary transition-all hover:border-primary/50 hover:bg-primary/5 uppercase">
+                Identity Protected
+                <Fingerprint className="h-4 w-4 transition-transform group-hover:scale-110" />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

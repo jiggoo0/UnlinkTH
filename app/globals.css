@@ -1,155 +1,104 @@
+/* app/globals.css */
+/* =========================================================
+   UNLINK PROTOCOL: GLOBAL BASELINE
+   ========================================================= */
+
 @import "tailwindcss";
-@plugin "tailwindcss-animate";
+@import "../styles/tokens.css";
 
-@custom-variant dark (&:where(.dark, .dark *));
+/* ---------------------------------------------------------
+   Tailwind v4 / Modern Configuration Bridge
+--------------------------------------------------------- */
+@theme {
+  /* มัดรวมค่าพื้นฐานให้ตรงกับ tokens.css */
+  --color-background: hsl(var(--color-bg));
+  --color-foreground: hsl(var(--color-fg));
+  --color-muted-foreground: hsl(var(--color-fg) / 0.65);
+  --color-accent: hsl(var(--color-primary) / 0.1);
+  --color-accent-foreground: hsl(var(--color-primary));
 
-:root {
-  /* Font & General */
-  --font-sans: var(--font-kanit);
-  --radius: 0.75rem;
-
-  /* Brand Colors (Professional Blue & OKLCH) */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.12 0.02 252);
-
-  --primary: oklch(0.55 0.18 252); /* Blue 600 - น่าเชื่อถือและมั่นคง */
-  --primary-foreground: oklch(0.98 0 0);
-
-  /* Utility Colors */
-  --line-green: 142 70% 45%; /* สำหรับแบรนด์ LINE โดยเฉพาะ */
-  --success: oklch(0.63 0.19 145);
-
-  /* Base Components */
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.12 0.02 252);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.12 0.02 252);
-
-  --secondary: oklch(0.96 0.01 252);
-  --secondary-foreground: oklch(0.25 0.05 252);
-
-  --muted: oklch(0.96 0.01 252);
-  --muted-foreground: oklch(0.45 0.02 252);
-
-  --accent: oklch(0.92 0.03 252);
-  --accent-foreground: oklch(0.25 0.05 252);
-
-  --destructive: oklch(0.58 0.25 28);
-  --destructive-foreground: oklch(0.98 0 0);
-
-  --border: oklch(0.91 0.01 252);
-  --input: oklch(0.91 0.01 252);
-  --ring: oklch(0.55 0.18 252);
-}
-
-.dark {
-  --background: oklch(0.14 0.02 252);
-  --foreground: oklch(0.98 0 0);
-
-  --primary: oklch(0.65 0.15 252);
-  --primary-foreground: oklch(0.14 0.02 252);
-
-  --card: oklch(0.18 0.02 252);
-  --card-foreground: oklch(0.98 0 0);
-
-  --secondary: oklch(0.25 0.03 252);
-  --secondary-foreground: oklch(0.98 0 0);
-
-  --muted: oklch(0.25 0.03 252);
-  --muted-foreground: oklch(0.7 0.02 252);
-
-  --accent: oklch(0.25 0.03 252);
-  --accent-foreground: oklch(0.98 0 0);
-
-  --border: oklch(0.3 0.02 252 / 0.2);
-  --input: oklch(0.3 0.02 252 / 0.3);
-  --ring: oklch(0.65 0.15 252);
-}
-
-@theme inline {
-  --font-sans: var(--font-kanit);
-
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-line-green: hsl(var(--line-green));
-
-  /* Keyframe Animations */
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-
-  @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
-  }
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
-  }
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui;
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    border-color: hsl(var(--color-border) / 0.1);
   }
 
   html {
-    @apply scroll-smooth;
+    scroll-behavior: smooth;
+    background-color: var(--color-background);
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-feature-settings:
-      "rlig" 1,
-      "calt" 1;
-  }
-
-  /* Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    @apply bg-slate-50;
-  }
-  ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-slate-300 transition-colors hover:bg-slate-400;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-  }
-
-  ::selection {
-    @apply bg-blue-100 text-blue-900;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 }
 
+/* ---------------------------------------------------------
+   Layout Helpers (Fixed: แก้ปัญหา unknown utility class)
+--------------------------------------------------------- */
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  /* แทนที่จะ @apply คลาสที่ Build engine หาไม่เจอ 
+     เราใช้ CSS มาตรฐานที่ให้ผลลัพธ์เดียวกันและปลอดภัยกว่า */
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    max-width: 80rem; /* เท่ากับ max-w-7xl */
   }
 
-  /* ช่วยให้รูปภาพในบทความ MDX มีความนุ่มนวล */
-  .prose-img-rounded {
-    @apply rounded-2xl shadow-lg;
+  .lab-card {
+    background-color: hsl(var(--color-muted) / 0.1);
+    border: 1px solid hsl(var(--color-border) / 0.5);
+    backdrop-filter: blur(8px);
+    transition: all var(--duration-base) var(--ease-out);
+  }
+}
+
+/* ---------------------------------------------------------
+   Typography & Interactive
+--------------------------------------------------------- */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--color-foreground);
+  }
+
+  p {
+    color: var(--color-muted-foreground);
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+}
+
+/* ---------------------------------------------------------
+   Reduced Motion
+--------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

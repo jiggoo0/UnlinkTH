@@ -1,184 +1,102 @@
-import ServiceCard from "@/components/shared/ServiceCard"
+import type { Metadata } from "next"
 import { servicesData } from "@/constants/services-data"
-import Header from "@/components/shared/Header"
-import Link from "next/link"
-import { CheckCircle2 } from "lucide-react"
+import { ServiceCard } from "@/components/shared/ServiceCard"
+import { Badge } from "@/components/ui/badge"
+import { ShieldCheck, DatabaseZap, Fingerprint, Activity } from "lucide-react"
 
-/**
- * 🛠️ Define Service Interface
- * ปรับปรุง iconName ให้เป็น Literal Union Type เพื่อให้ตรงกับ ServiceCardProps
- * และผ่านการตรวจสอบจากทั้ง ESLint และ TypeScript Compiler
- */
-interface ServiceItem {
-  id: string | number
-  slug: string
-  title: string
-  shortDescription: string
-  suitableFor: string[]
-  iconName: "remove" | "legal" | "seo" | "consult" | "audit" | "default"
-  imageUrl?: string
+export const metadata: Metadata = {
+  title: "Services | การจัดการข้อมูลดิจิทัลเฉพาะทาง",
+  description:
+    "สำรวจบริการจัดการชื่อเสียงออนไลน์ ลบลิงก์ Google และการใช้สิทธิ PDPA เพื่อความปลอดภัยในประวัติออนไลน์ของคุณ",
 }
 
-/**
- * ServicesPage: หน้าหลักที่รวบรวมบริการและโครงสร้างราคา
- * ✅ ผ่านการตรวจสอบ Type-check: ไม่ใช้ string ทั่วไปใน iconName
- * ✅ ผ่านการตรวจสอบ Lint: ไม่ใช้ any
- */
 export default function ServicesPage() {
-  // Casting ข้อมูลจาก constants ให้เป็น Type ที่ระบุเจาะจง
-  const typedServices = servicesData as ServiceItem[]
-
   return (
-    <main className="min-h-screen bg-slate-50/50 pb-20">
-      <Header
-        title="บริการของเรา"
-        description="ทางเลือกที่หลากหลายเพื่อกู้คืนชื่อเสียงออนไลน์ของคุณอย่างยั่งยืน โดยทีมงานมืออาชีพที่เข้าใจปัญหาของคุณ"
-      />
+    <div className="relative flex w-full flex-col pb-32">
+      {/* 01: Strategy Hero Section */}
+      <section className="relative overflow-hidden pt-32 pb-24 lg:pt-56 lg:pb-32">
+        {/* Decorative Grid Background */}
+        <div className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]">
+          <div className="h-full w-full bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:40px_40px]" />
+        </div>
 
-      {/* 1. ส่วน Grid แสดงรายการบริการ */}
-      <div className="container mx-auto px-4 py-12 md:py-20">
-        <div className="grid gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-          {typedServices.map((service) => (
-            <Link
-              key={service.id}
-              href={`/services/${service.slug}`}
-              className="group block h-full"
-            >
-              <ServiceCard
-                title={service.title}
-                description={service.shortDescription}
-                suitableFor={service.suitableFor}
-                // ✅ ส่งค่าโดยตรง ไม่ต้องใช้ 'as any' เพราะ Type ตรงกันแล้ว
-                iconName={service.iconName}
-                imageUrl={service.imageUrl || ""}
-              />
-            </Link>
+        <div className="relative z-10 container mx-auto px-6 text-center">
+          <Badge
+            variant="outline"
+            className="border-primary/30 bg-primary/5 text-primary mb-6 px-4 py-1.5 font-mono text-[10px] tracking-[0.2em] uppercase"
+          >
+            Operational Protocols
+          </Badge>
+          <h1 className="mb-8 text-5xl font-extrabold tracking-tighter md:text-7xl lg:text-8xl">
+            แนวทางการจัดการ <br />
+            <span className="text-muted-foreground font-light italic">
+              ข้อมูลออนไลน์เฉพาะทาง
+            </span>
+          </h1>
+          <p className="text-muted-foreground/80 mx-auto max-w-3xl text-lg leading-relaxed md:text-xl">
+            ผสมผสานเทคนิคทางวิศวกรรมข้อมูล{" "}
+            <span className="text-foreground font-bold">
+              (Technical De-indexing)
+            </span>
+            เข้ากับกรอบกฎหมายดิจิทัล
+            เพื่อให้คุณสามารถเริ่มต้นใหม่ในโลกออนไลน์ได้อย่างปลอดภัยและมั่นใจ
+          </p>
+
+          <div className="mt-12 flex items-center justify-center gap-6 opacity-40">
+            <div className="flex items-center gap-2">
+              <Fingerprint className="text-primary h-4 w-4" />
+              <span className="font-mono text-[9px] font-bold tracking-widest uppercase">
+                Protocol Verified
+              </span>
+            </div>
+            <div className="bg-border h-4 w-px" />
+            <div className="flex items-center gap-2">
+              <Activity className="text-primary h-4 w-4 animate-pulse" />
+              <span className="font-mono text-[9px] font-bold tracking-widest uppercase">
+                System Active
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 02: Services Matrix Grid */}
+
+      <section className="relative z-20 container mx-auto -mt-16 px-6">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {servicesData.map((service) => (
+            <ServiceCard key={service.id} service={service} />
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* 2. ส่วนโครงสร้างราคา (Pricing Structure) */}
-      <section className="container mx-auto px-4 py-16">
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
-            โครงสร้างค่าบริการ
-          </h2>
-          <p className="mt-4 text-lg text-slate-600">
-            ค่าใช้จ่ายถูกประเมินตามความซับซ้อนของข้อมูลและปริมาณงานจริง
-          </p>
-        </div>
+      {/* 03: Technical Integrity Banner */}
+      <section className="container mx-auto mt-32 px-6">
+        <div className="border-primary/20 bg-muted/5 relative mx-auto max-w-5xl overflow-hidden rounded-[2.5rem] border p-8 backdrop-blur-md md:p-12 lg:p-16">
+          {/* Subtle Watermark */}
+          <ShieldCheck className="text-primary absolute -top-8 -right-8 h-48 w-48 opacity-[0.03]" />
 
-        <div className="grid gap-8 md:grid-cols-3">
-          {/* แผนเริ่มต้น: วิเคราะห์ฟรี */}
-          <div className="flex flex-col rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition-all hover:shadow-md">
-            <h3 className="text-xl font-bold text-slate-900">
-              ปรึกษาและวิเคราะห์
-            </h3>
-            <div className="my-6">
-              <span className="text-4xl font-black text-blue-600">0.-</span>
-              <span className="ml-2 text-sm font-bold tracking-wider text-slate-400 uppercase">
-                Free
-              </span>
+          <div className="relative z-10 flex flex-col items-center gap-10 md:flex-row">
+            <div className="bg-primary/10 flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl shadow-[0_0_30px_rgba(var(--color-primary),0.1)]">
+              <DatabaseZap className="text-primary h-10 w-10" />
             </div>
-            <ul className="mb-8 flex-1 space-y-4 text-sm text-slate-600">
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
-                <span>วิเคราะห์เคสและความเป็นไปได้ในการจัดการ</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
-                <span>ตรวจสอบจุดกระจายข้อมูล (Mapping) ทั่วระบบ</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
-                <span>ประเมินราคาตามขอบเขตงานจริง ไม่มีค่าซ่อนเร้น</span>
-              </li>
-            </ul>
-          </div>
 
-          {/* แผนมาตรฐาน: จัดการรายจุด (ยอดนิยม) */}
-          <div className="relative z-10 flex scale-105 flex-col rounded-3xl border-2 border-blue-600 bg-white p-8 shadow-xl shadow-blue-500/10">
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-blue-600 px-6 py-1 text-xs font-black tracking-widest text-white uppercase">
-              ยอดนิยม
-            </div>
-            <h3 className="text-xl font-bold text-slate-900">
-              จัดการข้อมูลเฉพาะจุด
-            </h3>
-            <div className="my-6">
-              <span className="text-2xl font-black text-blue-600">
-                ประเมินตามจริง
-              </span>
-            </div>
-            <ul className="mb-8 flex-1 space-y-4 text-sm text-slate-600">
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
-                <span>ลบโพสต์ / รูปภาพ / บัญชีปลอม ที่ละเมิดสิทธิ์</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
-                <span>การเจรจาระดับมืออาชีพเพื่อให้นำข้อมูลออกจากระบบ</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
-                <span className="font-bold text-slate-900">
-                  Success Fee: ชำระเมื่อผลลัพธ์สำเร็จเท่านั้น
+            <div className="flex-1 text-center md:text-left">
+              <h3 className="text-foreground mb-4 text-2xl font-bold tracking-tight md:text-3xl">
+                มาตรฐาน Technical Diagnosis
+              </h3>
+              <p className="text-muted-foreground/80 text-base leading-relaxed">
+                เราประเมินเคสตามความเป็นจริงทางเทคนิคก่อนเริ่มงานเสมอ
+                <span className="text-primary mt-4 block font-bold italic">
+                  * หากวิเคราะห์แล้วไม่สามารถดำเนินการได้
+                  เราจะแจ้งให้ทราบทันทีโดยไม่มีค่าใช้จ่าย
                 </span>
-              </li>
-            </ul>
-          </div>
-
-          {/* แผนองค์กร: บริหารชื่อเสียง */}
-          <div className="flex flex-col rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition-all hover:shadow-md">
-            <h3 className="text-xl font-bold text-slate-900">
-              บริหารชื่อเสียงระยะยาว
-            </h3>
-            <div className="my-6">
-              <span className="text-2xl font-black text-blue-600">
-                Custom Plan
-              </span>
+                เพื่อรักษามาตรฐานความโปร่งใสและจริยธรรมสูงสุดของผู้เชี่ยวชาญ
+              </p>
             </div>
-            <ul className="mb-8 flex-1 space-y-4 text-sm text-slate-600">
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
-                <span>SEO Push: วางโครงสร้างคอนเทนต์ดีเพื่อกลบข่าวลบ</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
-                <span>มอนิเตอร์ชื่อเสียงและแจ้งเตือนความเสี่ยง 24/7</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-500" />
-                <span>แผนรับมือวิกฤต (Crisis Management) เชิงลึก</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <p className="mt-10 text-center text-xs font-medium text-slate-400">
-          * หมายเหตุ:
-          ค่าบริการจะถูกนำเสนอในรูปแบบใบเสนอราคาหลังจากประเมินความซับซ้อนของเคสแล้วเท่านั้น
-        </p>
-      </section>
-
-      {/* 3. ส่วนท้ายหน้า CTA */}
-      <section className="container mx-auto mt-12 px-4 text-center">
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-slate-900 p-8 text-white shadow-2xl md:p-16">
-          <div className="absolute top-0 right-0 -mt-20 -mr-20 h-96 w-96 rounded-full bg-blue-500/10 blur-[100px]"></div>
-          <h2 className="relative z-10 mb-6 text-3xl font-black md:text-5xl">
-            ไม่แน่ใจว่าควรเลือกบริการไหน?
-          </h2>
-          <p className="relative z-10 mx-auto mb-10 max-w-2xl text-lg text-slate-400">
-            ปรึกษาผู้เชี่ยวชาญของเราเพื่อรับการประเมินเบื้องต้นและวางแผนการจัดการที่เหมาะสมกับงบประมาณของคุณ
-          </p>
-          <div className="relative z-10 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/contact"
-              className="rounded-full bg-blue-600 px-12 py-4 text-lg font-black text-white shadow-lg shadow-blue-600/30 transition-all hover:bg-blue-700 hover:shadow-blue-600/40 active:scale-95"
-            >
-              ขอใบเสนอราคาฟรี
-            </Link>
           </div>
         </div>
       </section>
-    </main>
+    </div>
   )
 }

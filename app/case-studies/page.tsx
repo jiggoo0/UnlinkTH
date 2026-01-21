@@ -1,219 +1,139 @@
-import { getAllCases, getAllGuides, CaseFrontmatter } from "@/lib/mdx"
-import { Typography } from "@/components/ui/typography"
+import type { Metadata } from "next"
+import { caseStudies } from "@/lib/case-studies"
+import { CaseStudyCard } from "@/components/shared/CaseStudyCard"
 import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Link from "next/link"
-import Image from "next/image"
-import {
-  CalendarDays,
-  ArrowRight,
-  BookOpen,
-  Star,
-  ShieldCheck,
-} from "lucide-react"
+import { FolderKanban, ShieldCheck, Fingerprint, Activity } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 /**
- * Interface สำหรับไอเทมที่จะแสดงในลิสต์
+ * Metadata Optimization:
+ * ออกแบบมาเพื่อการทำ SEO สำหรับบริการ Digital Reputation Management
  */
-interface ContentItem {
-  slug: string
-  frontmatter: CaseFrontmatter
-}
-
-export const metadata = {
-  title: "Case Studies & Insights | แก้ไขประวัติออนไลน์และกู้คืนชื่อเสียง",
+export const metadata: Metadata = {
+  title: "Case Studies | บันทึกปฏิบัติการและผลลัพธ์การจัดการข้อมูล",
   description:
-    "เจาะลึกเคสจริงการลบข้อมูลออนไลน์ พร้อมบทความให้ความรู้ด้าน PDPA และ SEO เพื่อการเริ่มต้นชีวิตใหม่อย่างมั่นใจ",
+    "รวบรวมกรณีศึกษาการแก้ไขปัญหาชื่อเสียงดิจิทัลและการถอดถอนข้อมูลเชิงเทคนิค ภายใต้มาตรฐานการรักษาความลับสูงสุดและจริยธรรมวิชาชีพ",
+  openGraph: {
+    title: "Case Studies | UNLINK Digital Fixer",
+    description: "บันทึกผลลัพธ์ปฏิบัติการ De-indexing และการจัดการข้อมูลเชิงลบ",
+    type: "website",
+  },
 }
 
-export default async function CaseStudiesPage() {
-  const [allCases, allGuides] = await Promise.all([
-    getAllCases(),
-    getAllGuides(),
-  ])
-
-  // รวมและจัดเรียงข้อมูลตามวันที่
-  const combinedContent: ContentItem[] = [...allCases, ...allGuides].sort(
-    (a, b) =>
-      new Date(b.frontmatter.date).getTime() -
-      new Date(a.frontmatter.date).getTime()
-  )
+export default function CaseStudiesPage() {
+  /**
+   * Data Layer Validation:
+   * ป้องกัน Runtime Error กรณีที่ lib/case-studies.ts ส่งค่าที่เป็น undefined หรือ null
+   */
+  const allCases = caseStudies ?? []
 
   return (
-    <main className="container mx-auto px-4 py-24 sm:px-6 lg:px-8">
-      {/* --- Header Section --- */}
-      <header className="mb-12 max-w-4xl">
-        <div className="mb-4 flex items-center gap-2">
-          <Badge
-            variant="outline"
-            className="border-blue-200 bg-blue-50 text-blue-700"
-          >
-            Knowledge Hub
-          </Badge>
-          <span className="text-sm text-slate-400">|</span>
-          <span className="flex items-center gap-1 text-sm font-medium text-slate-500">
-            <ShieldCheck className="h-4 w-4 text-green-500" /> Trust & Authority
-          </span>
-        </div>
-        <Typography
-          variant="h1"
-          className="mb-6 text-4xl font-extrabold tracking-tight sm:text-5xl"
-        >
-          ศูนย์รวมความรู้และ <span className="text-blue-600">ความสำเร็จ</span>
-        </Typography>
-        <Typography
-          variant="p"
-          className="text-xl leading-relaxed text-slate-600"
-        >
-          เราเชื่อว่า "ทุกคนควรมีโอกาสเริ่มต้นใหม่"
-          ศึกษาเทคนิคการจัดการประวัติออนไลน์
-          และดูวิธีที่เราช่วยลูกค้าตัวจริงแก้ปัญหาผ่านเคสจำลองเหล่านี้
-        </Typography>
-      </header>
+    <div className="bg-background relative min-h-screen overflow-hidden pt-32 pb-24 lg:pt-40">
+      {/* 01: Tactical Background Decor */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
+        aria-hidden="true"
+      >
+        <div className="h-full w-full bg-[radial-gradient(#808080_1px,transparent_1px)] [background-size:32px_32px]" />
+      </div>
 
-      {/* --- Main Content Tabs --- */}
-      <Tabs defaultValue="all" className="space-y-12">
-        <div className="flex flex-col gap-6 border-b pb-4 sm:flex-row sm:items-center sm:justify-between">
-          <TabsList className="bg-slate-100 p-1">
-            <TabsTrigger value="all" className="flex items-center gap-2">
-              ทั้งหมด
-            </TabsTrigger>
-            <TabsTrigger value="cases" className="flex items-center gap-2">
-              <Star className="h-4 w-4" /> เคสตัวอย่าง
-            </TabsTrigger>
-            <TabsTrigger value="guides" className="flex items-center gap-2">
-              <BookOpen className="h-4 w-4" /> บทความ/คู่มือ
-            </TabsTrigger>
-          </TabsList>
-
-          <div className="text-sm text-slate-500 italic">
-            พบ {allCases.length + allGuides.length} รายการที่น่าสนใจ
-          </div>
-        </div>
-
-        <TabsContent value="all" className="mt-0">
-          <div className="grid gap-8 md:grid-cols-2">
-            {combinedContent.map((item) => (
-              <ContentCard key={item.slug} item={item} />
-            ))}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="cases" className="mt-0">
-          <div className="grid gap-8 md:grid-cols-2">
-            {allCases.map((item) => (
-              <ContentCard key={item.slug} item={item} isCase />
-            ))}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="guides" className="mt-0">
-          <div className="grid gap-8 md:grid-cols-2">
-            {allGuides.map((item) => (
-              <ContentCard key={item.slug} item={item} />
-            ))}
-          </div>
-        </TabsContent>
-      </Tabs>
-
-      {/* --- Footer Conversion --- */}
-      <section className="mt-24 rounded-3xl bg-slate-900 p-8 text-center text-white sm:p-16">
-        <Typography variant="h2" className="mb-4 text-3xl font-bold">
-          เคสของคุณก็สามารถเป็นความสำเร็จถัดไปได้
-        </Typography>
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <Link
-            href="/contact"
-            className="rounded-full bg-blue-600 px-8 py-4 font-bold text-white shadow-lg shadow-blue-900/20 transition hover:bg-blue-700 active:scale-95"
-          >
-            ปรึกษาเคสของคุณฟรี
-          </Link>
-          <Link
-            href="/services"
-            className="rounded-full border border-white/30 px-8 py-4 font-bold text-white transition hover:bg-white/10 active:scale-95"
-          >
-            ดูบริการทั้งหมด
-          </Link>
-        </div>
-      </section>
-    </main>
-  )
-}
-
-/**
- * Reusable Card Component
- * ✅ แก้ไข: กำจัด 'any' โดยใช้ Interface ContentItem
- */
-function ContentCard({
-  item,
-  isCase,
-}: {
-  item: ContentItem
-  isCase?: boolean
-}) {
-  const finalIsCase =
-    isCase || item.slug.includes("case") || !!item.frontmatter.category
-
-  const typeLabel = finalIsCase ? "Case Study" : "Guide & Knowledge"
-  const typeColor = finalIsCase
-    ? "bg-amber-100 text-amber-700 border-amber-200"
-    : "bg-emerald-100 text-emerald-700 border-emerald-200"
-
-  return (
-    <Link
-      href={`/case-studies/${item.slug}`}
-      className="group block h-full transition-all duration-300"
-    >
-      <Card className="flex h-full flex-col overflow-hidden border-slate-200 bg-white transition-all group-hover:border-blue-500 group-hover:shadow-xl">
-        <div className="relative aspect-video w-full overflow-hidden bg-slate-100">
-          <Image
-            src={
-              item.frontmatter.featuredImage ||
-              item.frontmatter.image ||
-              "/images/og-main.jpg"
-            }
-            alt={item.frontmatter.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
-        </div>
-
-        <CardHeader className="flex-1 space-y-4">
-          <div className="flex items-center justify-between">
+      <div className="relative z-10 container mx-auto px-6">
+        {/* 02: Section Header Layer */}
+        <header className="mb-16 max-w-4xl">
+          <div className="mb-6 flex items-center gap-3">
             <Badge
               variant="outline"
-              className={`px-3 py-1 font-medium ${typeColor}`}
+              className="border-primary/30 bg-primary/5 text-primary px-4 py-1.5 font-mono text-[10px] tracking-[0.2em] uppercase"
             >
-              {typeLabel}
+              Operational Archive
             </Badge>
-            <div className="flex items-center text-sm text-slate-400">
-              <CalendarDays className="mr-2 h-4 w-4" />
-              {item.frontmatter.date}
+            <div className="flex items-center gap-1.5 opacity-30">
+              <Activity className="text-primary h-3 w-3 animate-pulse" />
+              <span className="font-mono text-[8px] tracking-tighter uppercase">
+                System Active
+              </span>
             </div>
           </div>
-          <CardTitle className="line-clamp-2 text-2xl leading-tight font-bold transition-colors group-hover:text-blue-600">
-            {item.frontmatter.title}
-          </CardTitle>
-          <CardDescription className="line-clamp-2 text-base text-slate-600">
-            {item.frontmatter.summary}
-          </CardDescription>
-        </CardHeader>
 
-        <CardContent className="pt-0">
-          <div className="flex items-center text-sm font-semibold text-blue-600">
-            {finalIsCase ? "อ่านถอดบทเรียนเคสนี้" : "อ่านรายละเอียดความรู้"}
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-2" />
+          <h1 className="text-foreground mb-6 text-4xl font-extrabold tracking-tighter md:text-6xl lg:text-8xl">
+            กรณีศึกษา <br />
+            <span className="text-muted-foreground font-light italic">
+              และการจัดการวิกฤต
+            </span>
+          </h1>
+
+          <p className="text-muted-foreground/80 max-w-2xl text-lg leading-relaxed md:text-xl">
+            บันทึกปฏิบัติการแก้ไขปัญหาชื่อเสียงดิจิทัลในสถานการณ์จริง
+            โดยข้อมูลทั้งหมดถูกจัดทำในรูปแบบนิรนาม{" "}
+            <span className="text-foreground font-bold">(Anonymized)</span>
+            เพื่อคงไว้ซึ่งมาตรการความปลอดภัยและจริยธรรมขั้นสูงสุด
+          </p>
+        </header>
+
+        {/* 03: Tactical Status Bar (Verification Layer) */}
+
+        <div className="border-border/40 text-muted-foreground/50 mb-12 flex flex-wrap items-center gap-6 border-b pb-8 text-[10px] font-bold tracking-[0.3em] uppercase">
+          <div className="hover:text-primary flex items-center gap-2 transition-colors">
+            <ShieldCheck className="text-primary h-4 w-4" />
+            <span>Identity Protected</span>
           </div>
-        </CardContent>
-      </Card>
-    </Link>
+          <div className="bg-border/40 hidden h-4 w-px md:block" />
+          <div className="hover:text-primary flex items-center gap-2 transition-colors">
+            <Fingerprint className="text-primary h-4 w-4" />
+            <span>Technical Verified</span>
+          </div>
+          <div className="bg-border/40 hidden h-4 w-px md:block" />
+          <div className="hover:text-primary flex items-center gap-2 transition-colors">
+            <FolderKanban className="text-primary h-4 w-4" />
+            <span>Total Operational Logs: {allCases.length}</span>
+          </div>
+        </div>
+
+        {/* 04: Display Matrix: Case Study Cards */}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {allCases.length > 0 ? (
+            allCases.map((item, index) => (
+              <div
+                key={item.slug}
+                className={cn(
+                  "animate-in fade-in slide-in-from-bottom-6 duration-700 ease-out",
+                  "fill-mode-both"
+                )}
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
+                <CaseStudyCard caseStudy={item} />
+              </div>
+            ))
+          ) : (
+            <div className="border-border/50 bg-muted/5 col-span-full flex h-64 flex-col items-center justify-center rounded-[2rem] border border-dashed">
+              <FolderKanban className="text-muted-foreground/20 mb-4 h-12 w-12" />
+              <p className="text-muted-foreground/40 font-mono text-xs tracking-widest uppercase">
+                No operational logs found in current directory.
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* 05: Integrity & Legal Disclaimer Footer */}
+        <footer className="border-border/40 mt-24 border-t pt-16">
+          <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
+            <p className="text-muted-foreground/30 max-w-xl text-center text-[10px] leading-relaxed font-medium tracking-wider uppercase md:text-left">
+              *
+              ข้อมูลที่ปรากฏเป็นเพียงส่วนหนึ่งของกระบวนการถอดถอนและจัดการข้อมูลเชิงเทคนิค
+              ผลลัพธ์ในแต่ละกรณีอาจแตกต่างกันไปตามโครงสร้างของแพลตฟอร์ม
+              และการวิเคราะห์ความเป็นไปได้เชิงเทคนิค (Technical Feasibility
+              Audit) เป็นรายกรณี
+            </p>
+            <div className="flex items-center gap-4">
+              <div className="bg-primary/30 h-1 w-1 rounded-full" />
+              <span className="text-primary/20 font-mono text-[8px] font-black tracking-[0.4em] uppercase">
+                Unlink Confidential Protocol
+              </span>
+              <div className="bg-primary/30 h-1 w-1 rounded-full" />
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
   )
 }

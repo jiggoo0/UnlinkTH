@@ -1,95 +1,85 @@
+import { SiteConfig } from "@/types";
+
 /**
- * Site Configuration: ศูนย์รวมข้อมูลพื้นฐานของเว็บไซต์
- * แก้ไขที่นี่ที่เดียวเพื่อเปลี่ยนข้อมูลทั่วทั้งแอป
+ * UNLINK-TH | Global Configuration Matrix (2026 Optimized)
+ * ศูนย์กลางการกำหนดค่า Metadata, SEO, และช่องทางสื่อสารสำหรับ www.unlink-th.com
+ * ยุทธศาสตร์: Action-Oriented (เน้นผลลัพธ์) + Search Intent (ตรงใจคนค้นหา)
  */
-
-export const siteConfig = {
-  // ข้อมูลแบรนด์พื้นฐาน
-  name: "Unlink Thailand",
-  fullName: "Unlink Thailand - Digital Reputation Management",
+export const siteConfig: SiteConfig = {
+  name: "UNLINK-TH",
   description:
-    "บริการรับแก้ไขชื่อและประวัติออนไลน์ที่ผิดพลาด คืนความสะอาดให้ชื่อเสียงของคุณด้วยเทคนิคเจรจาเชิงลึกและกฎหมาย PDPA",
-  url: "https://www.unlink-th.com",
+    "บริการรับลบข่าวเสียและข้อมูลออนไลน์แบบถาวร โดยผู้เชี่ยวชาญ De-indexing กู้คืนชื่อเสียง ลบกระทู้ Pantip ลบรูปหลุด และประวัติอาชญากรรมออนไลน์ ด้วยวิธีทางเทคนิคและกฎหมาย PDPA ปลอดภัย 100%",
 
-  // ✅ อัปเดต Path รูปภาพให้ตรงกับที่ระบุในไฟล์ robots/og-main
+  url: "https://www.unlink-th.com",
   ogImage: "/images/og-main.jpg",
 
-  // ข้อมูลการติดต่อ (Contact Info)
+  locale: "th_TH",
+  language: "th",
+
+  // --- Operational Liaison & Security Protocol (ข้อมูลติดต่อ) ---
   contact: {
+    primaryChannel: "LINE Official",
     lineUrl: "https://lin.ee/bWcwyir",
     lineId: "@204uuzew",
-    phone: "0XX-XXX-XXXX", // @TODO: อย่าลืมใส่เบอร์จริงเพื่อเพิ่มความน่าเชื่อถือ
+    phone: "099-999-8989",
     email: "contact@unlink-th.com",
-    address: "Bangkok, Thailand",
+    note: "เราเก็บความลับของคุณเป็นอันดับ 1 (Non-Disclosure Policy) ข้อมูลจะถูกทำลายทันทีหลังประเมินงาน",
   },
 
-  // ข้อความหลักบนหน้า Landing Page (Marketing Copy)
-  branding: {
-    heroTitle: "อดีตลบไม่ได้... แต่จัดการให้ดีขึ้นได้",
-    heroSubTitle:
-      "จัดการชื่อเสียออนไลน์ ลบแบล็กลิสต์ แก้ไขประวัติ ประเมินเคสฟรี คุยง่ายเป็นกันเองเหมือนพี่ชายแสนดี",
-    ctaText: "ปรึกษาทีมงาน (ฟรี)",
-    secondaryCtaText: "ดูวิธีการทำงานของเรา",
-  },
-
-  // ข้อมูลสำหรับการทำ SEO
-  keywords: [
-    "ลบชื่อแบล็คลิสต์",
-    "แก้ไขประวัติออนไลน์",
-    "ลบข้อมูลส่วนตัว",
-    "ทำ SEO ดันชื่อ",
-    "Right to be Forgotten",
-    "จัดการชื่อเสียงออนไลน์",
-    "ลบข่าวประจาน",
-    "PDPA ลบข้อมูล",
-    "Unlink Thailand",
-  ],
-
-  // Social Links
+  // --- Network Linkage (ช่องทางโซเชียลมีเดีย) ---
   links: {
     facebook: "https://www.facebook.com/share/1DDfxWEdt5/",
     twitter: "https://twitter.com/unlinkth",
     line: "https://lin.ee/bWcwyir",
   },
-} as const
 
-// สำหรับใช้ใน Metadata ของ Next.js Layout
-export const metadataConfig = {
-  title: {
-    default: siteConfig.fullName,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  keywords: siteConfig.keywords,
-  authors: [{ name: "Unlink Thailand" }],
-  creator: "Unlink Thailand",
-  openGraph: {
-    type: "website",
-    locale: "th_TH",
-    url: siteConfig.url,
-    title: siteConfig.fullName,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.fullName,
-      },
+  // --- SEO Optimization & Search Engine Strategy (AEO/SGE Ready) ---
+  seo: {
+    titleTemplate: "%s | UNLINK - รับลบข้อมูลออนไลน์ กู้ชื่อเสียงดิจิทัล",
+    defaultTitle:
+      "UNLINK | รับลบลิงก์ Google ลบข่าวเสีย ลบกระทู้ และจัดการประวัติออนไลน์",
+    defaultDescription:
+      "ปรึกษาฟรี! บริการรับลบข่าว ลบลิงก์ Google ลบรูปหลุด คลิปวีดีโอ และกระทู้หมิ่นประมาท (Pantip/Twitter/Facebook) กู้คืนชื่อเสียงธุรกิจและบุคคลด้วยทีมวิศวกรข้อมูลและนักกฎหมาย PDPA เห็นผลจริง",
+    keywords: [
+      // High-Conversion Action Keywords
+      "รับลบข่าว",
+      "ลบลิงก์กูเกิล",
+      "ลบประวัติออนไลน์",
+      "รับจ้างลบกระทู้",
+      "ลบชื่อออกจาก Google",
+
+      // Tactical Platform Specific
+      "ลบกระทู้ Pantip",
+      "ลบรีวิว Google Maps",
+      "แจ้งลบคลิปหลุด",
+      "ลบดราม่า Twitter",
+
+      // Risk-Mitigation & Legal Compliance
+      "ลบประวัติอาชญากรรมออนไลน์",
+      "แก้ Blacklist ออนไลน์",
+      "สิทธิในการถูกลืม",
+      "ปรึกษา PDPA",
+      "Digital Footprint Removal",
+
+      // Technical Authority
+      "De-indexing Service Thailand",
+      "บริษัทบริหารชื่อเสียง",
     ],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.fullName,
-    description: siteConfig.description,
-    images: [siteConfig.ogImage],
-  },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
-}
 
-export type SiteConfig = typeof siteConfig
+  // --- Corporate Philosophy & Technical Positioning ---
+  company: {
+    approach:
+      "Result-Oriented: เราไม่ใช่นักการตลาด แต่คือ 'ผู้เชี่ยวชาญด้านการลบ' (Remover) ที่ใช้เทคนิคเจาะลึกระดับ Metadata และข้อกฎหมาย เพื่อผลลัพธ์ที่รวดเร็วและตรวจสอบได้",
+    positioning:
+      "Your Silent Guardian: เหมาะสำหรับผู้บริหาร ดารา และเจ้าของธุรกิจ ที่ต้องการเคลียร์ประวัติออนไลน์อย่างเงียบเชียบและปลอดภัยที่สุด",
+  },
+
+  // --- Legal Disclaimer & Technical Integrity ---
+  footer: {
+    disclaimer:
+      "การดำเนินการของ UNLINK เป็นการใช้สิทธิตามกฎหมายและมาตรการทางเทคนิคเพื่อปกป้องความเป็นส่วนตัว ไม่รับลบข้อมูลที่เป็นประโยชน์ต่อสาธารณะตามคำสั่งศาล",
+    trustNote:
+      "Technical Assessment: เราประเมิน 'โอกาสสำเร็จ' ให้คุณทราบก่อนเริ่มงาน หากทำไม่ได้ เราแจ้งตามตรง ไม่เลี้ยงไข้",
+  },
+};

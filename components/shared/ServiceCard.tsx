@@ -1,125 +1,125 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Typography } from "@/components/ui/typography"
-import { Badge } from "@/components/ui/badge"
-import { cn } from "@/lib/utils"
-// ✅ นำเข้า ArrowRight เพิ่มเติมสำหรับปุ่มดูรายละเอียด
+import Link from "next/link";
+import { Service } from "@/types";
 import {
-  Trash2,
-  Scale,
-  Search,
-  ShieldAlert,
-  HeartHandshake,
-  Zap,
-  ArrowRight,
-} from "lucide-react"
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import * as LucideIcons from "lucide-react";
+import { ArrowRight, ShieldCheck, Fingerprint, HelpCircle } from "lucide-react";
 
 interface ServiceCardProps {
-  title: string
-  description: string
-  suitableFor: string[]
-  imageUrl?: string
-  iconName: "remove" | "legal" | "seo" | "consult" | "audit" | "default"
-  className?: string
+  service: Service;
+  className?: string;
 }
 
-const ICON_MAP = {
-  remove: Trash2,
-  legal: Scale,
-  seo: Zap,
-  consult: HeartHandshake,
-  audit: Search,
-  default: ShieldAlert,
-}
-
-export default function ServiceCard({
-  title,
-  description,
-  suitableFor,
-  imageUrl,
-  iconName,
-  className,
-}: ServiceCardProps) {
-  const SelectedIcon = ICON_MAP[iconName] || ICON_MAP.default
-
-  const finalSrc =
-    imageUrl && imageUrl.trim() !== ""
-      ? imageUrl
-      : "/images/service/service.webp"
+/**
+ * 
+ * ServiceCard: คอมโพเนนต์แสดงบัตรบริการ (Service Offerings)
+ * ออกแบบในสไตล์ "Technical Lab" เน้นความน่าเชื่อถือและการใช้ภาพลักษณ์แบบ Specialist
+ */
+export const ServiceCard = ({ service, className }: ServiceCardProps) => {
+  /**
+   * Safe Icon Resolution:
+   * ตรวจสอบชื่อไอคอนจาก String ที่ได้รับในฐานข้อมูล/Constants
+   * หากไม่พบจะใช้ HelpCircle เป็นค่าเริ่มต้นเพื่อป้องกัน Component Crash
+   */
+  const IconComponent = (LucideIcons as any)[service.iconName] || HelpCircle;
 
   return (
     <Card
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden border-slate-200 transition-all duration-500 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/10",
+        "group relative flex h-full flex-col overflow-hidden border-border/50 bg-muted/5 transition-all duration-500 hover:border-primary/40 hover:bg-muted/10",
         className
       )}
     >
-      {/* 🖼️ Image Section */}
-      <div className="relative h-52 w-full overflow-hidden bg-slate-100">
-        <Image
-          src={finalSrc}
-          alt={title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
-          priority={false}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-transparent to-transparent opacity-60" />
+      {/* 01: Tactical Background Elements (Scanline Decor) */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_bottom,transparent_0%,var(--color-primary)_50%,transparent_100%)] bg-[size:100%_4px] opacity-[0.03] transition-opacity duration-500 group-hover:animate-scan group-hover:opacity-[0.08]"
+        aria-hidden="true"
+      />
 
-        <div className="absolute bottom-4 left-6 z-10 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-white shadow-xl transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-blue-600 group-hover:text-white">
-          <SelectedIcon className="h-7 w-7" />
+      {/* 02: Header Layer (Icon & Status Badges) */}
+      <CardHeader className="relative z-10 p-8 pb-4">
+        <div className="mb-6 flex items-center justify-between">
+          {/* Brand-colored Icon Container with Hover Animation */}
+          <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-border bg-background transition-all duration-500 group-hover:rotate-[10deg] group-hover:border-primary/50 group-hover:shadow-[0_0_20px_rgba(var(--color-primary),0.15)]">
+            <IconComponent className="h-7 w-7 text-primary/80 transition-colors group-hover:text-primary" />
+          </div>
+
+          <div className="flex flex-col items-end gap-2 text-right">
+            <Badge
+              variant="outline"
+              className="border-primary/20 bg-primary/5 font-mono text-[10px] tracking-widest text-primary uppercase"
+            >
+              {service.category}
+            </Badge>
+            <div className="flex items-center gap-1.5 opacity-40 transition-opacity group-hover:opacity-100">
+              <Fingerprint className="h-3 w-3 text-primary" />
+              <span className="font-mono text-[8px] font-bold tracking-tighter uppercase">
+                Verified Protocol
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <CardHeader className="pt-8 pb-4">
-        <CardTitle className="text-xl font-bold tracking-tight text-slate-900 transition-colors group-hover:text-blue-600 md:text-2xl">
-          {title}
+        <CardTitle className="text-xl font-bold leading-tight tracking-tight text-foreground transition-colors group-hover:text-primary md:text-2xl">
+          {service.title}
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="flex flex-1 flex-col">
-        <Typography
-          variant="p"
-          className="mb-6 line-clamp-3 min-h-[4.5rem] leading-relaxed text-slate-600"
-        >
-          {description}
-        </Typography>
+      {/* 03: Analysis Content (Short Description & Features) */}
+      <CardContent className="relative z-10 flex-1 p-8 pt-2">
+        <p className="mb-8 text-sm font-medium italic leading-relaxed text-muted-foreground/90">
+          {service.shortDescription}
+        </p>
 
-        <div className="mb-8 space-y-4">
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-black tracking-[0.2em] text-slate-400 uppercase">
-              Target Group
-            </span>
-            <div className="h-px flex-1 bg-slate-100" />
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {suitableFor &&
-              suitableFor.map((item) => (
-                <Badge
-                  key={item}
-                  variant="secondary"
-                  className="border-none bg-blue-50/50 px-3 py-1 text-xs font-medium text-slate-700 transition-all group-hover:bg-blue-600 group-hover:text-white"
-                >
-                  {item}
-                </Badge>
-              ))}
-          </div>
-        </div>
-
-        {/* ✅ เพิ่มปุ่ม "ดูรายละเอียดบริการ" ให้กดง่ายและชัดเจนขึ้น */}
-        <div className="mt-auto border-t border-slate-50 pt-4">
-          <div className="flex items-center text-sm font-bold text-blue-600 transition-all duration-300 group-hover:gap-2">
-            <span>ดูรายละเอียดบริการ</span>
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </div>
-        </div>
+        {/* Feature Highlights: แสดงเฉพาะ 3 รายการแรกเพื่อความกระชับของหน้า Landing */}
+        <ul className="space-y-3">
+          {service.features?.slice(0, 3).map((feature, index) => (
+            <li
+              key={`${service.slug}-feat-${index}`}
+              className="flex items-start text-[11px] font-medium tracking-tight text-muted-foreground/80"
+            >
+              <div className="mr-3 mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                <ShieldCheck className="h-2.5 w-2.5 text-primary" />
+              </div>
+              <span className="leading-snug">{feature}</span>
+            </li>
+          ))}
+        </ul>
       </CardContent>
 
-      {/* Decorative Accent Line */}
-      <div className="absolute bottom-0 h-1.5 w-0 bg-blue-600 transition-all duration-500 group-hover:w-full" />
+      {/* 04: Functional Footer (CTA Button) */}
+      <CardFooter className="relative z-10 border-t border-border/40 p-6 pt-4">
+        <Button
+          variant="ghost"
+          className="group/btn h-11 w-full justify-between rounded-full border border-transparent transition-all duration-300 hover:border-primary/20 hover:bg-primary/5"
+          asChild
+        >
+          <Link href={`/services/${service.slug}`}>
+            <span className="text-[10px] font-black tracking-widest uppercase text-foreground">
+              Establish Protocol
+            </span>
+            <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover/btn:translate-x-1" />
+          </Link>
+        </Button>
+      </CardFooter>
+
+      {/* 05: Background Watermark Branding (Aesthetics) */}
+      <div
+        className="pointer-events-none absolute -bottom-6 -right-6 p-4 grayscale opacity-[0.03] transition-all duration-700 group-hover:scale-110 group-hover:opacity-[0.08]"
+        aria-hidden="true"
+      >
+        <IconComponent className="h-36 w-36" />
+      </div>
     </Card>
-  )
-}
+  );
+};
