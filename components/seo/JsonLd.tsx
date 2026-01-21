@@ -1,42 +1,61 @@
-"use client";
+/**
+ * UNLINK-TH | SEO Architecture: Structured Data Injection
+ * -------------------------------------------------------------------------
+ * หน้าที่: แทรก JSON-LD เพื่อช่วยให้ Search Engine (Google) เข้าใจบริบทเชิงลึก
+ * รองรับการแสดงผล Rich Snippets เช่น ProfessionalService, Case Study, และ FAQ
+ */
 
-interface JsonLdProps {
-  /** * ข้อมูล Schema ในรูปแบบ Object ที่จะถูกแปลงเป็น JSON-LD
-   * แนะนำให้ใช้ตามมาตรฐาน Schema.org เช่น ProfessionalService หรือ Article
-   */
-  data: Record<string, any>;
-}
+"use client"
 
 /**
- * JsonLd Component: Structured Data Injection
- * หน้าที่: แทรก Structured Data เพื่อช่วยให้ Search Engine (Google)
- * เข้าใจบริบทของหน้าเว็บ เช่น บริการแก้ปัญหาดิจิทัล (Digital Fixer),
- * กรณีศึกษา หรือข้อมูลองค์กร เพื่อเพิ่มโอกาสในการปรากฏเป็น Rich Snippets
+ * [NOTE] สำหรับ React 17+ ไม่จำเป็นต้อง import React ในไฟล์ที่ใช้ JSX
+ * การนำออกช่วยลดขนาด Bundle และแก้ปัญหา 'React' is defined but never used
  */
+
+interface JsonLdProps {
+  /**
+   * ข้อมูล Schema ในรูปแบบ Object ที่จะถูกแปลงเป็น JSON-LD
+   * แนะนำให้ใช้ Type ตามมาตรฐาน Schema.org
+   */
+  data: Record<string, any>
+}
+
 export default function JsonLd({ data }: JsonLdProps) {
-  // 1. ตรวจสอบความถูกต้องของข้อมูลเบื้องต้น
+  // [1] Integrity Check: ตรวจสอบความถูกต้องของข้อมูลก่อนการ Render
   if (!data || Object.keys(data).length === 0) {
-    return null;
+    return null
   }
 
   /**
-   * 2. Sanitization Strategy:
-   * จัดการกับอักขระพิเศษเพื่อป้องกันปัญหา XSS และเพื่อความถูกต้องของ JSON format
-   * จัดรูปแบบโดยการใช้ JSON.stringify และ escape อักขระที่อาจเป็นอันตราย
+   * [2] Sanitization Strategy:
+   * จัดการกับอักขระพิเศษเพื่อความปลอดภัยสูงสุด (Prevent XSS)
+   * และเพื่อให้โครงสร้าง JSON ถูกต้องตามมาตรฐานของ Google Search Console
    */
   const sanitizeJsonLd = (obj: Record<string, any>) => {
-    return JSON.stringify(obj)
-      .replace(/</g, "\\u003c")
-      .replace(/>/g, "\\u003e")
-      .replace(/&/g, "\\u0026");
-  };
+    try {
+      return JSON.stringify(obj)
+        .replace(/</g, "\\u003c")
+        .replace(/>/g, "\\u003e")
+        .replace(/&/g, "\\u0026")
+    } catch (error) {
+      console.error("[JSON_LD_ERROR] Serialization failed:", error)
+      return ""
+    }
+  }
+
+  const jsonLdContent = sanitizeJsonLd(data)
+
+  if (!jsonLdContent) return null
 
   return (
     <script
       type="application/ld+json"
-      // ป้องกัน Hydration Mismatch จากการแทรกข้อมูลใน Head หรือ Body ระหว่าง SSR และ CSR
-      suppressHydrationWarning 
-      dangerouslySetInnerHTML={{ __html: sanitizeJsonLd(data) }}
+      /**
+       * suppressHydrationWarning: ป้องกันปัญหาผลต่างระหว่าง SSR และ Client
+       * เนื่องจากข้อมูล Schema อาจมีการเปลี่ยนแปลงตามสถานะของ User
+       */
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: jsonLdContent }}
     />
-  );
+  )
 }

@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
-import Methods from "./Methods";
-import ProtocolStepper from "./ProtocolStepper";
-import Proof from "./Proof";
-import FaqSection from "./FaqSection";
+import { motion } from "framer-motion"
+import Methods from "./Methods"
+import ProtocolStepper from "./ProtocolStepper"
+import Proof from "./Proof"
+import FaqSection from "./FaqSection"
 
 /**
- * 
+ *
  * HomeClientSections: ศูนย์รวมส่วนประกอบหลักในหน้า Landing Page
  * ยุทธศาสตร์การเล่าเรื่อง (The Fixer's Narrative):
  * 1. Authority (Methods) - แสดงความเชี่ยวชาญเชิงเทคนิค
@@ -17,7 +17,7 @@ import FaqSection from "./FaqSection";
  */
 export default function HomeClientSections() {
   return (
-    <div className="relative flex w-full flex-col bg-background">
+    <div className="bg-background relative flex w-full flex-col">
       {/* 01: Methodology - Technical Authority */}
       <section
         id="methods"
@@ -36,7 +36,7 @@ export default function HomeClientSections() {
       {/* 02: Protocol - Systematic Transparency */}
       <section
         id="protocol"
-        className="relative border-y border-border/40 bg-muted/5 scroll-mt-24 py-24 lg:py-40"
+        className="border-border/40 bg-muted/5 relative scroll-mt-24 border-y py-24 lg:py-40"
       >
         {/* Background Tactical Grid */}
         <div
@@ -59,7 +59,7 @@ export default function HomeClientSections() {
       {/* 04: Tactical FAQ - Objective Clarity */}
       <section
         id="faq"
-        className="relative border-t border-border/40 bg-muted/5 scroll-mt-24 py-24 lg:py-40"
+        className="border-border/40 bg-muted/5 relative scroll-mt-24 border-t py-24 lg:py-40"
       >
         <FaqSection />
       </section>
@@ -71,16 +71,16 @@ export default function HomeClientSections() {
       >
         {/* Top Glow: Primary Lens */}
         <div
-          className="absolute -left-[10%] top-[15%] h-[600px] w-[600px] animate-pulse rounded-full bg-primary/10 blur-[120px]"
+          className="bg-primary/10 absolute top-[15%] -left-[10%] h-[600px] w-[600px] animate-pulse rounded-full blur-[120px]"
           style={{ animationDuration: "8s" }}
         />
 
         {/* Center Glow: Subtle Pulse */}
-        <div className="absolute right-[-5%] top-[50%] h-[500px] w-[500px] rounded-full bg-primary/5 blur-[100px]" />
+        <div className="bg-primary/5 absolute top-[50%] right-[-5%] h-[500px] w-[500px] rounded-full blur-[100px]" />
 
         {/* Bottom Glow: Finishing Touch */}
         <div
-          className="absolute bottom-[10%] left-[20%] h-[700px] w-[700px] animate-pulse rounded-full bg-primary/5 blur-[150px]"
+          className="bg-primary/5 absolute bottom-[10%] left-[20%] h-[700px] w-[700px] animate-pulse rounded-full blur-[150px]"
           style={{ animationDuration: "12s" }}
         />
       </div>
@@ -91,5 +91,5 @@ export default function HomeClientSections() {
         aria-hidden="true"
       />
     </div>
-  );
+  )
 }

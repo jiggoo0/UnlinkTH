@@ -1,106 +1,109 @@
-นี่คือไฟล์ AI-CONTEXT.md ฉบับปรับปรุง (Enhanced Version) ที่ผสานข้อมูลเชิงยุทธศาสตร์ธุรกิจ เข้ากับ Tech Stack ล่าสุดจาก package.json ของคุณ (Next.js 16 + Tailwind v4)
-ไฟล์นี้จะเป็น "กฎเหล็ก" ให้ AI ทำงานได้ตรงตาม Business Logic และ Technical Constraints ของ Unlink-th ที่สุดครับ
-📄 AI-CONTEXT.md (Updated)
-
-# AI Context: Unlink-th (Project Blueprint)
-
-> **Version:** 1.1.0 (Tech Stack Enhanced)
+> **Version:** 2.0.0 (Production Ready)
 > **Last Updated:** 2026-01-21
 > **Domain:** [www.unlink-th.com](https://www.unlink-th.com)
-> **Stack:** Next.js 16, React 19, Tailwind v4
-> **Mission:** "The Shadow Guardian" - Digital Reputation Management & Privacy Architecture.
+> **Stack:** Next.js 16, React 19, Tailwind CSS v4
+> **Mission:** "The Certified Digital Fixer" — กู้คืนชื่อเสียงและสิทธิความเป็นส่วนตัวด้วยเทคนิควิศวกรรมข้อมูลและกฎหมาย
 
 ## 1. Project Identity & Philosophy
 
-**Unlink-th** is not a standard agency. It is a **Specialized Unit (Private Lab)** offering "Digital Erasure" and "Reputation Management" services.
+**Unlink-th** is positioned as a **Specialist Technical Unit (Private Lab)**, not a general marketing agency. We solve specific "Digital Crises" through precise technical and legal execution.
 
-- **Core Concept:** We bridge the gap between Legal (PDPA/White Hat) and Technical (Grey Hat/Reverse SEO) execution.
-- **Brand Archetype:** The Magician (Transformation) + The Outlaw (Technical Workarounds) + The Sage (Legal Expertise).
-- **Value Proposition:** "We don't just consult; we fix." (Execution-focused).
+- **Core Philosophy:** **"Hybrid Model"** — ผสานความน่าเชื่อถือทางกฎหมาย (Legal Trust) เข้ากับความเชี่ยวชาญเชิงเทคนิค (Technical Authority) และความเข้าใจในความเดือดร้อนของลูกค้า (Empathy).
+- **Brand Archetype:** The Guardian (Protection) + The Magician (Transformation) + The Sage (Expertise).
+- **Value Proposition:** "We don't just 'hide' content; we 'remove' it using De-indexing & Secure Purge protocols."
 
 ## 2. Tone of Voice & Communication Rules
 
-The AI must strictly adhere to the **"Clinical, Confidential, Concise"** protocol.
+The AI must strictly adhere to the **"Specialist, Secure, Result-Oriented"** protocol.
 
-| Do Not Use (Negative)             | Do Use (Positive/Safe)                                                           |
-| :-------------------------------- | :------------------------------------------------------------------------------- |
-| "Hacking", "Dark Arts", "Illegal" | "Deep Technical Operations", "Digital Asset Management", "Proactive Suppression" |
-| "Guaranteed Removal", "100%"      | "Strategic De-indexing", "Maximum Visibility Reduction", "Search Result Control" |
-| "Admin", "Team", "Company"        | "Specialist", "Consultant", "Strategic Partner"                                  |
-| Emotional/Sympathetic Pity        | Empathetic but Stoic, Professional, Solution-Oriented                            |
+| ❌ Do Not Use (Risky/Amateur)     | ✅ Do Use (Professional/Safe)                                                           |
+| :-------------------------------- | :-------------------------------------------------------------------------------------- |
+| "Hacking", "Dark Arts", "Illegal" | "Technical De-indexing", "Metadata Engineering", "Digital Asset Management"             |
+| "ลบประวัติอาชญากรรม" (For Ads)    | "จัดการข้อมูลส่วนบุคคลที่ละเมิดสิทธิ", "บริหารจัดการ Digital Footprint"                 |
+| "Guaranteed 100%" (Blindly)       | "Technical Feasibility Audit", "ประเมินผลลัพธ์เชิงเทคนิค", "High Success Rate Protocol" |
+| "Admin", "Staff"                  | "Specialist", "Legal Consultant", "Case Manager"                                        |
 
-- **Language:** Thai (Primary) - Formal, authoritative, but not bureaucratic. English (Tech terms).
-- **Vibe:** Cyberpunk Noir, Minimalist, High-Security.
+- **Language:**
+  - **Thai (Primary):** Action-oriented, direct, reassuring but not over-promising. (e.g., "รับลบ...", "กู้คืน...", "ปรึกษา...")
+  - **English (Technical):** Used for specific terms to build authority (e.g., "De-indexing", "Secure Purge", "Zero-Knowledge").
+- **Vibe:** Clinical, High-Security, Premium Service.
 
 ## 3. Tech Stack & Engineering Standards
 
-Based on `package.json` configuration.
+Based on `package.json` and recent architectural decisions.
 
 - **Core Framework:** Next.js 16.1.3 (App Router) + React 19.
-- **Styling Engine:** **Tailwind CSS v4.0.0** (Note: Use CSS variables and `@theme` instead of `tailwind.config.js`).
+- **Styling Engine:** **Tailwind CSS v4.0.0** (Using CSS variables & `@theme` directive).
 - **UI Library:** `shadcn/ui` (Radix Primitives) + `lucide-react` icons.
-- **Animations:** `framer-motion` v12 (Use for subtle, high-tech interactions).
-- **Content Engine:** MDX (`@next/mdx`, `next-mdx-remote`, `gray-matter`) with `@tailwindcss/typography`.
-- **Notifications:** `sonner` (Clean, minimal toasts).
+- **Animations:** `framer-motion` v12 (Subtle, slow fade-ins/slide-ups. No bouncy effects).
+- **Content Engine:** MDX (`@next/mdx`) with `@tailwindcss/typography` for Service & Case Study pages.
+- **SEO Engine:** Next.js Metadata API + JSON-LD Schema.
 
-### Strict Technical Policies (from `scripts`)
+### ⚠️ Strict Technical Policies
 
-- **`policy:check` Enforced:**
-  1.  **NO Backend:** The site is a static/stateless interface.
-  2.  **NO Form Submission:** Do not create API routes to store user data.
-  3.  **LINE-Only Communication:** All CTA buttons must redirect to Line OA.
+1.  **Zero-Backend:** The site is a static/stateless interface for security.
+2.  **No User Data Storage:** Do **NOT** create API routes to store forms.
+3.  **Direct-to-LINE:** All Call-to-Actions (CTA) must redirect to the LINE Official Account (`siteConfig.contact.lineUrl`).
+4.  **Type Safety:** All code must pass `tsc --noEmit` with strict types defined in `types/index.ts`.
 
 ## 4. Directory Structure Map
 
 ```text
-/app                # App Router (Pages)
-  /about            # "About the Private Lab"
-  /case-studies     # Anonymized success stories (MDX)
-  /contact          # Secure contact channel (Line OA focus)
-  /services         # Detailed service breakdown (MDX)
-  /privacy          # Strict privacy policy
+/app
+  /about              # Company vision & "Digital Fixer" story
+  /case-studies       # Anonymized success stories (Dynamic MDX)
+  /contact            # Secure liaison channel (LINE focus)
+  /editorial-policy   # Ethics, Public Interest Shield (E-E-A-T crucial)
+  /faq                # Operational & Technical FAQs
+  /privacy            # "Zero-Log" & "Secure Purge" protocols
+  /services           # Service landing pages (Dynamic MDX)
+  layout.tsx          # Global layout (Header, Footer, Metadata)
+  sitemap.ts          # Dynamic XML Sitemap generation
 /components
-  /seo              # JSON-LD configurations
-  /sections         # Landing page sections (Hero, Proof, Methods)
-  /ui               # shadcn components (atomic)
-/content            # CMS Data (MDX files)
-  /services         # Service descriptions (White Hat, Grey Hat, SEO)
-  /case-studies     # Case study narratives
-/lib                # Utilities
-  case-studies.ts   # Logic to parse MDX case studies (gray-matter)
-  services.ts       # Logic to parse MDX services
-/public             # Assets (WebP format preferred)
+  /layout             # Header, Footer, Navbar
+  /sections           # Hero, Methods, Proof, ContactCTA
+  /shared             # LineButton, ServiceCard, CaseStudyCard
+  /ui                 # Atomic shadcn components
+/constants
+  navigation.ts       # Menu structure (Synced with Policy pages)
+  services-data.ts    # Service definitions (Synced with Strategy)
+  site-config.ts      # Global config (SEO, Contact, Socials)
+/content              # MDX Content Source
+  /case-studies       # Narrative of past success
+  /services           # Detailed service explanation
+/lib
+  case-studies.ts     # Data fetching logic
+  utils.ts            # CN & Formatters
+/types                # TypeScript Definitions (Strict)
 
-5. Business Logic & Service Offerings
-The platform offers 4 distinct tiers of service, reflected in services-data.ts:
- * White Hat Removal (Legal/Policy):
-   * Keywords: PDPA Notice, Google Right to Erasure, NCEI Removal.
-   * Pricing Model: Success Fee.
- * Grey Hat/Technical Removal:
-   * Keywords: Social Engineering, Platform Policy Exploitation, Mass Reporting.
-   * Context: High complexity, higher cost.
- * Reverse SEO (Suppression):
-   * Keywords: Satellite Sites, Content Dilution, Positive Asset Creation.
-   * Context: Monthly retainer, pushing negative news to Page 2+.
- * Crisis Consultant:
-   * Keywords: 24/7 Monitoring, Digital Hygiene Audit.
-6. Content Strategy (SEO & User Journey)
-Content is categorized by User Intent levels:
- * High Intent: "Hire removal service" -> Direct to Contact (Line OA).
- * Problem Aware: "How to delete news" -> Educational MDX Articles.
- * Solution Aware: "Reputation management firm" -> Case Studies/Proof.
-Key MDX Files:
- * how-to-fix-negative-google-search-results.mdx (SEO Magnet)
- * right-to-be-forgotten-thailand-pdpa.mdx (Authority Building)
-7. Operational Security (OpSec) Features
- * Zero-Knowledge Frontend: Since there is no DB, the frontend must not retain sensitive inputs.
- * Contact Flow: Minimized fields -> Redirect to Encrypted Messaging (Line OA).
- * Client Data: No client names in source code or commits. All case studies must be anonymized (e.g., "Case Study: Executive A").
+5. Service Offerings (Business Logic)
+Reflecting services-data.ts and site-config.ts strategy.
+ * Technical De-indexing (Google):
+   * Keywords: รับลบลิงก์ Google, ลบข่าวเสีย, De-indexing.
+   * Action: Removing URLs from Search Index permanent.
+ * Platform Removal (Social):
+   * Keywords: ลบกระทู้ Pantip, ลบรีวิว Google Maps, แจ้งลบ Twitter.
+   * Action: Takedown via Community Standards & Legal Notice.
+ * Digital Cleaning (Background Check):
+   * Keywords: ลบประวัติออนไลน์, เช็คประวัติอาชญากรรม (Cleaned), Digital Footprint.
+   * Action: Cleaning public records for job application/business.
+ * Legal Takedown (PDPA):
+   * Keywords: ทนาย PDPA, สิทธิในการถูกลืม (Right to be Forgotten).
+   * Action: Legal Notices & DPO Liaison.
+6. Content Strategy (SEO & E-E-A-T)
+ * Search Intent Focus: Content must answer "How to delete..." or "Hire someone to delete..." queries directly.
+ * Technical Storytelling: Explain how we do it (Metadata, Caching, Protocols) to differentiate from scammers.
+ * Trust Signals:
+   * Editorial Policy: Explicitly state we do not remove public interest data (Corruption, Serious Crimes) to satisfy Google E-E-A-T.
+   * Privacy Policy: Emphasize "Secure Purge" and "No-Log" to satisfy high-net-worth clients.
+7. Operational Security (OpSec)
+ * Public Interest Shield: We verify every case. We reject cases involving active court orders or public corruption.
+ * Secure Purge: All client data submitted for review is deleted after the session/job.
+ * Anonymity: Case studies must utilize pseudonyms and generic industry terms (e.g., "Executive A in Energy Sector").
 8. Design System (Visual Identity)
- * Colors: Deep Navy, Slate Grey, Pure Black (Tailwind v4 Variables). Accents of Muted Gold or Cyan (Trust + Tech).
- * Typography: Clean Sans-serif (Inter or Kanit for Thai). Use @tailwindcss/typography prose classes for MDX.
- * Visuals: Abstract data flows, blurred documents, locks, shields.
- * Motion: Slow, deliberate fade-ins using framer-motion. No bouncy/playful animations.
-<!-- end list -->
+ * Theme: "Cyberpunk Noir" / "Clean Tech".
+ * Colors: Deep Navy, Slate Grey, Pure Black, Accents of Neon Green (Success/LINE) & Signal Blue (Trust).
+ * Typography: Clean Sans-serif (Inter/Kanit).
+ * Imagery: Abstract data flows, locks, shields, blurred documents. Avoid stock photos of "happy people shaking hands".
 
 ```

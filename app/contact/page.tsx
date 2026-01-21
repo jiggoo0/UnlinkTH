@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { siteConfig } from "@/constants/site-config";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import Link from "next/link"
+import { siteConfig } from "@/constants/site-config"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import {
   MessageCircle,
   ShieldCheck,
@@ -13,8 +13,8 @@ import {
   ArrowRight,
   Fingerprint,
   Activity,
-} from "lucide-react";
-import { motion } from "framer-motion";
+} from "lucide-react"
+import { motion } from "framer-motion"
 
 /**
  * [attachment_0](attachment)
@@ -26,7 +26,7 @@ export default function ContactPage() {
   const lineLink = `https://line.me/ti/p/${siteConfig.contact.lineId.replace(
     "@",
     ""
-  )}`;
+  )}`
 
   return (
     <div className="bg-background flex min-h-screen w-full flex-col">
@@ -62,9 +62,9 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <h1 className="text-foreground mb-10 text-5xl font-extrabold tracking-tighter md:text-7xl lg:text-8xl leading-tight">
+            <h1 className="text-foreground mb-10 text-5xl leading-tight font-extrabold tracking-tighter md:text-7xl lg:text-8xl">
               เริ่มบทสนทนา <br />
-              <span className="text-muted-foreground font-light italic text-4xl md:text-6xl lg:text-7xl">
+              <span className="text-muted-foreground text-4xl font-light italic md:text-6xl lg:text-7xl">
                 ในพื้นที่ปลอดภัยสูงสุด
               </span>
             </h1>
@@ -72,7 +72,7 @@ export default function ContactPage() {
             <p className="text-muted-foreground/80 max-w-2xl text-xl leading-relaxed md:text-2xl">
               เราเข้าใจถึงความไว้วางใจในข้อมูลส่วนบุคคล
               ทุกการปรึกษาจะถูกดำเนินการผ่านช่องทางที่เข้ารหัส และยึดถือมาตรฐาน{" "}
-              <span className="text-foreground font-bold italic underline underline-offset-8 decoration-primary/30">
+              <span className="text-foreground decoration-primary/30 font-bold italic underline underline-offset-8">
                 No-Log Policy
               </span>{" "}
               อย่างเคร่งครัด
@@ -233,9 +233,9 @@ export default function ContactPage() {
             Identity Protection Active: All communication channels are
             periodically purged to ensure maximum confidentiality.
           </p>
-          <div className="via-primary h-px w-32 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+          <div className="via-primary via-primary/50 h-px w-32 bg-gradient-to-r from-transparent to-transparent" />
         </div>
       </div>
     </div>
-  );
+  )
 }

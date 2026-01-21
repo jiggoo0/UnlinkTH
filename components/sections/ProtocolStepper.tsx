@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion"
+import { Badge } from "@/components/ui/badge"
 import {
   Search,
   FileSearch,
@@ -11,10 +11,10 @@ import {
   Lock,
   Activity,
   Fingerprint,
-} from "lucide-react";
+} from "lucide-react"
 
 /**
- * 
+ *
  * Protocol Logic: กระบวนการจัดการข้อมูลเชิงเทคนิค
  * ออกแบบเพื่อสะท้อนถึงมาตรการ "The Fixer" ที่แม่นยำและเป็นระบบตามมาตรฐานของ UNLINK
  */
@@ -47,13 +47,13 @@ const protocols = [
     icon: <CheckCircle className="h-6 w-6" />,
     status: "Step 04",
   },
-];
+]
 
 export default function ProtocolStepper() {
   return (
     <section
       id="protocol"
-      className="relative overflow-hidden bg-background py-24 lg:py-40"
+      className="bg-background relative overflow-hidden py-24 lg:py-40"
     >
       {/* 01: Operational Background Layer - Tactical Grid Background */}
       <div
@@ -63,7 +63,7 @@ export default function ProtocolStepper() {
         <div className="h-full w-full bg-[radial-gradient(#808080_1px,transparent_1px)] [background-size:40px_40px]" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-6">
+      <div className="relative z-10 container mx-auto px-6">
         {/* 02: Strategic Header Layer */}
         <div className="mx-auto mb-20 max-w-4xl text-center">
           <motion.div
@@ -75,28 +75,28 @@ export default function ProtocolStepper() {
             <div className="mb-6 flex items-center justify-center gap-3">
               <Badge
                 variant="outline"
-                className="border-primary/30 bg-primary/5 px-5 py-2 font-mono text-[10px] tracking-[0.25em] text-primary uppercase"
+                className="border-primary/30 bg-primary/5 text-primary px-5 py-2 font-mono text-[10px] tracking-[0.25em] uppercase"
               >
                 Operational Protocol
               </Badge>
               <div className="flex items-center gap-1.5 opacity-40">
-                <Activity className="h-3 w-3 animate-pulse text-primary" />
-                <span className="font-mono text-[8px] italic tracking-tighter uppercase">
+                <Activity className="text-primary h-3 w-3 animate-pulse" />
+                <span className="font-mono text-[8px] tracking-tighter uppercase italic">
                   Process Monitoring
                 </span>
               </div>
             </div>
 
-            <h2 className="mb-8 text-4xl font-extrabold tracking-tighter text-foreground md:text-6xl lg:text-7xl leading-tight">
+            <h2 className="text-foreground mb-8 text-4xl leading-tight font-extrabold tracking-tighter md:text-6xl lg:text-7xl">
               มาตรฐานปฏิบัติการ <br />
-              <span className="text-3xl font-light italic text-muted-foreground md:text-5xl lg:text-6xl">
+              <span className="text-muted-foreground text-3xl font-light italic md:text-5xl lg:text-6xl">
                 ระดับ Technical Specialist
               </span>
             </h2>
 
-            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground/80 md:text-xl">
+            <p className="text-muted-foreground/80 mx-auto max-w-2xl text-lg leading-relaxed md:text-xl">
               กระบวนการทำงานที่เป็นระบบและตรวจสอบได้จริง ภายใต้มาตรการ{" "}
-              <span className="font-bold text-foreground">
+              <span className="text-foreground font-bold">
                 Confidentiality Protocol
               </span>{" "}
               ระดับสูงสุดในทุกขั้นตอนปฏิบัติงาน
@@ -122,40 +122,40 @@ export default function ProtocolStepper() {
               {/* Connector Line Logic (Desktop Only) */}
               {index !== protocols.length - 1 && (
                 <div
-                  className="absolute left-full top-14 -z-10 hidden h-px w-full border-t border-dashed border-primary/20 lg:block"
+                  className="border-primary/20 absolute top-14 left-full -z-10 hidden h-px w-full border-t border-dashed lg:block"
                   aria-hidden="true"
                 />
               )}
 
-              <div className="flex h-full flex-col rounded-[2rem] border border-border/40 bg-muted/5 p-8 transition-all duration-500 hover:border-primary/40 hover:bg-muted/10 hover:shadow-2xl hover:shadow-primary/5">
+              <div className="border-border/40 bg-muted/5 hover:border-primary/40 hover:bg-muted/10 hover:shadow-primary/5 flex h-full flex-col rounded-[2rem] border p-8 transition-all duration-500 hover:shadow-2xl">
                 {/* Step Identification */}
                 <div className="mb-10 flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-border/40 bg-background text-primary transition-all duration-500 group-hover:rotate-12 group-hover:border-primary/50 group-hover:bg-primary/5 group-hover:shadow-[0_0_20px_rgba(var(--color-primary),0.15)]">
+                  <div className="border-border/40 bg-background text-primary group-hover:border-primary/50 group-hover:bg-primary/5 flex h-12 w-12 items-center justify-center rounded-2xl border transition-all duration-500 group-hover:rotate-12 group-hover:shadow-[0_0_20px_rgba(var(--color-primary),0.15)]">
                     {step.icon}
                   </div>
                   <Badge
                     variant="outline"
-                    className="h-5 border-none font-mono text-[10px] font-black tracking-widest text-muted-foreground/40 uppercase"
+                    className="text-muted-foreground/40 h-5 border-none font-mono text-[10px] font-black tracking-widest uppercase"
                   >
                     {step.status}
                   </Badge>
                 </div>
 
-                <h3 className="mb-5 text-xl font-extrabold tracking-tight text-foreground transition-colors group-hover:text-primary">
+                <h3 className="text-foreground group-hover:text-primary mb-5 text-xl font-extrabold tracking-tight transition-colors">
                   {step.title}
                 </h3>
 
-                <p className="flex-1 text-sm font-medium italic leading-relaxed text-muted-foreground/80">
+                <p className="text-muted-foreground/80 flex-1 text-sm leading-relaxed font-medium italic">
                   {step.description}
                 </p>
 
                 {/* Tactical Status Tag */}
-                <div className="mt-10 flex items-center gap-3 border-t border-border/20 pt-8 transition-colors group-hover:border-primary/10">
-                  <div className="flex items-center gap-2 text-[9px] font-black tracking-[0.2em] text-primary/60 transition-colors uppercase group-hover:text-primary">
+                <div className="border-border/20 group-hover:border-primary/10 mt-10 flex items-center gap-3 border-t pt-8 transition-colors">
+                  <div className="text-primary/60 group-hover:text-primary flex items-center gap-2 text-[9px] font-black tracking-[0.2em] uppercase transition-colors">
                     Security Verified
                     <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1.5" />
                   </div>
-                  <Fingerprint className="h-3.5 w-3.5 text-primary/20 transition-opacity group-hover:opacity-100" />
+                  <Fingerprint className="text-primary/20 h-3.5 w-3.5 transition-opacity group-hover:opacity-100" />
                 </div>
               </div>
             </motion.div>
@@ -170,21 +170,21 @@ export default function ProtocolStepper() {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="mt-28 flex flex-col items-center justify-center gap-6 text-center"
         >
-          <div className="group flex items-center gap-3 rounded-full border border-primary/20 bg-primary/5 px-8 py-3 text-[10px] font-black tracking-[0.3em] text-primary transition-all hover:border-primary/40 hover:bg-primary/10 uppercase">
+          <div className="group border-primary/20 bg-primary/5 text-primary hover:border-primary/40 hover:bg-primary/10 flex items-center gap-3 rounded-full border px-8 py-3 text-[10px] font-black tracking-[0.3em] uppercase transition-all">
             <Lock className="h-4 w-4 transition-transform group-hover:scale-110" />
             Zero-Knowledge Operation Protocol
           </div>
 
-          <p className="max-w-2xl text-xs font-medium italic leading-loose text-muted-foreground/50 md:text-sm">
+          <p className="text-muted-foreground/50 max-w-2xl text-xs leading-loose font-medium italic md:text-sm">
             * ข้อมูลดิจิทัลเชิงลึกที่ใช้ในกระบวนการระงับเหตุ รวมถึง URL
             และภาพหลักฐานประกอบภารกิจ จะถูกทำลายทิ้งทันที{" "}
-            <span className="font-bold text-foreground">(Secure Purge)</span>{" "}
+            <span className="text-foreground font-bold">(Secure Purge)</span>{" "}
             ภายหลังการตรวจสอบผลสำเร็จใน Step 04
             เพื่อให้มั่นใจได้ว่าความลับของลูกความจะคงอยู่ตลอดไป
           </p>
-          <div className="mx-auto h-px w-24 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+          <div className="via-primary/20 mx-auto h-px w-24 bg-gradient-to-r from-transparent to-transparent" />
         </motion.div>
       </div>
     </section>
-  );
+  )
 }

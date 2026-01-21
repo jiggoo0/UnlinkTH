@@ -1,18 +1,18 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { siteConfig } from "@/constants/site-config";
-import { cn } from "@/lib/utils";
-import { MessageCircle } from "lucide-react";
+import Link from "next/link"
+import { siteConfig } from "@/constants/site-config"
+import { cn } from "@/lib/utils"
+import { MessageCircle } from "lucide-react"
 
 interface LineButtonProps {
   /** ขนาดของปุ่ม: sm (กะทัดรัด), md (มาตรฐาน), lg (เน้นย้ำ) */
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg"
   /** แสดงเฉพาะไอคอน (สำหรับพื้นที่จำกัด) */
-  iconOnly?: boolean;
-  className?: string;
+  iconOnly?: boolean
+  className?: string
   /** ข้อความบนปุ่ม (Default: ปรึกษาผ่าน LINE) */
-  label?: string;
+  label?: string
 }
 
 /**
@@ -26,11 +26,11 @@ export function LineButton({
   label = "ปรึกษาผ่าน LINE",
 }: LineButtonProps) {
   /**
-   * ยุทธศาสตร์การเชื่อมต่อ: 
-   * ใช้ lineUrl จาก siteConfig โดยตรง (เช่น https://lin.ee/...) 
+   * ยุทธศาสตร์การเชื่อมต่อ:
+   * ใช้ lineUrl จาก siteConfig โดยตรง (เช่น https://lin.ee/...)
    * เพื่อประสิทธิภาพสูงสุดในการ Redirect เข้าสู่แอป LINE บนโทรศัพท์มือถือ
    */
-  const lineLink = siteConfig.contact.lineUrl;
+  const lineLink = siteConfig.contact.lineUrl
 
   return (
     <Link
@@ -41,9 +41,9 @@ export function LineButton({
         "group inline-flex items-center justify-center gap-2 rounded-full font-bold transition-all duration-300 ease-in-out",
         "bg-[#00B900] text-white shadow-lg shadow-green-500/20 hover:scale-[1.02] hover:bg-[#00A000] active:scale-[0.95]",
         {
-          "h-9 px-4 text-[10px] uppercase tracking-wider": size === "sm",
-          "h-12 px-8 text-xs uppercase tracking-widest": size === "md",
-          "h-16 px-12 text-sm uppercase tracking-[0.2em]": size === "lg",
+          "h-9 px-4 text-[10px] tracking-wider uppercase": size === "sm",
+          "h-12 px-8 text-xs tracking-widest uppercase": size === "md",
+          "h-16 px-12 text-sm tracking-[0.2em] uppercase": size === "lg",
           "w-12 px-0": iconOnly && size === "md",
         },
         className
@@ -62,5 +62,5 @@ export function LineButton({
 
       {!iconOnly && <span className="tracking-tight">{label}</span>}
     </Link>
-  );
+  )
 }

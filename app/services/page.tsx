@@ -2,21 +2,40 @@ import type { Metadata } from "next"
 import { servicesData } from "@/constants/services-data"
 import { ServiceCard } from "@/components/shared/ServiceCard"
 import { Badge } from "@/components/ui/badge"
-import { ShieldCheck, DatabaseZap, Fingerprint, Activity } from "lucide-react"
+import {
+  ShieldCheck,
+  DatabaseZap,
+  Fingerprint,
+  Activity,
+  ChevronRight,
+} from "lucide-react"
 
+/**
+ * Metadata Optimization:
+ * เน้นการสร้าง Authority และ E-E-A-T ในสายงานจัดการข้อมูลดิจิทัล
+ */
 export const metadata: Metadata = {
   title: "Services | การจัดการข้อมูลดิจิทัลเฉพาะทาง",
   description:
-    "สำรวจบริการจัดการชื่อเสียงออนไลน์ ลบลิงก์ Google และการใช้สิทธิ PDPA เพื่อความปลอดภัยในประวัติออนไลน์ของคุณ",
+    "สำรวจบริการจัดการชื่อเสียงออนไลน์ ลบลิงก์ Google และการใช้สิทธิ PDPA เพื่อความปลอดภัยในประวัติออนไลน์ของคุณ ดำเนินการโดย Specialist ภายใต้มาตรฐานความลับสูงสุด",
+  openGraph: {
+    title: "Operational Protocols | UNLINK Digital Services",
+    description:
+      "Technical De-indexing & Digital Reputation Management Services",
+    type: "website",
+  },
 }
 
 export default function ServicesPage() {
   return (
     <div className="relative flex w-full flex-col pb-32">
-      {/* 01: Strategy Hero Section */}
+      {/* 01: Strategy Hero Section (Tactical Overview) */}
       <section className="relative overflow-hidden pt-32 pb-24 lg:pt-56 lg:pb-32">
-        {/* Decorative Grid Background */}
-        <div className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]">
+        {/* Decorative Grid Background System */}
+        <div
+          className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
+          aria-hidden="true"
+        >
           <div className="h-full w-full bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:40px_40px]" />
         </div>
 
@@ -27,19 +46,21 @@ export default function ServicesPage() {
           >
             Operational Protocols
           </Badge>
-          <h1 className="mb-8 text-5xl font-extrabold tracking-tighter md:text-7xl lg:text-8xl">
+
+          <h1 className="text-foreground mb-8 text-5xl font-extrabold tracking-tighter md:text-7xl lg:text-8xl">
             แนวทางการจัดการ <br />
             <span className="text-muted-foreground font-light italic">
               ข้อมูลออนไลน์เฉพาะทาง
             </span>
           </h1>
-          <p className="text-muted-foreground/80 mx-auto max-w-3xl text-lg leading-relaxed md:text-xl">
+
+          <p className="text-muted-foreground/80 mx-auto max-w-3xl text-lg leading-relaxed font-medium md:text-xl">
             ผสมผสานเทคนิคทางวิศวกรรมข้อมูล{" "}
-            <span className="text-foreground font-bold">
+            <span className="text-foreground font-extrabold tracking-tight uppercase">
               (Technical De-indexing)
             </span>
             เข้ากับกรอบกฎหมายดิจิทัล
-            เพื่อให้คุณสามารถเริ่มต้นใหม่ในโลกออนไลน์ได้อย่างปลอดภัยและมั่นใจ
+            เพื่อให้คุณสามารถเริ่มต้นใหม่ในโลกออนไลน์ได้อย่างปลอดภัยและมีศักดิ์ศรี
           </p>
 
           <div className="mt-12 flex items-center justify-center gap-6 opacity-40">
@@ -60,39 +81,61 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 02: Services Matrix Grid */}
-
+      {/* 02: Services Matrix Grid (Dynamic Protocol Cards) */}
       <section className="relative z-20 container mx-auto -mt-16 px-6">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {servicesData.map((service) => (
-            <ServiceCard key={service.id} service={service} />
-          ))}
+          {servicesData && servicesData.length > 0 ? (
+            servicesData.map((service) => (
+              <ServiceCard key={service.id} service={service} />
+            ))
+          ) : (
+            <div className="col-span-full py-20 text-center opacity-20">
+              <p className="font-mono text-xs tracking-[0.5em] uppercase">
+                No active protocols indexed
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* 03: Technical Integrity Banner */}
+      {/* 03: Technical Integrity Banner (The Specialist Oath) */}
       <section className="container mx-auto mt-32 px-6">
-        <div className="border-primary/20 bg-muted/5 relative mx-auto max-w-5xl overflow-hidden rounded-[2.5rem] border p-8 backdrop-blur-md md:p-12 lg:p-16">
-          {/* Subtle Watermark */}
-          <ShieldCheck className="text-primary absolute -top-8 -right-8 h-48 w-48 opacity-[0.03]" />
+        <div className="border-primary/20 bg-muted/5 relative mx-auto max-w-5xl overflow-hidden rounded-[3rem] border p-10 backdrop-blur-md md:p-12 lg:p-16">
+          {/* Subtle Watermark Decoration */}
+          <ShieldCheck className="text-primary absolute -top-8 -right-8 h-64 w-64 opacity-[0.03]" />
 
-          <div className="relative z-10 flex flex-col items-center gap-10 md:flex-row">
-            <div className="bg-primary/10 flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl shadow-[0_0_30px_rgba(var(--color-primary),0.1)]">
-              <DatabaseZap className="text-primary h-10 w-10" />
+          <div className="relative z-10 flex flex-col items-center gap-12 md:flex-row">
+            <div className="bg-primary/10 flex h-24 w-24 shrink-0 items-center justify-center rounded-[2rem] shadow-[0_0_50px_rgba(var(--color-primary),0.1)]">
+              <DatabaseZap className="text-primary h-12 w-12" />
             </div>
 
             <div className="flex-1 text-center md:text-left">
-              <h3 className="text-foreground mb-4 text-2xl font-bold tracking-tight md:text-3xl">
-                มาตรฐาน Technical Diagnosis
-              </h3>
-              <p className="text-muted-foreground/80 text-base leading-relaxed">
-                เราประเมินเคสตามความเป็นจริงทางเทคนิคก่อนเริ่มงานเสมอ
-                <span className="text-primary mt-4 block font-bold italic">
-                  * หากวิเคราะห์แล้วไม่สามารถดำเนินการได้
-                  เราจะแจ้งให้ทราบทันทีโดยไม่มีค่าใช้จ่าย
+              <div className="mb-4 flex items-center justify-center gap-3 md:justify-start">
+                <ChevronRight className="text-primary h-5 w-5" />
+                <h3 className="text-foreground text-2xl font-black tracking-tight md:text-4xl">
+                  มาตรฐาน Technical Diagnosis
+                </h3>
+              </div>
+
+              <p className="text-muted-foreground/90 text-lg leading-relaxed font-medium">
+                เรายึดถือความซื่อสัตย์เป็นที่ตั้ง
+                โดยจะประเมินเคสตามความเป็นจริงทางเทคนิคก่อนเริ่มงานเสมอ
+                <span className="text-primary mt-6 block leading-relaxed font-bold italic">
+                  * หากวิเคราะห์แล้วพบว่าไม่สามารถดำเนินการได้ทางเทคนิค (Zero
+                  Probability) เราจะแจ้งให้ทราบทันทีโดยไม่มีค่าใช้จ่ายแฝง
+                  เพื่อรักษามาตรฐานวิชาชีพสูงสุด
                 </span>
-                เพื่อรักษามาตรฐานความโปร่งใสและจริยธรรมสูงสุดของผู้เชี่ยวชาญ
               </p>
+
+              <div className="border-primary/10 mt-10 flex flex-col items-center gap-4 border-t pt-8 md:flex-row">
+                <span className="text-primary/40 font-mono text-[10px] font-black tracking-[0.4em] uppercase">
+                  Ethical Data Handling
+                </span>
+                <div className="bg-primary/20 hidden h-1.5 w-1.5 rounded-full md:block" />
+                <span className="text-primary/40 font-mono text-[10px] font-black tracking-[0.4em] uppercase">
+                  Verified Specialist
+                </span>
+              </div>
             </div>
           </div>
         </div>

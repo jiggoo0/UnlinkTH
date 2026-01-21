@@ -1,4 +1,4 @@
-import { siteConfig } from "./site-config";
+import { siteConfig } from "./site-config"
 
 /**
  * Navigation Architecture - UNLINK-TH
@@ -6,10 +6,10 @@ import { siteConfig } from "./site-config";
  */
 
 export interface NavItem {
-  title: string;
-  href: string;
-  external?: boolean;
-  description?: string; // สำหรับใช้งานใน Navigation Menu / Hover Card
+  title: string
+  href: string
+  external?: boolean
+  description?: string // สำหรับใช้งานใน Navigation Menu / Hover Card
 }
 
 /**
@@ -37,7 +37,7 @@ export const mainNav: NavItem[] = [
     href: "/faq",
     description: "ตอบข้อสงสัยเชิงเทคนิคเกี่ยวกับกระบวนการ UNLINK",
   },
-];
+]
 
 /**
  * Footer Navigation (Resource Logs)
@@ -80,7 +80,7 @@ export const footerNav = {
       external: true,
     },
   ] as NavItem[],
-};
+}
 
 /**
  * Operational Navigation Config
@@ -89,5 +89,6 @@ export const navigationConfig = {
   stickyHeader: true,
   showContactButton: true,
   contactButtonText: "ประเมินเคสส่วนบุคคล",
-  specialistNote: "*ข้อมูลการสื่อสารทั้งหมดจะถูกทำลาย (Secure Purge) ทันทีหลังการประเมิน",
-};
+  specialistNote:
+    "*ข้อมูลการสื่อสารทั้งหมดจะถูกทำลาย (Secure Purge) ทันทีหลังการประเมิน",
+}

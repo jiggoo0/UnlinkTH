@@ -1,23 +1,29 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { siteConfig } from "@/constants/site-config";
-import { footerNav } from "@/constants/navigation";
-import { ShieldCheck, Lock, MessageCircle, Fingerprint, Activity } from "lucide-react";
+import Link from "next/link"
+import { siteConfig } from "@/constants/site-config"
+import { footerNav } from "@/constants/navigation"
+import {
+  ShieldCheck,
+  Lock,
+  MessageCircle,
+  Fingerprint,
+  Activity,
+} from "lucide-react"
 
 /**
- * 
+ *
  * Footer Component: The Final Validation Point
  * ยุทธศาสตร์: สร้างความเชื่อมั่นขั้นสุดท้าย (Final Trust Building) และรองรับการทำ Internal Linking สำหรับ SEO
  */
 export const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  
+  const currentYear = new Date().getFullYear()
+
   // ใช้ lineUrl โดยตรงจาก siteConfig เพื่อความเสถียรสูงสุด
-  const lineLink = siteConfig.contact.lineUrl;
+  const lineLink = siteConfig.contact.lineUrl
 
   return (
-    <footer className="relative border-t border-border/40 bg-background pb-12 pt-20">
+    <footer className="border-border/40 bg-background relative border-t pt-20 pb-12">
       {/* 01: Structural Background Pattern - Tactical Grid */}
       <div
         className="pointer-events-none absolute inset-0 z-0 opacity-[0.02]"
@@ -26,34 +32,33 @@ export const Footer = () => {
         <div className="h-full w-full bg-[radial-gradient(#808080_1px,transparent_1px)] [background-size:32px_32px]" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-6">
+      <div className="relative z-10 container mx-auto px-6">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
-          
           {/* 02: Brand & Integrity Segment (Identity Hub) */}
           <div className="lg:col-span-5">
             <Link href="/" className="group mb-6 flex items-center gap-2">
-              <span className="text-2xl font-black italic tracking-tighter text-foreground transition-colors group-hover:text-primary uppercase">
+              <span className="text-foreground group-hover:text-primary text-2xl font-black tracking-tighter uppercase italic transition-colors">
                 {siteConfig.name}
               </span>
-              <Activity className="h-3 w-3 animate-pulse text-primary opacity-40" />
+              <Activity className="text-primary h-3 w-3 animate-pulse opacity-40" />
             </Link>
-            <p className="mb-8 max-w-sm text-sm font-medium leading-relaxed text-muted-foreground">
+            <p className="text-muted-foreground mb-8 max-w-sm text-sm leading-relaxed font-medium">
               {siteConfig.description}
             </p>
 
             {/* Trust Badges - Operational Standards */}
             <div className="flex flex-col gap-4">
-              <div className="group flex items-center gap-3 text-muted-foreground/80">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/20">
-                  <Lock className="h-4 w-4 text-primary" />
+              <div className="group text-muted-foreground/80 flex items-center gap-3">
+                <div className="bg-primary/10 group-hover:bg-primary/20 flex h-8 w-8 items-center justify-center rounded-lg transition-colors">
+                  <Lock className="text-primary h-4 w-4" />
                 </div>
                 <span className="text-[10px] font-bold tracking-[0.2em] uppercase">
                   Encrypted Communication
                 </span>
               </div>
-              <div className="group flex items-center gap-3 text-muted-foreground/80">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/20">
-                  <ShieldCheck className="h-4 w-4 text-primary" />
+              <div className="group text-muted-foreground/80 flex items-center gap-3">
+                <div className="bg-primary/10 group-hover:bg-primary/20 flex h-8 w-8 items-center justify-center rounded-lg transition-colors">
+                  <ShieldCheck className="text-primary h-4 w-4" />
                 </div>
                 <span className="text-[10px] font-bold tracking-[0.2em] uppercase">
                   Identity Protected
@@ -64,10 +69,9 @@ export const Footer = () => {
 
           {/* 03: Navigation Matrix (Resource Logs) */}
           <div className="grid grid-cols-2 gap-10 lg:col-span-7 lg:grid-cols-3">
-            
             {/* Services Protocol */}
             <div>
-              <h4 className="mb-6 font-mono text-[10px] font-black tracking-[0.3em] opacity-40 uppercase text-foreground">
+              <h4 className="text-foreground mb-6 font-mono text-[10px] font-black tracking-[0.3em] uppercase opacity-40">
                 Protocols
               </h4>
               <ul className="space-y-4">
@@ -75,7 +79,7 @@ export const Footer = () => {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-xs font-bold tracking-wider text-muted-foreground transition-colors hover:text-primary uppercase"
+                      className="text-muted-foreground hover:text-primary text-xs font-bold tracking-wider uppercase transition-colors"
                     >
                       {link.title}
                     </Link>
@@ -86,7 +90,7 @@ export const Footer = () => {
 
             {/* Support & Legal Resources */}
             <div>
-              <h4 className="mb-6 font-mono text-[10px] font-black tracking-[0.3em] opacity-40 uppercase text-foreground">
+              <h4 className="text-foreground mb-6 font-mono text-[10px] font-black tracking-[0.3em] uppercase opacity-40">
                 Resources
               </h4>
               <ul className="space-y-4">
@@ -94,7 +98,7 @@ export const Footer = () => {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-xs font-bold tracking-wider text-muted-foreground transition-colors hover:text-primary uppercase"
+                      className="text-muted-foreground hover:text-primary text-xs font-bold tracking-wider uppercase transition-colors"
                     >
                       {link.title}
                     </Link>
@@ -105,7 +109,7 @@ export const Footer = () => {
 
             {/* Strategic Connect - Liaison Office */}
             <div>
-              <h4 className="mb-6 font-mono text-[10px] font-black tracking-[0.3em] opacity-40 uppercase text-foreground">
+              <h4 className="text-foreground mb-6 font-mono text-[10px] font-black tracking-[0.3em] uppercase opacity-40">
                 Liaison Office
               </h4>
               <div className="flex flex-col gap-5">
@@ -113,13 +117,13 @@ export const Footer = () => {
                   href={lineLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#00B900] px-6 text-[10px] font-black tracking-widest text-white transition-all hover:scale-[1.05] active:scale-95 uppercase shadow-lg shadow-green-500/20"
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#00B900] px-6 text-[10px] font-black tracking-widest text-white uppercase shadow-lg shadow-green-500/20 transition-all hover:scale-[1.05] active:scale-95"
                 >
                   <MessageCircle className="h-4 w-4 fill-current" />
                   LINE Official
                 </Link>
                 <div className="flex items-center gap-2 px-1 opacity-40">
-                  <Fingerprint className="h-3.5 w-3.5 text-primary" />
+                  <Fingerprint className="text-primary h-3.5 w-3.5" />
                   <span className="font-mono text-[8px] font-bold tracking-tighter uppercase">
                     Secure Link Verified
                   </span>
@@ -130,29 +134,29 @@ export const Footer = () => {
         </div>
 
         {/* 04: Bottom Legal Layer - Global Disclaimer */}
-        <div className="mt-20 border-t border-border/40 pt-10">
+        <div className="border-border/40 mt-20 border-t pt-10">
           <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
             <div className="order-2 md:order-1">
-              <p className="font-mono text-[9px] font-bold tracking-[0.2em] text-muted-foreground/40 uppercase">
+              <p className="text-muted-foreground/40 font-mono text-[9px] font-bold tracking-[0.2em] uppercase">
                 © {currentYear} {siteConfig.name}. Operational Integrity Center.
               </p>
             </div>
 
             <div className="order-1 flex items-center gap-6 md:order-2">
-              <p className="max-w-xl text-center text-[10px] font-medium leading-relaxed italic text-muted-foreground/40 md:text-right">
+              <p className="text-muted-foreground/40 max-w-xl text-center text-[10px] leading-relaxed font-medium italic md:text-right">
                 {siteConfig.footer.disclaimer}
               </p>
             </div>
           </div>
-          
+
           {/* Operational Trust Note */}
           <div className="mt-8 text-center">
-             <p className="font-mono text-[8px] font-bold tracking-[0.4em] text-muted-foreground/20 uppercase">
-                {siteConfig.footer.trustNote}
-             </p>
+            <p className="text-muted-foreground/20 font-mono text-[8px] font-bold tracking-[0.4em] uppercase">
+              {siteConfig.footer.trustNote}
+            </p>
           </div>
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}

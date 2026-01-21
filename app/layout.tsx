@@ -8,10 +8,9 @@ import { cn } from "@/lib/utils"
 import "./globals.css"
 
 /**
- *
- * * Font Configuration:
+ * Font Configuration:
  * แยก Sans (English), Noto (Thai), และ Mono เพื่อความคมชัดระดับ Clinical
- * สอดคล้องกับภาพลักษณ์ผู้เชี่ยวชาญเฉพาะทาง
+ * สอดคล้องกับภาพลักษณ์ผู้เชี่ยวชาญเฉพาะทาง (Digital Fixer)
  */
 const inter = Inter({
   subsets: ["latin"],
@@ -33,7 +32,7 @@ const jetbrains = JetBrains_Mono({
 })
 
 export const viewport: Viewport = {
-  themeColor: "#05070a", // Obsidian Black จาก DNA แบรนด์
+  themeColor: "#05070a", // Obsidian Black จาก Brand DNA
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -47,9 +46,9 @@ export const metadata: Metadata = {
   },
   description: siteConfig.seo.defaultDescription,
   keywords: siteConfig.seo.keywords,
-  authors: [{ name: "UNLINK Digital Fixers", url: siteConfig.url }],
-  creator: "UNLINK",
-  publisher: "UNLINK",
+  authors: [{ name: "UNLINK-TH Specialist", url: siteConfig.url }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
   formatDetection: {
     email: false,
     address: false,
@@ -68,7 +67,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "th_TH",
+    locale: siteConfig.locale,
     url: siteConfig.url,
     title: siteConfig.seo.defaultTitle,
     description: siteConfig.seo.defaultDescription,
@@ -78,7 +77,7 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "UNLINK Digital Reputation & Data Privacy Management",
+        alt: `${siteConfig.name} - Ultimate Privacy & Data Erasure`,
       },
     ],
   },
@@ -101,8 +100,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   /**
-   * Organization Schema: ปรับเป็น ProfessionalService
-   * เพื่อสร้าง Trust ในฐานะผู้เชี่ยวชาญเฉพาะทาง (Specialist Fixer)
+   * Organization Schema: ปรับเป็น ProfessionalService + LocalBusiness
+   * เพื่อสร้าง Rich Snippets ที่ทรงพลังบนหน้าผลการค้นหาของ Google
    */
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -112,28 +111,33 @@ export default function RootLayout({
     url: siteConfig.url,
     logo: `${siteConfig.url}/images/Logo.jpg`,
     image: `${siteConfig.url}${siteConfig.ogImage}`,
+    priceRange: "$$$", // สื่อถึงบริการระดับ Premium/Specialist
+    telephone: siteConfig.contact.phone,
+    email: siteConfig.contact.email,
     serviceType: [
       "Digital Reputation Management",
       "Data Privacy Solutions",
       "Content Suppression",
       "De-indexing Service",
+      "Online Crisis Management",
     ],
     address: {
       "@type": "PostalAddress",
+      addressLocality: "Bangkok",
       addressCountry: "TH",
     },
     knowsAbout: [
-      "PDPA",
+      "PDPA Thailand",
       "SEO Suppression",
       "Right to Erasure",
       "Right to be Forgotten",
-      "Digital Crisis Management",
+      "Digital Forensic Cleanup",
     ],
   }
 
   return (
     <html
-      lang="th"
+      lang={siteConfig.language}
       className={cn(
         "dark selection:bg-primary/20 selection:text-primary scroll-smooth",
         inter.variable,
@@ -144,14 +148,14 @@ export default function RootLayout({
     >
       <body
         className={cn(
-          "bg-background min-h-screen font-sans antialiased",
-          "font-thai" // บังคับใช้ Noto Sans Thai เป็นฟอนต์หลักสำหรับการอ่านเนื้อหา
+          "bg-background text-foreground min-h-screen font-sans antialiased",
+          "font-thai" // บังคับใช้ Noto Sans Thai เป็นฟอนต์หลักสำหรับการอ่าน
         )}
       >
         {/* Structured Data สำหรับช่วยในการทำ Rich Snippets */}
         <JsonLd data={organizationSchema} />
 
-        {/* Main Application Container */}
+        {/* Tactical Layout Container */}
         <div className="relative flex min-h-screen flex-col">
           <Header />
 

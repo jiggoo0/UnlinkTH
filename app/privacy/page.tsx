@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { siteConfig } from "@/constants/site-config";
-import { Badge } from "@/components/ui/badge";
+import { siteConfig } from "@/constants/site-config"
+import { Badge } from "@/components/ui/badge"
 import {
   ShieldAlert,
   Trash2,
@@ -10,12 +10,12 @@ import {
   ShieldCheck,
   Activity,
   Fingerprint,
-} from "lucide-react";
-import ContactCTA from "@/components/sections/ContactCTA";
-import { motion } from "framer-motion";
+} from "lucide-react"
+import ContactCTA from "@/components/sections/ContactCTA"
+import { motion } from "framer-motion"
 
 /**
- * 
+ *
  * Privacy Page: นโยบายการรักษาความลับสูงสุด (Privacy Protocol)
  * ยุทธศาสตร์: Establishing Trust -> Zero-Knowledge Proof -> Data Destruction Protocol
  */
@@ -27,22 +27,22 @@ const privacyCommitments = [
     desc: "ข้อมูล ลิงก์ และภาพหลักฐานทั้งหมดที่ส่งมาเพื่อการประเมิน จะถูกทำลายทิ้ง (Secure Purge) ทันทีหลังปิดภารกิจหรือเมื่อท่านยุติการปรึกษา",
   },
   {
-    icon: <EyeOff className="h-6 w-6 text-primary" />,
+    icon: <EyeOff className="text-primary h-6 w-6" />,
     title: "No-Log Infrastructure",
     desc: "โครงสร้างพื้นฐานของเราไม่มีการเก็บ Log การสนทนาลงในฐานข้อมูลส่วนกลาง ทุกความเคลื่อนไหวถูกจัดการแบบ Session-to-Session",
   },
   {
-    icon: <Lock className="h-6 w-6 text-primary" />,
+    icon: <Lock className="text-primary h-6 w-6" />,
     title: "Confidentiality Agreement",
     desc: "Specialist ทุกท่านต้องปฏิบัติตามมาตรฐานการรักษาความลับระดับสูง (NDA) เป็นพื้นฐานสำคัญในการปฏิบัติหน้าที่",
   },
-];
+]
 
 export default function PrivacyPage() {
   return (
-    <main className="flex w-full flex-col bg-background">
+    <main className="bg-background flex w-full flex-col">
       {/* 01: Hero Section - The Commitment to Confidentiality */}
-      <section className="relative overflow-hidden pb-16 pt-32 lg:pb-32 lg:pt-56">
+      <section className="relative overflow-hidden pt-32 pb-16 lg:pt-56 lg:pb-32">
         {/* Tactical Background Decor - Grid Layer */}
         <div
           className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
           <div className="h-full w-full bg-[radial-gradient(#808080_1px,transparent_1px)] [background-size:32px_32px]" />
         </div>
 
-        <div className="container relative z-10 mx-auto px-6">
+        <div className="relative z-10 container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -61,27 +61,27 @@ export default function PrivacyPage() {
             <div className="mb-6 flex items-center gap-3">
               <Badge
                 variant="outline"
-                className="border-primary/30 bg-primary/5 px-4 py-1.5 font-mono text-[10px] tracking-[0.2em] text-primary uppercase"
+                className="border-primary/30 bg-primary/5 text-primary px-4 py-1.5 font-mono text-[10px] tracking-[0.2em] uppercase"
               >
                 Trust & Confidentiality
               </Badge>
               <div className="flex items-center gap-1.5 opacity-30">
-                <Activity className="h-3 w-3 animate-pulse text-primary" />
+                <Activity className="text-primary h-3 w-3 animate-pulse" />
                 <span className="font-mono text-[8px] tracking-tighter uppercase italic">
                   Secure Protocol Active
                 </span>
               </div>
             </div>
 
-            <h1 className="mb-10 text-5xl font-extrabold leading-tight tracking-tighter text-foreground md:text-7xl lg:text-8xl">
+            <h1 className="text-foreground mb-10 text-5xl leading-tight font-extrabold tracking-tighter md:text-7xl lg:text-8xl">
               ความลับของท่าน <br />
-              <span className="text-4xl font-light italic text-muted-foreground md:text-6xl lg:text-7xl">
+              <span className="text-muted-foreground text-4xl font-light italic md:text-6xl lg:text-7xl">
                 คือพันธกิจสูงสุดของเรา
               </span>
             </h1>
 
-            <div className="max-w-2xl border-l-4 border-primary/40 pl-8">
-              <p className="text-xl font-medium italic leading-relaxed text-muted-foreground/90 md:text-2xl">
+            <div className="border-primary/40 max-w-2xl border-l-4 pl-8">
+              <p className="text-muted-foreground/90 text-xl leading-relaxed font-medium italic md:text-2xl">
                 &quot;ที่ UNLINK เราไม่ได้แค่ระงับการเข้าถึงข้อมูลให้ท่าน
                 แต่เราลบข้อมูลของท่านออกจากระบบของเราด้วยเช่นกัน&quot;
               </p>
@@ -91,7 +91,7 @@ export default function PrivacyPage() {
       </section>
 
       {/* 02: Core Privacy Content & Infrastructure */}
-      <section className="container relative z-10 mx-auto px-6 py-24">
+      <section className="relative z-10 container mx-auto px-6 py-24">
         <div className="grid gap-16 lg:grid-cols-12">
           {/* Left Column: Semantic Content (The Protocols) */}
           <motion.div
@@ -103,20 +103,20 @@ export default function PrivacyPage() {
           >
             <div className="group">
               <h2 className="mb-8 flex items-center gap-3 text-3xl font-extrabold tracking-tight">
-                <ShieldCheck className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
+                <ShieldCheck className="text-primary h-8 w-8 transition-transform group-hover:scale-110" />
                 บทนำและหลักการทั่วไป
               </h2>
-              <div className="text-lg leading-loose text-muted-foreground/80 space-y-6">
+              <div className="text-muted-foreground/80 space-y-6 text-lg leading-loose">
                 <p>
                   เนื่องจากลักษณะของบริการ{" "}
-                  <span className="font-bold italic text-foreground uppercase tracking-tight">
+                  <span className="text-foreground font-bold tracking-tight uppercase italic">
                     {siteConfig.name}
                   </span>{" "}
                   เกี่ยวข้องกับข้อมูลที่มีความละเอียดอ่อนสูง
                   เราจึงยึดถือมาตรฐานความเป็นส่วนตัวที่เข้มงวดกว่ามาตรฐานอุตสาหกรรมทั่วไป
                   นโยบายนี้มีวัตถุประสงค์เพื่อแจ้งให้ท่านทราบถึงโปรโตคอลการจัดการข้อมูล
                   เพื่อให้ท่านมั่นใจในความปลอดภัยระดับ{" "}
-                  <span className="font-bold text-primary">
+                  <span className="text-primary font-bold">
                     100% Confidentiality Audit
                   </span>
                 </p>
@@ -125,20 +125,20 @@ export default function PrivacyPage() {
 
             <div className="group">
               <h2 className="mb-8 flex items-center gap-3 text-3xl font-extrabold tracking-tight">
-                <Fingerprint className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
+                <Fingerprint className="text-primary h-8 w-8 transition-transform group-hover:scale-110" />
                 ข้อมูลที่เรา (ไม่) จัดเก็บ
               </h2>
               <div className="space-y-6">
-                <div className="relative overflow-hidden rounded-[2rem] border border-border/50 bg-muted/5 p-8 transition-all hover:border-primary/30">
-                  <h3 className="mb-3 font-mono text-xs font-black tracking-widest text-primary/70 uppercase">
+                <div className="border-border/50 bg-muted/5 hover:border-primary/30 relative overflow-hidden rounded-[2rem] border p-8 transition-all">
+                  <h3 className="text-primary/70 mb-3 font-mono text-xs font-black tracking-widest uppercase">
                     Zero-Knowledge Approach
                   </h3>
-                  <p className="text-base leading-relaxed text-muted-foreground">
+                  <p className="text-muted-foreground text-base leading-relaxed">
                     เราไม่มีการติดตั้งคุกกี้เพื่อติดตามพฤติกรรม (Tracking
                     Cookies) และไม่มีการจัดเก็บชื่อ-นามสกุล
                     หรือข้อมูลส่วนบุคคลลงในฐานข้อมูลถาวรของเว็บไซต์
                     ทุกการประเมินทางเทคนิคถูกจัดการแบบ{" "}
-                    <span className="font-bold italic text-foreground">
+                    <span className="text-foreground font-bold italic">
                       Session-to-Session
                     </span>{" "}
                     เท่านั้น ข้อมูลจะสลายตัวทันทีเมื่อภารกิจสิ้นสุด
@@ -151,11 +151,13 @@ export default function PrivacyPage() {
               <h2 className="mb-8 text-3xl font-extrabold tracking-tight">
                 การติดต่อสื่อสารและการทำลายข้อมูล
               </h2>
-              <p className="text-lg leading-loose text-muted-foreground/80">
+              <p className="text-muted-foreground/80 text-lg leading-loose">
                 ในการสื่อสารผ่าน LINE Official หรือช่องทางเข้ารหัสอื่นๆ
                 เราใช้มาตรการความปลอดภัยสูงสุดร่วมกับนโยบาย{" "}
-                <strong className="italic text-foreground">&quot;Secure Purge&quot;</strong> โดย Specialist
-                จะทำการล้างประวัติการสนทนา (Clear Chat Logs)
+                <strong className="text-foreground italic">
+                  &quot;Secure Purge&quot;
+                </strong>{" "}
+                โดย Specialist จะทำการล้างประวัติการสนทนา (Clear Chat Logs)
                 และทำลายเอกสารแนบทันทีเมื่อสิ้นสุดการให้คำปรึกษาในแต่ละเซสชัน
               </p>
             </div>
@@ -169,32 +171,32 @@ export default function PrivacyPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="relative overflow-hidden rounded-[3rem] border border-primary/20 bg-muted/5 p-10 backdrop-blur-xl"
+                className="border-primary/20 bg-muted/5 relative overflow-hidden rounded-[3rem] border p-10 backdrop-blur-xl"
               >
                 {/* Visual Accent - Shield Watermark */}
                 <div
-                  className="absolute -right-12 -top-12 opacity-[0.03]"
+                  className="absolute -top-12 -right-12 opacity-[0.03]"
                   aria-hidden="true"
                 >
-                  <ShieldAlert className="h-48 w-48 text-primary" />
+                  <ShieldAlert className="text-primary h-48 w-48" />
                 </div>
 
                 <h3 className="relative z-10 mb-10 flex items-center gap-3 text-xl font-extrabold tracking-tight">
-                  <ShieldAlert className="h-6 w-6 text-primary" />
+                  <ShieldAlert className="text-primary h-6 w-6" />
                   คำมั่นสัญญาของ UNLINK
                 </h3>
 
                 <div className="relative z-10 space-y-10">
                   {privacyCommitments.map((item, i) => (
                     <div key={i} className="group flex gap-5">
-                      <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border/40 bg-background transition-all group-hover:border-primary/30 group-hover:bg-primary/5">
+                      <div className="border-border/40 bg-background group-hover:border-primary/30 group-hover:bg-primary/5 mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-all">
                         {item.icon}
                       </div>
                       <div>
-                        <h4 className="mb-2 font-mono text-[11px] font-black tracking-widest text-foreground uppercase">
+                        <h4 className="text-foreground mb-2 font-mono text-[11px] font-black tracking-widest uppercase">
                           {item.title}
                         </h4>
-                        <p className="text-sm leading-relaxed text-muted-foreground/80">
+                        <p className="text-muted-foreground/80 text-sm leading-relaxed">
                           {item.desc}
                         </p>
                       </div>
@@ -203,10 +205,13 @@ export default function PrivacyPage() {
                 </div>
               </motion.div>
 
-              <div className="mt-10 flex items-center justify-center rounded-2xl border border-dashed border-border/60 p-6 text-center">
-                <p className="font-thai text-xs italic leading-relaxed tracking-tighter text-muted-foreground/60 uppercase">
+              <div className="border-border/60 mt-10 flex items-center justify-center rounded-2xl border border-dashed p-6 text-center">
+                <p className="font-thai text-muted-foreground/60 text-xs leading-relaxed tracking-tighter uppercase italic">
                   หากท่านต้องการรายละเอียดเกี่ยวกับโปรโตคอลการทำลายข้อมูล <br />
-                  สามารถขอรับ <span className="font-bold text-primary/60">Technical Purge Report</span>
+                  สามารถขอรับ{" "}
+                  <span className="text-primary/60 font-bold">
+                    Technical Purge Report
+                  </span>
                   จากเจ้าหน้าที่ได้หลังจบภารกิจ
                 </p>
               </div>
@@ -216,9 +221,9 @@ export default function PrivacyPage() {
       </section>
 
       {/* 03: The Closing Commitment - Operational Integrity */}
-      <div className="border-t border-border/40 bg-muted/5">
+      <div className="border-border/40 bg-muted/5 border-t">
         <ContactCTA />
       </div>
     </main>
-  );
+  )
 }

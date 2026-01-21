@@ -35,24 +35,26 @@ WHITELIST_DIRS=(
 
 # Critical files for AI context analysis (Included SupabaseSQL.md)
 SCAN_FILES=(
-  "ai-context.md"
+  "AI-CONTEXT.md"
+  "COMMUNICATION-DNA.md"
   "$REPORT_FILE"
   "app/globals.css"
+  "styles/tokens.css"
   "app/layout.tsx"
   "app/page.tsx"
+  "types/index.ts"
   "mdx-components.tsx"
   "constants/navigation.ts"
   "constants/site-config.ts"
   "constants/services-data.ts"
-  "constants/cases.ts"
   "app/case-studies/[slug]/page.tsx"
   "app/services/[slug]/page.tsx"
-  "components/templates/CategoryArchiveTemplate.tsx"
+  "lib/case-studies.ts"
+  "lib/services.ts"
   "tsconfig.json"
   "package.json"
   "next.config.ts"
   "components.json"
-  "lib/mdx.ts"
   ".env"
 )
 

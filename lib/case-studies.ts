@@ -1,62 +1,52 @@
 /**
- * UNLINK Case Studies Data
- * ข้อมูลเคสการทำงานที่เชื่อมโยงกับ /public/images/cases/ และ /content/case-studies/
+ * UNLINK-TH | Data Repositories: Case Studies
+ * -------------------------------------------------------------------------
+ * จัดการข้อมูลปฏิบัติการจริง (Operational Logs) ที่เชื่อมโยงกับเนื้อหา MDX
+ * และระบบประมวลผล Metadata สำหรับ Search Engine
  */
 
 export interface CaseStudy {
-  slug: string;
-  title: string;
-  category: string;
-  incident: string;
-  protocol: string;
-  result: string;
-  impact: string;
-  image: string;
-  contentPath: string;
-  date?: string; // รองรับสำหรับ Sitemap
+  slug: string
+  title: string
+  category: string
+  incident: string
+  protocol: string
+  result: string
+  impact: string
+  image: string
+  contentPath: string
+  date: string // ISO Format สำหรับ Sitemap และการเรียงลำดับ
 }
 
+/**
+ * [DATABASE] บันทึกข้อมูลปฏิบัติการจริง
+ * หมายเหตุ: ข้อมูลเหล่านี้จะถูกดึงไปแสดงผลในหน้า /case-studies และ /case-studies/[slug]
+ */
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "clear-blacklist-misunderstand",
-    title: "ลบประวัติ Blacklist ที่เกิดจากความเข้าใจผิด",
-    category: "Corporate",
+    slug: "remove-leaked-content-silent-angel",
+    title: "กู้ชีวิตจากคลิปหลุดที่ตามหลอกหลอน 1 ปี (Silent Angel)",
+    category: "Special Ops",
     incident:
-      "ข้อมูลการติด Blacklist ปรากฏบนหน้าแรก Google ส่งผลต่อการทำธุรกรรมและภาพลักษณ์องค์กร",
-    protocol:
-      "ประสานงานถอดถอนดัชนี (De-indexing) และใช้สิทธิทางกฎหมายตามหลัก PDPA",
-    result: "ลิงก์ต้นทางถูกระงับการเข้าถึงและหายจากหน้าการค้นหาสำเร็จ",
-    impact: "กู้คืนความน่าเชื่อถือทางธุรกิจสำเร็จ 100%",
+      "ผู้เสียหายถูกอดีตแฟนปล่อยคลิปส่วนตัวนาน 1 ปี จนเกิดภาวะวิกฤตทางจิตใจ",
+    protocol: "Unrestricted Warfare (ปฏิบัติการไร้รูปแบบเพื่อระงับเหตุต้นทาง)",
+    result: "ลบต้นตอเกลี้ยง 100% และปิดบัญชีผู้เผยแพร่ถาวร",
+    impact: "ช่วยชีวิตผู้เสียหายและคืนศักดิ์ศรีความเป็นมนุษย์",
+    image: "/images/cases/privacy-legal.webp",
+    contentPath: "remove-leaked-content-silent-angel.mdx",
+    date: "2026-01-20",
+  },
+  {
+    slug: "remove-defamation-gambling-network",
+    title: "ล้างบางเครือข่ายเว็บพนันที่แอบอ้างชื่อนักธุรกิจ",
+    category: "Special Ops",
+    incident: "ถูกเครือข่ายสีเทานำชื่อไปแอบอ้างทำ SEO ข่าวปลอมเพื่อเรียกค่าไถ่",
+    protocol: "Hybrid Warfare (De-indexing + Source Neutralization)",
+    result: "URL เป้าหมายถูกถอดจาก Google 100% และเว็บต้นทางล่มถาวร",
+    impact: "กู้คืนชื่อเสียงมูลค่ากว่า 100 ล้านบาทและหยุดการแอบอ้าง",
     image: "/images/cases/blacklist-clear.webp",
-    contentPath: "clear-blacklist-misunderstand.mdx",
-    date: "2026-01-11",
-  },
-  {
-    slug: "remove-defamation-post",
-    title: "จัดการโพสต์หมิ่นประมาทและข่าวปลอมออนไลน์",
-    category: "Individual",
-    incident:
-      "บุคคลถูกโจมตีด้วยข้อมูลเท็จในเว็บบอร์ดสาธารณะ ซึ่งส่งผลกระทบต่อประวัติส่วนตัว",
-    protocol:
-      "Technical Removal Protocol & Source Negotiation (การเจรจาลบจากต้นทาง)",
-    result: "เนื้อหาถูกถอดถอนถาวรและล้างประวัติการค้นหาใน Google Cache",
-    impact: "ยุติการแพร่กระจายของข้อมูลที่เป็นเท็จและคืนความเป็นส่วนตัว",
-    image: "/images/cases/defamation-removal.webp",
-    contentPath: "remove-defamation-post.mdx",
-    date: "2026-01-12",
-  },
-  {
-    slug: "online-drama-negotiation",
-    title: "ระงับการแพร่กระจายข้อมูลดราม่าบนโซเชียล",
-    category: "Individual",
-    incident: "ประเด็นดราม่าในอดีตถูกขุดขึ้นมาเผยแพร่ใหม่ในเชิงลบ",
-    protocol: "Content Suppression & Right to be Forgotten Liaison",
-    result:
-      "ลดการมองเห็นข้อมูลที่ไม่พึงประสงค์และถอดลิงก์ที่ละเมิดความเป็นส่วนตัว",
-    impact: "ป้องกันความเสียหายต่อชื่อเสียงในระยะยาว",
-    image: "/images/cases/negotiation-drama.webp",
-    contentPath: "online-drama-negotiation.mdx",
-    date: "2026-01-15",
+    contentPath: "remove-defamation-gambling-network.mdx",
+    date: "2026-01-18",
   },
   {
     slug: "seo-push-negative-news",
@@ -64,38 +54,93 @@ export const caseStudies: CaseStudy[] = [
     category: "E-commerce",
     incident: "ข่าวเชิงลบจากอดีตยังคงครองอันดับสูงในหน้าแรกของผลการค้นหา",
     protocol: "Reverse SEO Strategy & Positive Content Authority Building",
-    result:
-      "ผลักดันข่าวเสียให้พ้นจากหน้าแรก (Top 10) และทดแทนด้วยข้อมูลที่เป็นกลาง",
-    impact: "ยอดขายและระดับความไว้วางใจของลูกค้ากลับมาเป็นปกติ",
+    result: "ผลักดันข่าวเสียให้พ้นจากหน้าแรก (Top 10) สำเร็จภายใน 6 เดือน",
+    impact: "ระดับความไว้วางใจของนักลงทุนและลูกค้ากลับมาเป็นปกติ",
     image: "/images/cases/seo-push.webp",
     contentPath: "seo-push-negative-news.mdx",
-    date: "2026-01-18",
+    date: "2026-01-16",
   },
   {
-    slug: "privacy-legal-protection",
-    title: "คุ้มครองความเป็นส่วนตัวตามกฎหมาย PDPA",
-    category: "Legal",
-    incident: "การนำข้อมูลส่วนบุคคลไปใช้โดยไม่ได้รับอนุญาตในลักษณะที่เสียหาย",
-    protocol: "Legal Enforcement & Data Controller Compliance Notice",
-    result: "ผู้ควบคุมข้อมูลดำเนินการลบและทำลายข้อมูลตามคำร้องขอ",
-    impact: "ปกป้องสิทธิขั้นพื้นฐานและความปลอดภัยของข้อมูลส่วนบุคคล",
-    image: "/images/cases/privacy-legal.webp",
-    contentPath: "right-to-be-forgotten-thailand-pdpa.mdx",
-    date: "2026-01-20",
+    slug: "negotiation-drama",
+    title: "ยุติเหตุการณ์ดราม่าออนไลน์ด้วยการเจรจาเชิงยุทธวิธี",
+    category: "Crisis Management",
+    incident: "ประเด็นความเข้าใจผิดในตัวสินค้าลุกลามจนเกิดการประจานในกลุ่มใหญ่",
+    protocol: "Strategic Mediation & The Neutral Liaison Protocol",
+    result: "คู่กรณียอมรับข้อเสนอและลบโพสต์ต้นทางด้วยความเต็มใจ",
+    impact: "เปลี่ยนวิกฤตดราม่าให้เป็นโอกาสในการสร้างความเชื่อมั่น",
+    image: "/images/cases/negotiation-drama.webp",
+    contentPath: "online-drama-negotiation.mdx",
+    date: "2026-01-15",
   },
-];
+  {
+    slug: "remove-defamation-post",
+    title: "จัดการโพสต์หมิ่นประมาทและข้อมูลเท็จ (Fake News)",
+    category: "Individual",
+    incident: "บุคคลถูกโจมตีด้วยข้อมูลบิดเบือนในกลุ่มสาธารณะจนกระทบงานประมูล",
+    protocol: "Crisis Response Protocol & Platform Escalation",
+    result: "เนื้อหาถูกถอดถอนถาวรและล้างประวัติจาก Google Cache",
+    impact: "ยุติการแพร่กระจายของข่าวปลอมและกู้คืนความยุติธรรม",
+    image: "/images/cases/defamation-removal.webp",
+    contentPath: "remove-defamation-post.mdx",
+    date: "2026-01-14",
+  },
+  {
+    slug: "clear-blacklist-misunderstand",
+    title: "เคลียร์ชื่อจากเว็บแบล็กลิสต์ที่เกิดจากความเข้าใจผิด",
+    category: "Blacklist Removal",
+    incident: "ชื่อติดเว็บเช็กโกงเนื่องจากการโอนเงินล่าช้าจากระบบธนาคารขัดข้อง",
+    protocol: "Right to be Forgotten Liaison & PDPA Enforcement",
+    result: "ดำเนินการลบชื่อสำเร็จทั้งในระดับเว็บไซต์ต้นทางและ Google",
+    impact: "ล้างประวัติขาวสะอาด พร้อมสำหรับการสมัครงานและทำธุรกิจ",
+    image: "/images/cases/blacklist-clear.webp",
+    contentPath: "clear-blacklist-misunderstand.mdx",
+    date: "2026-01-11",
+  },
+]
 
 /**
- * ดึงข้อมูล Case Studies ทั้งหมด (Async เพื่อรองรับการขยายเป็น Database ในอนาคต)
- * ฟังก์ชันนี้จำเป็นสำหรับ app/sitemap.ts
+ * [GET] ดึงข้อมูล Case Studies ทั้งหมด (Sort ตามวันที่ล่าสุด)
  */
 export async function getAllCases(): Promise<CaseStudy[]> {
-  return caseStudies;
+  try {
+    return [...caseStudies].sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    )
+  } catch (error) {
+    console.error("[CASE_LIB_ERROR] Fetching all cases:", error)
+    return []
+  }
 }
 
 /**
- * ดึงข้อมูล Case Study ตาม Slug
+ * [GET] ดึงข้อมูล Case Study ตาม Slug
  */
-export async function getCaseBySlug(slug: string): Promise<CaseStudy | undefined> {
-  return caseStudies.find((item) => item.slug === slug);
+export async function getCaseBySlug(
+  slug: string
+): Promise<CaseStudy | undefined> {
+  try {
+    if (!slug) return undefined
+    return caseStudies.find((item) => item.slug === slug)
+  } catch (error) {
+    console.error(`[CASE_LIB_ERROR] Fetching case by slug ${slug}:`, error)
+    return undefined
+  }
+}
+
+/**
+ * [GET] ดึงข้อมูล Case Studies ที่เกี่ยวข้อง (ยกเว้น Slug ปัจจุบัน)
+ */
+export async function getRelatedCases(
+  currentSlug: string,
+  limit: number = 3
+): Promise<CaseStudy[]> {
+  try {
+    return caseStudies
+      .filter((item) => item.slug !== currentSlug)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, limit)
+  } catch (error) {
+    console.error("[CASE_LIB_ERROR] Fetching related cases:", error)
+    return []
+  }
 }

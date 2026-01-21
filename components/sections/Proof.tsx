@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { motion } from "framer-motion"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import {
   CheckCircle2,
   Clock,
@@ -11,10 +11,10 @@ import {
   ArrowUpRight,
   Fingerprint,
   Activity,
-} from "lucide-react";
+} from "lucide-react"
 
 /**
- * 
+ *
  * Case Studies Data (Strategic Archive)
  * ยึดหลัก Confidentiality Protocol: ไม่ระบุชื่อจริง แต่เน้นกระบวนการและผลลัพธ์เชิงประจักษ์
  */
@@ -44,13 +44,13 @@ const cases = [
     result: "ผลักดันข้อมูลลบตกไปอยู่ที่หน้า 5+ ของผลการค้นหา",
     impact: "Sales Normalization",
   },
-];
+]
 
 export default function Proof() {
   return (
     <section
       id="proof"
-      className="relative overflow-hidden bg-background py-24 lg:py-40"
+      className="bg-background relative overflow-hidden py-24 lg:py-40"
     >
       {/* 01: Operational Background Decor - Tactical Grid */}
       <div
@@ -60,7 +60,7 @@ export default function Proof() {
         <div className="h-full w-full bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:40px_40px]" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-6">
+      <div className="relative z-10 container mx-auto px-6">
         {/* 02: Strategic Header Segment */}
         <div className="mx-auto mb-20 max-w-4xl text-center">
           <motion.div
@@ -72,28 +72,28 @@ export default function Proof() {
             <div className="mb-6 flex items-center justify-center gap-3">
               <Badge
                 variant="outline"
-                className="border-primary/30 bg-primary/5 px-4 py-1.5 font-mono text-[10px] tracking-[0.2em] text-primary uppercase"
+                className="border-primary/30 bg-primary/5 text-primary px-4 py-1.5 font-mono text-[10px] tracking-[0.2em] uppercase"
               >
                 Proven Track Record
               </Badge>
               <div className="flex items-center gap-1.5 opacity-30">
-                <Activity className="h-3 w-3 animate-pulse text-primary" />
+                <Activity className="text-primary h-3 w-3 animate-pulse" />
                 <span className="font-mono text-[8px] tracking-tighter uppercase">
                   Archive Verified
                 </span>
               </div>
             </div>
 
-            <h2 className="mb-8 text-4xl font-extrabold tracking-tighter text-foreground md:text-6xl lg:text-7xl leading-tight">
+            <h2 className="text-foreground mb-8 text-4xl leading-tight font-extrabold tracking-tighter md:text-6xl lg:text-7xl">
               กรณีศึกษา <br />
-              <span className="text-3xl font-light italic text-muted-foreground md:text-5xl lg:text-6xl">
+              <span className="text-muted-foreground text-3xl font-light italic md:text-5xl lg:text-6xl">
                 และการบริหารจัดการวิกฤต
               </span>
             </h2>
 
-            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground/80 md:text-xl">
+            <p className="text-muted-foreground/80 mx-auto max-w-2xl text-lg leading-relaxed md:text-xl">
               เพื่อความเป็นส่วนตัวสูงสุด ข้อมูลทั้งหมดถูกจัดทำในรูปแบบนิรนาม{" "}
-              <span className="font-bold text-foreground">(Anonymized)</span>{" "}
+              <span className="text-foreground font-bold">(Anonymized)</span>{" "}
               นี่คือหลักฐานเชิงประจักษ์ในประสิทธิภาพของกระบวนการถอดถอนข้อมูลเชิงเทคนิคของเรา
             </p>
           </motion.div>
@@ -113,12 +113,12 @@ export default function Proof() {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              <Card className="group relative h-full overflow-hidden border-border/50 bg-muted/5 transition-all duration-500 hover:border-primary/40 hover:bg-muted/10 hover:shadow-2xl hover:shadow-primary/5">
+              <Card className="group border-border/50 bg-muted/5 hover:border-primary/40 hover:bg-muted/10 hover:shadow-primary/5 relative h-full overflow-hidden transition-all duration-500 hover:shadow-2xl">
                 <CardHeader className="p-8 pb-4">
                   <div className="mb-6 flex items-center justify-between">
-                    <div className="flex items-center gap-2 transition-colors group-hover:text-primary">
-                      <Fingerprint className="h-4 w-4 text-primary/40 group-hover:text-primary/70" />
-                      <span className="font-mono text-[10px] font-black tracking-widest text-muted-foreground uppercase">
+                    <div className="group-hover:text-primary flex items-center gap-2 transition-colors">
+                      <Fingerprint className="text-primary/40 group-hover:text-primary/70 h-4 w-4" />
+                      <span className="text-muted-foreground font-mono text-[10px] font-black tracking-widest uppercase">
                         LOG: {item.category}
                       </span>
                     </div>
@@ -126,7 +126,7 @@ export default function Proof() {
                       <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold leading-tight text-foreground transition-colors group-hover:text-primary md:text-2xl">
+                  <h3 className="text-foreground group-hover:text-primary text-xl leading-tight font-bold transition-colors md:text-2xl">
                     {item.title}
                   </h3>
                 </CardHeader>
@@ -134,25 +134,25 @@ export default function Proof() {
                 <CardContent className="space-y-6 p-8 pt-2">
                   <div className="space-y-4">
                     {/* Initial Incident Section */}
-                    <div className="flex items-start gap-4 border-l border-destructive/20 pl-4 transition-colors group-hover:border-destructive/40">
-                      <ShieldAlert className="mt-1 h-4 w-4 shrink-0 text-destructive/60" />
+                    <div className="border-destructive/20 group-hover:border-destructive/40 flex items-start gap-4 border-l pl-4 transition-colors">
+                      <ShieldAlert className="text-destructive/60 mt-1 h-4 w-4 shrink-0" />
                       <div>
-                        <p className="mb-1 text-[10px] font-black tracking-widest text-destructive/80 uppercase">
+                        <p className="text-destructive/80 mb-1 text-[10px] font-black tracking-widest uppercase">
                           Initial Incident
                         </p>
-                        <p className="text-sm leading-relaxed text-muted-foreground/90">
+                        <p className="text-muted-foreground/90 text-sm leading-relaxed">
                           {item.problem}
                         </p>
                       </div>
                     </div>
                     {/* Strategic Protocol Section */}
-                    <div className="flex items-start gap-4 border-l border-primary/20 pl-4 transition-colors group-hover:border-primary/40">
-                      <Search className="mt-1 h-4 w-4 shrink-0 text-primary/60" />
+                    <div className="border-primary/20 group-hover:border-primary/40 flex items-start gap-4 border-l pl-4 transition-colors">
+                      <Search className="text-primary/60 mt-1 h-4 w-4 shrink-0" />
                       <div>
-                        <p className="mb-1 text-[10px] font-black tracking-widest text-primary/80 uppercase">
+                        <p className="text-primary/80 mb-1 text-[10px] font-black tracking-widest uppercase">
                           Strategic Protocol
                         </p>
-                        <p className="text-sm leading-relaxed text-muted-foreground/90">
+                        <p className="text-muted-foreground/90 text-sm leading-relaxed">
                           {item.solution}
                         </p>
                       </div>
@@ -160,25 +160,25 @@ export default function Proof() {
                   </div>
 
                   {/* Operational Verification Panel */}
-                  <div className="relative mt-8 overflow-hidden rounded-[1.5rem] border border-primary/20 bg-primary/5 p-6 backdrop-blur-sm transition-all group-hover:bg-primary/10">
+                  <div className="border-primary/20 bg-primary/5 group-hover:bg-primary/10 relative mt-8 overflow-hidden rounded-[1.5rem] border p-6 backdrop-blur-sm transition-all">
                     <div className="relative z-10">
                       <div className="mb-3 flex items-center gap-2">
                         <Badge
                           variant="outline"
-                          className="h-5 border-primary/20 bg-background/50 px-2 font-mono text-[9px] font-black tracking-widest text-primary uppercase"
+                          className="border-primary/20 bg-background/50 text-primary h-5 px-2 font-mono text-[9px] font-black tracking-widest uppercase"
                         >
                           <Clock className="mr-1.5 h-3 w-3" />
                           Validated Result
                         </Badge>
                       </div>
-                      <p className="text-lg font-black tracking-tight text-foreground md:text-xl">
+                      <p className="text-foreground text-lg font-black tracking-tight md:text-xl">
                         {item.result}
                       </p>
-                      <div className="mt-4 flex items-center justify-between border-t border-primary/10 pt-4">
-                        <span className="font-mono text-[9px] font-bold italic tracking-[0.2em] text-muted-foreground/50 uppercase">
+                      <div className="border-primary/10 mt-4 flex items-center justify-between border-t pt-4">
+                        <span className="text-muted-foreground/50 font-mono text-[9px] font-bold tracking-[0.2em] uppercase italic">
                           Effect: {item.impact}
                         </span>
-                        <ArrowUpRight className="h-4 w-4 text-primary/30 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                        <ArrowUpRight className="text-primary/30 h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                       </div>
                     </div>
                   </div>
@@ -196,20 +196,20 @@ export default function Proof() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-24 text-center"
         >
-          <div className="group inline-flex cursor-default items-center gap-3 rounded-full border border-border/40 bg-muted/10 px-8 py-3 text-[10px] font-black tracking-[0.3em] text-muted-foreground/60 transition-all hover:border-primary/30 hover:text-primary uppercase">
+          <div className="group border-border/40 bg-muted/10 text-muted-foreground/60 hover:border-primary/30 hover:text-primary inline-flex cursor-default items-center gap-3 rounded-full border px-8 py-3 text-[10px] font-black tracking-[0.3em] uppercase transition-all">
             <ShieldAlert className="h-4 w-4 transition-transform group-hover:scale-110" />
             Operational Integrity First Policy
           </div>
-          <p className="mx-auto mt-8 max-w-2xl text-xs font-medium italic leading-relaxed text-muted-foreground/40">
+          <p className="text-muted-foreground/40 mx-auto mt-8 max-w-2xl text-xs leading-relaxed font-medium italic">
             * ผลลัพธ์เชิงสถิติอ้างอิงจากข้อมูลปฏิบัติการจริง
             อย่างไรก็ตามความสำเร็จขึ้นอยู่กับความซับซ้อนของ Metadata ในแต่ละเคส{" "}
             <br />
             เราดำเนินการวิเคราะห์ความเป็นไปได้ทางเทคนิค (Technical Feasibility
             Audit) เป็นรายกรณีเพื่อความโปร่งใสสูงสุด
           </p>
-          <div className="mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+          <div className="via-primary/20 mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent to-transparent" />
         </motion.div>
       </div>
     </section>
-  );
+  )
 }

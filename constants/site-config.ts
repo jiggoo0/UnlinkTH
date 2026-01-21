@@ -1,4 +1,4 @@
-import { SiteConfig } from "@/types";
+import { SiteConfig } from "@/types"
 
 /**
  * UNLINK-TH | Global Configuration Matrix (2026 Optimized)
@@ -11,7 +11,7 @@ export const siteConfig: SiteConfig = {
     "บริการรับลบข่าวเสียและข้อมูลออนไลน์แบบถาวร โดยผู้เชี่ยวชาญ De-indexing กู้คืนชื่อเสียง ลบกระทู้ Pantip ลบรูปหลุด และประวัติอาชญากรรมออนไลน์ ด้วยวิธีทางเทคนิคและกฎหมาย PDPA ปลอดภัย 100%",
 
   url: "https://www.unlink-th.com",
-  ogImage: "/images/og-main.jpg",
+  ogImage: "/images/og-main.png",
 
   locale: "th_TH",
   language: "th",
@@ -82,4 +82,4 @@ export const siteConfig: SiteConfig = {
     trustNote:
       "Technical Assessment: เราประเมิน 'โอกาสสำเร็จ' ให้คุณทราบก่อนเริ่มงาน หากทำไม่ได้ เราแจ้งตามตรง ไม่เลี้ยงไข้",
   },
-};
+}

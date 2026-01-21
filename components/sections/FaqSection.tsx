@@ -1,22 +1,17 @@
-"use client";
+"use client"
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
-import {
-  Terminal,
-  ShieldQuestion,
-  Fingerprint,
-  Activity,
-} from "lucide-react";
-import { motion } from "framer-motion";
+} from "@/components/ui/accordion"
+import { Badge } from "@/components/ui/badge"
+import { Terminal, ShieldQuestion, Fingerprint, Activity } from "lucide-react"
+import { motion } from "framer-motion"
 
 /**
- * 
+ *
  * FAQ Data Strategy:
  * ข้อมูลคำถามที่พบบ่อยที่ถูกออกแบบมาเพื่อไขข้อสงสัยเชิงเทคนิคและความปลอดภัยของข้อมูล
  */
@@ -45,12 +40,12 @@ const faqs = [
     answer:
       "ค่าใช้จ่ายจะถูกประเมินตามความยากง่ายเชิงเทคนิค จำนวน URL และระดับความเสียหาย ข้อมูลราคาจะถูกเสนออย่างโปร่งใสหลังจาก Specialist ได้ทำการประเมินความเป็นไปได้เชิงเทคนิค (Technical Feasibility Audit) เบื้องต้นแล้วเท่านั้น",
   },
-];
+]
 
 export default function FaqSection() {
   return (
     <section className="relative w-full py-24 lg:py-32">
-      <div className="container relative z-10 mx-auto px-6">
+      <div className="relative z-10 container mx-auto px-6">
         <div className="grid gap-16 lg:grid-cols-12">
           {/* 01: Strategy Header Segment - Authority & Context */}
           <div className="lg:col-span-5">
@@ -64,39 +59,39 @@ export default function FaqSection() {
               <div className="mb-6 flex items-center gap-3">
                 <Badge
                   variant="outline"
-                  className="border-primary/30 bg-primary/5 px-4 py-1.5 font-mono text-[10px] tracking-[0.2em] text-primary uppercase"
+                  className="border-primary/30 bg-primary/5 text-primary px-4 py-1.5 font-mono text-[10px] tracking-[0.2em] uppercase"
                 >
                   Knowledge Base
                 </Badge>
                 <div className="flex items-center gap-1.5 opacity-30">
-                  <Activity className="h-3 w-3 animate-pulse text-primary" />
+                  <Activity className="text-primary h-3 w-3 animate-pulse" />
                   <span className="font-mono text-[8px] tracking-tighter uppercase">
                     Query System Active
                   </span>
                 </div>
               </div>
 
-              <h2 className="mb-8 text-4xl font-extrabold tracking-tighter text-foreground md:text-6xl">
+              <h2 className="text-foreground mb-8 text-4xl font-extrabold tracking-tighter md:text-6xl">
                 คำถามที่พบบ่อย <br />
-                <span className="font-light italic text-muted-foreground">
+                <span className="text-muted-foreground font-light italic">
                   เชิงเทคนิคและระเบียบการ
                 </span>
               </h2>
 
-              <p className="mb-10 text-lg leading-relaxed text-muted-foreground/80 md:text-xl">
+              <p className="text-muted-foreground/80 mb-10 text-lg leading-relaxed md:text-xl">
                 เพื่อความโปร่งใสในกระบวนการจัดการ Digital Footprint
                 เราได้รวบรวมข้อสงสัยเบื้องต้นเกี่ยวกับระบบบริหารจัดการข้อมูลและมาตรการรักษาความปลอดภัย
               </p>
 
-              <div className="flex items-center gap-4 rounded-2xl border border-border/40 bg-muted/5 p-4 transition-colors hover:bg-muted/10">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-                  <ShieldQuestion className="h-6 w-6 text-primary" />
+              <div className="border-border/40 bg-muted/5 hover:bg-muted/10 flex items-center gap-4 rounded-2xl border p-4 transition-colors">
+                <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-xl">
+                  <ShieldQuestion className="text-primary h-6 w-6" />
                 </div>
                 <div>
-                  <span className="block font-mono text-[10px] font-black tracking-widest text-foreground uppercase">
+                  <span className="text-foreground block font-mono text-[10px] font-black tracking-widest uppercase">
                     Verified Protocol Docs
                   </span>
-                  <span className="text-[10px] italic text-muted-foreground">
+                  <span className="text-muted-foreground text-[10px] italic">
                     Last Updated: 2026.01.21
                   </span>
                 </div>
@@ -117,28 +112,28 @@ export default function FaqSection() {
                   <AccordionItem
                     key={faq.id}
                     value={faq.id}
-                    className="overflow-hidden rounded-[1.5rem] border border-border/40 bg-muted/5 px-6 transition-all hover:border-primary/20 hover:bg-muted/10 data-[state=open]:border-primary/30 data-[state=open]:bg-muted/15"
+                    className="border-border/40 bg-muted/5 hover:border-primary/20 hover:bg-muted/10 data-[state=open]:border-primary/30 data-[state=open]:bg-muted/15 overflow-hidden rounded-[1.5rem] border px-6 transition-all"
                   >
                     <AccordionTrigger className="group py-6 hover:no-underline">
                       <div className="flex items-center gap-5 text-left">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border/40 bg-background shadow-sm transition-all duration-300 group-hover:rotate-12 group-hover:border-primary/50 group-hover:bg-primary/5">
-                          <Terminal className="h-4 w-4 text-primary" />
+                        <div className="border-border/40 bg-background group-hover:border-primary/50 group-hover:bg-primary/5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border shadow-sm transition-all duration-300 group-hover:rotate-12">
+                          <Terminal className="text-primary h-4 w-4" />
                         </div>
-                        <span className="text-base font-bold tracking-tight text-foreground transition-colors group-hover:text-primary md:text-lg">
+                        <span className="text-foreground group-hover:text-primary text-base font-bold tracking-tight transition-colors md:text-lg">
                           {faq.question}
                         </span>
                       </div>
                     </AccordionTrigger>
 
-                    <AccordionContent className="pb-8 pl-[60px] pr-4">
-                      <div className="relative border-l-2 border-primary/20 pl-8">
-                        <div className="absolute -left-[5px] top-0 h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_rgba(var(--color-primary),0.5)]" />
-                        <p className="text-sm italic leading-loose text-muted-foreground/90 md:text-base">
+                    <AccordionContent className="pr-4 pb-8 pl-[60px]">
+                      <div className="border-primary/20 relative border-l-2 pl-8">
+                        <div className="bg-primary absolute top-0 -left-[5px] h-2 w-2 rounded-full shadow-[0_0_8px_rgba(var(--color-primary),0.5)]" />
+                        <p className="text-muted-foreground/90 text-sm leading-loose italic md:text-base">
                           {faq.answer}
                         </p>
 
                         <div className="mt-6 flex items-center gap-2 opacity-20">
-                          <Fingerprint className="h-3 w-3 text-primary" />
+                          <Fingerprint className="text-primary h-3 w-3" />
                           <span className="font-mono text-[8px] tracking-widest uppercase">
                             Confidential Solution Verified
                           </span>
@@ -152,19 +147,19 @@ export default function FaqSection() {
 
             {/* 03: Integrity Note - Visual Validation */}
             <div className="mt-12 flex items-center justify-center gap-4 text-center">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border/40 to-transparent" />
+              <div className="via-border/40 h-px flex-1 bg-gradient-to-r from-transparent to-transparent" />
               <div className="flex items-center gap-2 opacity-30">
-                <div className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_5px_rgba(var(--color-primary),0.5)]" />
-                <p className="font-mono text-[9px] font-bold tracking-[0.4em] uppercase text-muted-foreground">
+                <div className="bg-primary h-1.5 w-1.5 rounded-full shadow-[0_0_5px_rgba(var(--color-primary),0.5)]" />
+                <p className="text-muted-foreground font-mono text-[9px] font-bold tracking-[0.4em] uppercase">
                   Security Cleared Information Center
                 </p>
-                <div className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_5px_rgba(var(--color-primary),0.5)]" />
+                <div className="bg-primary h-1.5 w-1.5 rounded-full shadow-[0_0_5px_rgba(var(--color-primary),0.5)]" />
               </div>
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent via-border/40 to-transparent" />
+              <div className="via-border/40 h-px flex-1 bg-gradient-to-l from-transparent to-transparent" />
             </div>
           </div>
         </div>
       </div>
     </section>
-  );
+  )
 }

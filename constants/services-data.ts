@@ -1,9 +1,11 @@
-import { Service } from "@/types";
+import { Service } from "@/types"
 
 /**
- * UNLINK Services Data (2026 Optimized):
- * รวบรวมข้อมูลบริการที่ปรับจูน Keyword ให้ตรงกับ "ปัญหาที่คนไทยค้นหาจริง"
- * ใช้สำหรับแสดงผลในหน้าแรกและหน้าบริการรวม
+ * UNLINK-TH | Services Data (2026 Optimized Matrix)
+ * * ยุทธศาสตร์การนำเสนอ:
+ * 1. Action-Oriented Title: ใช้ Keyword ที่คนไทยค้นหาเพื่อแก้ปัญหาจริง
+ * 2. Strategic Pricing: ใช้โมเดล "Starting At" เพื่อคัดกรอง Lead และ "Success Fee" เพื่อปิดการขาย
+ * 3. Technical Authority: ใช้คำศัพท์เฉพาะทางเพื่อสร้างความแตกต่างจาก Agency ทั่วไป
  */
 export const servicesData: Service[] = [
   {
@@ -13,25 +15,30 @@ export const servicesData: Service[] = [
     shortDescription:
       "บริการถอดถอนรายชื่อ ข่าวอาชญากรรม และลิงก์ข่าวด้านลบออกจากหน้าแรก Google แบบถาวร ด้วยเทคนิควิศวกรรมข้อมูล",
     description:
-      "เจาะลึกโครงสร้าง Indexing ของ Google เพื่อตัดวงจรการค้นหาข่าวเสียที่ต้นตอ เราไม่ได้แค่ 'ดันลิงก์' แต่เราใช้เทคนิค 'De-indexing' เพื่อแจ้งให้ Google ถอดลิงก์ที่ไม่พึงประสงค์ออกจากฐานข้อมูลถาวร เหมาะสำหรับผู้ที่ต้องการล้างประวัติบนหน้า Search Engine ให้สะอาดบริสุทธิ์",
-    iconName: "Search", // ใช้ไอคอนสื่อถึงการค้นหา
+      "เจาะลึกโครงสร้าง Indexing ของ Google เพื่อตัดวงจรการค้นหาข่าวเสียที่ต้นตอ เราใช้เทคนิค De-indexing เพื่อแจ้งให้ Search Engine ถอดถอน URL ที่ไม่พึงประสงค์ออกจากฐานข้อมูลถาวร ไม่ใช่เพียงการทำ SEO ดันลิงก์ แต่เป็นการลบจุดเชื่อมโยงข้อมูลในระดับ Metadata",
+    iconName: "Search",
     category: "Technical",
     features: [
-      "Permanent De-indexing: ลบลิงก์ออกจาก Google Search ถาวร ไม่กลับมาแสดงซ้ำ",
-      "Negative News Removal: จัดการข่าวเสีย ข่าวคดีความเก่า หรือข่าวที่บิดเบือนข้อเท็จจริง",
-      "Metadata Cleansing: ล้างข้อมูล Cache ที่ตกค้างในระบบ เพื่อไม่ให้สืบค้นเจอแม้ผ่านไปนาน",
-      "Search Console Audit: ตรวจสอบสถานะ URL แบบ Real-time ยืนยันผลลัพธ์ด้วยหลักฐานทางเทคนิค",
+      "Permanent De-indexing: ลบลิงก์ออกจาก Google Search ถาวร",
+      "Negative News Removal: จัดการข่าวเสีย ข่าวคดีความเก่า หรือข่าวบิดเบือน",
+      "Metadata Cleansing: ล้างข้อมูล Cache ที่ตกค้างในระบบการค้นหา",
+      "Search Console Audit: ตรวจสอบสถานะ URL ยืนยันผลลัพธ์ทางเทคนิค",
     ],
+    priceInfo: {
+      startingAt: "15,000",
+      unit: "บาท / ลิงก์",
+      model: "Success Fee",
+    },
     metadata: {
-      title: "รับลบลิงก์ Google ลบข่าวเสีย และประวัติการค้นหา | UNLINK",
+      title: "รับลบลิงก์ Google ลบข่าวเสีย และประวัติการค้นหา | UNLINK-TH",
       description:
-        "บริการลบลิงก์ข่าวเสียออกจาก Google ถาวร ด้วยวิธี De-indexing ที่ปลอดภัยและเห็นผลจริง แก้ไขชื่อติด Google ลบประวัติที่ไม่ต้องการให้ใครเห็น",
+        "บริการลบลิงก์ข่าวเสียออกจาก Google ถาวร ด้วยวิธี De-indexing ที่ปลอดภัยและเห็นผลจริง แก้ไขชื่อติด Google ลบประวัติที่ไม่ต้องการ",
       keywords: [
         "รับลบลิงก์ Google",
         "ลบข่าวเสีย",
         "วิธีลบชื่อออกจาก Google",
         "จ้างลบประวัติ Google",
-        "De-indexing Service",
+        "De-indexing Service Thailand",
       ],
     },
   },
@@ -42,19 +49,25 @@ export const servicesData: Service[] = [
     shortDescription:
       "จัดการดราม่าออนไลน์ ลบกระทู้หมิ่นประมาทใน Pantip, Twitter (X) และรีวิวปลอมใน Google Maps",
     description:
-      "ปฏิบัติการระงับเหตุบนแพลตฟอร์มโซเชียลมีเดียโดยเฉพาะ ทีมงานของเราเชี่ยวชาญกฎชุมชน (Community Standards) ของแต่ละแพลตฟอร์ม ทั้ง Pantip, Facebook, Twitter และ TikTok เพื่อประสานงานแจ้งลบเนื้อหาที่ละเมิดสิทธิ หมิ่นประมาท หรือคุกคามความเป็นส่วนตัวอย่างเร่งด่วน",
-    iconName: "MessageCircle", // ใช้ไอคอนสื่อถึงโซเชียล/แชท
+      "ปฏิบัติการระงับเหตุบนแพลตฟอร์มโซเชียลมีเดียโดยเฉพาะ ทีมงานผู้เชี่ยวชาญกฎชุมชน (Community Standards) ประสานงานแจ้งลบเนื้อหาที่ละเมิดสิทธิ หมิ่นประมาท หรือคุกคามความเป็นส่วนตัวบน Pantip, Facebook, X และ Google Maps อย่างเร่งด่วน",
+    iconName: "MessageCircle",
     category: "Social",
     features: [
-      "Pantip & Forum Takedown: ประสานงานลบกระทู้ต้นทางและกระทู้ Archive ที่สร้างความเสียหาย",
-      "Review Management: แจ้งลบรีวิว 1 ดาว หรือรีวิวกลั่นแกล้งบน Google Maps และ Facebook Page",
-      "Social Media Crisis: จัดการโพสต์หมิ่นประมาท รูปหลุด หรือการ Doxing บน Twitter (X)",
-      "Account Reporting: รายงานปิดเพจปลอม หรือบัญชีอวตารที่สร้างขึ้นเพื่อโจมตีคุณ",
+      "Pantip & Forum Takedown: ประสานงานลบกระทู้ต้นทางและลิงก์ Archive",
+      "Review Management: แจ้งลบรีวิว 1 ดาว หรือการกลั่นแกล้งบน Google Maps",
+      "Social Media Crisis: จัดการโพสต์หมิ่นประมาท รูปหลุด หรือการ Doxing",
+      "Account Reporting: รายงานปิดเพจปลอม หรือบัญชีที่สร้างเพื่อโจมตี",
     ],
+    priceInfo: {
+      startingAt: "8,500",
+      unit: "บาท / รายการ",
+      model: "Fixed Rate",
+    },
     metadata: {
-      title: "รับลบกระทู้ Pantip ลบรีวิว Google Maps และดราม่าโซเชียล | UNLINK",
+      title:
+        "รับลบกระทู้ Pantip ลบรีวิว Google Maps และดราม่าโซเชียล | UNLINK-TH",
       description:
-        "บริการแจ้งลบกระทู้ Pantip ลบรีวิวแย่ๆ และจัดการดราม่าบน Twitter/Facebook ผู้เชี่ยวชาญกฎชุมชน ดำเนินการรวดเร็ว หยุดความเสียหายทันที",
+        "บริการแจ้งลบกระทู้ Pantip ลบรีวิวแย่ๆ และจัดการดราม่าบน Twitter/Facebook ดำเนินการรวดเร็ว หยุดความเสียหายทันที",
       keywords: [
         "ลบกระทู้ Pantip",
         "ลบรีวิว Google Maps",
@@ -71,19 +84,25 @@ export const servicesData: Service[] = [
     shortDescription:
       "คลีนประวัติออนไลน์ ลบชื่อจากเว็บประกาศจับ หรือ Blacklist เก่า เพื่อเตรียมพร้อมสมัครงานและทำธุรกิจ",
     description:
-      "บริการ 'Deep Clean' ประวัติออนไลน์สำหรับบุคคลที่ต้องการเริ่มต้นใหม่ เราตรวจสอบและดำเนินการลบชื่อของคุณออกจากเว็บไซต์ Blacklist (ที่เคลียร์จบแล้ว), เว็บประกาศจับเก่า หรือฐานข้อมูลสาธารณะที่อาจส่งผลกระทบต่อการพิจารณารับเข้าทำงาน (Background Check) หรือการขอสินเชื่อ",
-    iconName: "Fingerprint", // ใช้ไอคอนสื่อถึงอัตลักษณ์/ประวัติ
+      "บริการ Deep Clean ประวัติดิจิทัลสำหรับผู้ที่ต้องการเริ่มต้นใหม่ เราตรวจสอบและดำเนินการถอนชื่อจากเว็บไซต์ Blacklist, ข่าวคดีความเก่าที่สิ้นสุดแล้ว หรือฐานข้อมูลสาธารณะที่ส่งผลต่อการทำ Background Check และความน่าเชื่อถือทางธุรกิจ",
+    iconName: "Fingerprint",
     category: "Personal",
     features: [
-      "Blacklist Cleansing: ลบชื่อออกจากเว็บ Blacklist Online กรณีที่มีการชดใช้ค่าเสียหายแล้ว",
-      "Criminal Record Privacy: จัดการข่าวกระทำความผิดในอดีตที่ศาลตัดสินแล้ว หรือคดีสิ้นสุดแล้ว",
-      "Name-Check Pre-screening: ตรวจสอบความสะอาดของชื่อ-นามสกุลในระบบดิจิทัล ก่อนคุณไปสมัครงาน",
-      "Privacy Hardening: ตั้งค่าบัญชีส่วนตัวให้ปลอดภัยจากการถูกขุดประวัติย้อนหลัง",
+      "Blacklist Cleansing: ลบชื่อจากเว็บ Blacklist กรณีที่เคลียร์ภาระผูกพันแล้ว",
+      "Criminal Record Privacy: จัดการข่าวคดีความในอดีตที่สิ้นสุดผลทางกฎหมาย",
+      "Name-Check Pre-screening: ตรวจสอบความสะอาดของชื่อในระบบดิจิทัล",
+      "Privacy Hardening: ตั้งค่าความปลอดภัยเพื่อป้องกันการถูกขุดประวัติ",
     ],
+    priceInfo: {
+      startingAt: "19,500",
+      unit: "บาท / โปรเจกต์",
+      model: "Fixed Rate",
+    },
     metadata: {
-      title: "ลบประวัติอาชญากรรมออนไลน์ ลบชื่อ Blacklist ตรวจสอบประวัติ | UNLINK",
+      title:
+        "ลบประวัติอาชญากรรมออนไลน์ ลบชื่อ Blacklist ตรวจสอบประวัติ | UNLINK-TH",
       description:
-        "บริการคลีนประวัติออนไลน์ ลบชื่อจากเว็บ Blacklist และข่าวคดีความเก่า เตรียมตัวสมัครงานอย่างมั่นใจ กู้คืนความน่าเชื่อถือให้ชื่อเสียงของคุณ",
+        "บริการคลีนประวัติออนไลน์ ลบชื่อจากเว็บ Blacklist และข่าวคดีความเก่า เตรียมตัวสมัครงานอย่างมั่นใจ กู้คืนความน่าเชื่อถือ",
       keywords: [
         "ลบประวัติอาชญากรรมออนไลน์",
         "ลบชื่อ Blacklist",
@@ -100,19 +119,25 @@ export const servicesData: Service[] = [
     shortDescription:
       "ใช้กฎหมาย PDPA บังคับลบข้อมูล ดำเนินคดี พรบ.คอมฯ และใช้สิทธิ Right to be Forgotten",
     description:
-      "เมื่อเทคนิคทางไอทีต้องทำงานร่วมกับกฎหมาย เรามีทีมที่ปรึกษากฎหมายเชี่ยวชาญด้าน PDPA และ พรบ.คอมพิวเตอร์ ดำเนินการร่างหนังสือโนติส (Notice) ถึงผู้ควบคุมข้อมูล (Data Controller) หรือเว็บไซต์ต้นทาง เพื่อบังคับใช้สิทธิในการลบข้อมูล (Right to Erasure) ตามกฎหมายไทยอย่างเด็ดขาด",
-    iconName: "Scale", // ใช้ไอคอนสื่อถึงกฎหมาย
+      "ปฏิบัติการผ่านที่ปรึกษากฎหมายเชี่ยวชาญ PDPA และ พรบ.คอมพิวเตอร์ ดำเนินการร่างจดหมายโนติส (Notice) ถึงผู้ควบคุมข้อมูลเพื่อบังคับใช้สิทธิในการลบข้อมูล (Right to Erasure) ตามกฎหมายไทยอย่างเด็ดขาดและเป็นทางการ",
+    iconName: "Scale",
     category: "Legal",
     features: [
-      "Legal Notice Drafting: ร่างจดหมายเตือนและโนติสอย่างเป็นทางการโดยทนายความลิขสิทธิ์/PDPA",
-      "PDPA Enforcement: บังคับใช้สิทธิตามมาตรา 33-34 เพื่อขอให้ลบหรือระงับข้อมูลส่วนบุคคล",
-      "ISP & Platform Liaison: ประสานงานฝ่ายกฎหมายของ ISP หรือ Platform Provider เพื่อกดดันให้ลบข้อมูล",
-      "Right to be Forgotten: ดำเนินการทางกฎหมายเพื่อให้ข้อมูลของคุณ 'ถูกลืม' จากระบบดิจิทัลอย่างถูกต้อง",
+      "Legal Notice Drafting: ร่างจดหมายเตือนอย่างเป็นทางการโดยทนายความ",
+      "PDPA Enforcement: บังคับใช้สิทธิตามกฎหมายเพื่อระงับข้อมูลส่วนบุคคล",
+      "ISP & Platform Liaison: ประสานงานฝ่ายกฎหมายของ Platform Provider",
+      "Right to be Forgotten: ดำเนินการให้ข้อมูลถูกลืมจากระบบอย่างถูกต้อง",
     ],
+    priceInfo: {
+      startingAt: "12,000",
+      unit: "บาท / ครั้ง",
+      model: "Fixed Rate",
+    },
     metadata: {
-      title: "ทนาย PDPA รับปรึกษาสิทธิในการถูกลืม (Right to be Forgotten) | UNLINK",
+      title:
+        "ทนาย PDPA รับปรึกษาสิทธิในการถูกลืม (Right to be Forgotten) | UNLINK-TH",
       description:
-        "บริการทางกฎหมาย PDPA ยื่นโนติสบังคับลบข้อมูล ใช้สิทธิ Right to be Forgotten ดำเนินการโดยผู้เชี่ยวชาญกฎหมายดิจิทัลและ พรบ.คอมพิวเตอร์",
+        "บริการทางกฎหมาย PDPA ยื่นโนติสบังคับลบข้อมูล ใช้สิทธิ Right to be Forgotten ดำเนินการโดยผู้เชี่ยวชาญกฎหมายดิจิทัล",
       keywords: [
         "ทนาย PDPA",
         "สิทธิในการถูกลืม",
@@ -122,4 +147,4 @@ export const servicesData: Service[] = [
       ],
     },
   },
-];
+]

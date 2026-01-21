@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import { Badge } from "@/components/ui/badge";
-import FaqSection from "@/components/sections/FaqSection";
-import ContactCTA from "@/components/sections/ContactCTA";
+import type { Metadata } from "next"
+import { Badge } from "@/components/ui/badge"
+import FaqSection from "@/components/sections/FaqSection"
+import ContactCTA from "@/components/sections/ContactCTA"
 import {
   FileText,
   ShieldCheck,
@@ -9,10 +9,10 @@ import {
   HelpCircle,
   Activity,
   Fingerprint,
-} from "lucide-react";
+} from "lucide-react"
 
 /**
- * 
+ *
  * Metadata Optimization:
  * ออกแบบมาเพื่อสร้าง Authority และความชัดเจนในบริการ
  */
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
       "ไขข้อสงสัยเชิงเทคนิคเกี่ยวกับการจัดการชื่อเสียงและสิทธิในการถูกลืม",
     type: "website",
   },
-};
+}
 
 /**
  * FAQ Page - หน้าศูนย์รวมคำถามและระเบียบปฏิบัติการ
@@ -62,7 +62,7 @@ export default function FaqPage() {
               </div>
             </div>
 
-            <h1 className="text-foreground mb-8 text-5xl font-extrabold tracking-tighter md:text-7xl lg:text-8xl leading-tight">
+            <h1 className="text-foreground mb-8 text-5xl leading-tight font-extrabold tracking-tighter md:text-7xl lg:text-8xl">
               ความชัดเจน <br />
               <span className="text-muted-foreground text-4xl font-light italic md:text-6xl lg:text-7xl">
                 คือจุดเริ่มต้นของความไว้วางใจ
@@ -93,11 +93,11 @@ export default function FaqPage() {
           <div className="grid gap-8 md:grid-cols-3">
             {/* Guarantee Card */}
             <div className="group border-border/50 bg-background hover:border-primary/40 hover:shadow-primary/5 flex flex-col gap-6 rounded-[2rem] border p-8 transition-all duration-500 hover:shadow-xl">
-              <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:rotate-12 group-hover:bg-primary/20">
+              <div className="bg-primary/10 group-hover:bg-primary/20 flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:rotate-12">
                 <ShieldCheck className="text-primary h-6 w-6" />
               </div>
               <div>
-                <h3 className="mb-3 text-xl font-bold tracking-tight group-hover:text-primary transition-colors">
+                <h3 className="group-hover:text-primary mb-3 text-xl font-bold tracking-tight transition-colors">
                   การันตีความลับ
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
@@ -109,11 +109,11 @@ export default function FaqPage() {
 
             {/* Diagnosis Card */}
             <div className="group border-border/50 bg-background hover:border-primary/40 hover:shadow-primary/5 flex flex-col gap-6 rounded-[2rem] border p-8 transition-all duration-500 hover:shadow-xl">
-              <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:rotate-12 group-hover:bg-primary/20">
+              <div className="bg-primary/10 group-hover:bg-primary/20 flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:rotate-12">
                 <Clock className="text-primary h-6 w-6" />
               </div>
               <div>
-                <h3 className="mb-3 text-xl font-bold tracking-tight group-hover:text-primary transition-colors">
+                <h3 className="group-hover:text-primary mb-3 text-xl font-bold tracking-tight transition-colors">
                   ประเมินรวดเร็ว
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
@@ -125,11 +125,11 @@ export default function FaqPage() {
 
             {/* Transparency Card */}
             <div className="group border-border/50 bg-background hover:border-primary/40 hover:shadow-primary/5 flex flex-col gap-6 rounded-[2rem] border p-8 transition-all duration-500 hover:shadow-xl">
-              <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:rotate-12 group-hover:bg-primary/20">
+              <div className="bg-primary/10 group-hover:bg-primary/20 flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:rotate-12">
                 <FileText className="text-primary h-6 w-6" />
               </div>
               <div>
-                <h3 className="mb-3 text-xl font-bold tracking-tight group-hover:text-primary transition-colors">
+                <h3 className="group-hover:text-primary mb-3 text-xl font-bold tracking-tight transition-colors">
                   ความโปร่งใส
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
@@ -159,9 +159,9 @@ export default function FaqPage() {
       </section>
 
       {/* 04: Final Protocol CTA */}
-      <div className="border-border/40 border-t bg-muted/5">
+      <div className="border-border/40 bg-muted/5 border-t">
         <ContactCTA />
       </div>
     </div>
-  );
+  )
 }
