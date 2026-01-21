@@ -5,27 +5,29 @@ import { cn } from "@/lib/utils"
 import React from "react"
 
 /**
- * Custom MDX Components for Unlink-TH
- * กำหนดสไตล์มาตรฐานให้กับ Markdown Elements เพื่อให้เนื้อหาอ่านง่ายและดูเป็นมืออาชีพ
+ * Custom MDX Components for UNLINK-TH
+ * -------------------------------------------------------------------------
+ * กำหนดสไตล์มาตรฐานให้กับ Markdown Elements เพื่อความน่าเชื่อถือระดับผู้เชี่ยวชาญ
+ * ยุทธศาสตร์: High Contrast -> Clinical Readability -> Professional Branding
  */
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    // หัวข้อหลัก (Title ของบทความมักใช้ h1)
+    // หัวข้อหลัก: สำหรับ Title หรือบทนำสำคัญ
     h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
       <h1
         className={cn(
-          "mt-2 scroll-m-20 text-4xl font-extrabold tracking-tight text-slate-900 lg:text-5xl",
+          "text-foreground mt-2 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
           className
         )}
         {...props}
       />
     ),
 
-    // หัวข้อรอง (เช่น "ปัญหาที่พบ", "วิธีการจัดการ")
+    // หัวข้อรอง: ใช้แบ่ง Protocol หรือขั้นตอนการทำงานหลัก
     h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
       <h2
         className={cn(
-          "mt-12 scroll-m-20 border-b border-slate-100 pb-3 text-3xl font-bold tracking-tight text-slate-800 first:mt-0",
+          "text-foreground border-border mt-12 scroll-m-20 border-b pb-3 text-3xl font-bold tracking-tight first:mt-0",
           className
         )}
         {...props}
@@ -35,32 +37,32 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
       <h3
         className={cn(
-          "mt-10 scroll-m-20 text-2xl font-bold tracking-tight text-slate-800",
+          "text-foreground mt-10 scroll-m-20 text-2xl font-bold tracking-tight",
           className
         )}
         {...props}
       />
     ),
 
-    // เนื้อหา Paragraph
+    // เนื้อหา Paragraph: เน้นความสูงบรรทัด (Leading) เพื่อให้อ่านภาษาไทยได้สบายตา
     p: ({
       className,
       ...props
     }: React.HTMLAttributes<HTMLParagraphElement>) => (
       <p
         className={cn(
-          "leading-relaxed text-slate-600 [&:not(:first-child)]:mt-6",
+          "text-muted-foreground leading-relaxed [&:not(:first-child)]:mt-6",
           className
         )}
         {...props}
       />
     ),
 
-    // รายการแบบ Bullet Points (ใช้บ่อยในขั้นตอนการทำงาน)
+    // รายการแบบ Bullet Points: สำหรับรายการฟีเจอร์หรือเช็คลิสต์ทางเทคนิค
     ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
       <ul
         className={cn(
-          "my-6 ml-6 list-disc space-y-2 text-slate-600",
+          "text-muted-foreground my-6 ml-6 list-disc space-y-2",
           className
         )}
         {...props}
@@ -70,7 +72,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ol: ({ className, ...props }: React.HTMLAttributes<HTMLOListElement>) => (
       <ol
         className={cn(
-          "my-6 ml-6 list-decimal space-y-3 text-slate-600",
+          "text-muted-foreground my-6 ml-6 list-decimal space-y-3",
           className
         )}
         {...props}
@@ -81,34 +83,54 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <li className={cn("leading-7", className)} {...props} />
     ),
 
-    // Blockquote สำหรับข้อความสรุปหรือคำโปรย
+    // Blockquote: ออกแบบสไตล์ "Tactical Note" เพื่อเน้นย้ำจุดสำคัญหรือคำโปรย
     blockquote: ({
       className,
       ...props
     }: React.BlockquoteHTMLAttributes<HTMLQuoteElement>) => (
       <blockquote
         className={cn(
-          "mt-8 rounded-r-lg border-l-4 border-blue-600 bg-blue-50/50 py-4 pr-4 pl-6 text-slate-700 italic",
+          "border-primary bg-primary/5 text-foreground mt-8 rounded-r-lg border-l-4 py-6 pr-4 pl-6 italic shadow-sm",
           className
         )}
         {...props}
       />
     ),
 
-    // ส่วนเน้นข้อความ (Bold)
+    // ส่วนเน้นข้อความ
     strong: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
       <strong
-        className={cn("font-bold text-slate-900", className)}
+        className={cn("text-foreground font-bold italic", className)}
         {...props}
       />
     ),
 
-    // ✅ แก้ไข: ใช้ ComponentProps เพื่อดึง Type ที่ถูกต้องของ Badge แทนการใช้ any
-    Badge: ({ className, ...props }: React.ComponentProps<typeof Badge>) => (
-      <Badge className={cn("px-2 py-0.5", className)} {...props} />
+    // ลิงก์ภายในบทความ
+    a: ({
+      className,
+      ...props
+    }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+      <a
+        className={cn(
+          "text-primary decoration-primary/30 hover:decoration-primary underline underline-offset-4 transition-colors",
+          className
+        )}
+        {...props}
+      />
     ),
 
-    // typography component เสริม
+    // Custom Components
+    Badge: ({ className, ...props }: React.ComponentProps<typeof Badge>) => (
+      <Badge
+        variant="outline"
+        className={cn(
+          "bg-primary/5 px-2 py-0.5 font-mono text-[10px] tracking-wider uppercase",
+          className
+        )}
+        {...props}
+      />
+    ),
+
     Typography,
 
     ...components,

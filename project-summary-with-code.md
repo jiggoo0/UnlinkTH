@@ -3,37 +3,32 @@
 <!--
   Domain: www.unlink-th.com
   Canonical: https://www.unlink-th.com
-  Generated: 2026-01-21 08:26:51
+  Generated: 2026-01-21 10:37:01
   Type: Full Context & Code Analysis
 -->
 
-_Generated on: **2026-01-21 08:26:51**_
-
+_Generated on: **2026-01-21 10:37:01**_
 > **Project:** www.unlink-th.com
 > **URL:** https://www.unlink-th.com
 > **Status:** Production-Ready Analysis | Full System Context | De-indexing Focus
 
 ## 🔴 1. Project Health & Deployment Readiness
-
-⚠️ _Warning: `pre-deploy-report.md` not found. Run `pre-deploy-check.sh` for health metrics._
+⚠️ *Warning: `pre-deploy-report.md` not found. Run `pre-deploy-check.sh` for health metrics.*
 
 ## 📊 2. File Statistics by Extension
-
 ```text
      42 tsx
-      9 webp
-      8 ts
-      7 mdx
+     13 webp
+     10 mdx
+      9 ts
       6 sh
       2 png
       2 css
-      1 txt
       1 jpg
       1 ico
 ```
 
 ## 📁 3. Directory Structure (Architecture Tree)
-
 ```text
 📂 app/
   📂 about/
@@ -52,7 +47,6 @@ _Generated on: **2026-01-21 08:26:51**_
   📄 page.tsx
   📂 privacy/
     📄 page.tsx
-  📄 robots.txt
   📂 services/
     📂 [slug]/
       📄 page.tsx
@@ -60,6 +54,7 @@ _Generated on: **2026-01-21 08:26:51**_
   📄 sitemap.ts
   📂 editorial-policy/
     📄 page.tsx
+  📄 robots.ts
 📂 components/
   📂 seo/
     📄 JsonLd.tsx
@@ -117,15 +112,19 @@ _Generated on: **2026-01-21 08:26:51**_
     📂 cases/
       📄 blacklist-clear.webp
       📄 defamation-removal.webp
-      📄 negotiation-drama.webp
       📄 privacy-legal.webp
       📄 seo-push.webp
+      📄 unlink-th.webp
+      📄 negotiation-drama.webp
+    📄 unlink-th.webp
     📂 _store/
       📄 background-check-guide.webp
       📄 pdpa-cover.webp
       📄 seo-push-strategy.webp
     📂 service/
       📄 service.webp
+      📄 service1.webp
+      📄 unlink-th.webp
     📄 opengraph-image.png
     📄 og-main.png
 📂 constants/
@@ -137,20 +136,21 @@ _Generated on: **2026-01-21 08:26:51**_
     📄 how-to-fix-negative-google-search-results.mdx
     📄 online-background-check-for-job-application.mdx
     📄 right-to-be-forgotten-thailand-pdpa.mdx
+    📄 remove-social-media-content-pantip-twitter.mdx
   📂 case-studies/
     📄 clear-blacklist-misunderstand.mdx
     📄 online-drama-negotiation.mdx
     📄 remove-defamation-post.mdx
     📄 seo-push-negative-news.mdx
+    📄 remove-defamation-gambling-network.mdx
+    📄 remove-leaked-content-silent-angel.mdx
 📂 styles/
   📄 tokens.css
 ```
 
 ## 📄 4. Critical Code Analysis & Environment
-
 #### 🔍 Path: `AI-CONTEXT.md`
-
-````markdown
+```markdown
 > **Version:** 2.0.0 (Production Ready)
 > **Last Updated:** 2026-01-21
 > **Domain:** [www.unlink-th.com](https://www.unlink-th.com)
@@ -258,13 +258,12 @@ Reflecting services-data.ts and site-config.ts strategy.
  * Colors: Deep Navy, Slate Grey, Pure Black, Accents of Neon Green (Success/LINE) & Signal Blue (Trust).
  * Typography: Clean Sans-serif (Inter/Kanit).
  * Imagery: Abstract data flows, locks, shields, blurred documents. Avoid stock photos of "happy people shaking hands".
-```
-````
 
+```
+```
 ---
 
 #### 🔍 Path: `COMMUNICATION-DNA.md`
-
 ```markdown
 นี่คือไฟล์ COMMUNICATION-DNA.md ฉบับปรับปรุงละเอียด (Version 2.0) ที่ถูกจูนให้สอดคล้องกับ "Hybrid Strategy" ของคุณ คือการรักษาภาพลักษณ์ผู้เชี่ยวชาญ (Specialist) แต่ยังใช้คำที่ "คนไทยค้นหาจริง" (SEO Friendly) และมีความเข้าอกเข้าใจ (Empathy) เพื่อปิดการขายได้จริงครับ
 🧬 COMMUNICATION-DNA.md (Version 2.0)
@@ -334,11 +333,9 @@ Reflecting services-data.ts and site-config.ts strategy.
   บทสรุป:
   DNA ใหม่นี้คือการผสมผสานระหว่าง "ความเก่งกาจ" (Expertise) และ "ความเข้าใจมนุษย์" (Humanity) เราต้องทำให้ลูกค้ารู้สึกว่า "ที่นี่แหละ...คือที่พึ่งสุดท้ายที่ช่วยเขาได้จริง"
 ```
-
 ---
 
 #### 🔍 Path: `app/globals.css`
-
 ```css
 /* app/globals.css */
 /* =========================================================
@@ -445,11 +442,9 @@ Reflecting services-data.ts and site-config.ts strategy.
   }
 }
 ```
-
 ---
 
 #### 🔍 Path: `styles/tokens.css`
-
 ```css
 /* ========================================
    DESIGN TOKENS — UNLINK BRAND IDENTITY
@@ -491,11 +486,9 @@ Reflecting services-data.ts and site-config.ts strategy.
   --duration-base: 300ms;
 }
 ```
-
 ---
 
 #### 🔍 Path: `app/layout.tsx`
-
 ```typescript
 import type { Metadata, Viewport } from "next"
 import { Inter, Noto_Sans_Thai, JetBrains_Mono } from "next/font/google"
@@ -507,10 +500,9 @@ import { cn } from "@/lib/utils"
 import "./globals.css"
 
 /**
- *
- * * Font Configuration:
- * แยก Sans (English), Noto (Thai), และ Mono เพื่อความคมชัดระดับ Clinical
- * สอดคล้องกับภาพลักษณ์ผู้เชี่ยวชาญเฉพาะทาง
+ * Font Configuration:
+ * 1. ลดจำนวน Weights ของ Noto Sans Thai เพื่อประหยัด Bandwidth และลดขนาดไฟล์ Glyphs
+ * 2. ใช้ font-display: optional สำหรับ Mono เพื่อไม่ให้แย่ง Bandwidth ช่วงแรก
  */
 const inter = Inter({
   subsets: ["latin"],
@@ -522,17 +514,17 @@ const notoThai = Noto_Sans_Thai({
   subsets: ["thai"],
   variable: "--font-thai",
   display: "swap",
-  weight: ["300", "400", "500", "700"],
+  weight: ["400", "700"], // 🛑 ปรับลดเหลือเฉพาะ Regular และ Bold เพื่อเพิ่มความเร็วในการโหลด
 })
 
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-  display: "swap",
+  display: "optional", // ⚡ ป้องกัน Layout Shift และประหยัดทรัพยากรบนมือถือ
 })
 
 export const viewport: Viewport = {
-  themeColor: "#05070a", // Obsidian Black จาก DNA แบรนด์
+  themeColor: "#05070a", // Obsidian Black จาก Brand DNA
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -546,9 +538,9 @@ export const metadata: Metadata = {
   },
   description: siteConfig.seo.defaultDescription,
   keywords: siteConfig.seo.keywords,
-  authors: [{ name: "UNLINK Digital Fixers", url: siteConfig.url }],
-  creator: "UNLINK",
-  publisher: "UNLINK",
+  authors: [{ name: "UNLINK-TH Specialist", url: siteConfig.url }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
   formatDetection: {
     email: false,
     address: false,
@@ -567,7 +559,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "th_TH",
+    locale: siteConfig.locale,
     url: siteConfig.url,
     title: siteConfig.seo.defaultTitle,
     description: siteConfig.seo.defaultDescription,
@@ -577,7 +569,7 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "UNLINK Digital Reputation & Data Privacy Management",
+        alt: `${siteConfig.name} - Ultimate Privacy & Data Erasure`,
       },
     ],
   },
@@ -600,8 +592,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   /**
-   * Organization Schema: ปรับเป็น ProfessionalService
-   * เพื่อสร้าง Trust ในฐานะผู้เชี่ยวชาญเฉพาะทาง (Specialist Fixer)
+   * Organization Schema: ปรับเป็น ProfessionalService + LocalBusiness
+   * เพื่อสร้าง Rich Snippets และเสริมสร้าง E-E-A-T ผ่านการเชื่อมโยง Entity (sameAs)
    */
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -611,28 +603,38 @@ export default function RootLayout({
     url: siteConfig.url,
     logo: `${siteConfig.url}/images/Logo.jpg`,
     image: `${siteConfig.url}${siteConfig.ogImage}`,
+    priceRange: "$$$", // สื่อถึงบริการระดับ Premium/Specialist
+    telephone: siteConfig.contact.phone,
+    email: siteConfig.contact.email,
+    sameAs: [
+      siteConfig.links.facebook,
+      siteConfig.links.twitter,
+      siteConfig.links.line,
+    ],
     serviceType: [
       "Digital Reputation Management",
       "Data Privacy Solutions",
       "Content Suppression",
       "De-indexing Service",
+      "Online Crisis Management",
     ],
     address: {
       "@type": "PostalAddress",
+      addressLocality: "Bangkok",
       addressCountry: "TH",
     },
     knowsAbout: [
-      "PDPA",
+      "PDPA Thailand",
       "SEO Suppression",
       "Right to Erasure",
       "Right to be Forgotten",
-      "Digital Crisis Management",
+      "Digital Forensic Cleanup",
     ],
   }
 
   return (
     <html
-      lang="th"
+      lang={siteConfig.language}
       className={cn(
         "dark selection:bg-primary/20 selection:text-primary scroll-smooth",
         inter.variable,
@@ -643,14 +645,14 @@ export default function RootLayout({
     >
       <body
         className={cn(
-          "bg-background min-h-screen font-sans antialiased",
-          "font-thai" // บังคับใช้ Noto Sans Thai เป็นฟอนต์หลักสำหรับการอ่านเนื้อหา
+          "bg-background text-foreground min-h-screen font-sans antialiased",
+          "font-thai" // 🛡️ บังคับใช้ Noto Sans Thai เป็นฟอนต์หลักสำหรับการอ่านเนื้อหาภาษาไทย
         )}
       >
-        {/* Structured Data สำหรับช่วยในการทำ Rich Snippets */}
+        {/* Structured Data สำหรับส่งสัญญาณความน่าเชื่อถือให้ Google Search Console */}
         <JsonLd data={organizationSchema} />
 
-        {/* Main Application Container */}
+        {/* Tactical Layout Container */}
         <div className="relative flex min-h-screen flex-col">
           <Header />
 
@@ -663,11 +665,9 @@ export default function RootLayout({
   )
 }
 ```
-
 ---
 
 #### 🔍 Path: `app/page.tsx`
-
 ```typescript
 import type { Metadata } from "next"
 import { siteConfig } from "@/constants/site-config"
@@ -676,8 +676,7 @@ import HomeClientSections from "@/components/sections/HomeClientSections"
 import ContactCTA from "@/components/sections/ContactCTA"
 
 /**
- *
- * * Metadata Optimization:
+ * Metadata Optimization:
  * ยึดตามกลยุทธ์ "The Digital Fixer" เพื่อสร้าง Trust และ Authority ในหน้าแรก
  */
 export const metadata: Metadata = {
@@ -729,28 +728,27 @@ export default function HomePage() {
       </section>
 
       {/* 04: Atmospheric Engineering Layer (Background Decor) */}
+      {/* Performance Fix: ซ่อน Blur Effect บนมือถือเพื่อลด LCP Time */}
       <div
         className="pointer-events-none fixed inset-0 -z-10"
         aria-hidden="true"
       >
-        {/* Top Glow: สร้างมิติแสงบริเวณส่วนหัว */}
-        <div className="bg-primary/5 absolute top-[-5%] left-[-5%] h-[600px] w-[600px] rounded-full blur-[120px]" />
+        {/* Top Glow: สร้างมิติแสงบริเวณส่วนหัว (Desktop Only) */}
+        <div className="bg-primary/5 absolute top-[-5%] left-[-5%] hidden h-[600px] w-[600px] rounded-full blur-[120px] will-change-transform md:block" />
 
-        {/* Bottom Glow: สร้างมิติแสงบริเวณส่วนท้าย */}
-        <div className="bg-primary/10 absolute right-[-5%] bottom-[-5%] h-[500px] w-[500px] rounded-full blur-[100px]" />
+        {/* Bottom Glow: สร้างมิติแสงบริเวณส่วนท้าย (Desktop Only) */}
+        <div className="bg-primary/10 absolute right-[-5%] bottom-[-5%] hidden h-[500px] w-[500px] rounded-full blur-[100px] will-change-transform md:block" />
 
-        {/* Subtle Scanline Overlay สำหรับบรรยากาศ Technical Lab */}
+        {/* Subtle Scanline Overlay สำหรับบรรยากาศ Technical Lab (แสดงผลทุก Device เพราะเบามาก) */}
         <div className="h-full w-full bg-[linear-gradient(to_bottom,transparent_0%,rgba(255,255,255,0.01)_50%,transparent_100%)] bg-[size:100%_4px] opacity-20" />
       </div>
     </div>
   )
 }
 ```
-
 ---
 
 #### 🔍 Path: `types/index.ts`
-
 ```typescript
 /**
  * UNLINK-TH - Core Type Definitions (2026 Optimized)
@@ -758,8 +756,9 @@ export default function HomePage() {
  */
 
 // --- Shared Types ---
-/** * Category: หมวดหมู่หลักของบริการและกรณีศึกษา
- * เพิ่ม "Social" เพื่อรองรับบริการ Platform Removal (Pantip, Twitter, etc.)
+/**
+ * Category: หมวดหมู่หลักของบริการและกรณีศึกษา
+ * ใช้สำหรับการคัดกรอง (Filtering) และการจัดกลุ่มเนื้อหา
  */
 export type Category =
   | "Personal"
@@ -767,6 +766,14 @@ export type Category =
   | "Legal"
   | "Technical"
   | "Social"
+
+/**
+ * PriceModel: รูปแบบการคิดค่าบริการ
+ * - Success Fee: จ่ายเมื่อสำเร็จเท่านั้น (Key Selling Point ของ Unlink)
+ * - Fixed Rate: ราคาคงที่สำหรับงานมาตรฐาน
+ * - Retainer: รายเดือนสำหรับการเฝ้าระวัง (Monitoring)
+ */
+export type PriceModel = "Success Fee" | "Fixed Rate" | "Retainer"
 
 // --- Service Types ---
 export interface Service {
@@ -779,6 +786,15 @@ export interface Service {
   category: Category
   features: string[]
   content?: string // รองรับเนื้อหาแบบ MDX หรือ Plain Text
+
+  /** * priceInfo: ข้อมูลราคาเบื้องต้นสำหรับการประเมินของลูกค้า
+   */
+  priceInfo?: {
+    startingAt: string // เช่น "15,000"
+    unit: string // เช่น "บาท / ลิงก์" หรือ "บาท / เคส"
+    model: PriceModel
+  }
+
   metadata: {
     title: string
     description: string
@@ -812,7 +828,7 @@ export interface NavItem {
 // --- Global Site Configuration ---
 /**
  * SiteConfig: โครงสร้างข้อมูลหลักของเว็บไซต์
- * อัปเดตเพื่อรองรับระบบ Contact Deep Linking และ Social Network Links
+ * สอดคล้องกับไฟล์ constants/site-config.ts
  */
 export interface SiteConfig {
   name: string
@@ -823,14 +839,13 @@ export interface SiteConfig {
   language: string
   contact: {
     primaryChannel: string
-    lineUrl: string // ✅ เพิ่มเพื่อรองรับการเปิดแอป LINE โดยตรง
+    lineUrl: string
     lineId: string
-    phone: string // ✅ เพิ่มเพื่อให้ตรงกับข้อมูลจริงใน site-config.ts
-    email: string // ✅ เพิ่มเพื่อให้ตรงกับข้อมูลจริงใน site-config.ts
+    phone: string
+    email: string
     note: string
   }
   links: {
-    // ✅ เพิ่มส่วนนี้เพื่อรองรับ Social Icons ใน Footer
     facebook: string
     twitter: string
     line: string
@@ -858,11 +873,9 @@ export interface FAQItem {
   category?: string
 }
 ```
-
 ---
 
 #### 🔍 Path: `mdx-components.tsx`
-
 ```typescript
 import type { MDXComponents } from "mdx/types"
 import { Badge } from "@/components/ui/badge"
@@ -871,27 +884,29 @@ import { cn } from "@/lib/utils"
 import React from "react"
 
 /**
- * Custom MDX Components for Unlink-TH
- * กำหนดสไตล์มาตรฐานให้กับ Markdown Elements เพื่อให้เนื้อหาอ่านง่ายและดูเป็นมืออาชีพ
+ * Custom MDX Components for UNLINK-TH
+ * -------------------------------------------------------------------------
+ * กำหนดสไตล์มาตรฐานให้กับ Markdown Elements เพื่อความน่าเชื่อถือระดับผู้เชี่ยวชาญ
+ * ยุทธศาสตร์: High Contrast -> Clinical Readability -> Professional Branding
  */
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    // หัวข้อหลัก (Title ของบทความมักใช้ h1)
+    // หัวข้อหลัก: สำหรับ Title หรือบทนำสำคัญ
     h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
       <h1
         className={cn(
-          "mt-2 scroll-m-20 text-4xl font-extrabold tracking-tight text-slate-900 lg:text-5xl",
+          "text-foreground mt-2 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
           className
         )}
         {...props}
       />
     ),
 
-    // หัวข้อรอง (เช่น "ปัญหาที่พบ", "วิธีการจัดการ")
+    // หัวข้อรอง: ใช้แบ่ง Protocol หรือขั้นตอนการทำงานหลัก
     h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
       <h2
         className={cn(
-          "mt-12 scroll-m-20 border-b border-slate-100 pb-3 text-3xl font-bold tracking-tight text-slate-800 first:mt-0",
+          "text-foreground border-border mt-12 scroll-m-20 border-b pb-3 text-3xl font-bold tracking-tight first:mt-0",
           className
         )}
         {...props}
@@ -901,32 +916,32 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
       <h3
         className={cn(
-          "mt-10 scroll-m-20 text-2xl font-bold tracking-tight text-slate-800",
+          "text-foreground mt-10 scroll-m-20 text-2xl font-bold tracking-tight",
           className
         )}
         {...props}
       />
     ),
 
-    // เนื้อหา Paragraph
+    // เนื้อหา Paragraph: เน้นความสูงบรรทัด (Leading) เพื่อให้อ่านภาษาไทยได้สบายตา
     p: ({
       className,
       ...props
     }: React.HTMLAttributes<HTMLParagraphElement>) => (
       <p
         className={cn(
-          "leading-relaxed text-slate-600 [&:not(:first-child)]:mt-6",
+          "text-muted-foreground leading-relaxed [&:not(:first-child)]:mt-6",
           className
         )}
         {...props}
       />
     ),
 
-    // รายการแบบ Bullet Points (ใช้บ่อยในขั้นตอนการทำงาน)
+    // รายการแบบ Bullet Points: สำหรับรายการฟีเจอร์หรือเช็คลิสต์ทางเทคนิค
     ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
       <ul
         className={cn(
-          "my-6 ml-6 list-disc space-y-2 text-slate-600",
+          "text-muted-foreground my-6 ml-6 list-disc space-y-2",
           className
         )}
         {...props}
@@ -936,7 +951,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ol: ({ className, ...props }: React.HTMLAttributes<HTMLOListElement>) => (
       <ol
         className={cn(
-          "my-6 ml-6 list-decimal space-y-3 text-slate-600",
+          "text-muted-foreground my-6 ml-6 list-decimal space-y-3",
           className
         )}
         {...props}
@@ -947,52 +962,72 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <li className={cn("leading-7", className)} {...props} />
     ),
 
-    // Blockquote สำหรับข้อความสรุปหรือคำโปรย
+    // Blockquote: ออกแบบสไตล์ "Tactical Note" เพื่อเน้นย้ำจุดสำคัญหรือคำโปรย
     blockquote: ({
       className,
       ...props
     }: React.BlockquoteHTMLAttributes<HTMLQuoteElement>) => (
       <blockquote
         className={cn(
-          "mt-8 rounded-r-lg border-l-4 border-blue-600 bg-blue-50/50 py-4 pr-4 pl-6 text-slate-700 italic",
+          "border-primary bg-primary/5 text-foreground mt-8 rounded-r-lg border-l-4 py-6 pr-4 pl-6 italic shadow-sm",
           className
         )}
         {...props}
       />
     ),
 
-    // ส่วนเน้นข้อความ (Bold)
+    // ส่วนเน้นข้อความ
     strong: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
       <strong
-        className={cn("font-bold text-slate-900", className)}
+        className={cn("text-foreground font-bold italic", className)}
         {...props}
       />
     ),
 
-    // ✅ แก้ไข: ใช้ ComponentProps เพื่อดึง Type ที่ถูกต้องของ Badge แทนการใช้ any
-    Badge: ({ className, ...props }: React.ComponentProps<typeof Badge>) => (
-      <Badge className={cn("px-2 py-0.5", className)} {...props} />
+    // ลิงก์ภายในบทความ
+    a: ({
+      className,
+      ...props
+    }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+      <a
+        className={cn(
+          "text-primary decoration-primary/30 hover:decoration-primary underline underline-offset-4 transition-colors",
+          className
+        )}
+        {...props}
+      />
     ),
 
-    // typography component เสริม
+    // Custom Components
+    Badge: ({ className, ...props }: React.ComponentProps<typeof Badge>) => (
+      <Badge
+        variant="outline"
+        className={cn(
+          "bg-primary/5 px-2 py-0.5 font-mono text-[10px] tracking-wider uppercase",
+          className
+        )}
+        {...props}
+      />
+    ),
+
     Typography,
 
     ...components,
   }
 }
 ```
-
 ---
 
 #### 🔍 Path: `constants/navigation.ts`
-
 ```typescript
-import { siteConfig } from "./site-config"
-
 /**
- * Navigation Architecture - UNLINK-TH
+ * UNLINK-TH | Navigation Architecture
+ * -------------------------------------------------------------------------
  * ระบบการนำทางเชิงยุทธศาสตร์: ออกแบบเพื่อสร้างความเชื่อมั่น (Trust) และความปลอดภัย (Security)
+ * เรียงลำดับตาม User Journey: ค้นหาทางแก้ -> ดูหลักฐาน -> ตรวจสอบตัวตน -> เคลียร์ข้อสงสัย
  */
+
+import { siteConfig } from "./site-config"
 
 export interface NavItem {
   title: string
@@ -1003,7 +1038,7 @@ export interface NavItem {
 
 /**
  * Main Navigation (Primary Protocols)
- * เรียงลำดับตาม User Journey: ค้นหาทางแก้ -> ดูหลักฐาน -> ตรวจสอบตัวตน -> เคลียร์ข้อสงสัย
+ * รายการเมนูหลักที่แสดงบน Header ของเว็บไซต์
  */
 export const mainNav: NavItem[] = [
   {
@@ -1052,10 +1087,22 @@ export const footerNav = {
     },
   ] as NavItem[],
   support: [
-    { title: "Privacy Protocol", href: "/privacy" },
-    { title: "Editorial Policy", href: "/editorial-policy" }, // เพิ่มลิงก์นโยบายจริยธรรม
-    { title: "Operational FAQ", href: "/faq" },
-    { title: "Specialist Liaison", href: "/contact" },
+    {
+      title: "Privacy Protocol",
+      href: "/privacy",
+    },
+    {
+      title: "Editorial Policy",
+      href: "/editorial-policy",
+    },
+    {
+      title: "Operational FAQ",
+      href: "/faq",
+    },
+    {
+      title: "Specialist Liaison",
+      href: "/contact",
+    },
   ] as NavItem[],
   social: [
     {
@@ -1073,6 +1120,7 @@ export const footerNav = {
 
 /**
  * Operational Navigation Config
+ * การตั้งค่าเพิ่มเติมสำหรับการแสดงผลระบบนำทาง
  */
 export const navigationConfig = {
   stickyHeader: true,
@@ -1082,19 +1130,19 @@ export const navigationConfig = {
     "*ข้อมูลการสื่อสารทั้งหมดจะถูกทำลาย (Secure Purge) ทันทีหลังการประเมิน",
 }
 ```
-
 ---
 
 #### 🔍 Path: `constants/site-config.ts`
-
 ```typescript
-import { SiteConfig } from "@/types"
-
 /**
  * UNLINK-TH | Global Configuration Matrix (2026 Optimized)
+ * -------------------------------------------------------------------------
  * ศูนย์กลางการกำหนดค่า Metadata, SEO, และช่องทางสื่อสารสำหรับ www.unlink-th.com
  * ยุทธศาสตร์: Action-Oriented (เน้นผลลัพธ์) + Search Intent (ตรงใจคนค้นหา)
  */
+
+import { SiteConfig } from "@/types"
+
 export const siteConfig: SiteConfig = {
   name: "UNLINK-TH",
   description:
@@ -1174,19 +1222,21 @@ export const siteConfig: SiteConfig = {
   },
 }
 ```
-
 ---
 
 #### 🔍 Path: `constants/services-data.ts`
-
 ```typescript
+/**
+ * UNLINK-TH | Services Data (2026 Optimized Matrix)
+ * -------------------------------------------------------------------------
+ * ยุทธศาสตร์การนำเสนอ:
+ * 1. Action-Oriented Title: ใช้ Keyword ที่คนไทยค้นหาเพื่อแก้ปัญหาจริง
+ * 2. Strategic Pricing: ใช้โมเดล "Starting At" เพื่อคัดกรอง Lead และ "Success Fee" เพื่อปิดการขาย
+ * 3. Technical Authority: ใช้คำศัพท์เฉพาะทางเพื่อสร้างความแตกต่างจาก Agency ทั่วไป
+ */
+
 import { Service } from "@/types"
 
-/**
- * UNLINK Services Data (2026 Optimized):
- * รวบรวมข้อมูลบริการที่ปรับจูน Keyword ให้ตรงกับ "ปัญหาที่คนไทยค้นหาจริง"
- * ใช้สำหรับแสดงผลในหน้าแรกและหน้าบริการรวม
- */
 export const servicesData: Service[] = [
   {
     id: "ser-001",
@@ -1195,25 +1245,30 @@ export const servicesData: Service[] = [
     shortDescription:
       "บริการถอดถอนรายชื่อ ข่าวอาชญากรรม และลิงก์ข่าวด้านลบออกจากหน้าแรก Google แบบถาวร ด้วยเทคนิควิศวกรรมข้อมูล",
     description:
-      "เจาะลึกโครงสร้าง Indexing ของ Google เพื่อตัดวงจรการค้นหาข่าวเสียที่ต้นตอ เราไม่ได้แค่ 'ดันลิงก์' แต่เราใช้เทคนิค 'De-indexing' เพื่อแจ้งให้ Google ถอดลิงก์ที่ไม่พึงประสงค์ออกจากฐานข้อมูลถาวร เหมาะสำหรับผู้ที่ต้องการล้างประวัติบนหน้า Search Engine ให้สะอาดบริสุทธิ์",
-    iconName: "Search", // ใช้ไอคอนสื่อถึงการค้นหา
+      "เจาะลึกโครงสร้าง Indexing ของ Google เพื่อตัดวงจรการค้นหาข่าวเสียที่ต้นตอ เราใช้เทคนิค De-indexing เพื่อแจ้งให้ Search Engine ถอดถอน URL ที่ไม่พึงประสงค์ออกจากฐานข้อมูลถาวร ไม่ใช่เพียงการทำ SEO ดันลิงก์ แต่เป็นการลบจุดเชื่อมโยงข้อมูลในระดับ Metadata",
+    iconName: "Search",
     category: "Technical",
     features: [
-      "Permanent De-indexing: ลบลิงก์ออกจาก Google Search ถาวร ไม่กลับมาแสดงซ้ำ",
-      "Negative News Removal: จัดการข่าวเสีย ข่าวคดีความเก่า หรือข่าวที่บิดเบือนข้อเท็จจริง",
-      "Metadata Cleansing: ล้างข้อมูล Cache ที่ตกค้างในระบบ เพื่อไม่ให้สืบค้นเจอแม้ผ่านไปนาน",
-      "Search Console Audit: ตรวจสอบสถานะ URL แบบ Real-time ยืนยันผลลัพธ์ด้วยหลักฐานทางเทคนิค",
+      "Permanent De-indexing: ลบลิงก์ออกจาก Google Search ถาวร",
+      "Negative News Removal: จัดการข่าวเสีย ข่าวคดีความเก่า หรือข่าวบิดเบือน",
+      "Metadata Cleansing: ล้างข้อมูล Cache ที่ตกค้างในระบบการค้นหา",
+      "Search Console Audit: ตรวจสอบสถานะ URL ยืนยันผลลัพธ์ทางเทคนิค",
     ],
+    priceInfo: {
+      startingAt: "15,000",
+      unit: "บาท / ลิงก์",
+      model: "Success Fee",
+    },
     metadata: {
-      title: "รับลบลิงก์ Google ลบข่าวเสีย และประวัติการค้นหา | UNLINK",
+      title: "รับลบลิงก์ Google ลบข่าวเสีย และประวัติการค้นหา | UNLINK-TH",
       description:
-        "บริการลบลิงก์ข่าวเสียออกจาก Google ถาวร ด้วยวิธี De-indexing ที่ปลอดภัยและเห็นผลจริง แก้ไขชื่อติด Google ลบประวัติที่ไม่ต้องการให้ใครเห็น",
+        "บริการลบลิงก์ข่าวเสียออกจาก Google ถาวร ด้วยวิธี De-indexing ที่ปลอดภัยและเห็นผลจริง แก้ไขชื่อติด Google ลบประวัติที่ไม่ต้องการ",
       keywords: [
         "รับลบลิงก์ Google",
         "ลบข่าวเสีย",
         "วิธีลบชื่อออกจาก Google",
         "จ้างลบประวัติ Google",
-        "De-indexing Service",
+        "De-indexing Service Thailand",
       ],
     },
   },
@@ -1224,19 +1279,25 @@ export const servicesData: Service[] = [
     shortDescription:
       "จัดการดราม่าออนไลน์ ลบกระทู้หมิ่นประมาทใน Pantip, Twitter (X) และรีวิวปลอมใน Google Maps",
     description:
-      "ปฏิบัติการระงับเหตุบนแพลตฟอร์มโซเชียลมีเดียโดยเฉพาะ ทีมงานของเราเชี่ยวชาญกฎชุมชน (Community Standards) ของแต่ละแพลตฟอร์ม ทั้ง Pantip, Facebook, Twitter และ TikTok เพื่อประสานงานแจ้งลบเนื้อหาที่ละเมิดสิทธิ หมิ่นประมาท หรือคุกคามความเป็นส่วนตัวอย่างเร่งด่วน",
-    iconName: "MessageCircle", // ใช้ไอคอนสื่อถึงโซเชียล/แชท
+      "ปฏิบัติการระงับเหตุบนแพลตฟอร์มโซเชียลมีเดียโดยเฉพาะ ทีมงานผู้เชี่ยวชาญกฎชุมชน (Community Standards) ประสานงานแจ้งลบเนื้อหาที่ละเมิดสิทธิ หมิ่นประมาท หรือคุกคามความเป็นส่วนตัวบน Pantip, Facebook, X และ Google Maps อย่างเร่งด่วน",
+    iconName: "MessageCircle",
     category: "Social",
     features: [
-      "Pantip & Forum Takedown: ประสานงานลบกระทู้ต้นทางและกระทู้ Archive ที่สร้างความเสียหาย",
-      "Review Management: แจ้งลบรีวิว 1 ดาว หรือรีวิวกลั่นแกล้งบน Google Maps และ Facebook Page",
-      "Social Media Crisis: จัดการโพสต์หมิ่นประมาท รูปหลุด หรือการ Doxing บน Twitter (X)",
-      "Account Reporting: รายงานปิดเพจปลอม หรือบัญชีอวตารที่สร้างขึ้นเพื่อโจมตีคุณ",
+      "Pantip & Forum Takedown: ประสานงานลบกระทู้ต้นทางและลิงก์ Archive",
+      "Review Management: แจ้งลบรีวิว 1 ดาว หรือการกลั่นแกล้งบน Google Maps",
+      "Social Media Crisis: จัดการโพสต์หมิ่นประมาท รูปหลุด หรือการ Doxing",
+      "Account Reporting: รายงานปิดเพจปลอม หรือบัญชีที่สร้างเพื่อโจมตี",
     ],
+    priceInfo: {
+      startingAt: "8,500",
+      unit: "บาท / รายการ",
+      model: "Fixed Rate",
+    },
     metadata: {
-      title: "รับลบกระทู้ Pantip ลบรีวิว Google Maps และดราม่าโซเชียล | UNLINK",
+      title:
+        "รับลบกระทู้ Pantip ลบรีวิว Google Maps และดราม่าโซเชียล | UNLINK-TH",
       description:
-        "บริการแจ้งลบกระทู้ Pantip ลบรีวิวแย่ๆ และจัดการดราม่าบน Twitter/Facebook ผู้เชี่ยวชาญกฎชุมชน ดำเนินการรวดเร็ว หยุดความเสียหายทันที",
+        "บริการแจ้งลบกระทู้ Pantip ลบรีวิวแย่ๆ และจัดการดราม่าบน Twitter/Facebook ดำเนินการรวดเร็ว หยุดความเสียหายทันที",
       keywords: [
         "ลบกระทู้ Pantip",
         "ลบรีวิว Google Maps",
@@ -1253,20 +1314,25 @@ export const servicesData: Service[] = [
     shortDescription:
       "คลีนประวัติออนไลน์ ลบชื่อจากเว็บประกาศจับ หรือ Blacklist เก่า เพื่อเตรียมพร้อมสมัครงานและทำธุรกิจ",
     description:
-      "บริการ 'Deep Clean' ประวัติออนไลน์สำหรับบุคคลที่ต้องการเริ่มต้นใหม่ เราตรวจสอบและดำเนินการลบชื่อของคุณออกจากเว็บไซต์ Blacklist (ที่เคลียร์จบแล้ว), เว็บประกาศจับเก่า หรือฐานข้อมูลสาธารณะที่อาจส่งผลกระทบต่อการพิจารณารับเข้าทำงาน (Background Check) หรือการขอสินเชื่อ",
-    iconName: "Fingerprint", // ใช้ไอคอนสื่อถึงอัตลักษณ์/ประวัติ
+      "บริการ Deep Clean ประวัติดิจิทัลสำหรับผู้ที่ต้องการเริ่มต้นใหม่ เราตรวจสอบและดำเนินการถอนชื่อจากเว็บไซต์ Blacklist, ข่าวคดีความเก่าที่สิ้นสุดแล้ว หรือฐานข้อมูลสาธารณะที่ส่งผลต่อการทำ Background Check และความน่าเชื่อถือทางธุรกิจ",
+    iconName: "Fingerprint",
     category: "Personal",
     features: [
-      "Blacklist Cleansing: ลบชื่อออกจากเว็บ Blacklist Online กรณีที่มีการชดใช้ค่าเสียหายแล้ว",
-      "Criminal Record Privacy: จัดการข่าวกระทำความผิดในอดีตที่ศาลตัดสินแล้ว หรือคดีสิ้นสุดแล้ว",
-      "Name-Check Pre-screening: ตรวจสอบความสะอาดของชื่อ-นามสกุลในระบบดิจิทัล ก่อนคุณไปสมัครงาน",
-      "Privacy Hardening: ตั้งค่าบัญชีส่วนตัวให้ปลอดภัยจากการถูกขุดประวัติย้อนหลัง",
+      "Blacklist Cleansing: ลบชื่อจากเว็บ Blacklist กรณีที่เคลียร์ภาระผูกพันแล้ว",
+      "Criminal Record Privacy: จัดการข่าวคดีความในอดีตที่สิ้นสุดผลทางกฎหมาย",
+      "Name-Check Pre-screening: ตรวจสอบความสะอาดของชื่อในระบบดิจิทัล",
+      "Privacy Hardening: ตั้งค่าความปลอดภัยเพื่อป้องกันการถูกขุดประวัติ",
     ],
+    priceInfo: {
+      startingAt: "19,500",
+      unit: "บาท / โปรเจกต์",
+      model: "Fixed Rate",
+    },
     metadata: {
       title:
-        "ลบประวัติอาชญากรรมออนไลน์ ลบชื่อ Blacklist ตรวจสอบประวัติ | UNLINK",
+        "ลบประวัติอาชญากรรมออนไลน์ ลบชื่อ Blacklist ตรวจสอบประวัติ | UNLINK-TH",
       description:
-        "บริการคลีนประวัติออนไลน์ ลบชื่อจากเว็บ Blacklist และข่าวคดีความเก่า เตรียมตัวสมัครงานอย่างมั่นใจ กู้คืนความน่าเชื่อถือให้ชื่อเสียงของคุณ",
+        "บริการคลีนประวัติออนไลน์ ลบชื่อจากเว็บ Blacklist และข่าวคดีความเก่า เตรียมตัวสมัครงานอย่างมั่นใจ กู้คืนความน่าเชื่อถือ",
       keywords: [
         "ลบประวัติอาชญากรรมออนไลน์",
         "ลบชื่อ Blacklist",
@@ -1283,20 +1349,25 @@ export const servicesData: Service[] = [
     shortDescription:
       "ใช้กฎหมาย PDPA บังคับลบข้อมูล ดำเนินคดี พรบ.คอมฯ และใช้สิทธิ Right to be Forgotten",
     description:
-      "เมื่อเทคนิคทางไอทีต้องทำงานร่วมกับกฎหมาย เรามีทีมที่ปรึกษากฎหมายเชี่ยวชาญด้าน PDPA และ พรบ.คอมพิวเตอร์ ดำเนินการร่างหนังสือโนติส (Notice) ถึงผู้ควบคุมข้อมูล (Data Controller) หรือเว็บไซต์ต้นทาง เพื่อบังคับใช้สิทธิในการลบข้อมูล (Right to Erasure) ตามกฎหมายไทยอย่างเด็ดขาด",
-    iconName: "Scale", // ใช้ไอคอนสื่อถึงกฎหมาย
+      "ปฏิบัติการผ่านที่ปรึกษากฎหมายเชี่ยวชาญ PDPA และ พรบ.คอมพิวเตอร์ ดำเนินการร่างจดหมายโนติส (Notice) ถึงผู้ควบคุมข้อมูลเพื่อบังคับใช้สิทธิในการลบข้อมูล (Right to Erasure) ตามกฎหมายไทยอย่างเด็ดขาดและเป็นทางการ",
+    iconName: "Scale",
     category: "Legal",
     features: [
-      "Legal Notice Drafting: ร่างจดหมายเตือนและโนติสอย่างเป็นทางการโดยทนายความลิขสิทธิ์/PDPA",
-      "PDPA Enforcement: บังคับใช้สิทธิตามมาตรา 33-34 เพื่อขอให้ลบหรือระงับข้อมูลส่วนบุคคล",
-      "ISP & Platform Liaison: ประสานงานฝ่ายกฎหมายของ ISP หรือ Platform Provider เพื่อกดดันให้ลบข้อมูล",
-      "Right to be Forgotten: ดำเนินการทางกฎหมายเพื่อให้ข้อมูลของคุณ 'ถูกลืม' จากระบบดิจิทัลอย่างถูกต้อง",
+      "Legal Notice Drafting: ร่างจดหมายเตือนอย่างเป็นทางการโดยทนายความ",
+      "PDPA Enforcement: บังคับใช้สิทธิตามกฎหมายเพื่อระงับข้อมูลส่วนบุคคล",
+      "ISP & Platform Liaison: ประสานงานฝ่ายกฎหมายของ Platform Provider",
+      "Right to be Forgotten: ดำเนินการให้ข้อมูลถูกลืมจากระบบอย่างถูกต้อง",
     ],
+    priceInfo: {
+      startingAt: "12,000",
+      unit: "บาท / ครั้ง",
+      model: "Fixed Rate",
+    },
     metadata: {
       title:
-        "ทนาย PDPA รับปรึกษาสิทธิในการถูกลืม (Right to be Forgotten) | UNLINK",
+        "ทนาย PDPA รับปรึกษาสิทธิในการถูกลืม (Right to be Forgotten) | UNLINK-TH",
       description:
-        "บริการทางกฎหมาย PDPA ยื่นโนติสบังคับลบข้อมูล ใช้สิทธิ Right to be Forgotten ดำเนินการโดยผู้เชี่ยวชาญกฎหมายดิจิทัลและ พรบ.คอมพิวเตอร์",
+        "บริการทางกฎหมาย PDPA ยื่นโนติสบังคับลบข้อมูล ใช้สิทธิ Right to be Forgotten ดำเนินการโดยผู้เชี่ยวชาญกฎหมายดิจิทัล",
       keywords: [
         "ทนาย PDPA",
         "สิทธิในการถูกลืม",
@@ -1308,19 +1379,17 @@ export const servicesData: Service[] = [
   },
 ]
 ```
-
 ---
 
 #### 🔍 Path: `app/case-studies/[slug]/page.tsx`
-
 ```typescript
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import { Metadata } from "next";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { siteConfig } from "@/constants/site-config";
-import { caseStudies } from "@/lib/case-studies";
+import { notFound } from "next/navigation"
+import Link from "next/link"
+import { Metadata } from "next"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { siteConfig } from "@/constants/site-config"
+import { caseStudies } from "@/lib/case-studies"
 import {
   ArrowLeft,
   CheckCircle2,
@@ -1329,30 +1398,30 @@ import {
   Fingerprint,
   Clock,
   Activity,
-} from "lucide-react";
+} from "lucide-react"
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }
 
 /**
- *
  * Metadata Generation:
- * รองรับ Async Params ตามมาตรฐาน Next.js 16 เพื่อประสิทธิภาพ SEO สูงสุด
+ * ดึงข้อมูลจาก lib/case-studies เพื่อสร้าง SEO Tags เฉพาะรายเคส (Dynamic SEO)
  */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const item = caseStudies.find((c) => c.slug === slug);
+  const { slug } = await params
+  const item = caseStudies.find((c) => c.slug === slug)
 
-  if (!item) return { title: "Case Report Not Found" };
+  if (!item) return { title: "Case Report Not Found" }
 
   return {
     title: `${item.title} | บันทึกปฏิบัติการจริง`,
     description: item.incident,
     openGraph: {
-      title: item.title,
+      title: `${item.title} | UNLINK-TH Tactical Report`,
       description: item.incident,
       type: "article",
+      url: `${siteConfig.url}/case-studies/${slug}`,
       images: [
         {
           url: item.image || siteConfig.ogImage,
@@ -1362,7 +1431,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         },
       ],
     },
-  };
+  }
 }
 
 /**
@@ -1370,21 +1439,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  * ออกแบบในสไตล์ "Operational Report" (บันทึกปฏิบัติการเชิงเทคนิค)
  */
 export default async function CaseStudyPage({ params }: Props) {
-  // 1. Unwrapping params (Next.js 16 Requirement)
-  const { slug } = await params;
+  // 1. Unwrapping params
+  const { slug } = await params
 
-  // 2. Data Retrieval & Validation
-  const item = caseStudies.find((c) => c.slug === slug);
-  if (!item) notFound();
-
-  const lineLink = `https://line.me/ti/p/${siteConfig.contact.lineId.replace(
-    "@",
-    ""
-  )}`;
+  // 2. Data Retrieval
+  const item = caseStudies.find((c) => c.slug === slug)
+  if (!item) notFound()
 
   return (
     <article className="bg-background relative min-h-screen overflow-hidden py-20 lg:py-32">
-      {/* 01: Tactical Background Layer */}
+      {/* 01: Tactical Background Decor (HUD Grid) */}
       <div
         className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
         aria-hidden="true"
@@ -1393,7 +1457,7 @@ export default async function CaseStudyPage({ params }: Props) {
       </div>
 
       <div className="relative z-10 container mx-auto px-6">
-        {/* 02: Navigation Breadcrumb */}
+        {/* 02: Tactical Navigation (Operational Log Style) */}
         <Link
           href="/case-studies"
           className="group text-muted-foreground hover:text-primary mb-12 inline-flex items-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] uppercase transition-colors"
@@ -1405,83 +1469,99 @@ export default async function CaseStudyPage({ params }: Props) {
         <div className="grid gap-16 lg:grid-cols-12">
           {/* 03: Main Content Side: The Report Analysis */}
           <div className="lg:col-span-8">
-            <div className="mb-8 flex flex-wrap items-center gap-4">
-              <Badge
-                variant="outline"
-                className="border-primary/30 bg-primary/5 text-primary px-4 py-1 font-mono text-[10px] tracking-widest uppercase"
-              >
-                {item.category}
-              </Badge>
-              <div className="flex items-center gap-2 opacity-40">
-                <Fingerprint className="text-primary h-4 w-4" />
-                <span className="font-mono text-[10px] tracking-tighter uppercase italic">
-                  Identity Anonymized
-                </span>
+            <header className="mb-10">
+              <div className="mb-8 flex flex-wrap items-center gap-4">
+                <Badge
+                  variant="outline"
+                  className="border-primary/30 bg-primary/5 text-primary px-4 py-1 font-mono text-[10px] tracking-widest uppercase"
+                >
+                  {item.category} Strategy
+                </Badge>
+                <div className="flex items-center gap-2 opacity-40">
+                  <Fingerprint className="text-primary h-4 w-4" />
+                  <span className="font-mono text-[9px] font-bold tracking-tighter uppercase italic">
+                    Identity Anonymized
+                  </span>
+                </div>
               </div>
-            </div>
 
-            <h1 className="text-foreground mb-10 text-4xl font-extrabold tracking-tighter md:text-6xl lg:text-7xl">
-              {item.title}
-            </h1>
+              <h1 className="text-foreground mb-10 text-4xl leading-tight font-extrabold tracking-tighter md:text-6xl lg:text-7xl">
+                {item.title}
+              </h1>
+            </header>
 
-            {/* Analysis Summary Matrix */}
+            {/* Strategic Summary Matrix: Incident vs Protocol */}
             <div className="mb-16 grid gap-6 sm:grid-cols-2">
-              <div className="border-border/50 bg-muted/5 hover:bg-muted/10 rounded-2xl border p-8 transition-colors">
+              <section className="border-border/50 bg-muted/5 hover:border-primary/20 hover:bg-muted/10 rounded-2xl border p-8 transition-all">
                 <div className="text-primary mb-4 flex items-center gap-2">
                   <ShieldAlert className="h-4 w-4" />
-                  <span className="font-mono text-[10px] font-bold tracking-widest uppercase">
+                  <h2 className="font-mono text-[10px] font-bold tracking-widest uppercase">
                     Initial Incident
-                  </span>
+                  </h2>
                 </div>
-                <p className="text-muted-foreground/90 text-sm leading-relaxed">
+                <p className="text-muted-foreground/90 text-sm leading-relaxed font-medium">
                   {item.incident}
                 </p>
-              </div>
+              </section>
 
-              <div className="border-border/50 bg-muted/5 hover:bg-muted/10 rounded-2xl border p-8 transition-colors">
+              <section className="border-border/50 bg-muted/5 hover:border-primary/20 hover:bg-muted/10 rounded-2xl border p-8 transition-all">
                 <div className="text-primary mb-4 flex items-center gap-2">
                   <Clock className="h-4 w-4" />
-                  <span className="font-mono text-[10px] font-bold tracking-widest uppercase">
-                    Strategic Protocol
-                  </span>
+                  <h2 className="font-mono text-[10px] font-bold tracking-widest uppercase">
+                    Operational Protocol
+                  </h2>
                 </div>
-                <p className="text-muted-foreground/90 text-sm leading-relaxed">
+                <p className="text-muted-foreground/90 text-sm leading-relaxed font-medium">
                   {item.protocol}
                 </p>
-              </div>
+              </section>
             </div>
 
-            {/* Operational Narrative Section */}
+            {/* Operational Narrative Section (Technical Narrative) */}
             <div className="prose prose-invert border-border/40 text-muted-foreground/80 max-w-none border-t pt-12">
-              <h3 className="text-foreground mb-6 flex items-center gap-3 font-bold">
+              <div className="text-foreground mb-8 flex items-center gap-3 font-bold">
                 <Activity className="text-primary h-5 w-5" />
-                Technical Analysis & Execution
-              </h3>
-              <p className="mb-8 leading-loose">
-                ในการดำเนินการเคสนี้
-                ทีมผู้เชี่ยวชาญได้ทำการวิเคราะห์ความสัมพันธ์ของข้อมูล (Relevance
-                Audit) และพบช่องโหว่ในระดับ Metadata ของลิงก์เป้าหมาย
-                เราจึงดำเนินการระงับเหตุผ่านขั้นตอนปฏิบัติการ
-                ที่ผสมผสานระหว่างเทคนิคการถอดถอนดัชนี (De-indexing)
-                และมาตรการทางกฎหมายเพื่อให้ได้ผลลัพธ์ที่ถาวรและรวดเร็วที่สุด
-              </p>
+                <h3 className="m-0 text-xl font-bold tracking-tight">
+                  Technical Analysis & Execution
+                </h3>
+              </div>
 
-              {/* Outcome Verification Box */}
-              <div className="border-primary/20 bg-primary/5 mt-12 overflow-hidden rounded-[2.5rem] border p-10 backdrop-blur-sm">
+              <div className="space-y-6 text-base leading-loose font-medium">
+                <p>
+                  ในการดำเนินการเคสนี้ ทีมผู้เชี่ยวชาญของ UNLINK-TH
+                  ได้ทำการวิเคราะห์ความสัมพันธ์ของข้อมูล (Relevance Audit)
+                  และดำเนินการระงับเหตุผ่านขั้นตอนปฏิบัติการเชิงเทคนิค
+                  ที่ผสมผสานระหว่างเทคโนโลยีการถอดถอนดัชนี (De-indexing)
+                  และมาตรการตามสิทธิของเจ้าของข้อมูลส่วนบุคคล (Right to be
+                  Forgotten) เพื่อให้ได้ผลลัพธ์ที่ถาวรภายใต้ความลับสูงสุด
+                </p>
+                <p>
+                  เราดำเนินการระบุพิกัดเซิร์ฟเวอร์ต้นทางและประสานงานกับทีม Trust
+                  & Safety ของแพลตฟอร์ม
+                  เพื่อตัดวงจรการเข้าถึงข้อมูลที่ไม่พึงประสงค์อย่างแม่นยำ
+                  ป้องกันการกลับมาของข้อมูลในระบบสืบค้นในอนาคต
+                </p>
+              </div>
+
+              {/* Outcome Verification Box (Final Result) */}
+              <div className="border-primary/20 bg-primary/5 mt-16 overflow-hidden rounded-[2.5rem] border p-10 backdrop-blur-sm">
                 <div className="mb-6 flex items-center gap-3 text-emerald-500">
                   <CheckCircle2 className="h-6 w-6" />
-                  <span className="font-mono text-xs font-bold tracking-[0.2em] uppercase">
-                    Post-Operation Verification
+                  <span className="font-mono text-[10px] font-black tracking-[0.3em] uppercase">
+                    Mission Status: Verified
                   </span>
                 </div>
-                <p className="text-foreground text-2xl leading-tight font-bold md:text-3xl">
+                <p className="text-foreground text-2xl leading-tight font-black md:text-4xl">
                   {item.result}
                 </p>
-                <div className="border-primary/10 mt-8 flex items-center justify-between border-t pt-6">
-                  <p className="text-muted-foreground text-sm font-medium italic">
-                    — Impact: {item.impact}
+                <div className="border-primary/10 mt-10 flex flex-col items-start justify-between gap-4 border-t pt-8 sm:flex-row sm:items-center">
+                  <p className="text-primary/80 text-sm font-bold italic">
+                    <span className="text-muted-foreground mr-2 not-italic">
+                      — Impact Analysis:
+                    </span>
+                    {item.impact}
                   </p>
-                  <Badge className="border-none bg-emerald-500/10 text-[9px] font-black tracking-widest text-emerald-500 uppercase">
+                  <Badge className="border-none bg-emerald-500/10 px-4 py-1.5 text-[10px] font-black tracking-widest text-emerald-500 uppercase">
                     Operation Successful
                   </Badge>
                 </div>
@@ -1489,181 +1569,55 @@ export default async function CaseStudyPage({ params }: Props) {
             </div>
           </div>
 
-          {/* 04: Sidebar CTA: Secure Engagement */}
+          {/* 04: Sidebar CTA: Secure Liaison (Encrypted Channel) */}
           <aside className="lg:col-span-4">
-            <div className="border-primary/20 bg-muted/10 sticky top-24 overflow-hidden rounded-[2.5rem] border p-10 backdrop-blur-md">
+            <div className="border-primary/20 bg-muted/10 sticky top-24 overflow-hidden rounded-[3rem] border p-10 backdrop-blur-md">
               <div
-                className="absolute -top-6 -right-6 opacity-5"
+                className="absolute -top-8 -right-8 opacity-[0.03]"
                 aria-hidden="true"
               >
-                <ShieldAlert className="text-primary h-32 w-32" />
+                <ShieldAlert className="text-primary h-40 w-40" />
               </div>
 
-              <h3 className="relative z-10 mb-4 text-xl font-bold tracking-tight">
-                ปรึกษาเคสของคุณ
+              <div className="bg-primary/10 relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-2xl">
+                <Activity className="text-primary h-6 w-6" />
+              </div>
+
+              <h3 className="relative z-10 mb-4 text-2xl font-bold tracking-tight">
+                ประเมินเคสส่วนบุคคล
               </h3>
-              <p className="text-muted-foreground relative z-10 mb-10 text-sm leading-relaxed">
-                ส่งร่องรอยดิจิทัลที่คุณกังวลเพื่อให้ Specialist
-                ประเมินความเสี่ยงและความเป็นไปได้เชิงเทคนิคทันทีภายใต้ความลับสูงสุด
+              <p className="text-muted-foreground/90 relative z-10 mb-10 text-sm leading-relaxed">
+                ระบุ URL หรือร่องรอยดิจิทัลที่คุณกังวลเพื่อให้ Specialist
+                ดำเนินการ Audit
+                ความเป็นไปได้เชิงเทคนิคทันทีภายใต้นโยบายรักษาความลับสูงสุด
+                (Strict NDA)
               </p>
 
               <Button
                 asChild
                 size="lg"
-                className="relative z-10 h-14 w-full rounded-full bg-[#00B900] font-black text-white shadow-xl shadow-green-500/20 transition-all hover:scale-[1.02] hover:bg-[#00A000]"
+                className="relative z-10 h-16 w-full rounded-full bg-[#00B900] text-sm font-black text-white shadow-xl shadow-green-500/20 transition-all hover:scale-[1.02] hover:bg-[#00A000]"
               >
-                <Link href={lineLink} target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="mr-2 h-6 w-6 fill-current" />
-                  START CONSULTATION
+                <Link
+                  href={siteConfig.contact.lineUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="mr-3 h-6 w-6 fill-current" />
+                  ESTABLISH PROTOCOL
                 </Link>
               </Button>
 
-              <div className="mt-10 flex flex-col items-center gap-3 opacity-40">
-                <span className="text-muted-foreground font-mono text-[9px] font-bold tracking-[0.4em] uppercase">
-                  Zero-Knowledge Channel
-                </span>
-                <div className="via-primary h-[1px] w-24 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-              </div>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </article>
-  );
-}
-```
-
----
-
-#### 🔍 Path: `app/services/[slug]/page.tsx`
-
-```typescript
-// app/services/[slug]/page.tsx
-
-import { notFound } from "next/navigation"
-import Link from "next/link"
-import { siteConfig } from "@/constants/site-config"
-import { servicesData } from "@/constants/services-data"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import {
-  ArrowLeft,
-  MessageCircle,
-  ShieldCheck,
-  Fingerprint,
-} from "lucide-react"
-
-interface Props {
-  params: Promise<{ slug: string }>
-}
-
-export async function generateMetadata({ params }: Props) {
-  const { slug } = await params
-  const service = servicesData.find((s) => s.slug === slug)
-  if (!service) return { title: "Protocol Not Found" }
-
-  return {
-    title: `${service.title} | Unlink-th Protocol`,
-    description: service.shortDescription, // ปรับให้ตรงกับ services-data.ts
-  }
-}
-
-export default async function SingleServicePage({ params }: Props) {
-  const { slug } = await params
-  const service = servicesData.find((s) => s.slug === slug)
-
-  if (!service) notFound()
-
-  const lineLink = `https://line.me/ti/p/${siteConfig.contact.lineId.replace("@", "")}`
-
-  return (
-    <article className="bg-background relative min-h-screen overflow-hidden py-20 lg:py-32">
-      {/* Background Decor */}
-      <div className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]">
-        <div className="h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:32px_32px]" />
-      </div>
-
-      <div className="relative z-10 container mx-auto px-6">
-        <Link
-          href="/services"
-          className="group text-muted-foreground hover:text-primary mb-12 inline-flex items-center gap-2 font-mono text-xs font-bold tracking-widest uppercase transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-          Return to Protocols
-        </Link>
-
-        <div className="grid gap-16 lg:grid-cols-12">
-          <div className="lg:col-span-8">
-            <div className="mb-8 flex items-center gap-4">
-              <Badge
-                variant="outline"
-                className="border-primary/30 bg-primary/5 text-primary px-4 py-1 font-mono text-[10px] tracking-[0.2em] uppercase"
-              >
-                {service.category} Strategy
-              </Badge>
-              <div className="flex items-center gap-2 opacity-30">
-                <Fingerprint className="h-4 w-4" />
-                <span className="font-mono text-[10px] uppercase">
-                  ID: {service.id}
-                </span>
-              </div>
-            </div>
-
-            <h1 className="mb-8 text-4xl font-extrabold tracking-tight md:text-7xl">
-              {service.title}
-            </h1>
-
-            <p className="text-muted-foreground/90 mb-12 text-xl leading-relaxed md:text-2xl">
-              {service.shortDescription}
-            </p>
-
-            {/* เนื้อหาหลักเชิงเทคนิค */}
-            <div className="prose prose-invert border-border/40 text-muted-foreground/80 max-w-none border-t pt-12">
-              <h3 className="text-foreground">Technical Approach</h3>
-              <p>{service.description}</p>
-
-              <h3 className="text-foreground mt-8">Operational Features</h3>
-              <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {service.features.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm">
-                    <ShieldCheck className="text-primary mt-1 h-4 w-4 shrink-0" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <aside className="lg:col-span-4">
-            <div className="border-primary/20 bg-muted/5 sticky top-24 overflow-hidden rounded-[2rem] border p-8 backdrop-blur-md">
-              <div className="bg-primary/10 mb-6 flex h-12 w-12 items-center justify-center rounded-2xl">
-                <ShieldCheck className="text-primary h-6 w-6" />
-              </div>
-
-              <h3 className="mb-4 text-xl font-bold">
-                เริ่มกระบวนการระงับเหตุ
-              </h3>
-              <p className="text-muted-foreground mb-8 text-sm leading-relaxed">
-                ระบุ URL
-                หรือร่องรอยดิจิทัลที่ต้องการให้ผู้เชี่ยวชาญดำเนินการประเมินความเป็นไปได้เชิงเทคนิค
-                (Technical Feasibility)
-              </p>
-
-              <Button
-                asChild
-                size="lg"
-                className="h-14 w-full rounded-full bg-[#00B900] font-black text-white shadow-xl shadow-green-500/20 hover:bg-[#00A000]"
-              >
-                <Link href={lineLink} target="_blank">
-                  <MessageCircle className="mr-2 h-6 w-6 fill-current" />
-                  ปรึกษาผ่าน LINE OA
-                </Link>
-              </Button>
-
-              <div className="mt-8 flex items-center justify-center gap-2 opacity-40">
-                <div className="bg-primary h-1 w-1 animate-pulse rounded-full" />
-                <p className="font-mono text-[10px] font-bold tracking-widest uppercase">
-                  Specialist Online
+              <div className="mt-10 flex flex-col items-center gap-4 opacity-40">
+                <div className="flex items-center gap-2">
+                  <div className="bg-primary h-1.5 w-1.5 animate-pulse rounded-full" />
+                  <span className="text-foreground font-mono text-[9px] font-bold tracking-[0.4em] uppercase">
+                    Secure Liaison Active
+                  </span>
+                </div>
+                <div className="via-primary/40 h-[1px] w-full bg-gradient-to-r from-transparent to-transparent" />
+                <p className="text-[8px] font-bold tracking-widest uppercase">
+                  End-to-End Encryption Enabled
                 </p>
               </div>
             </div>
@@ -1674,15 +1628,263 @@ export default async function SingleServicePage({ params }: Props) {
   )
 }
 ```
+---
 
+#### 🔍 Path: `app/services/[slug]/page.tsx`
+```typescript
+import { notFound } from "next/navigation"
+import Link from "next/link"
+import { Metadata } from "next"
+import { siteConfig } from "@/constants/site-config"
+import { servicesData } from "@/constants/services-data"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import {
+  ArrowLeft,
+  MessageCircle,
+  ShieldCheck,
+  Fingerprint,
+  Activity,
+  Terminal,
+  CircleDollarSign,
+  ChevronRight,
+} from "lucide-react"
+
+interface Props {
+  params: Promise<{ slug: string }>
+}
+
+/**
+ * generateMetadata:
+ * ดึงข้อมูล Metadata เฉพาะทางเพื่อเพิ่มประสิทธิภาพ SEO (Search Intent Optimized)
+ */
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const service = servicesData.find((s) => s.slug === slug)
+
+  if (!service) return { title: "Protocol Not Found" }
+
+  const pageTitle = `${service.title} | ${siteConfig.name} Protocol`
+  const pageDesc = service.metadata?.description || service.shortDescription
+
+  return {
+    title: pageTitle,
+    description: pageDesc,
+    keywords: service.metadata?.keywords,
+    openGraph: {
+      title: service.metadata?.title || pageTitle,
+      description: pageDesc,
+      url: `${siteConfig.url}/services/${slug}`,
+      siteName: siteConfig.name,
+      locale: "th_TH",
+      type: "article",
+      images: [
+        {
+          url: siteConfig.ogImage,
+          width: 1200,
+          height: 630,
+          alt: service.title,
+        },
+      ],
+    },
+  }
+}
+
+/**
+ * SingleServicePage:
+ * หน้าแสดงรายละเอียดบริการรายบุคคล ออกแบบในสไตล์ Technical Specialist
+ */
+export default async function SingleServicePage({ params }: Props) {
+  // 1. Resolve Params (Next.js 15 Standard)
+  const { slug } = await params
+
+  // 2. Data Lookup
+  const service = servicesData.find((s) => s.slug === slug)
+  if (!service) notFound()
+
+  return (
+    <article className="bg-background relative min-h-screen overflow-hidden py-20 lg:py-32">
+      {/* 01: HUD Decoration Layer */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
+        aria-hidden="true"
+      >
+        <div className="h-full w-full bg-[radial-gradient(#808080_1px,transparent_1px)] [background-size:32px_32px]" />
+      </div>
+
+      <div className="relative z-10 container mx-auto px-6">
+        {/* Navigation Breadcrumb */}
+        <Link
+          href="/services"
+          className="group text-muted-foreground hover:text-primary mb-12 inline-flex items-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] uppercase transition-colors"
+        >
+          <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
+          Return to Operational Protocols
+        </Link>
+
+        <div className="grid gap-16 lg:grid-cols-12">
+          {/* 02: Analysis Content (Technical Specification) */}
+          <div className="lg:col-span-8">
+            <header className="mb-12">
+              <div className="mb-8 flex flex-wrap items-center gap-4">
+                <Badge
+                  variant="outline"
+                  className="border-primary/30 bg-primary/5 text-primary px-4 py-1 font-mono text-[10px] tracking-[0.2em] uppercase"
+                >
+                  {service.category} Strategy
+                </Badge>
+                <div className="flex items-center gap-2 opacity-30">
+                  <Fingerprint className="text-primary h-4 w-4" />
+                  <span className="font-mono text-[9px] font-bold tracking-tighter uppercase italic">
+                    Ref Protocol: {service.id}
+                  </span>
+                </div>
+              </div>
+
+              <h1 className="text-foreground mb-8 text-4xl leading-tight font-extrabold tracking-tighter md:text-7xl lg:text-8xl">
+                {service.title}
+              </h1>
+
+              <p className="text-muted-foreground/90 max-w-3xl text-xl leading-relaxed font-medium md:text-2xl">
+                {service.shortDescription}
+              </p>
+            </header>
+
+            {/* Technical Detail Section */}
+            <section className="prose prose-invert border-border/40 text-muted-foreground/80 max-w-none border-t pt-12">
+              <div className="text-foreground mb-10 flex items-center gap-3">
+                <Terminal className="text-primary h-5 w-5" />
+                <h2 className="m-0 text-xl font-bold tracking-tight">
+                  Technical Analysis & Approach
+                </h2>
+              </div>
+
+              <div className="mb-12 text-lg leading-loose font-medium">
+                {service.description}
+              </div>
+
+              <div className="text-foreground mb-8 flex items-center gap-3">
+                <Activity className="text-primary h-5 w-5" />
+                <h3 className="m-0 text-lg font-bold tracking-tight">
+                  Operational Features & Capabilities
+                </h3>
+              </div>
+
+              <ul className="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2">
+                {service.features.map((feature, i) => (
+                  <li
+                    key={`${service.id}-feature-${i}`}
+                    className="border-border/40 bg-muted/5 hover:border-primary/20 hover:bg-muted/10 flex items-start gap-3 rounded-2xl border p-5 transition-all"
+                  >
+                    <ShieldCheck className="text-primary mt-0.5 h-4 w-4 shrink-0" />
+                    <span className="text-sm leading-snug font-semibold">
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
+
+          {/* 03: Tactical Sidebar (Liaison & Investment Overview) */}
+          <aside className="lg:col-span-4">
+            <div className="border-primary/20 bg-muted/10 sticky top-24 overflow-hidden rounded-[3rem] border p-10 backdrop-blur-md">
+              <div
+                className="absolute -top-8 -right-8 opacity-[0.03]"
+                aria-hidden="true"
+              >
+                <ShieldCheck className="text-primary h-40 w-40" />
+              </div>
+
+              <div className="bg-primary/10 relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-2xl">
+                <CircleDollarSign className="text-primary h-6 w-6" />
+              </div>
+
+              <h3 className="relative z-10 mb-4 text-2xl font-bold tracking-tight">
+                ประเมินงบประมาณการระงับเหตุ
+              </h3>
+
+              {/* Pricing Matrix Integration */}
+              {service.priceInfo && (
+                <div className="border-primary/10 bg-primary/5 relative z-10 mb-8 space-y-4 rounded-[2rem] border p-8">
+                  <div className="flex items-center justify-between">
+                    <span className="text-muted-foreground font-mono text-[10px] font-bold tracking-[0.2em] uppercase">
+                      Service Model
+                    </span>
+                    <Badge className="bg-primary/10 text-primary border-none px-3 py-1 text-[9px] font-black tracking-tighter uppercase">
+                      {service.priceInfo.model}
+                    </Badge>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <span className="text-muted-foreground mb-1 text-xs font-bold tracking-widest uppercase">
+                      Estimated Starting At
+                    </span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-foreground text-4xl font-black">
+                        ฿{service.priceInfo.startingAt}
+                      </span>
+                      <span className="text-muted-foreground text-[10px] font-bold uppercase">
+                        {service.priceInfo.unit}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <p className="text-muted-foreground/90 relative z-10 mb-10 text-sm leading-relaxed font-medium">
+                ระบุ URL หรือร่องรอยดิจิทัลที่คุณกังวลเพื่อให้ Specialist
+                ดำเนินการทำ Technical Feasibility Audit
+                ภายใต้นโยบายรักษาความลับสูงสุด (NDA Policy)
+              </p>
+
+              <Button
+                asChild
+                size="lg"
+                className="relative z-10 h-16 w-full rounded-full bg-[#00B900] text-sm font-black text-white shadow-xl shadow-green-500/20 transition-all hover:scale-[1.02] hover:bg-[#00A000]"
+              >
+                <Link
+                  href={siteConfig.contact.lineUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="mr-3 h-6 w-6 fill-current" />
+                  INITIATE PROTOCOL
+                </Link>
+              </Button>
+
+              <div className="mt-10 flex flex-col items-center gap-4 opacity-40">
+                <div className="flex items-center gap-2">
+                  <div className="bg-primary h-1.5 w-1.5 animate-pulse rounded-full" />
+                  <p className="text-foreground font-mono text-[9px] font-bold tracking-[0.4em] uppercase">
+                    Secure Channel Active
+                  </p>
+                </div>
+                <div className="via-primary/40 h-[1px] w-full bg-gradient-to-r from-transparent to-transparent" />
+                <div className="flex items-center gap-2">
+                  <ChevronRight className="h-3 w-3" />
+                  <p className="text-muted-foreground text-[8px] font-bold tracking-[0.2em] uppercase">
+                    Confidentiality Guaranteed
+                  </p>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </article>
+  )
+}
+```
 ---
 
 #### 🔍 Path: `lib/case-studies.ts`
-
 ```typescript
 /**
- * UNLINK Case Studies Data
- * ข้อมูลเคสการทำงานที่เชื่อมโยงกับ /public/images/cases/ และ /content/case-studies/
+ * UNLINK-TH | Data Repositories: Case Studies
+ * -------------------------------------------------------------------------
+ * จัดการข้อมูลปฏิบัติการจริง (Operational Logs) ที่เชื่อมโยงกับเนื้อหา MDX
+ * และระบบประมวลผล Metadata สำหรับ Search Engine
  */
 
 export interface CaseStudy {
@@ -1695,50 +1897,38 @@ export interface CaseStudy {
   impact: string
   image: string
   contentPath: string
-  date?: string // รองรับสำหรับ Sitemap
+  date: string // ISO Format สำหรับ Sitemap และการเรียงลำดับ
 }
 
+/**
+ * [DATABASE] บันทึกข้อมูลปฏิบัติการจริง
+ * ตรวจสอบความสอดคล้องกับไฟล์ใน /content/case-studies/ และรูปภาพใน /public/images/cases/
+ */
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "clear-blacklist-misunderstand",
-    title: "ลบประวัติ Blacklist ที่เกิดจากความเข้าใจผิด",
-    category: "Corporate",
+    slug: "remove-leaked-content-silent-angel",
+    title: "กู้ชีวิตจากคลิปหลุดที่ตามหลอกหลอน 1 ปี (Silent Angel)",
+    category: "Special Ops",
     incident:
-      "ข้อมูลการติด Blacklist ปรากฏบนหน้าแรก Google ส่งผลต่อการทำธุรกรรมและภาพลักษณ์องค์กร",
-    protocol:
-      "ประสานงานถอดถอนดัชนี (De-indexing) และใช้สิทธิทางกฎหมายตามหลัก PDPA",
-    result: "ลิงก์ต้นทางถูกระงับการเข้าถึงและหายจากหน้าการค้นหาสำเร็จ",
-    impact: "กู้คืนความน่าเชื่อถือทางธุรกิจสำเร็จ 100%",
-    image: "/images/cases/blacklist-clear.webp",
-    contentPath: "clear-blacklist-misunderstand.mdx",
-    date: "2026-01-11",
+      "ผู้เสียหายถูกอดีตแฟนปล่อยคลิปส่วนตัวนาน 1 ปี จนเกิดภาวะวิกฤตทางจิตใจ",
+    protocol: "Unrestricted Warfare (ปฏิบัติการไร้รูปแบบเพื่อระงับเหตุต้นทาง)",
+    result: "ลบต้นตอเกลี้ยง 100% และปิดบัญชีผู้เผยแพร่ถาวร",
+    impact: "ช่วยชีวิตผู้เสียหายและคืนศักดิ์ศรีความเป็นมนุษย์",
+    image: "/images/cases/unlink-th.webp", // แก้ไขให้ใช้รูปหลักตาม Directory Tree
+    contentPath: "remove-leaked-content-silent-angel.mdx",
+    date: "2026-01-20",
   },
   {
-    slug: "remove-defamation-post",
-    title: "จัดการโพสต์หมิ่นประมาทและข่าวปลอมออนไลน์",
-    category: "Individual",
-    incident:
-      "บุคคลถูกโจมตีด้วยข้อมูลเท็จในเว็บบอร์ดสาธารณะ ซึ่งส่งผลกระทบต่อประวัติส่วนตัว",
-    protocol:
-      "Technical Removal Protocol & Source Negotiation (การเจรจาลบจากต้นทาง)",
-    result: "เนื้อหาถูกถอดถอนถาวรและล้างประวัติการค้นหาใน Google Cache",
-    impact: "ยุติการแพร่กระจายของข้อมูลที่เป็นเท็จและคืนความเป็นส่วนตัว",
-    image: "/images/cases/defamation-removal.webp",
-    contentPath: "remove-defamation-post.mdx",
-    date: "2026-01-12",
-  },
-  {
-    slug: "online-drama-negotiation",
-    title: "ระงับการแพร่กระจายข้อมูลดราม่าบนโซเชียล",
-    category: "Individual",
-    incident: "ประเด็นดราม่าในอดีตถูกขุดขึ้นมาเผยแพร่ใหม่ในเชิงลบ",
-    protocol: "Content Suppression & Right to be Forgotten Liaison",
-    result:
-      "ลดการมองเห็นข้อมูลที่ไม่พึงประสงค์และถอดลิงก์ที่ละเมิดความเป็นส่วนตัว",
-    impact: "ป้องกันความเสียหายต่อชื่อเสียงในระยะยาว",
-    image: "/images/cases/negotiation-drama.webp",
-    contentPath: "online-drama-negotiation.mdx",
-    date: "2026-01-15",
+    slug: "remove-defamation-gambling-network",
+    title: "ล้างบางเครือข่ายเว็บพนันที่แอบอ้างชื่อนักธุรกิจ",
+    category: "Special Ops",
+    incident: "ถูกเครือข่ายสีเทานำชื่อไปแอบอ้างทำ SEO ข่าวปลอมเพื่อเรียกค่าไถ่",
+    protocol: "Hybrid Warfare (De-indexing + Source Neutralization)",
+    result: "URL เป้าหมายถูกถอดจาก Google 100% และเว็บต้นทางล่มถาวร",
+    impact: "กู้คืนชื่อเสียงมูลค่ากว่า 100 ล้านบาทและหยุดการแอบอ้าง",
+    image: "/images/cases/unlink-th.webp",
+    contentPath: "remove-defamation-gambling-network.mdx",
+    date: "2026-01-18",
   },
   {
     slug: "seo-push-negative-news",
@@ -1746,133 +1936,231 @@ export const caseStudies: CaseStudy[] = [
     category: "E-commerce",
     incident: "ข่าวเชิงลบจากอดีตยังคงครองอันดับสูงในหน้าแรกของผลการค้นหา",
     protocol: "Reverse SEO Strategy & Positive Content Authority Building",
-    result:
-      "ผลักดันข่าวเสียให้พ้นจากหน้าแรก (Top 10) และทดแทนด้วยข้อมูลที่เป็นกลาง",
-    impact: "ยอดขายและระดับความไว้วางใจของลูกค้ากลับมาเป็นปกติ",
+    result: "ผลักดันข่าวเสียให้พ้นจากหน้าแรก (Top 10) สำเร็จภายใน 6 เดือน",
+    impact: "ระดับความไว้วางใจของนักลงทุนและลูกค้ากลับมาเป็นปกติ",
     image: "/images/cases/seo-push.webp",
     contentPath: "seo-push-negative-news.mdx",
-    date: "2026-01-18",
+    date: "2026-01-16",
   },
   {
-    slug: "privacy-legal-protection",
-    title: "คุ้มครองความเป็นส่วนตัวตามกฎหมาย PDPA",
-    category: "Legal",
-    incident: "การนำข้อมูลส่วนบุคคลไปใช้โดยไม่ได้รับอนุญาตในลักษณะที่เสียหาย",
-    protocol: "Legal Enforcement & Data Controller Compliance Notice",
-    result: "ผู้ควบคุมข้อมูลดำเนินการลบและทำลายข้อมูลตามคำร้องขอ",
-    impact: "ปกป้องสิทธิขั้นพื้นฐานและความปลอดภัยของข้อมูลส่วนบุคคล",
-    image: "/images/cases/privacy-legal.webp",
-    contentPath: "right-to-be-forgotten-thailand-pdpa.mdx",
-    date: "2026-01-20",
+    slug: "negotiation-drama",
+    title: "ยุติเหตุการณ์ดราม่าออนไลน์ด้วยการเจรจาเชิงยุทธวิธี",
+    category: "Crisis Management",
+    incident: "ประเด็นความเข้าใจผิดในตัวสินค้าลุกลามจนเกิดการประจานในกลุ่มใหญ่",
+    protocol: "Strategic Mediation & The Neutral Liaison Protocol",
+    result: "คู่กรณียอมรับข้อเสนอและลบโพสต์ต้นทางด้วยความเต็มใจ",
+    impact: "เปลี่ยนวิกฤตดราม่าให้เป็นโอกาสในการสร้างความเชื่อมั่น",
+    image: "/images/cases/negotiation-drama.webp",
+    contentPath: "online-drama-negotiation.mdx",
+    date: "2026-01-15",
+  },
+  {
+    slug: "remove-defamation-post",
+    title: "จัดการโพสต์หมิ่นประมาทและข้อมูลเท็จ (Fake News)",
+    category: "Individual",
+    incident: "บุคคลถูกโจมตีด้วยข้อมูลบิดเบือนในกลุ่มสาธารณะจนกระทบงานประมูล",
+    protocol: "Crisis Response Protocol & Platform Escalation",
+    result: "เนื้อหาถูกถอดถอนถาวรและล้างประวัติจาก Google Cache",
+    impact: "ยุติการแพร่กระจายของข่าวปลอมและกู้คืนความยุติธรรม",
+    image: "/images/cases/defamation-removal.webp",
+    contentPath: "remove-defamation-post.mdx",
+    date: "2026-01-14",
+  },
+  {
+    slug: "clear-blacklist-misunderstand",
+    title: "เคลียร์ชื่อจากเว็บแบล็กลิสต์ที่เกิดจากความเข้าใจผิด",
+    category: "Blacklist Removal",
+    incident: "ชื่อติดเว็บเช็กโกงเนื่องจากการโอนเงินล่าช้าจากระบบธนาคารขัดข้อง",
+    protocol: "Right to be Forgotten Liaison & PDPA Enforcement",
+    result: "ดำเนินการลบชื่อสำเร็จทั้งในระดับเว็บไซต์ต้นทางและ Google",
+    impact: "ล้างประวัติขาวสะอาด พร้อมสำหรับการสมัครงานและทำธุรกิจ",
+    image: "/images/cases/blacklist-clear.webp",
+    contentPath: "clear-blacklist-misunderstand.mdx",
+    date: "2026-01-11",
   },
 ]
 
 /**
- * ดึงข้อมูล Case Studies ทั้งหมด (Async เพื่อรองรับการขยายเป็น Database ในอนาคต)
- * ฟังก์ชันนี้จำเป็นสำหรับ app/sitemap.ts
+ * [GET] ดึงข้อมูล Case Studies ทั้งหมด (Sort ตามวันที่ล่าสุด)
  */
 export async function getAllCases(): Promise<CaseStudy[]> {
-  return caseStudies
-}
-
-/**
- * ดึงข้อมูล Case Study ตาม Slug
- */
-export async function getCaseBySlug(
-  slug: string
-): Promise<CaseStudy | undefined> {
-  return caseStudies.find((item) => item.slug === slug)
-}
-```
-
----
-
-#### 🔍 Path: `lib/services.ts`
-
-```typescript
-import { Service } from "@/types"
-import { servicesData } from "@/constants/services-data"
-
-/**
- * ดึงข้อมูลบริการทั้งหมด (Get All Services)
- * ใช้สำหรับหน้า Catalog รวมบริการ (/services)
- */
-export async function getAllServices(): Promise<Service[]> {
   try {
-    // ในอนาคตหากต้องการเชื่อมต่อฐานข้อมูลหรือ CMS สามารถปรับเปลี่ยน Logic ตรงนี้ได้
-    return [...servicesData]
+    return [...caseStudies].sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    )
   } catch (error) {
-    console.error("Error fetching all services:", error)
+    console.error("[CASE_LIB_ERROR] Fetching all cases:", error)
     return []
   }
 }
 
 /**
- * ดึงข้อมูลบริการรายบุคคลผ่าน Slug (Get Service By Slug)
- * ใช้สำหรับหน้า Single Service (/services/[slug])
+ * [GET] ดึงข้อมูล Case Study ตาม Slug
  */
-export async function getServiceBySlug(
+export async function getCaseBySlug(
   slug: string
-): Promise<Service | undefined> {
+): Promise<CaseStudy | undefined> {
   try {
-    const service = servicesData.find((item) => item.slug === slug)
-
-    if (!service) {
-      console.warn(`Service with slug "${slug}" not found.`)
-      return undefined
-    }
-
-    return service
+    if (!slug) return undefined
+    return caseStudies.find((item) => item.slug === slug)
   } catch (error) {
-    console.error(`Error fetching service with slug ${slug}:`, error)
+    console.error(`[CASE_LIB_ERROR] Fetching case by slug ${slug}:`, error)
     return undefined
   }
 }
 
 /**
- * ดึงข้อมูลบริการตามหมวดหมู่ (Get Services By Category)
- * ใช้สำหรับระบบ Filter หรือส่วนบริการที่เกี่ยวข้อง (Related Services)
+ * [GET] ดึงข้อมูล Case Studies ที่เกี่ยวข้อง (ยกเว้น Slug ปัจจุบัน)
  */
-export async function getServicesByCategory(
-  category: string
-): Promise<Service[]> {
+export async function getRelatedCases(
+  currentSlug: string,
+  limit: number = 3
+): Promise<CaseStudy[]> {
   try {
-    return servicesData.filter(
-      (item) => item.category.toLowerCase() === category.toLowerCase()
-    )
+    return caseStudies
+      .filter((item) => item.slug !== currentSlug)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, limit)
   } catch (error) {
-    console.error(`Error fetching services in category ${category}:`, error)
+    console.error("[CASE_LIB_ERROR] Fetching related cases:", error)
+    return []
+  }
+}
+```
+---
+
+#### 🔍 Path: `lib/services.ts`
+```typescript
+/**
+ * UNLINK-TH | Data Repositories: Services
+ * -------------------------------------------------------------------------
+ * จัดการตรรกะการดึงข้อมูลบริการ (Data Access Layer) เพื่อสนับสนุน Next.js Server Components
+ * รองรับการดึงข้อมูลจาก Static Data และเตรียมความพร้อมสำหรับ API/CMS ในอนาคต
+ */
+
+import { Service } from "@/types"
+import { servicesData } from "@/constants/services-data"
+
+/**
+ * [GET] ดึงข้อมูลบริการทั้งหมด (Get All Protocols)
+ * ใช้สำหรับหน้า Catalog รวมบริการหลัก (/services)
+ */
+export async function getAllServices(): Promise<Service[]> {
+  try {
+    // ตรวจสอบความถูกต้องของแหล่งข้อมูล (Validation)
+    if (!servicesData || !Array.isArray(servicesData)) {
+      throw new Error(
+        "Invalid Services Data Source: servicesData is missing or not an array."
+      )
+    }
+
+    // คืนค่าข้อมูลต้นฉบับ (สามารถเพิ่มตรรกะการ Sort ตามความนิยมหรือลำดับที่กำหนดได้ที่นี่)
+    return [...servicesData]
+  } catch (error) {
+    console.error("[SERVICE_LIB_ERROR] Fetching all services:", error)
     return []
   }
 }
 
 /**
- * ดึงข้อมูลบริการอื่นๆ ที่ไม่ใช่ Slug ปัจจุบัน (Get Related Services)
+ * [GET] ดึงข้อมูลบริการรายบุคคลผ่าน Slug (Get Protocol By Identifier)
+ * ใช้สำหรับหน้า Dynamic Route (/services/[slug])
+ */
+export async function getServiceBySlug(
+  slug: string
+): Promise<Service | undefined> {
+  try {
+    if (!slug) return undefined
+
+    const service = servicesData.find((item) => item.slug === slug)
+
+    if (!service) {
+      console.warn(
+        `[SERVICE_LIB_WARN] Service identifier with slug "${slug}" not found in system.`
+      )
+      return undefined
+    }
+
+    return service
+  } catch (error) {
+    console.error(
+      `[SERVICE_LIB_ERROR] Fetching service identifier "${slug}":`,
+      error
+    )
+    return undefined
+  }
+}
+
+/**
+ * [GET] ดึงข้อมูลบริการตามหมวดหมู่ (Filter Protocols By Category)
+ * ใช้สำหรับระบบ Taxonomy หรือการจัดกลุ่มบริการเฉพาะด้าน (Technical, Social, Legal, Personal)
+ */
+export async function getServicesByCategory(
+  category: string
+): Promise<Service[]> {
+  try {
+    if (!category) return []
+
+    return servicesData.filter(
+      (item) => item.category.toLowerCase() === category.toLowerCase()
+    )
+  } catch (error) {
+    console.error(`[SERVICE_LIB_ERROR] Category filter "${category}":`, error)
+    return []
+  }
+}
+
+/**
+ * [GET] ดึงข้อมูลบริการที่เกี่ยวข้อง (Retrieve Collaborative Protocols)
+ * ใช้สำหรับแนะนำบริการที่ใกล้เคียงเพื่อสนับสนุนภารกิจกู้คืนชื่อเสียงแบบครบวงจร
  */
 export async function getRelatedServices(
   currentSlug: string,
   limit: number = 2
 ): Promise<Service[]> {
   try {
+    // กรองบริการปัจจุบันออก และสุ่มเลือกบริการอื่นเพื่อความหลากหลายในหน้า UI
     return servicesData
       .filter((item) => item.slug !== currentSlug)
+      .sort(() => Math.random() - 0.5)
       .slice(0, limit)
   } catch (error) {
-    console.error("Error fetching related services:", error)
+    console.error("[SERVICE_LIB_ERROR] Fetching related protocols:", error)
+    return []
+  }
+}
+
+/**
+ * [GET] ดึงข้อมูล ID บริการทั้งหมด (Generate Static Params)
+ * ใช้สำหรับฟีเจอร์ generateStaticParams เพื่อทำ Static Site Generation (SSG) ใน Next.js
+ */
+export async function getAllServiceSlugs(): Promise<{ slug: string }[]> {
+  try {
+    return servicesData.map((service) => ({
+      slug: service.slug,
+    }))
+  } catch (error) {
+    console.error(
+      "[SERVICE_LIB_ERROR] Extracting service slugs for SSG:",
+      error
+    )
     return []
   }
 }
 ```
-
 ---
 
 #### 🔍 Path: `tsconfig.json`
-
 ```json
 {
   "compilerOptions": {
+    /* [1] Base Environment & Library */
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -1889,20 +2177,28 @@ export async function getRelatedServices(
         "name": "next"
       }
     ],
+    /* [2] Path Aliases Configuration */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
-    /* ✅ ปรับปรุงการตรวจสอบให้เข้มงวดแต่ยืดหยุ่นสำหรับ Next.js 15 */
+    /* [3] Operational Rigidity (ความเข้มงวดระดับ Specialist Unit) */
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    /* ✅ แนะนำให้เพิ่ม (Optional) */
-    "noFallthroughCasesInSwitch": true, // ป้องกันลืมใส่ break ใน switch case
-    "strictPropertyInitialization": false // กรณีใช้กับพวก Class ที่ถูก init ภายหลัง
+    "noFallthroughCasesInSwitch": true,
+    "strictPropertyInitialization": false, // ปรับเพื่อให้ยืดหยุ่นกับ Data Models ที่มีการ Init ภายหลัง
+    "noImplicitReturns": true, // บังคับให้ฟังก์ชันต้องมีการ return ค่าที่ชัดเจน
+    "noImplicitThis": true, // ป้องกันปัญหาเรื่องขอบเขตของ 'this'
+    /* [4] Metadata & Future Compatibility */
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
+  /* [5] Inclusions: รองรับไฟล์เนื้อหา MDX และโครงสร้างระบบ Next.js 15 */
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
@@ -1910,16 +2206,22 @@ export async function getRelatedServices(
     "**/*.tsx",
     "**/*.md",
     "**/*.mdx",
+    "lib/**/*.ts",
+    "constants/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules", ".next"] // ✅ เพิ่ม .next ใน exclude เพื่อไม่ให้ตรวจสอบไฟล์ที่ถูก build แล้ว
+  /* [6] Exclusions: ป้องกันการตรวจสอบไฟล์ที่ไม่จำเป็นเพื่อลดภาระการประมวลผล */
+  "exclude": [
+    "node_modules",
+    ".next",
+    "out",
+    "build"
+  ]
 }
 ```
-
 ---
 
 #### 🔍 Path: `package.json`
-
 ```json
 {
   "name": "unlink-th.com",
@@ -1985,42 +2287,71 @@ export async function getRelatedServices(
   }
 }
 ```
-
 ---
 
 #### 🔍 Path: `next.config.ts`
-
 ```typescript
+/**
+ * UNLINK-TH | Core Configuration Matrix
+ * -------------------------------------------------------------------------
+ * จัดการการตั้งค่า Runtime, Security, และ Content Engine (MDX)
+ * ออกแบบเพื่อรองรับ Performance สูงสุดตามมาตรฐาน Specialist Lab
+ */
+
 import type { NextConfig } from "next"
 import createMDX from "@next/mdx"
 
 const nextConfig: NextConfig = {
-  /* ปรับแต่งเพื่อให้รองรับการแสดงผลภาษาไทยและรูปภาพ */
+  /* [1] Core Framework Settings */
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 
-  // ตั้งค่าความปลอดภัยและการจัดการรูปภาพ (สำหรับรูปภาพ Before/After ในเคสตัวอย่าง)
+  /* [2] Tactical Security Headers - ป้องกันการโจมตีทางไซเบอร์และรักษาความเป็นส่วนตัว */
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-DNS-Prefetch-Control", value: "on" },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" }, // ป้องกัน Clickjacking
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Content-Security-Policy",
+            value:
+              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:;",
+          },
+        ],
+      },
+    ]
+  },
+
+  /* [3] Image Intelligence & Optimization */
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "lin.ee", // สำหรับดึงรูปภาพจาก Line
+        hostname: "lin.ee", // รองรับภาพจาก Line Official
       },
       {
         protocol: "https",
-        hostname: "**.supabase.co", // สำหรับดึงรูปภาพจาก Supabase Storage
+        hostname: "**.supabase.co", // รองรับภาพจาก Supabase Storage
       },
     ],
-    formats: ["image/avif", "image/webp"], // บีบอัดรูปให้โหลดเร็วขึ้น
+    formats: ["image/avif", "image/webp"], // บีบอัดภาพเพื่อรักษาความเร็ว Mobile LCP
   },
 
-  // ตั้งค่าการจัดการพลังประมวลผล (เหมาะสำหรับเว็บสาย Expert ที่เน้น Performance)
+  /* [4] High-Performance Content Engine */
   experimental: {
-    mdxRs: true, // ใช้ Rust-based compiler สำหรับ MDX เพื่อความเร็ว
+    mdxRs: true, // ใช้ Rust-based compiler เพื่อประมวลผล MDX อย่างรวดเร็ว
   },
 }
 
-// เพิ่มการตั้งค่าสำหรับ MDX
+// [5] MDX Integration Logic
 const withMDX = createMDX({
   options: {
     remarkPlugins: [],
@@ -2030,11 +2361,9 @@ const withMDX = createMDX({
 
 export default withMDX(nextConfig)
 ```
-
 ---
 
 #### 🔍 Path: `components.json`
-
 ```json
 {
   "$schema": "https://ui.shadcn.com/schema.json",
@@ -2042,7 +2371,7 @@ export default withMDX(nextConfig)
   "rsc": true,
   "tsx": true,
   "tailwind": {
-    "config": "",
+    "config": "tailwind.config.ts",
     "css": "app/globals.css",
     "baseColor": "neutral",
     "cssVariables": true,
@@ -2056,14 +2385,12 @@ export default withMDX(nextConfig)
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": ["https://ui.shadcn.com/registry"]
 }
 ```
-
 ---
 
 #### 🔍 Path: `.env`
-
 ```text
 # .env.local
 
@@ -2123,11 +2450,9 @@ SUPABASE_BUCKET_NAME= "********"
 RESEND_API_KEY= "********"
 NEXT_PUBLIC_APP_URL= "********"
 ```
-
 ---
 
 ## 📝 Summary
-
 Architecture scan and context compilation completed successfully.
 Focus maintained on Privacy, Security, and AI-readiness.
 

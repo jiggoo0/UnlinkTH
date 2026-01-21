@@ -3,13 +3,13 @@
 <!--
   Domain: www.unlink-th.com
   Canonical: https://www.unlink-th.com
-  Generated: 2026-01-21 09:20:50
+  Generated: 2026-01-21 10:08:06
   Type: Architecture / Documentation
 -->
 
 > **Project:** www.unlink-th.com  
 > **URL:** https://www.unlink-th.com  
-> **Generated on:** 2026-01-21 09:20:50
+> **Generated on:** 2026-01-21 10:08:06
 
 ## ⚙️ Root Configuration Files
 
@@ -45,7 +45,6 @@ The following structure represents the core business logic and UI layers.
 📄 page.tsx
 📂 **privacy/**
 📄 page.tsx
-📄 robots.txt
 📂 **services/**
 📂 **[slug]/**
 📄 page.tsx
@@ -53,6 +52,7 @@ The following structure represents the core business logic and UI layers.
 📄 sitemap.ts
 📂 **editorial-policy/**
 📄 page.tsx
+📄 robots.ts
 
 ### 📂 components
 
@@ -113,6 +113,8 @@ The following structure represents the core business logic and UI layers.
 📄 negotiation-drama.webp
 📄 privacy-legal.webp
 📄 seo-push.webp
+📄 unlink-th.webp
+📄 unlink-th.webp
 📂 **\_store/**
 📄 background-check-guide.webp
 📄 pdpa-cover.webp
@@ -120,9 +122,9 @@ The following structure represents the core business logic and UI layers.
 📂 **service/**
 📄 service.webp
 📄 service1.webp
+📄 unlink-th.webp
 📄 opengraph-image.png
 📄 og-main.png
-📄 Photoroom-20260121_082025448.webp
 
 ### 📂 constants
 

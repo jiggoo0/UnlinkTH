@@ -1,12 +1,14 @@
-import { Service } from "@/types"
-
 /**
  * UNLINK-TH | Services Data (2026 Optimized Matrix)
- * * ยุทธศาสตร์การนำเสนอ:
+ * -------------------------------------------------------------------------
+ * ยุทธศาสตร์การนำเสนอ:
  * 1. Action-Oriented Title: ใช้ Keyword ที่คนไทยค้นหาเพื่อแก้ปัญหาจริง
  * 2. Strategic Pricing: ใช้โมเดล "Starting At" เพื่อคัดกรอง Lead และ "Success Fee" เพื่อปิดการขาย
  * 3. Technical Authority: ใช้คำศัพท์เฉพาะทางเพื่อสร้างความแตกต่างจาก Agency ทั่วไป
  */
+
+import { Service } from "@/types"
+
 export const servicesData: Service[] = [
   {
     id: "ser-001",

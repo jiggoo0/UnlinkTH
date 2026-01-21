@@ -5,8 +5,7 @@ import HomeClientSections from "@/components/sections/HomeClientSections"
 import ContactCTA from "@/components/sections/ContactCTA"
 
 /**
- *
- * * Metadata Optimization:
+ * Metadata Optimization:
  * ยึดตามกลยุทธ์ "The Digital Fixer" เพื่อสร้าง Trust และ Authority ในหน้าแรก
  */
 export const metadata: Metadata = {
@@ -58,17 +57,18 @@ export default function HomePage() {
       </section>
 
       {/* 04: Atmospheric Engineering Layer (Background Decor) */}
+      {/* Performance Fix: ซ่อน Blur Effect บนมือถือเพื่อลด LCP Time */}
       <div
         className="pointer-events-none fixed inset-0 -z-10"
         aria-hidden="true"
       >
-        {/* Top Glow: สร้างมิติแสงบริเวณส่วนหัว */}
-        <div className="bg-primary/5 absolute top-[-5%] left-[-5%] h-[600px] w-[600px] rounded-full blur-[120px]" />
+        {/* Top Glow: สร้างมิติแสงบริเวณส่วนหัว (Desktop Only) */}
+        <div className="bg-primary/5 absolute top-[-5%] left-[-5%] hidden h-[600px] w-[600px] rounded-full blur-[120px] will-change-transform md:block" />
 
-        {/* Bottom Glow: สร้างมิติแสงบริเวณส่วนท้าย */}
-        <div className="bg-primary/10 absolute right-[-5%] bottom-[-5%] h-[500px] w-[500px] rounded-full blur-[100px]" />
+        {/* Bottom Glow: สร้างมิติแสงบริเวณส่วนท้าย (Desktop Only) */}
+        <div className="bg-primary/10 absolute right-[-5%] bottom-[-5%] hidden h-[500px] w-[500px] rounded-full blur-[100px] will-change-transform md:block" />
 
-        {/* Subtle Scanline Overlay สำหรับบรรยากาศ Technical Lab */}
+        {/* Subtle Scanline Overlay สำหรับบรรยากาศ Technical Lab (แสดงผลทุก Device เพราะเบามาก) */}
         <div className="h-full w-full bg-[linear-gradient(to_bottom,transparent_0%,rgba(255,255,255,0.01)_50%,transparent_100%)] bg-[size:100%_4px] opacity-20" />
       </div>
     </div>

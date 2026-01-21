@@ -1,9 +1,11 @@
-import { siteConfig } from "./site-config"
-
 /**
- * Navigation Architecture - UNLINK-TH
+ * UNLINK-TH | Navigation Architecture
+ * -------------------------------------------------------------------------
  * ระบบการนำทางเชิงยุทธศาสตร์: ออกแบบเพื่อสร้างความเชื่อมั่น (Trust) และความปลอดภัย (Security)
+ * เรียงลำดับตาม User Journey: ค้นหาทางแก้ -> ดูหลักฐาน -> ตรวจสอบตัวตน -> เคลียร์ข้อสงสัย
  */
+
+import { siteConfig } from "./site-config"
 
 export interface NavItem {
   title: string
@@ -14,7 +16,7 @@ export interface NavItem {
 
 /**
  * Main Navigation (Primary Protocols)
- * เรียงลำดับตาม User Journey: ค้นหาทางแก้ -> ดูหลักฐาน -> ตรวจสอบตัวตน -> เคลียร์ข้อสงสัย
+ * รายการเมนูหลักที่แสดงบน Header ของเว็บไซต์
  */
 export const mainNav: NavItem[] = [
   {
@@ -63,10 +65,22 @@ export const footerNav = {
     },
   ] as NavItem[],
   support: [
-    { title: "Privacy Protocol", href: "/privacy" },
-    { title: "Editorial Policy", href: "/editorial-policy" }, // เพิ่มลิงก์นโยบายจริยธรรม
-    { title: "Operational FAQ", href: "/faq" },
-    { title: "Specialist Liaison", href: "/contact" },
+    {
+      title: "Privacy Protocol",
+      href: "/privacy",
+    },
+    {
+      title: "Editorial Policy",
+      href: "/editorial-policy",
+    },
+    {
+      title: "Operational FAQ",
+      href: "/faq",
+    },
+    {
+      title: "Specialist Liaison",
+      href: "/contact",
+    },
   ] as NavItem[],
   social: [
     {
@@ -84,6 +98,7 @@ export const footerNav = {
 
 /**
  * Operational Navigation Config
+ * การตั้งค่าเพิ่มเติมสำหรับการแสดงผลระบบนำทาง
  */
 export const navigationConfig = {
   stickyHeader: true,

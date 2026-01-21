@@ -1,10 +1,12 @@
-import { SiteConfig } from "@/types"
-
 /**
  * UNLINK-TH | Global Configuration Matrix (2026 Optimized)
+ * -------------------------------------------------------------------------
  * ศูนย์กลางการกำหนดค่า Metadata, SEO, และช่องทางสื่อสารสำหรับ www.unlink-th.com
  * ยุทธศาสตร์: Action-Oriented (เน้นผลลัพธ์) + Search Intent (ตรงใจคนค้นหา)
  */
+
+import { SiteConfig } from "@/types"
+
 export const siteConfig: SiteConfig = {
   name: "UNLINK-TH",
   description:

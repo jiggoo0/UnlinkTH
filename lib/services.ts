@@ -14,12 +14,14 @@ import { servicesData } from "@/constants/services-data"
  */
 export async function getAllServices(): Promise<Service[]> {
   try {
-    // ดึงข้อมูลและตรวจสอบความถูกต้องของโครงสร้าง (Validation)
+    // ตรวจสอบความถูกต้องของแหล่งข้อมูล (Validation)
     if (!servicesData || !Array.isArray(servicesData)) {
-      throw new Error("Invalid Services Data Source")
+      throw new Error(
+        "Invalid Services Data Source: servicesData is missing or not an array."
+      )
     }
 
-    // คืนค่าข้อมูลที่เรียงลำดับตาม Priority (ถ้ามี)
+    // คืนค่าข้อมูลต้นฉบับ (สามารถเพิ่มตรรกะการ Sort ตามความนิยมหรือลำดับที่กำหนดได้ที่นี่)
     return [...servicesData]
   } catch (error) {
     console.error("[SERVICE_LIB_ERROR] Fetching all services:", error)
@@ -40,14 +42,16 @@ export async function getServiceBySlug(
     const service = servicesData.find((item) => item.slug === slug)
 
     if (!service) {
-      console.warn(`[SERVICE_LIB_WARN] Identity with slug "${slug}" not found.`)
+      console.warn(
+        `[SERVICE_LIB_WARN] Service identifier with slug "${slug}" not found in system.`
+      )
       return undefined
     }
 
     return service
   } catch (error) {
     console.error(
-      `[SERVICE_LIB_ERROR] Fetching service identifier ${slug}:`,
+      `[SERVICE_LIB_ERROR] Fetching service identifier "${slug}":`,
       error
     )
     return undefined
@@ -56,7 +60,7 @@ export async function getServiceBySlug(
 
 /**
  * [GET] ดึงข้อมูลบริการตามหมวดหมู่ (Filter Protocols By Category)
- * ใช้สำหรับระบบ Taxonomy หรือการจัดกลุ่มบริการเฉพาะด้าน
+ * ใช้สำหรับระบบ Taxonomy หรือการจัดกลุ่มบริการเฉพาะด้าน (Technical, Social, Legal, Personal)
  */
 export async function getServicesByCategory(
   category: string
@@ -68,7 +72,7 @@ export async function getServicesByCategory(
       (item) => item.category.toLowerCase() === category.toLowerCase()
     )
   } catch (error) {
-    console.error(`[SERVICE_LIB_ERROR] Category filter ${category}:`, error)
+    console.error(`[SERVICE_LIB_ERROR] Category filter "${category}":`, error)
     return []
   }
 }
@@ -82,10 +86,11 @@ export async function getRelatedServices(
   limit: number = 2
 ): Promise<Service[]> {
   try {
+    // กรองบริการปัจจุบันออก และสุ่มเลือกบริการอื่นเพื่อความหลากหลายในหน้า UI
     return servicesData
-      .filter((item) => item.slug !== currentSlug) // กรองบริการปัจจุบันออก
-      .sort(() => Math.random() - 0.5) // สุ่มลำดับเพื่อสร้างความหลากหลาย
-      .slice(0, limit) // จำกัดจำนวนตามพารามิเตอร์
+      .filter((item) => item.slug !== currentSlug)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, limit)
   } catch (error) {
     console.error("[SERVICE_LIB_ERROR] Fetching related protocols:", error)
     return []
@@ -94,7 +99,7 @@ export async function getRelatedServices(
 
 /**
  * [GET] ดึงข้อมูล ID บริการทั้งหมด (Generate Static Params)
- * ใช้สำหรับฟีเจอร์ GenerateStaticParams ใน Next.js App Router
+ * ใช้สำหรับฟีเจอร์ generateStaticParams เพื่อทำ Static Site Generation (SSG) ใน Next.js
  */
 export async function getAllServiceSlugs(): Promise<{ slug: string }[]> {
   try {
@@ -102,7 +107,10 @@ export async function getAllServiceSlugs(): Promise<{ slug: string }[]> {
       slug: service.slug,
     }))
   } catch (error) {
-    console.error("[SERVICE_LIB_ERROR] Extracting service slugs:", error)
+    console.error(
+      "[SERVICE_LIB_ERROR] Extracting service slugs for SSG:",
+      error
+    )
     return []
   }
 }

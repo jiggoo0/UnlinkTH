@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
+    /* [1] Base Environment & Library */
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -18,20 +23,28 @@
         "name": "next"
       }
     ],
+    /* [2] Path Aliases Configuration */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
-    /* ✅ ปรับปรุงการตรวจสอบให้เข้มงวดแต่ยืดหยุ่นสำหรับ Next.js 15 */
+    /* [3] Operational Rigidity (ความเข้มงวดระดับ Specialist Unit) */
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    /* ✅ แนะนำให้เพิ่ม (Optional) */
-    "noFallthroughCasesInSwitch": true, // ป้องกันลืมใส่ break ใน switch case
-    "strictPropertyInitialization": false // กรณีใช้กับพวก Class ที่ถูก init ภายหลัง
+    "noFallthroughCasesInSwitch": true,
+    "strictPropertyInitialization": false, // ปรับเพื่อให้ยืดหยุ่นกับ Data Models ที่มีการ Init ภายหลัง
+    "noImplicitReturns": true, // บังคับให้ฟังก์ชันต้องมีการ return ค่าที่ชัดเจน
+    "noImplicitThis": true, // ป้องกันปัญหาเรื่องขอบเขตของ 'this'
+    /* [4] Metadata & Future Compatibility */
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
+  /* [5] Inclusions: รองรับไฟล์เนื้อหา MDX และโครงสร้างระบบ Next.js 15 */
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
@@ -39,7 +52,15 @@
     "**/*.tsx",
     "**/*.md",
     "**/*.mdx",
+    "lib/**/*.ts",
+    "constants/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules", ".next"] // ✅ เพิ่ม .next ใน exclude เพื่อไม่ให้ตรวจสอบไฟล์ที่ถูก build แล้ว
+  /* [6] Exclusions: ป้องกันการตรวจสอบไฟล์ที่ไม่จำเป็นเพื่อลดภาระการประมวลผล */
+  "exclude": [
+    "node_modules",
+    ".next",
+    "out",
+    "build"
+  ]
 }

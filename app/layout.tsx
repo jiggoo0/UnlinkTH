@@ -9,8 +9,8 @@ import "./globals.css"
 
 /**
  * Font Configuration:
- * แยก Sans (English), Noto (Thai), และ Mono เพื่อความคมชัดระดับ Clinical
- * สอดคล้องกับภาพลักษณ์ผู้เชี่ยวชาญเฉพาะทาง (Digital Fixer)
+ * 1. ลดจำนวน Weights ของ Noto Sans Thai เพื่อประหยัด Bandwidth และลดขนาดไฟล์ Glyphs
+ * 2. ใช้ font-display: optional สำหรับ Mono เพื่อไม่ให้แย่ง Bandwidth ช่วงแรก
  */
 const inter = Inter({
   subsets: ["latin"],
@@ -22,13 +22,13 @@ const notoThai = Noto_Sans_Thai({
   subsets: ["thai"],
   variable: "--font-thai",
   display: "swap",
-  weight: ["300", "400", "500", "700"],
+  weight: ["400", "700"], // 🛑 ปรับลดเหลือเฉพาะ Regular และ Bold เพื่อเพิ่มความเร็วในการโหลด
 })
 
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-  display: "swap",
+  display: "optional", // ⚡ ป้องกัน Layout Shift และประหยัดทรัพยากรบนมือถือ
 })
 
 export const viewport: Viewport = {
@@ -101,7 +101,7 @@ export default function RootLayout({
 }) {
   /**
    * Organization Schema: ปรับเป็น ProfessionalService + LocalBusiness
-   * เพื่อสร้าง Rich Snippets ที่ทรงพลังบนหน้าผลการค้นหาของ Google
+   * เพื่อสร้าง Rich Snippets และเสริมสร้าง E-E-A-T ผ่านการเชื่อมโยง Entity (sameAs)
    */
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -114,6 +114,11 @@ export default function RootLayout({
     priceRange: "$$$", // สื่อถึงบริการระดับ Premium/Specialist
     telephone: siteConfig.contact.phone,
     email: siteConfig.contact.email,
+    sameAs: [
+      siteConfig.links.facebook,
+      siteConfig.links.twitter,
+      siteConfig.links.line,
+    ],
     serviceType: [
       "Digital Reputation Management",
       "Data Privacy Solutions",
@@ -149,10 +154,10 @@ export default function RootLayout({
       <body
         className={cn(
           "bg-background text-foreground min-h-screen font-sans antialiased",
-          "font-thai" // บังคับใช้ Noto Sans Thai เป็นฟอนต์หลักสำหรับการอ่าน
+          "font-thai" // 🛡️ บังคับใช้ Noto Sans Thai เป็นฟอนต์หลักสำหรับการอ่านเนื้อหาภาษาไทย
         )}
       >
-        {/* Structured Data สำหรับช่วยในการทำ Rich Snippets */}
+        {/* Structured Data สำหรับส่งสัญญาณความน่าเชื่อถือให้ Google Search Console */}
         <JsonLd data={organizationSchema} />
 
         {/* Tactical Layout Container */}

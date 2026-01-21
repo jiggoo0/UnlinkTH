@@ -20,7 +20,7 @@ export interface CaseStudy {
 
 /**
  * [DATABASE] บันทึกข้อมูลปฏิบัติการจริง
- * หมายเหตุ: ข้อมูลเหล่านี้จะถูกดึงไปแสดงผลในหน้า /case-studies และ /case-studies/[slug]
+ * ตรวจสอบความสอดคล้องกับไฟล์ใน /content/case-studies/ และรูปภาพใน /public/images/cases/
  */
 export const caseStudies: CaseStudy[] = [
   {
@@ -32,7 +32,7 @@ export const caseStudies: CaseStudy[] = [
     protocol: "Unrestricted Warfare (ปฏิบัติการไร้รูปแบบเพื่อระงับเหตุต้นทาง)",
     result: "ลบต้นตอเกลี้ยง 100% และปิดบัญชีผู้เผยแพร่ถาวร",
     impact: "ช่วยชีวิตผู้เสียหายและคืนศักดิ์ศรีความเป็นมนุษย์",
-    image: "/images/cases/privacy-legal.webp",
+    image: "/images/cases/unlink-th.webp", // แก้ไขให้ใช้รูปหลักตาม Directory Tree
     contentPath: "remove-leaked-content-silent-angel.mdx",
     date: "2026-01-20",
   },
@@ -44,7 +44,7 @@ export const caseStudies: CaseStudy[] = [
     protocol: "Hybrid Warfare (De-indexing + Source Neutralization)",
     result: "URL เป้าหมายถูกถอดจาก Google 100% และเว็บต้นทางล่มถาวร",
     impact: "กู้คืนชื่อเสียงมูลค่ากว่า 100 ล้านบาทและหยุดการแอบอ้าง",
-    image: "/images/cases/blacklist-clear.webp",
+    image: "/images/cases/unlink-th.webp",
     contentPath: "remove-defamation-gambling-network.mdx",
     date: "2026-01-18",
   },

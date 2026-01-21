@@ -62,7 +62,7 @@ export default async function CaseStudyPage({ params }: Props) {
   if (!item) notFound()
 
   return (
-    <article className="relative min-h-screen overflow-hidden bg-background py-20 lg:py-32">
+    <article className="bg-background relative min-h-screen overflow-hidden py-20 lg:py-32">
       {/* 01: Tactical Background Decor (HUD Grid) */}
       <div
         className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
@@ -71,11 +71,11 @@ export default async function CaseStudyPage({ params }: Props) {
         <div className="h-full w-full bg-[radial-gradient(#808080_1px,transparent_1px)] [background-size:32px_32px]" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-6">
+      <div className="relative z-10 container mx-auto px-6">
         {/* 02: Tactical Navigation (Operational Log Style) */}
         <Link
           href="/case-studies"
-          className="group mb-12 inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-primary"
+          className="group text-muted-foreground hover:text-primary mb-12 inline-flex items-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] uppercase transition-colors"
         >
           <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
           Back to Operational Logs
@@ -88,60 +88,60 @@ export default async function CaseStudyPage({ params }: Props) {
               <div className="mb-8 flex flex-wrap items-center gap-4">
                 <Badge
                   variant="outline"
-                  className="border-primary/30 bg-primary/5 px-4 py-1 font-mono text-[10px] tracking-widest uppercase text-primary"
+                  className="border-primary/30 bg-primary/5 text-primary px-4 py-1 font-mono text-[10px] tracking-widest uppercase"
                 >
                   {item.category} Strategy
                 </Badge>
                 <div className="flex items-center gap-2 opacity-40">
-                  <Fingerprint className="h-4 w-4 text-primary" />
-                  <span className="font-mono text-[9px] font-bold uppercase tracking-tighter italic">
+                  <Fingerprint className="text-primary h-4 w-4" />
+                  <span className="font-mono text-[9px] font-bold tracking-tighter uppercase italic">
                     Identity Anonymized
                   </span>
                 </div>
               </div>
 
-              <h1 className="mb-10 text-4xl font-extrabold leading-tight tracking-tighter text-foreground md:text-6xl lg:text-7xl">
+              <h1 className="text-foreground mb-10 text-4xl leading-tight font-extrabold tracking-tighter md:text-6xl lg:text-7xl">
                 {item.title}
               </h1>
             </header>
 
             {/* Strategic Summary Matrix: Incident vs Protocol */}
             <div className="mb-16 grid gap-6 sm:grid-cols-2">
-              <section className="rounded-2xl border border-border/50 bg-muted/5 p-8 transition-all hover:border-primary/20 hover:bg-muted/10">
-                <div className="mb-4 flex items-center gap-2 text-primary">
+              <section className="border-border/50 bg-muted/5 hover:border-primary/20 hover:bg-muted/10 rounded-2xl border p-8 transition-all">
+                <div className="text-primary mb-4 flex items-center gap-2">
                   <ShieldAlert className="h-4 w-4" />
-                  <h2 className="font-mono text-[10px] font-bold uppercase tracking-widest">
+                  <h2 className="font-mono text-[10px] font-bold tracking-widest uppercase">
                     Initial Incident
                   </h2>
                 </div>
-                <p className="text-sm font-medium leading-relaxed text-muted-foreground/90">
+                <p className="text-muted-foreground/90 text-sm leading-relaxed font-medium">
                   {item.incident}
                 </p>
               </section>
 
-              <section className="rounded-2xl border border-border/50 bg-muted/5 p-8 transition-all hover:border-primary/20 hover:bg-muted/10">
-                <div className="mb-4 flex items-center gap-2 text-primary">
+              <section className="border-border/50 bg-muted/5 hover:border-primary/20 hover:bg-muted/10 rounded-2xl border p-8 transition-all">
+                <div className="text-primary mb-4 flex items-center gap-2">
                   <Clock className="h-4 w-4" />
-                  <h2 className="font-mono text-[10px] font-bold uppercase tracking-widest">
+                  <h2 className="font-mono text-[10px] font-bold tracking-widest uppercase">
                     Operational Protocol
                   </h2>
                 </div>
-                <p className="text-sm font-medium leading-relaxed text-muted-foreground/90">
+                <p className="text-muted-foreground/90 text-sm leading-relaxed font-medium">
                   {item.protocol}
                 </p>
               </section>
             </div>
 
             {/* Operational Narrative Section (Technical Narrative) */}
-            <div className="prose prose-invert max-w-none border-t border-border/40 pt-12 text-muted-foreground/80">
-              <div className="mb-8 flex items-center gap-3 font-bold text-foreground">
-                <Activity className="h-5 w-5 text-primary" />
+            <div className="prose prose-invert border-border/40 text-muted-foreground/80 max-w-none border-t pt-12">
+              <div className="text-foreground mb-8 flex items-center gap-3 font-bold">
+                <Activity className="text-primary h-5 w-5" />
                 <h3 className="m-0 text-xl font-bold tracking-tight">
                   Technical Analysis & Execution
                 </h3>
               </div>
 
-              <div className="space-y-6 text-base font-medium leading-loose">
+              <div className="space-y-6 text-base leading-loose font-medium">
                 <p>
                   ในการดำเนินการเคสนี้ ทีมผู้เชี่ยวชาญของ UNLINK-TH
                   ได้ทำการวิเคราะห์ความสัมพันธ์ของข้อมูล (Relevance Audit)
@@ -159,24 +159,24 @@ export default async function CaseStudyPage({ params }: Props) {
               </div>
 
               {/* Outcome Verification Box (Final Result) */}
-              <div className="mt-16 overflow-hidden rounded-[2.5rem] border border-primary/20 bg-primary/5 p-10 backdrop-blur-sm">
+              <div className="border-primary/20 bg-primary/5 mt-16 overflow-hidden rounded-[2.5rem] border p-10 backdrop-blur-sm">
                 <div className="mb-6 flex items-center gap-3 text-emerald-500">
                   <CheckCircle2 className="h-6 w-6" />
-                  <span className="font-mono text-[10px] font-black uppercase tracking-[0.3em]">
+                  <span className="font-mono text-[10px] font-black tracking-[0.3em] uppercase">
                     Mission Status: Verified
                   </span>
                 </div>
-                <p className="text-2xl font-black leading-tight text-foreground md:text-4xl">
+                <p className="text-foreground text-2xl leading-tight font-black md:text-4xl">
                   {item.result}
                 </p>
-                <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-primary/10 pt-8 sm:flex-row sm:items-center">
-                  <p className="text-sm font-bold italic text-primary/80">
-                    <span className="mr-2 not-italic text-muted-foreground">
+                <div className="border-primary/10 mt-10 flex flex-col items-start justify-between gap-4 border-t pt-8 sm:flex-row sm:items-center">
+                  <p className="text-primary/80 text-sm font-bold italic">
+                    <span className="text-muted-foreground mr-2 not-italic">
                       — Impact Analysis:
                     </span>
                     {item.impact}
                   </p>
-                  <Badge className="border-none bg-emerald-500/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest text-emerald-500">
+                  <Badge className="border-none bg-emerald-500/10 px-4 py-1.5 text-[10px] font-black tracking-widest text-emerald-500 uppercase">
                     Operation Successful
                   </Badge>
                 </div>
@@ -186,22 +186,22 @@ export default async function CaseStudyPage({ params }: Props) {
 
           {/* 04: Sidebar CTA: Secure Liaison (Encrypted Channel) */}
           <aside className="lg:col-span-4">
-            <div className="sticky top-24 overflow-hidden rounded-[3rem] border border-primary/20 bg-muted/10 p-10 backdrop-blur-md">
+            <div className="border-primary/20 bg-muted/10 sticky top-24 overflow-hidden rounded-[3rem] border p-10 backdrop-blur-md">
               <div
-                className="absolute -right-8 -top-8 opacity-[0.03]"
+                className="absolute -top-8 -right-8 opacity-[0.03]"
                 aria-hidden="true"
               >
-                <ShieldAlert className="h-40 w-40 text-primary" />
+                <ShieldAlert className="text-primary h-40 w-40" />
               </div>
 
-              <div className="relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10">
-                <Activity className="h-6 w-6 text-primary" />
+              <div className="bg-primary/10 relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-2xl">
+                <Activity className="text-primary h-6 w-6" />
               </div>
 
               <h3 className="relative z-10 mb-4 text-2xl font-bold tracking-tight">
                 ประเมินเคสส่วนบุคคล
               </h3>
-              <p className="relative z-10 mb-10 text-sm leading-relaxed text-muted-foreground/90">
+              <p className="text-muted-foreground/90 relative z-10 mb-10 text-sm leading-relaxed">
                 ระบุ URL หรือร่องรอยดิจิทัลที่คุณกังวลเพื่อให้ Specialist
                 ดำเนินการ Audit
                 ความเป็นไปได้เชิงเทคนิคทันทีภายใต้นโยบายรักษาความลับสูงสุด
@@ -225,13 +225,13 @@ export default async function CaseStudyPage({ params }: Props) {
 
               <div className="mt-10 flex flex-col items-center gap-4 opacity-40">
                 <div className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
-                  <span className="font-mono text-[9px] font-bold uppercase tracking-[0.4em] text-foreground">
+                  <div className="bg-primary h-1.5 w-1.5 animate-pulse rounded-full" />
+                  <span className="text-foreground font-mono text-[9px] font-bold tracking-[0.4em] uppercase">
                     Secure Liaison Active
                   </span>
                 </div>
-                <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-                <p className="text-[8px] font-bold uppercase tracking-widest">
+                <div className="via-primary/40 h-[1px] w-full bg-gradient-to-r from-transparent to-transparent" />
+                <p className="text-[8px] font-bold tracking-widest uppercase">
                   End-to-End Encryption Enabled
                 </p>
               </div>
