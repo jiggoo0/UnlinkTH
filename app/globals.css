@@ -1,25 +1,68 @@
 /* app/globals.css */
 /* =========================================================
-   UNLINK PROTOCOL: GLOBAL BASELINE
+   UNLINK PROTOCOL: REPUTATION ARCHITECT BASELINE (2026)
+   ---------------------------------------------------------
+   Updated: Support Thai Font Subsets & Tailwind v4
+   Architecture: Noto Sans Thai + Inter + JetBrains Mono
    ========================================================= */
 
 @import "tailwindcss";
-@import "../styles/tokens.css";
 
 /* ---------------------------------------------------------
-   Tailwind v4 / Modern Configuration Bridge
+   1. DESIGN TOKENS (The Core Identity)
+--------------------------------------------------------- */
+:root {
+  /* Colors: Midnight Professional (HSL) */
+  --color-bg: 240 10% 3.9%;
+  --color-fg: 0 0% 98%;
+  --color-muted: 240 3.7% 15.9%;
+  --color-border: 240 3.7% 15.9% / 0.5;
+
+  /* Primary Accent: Emerald Success (ความปลอดภัย) */
+  --color-primary: 142 71% 45%;
+  --color-primary-fg: 144 33% 97%;
+
+  /* Functional States */
+  --color-danger: 0 84.2% 60.2%;
+  --color-warning: 48 96% 89%;
+
+  /* Radius & Motion */
+  --radius-md: 0.75rem;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-base: 300ms;
+}
+
+/* ---------------------------------------------------------
+   2. TAILWIND v4 THEME BRIDGE (Mapping font variables)
 --------------------------------------------------------- */
 @theme {
-  /* มัดรวมค่าพื้นฐานให้ตรงกับ tokens.css */
+  /* Colors */
   --color-background: hsl(var(--color-bg));
   --color-foreground: hsl(var(--color-fg));
   --color-muted-foreground: hsl(var(--color-fg) / 0.65);
+  --color-primary: hsl(var(--color-primary));
+  --color-primary-foreground: hsl(var(--color-primary-fg));
+  --color-border: hsl(var(--color-border));
   --color-accent: hsl(var(--color-primary) / 0.1);
   --color-accent-foreground: hsl(var(--color-primary));
 
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui;
+  /* Typography: Mapping variables from app/layout.tsx */
+  --font-sans:
+    var(--font-noto-thai), var(--font-inter), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+
+  /* Global Radius */
+  --radius-lg: var(--radius-md);
+
+  /* Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
 }
 
+/* ---------------------------------------------------------
+   3. BASE LAYER (Modern Web Baseline)
+--------------------------------------------------------- */
 @layer base {
   *,
   *::before,
@@ -31,73 +74,100 @@
   html {
     scroll-behavior: smooth;
     background-color: var(--color-background);
+    /* ปรับแต่งสีพื้นหลังตอนโหลดหน้าเว็บเพื่อไม่ให้เกิดอาการแสงขาวแวบ (Flash of White) */
+    color-scheme: dark;
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-size: 16px;
-    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-  }
-}
-
-/* ---------------------------------------------------------
-   Layout Helpers (Fixed: แก้ปัญหา unknown utility class)
---------------------------------------------------------- */
-@layer utilities {
-  /* แทนที่จะ @apply คลาสที่ Build engine หาไม่เจอ 
-     เราใช้ CSS มาตรฐานที่ให้ผลลัพธ์เดียวกันและปลอดภัยกว่า */
-  .container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    max-width: 80rem; /* เท่ากับ max-w-7xl */
+    line-height: 1.65;
   }
 
-  .lab-card {
-    background-color: hsl(var(--color-muted) / 0.1);
-    border: 1px solid hsl(var(--color-border) / 0.5);
-    backdrop-filter: blur(8px);
-    transition: all var(--duration-base) var(--ease-out);
-  }
-}
-
-/* ---------------------------------------------------------
-   Typography & Interactive
---------------------------------------------------------- */
-@layer base {
+  /* Typography Balance */
   h1,
   h2,
   h3,
   h4 {
     font-weight: 600;
     letter-spacing: -0.02em;
-    color: var(--color-foreground);
+    text-wrap: balance;
+    color: hsl(var(--color-fg));
   }
 
   p {
     color: var(--color-muted-foreground);
+    max-width: 65ch; /* ความยาวบรรทัดที่เหมาะสมที่สุดสำหรับการอ่าน */
   }
 
+  /* Custom Selection */
   ::selection {
     background-color: var(--color-accent);
     color: var(--color-accent-foreground);
   }
+
+  /* Professional Slim Scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--color-muted));
+    border-radius: 20px;
+    border: 1px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--color-primary) / 0.6);
+  }
 }
 
 /* ---------------------------------------------------------
-   Reduced Motion
+   4. UTILITIES (The Architect's Toolkit)
+--------------------------------------------------------- */
+@layer utilities {
+  .container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    max-width: 80rem;
+  }
+
+  /* Lab Card: Glassmorphism แบบสุขุม */
+  .lab-card {
+    background-color: hsl(var(--color-muted) / 0.2);
+    border: 1px solid hsl(var(--color-border));
+    backdrop-filter: blur(16px);
+    border-radius: var(--radius-md);
+    transition: all var(--duration-base) var(--ease-out);
+    overflow: hidden;
+  }
+
+  .lab-card:hover {
+    background-color: hsl(var(--color-muted) / 0.35);
+    border-color: hsl(var(--color-primary) / 0.3);
+    box-shadow: 0 10px 30px -15px hsl(var(--color-primary) / 0.15);
+    transform: translateY(-3px);
+  }
+
+  /* Emerald Glow: ใช้สำหรับจุดที่ต้องการความน่าเชื่อถือ */
+  .glow-emerald {
+    filter: drop-shadow(0 0 12px hsl(var(--color-primary) / 0.25));
+  }
+}
+
+/* ---------------------------------------------------------
+   5. ACCESSIBILITY
 --------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  * {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }

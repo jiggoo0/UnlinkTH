@@ -65,8 +65,8 @@ importers:
         specifier: ^0.562.0
         version: 0.562.0(react@19.2.3)
       next:
-        specifier: 16.1.3
-        version: 16.1.3(@babel/core@7.28.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+        specifier: 16.1.4
+        version: 16.1.4(@babel/core@7.28.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       next-mdx-remote:
         specifier: ^5.0.0
         version: 5.0.0(@types/react@19.2.9)(react@19.2.3)
@@ -75,7 +75,7 @@ importers:
         version: 0.4.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       nextjs-toploader:
         specifier: ^3.9.17
-        version: 3.9.17(next@16.1.3(@babel/core@7.28.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+        version: 3.9.17(next@16.1.4(@babel/core@7.28.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -463,6 +463,7 @@ packages:
       }
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   "@img/sharp-libvips-linux-arm@1.2.4":
     resolution:
@@ -471,6 +472,7 @@ packages:
       }
     cpu: [arm]
     os: [linux]
+    libc: [glibc]
 
   "@img/sharp-libvips-linux-ppc64@1.2.4":
     resolution:
@@ -479,6 +481,7 @@ packages:
       }
     cpu: [ppc64]
     os: [linux]
+    libc: [glibc]
 
   "@img/sharp-libvips-linux-riscv64@1.2.4":
     resolution:
@@ -487,6 +490,7 @@ packages:
       }
     cpu: [riscv64]
     os: [linux]
+    libc: [glibc]
 
   "@img/sharp-libvips-linux-s390x@1.2.4":
     resolution:
@@ -495,6 +499,7 @@ packages:
       }
     cpu: [s390x]
     os: [linux]
+    libc: [glibc]
 
   "@img/sharp-libvips-linux-x64@1.2.4":
     resolution:
@@ -503,6 +508,7 @@ packages:
       }
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   "@img/sharp-libvips-linuxmusl-arm64@1.2.4":
     resolution:
@@ -511,6 +517,7 @@ packages:
       }
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   "@img/sharp-libvips-linuxmusl-x64@1.2.4":
     resolution:
@@ -519,6 +526,7 @@ packages:
       }
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   "@img/sharp-linux-arm64@0.34.5":
     resolution:
@@ -528,6 +536,7 @@ packages:
     engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   "@img/sharp-linux-arm@0.34.5":
     resolution:
@@ -537,6 +546,7 @@ packages:
     engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
     cpu: [arm]
     os: [linux]
+    libc: [glibc]
 
   "@img/sharp-linux-ppc64@0.34.5":
     resolution:
@@ -546,6 +556,7 @@ packages:
     engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
     cpu: [ppc64]
     os: [linux]
+    libc: [glibc]
 
   "@img/sharp-linux-riscv64@0.34.5":
     resolution:
@@ -555,6 +566,7 @@ packages:
     engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
     cpu: [riscv64]
     os: [linux]
+    libc: [glibc]
 
   "@img/sharp-linux-s390x@0.34.5":
     resolution:
@@ -564,6 +576,7 @@ packages:
     engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
     cpu: [s390x]
     os: [linux]
+    libc: [glibc]
 
   "@img/sharp-linux-x64@0.34.5":
     resolution:
@@ -573,6 +586,7 @@ packages:
     engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   "@img/sharp-linuxmusl-arm64@0.34.5":
     resolution:
@@ -582,6 +596,7 @@ packages:
     engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   "@img/sharp-linuxmusl-x64@0.34.5":
     resolution:
@@ -591,6 +606,7 @@ packages:
     engines: { node: ^18.17.0 || ^20.3.0 || >=21.0.0 }
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   "@img/sharp-wasm32@0.34.5":
     resolution:
@@ -685,10 +701,10 @@ packages:
         integrity: sha512-JpZKyFfPGVb9Vbbry0vhluvqAUbaGrI368Gjl5UZg+LEZhiBLc74Am+VEtjLp5RWxgn2dC1ymtQh+jeVu74WJQ==,
       }
 
-  "@next/env@16.1.3":
+  "@next/env@16.1.4":
     resolution:
       {
-        integrity: sha512-BLP14oBOvZWXgfdJf9ao+VD8O30uE+x7PaV++QtACLX329WcRSJRO5YJ+Bcvu0Q+c/lei41TjSiFf6pXqnpbQA==,
+        integrity: sha512-gkrXnZyxPUy0Gg6SrPQPccbNVLSP3vmW8LU5dwEttEEC1RwDivk8w4O+sZIjFvPrSICXyhQDCG+y3VmjlJf+9A==,
       }
 
   "@next/eslint-plugin-next@16.1.3":
@@ -711,73 +727,77 @@ packages:
       "@mdx-js/react":
         optional: true
 
-  "@next/swc-darwin-arm64@16.1.3":
+  "@next/swc-darwin-arm64@16.1.4":
     resolution:
       {
-        integrity: sha512-CpOD3lmig6VflihVoGxiR/l5Jkjfi4uLaOR4ziriMv0YMDoF6cclI+p5t2nstM8TmaFiY6PCTBgRWB57/+LiBA==,
+        integrity: sha512-T8atLKuvk13XQUdVLCv1ZzMPgLPW0+DWWbHSQXs0/3TjPrKNxTmUIhOEaoEyl3Z82k8h/gEtqyuoZGv6+Ugawg==,
       }
     engines: { node: ">= 10" }
     cpu: [arm64]
     os: [darwin]
 
-  "@next/swc-darwin-x64@16.1.3":
+  "@next/swc-darwin-x64@16.1.4":
     resolution:
       {
-        integrity: sha512-aF4us2JXh0zn3hNxvL1Bx3BOuh8Lcw3p3Xnurlvca/iptrDH1BrpObwkw9WZra7L7/0qB9kjlREq3hN/4x4x+Q==,
+        integrity: sha512-AKC/qVjUGUQDSPI6gESTx0xOnOPQ5gttogNS3o6bA83yiaSZJek0Am5yXy82F1KcZCx3DdOwdGPZpQCluonuxg==,
       }
     engines: { node: ">= 10" }
     cpu: [x64]
     os: [darwin]
 
-  "@next/swc-linux-arm64-gnu@16.1.3":
+  "@next/swc-linux-arm64-gnu@16.1.4":
     resolution:
       {
-        integrity: sha512-8VRkcpcfBtYvhGgXAF7U3MBx6+G1lACM1XCo1JyaUr4KmAkTNP8Dv2wdMq7BI+jqRBw3zQE7c57+lmp7jCFfKA==,
+        integrity: sha512-POQ65+pnYOkZNdngWfMEt7r53bzWiKkVNbjpmCt1Zb3V6lxJNXSsjwRuTQ8P/kguxDC8LRkqaL3vvsFrce4dMQ==,
       }
     engines: { node: ">= 10" }
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
-  "@next/swc-linux-arm64-musl@16.1.3":
+  "@next/swc-linux-arm64-musl@16.1.4":
     resolution:
       {
-        integrity: sha512-UbFx69E2UP7MhzogJRMFvV9KdEn4sLGPicClwgqnLht2TEi204B71HuVfps3ymGAh0c44QRAF+ZmvZZhLLmhNg==,
+        integrity: sha512-3Wm0zGYVCs6qDFAiSSDL+Z+r46EdtCv/2l+UlIdMbAq9hPJBvGu/rZOeuvCaIUjbArkmXac8HnTyQPJFzFWA0Q==,
       }
     engines: { node: ">= 10" }
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
-  "@next/swc-linux-x64-gnu@16.1.3":
+  "@next/swc-linux-x64-gnu@16.1.4":
     resolution:
       {
-        integrity: sha512-SzGTfTjR5e9T+sZh5zXqG/oeRQufExxBF6MssXS7HPeZFE98JDhCRZXpSyCfWrWrYrzmnw/RVhlP2AxQm+wkRQ==,
+        integrity: sha512-lWAYAezFinaJiD5Gv8HDidtsZdT3CDaCeqoPoJjeB57OqzvMajpIhlZFce5sCAH6VuX4mdkxCRqecCJFwfm2nQ==,
       }
     engines: { node: ">= 10" }
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
-  "@next/swc-linux-x64-musl@16.1.3":
+  "@next/swc-linux-x64-musl@16.1.4":
     resolution:
       {
-        integrity: sha512-HlrDpj0v+JBIvQex1mXHq93Mht5qQmfyci+ZNwGClnAQldSfxI6h0Vupte1dSR4ueNv4q7qp5kTnmLOBIQnGow==,
+        integrity: sha512-fHaIpT7x4gA6VQbdEpYUXRGyge/YbRrkG6DXM60XiBqDM2g2NcrsQaIuj375egnGFkJow4RHacgBOEsHfGbiUw==,
       }
     engines: { node: ">= 10" }
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
-  "@next/swc-win32-arm64-msvc@16.1.3":
+  "@next/swc-win32-arm64-msvc@16.1.4":
     resolution:
       {
-        integrity: sha512-3gFCp83/LSduZMSIa+lBREP7+5e7FxpdBoc9QrCdmp+dapmTK9I+SLpY60Z39GDmTXSZA4huGg9WwmYbr6+WRw==,
+        integrity: sha512-MCrXxrTSE7jPN1NyXJr39E+aNFBrQZtO154LoCz7n99FuKqJDekgxipoodLNWdQP7/DZ5tKMc/efybx1l159hw==,
       }
     engines: { node: ">= 10" }
     cpu: [arm64]
     os: [win32]
 
-  "@next/swc-win32-x64-msvc@16.1.3":
+  "@next/swc-win32-x64-msvc@16.1.4":
     resolution:
       {
-        integrity: sha512-1SZVfFT8zmMB+Oblrh5OKDvUo5mYQOkX2We6VGzpg7JUVZlqe4DYOFGKYZKTweSx1gbMixyO1jnFT4thU+nNHQ==,
+        integrity: sha512-JSVlm9MDhmTXw/sO2PE/MRj+G6XOSMZB+BcZ0a7d6KwVFZVpkHcb2okyoYFBaco6LeiL53BBklRlOrDDbOeE5w==,
       }
     engines: { node: ">= 10" }
     cpu: [x64]
@@ -1444,6 +1464,7 @@ packages:
     engines: { node: ">= 10" }
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   "@tailwindcss/oxide-linux-arm64-musl@4.1.18":
     resolution:
@@ -1453,6 +1474,7 @@ packages:
     engines: { node: ">= 10" }
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   "@tailwindcss/oxide-linux-x64-gnu@4.1.18":
     resolution:
@@ -1462,6 +1484,7 @@ packages:
     engines: { node: ">= 10" }
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   "@tailwindcss/oxide-linux-x64-musl@4.1.18":
     resolution:
@@ -1471,6 +1494,7 @@ packages:
     engines: { node: ">= 10" }
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   "@tailwindcss/oxide-wasm32-wasi@4.1.18":
     resolution:
@@ -1776,6 +1800,7 @@ packages:
       }
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   "@unrs/resolver-binding-linux-arm64-musl@1.11.1":
     resolution:
@@ -1784,6 +1809,7 @@ packages:
       }
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   "@unrs/resolver-binding-linux-ppc64-gnu@1.11.1":
     resolution:
@@ -1792,6 +1818,7 @@ packages:
       }
     cpu: [ppc64]
     os: [linux]
+    libc: [glibc]
 
   "@unrs/resolver-binding-linux-riscv64-gnu@1.11.1":
     resolution:
@@ -1800,6 +1827,7 @@ packages:
       }
     cpu: [riscv64]
     os: [linux]
+    libc: [glibc]
 
   "@unrs/resolver-binding-linux-riscv64-musl@1.11.1":
     resolution:
@@ -1808,6 +1836,7 @@ packages:
       }
     cpu: [riscv64]
     os: [linux]
+    libc: [musl]
 
   "@unrs/resolver-binding-linux-s390x-gnu@1.11.1":
     resolution:
@@ -1816,6 +1845,7 @@ packages:
       }
     cpu: [s390x]
     os: [linux]
+    libc: [glibc]
 
   "@unrs/resolver-binding-linux-x64-gnu@1.11.1":
     resolution:
@@ -1824,6 +1854,7 @@ packages:
       }
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   "@unrs/resolver-binding-linux-x64-musl@1.11.1":
     resolution:
@@ -1832,6 +1863,7 @@ packages:
       }
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   "@unrs/resolver-binding-wasm32-wasi@1.11.1":
     resolution:
@@ -3445,6 +3477,7 @@ packages:
     engines: { node: ">= 12.0.0" }
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   lightningcss-linux-arm64-musl@1.30.2:
     resolution:
@@ -3454,6 +3487,7 @@ packages:
     engines: { node: ">= 12.0.0" }
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   lightningcss-linux-x64-gnu@1.30.2:
     resolution:
@@ -3463,6 +3497,7 @@ packages:
     engines: { node: ">= 12.0.0" }
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   lightningcss-linux-x64-musl@1.30.2:
     resolution:
@@ -3472,6 +3507,7 @@ packages:
     engines: { node: ">= 12.0.0" }
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   lightningcss-win32-arm64-msvc@1.30.2:
     resolution:
@@ -3878,10 +3914,10 @@ packages:
       react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
       react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
 
-  next@16.1.3:
+  next@16.1.4:
     resolution:
       {
-        integrity: sha512-gthG3TRD+E3/mA0uDQb9lqBmx1zVosq5kIwxNN6+MRNd085GzD+9VXMPUs+GGZCbZ+GDZdODUq4Pm7CTXK6ipw==,
+        integrity: sha512-gKSecROqisnV7Buen5BfjmXAm7Xlpx9o2ueVQRo5DxQcjC8d330dOM1xiGWc2k3Dcnz0In3VybyRPOsudwgiqQ==,
       }
     engines: { node: ">=20.9.0" }
     hasBin: true
@@ -5411,7 +5447,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  "@next/env@16.1.3": {}
+  "@next/env@16.1.4": {}
 
   "@next/eslint-plugin-next@16.1.3":
     dependencies:
@@ -5423,28 +5459,28 @@ snapshots:
     optionalDependencies:
       "@mdx-js/react": 3.1.1(@types/react@19.2.9)(react@19.2.3)
 
-  "@next/swc-darwin-arm64@16.1.3":
+  "@next/swc-darwin-arm64@16.1.4":
     optional: true
 
-  "@next/swc-darwin-x64@16.1.3":
+  "@next/swc-darwin-x64@16.1.4":
     optional: true
 
-  "@next/swc-linux-arm64-gnu@16.1.3":
+  "@next/swc-linux-arm64-gnu@16.1.4":
     optional: true
 
-  "@next/swc-linux-arm64-musl@16.1.3":
+  "@next/swc-linux-arm64-musl@16.1.4":
     optional: true
 
-  "@next/swc-linux-x64-gnu@16.1.3":
+  "@next/swc-linux-x64-gnu@16.1.4":
     optional: true
 
-  "@next/swc-linux-x64-musl@16.1.3":
+  "@next/swc-linux-x64-musl@16.1.4":
     optional: true
 
-  "@next/swc-win32-arm64-msvc@16.1.3":
+  "@next/swc-win32-arm64-msvc@16.1.4":
     optional: true
 
-  "@next/swc-win32-x64-msvc@16.1.3":
+  "@next/swc-win32-x64-msvc@16.1.4":
     optional: true
 
   "@nodelib/fs.scandir@2.1.5":
@@ -7681,9 +7717,9 @@ snapshots:
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
 
-  next@16.1.3(@babel/core@7.28.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+  next@16.1.4(@babel/core@7.28.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
-      "@next/env": 16.1.3
+      "@next/env": 16.1.4
       "@swc/helpers": 0.5.15
       baseline-browser-mapping: 2.9.16
       caniuse-lite: 1.0.30001765
@@ -7692,22 +7728,22 @@ snapshots:
       react-dom: 19.2.3(react@19.2.3)
       styled-jsx: 5.1.6(@babel/core@7.28.6)(react@19.2.3)
     optionalDependencies:
-      "@next/swc-darwin-arm64": 16.1.3
-      "@next/swc-darwin-x64": 16.1.3
-      "@next/swc-linux-arm64-gnu": 16.1.3
-      "@next/swc-linux-arm64-musl": 16.1.3
-      "@next/swc-linux-x64-gnu": 16.1.3
-      "@next/swc-linux-x64-musl": 16.1.3
-      "@next/swc-win32-arm64-msvc": 16.1.3
-      "@next/swc-win32-x64-msvc": 16.1.3
+      "@next/swc-darwin-arm64": 16.1.4
+      "@next/swc-darwin-x64": 16.1.4
+      "@next/swc-linux-arm64-gnu": 16.1.4
+      "@next/swc-linux-arm64-musl": 16.1.4
+      "@next/swc-linux-x64-gnu": 16.1.4
+      "@next/swc-linux-x64-musl": 16.1.4
+      "@next/swc-win32-arm64-msvc": 16.1.4
+      "@next/swc-win32-x64-msvc": 16.1.4
       sharp: 0.34.5
     transitivePeerDependencies:
       - "@babel/core"
       - babel-plugin-macros
 
-  nextjs-toploader@3.9.17(next@16.1.3(@babel/core@7.28.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+  nextjs-toploader@3.9.17(next@16.1.4(@babel/core@7.28.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
-      next: 16.1.3(@babel/core@7.28.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      next: 16.1.4(@babel/core@7.28.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       nprogress: 0.2.0
       prop-types: 15.8.1
       react: 19.2.3

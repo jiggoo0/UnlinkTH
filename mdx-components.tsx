@@ -1,138 +1,128 @@
-import type { MDXComponents } from "mdx/types"
-import { Badge } from "@/components/ui/badge"
-import { Typography } from "@/components/ui/typography"
-import { cn } from "@/lib/utils"
-import React from "react"
+/** @format */
+
+import type { MDXComponents } from "mdx/types";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 /**
- * Custom MDX Components for UNLINK-TH
+ * UNLINK-TH | MDX Style Blueprint (2026)
  * -------------------------------------------------------------------------
- * กำหนดสไตล์มาตรฐานให้กับ Markdown Elements เพื่อความน่าเชื่อถือระดับผู้เชี่ยวชาญ
- * ยุทธศาสตร์: High Contrast -> Clinical Readability -> Professional Branding
+ * ปรับแต่ง Tag มาตรฐานของ Markdown ให้เป็นสไตล์วิศวกรรมข้อมูล
+ * ดำเนินการลบ Unused Imports เพื่อเพิ่มประสิทธิภาพการ Build
  */
+
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    // หัวข้อหลัก: สำหรับ Title หรือบทนำสำคัญ
-    h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    // --- Headings (สไตล์เรียบหรูและเน้นความอ่านง่าย) ---
+    h1: ({ className, ...props }) => (
       <h1
         className={cn(
-          "text-foreground mt-2 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+          "text-foreground mt-2 scroll-m-20 text-4xl font-bold tracking-tight md:text-5xl",
           className
         )}
         {...props}
       />
     ),
-
-    // หัวข้อรอง: ใช้แบ่ง Protocol หรือขั้นตอนการทำงานหลัก
-    h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    h2: ({ className, ...props }) => (
       <h2
         className={cn(
-          "text-foreground border-border mt-12 scroll-m-20 border-b pb-3 text-3xl font-bold tracking-tight first:mt-0",
+          "group border-border/10 text-foreground mt-12 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0",
           className
         )}
         {...props}
       />
     ),
-
-    h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    h3: ({ className, ...props }) => (
       <h3
         className={cn(
-          "text-foreground mt-10 scroll-m-20 text-2xl font-bold tracking-tight",
+          "text-primary mt-8 scroll-m-20 text-2xl font-semibold tracking-tight",
           className
         )}
         {...props}
       />
     ),
 
-    // เนื้อหา Paragraph: เน้นความสูงบรรทัด (Leading) เพื่อให้อ่านภาษาไทยได้สบายตา
-    p: ({
-      className,
-      ...props
-    }: React.HTMLAttributes<HTMLParagraphElement>) => (
+    // --- Typography (เน้นความชัดเจนของข้อมูลหลัก) ---
+    p: ({ className, ...props }) => (
       <p
         className={cn(
-          "text-muted-foreground leading-relaxed [&:not(:first-child)]:mt-6",
+          "text-muted-foreground max-w-none leading-7 [&:not(:first-child)]:mt-6",
           className
         )}
         {...props}
       />
     ),
+    a: ({ className, href, ...props }) => {
+      const isInternal = href?.startsWith("/");
+      const Component = isInternal ? Link : "a";
+      return (
+        <Component
+          href={href as string}
+          className={cn(
+            "text-primary hover:text-primary/80 font-medium underline underline-offset-4 transition-colors",
+            className
+          )}
+          {...(isInternal
+            ? {}
+            : { target: "_blank", rel: "noopener noreferrer" })}
+          {...props}
+        />
+      );
+    },
 
-    // รายการแบบ Bullet Points: สำหรับรายการฟีเจอร์หรือเช็คลิสต์ทางเทคนิค
-    ul: ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
-      <ul
-        className={cn(
-          "text-muted-foreground my-6 ml-6 list-disc space-y-2",
-          className
-        )}
-        {...props}
-      />
-    ),
-
-    ol: ({ className, ...props }: React.HTMLAttributes<HTMLOListElement>) => (
-      <ol
-        className={cn(
-          "text-muted-foreground my-6 ml-6 list-decimal space-y-3",
-          className
-        )}
-        {...props}
-      />
-    ),
-
-    li: ({ className, ...props }: React.LiHTMLAttributes<HTMLLIElement>) => (
-      <li className={cn("leading-7", className)} {...props} />
-    ),
-
-    // Blockquote: ออกแบบสไตล์ "Tactical Note" เพื่อเน้นย้ำจุดสำคัญหรือคำโปรย
-    blockquote: ({
-      className,
-      ...props
-    }: React.BlockquoteHTMLAttributes<HTMLQuoteElement>) => (
+    // --- Blocks & Lists (โครงสร้างแบบ Technical Report) ---
+    blockquote: ({ className, ...props }) => (
       <blockquote
         className={cn(
-          "border-primary bg-primary/5 text-foreground mt-8 rounded-r-lg border-l-4 py-6 pr-4 pl-6 italic shadow-sm",
+          "border-primary bg-primary/5 text-foreground/90 mt-6 rounded-r-lg border-l-2 px-6 py-4 italic",
           className
         )}
         {...props}
       />
     ),
-
-    // ส่วนเน้นข้อความ
-    strong: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-      <strong
-        className={cn("text-foreground font-bold italic", className)}
-        {...props}
-      />
-    ),
-
-    // ลิงก์ภายในบทความ
-    a: ({
-      className,
-      ...props
-    }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-      <a
+    ul: ({ className, ...props }) => (
+      <ul
         className={cn(
-          "text-primary decoration-primary/30 hover:decoration-primary underline underline-offset-4 transition-colors",
+          "text-muted-foreground my-6 ml-6 list-disc [&>li]:mt-2",
           className
         )}
         {...props}
       />
     ),
-
-    // Custom Components
-    Badge: ({ className, ...props }: React.ComponentProps<typeof Badge>) => (
-      <Badge
-        variant="outline"
+    ol: ({ className, ...props }) => (
+      <ol
         className={cn(
-          "bg-primary/5 px-2 py-0.5 font-mono text-[10px] tracking-wider uppercase",
+          "text-muted-foreground my-6 ml-6 list-decimal [&>li]:mt-2",
           className
         )}
         {...props}
       />
     ),
 
-    Typography,
+    // --- Code & Pre (สำหรับการแสดงผลเชิงเทคนิค) ---
+    code: ({ className, ...props }) => (
+      <code
+        className={cn(
+          "bg-muted/50 text-primary relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
+          className
+        )}
+        {...props}
+      />
+    ),
+    pre: ({ className, ...props }) => (
+      <pre
+        className={cn(
+          "border-border/50 bg-muted/30 mt-6 mb-4 overflow-x-auto rounded-xl border p-4 font-mono",
+          className
+        )}
+        {...props}
+      />
+    ),
 
+    // --- Horizontal Rule (ตัวแบ่งส่วนปฏิบัติการ) ---
+    hr: ({ ...props }) => <hr className="border-border/10 my-12" {...props} />,
+
+    // รวมคอมโพเนนต์อื่นๆ ที่ส่งผ่านมา
     ...components,
-  }
+  };
 }

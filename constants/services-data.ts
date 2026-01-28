@@ -1,30 +1,31 @@
-/**
- * UNLINK-TH | Services Data (2026 Optimized Matrix)
- * -------------------------------------------------------------------------
- * ยุทธศาสตร์การนำเสนอ:
- * 1. Action-Oriented Title: ใช้ Keyword ที่คนไทยค้นหาเพื่อแก้ปัญหาจริง
- * 2. Strategic Pricing: ใช้โมเดล "Starting At" เพื่อคัดกรอง Lead และ "Success Fee" เพื่อปิดการขาย
- * 3. Technical Authority: ใช้คำศัพท์เฉพาะทางเพื่อสร้างความแตกต่างจาก Agency ทั่วไป
- */
+/** @format */
 
 import { Service } from "@/types"
 
+/**
+ * UNLINK-TH | Services Matrix (2026 Reputation Architect Edition)
+ * -------------------------------------------------------------------------
+ * ยุทธศาสตร์: "Unlink the Past, Architect Your Future"
+ * จัดหมวดหมู่ตามกระบวนการ: Cleanup (ล้าง), Architect (สร้าง), Legal (คุ้มครอง)
+ */
+
 export const servicesData: Service[] = [
+  // --- PHASE 1: THE CLEANUP (การจัดการอดีต) ---
   {
-    id: "ser-001",
-    slug: "how-to-fix-negative-google-search-results",
-    title: "รับลบลิงก์ Google & ข่าวเสีย (Technical De-indexing)",
+    id: "ser-cleanup-001",
+    slug: "technical-de-indexing",
+    title: "Technical De-indexing",
     shortDescription:
-      "บริการถอดถอนรายชื่อ ข่าวอาชญากรรม และลิงก์ข่าวด้านลบออกจากหน้าแรก Google แบบถาวร ด้วยเทคนิควิศวกรรมข้อมูล",
+      "ถอนรากถอนโคนข้อมูลเชิงลบออกจากฐานข้อมูล Google Search ถาวร",
     description:
-      "เจาะลึกโครงสร้าง Indexing ของ Google เพื่อตัดวงจรการค้นหาข่าวเสียที่ต้นตอ เราใช้เทคนิค De-indexing เพื่อแจ้งให้ Search Engine ถอดถอน URL ที่ไม่พึงประสงค์ออกจากฐานข้อมูลถาวร ไม่ใช่เพียงการทำ SEO ดันลิงก์ แต่เป็นการลบจุดเชื่อมโยงข้อมูลในระดับ Metadata",
-    iconName: "Search",
-    category: "Technical",
+      "เหนือกว่าการดันลิงก์คือการ 'ลบ' เราใช้เทคนิค Metadata Cleansing และการส่งสัญญาณ De-indexing เพื่อแจ้งให้ Search Engine นำ URL ที่ไม่พึงประสงค์ออกจากฐานข้อมูลถาวร จัดการได้ทั้งข่าวอาชญากรรมเก่า ข่าวบิดเบือน หรือข้อมูลส่วนตัวที่รั่วไหล",
+    iconName: "Trash2",
+    category: "Cleanup",
     features: [
-      "Permanent De-indexing: ลบลิงก์ออกจาก Google Search ถาวร",
-      "Negative News Removal: จัดการข่าวเสีย ข่าวคดีความเก่า หรือข่าวบิดเบือน",
-      "Metadata Cleansing: ล้างข้อมูล Cache ที่ตกค้างในระบบการค้นหา",
-      "Search Console Audit: ตรวจสอบสถานะ URL ยืนยันผลลัพธ์ทางเทคนิค",
+      "Permanent De-indexing: ลบ URL ออกจากผลการค้นหาถาวร",
+      "Cache Removal: ล้างสำเนาข้อมูลเก่าที่ยังค้างอยู่ในระบบ",
+      "Search Result Audit: รายงานสถานะความสะอาดของชื่อรายสัปดาห์",
+      "Confidential Protocol: รักษาความลับลูกค้าขั้นสูงสุด",
     ],
     priceInfo: {
       startingAt: "15,000",
@@ -32,33 +33,33 @@ export const servicesData: Service[] = [
       model: "Success Fee",
     },
     metadata: {
-      title: "รับลบลิงก์ Google ลบข่าวเสีย และประวัติการค้นหา | UNLINK-TH",
-      description:
-        "บริการลบลิงก์ข่าวเสียออกจาก Google ถาวร ด้วยวิธี De-indexing ที่ปลอดภัยและเห็นผลจริง แก้ไขชื่อติด Google ลบประวัติที่ไม่ต้องการ",
+      defaultTitle:
+        "รับลบลิงก์ Google และข่าวเสียด้วยเทคนิค De-indexing | UNLINK-TH",
+      defaultDescription:
+        "ลบชื่อติด Google และลิงก์ข่าวเสียถาวร ด้วยเทคนิควิศวกรรมข้อมูลระดับสูง ปลอดภัย 100% ประเมินโอกาสสำเร็จฟรี",
       keywords: [
         "รับลบลิงก์ Google",
         "ลบข่าวเสีย",
-        "วิธีลบชื่อออกจาก Google",
-        "จ้างลบประวัติ Google",
-        "De-indexing Service Thailand",
+        "De-indexing Service",
+        "ลบประวัติออนไลน์",
       ],
     },
   },
   {
-    id: "ser-002",
-    slug: "remove-social-media-content-pantip-twitter",
-    title: "ลบกระทู้ Pantip, รีวิว & ดราม่าโซเชียล (Platform Removal)",
+    id: "ser-cleanup-002",
+    slug: "social-platform-removal",
+    title: "Platform Removal",
     shortDescription:
-      "จัดการดราม่าออนไลน์ ลบกระทู้หมิ่นประมาทใน Pantip, Twitter (X) และรีวิวปลอมใน Google Maps",
+      "หยุดดราม่า ลบกระทู้หมิ่นประมาท และรีวิวปลอมบนโซเชียลมีเดีย",
     description:
-      "ปฏิบัติการระงับเหตุบนแพลตฟอร์มโซเชียลมีเดียโดยเฉพาะ ทีมงานผู้เชี่ยวชาญกฎชุมชน (Community Standards) ประสานงานแจ้งลบเนื้อหาที่ละเมิดสิทธิ หมิ่นประมาท หรือคุกคามความเป็นส่วนตัวบน Pantip, Facebook, X และ Google Maps อย่างเร่งด่วน",
-    iconName: "MessageCircle",
-    category: "Social",
+      "จัดการปัญหาบนหน้าแพลตฟอร์มโดยตรง (Pantip, Facebook, X, Google Maps) เราประสานงานตามกฎชุมชนและข้อกฎหมายเพื่อระงับเนื้อหาที่คุกคามความเป็นส่วนตัวหรือรีวิวที่สร้างความเสียหายโดยไม่เป็นธรรม",
+    iconName: "MessageSquareOff",
+    category: "Cleanup",
     features: [
-      "Pantip & Forum Takedown: ประสานงานลบกระทู้ต้นทางและลิงก์ Archive",
-      "Review Management: แจ้งลบรีวิว 1 ดาว หรือการกลั่นแกล้งบน Google Maps",
-      "Social Media Crisis: จัดการโพสต์หมิ่นประมาท รูปหลุด หรือการ Doxing",
-      "Account Reporting: รายงานปิดเพจปลอม หรือบัญชีที่สร้างเพื่อโจมตี",
+      "Forum Takedown: ประสานงานลบกระทู้ Pantip และ Archive ลิงก์",
+      "Review Management: แจ้งลบรีวิวปลอมบน Google Maps",
+      "Social Crisis Control: ระงับการกระจายของข้อมูลบิดเบือน",
+      "Account Defense: รายงานปิดบัญชีปลอมที่สวมรอยเป็นธุรกิจ",
     ],
     priceInfo: {
       startingAt: "8,500",
@@ -66,86 +67,120 @@ export const servicesData: Service[] = [
       model: "Fixed Rate",
     },
     metadata: {
-      title:
-        "รับลบกระทู้ Pantip ลบรีวิว Google Maps และดราม่าโซเชียล | UNLINK-TH",
-      description:
-        "บริการแจ้งลบกระทู้ Pantip ลบรีวิวแย่ๆ และจัดการดราม่าบน Twitter/Facebook ดำเนินการรวดเร็ว หยุดความเสียหายทันที",
+      defaultTitle: "รับลบกระทู้ Pantip และรีวิว Google Maps | UNLINK-TH",
+      defaultDescription:
+        "บริการแจ้งลบเนื้อหาหมิ่นประมาทบนโซเชียลมีเดีย จัดการดราม่าออนไลน์รวดเร็ว เห็นผลทันใจ",
       keywords: [
         "ลบกระทู้ Pantip",
         "ลบรีวิว Google Maps",
-        "แจ้งลบ Twitter",
-        "รับปิดเพจปลอม",
-        "Cyberbullying Solution",
+        "แจ้งลบเพจปลอม",
+        "จัดการดราม่า",
+      ],
+    },
+  },
+
+  // --- PHASE 2: THE ARCHITECT (การออกแบบอนาคต) ---
+  {
+    id: "ser-build-001",
+    slug: "seo-shadowing-domination",
+    title: "SEO Shadowing",
+    shortDescription:
+      "สร้าง 'กำแพงชื่อเสียง' ด้วยเนื้อหาเชิงบวก เพื่อบังและเบียดข้อมูลเสีย",
+    description:
+      "กลยุทธ์เชิงรุกที่ทรงพลังที่สุด เราสร้างเว็บไซต์และเนื้อหาคุณภาพสูง (High-Authority Assets) เพื่อเข้ายึดครองพื้นที่ 10 อันดับแรกของ Google ข่าวเสียจะถูกเบียดไปอยู่หน้าหลังจนไม่มีใครมองเห็น",
+    iconName: "ShieldCheck",
+    category: "Architect",
+    features: [
+      "SERP Domination: ยึดพื้นที่หน้า 1 ด้วยเว็บเครือข่ายคุณภาพสูง",
+      "Narrative Control: ออกแบบเรื่องราวที่คุณต้องการให้โลกจำ",
+      "Keyword Blocking: ป้องกันคำค้นหาเชิงลบใน Google Suggest",
+      "Reputation Insurance: เฝ้าระวังและป้องกันข่าวเสียรายปี",
+    ],
+    priceInfo: {
+      startingAt: "45,000",
+      unit: "บาท / โปรเจกต์",
+      model: "Project Based",
+    },
+    metadata: {
+      defaultTitle:
+        "SEO Shadowing บริการสร้างกำแพงชื่อเสียงบน Google | UNLINK-TH",
+      defaultDescription:
+        "จองพื้นที่หน้าแรก Google ด้วยเนื้อหาที่ดีที่สุดของคุณ ป้องกันข่าวเสียและสร้างความน่าเชื่อถือระดับสูงสุด",
+      keywords: [
+        "SEO Shadowing",
+        "Online Reputation Management",
+        "ปั้นชื่อเสียงแบรนด์",
+        "คุมหน้าแรก Google",
       ],
     },
   },
   {
-    id: "ser-003",
-    slug: "online-background-check-for-job-application",
-    title: "ลบประวัติอาชญากรรมออนไลน์ & ตรวจสอบตัวตน (Digital Cleaning)",
+    id: "ser-build-002",
+    slug: "digital-authority-hub",
+    title: "Authority Hub",
     shortDescription:
-      "คลีนประวัติออนไลน์ ลบชื่อจากเว็บประกาศจับ หรือ Blacklist เก่า เพื่อเตรียมพร้อมสมัครงานและทำธุรกิจ",
+      "สร้างความน่าเชื่อถือด้วย Google Knowledge Panel และ E-E-A-T Profile",
     description:
-      "บริการ Deep Clean ประวัติดิจิทัลสำหรับผู้ที่ต้องการเริ่มต้นใหม่ เราตรวจสอบและดำเนินการถอนชื่อจากเว็บไซต์ Blacklist, ข่าวคดีความเก่าที่สิ้นสุดแล้ว หรือฐานข้อมูลสาธารณะที่ส่งผลต่อการทำ Background Check และความน่าเชื่อถือทางธุรกิจ",
-    iconName: "Fingerprint",
-    category: "Personal",
+      "เราสร้าง 'ตัวตนระดับผู้เชี่ยวชาญ' (Authority) โดยการวางโครงสร้างข้อมูลให้ Google สร้าง Knowledge Panel เสริมความน่าเชื่อถือให้ธุรกิจหรือบุคคลสำคัญ",
+    iconName: "UserCheck",
+    category: "Architect",
     features: [
-      "Blacklist Cleansing: ลบชื่อจากเว็บ Blacklist กรณีที่เคลียร์ภาระผูกพันแล้ว",
-      "Criminal Record Privacy: จัดการข่าวคดีความในอดีตที่สิ้นสุดผลทางกฎหมาย",
-      "Name-Check Pre-screening: ตรวจสอบความสะอาดของชื่อในระบบดิจิทัล",
-      "Privacy Hardening: ตั้งค่าความปลอดภัยเพื่อป้องกันการถูกขุดประวัติ",
+      "Knowledge Graph Setup: จัดการข้อมูล Schema เพื่อสร้าง Google Panel",
+      "E-E-A-T Optimization: ปรับแต่งโปรไฟล์ให้บอท AI ยอมรับความเป็น Expert",
+      "Editorial Placement: ผลักดันบทความประวัติไปยังเว็บไซต์ข่าวชั้นนำ",
+      "Verified Persona: สร้างตัวตนดิจิทัลที่ขาวสะอาด",
     ],
     priceInfo: {
-      startingAt: "19,500",
+      startingAt: "25,000",
       unit: "บาท / โปรเจกต์",
       model: "Fixed Rate",
     },
     metadata: {
-      title:
-        "ลบประวัติอาชญากรรมออนไลน์ ลบชื่อ Blacklist ตรวจสอบประวัติ | UNLINK-TH",
-      description:
-        "บริการคลีนประวัติออนไลน์ ลบชื่อจากเว็บ Blacklist และข่าวคดีความเก่า เตรียมตัวสมัครงานอย่างมั่นใจ กู้คืนความน่าเชื่อถือ",
+      defaultTitle:
+        "รับทำ Google Knowledge Panel และสร้างตัวตนผู้เชี่ยวชาญ | UNLINK-TH",
+      defaultDescription:
+        "ยกระดับความน่าเชื่อถือด้วยการสร้างกล่องข้อมูล Google และวางระบบ E-E-A-T ให้ตัวตนของคุณดูแพงและเป็นมืออาชีพ",
       keywords: [
-        "ลบประวัติอาชญากรรมออนไลน์",
-        "ลบชื่อ Blacklist",
-        "เช็คประวัติอาชญากรรม",
-        "ลบประวัติเสื่อมเสีย",
-        "Digital Footprint Cleaning",
+        "สร้าง Google Knowledge Panel",
+        "ทำประวัติบุคคล",
+        "Expert Branding",
+        "E-E-A-T",
       ],
     },
   },
+
+  // --- PHASE 3: LEGAL & COMPLIANCE (การคุ้มครองสิทธิ) ---
   {
-    id: "ser-004",
-    slug: "right-to-be-forgotten-thailand-pdpa",
-    title: "ทนาย PDPA & สิทธิในการถูกลืม (Legal Takedown)",
+    id: "ser-legal-001",
+    slug: "pdpa-legal-takedown",
+    title: "Legal Takedown",
     shortDescription:
-      "ใช้กฎหมาย PDPA บังคับลบข้อมูล ดำเนินคดี พรบ.คอมฯ และใช้สิทธิ Right to be Forgotten",
+      "บังคับลบข้อมูลด้วยข้อกฎหมาย PDPA และการยื่นโนติสโดยทนายความ",
     description:
-      "ปฏิบัติการผ่านที่ปรึกษากฎหมายเชี่ยวชาญ PDPA และ พรบ.คอมพิวเตอร์ ดำเนินการร่างจดหมายโนติส (Notice) ถึงผู้ควบคุมข้อมูลเพื่อบังคับใช้สิทธิในการลบข้อมูล (Right to Erasure) ตามกฎหมายไทยอย่างเด็ดขาดและเป็นทางการ",
-    iconName: "Scale",
+      "ปฏิบัติการผ่านช่องทางกฎหมายดิจิทัล ดำเนินการร่าง Notice To Remove ถึงผู้ควบคุมข้อมูลตามสิทธิ Right to Erasure ของกฎหมาย PDPA เหมาะสำหรับเคสที่ต้องใช้มาตรการบังคับอย่างเป็นทางการ",
+    iconName: "Gavel",
     category: "Legal",
     features: [
-      "Legal Notice Drafting: ร่างจดหมายเตือนอย่างเป็นทางการโดยทนายความ",
-      "PDPA Enforcement: บังคับใช้สิทธิตามกฎหมายเพื่อระงับข้อมูลส่วนบุคคล",
-      "ISP & Platform Liaison: ประสานงานฝ่ายกฎหมายของ Platform Provider",
-      "Right to be Forgotten: ดำเนินการให้ข้อมูลถูกลืมจากระบบอย่างถูกต้อง",
+      "Official Notice: ร่างและส่งจดหมายเตือนอย่างเป็นทางการโดยทนายความ",
+      "Right to Erasure: บังคับใช้สิทธิในการลบข้อมูลตามกฎหมายไทย",
+      "Legal Liaison: ประสานงานฝ่ายกฎหมายของ ISP และแพลตฟอร์ม",
+      "Compliance Audit: ตรวจสอบความสอดคล้องของข้อมูลตามหลัก PDPA",
     ],
     priceInfo: {
       startingAt: "12,000",
-      unit: "บาท / ครั้ง",
+      unit: "บาท / เคส",
       model: "Fixed Rate",
     },
     metadata: {
-      title:
-        "ทนาย PDPA รับปรึกษาสิทธิในการถูกลืม (Right to be Forgotten) | UNLINK-TH",
-      description:
-        "บริการทางกฎหมาย PDPA ยื่นโนติสบังคับลบข้อมูล ใช้สิทธิ Right to be Forgotten ดำเนินการโดยผู้เชี่ยวชาญกฎหมายดิจิทัล",
+      defaultTitle:
+        "ทนายลบรูป ลบชื่อ ทนาย PDPA และสิทธิในการถูกลืม | UNLINK-TH",
+      defaultDescription:
+        "ใช้กฎหมายบังคับลบข้อมูลอย่างถูกต้อง ปรึกษาผู้เชี่ยวชาญกฎหมายดิจิทัลและ PDPA เพื่อปกป้องความเป็นส่วนตัว",
       keywords: [
         "ทนาย PDPA",
         "สิทธิในการถูกลืม",
-        "ฟ้องหมิ่นประมาทออนไลน์",
-        "พรบ คอมพิวเตอร์",
-        "จ้างทนายลบรูป",
+        "ลบรูปหลุดทนาย",
+        "โนติสลบข้อมูล",
       ],
     },
   },

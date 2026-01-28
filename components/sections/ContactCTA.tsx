@@ -1,176 +1,111 @@
+/** @format */
+
 "use client"
 
-import Link from "next/link"
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { siteConfig } from "@/constants/site-config"
+import { Button } from "@/components/ui/button"
 import {
   MessageCircle,
   ShieldCheck,
-  Lock,
   ArrowRight,
-  Fingerprint,
-  Activity,
+  Lock,
+  ShieldAlert,
+  Terminal,
 } from "lucide-react"
+import Link from "next/link"
 
 /**
- *
- * ContactCTA: ส่วนปิดท้ายการเล่าเรื่อง (The Final Commitment)
- * ยุทธศาสตร์: Expertise -> Security -> Immediate Action
- * ออกแบบเพื่อสร้างความปลอดภัย (Safe Space) และความเชื่อมั่นสูงสุดก่อนการติดต่อ
+ * UNLINK-TH | Contact Call-to-Action Protocol (2026)
+ * -------------------------------------------------------------------------
+ * ส่วนสรุปการติดต่อสื่อสารที่เน้นย้ำเรื่องความปลอดภัยและมาตรฐาน NDA
+ * ออกแบบในสไตล์ Industrial Security Lab
  */
+
 export default function ContactCTA() {
-  // สร้าง Link โดยตรงจาก siteConfig เพื่อความง่ายในการจัดการข้อมูลติดต่อ
-  const lineLink = `https://line.me/ti/p/${siteConfig.contact.lineId.replace(
-    "@",
-    ""
-  )}`
-
   return (
-    <section
-      id="cta"
-      className="bg-background relative overflow-hidden py-24 lg:py-40"
-    >
-      {/* 01: Operational Atmosphere (Tactical Decor) */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
-        aria-hidden="true"
+    <section className="container py-24">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="lab-card border-primary/20 bg-muted/5 shadow-primary/5 relative overflow-hidden p-10 text-center shadow-2xl md:p-20"
       >
-        <div className="h-full w-full bg-[radial-gradient(#808080_1px,transparent_1px)] [background-size:32px_32px]" />
-      </div>
+        {/* Intelligence Background Layers */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(16,185,129,0.08),transparent)]" />
+        <div className="via-primary/20 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent" />
 
-      {/* Central Shield Watermark - Tactical Background */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-[0.01]"
-        aria-hidden="true"
-      >
-        <ShieldCheck className="text-primary h-[600px] w-[600px] lg:h-[800px] lg:w-[800px]" />
-      </div>
-
-      <div className="relative z-10 container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="border-primary/20 bg-muted/5 mx-auto max-w-5xl overflow-hidden rounded-[2.5rem] border p-8 text-center backdrop-blur-xl md:rounded-[3.5rem] md:p-24"
-        >
-          {/* Status Monitoring Indicator */}
-          <div className="mb-10 flex items-center justify-center gap-3">
-            <Badge
-              variant="outline"
-              className="border-primary/30 bg-primary/5 text-primary px-5 py-2 font-mono text-[10px] tracking-[0.25em] uppercase shadow-[0_0_15px_rgba(var(--color-primary),0.1)]"
-            >
-              Secure Protocol Active
-            </Badge>
-            <div className="flex items-center gap-1.5 opacity-40">
-              <Activity className="text-primary h-3 w-3 animate-pulse" />
-              <span className="font-mono text-[8px] tracking-tighter uppercase">
-                Live Support
-              </span>
-            </div>
+        <div className="relative z-10 mx-auto max-w-4xl space-y-10">
+          {/* Status Indicator */}
+          <div className="bg-background/50 border-primary/10 text-primary inline-flex items-center gap-2.5 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.25em] uppercase">
+            <Lock className="h-3 w-3" />
+            <span className="animate-pulse">
+              Secure Liaison Connection Established
+            </span>
           </div>
 
-          <h2 className="text-foreground mb-10 text-4xl font-extrabold tracking-tighter md:text-7xl lg:text-8xl">
-            คืนความปกติสุข <br />
-            <span className="text-muted-foreground font-light italic">
-              ให้แก่ตัวตนดิจิทัลของคุณ
-            </span>
+          {/* Strategic Headline */}
+          <h2 className="text-4xl leading-[1.1] font-bold tracking-tighter text-balance md:text-6xl">
+            Ready to{" "}
+            <span className="text-primary glow-emerald">Unlink the Past</span>{" "}
+            <br className="hidden md:block" />
+            and Architect Your Future?
           </h2>
 
-          <p className="text-muted-foreground/80 mx-auto mb-14 max-w-2xl text-lg leading-relaxed md:text-xl lg:text-2xl">
-            เราพร้อมประเมินความเป็นไปได้เชิงเทคนิคผ่านระบบ{" "}
-            <br className="hidden md:block" />
-            <span className="decoration-primary/30 text-foreground font-bold italic underline underline-offset-8">
-              Zero-Knowledge Consultation
-            </span>{" "}
-            ที่ยึดถือมาตรการรักษาความลับสูงสุด
+          {/* Operational Description */}
+          <p className="text-muted-foreground mx-auto max-w-2xl text-lg leading-relaxed font-light md:text-2xl">
+            เริ่มต้นกระบวนการจัดการชื่อเสียงออนไลน์อย่างเป็นระบบ
+            ภายใต้มาตรฐานการรักษาความลับสูงสุด
+            <span className="text-foreground mt-2 block font-medium">
+              Non-Disclosure Agreement (NDA) Protected
+            </span>
           </p>
 
-          {/* Action Interface: ช่องทางติดต่อสื่อสาร */}
-          <div className="flex flex-col items-center justify-center gap-6 sm:flex-row">
+          {/* Action Interface */}
+          <div className="flex flex-col items-center justify-center gap-5 pt-6 sm:flex-row">
             <Button
               size="lg"
-              className="group h-16 rounded-full bg-[#00B900] px-12 text-lg font-black tracking-tight text-white shadow-2xl shadow-green-500/30 transition-all hover:scale-[1.05] hover:bg-[#00A000] active:scale-95"
+              className="shadow-primary/20 group h-16 w-full rounded-full px-12 text-xl shadow-2xl transition-all sm:w-auto"
               asChild
             >
-              <Link href={lineLink} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="mr-3 h-6 w-6 fill-current transition-transform group-hover:rotate-12" />
-                เริ่มปรึกษาเจ้าหน้าที่
+              <Link href={siteConfig.contact.lineUrl}>
+                <MessageCircle className="mr-3 h-6 w-6 fill-current" />
+                เริ่มการเจรจา (Private)
+                <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1.5" />
               </Link>
             </Button>
 
             <Button
-              variant="ghost"
-              className="group hover:bg-primary/5 h-16 rounded-full px-10 text-sm font-bold tracking-widest uppercase transition-all"
+              variant="outline"
+              size="lg"
+              className="border-primary/10 bg-background/50 hover:bg-primary/5 h-16 w-full rounded-full px-12 text-xl backdrop-blur-sm transition-all sm:w-auto"
               asChild
             >
-              <Link href="/privacy">
-                Privacy Protocol
-                <ArrowRight className="ml-3 h-4 w-4 transition-transform group-hover:translate-x-2" />
+              <Link href="mailto:contact@unlink-th.com">
+                <Terminal className="mr-3 h-5 w-5" />
+                ส่งบันทึกโครงการ
               </Link>
             </Button>
           </div>
 
-          {/* Trust Infrastructure Grid */}
-          <div className="border-border/40 mt-20 grid grid-cols-1 gap-12 border-t pt-16 sm:grid-cols-3">
-            {/* Data Destruction */}
-            <div className="group flex flex-col items-center gap-4">
-              <div className="bg-primary/10 group-hover:bg-primary/20 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300 group-hover:rotate-6">
-                <Lock className="text-primary h-6 w-6" />
-              </div>
-              <div className="flex flex-col gap-1 text-center">
-                <span className="text-foreground font-mono text-[10px] font-black tracking-[0.3em] uppercase">
-                  Data Destruction
-                </span>
-                <span className="text-muted-foreground text-[9px] font-medium tracking-wider uppercase italic">
-                  Post-consultation purge
-                </span>
-              </div>
-            </div>
+          {/* Security Integrity Metrics */}
 
-            {/* Strict Anonymity */}
-            <div className="group flex flex-col items-center gap-4">
-              <div className="bg-primary/10 group-hover:bg-primary/20 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300 group-hover:rotate-6">
-                <Fingerprint className="text-primary h-6 w-6" />
-              </div>
-              <div className="flex flex-col gap-1 text-center">
-                <span className="text-foreground font-mono text-[10px] font-black tracking-[0.3em] uppercase">
-                  Strict Anonymity
-                </span>
-                <span className="text-muted-foreground text-[9px] font-medium tracking-wider uppercase italic">
-                  Unlinked personal ID
-                </span>
-              </div>
+          <div className="border-border/10 grid grid-cols-1 gap-8 border-t pt-12 md:grid-cols-3">
+            <div className="text-muted-foreground/60 flex items-center justify-center gap-2.5 font-mono text-[10px] tracking-widest uppercase">
+              <ShieldCheck className="text-primary/50 h-4 w-4" />
+              <span>Success-Based Model</span>
             </div>
-
-            {/* Expert Audit */}
-            <div className="group flex flex-col items-center gap-4">
-              <div className="bg-primary/10 group-hover:bg-primary/20 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300 group-hover:rotate-6">
-                <ShieldCheck className="text-primary h-6 w-6" />
-              </div>
-              <div className="flex flex-col gap-1 text-center">
-                <span className="text-foreground font-mono text-[10px] font-black tracking-[0.3em] uppercase">
-                  Expert Audit
-                </span>
-                <span className="text-muted-foreground text-[9px] font-medium tracking-wider uppercase italic">
-                  Technical feasibility only
-                </span>
-              </div>
+            <div className="text-muted-foreground/60 flex items-center justify-center gap-2.5 font-mono text-[10px] tracking-widest uppercase">
+              <ShieldAlert className="text-primary/50 h-4 w-4" />
+              <span>End-to-End Encryption</span>
+            </div>
+            <div className="text-muted-foreground/60 border-border/10 flex items-center justify-center gap-2.5 border-t pt-4 font-mono text-[10px] tracking-widest uppercase md:border-t-0 md:pt-0">
+              <span>Auth: AEMDEVWEB-2026</span>
             </div>
           </div>
-        </motion.div>
-
-        {/* Security Compliance Footer */}
-        <div className="mt-16 flex flex-col items-center gap-6 text-center opacity-40">
-          <p className="text-muted-foreground max-w-2xl font-mono text-[9px] leading-loose font-bold tracking-[0.3em] uppercase">
-            {siteConfig.footer?.disclaimer ||
-              "Operational Integrity: All data transmitted during evaluation is purged automatically after the session ends."}
-          </p>
-          <div className="via-primary/50 h-px w-32 bg-gradient-to-r from-transparent to-transparent" />
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

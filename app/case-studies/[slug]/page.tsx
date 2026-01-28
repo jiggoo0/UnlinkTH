@@ -1,244 +1,97 @@
-import { notFound } from "next/navigation"
-import Link from "next/link"
-import { Metadata } from "next"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { siteConfig } from "@/constants/site-config"
-import { caseStudies } from "@/lib/case-studies"
-import {
-  ArrowLeft,
-  CheckCircle2,
-  MessageCircle,
-  ShieldAlert,
-  Fingerprint,
-  Clock,
-  Activity,
-} from "lucide-react"
+/** @format */
 
-interface Props {
-  params: Promise<{ slug: string }>
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import { getCaseStudyBySlug, getAllCaseStudies } from "@/lib/case-studies";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { useMDXComponents } from "@/mdx-components";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, Calendar, FileText, Lock, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import ContactCTA from "@/components/sections/ContactCTA";
+
+interface CasePageProps {
+  params: Promise<{ slug: string }>;
 }
 
-/**
- * Metadata Generation:
- * ดึงข้อมูลจาก lib/case-studies เพื่อสร้าง SEO Tags เฉพาะรายเคส (Dynamic SEO)
- */
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
-  const item = caseStudies.find((c) => c.slug === slug)
-
-  if (!item) return { title: "Case Report Not Found" }
+export async function generateMetadata({ params }: CasePageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const study = await getCaseStudyBySlug(slug);
+  if (!study || !study.frontmatter) return { title: "Not Found" };
 
   return {
-    title: `${item.title} | บันทึกปฏิบัติการจริง`,
-    description: item.incident,
-    openGraph: {
-      title: `${item.title} | UNLINK-TH Tactical Report`,
-      description: item.incident,
-      type: "article",
-      url: `${siteConfig.url}/case-studies/${slug}`,
-      images: [
-        {
-          url: item.image || siteConfig.ogImage,
-          width: 1200,
-          height: 630,
-          alt: item.title,
-        },
-      ],
-    },
-  }
+    title: `${study.frontmatter.title} | Case Study UnlinkTH`,
+    description: study.frontmatter.excerpt || study.frontmatter.description,
+  };
 }
 
-/**
- * Case Study Detail Page:
- * ออกแบบในสไตล์ "Operational Report" (บันทึกปฏิบัติการเชิงเทคนิค)
- */
-export default async function CaseStudyPage({ params }: Props) {
-  // 1. Unwrapping params
-  const { slug } = await params
+export async function generateStaticParams() {
+  const cases = await getAllCaseStudies();
+  return cases.map((c) => ({ slug: c.slug }));
+}
 
-  // 2. Data Retrieval
-  const item = caseStudies.find((c) => c.slug === slug)
-  if (!item) notFound()
+export default async function SingleCasePage({ params }: CasePageProps) {
+  const { slug } = await params;
+  const study = await getCaseStudyBySlug(slug);
+  const mdxComponents = useMDXComponents({});
+
+  if (!study || !study.frontmatter) notFound();
+
+  const { frontmatter, content } = study;
 
   return (
-    <article className="bg-background relative min-h-screen overflow-hidden py-20 lg:py-32">
-      {/* 01: Tactical Background Decor (HUD Grid) */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
-        aria-hidden="true"
-      >
-        <div className="h-full w-full bg-[radial-gradient(#808080_1px,transparent_1px)] [background-size:32px_32px]" />
+    <article className="pb-20">
+      <div className="container py-12">
+        <Link href="/case-studies" className="text-muted-foreground hover:text-primary inline-flex items-center gap-2 text-sm transition-all">
+          <ArrowLeft className="h-4 w-4" /> Back to Operational Portfolio
+        </Link>
       </div>
 
-      <div className="relative z-10 container mx-auto px-6">
-        {/* 02: Tactical Navigation (Operational Log Style) */}
-        <Link
-          href="/case-studies"
-          className="group text-muted-foreground hover:text-primary mb-12 inline-flex items-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] uppercase transition-colors"
-        >
-          <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
-          Back to Operational Logs
-        </Link>
-
-        <div className="grid gap-16 lg:grid-cols-12">
-          {/* 03: Main Content Side: The Report Analysis */}
-          <div className="lg:col-span-8">
-            <header className="mb-10">
-              <div className="mb-8 flex flex-wrap items-center gap-4">
-                <Badge
-                  variant="outline"
-                  className="border-primary/30 bg-primary/5 text-primary px-4 py-1 font-mono text-[10px] tracking-widest uppercase"
-                >
-                  {item.category} Strategy
-                </Badge>
-                <div className="flex items-center gap-2 opacity-40">
-                  <Fingerprint className="text-primary h-4 w-4" />
-                  <span className="font-mono text-[9px] font-bold tracking-tighter uppercase italic">
-                    Identity Anonymized
-                  </span>
-                </div>
-              </div>
-
-              <h1 className="text-foreground mb-10 text-4xl leading-tight font-extrabold tracking-tighter md:text-6xl lg:text-7xl">
-                {item.title}
-              </h1>
-            </header>
-
-            {/* Strategic Summary Matrix: Incident vs Protocol */}
-            <div className="mb-16 grid gap-6 sm:grid-cols-2">
-              <section className="border-border/50 bg-muted/5 hover:border-primary/20 hover:bg-muted/10 rounded-2xl border p-8 transition-all">
-                <div className="text-primary mb-4 flex items-center gap-2">
-                  <ShieldAlert className="h-4 w-4" />
-                  <h2 className="font-mono text-[10px] font-bold tracking-widest uppercase">
-                    Initial Incident
-                  </h2>
-                </div>
-                <p className="text-muted-foreground/90 text-sm leading-relaxed font-medium">
-                  {item.incident}
-                </p>
-              </section>
-
-              <section className="border-border/50 bg-muted/5 hover:border-primary/20 hover:bg-muted/10 rounded-2xl border p-8 transition-all">
-                <div className="text-primary mb-4 flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  <h2 className="font-mono text-[10px] font-bold tracking-widest uppercase">
-                    Operational Protocol
-                  </h2>
-                </div>
-                <p className="text-muted-foreground/90 text-sm leading-relaxed font-medium">
-                  {item.protocol}
-                </p>
-              </section>
+      <header className="container mb-20">
+        <div className="flex max-w-5xl flex-col gap-8">
+          <div className="flex flex-wrap items-center gap-4">
+            <Badge variant="outline" className="border-primary/30 text-primary font-mono text-[10px] uppercase tracking-widest px-4 py-1">
+              {frontmatter.category} Protocol
+            </Badge>
+            <div className="text-muted-foreground flex items-center gap-2 font-mono text-[10px] uppercase">
+              <Calendar className="h-3.5 w-3.5" /> Rel-Date: {frontmatter.date}
             </div>
-
-            {/* Operational Narrative Section (Technical Narrative) */}
-            <div className="prose prose-invert border-border/40 text-muted-foreground/80 max-w-none border-t pt-12">
-              <div className="text-foreground mb-8 flex items-center gap-3 font-bold">
-                <Activity className="text-primary h-5 w-5" />
-                <h3 className="m-0 text-xl font-bold tracking-tight">
-                  Technical Analysis & Execution
-                </h3>
-              </div>
-
-              <div className="space-y-6 text-base leading-loose font-medium">
-                <p>
-                  ในการดำเนินการเคสนี้ ทีมผู้เชี่ยวชาญของ UNLINK-TH
-                  ได้ทำการวิเคราะห์ความสัมพันธ์ของข้อมูล (Relevance Audit)
-                  และดำเนินการระงับเหตุผ่านขั้นตอนปฏิบัติการเชิงเทคนิค
-                  ที่ผสมผสานระหว่างเทคโนโลยีการถอดถอนดัชนี (De-indexing)
-                  และมาตรการตามสิทธิของเจ้าของข้อมูลส่วนบุคคล (Right to be
-                  Forgotten) เพื่อให้ได้ผลลัพธ์ที่ถาวรภายใต้ความลับสูงสุด
-                </p>
-                <p>
-                  เราดำเนินการระบุพิกัดเซิร์ฟเวอร์ต้นทางและประสานงานกับทีม Trust
-                  & Safety ของแพลตฟอร์ม
-                  เพื่อตัดวงจรการเข้าถึงข้อมูลที่ไม่พึงประสงค์อย่างแม่นยำ
-                  ป้องกันการกลับมาของข้อมูลในระบบสืบค้นในอนาคต
-                </p>
-              </div>
-
-              {/* Outcome Verification Box (Final Result) */}
-              <div className="border-primary/20 bg-primary/5 mt-16 overflow-hidden rounded-[2.5rem] border p-10 backdrop-blur-sm">
-                <div className="mb-6 flex items-center gap-3 text-emerald-500">
-                  <CheckCircle2 className="h-6 w-6" />
-                  <span className="font-mono text-[10px] font-black tracking-[0.3em] uppercase">
-                    Mission Status: Verified
-                  </span>
-                </div>
-                <p className="text-foreground text-2xl leading-tight font-black md:text-4xl">
-                  {item.result}
-                </p>
-                <div className="border-primary/10 mt-10 flex flex-col items-start justify-between gap-4 border-t pt-8 sm:flex-row sm:items-center">
-                  <p className="text-primary/80 text-sm font-bold italic">
-                    <span className="text-muted-foreground mr-2 not-italic">
-                      — Impact Analysis:
-                    </span>
-                    {item.impact}
-                  </p>
-                  <Badge className="border-none bg-emerald-500/10 px-4 py-1.5 text-[10px] font-black tracking-widest text-emerald-500 uppercase">
-                    Operation Successful
-                  </Badge>
-                </div>
-              </div>
+            <div className="text-primary/60 flex items-center gap-2 font-mono text-[10px] uppercase bg-primary/5 px-3 py-1 rounded-full border border-primary/10">
+              <Lock className="h-3 w-3" /> Classified Intelligence
             </div>
           </div>
-
-          {/* 04: Sidebar CTA: Secure Liaison (Encrypted Channel) */}
-          <aside className="lg:col-span-4">
-            <div className="border-primary/20 bg-muted/10 sticky top-24 overflow-hidden rounded-[3rem] border p-10 backdrop-blur-md">
-              <div
-                className="absolute -top-8 -right-8 opacity-[0.03]"
-                aria-hidden="true"
-              >
-                <ShieldAlert className="text-primary h-40 w-40" />
-              </div>
-
-              <div className="bg-primary/10 relative z-10 mb-8 flex h-12 w-12 items-center justify-center rounded-2xl">
-                <Activity className="text-primary h-6 w-6" />
-              </div>
-
-              <h3 className="relative z-10 mb-4 text-2xl font-bold tracking-tight">
-                ประเมินเคสส่วนบุคคล
-              </h3>
-              <p className="text-muted-foreground/90 relative z-10 mb-10 text-sm leading-relaxed">
-                ระบุ URL หรือร่องรอยดิจิทัลที่คุณกังวลเพื่อให้ Specialist
-                ดำเนินการ Audit
-                ความเป็นไปได้เชิงเทคนิคทันทีภายใต้นโยบายรักษาความลับสูงสุด
-                (Strict NDA)
-              </p>
-
-              <Button
-                asChild
-                size="lg"
-                className="relative z-10 h-16 w-full rounded-full bg-[#00B900] text-sm font-black text-white shadow-xl shadow-green-500/20 transition-all hover:scale-[1.02] hover:bg-[#00A000]"
-              >
-                <Link
-                  href={siteConfig.contact.lineUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle className="mr-3 h-6 w-6 fill-current" />
-                  ESTABLISH PROTOCOL
-                </Link>
-              </Button>
-
-              <div className="mt-10 flex flex-col items-center gap-4 opacity-40">
-                <div className="flex items-center gap-2">
-                  <div className="bg-primary h-1.5 w-1.5 animate-pulse rounded-full" />
-                  <span className="text-foreground font-mono text-[9px] font-bold tracking-[0.4em] uppercase">
-                    Secure Liaison Active
-                  </span>
-                </div>
-                <div className="via-primary/40 h-[1px] w-full bg-gradient-to-r from-transparent to-transparent" />
-                <p className="text-[8px] font-bold tracking-widest uppercase">
-                  End-to-End Encryption Enabled
-                </p>
-              </div>
-            </div>
-          </aside>
+          <h1 className="text-5xl font-bold tracking-tighter md:text-7xl lg:text-8xl leading-[1.1]">
+            {frontmatter.title}
+          </h1>
+          <p className="text-muted-foreground border-l-2 border-primary/30 py-3 pl-8 text-xl font-light max-w-4xl">
+            {frontmatter.excerpt}
+          </p>
         </div>
+      </header>
+
+      <div className="container grid gap-20 lg:grid-cols-12">
+        <main className="lg:col-span-8">
+          <div className="prose prose-invert max-w-none">
+            <MDXRemote source={content} components={mdxComponents} />
+          </div>
+        </main>
+        <aside className="lg:col-span-4">
+          <div className="sticky top-28 space-y-8">
+            <div className="lab-card border-primary/10 p-10 bg-muted/5">
+              <div className="text-primary mb-8 flex items-center gap-3 font-mono text-[10px] tracking-[0.3em] uppercase">
+                <FileText className="h-4 w-4" /> Audit Metadata
+              </div>
+              <ul className="space-y-5 text-sm">
+                <li className="border-border/5 flex justify-between border-b pb-3 items-center">
+                  <span className="text-muted-foreground font-mono text-[10px] uppercase">Operational Status</span>
+                  <span className="text-primary font-bold flex items-center gap-2"><ShieldCheck className="w-4 h-4" /> SUCCESS</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </aside>
       </div>
+      <div className="mt-40"><ContactCTA /></div>
     </article>
-  )
+  );
 }

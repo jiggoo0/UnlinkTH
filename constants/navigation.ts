@@ -1,22 +1,26 @@
 /**
- * UNLINK-TH | Navigation Architecture
+ * UNLINK-TH | Global Navigation Protocols (2026 Optimized)
  * -------------------------------------------------------------------------
- * ระบบการนำทางเชิงยุทธศาสตร์: ออกแบบเพื่อสร้างความเชื่อมั่น (Trust) และความปลอดภัย (Security)
- * เรียงลำดับตาม User Journey: ค้นหาทางแก้ -> ดูหลักฐาน -> ตรวจสอบตัวตน -> เคลียร์ข้อสงสัย
+ * รวบรวมโครงสร้างเมนูที่เน้น User Journey แบบ Reputation Architect
+ * ทุกจุดสัมผัส (Touchpoint) ถูกออกแบบมาเพื่อสร้าง Authority และ Trust
  */
 
 import { siteConfig } from "./site-config"
 
+/**
+ * 1. Blueprint for Navigation items
+ */
 export interface NavItem {
   title: string
   href: string
   external?: boolean
-  description?: string // สำหรับใช้งานใน Navigation Menu / Hover Card
+  description?: string
+  icon?: string // สำหรับกรณีใช้เป็นเมนูแบบ Mega Menu ในอนาคต
 }
 
 /**
- * Main Navigation (Primary Protocols)
- * รายการเมนูหลักที่แสดงบน Header ของเว็บไซต์
+ * 2. Primary Protocols (Main Navigation)
+ * เมนูหลักที่แสดงบน Header - เน้นความกริบและเข้าถึงง่าย
  */
 export const mainNav: NavItem[] = [
   {
@@ -30,80 +34,85 @@ export const mainNav: NavItem[] = [
     description: "บันทึกปฏิบัติการและผลลัพธ์การจัดการวิกฤตจริง",
   },
   {
-    title: "About",
-    href: "/about",
-    description: "มาตรฐานการทำงานและมาตรการรักษาความลับสูงสุด",
-  },
-  {
     title: "FAQ",
     href: "/faq",
-    description: "ตอบข้อสงสัยเชิงเทคนิคเกี่ยวกับกระบวนการ UNLINK",
+    description: "คลังความรู้เชิงนิติวิทยาศาสตร์ดิจิทัล",
+  },
+  {
+    title: "About",
+    href: "/about",
+    description: "มาตรฐานสากลและมาตรการรักษาความลับสูงสุด",
   },
 ]
 
 /**
- * Footer Navigation (Resource Logs)
- * แบ่งหมวดหมู่เพื่อรองรับ SEO (Topical Authority) และการเข้าถึงนโยบายจริยธรรม
+ * 3. Resource Logs (Footer Navigation)
+ * จัดกลุ่มตาม Topical Authority เพื่อประสิทธิภาพสูงสุดด้าน SEO
  */
 export const footerNav = {
-  services: [
+  protocols: [
     {
       title: "Google De-indexing",
       href: "/services/how-to-fix-negative-google-search-results",
     },
     {
-      title: "Platform Removal",
+      title: "Platform Cleanup",
       href: "/services/remove-social-media-content-pantip-twitter",
     },
     {
-      title: "Digital Cleaning",
+      title: "Background Shield",
       href: "/services/online-background-check-for-job-application",
     },
     {
-      title: "Right to be Forgotten",
+      title: "PDPA Specialist",
       href: "/services/right-to-be-forgotten-thailand-pdpa",
     },
   ] as NavItem[],
-  support: [
+  security: [
     {
       title: "Privacy Protocol",
       href: "/privacy",
     },
     {
-      title: "Editorial Policy",
+      title: "Editorial Ethics",
       href: "/editorial-policy",
     },
     {
-      title: "Operational FAQ",
+      title: "Knowledge Base",
       href: "/faq",
     },
     {
-      title: "Specialist Liaison",
+      title: "Consultant Liaison",
       href: "/contact",
     },
   ] as NavItem[],
-  social: [
+  liaison: [
     {
-      title: "LINE Official",
-      href: siteConfig.contact.lineUrl, // ดึงค่าจาก siteConfig โดยตรงเพื่อความแม่นยำ
+      title: "LINE Official (VIP)",
+      href: siteConfig.contact.lineUrl,
       external: true,
     },
     {
-      title: "Facebook",
-      href: siteConfig.links.facebook,
+      title: "Direct Specialist",
+      href: `mailto:${siteConfig.contact.email}`,
       external: true,
     },
   ] as NavItem[],
 }
 
 /**
- * Operational Navigation Config
- * การตั้งค่าเพิ่มเติมสำหรับการแสดงผลระบบนำทาง
+ * 4. UI Operational Logic
+ * ค่าคงที่สำหรับการควบคุม Interface ส่วนการนำทาง
  */
 export const navigationConfig = {
-  stickyHeader: true,
-  showContactButton: true,
-  contactButtonText: "ประเมินเคสส่วนบุคคล",
-  specialistNote:
-    "*ข้อมูลการสื่อสารทั้งหมดจะถูกทำลาย (Secure Purge) ทันทีหลังการประเมิน",
+  header: {
+    sticky: true,
+    blur: true,
+    ctaText: "ประเมินเคสส่วนตัว (Private)",
+  },
+  footer: {
+    disclaimer: "Every byte handled with 100% Confidentiality.",
+    copy: `© ${new Date().getFullYear()} UNLINK-TH | Managed by AEMDEVWEB`,
+  },
+  securityNote: "Secure Submission: ข้อมูลทั้งหมดจะถูก Purge ทันทีหลังจบภารกิจ",
 }

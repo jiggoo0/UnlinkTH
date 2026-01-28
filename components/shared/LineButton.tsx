@@ -1,66 +1,41 @@
-"use client"
+/** @format */
 
-import Link from "next/link"
 import { siteConfig } from "@/constants/site-config"
-import { cn } from "@/lib/utils"
 import { MessageCircle } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface LineButtonProps {
-  /** ขนาดของปุ่ม: sm (กะทัดรัด), md (มาตรฐาน), lg (เน้นย้ำ) */
-  size?: "sm" | "md" | "lg"
-  /** แสดงเฉพาะไอคอน (สำหรับพื้นที่จำกัด) */
-  iconOnly?: boolean
   className?: string
-  /** ข้อความบนปุ่ม (Default: ปรึกษาผ่าน LINE) */
-  label?: string
+  isFloating?: boolean
 }
 
-/**
- * LineButton: คอมโพเนนต์การติดต่อสื่อสารหลัก (Primary Conversion Point)
- * เชื่อมโยงกับ Line Official Account โดยใช้ยุทธศาสตร์ Direct Deep Linking
- */
-export function LineButton({
-  size = "md",
-  iconOnly = false,
+export default function LineButton({
   className,
-  label = "ปรึกษาผ่าน LINE",
+  isFloating = false,
 }: LineButtonProps) {
-  /**
-   * ยุทธศาสตร์การเชื่อมต่อ:
-   * ใช้ lineUrl จาก siteConfig โดยตรง (เช่น https://lin.ee/...)
-   * เพื่อประสิทธิภาพสูงสุดในการ Redirect เข้าสู่แอป LINE บนโทรศัพท์มือถือ
-   */
-  const lineLink = siteConfig.contact.lineUrl
-
   return (
-    <Link
-      href={lineLink}
+    <a
+      href={siteConfig.contact.lineUrl}
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "group inline-flex items-center justify-center gap-2 rounded-full font-bold transition-all duration-300 ease-in-out",
-        "bg-[#00B900] text-white shadow-lg shadow-green-500/20 hover:scale-[1.02] hover:bg-[#00A000] active:scale-[0.95]",
-        {
-          "h-9 px-4 text-[10px] tracking-wider uppercase": size === "sm",
-          "h-12 px-8 text-xs tracking-widest uppercase": size === "md",
-          "h-16 px-12 text-sm tracking-[0.2em] uppercase": size === "lg",
-          "w-12 px-0": iconOnly && size === "md",
-        },
+        "inline-flex transform items-center gap-2 bg-[#06C755] font-bold text-white transition-all hover:scale-105 hover:bg-[#05b14c] active:scale-95",
+        isFloating
+          ? "fixed right-8 bottom-8 z-50 rounded-full p-4 shadow-2xl shadow-green-500/20"
+          : "rounded-lg px-6 py-3 text-sm",
         className
       )}
     >
-      <MessageCircle
-        className={cn(
-          "fill-current transition-transform duration-500 group-hover:rotate-12",
-          {
-            "h-4 w-4": size === "sm",
-            "h-5 w-5": size === "md",
-            "h-6 w-6": size === "lg",
-          }
-        )}
-      />
-
-      {!iconOnly && <span className="tracking-tight">{label}</span>}
-    </Link>
+      <MessageCircle className={cn(isFloating ? "h-8 w-8" : "h-5 w-5")} />
+      {!isFloating && (
+        <span>ปรึกษาผ่าน LINE ({siteConfig.contact.lineId})</span>
+      )}
+      {isFloating && (
+        <span className="absolute -top-1 -right-1 flex h-4 w-4">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75"></span>
+          <span className="relative inline-flex h-4 w-4 rounded-full bg-white"></span>
+        </span>
+      )}
+    </a>
   )
 }

@@ -2,11 +2,7 @@
   "compilerOptions": {
     /* [1] Base Environment & Library */
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -26,9 +22,7 @@
     /* [2] Path Aliases Configuration */
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     },
     /* [3] Operational Rigidity (ความเข้มงวดระดับ Specialist Unit) */
     "forceConsistentCasingInFileNames": true,
@@ -57,10 +51,5 @@
     ".next/dev/types/**/*.ts"
   ],
   /* [6] Exclusions: ป้องกันการตรวจสอบไฟล์ที่ไม่จำเป็นเพื่อลดภาระการประมวลผล */
-  "exclude": [
-    "node_modules",
-    ".next",
-    "out",
-    "build"
-  ]
+  "exclude": ["node_modules", ".next", "out", "build"]
 }

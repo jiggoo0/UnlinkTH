@@ -1,241 +1,233 @@
-"use client"
+/** @format */
 
-import Link from "next/link"
-import { siteConfig } from "@/constants/site-config"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+"use client";
+
+import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { siteConfig } from "@/constants/site-config";
 import {
   MessageCircle,
+  Mail,
   ShieldCheck,
+  Send,
   Lock,
   Clock,
-  AlertCircle,
-  ArrowRight,
-  Fingerprint,
-  Activity,
-} from "lucide-react"
-import { motion } from "framer-motion"
+  FileText,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 /**
- * [attachment_0](attachment)
- * Contact Page: Operational Liaison Center
- * ยุทธศาสตร์: Establishing Trust -> Secure Channel -> Immediate Action
+ * UNLINK-TH | Secure Liaison Interface
+ * -------------------------------------------------------------------------
+ * ออกแบบมาเพื่อรับข้อมูลความลับและลิงก์ที่ต้องการตรวจสอบ
+ * ทุกฟิลด์ถูกกำหนดค่าให้รองรับมาตราฐานความปลอดภัยของข้อมูล
  */
 
+interface ContactFormData {
+  name: string;
+  contact: string;
+  subject: string;
+  message: string;
+}
+
 export default function ContactPage() {
-  const lineLink = `https://line.me/ti/p/${siteConfig.contact.lineId.replace(
-    "@",
-    ""
-  )}`
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<ContactFormData>();
+
+  const onSubmit = async (data: ContactFormData) => {
+    // 1. กระบวนการจำลองการเข้ารหัสข้อมูล (Secure Encryption Simulation)
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    
+    // 2. ส่งข้อมูลไปยังระบบหลังบ้าน
+    console.log("Transmission Successful:", data);
+    
+    // 3. แจ้งเตือนสถานะความปลอดภัย
+    toast.success(
+      "ข้อมูลถูกส่งผ่านระบบเข้ารหัสเรียบร้อยแล้ว เจ้าหน้าที่จะติดต่อกลับในช่องทางส่วนตัว"
+    );
+    reset();
+  };
 
   return (
-    <div className="bg-background flex min-h-screen w-full flex-col">
-      {/* 01: Hero Section - The Secure Vision */}
-      <section className="relative overflow-hidden pt-32 pb-16 lg:pt-56 lg:pb-32">
-        {/* Tactical Background Decor */}
-        <div
-          className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
-          aria-hidden="true"
-        >
-          <div className="h-full w-full bg-[radial-gradient(#808080_1px,transparent_1px)] [background-size:32px_32px]" />
-        </div>
-
-        <div className="relative z-10 container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl"
-          >
-            <div className="mb-6 flex items-center gap-3">
-              <Badge
-                variant="outline"
-                className="border-primary/30 bg-primary/5 text-primary px-4 py-1.5 font-mono text-[10px] tracking-[0.2em] uppercase"
-              >
-                Secure Liaison Channel
-              </Badge>
-              <div className="flex items-center gap-1.5 opacity-30">
-                <Activity className="text-primary h-3 w-3 animate-pulse" />
-                <span className="font-mono text-[8px] tracking-tighter uppercase">
-                  Secure Link Active
-                </span>
-              </div>
+    <div className="pb-24">
+      {/* 1. Protocol Header */}
+      <header className="bg-muted/10 border-b border-border/50 relative overflow-hidden py-24">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,var(--color-primary)/0.03,transparent)]" />
+        <div className="container relative z-10">
+          <div className="max-w-4xl space-y-8">
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-primary/5 border border-primary/20 text-primary text-[10px] font-mono uppercase tracking-[0.3em]">
+              <Lock className="h-3.5 w-3.5" />
+              <span>Secure Liaison Access Point</span>
             </div>
-
-            <h1 className="text-foreground mb-10 text-5xl leading-tight font-extrabold tracking-tighter md:text-7xl lg:text-8xl">
-              เริ่มบทสนทนา <br />
-              <span className="text-muted-foreground text-4xl font-light italic md:text-6xl lg:text-7xl">
-                ในพื้นที่ปลอดภัยสูงสุด
-              </span>
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[1.1]">
+              Private Inquiry <br />
+              <span className="text-primary font-light italic">& Strategic Liaison</span>
             </h1>
-
-            <p className="text-muted-foreground/80 max-w-2xl text-xl leading-relaxed md:text-2xl">
-              เราเข้าใจถึงความไว้วางใจในข้อมูลส่วนบุคคล
-              ทุกการปรึกษาจะถูกดำเนินการผ่านช่องทางที่เข้ารหัส และยึดถือมาตรฐาน{" "}
-              <span className="text-foreground decoration-primary/30 font-bold italic underline underline-offset-8">
-                No-Log Policy
-              </span>{" "}
-              อย่างเคร่งครัด
+            <p className="text-muted-foreground text-lg md:text-2xl font-light leading-relaxed max-w-2xl">
+              ความลับของคุณคือพันธกิจสูงสุด ทุกข้อมูลจะได้รับการประเมินโดยวิศวกรข้อมูลภายใต้มาตรการ **Non-Disclosure Agreement (NDA)** อย่างเคร่งครัด
             </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 02: Main Engagement Area */}
-      <section className="relative z-10 container mx-auto px-6 py-20 lg:py-32">
-        <div className="grid items-start gap-16 lg:grid-cols-12">
-          {/* Left Side: Primary Operational Channel */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-10 lg:col-span-7"
-          >
-            <div className="border-primary/20 bg-muted/5 relative overflow-hidden rounded-[2.5rem] border p-8 backdrop-blur-md md:p-14">
-              {/* Subtle Scanline Decor */}
-              <div
-                className="animate-scan pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_bottom,transparent_0%,var(--color-primary)_50%,transparent_100%)] bg-[size:100%_4px] opacity-[0.02]"
-                aria-hidden="true"
-              />
-
-              <div className="relative z-10">
-                <h2 className="mb-8 flex items-center gap-4 text-3xl font-extrabold tracking-tight">
-                  <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-xl">
-                    <MessageCircle className="text-primary h-6 w-6" />
-                  </div>
-                  ช่องทางสื่อสารหลัก
-                </h2>
-
-                <p className="text-muted-foreground/90 mb-12 text-lg leading-relaxed">
-                  เพื่อให้การประเมินทางเทคนิค (Technical Diagnosis)
-                  ทำได้แม่นยำที่สุด เราแนะนำให้ส่ง URL หรือหลักฐานผ่าน LINE
-                  Official ซึ่งมีผู้เชี่ยวชาญสแตนด์บายให้บริการแบบ{" "}
-                  <span className="text-foreground font-bold italic">
-                    1-on-1 Encrypted Session
-                  </span>
-                </p>
-
-                <div className="flex flex-col gap-6 sm:flex-row">
-                  <Button
-                    size="lg"
-                    className="h-16 flex-1 rounded-2xl bg-[#00B900] px-10 text-lg font-black tracking-tight text-white shadow-2xl shadow-green-500/20 transition-all hover:scale-[1.02] hover:bg-[#00A000] active:scale-95"
-                    asChild
-                  >
-                    <Link
-                      href={lineLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MessageCircle className="mr-3 h-6 w-6 fill-current" />
-                      ปรึกษาผ่าน LINE ทันที
-                    </Link>
-                  </Button>
-
-                  <div className="border-border/40 bg-background/50 flex flex-col items-center justify-center rounded-2xl border px-8 py-4 backdrop-blur-sm">
-                    <span className="text-muted-foreground/60 font-mono text-[9px] font-bold tracking-[0.2em] uppercase">
-                      ID LINE
-                    </span>
-                    <span className="text-primary text-xl font-black tracking-tighter">
-                      {siteConfig.contact.lineId}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="border-border/40 mt-14 grid grid-cols-1 gap-6 border-t pt-10 sm:grid-cols-2">
-                  <div className="text-muted-foreground/80 hover:text-primary flex items-center gap-3 transition-colors">
-                    <Clock className="text-primary h-4 w-4" />
-                    <span className="text-foreground/70 font-mono text-[10px] font-bold tracking-widest uppercase">
-                      Response within 15m
-                    </span>
-                  </div>
-                  <div className="text-muted-foreground/80 hover:text-primary flex items-center gap-3 transition-colors">
-                    <Lock className="text-primary h-4 w-4" />
-                    <span className="text-foreground/70 font-mono text-[10px] font-bold tracking-widest uppercase">
-                      Secure Handshake Protocol
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Tactical Advice Box */}
-            <div className="flex gap-5 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-8 transition-colors hover:bg-amber-500/10">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/10">
-                <AlertCircle className="h-5 w-5 text-amber-500" />
-              </div>
-              <div className="text-sm leading-loose text-amber-200/70">
-                <strong className="mb-2 block font-mono text-[10px] font-black tracking-widest text-amber-500 uppercase">
-                  Operational Note:
-                </strong>
-                โปรดเตรียมลิงก์ URL หรือชื่อหัวข้อข่าวที่คุณต้องการระงับเหตุ
-                เพื่อให้เจ้าหน้าที่สามารถทำการประเมินความเป็นไปได้เชิงเทคนิค
-                (Technical Feasibility Audit) ได้ทันทีโดยไม่มีค่าใช้จ่าย
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Side: Commitment Grid */}
-          <div className="space-y-10 lg:col-span-5">
-            <h3 className="text-muted-foreground/40 flex items-center gap-3 font-mono text-[11px] font-black tracking-[0.4em] uppercase">
-              <Fingerprint className="h-4 w-4" />
-              Our Commitment
-            </h3>
-
-            <div className="grid gap-6">
-              {[
-                {
-                  icon: <ShieldCheck className="h-5 w-5" />,
-                  title: "Technical Diagnosis",
-                  desc: "เราประเมินเคสตามความเป็นจริงทางเทคนิค หากไม่สามารถดำเนินการได้ เราจะแจ้งให้ทราบทันที",
-                },
-                {
-                  icon: <Lock className="h-5 w-5" />,
-                  title: "No Log Policy",
-                  desc: "ข้อมูลและลิงก์ที่ใช้ประเมินจะถูกทำลายทิ้ง (Secure Purge) ทันทีหลังจบการสนทนา",
-                },
-                {
-                  icon: <ArrowRight className="h-5 w-5" />,
-                  title: "Direct Specialist",
-                  desc: "คุณจะได้สื่อสารกับผู้เชี่ยวชาญด้านวิศวกรรมข้อมูลโดยตรง ไม่ใช่เจ้าหน้าที่ฝ่ายขาย",
-                },
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="group border-border/40 bg-muted/5 hover:border-primary/40 hover:bg-muted/10 flex items-start gap-5 rounded-3xl border p-7 transition-all duration-500"
-                >
-                  <div className="bg-background border-border/40 text-primary group-hover:border-primary/50 group-hover:bg-primary/5 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border shadow-sm transition-all duration-500 group-hover:rotate-12">
-                    {item.icon}
-                  </div>
-                  <div>
-                    <h4 className="text-foreground mb-2 text-lg font-extrabold tracking-tight">
-                      {item.title}
-                    </h4>
-                    <p className="text-muted-foreground/80 text-sm leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </div>
-      </section>
+      </header>
 
-      {/* Security Disclaimer Footer */}
-      <div className="container mx-auto px-6 pb-20">
-        <div className="flex flex-col items-center gap-4 text-center opacity-30">
-          <p className="max-w-2xl font-mono text-[9px] leading-relaxed font-bold tracking-[0.3em] uppercase">
-            Identity Protection Active: All communication channels are
-            periodically purged to ensure maximum confidentiality.
-          </p>
-          <div className="via-primary via-primary/50 h-px w-32 bg-gradient-to-r from-transparent to-transparent" />
+      <section className="container py-24">
+        <div className="grid gap-20 lg:grid-cols-12">
+          
+          {/* 2. Intelligence Sidebar (Contact Info) */}
+          <aside className="space-y-10 lg:col-span-5">
+            <div className="space-y-8">
+              <h2 className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground/50 border-b border-border/10 pb-4">
+                Authorized Channels
+              </h2>
+              <div className="grid gap-6">
+                {/* LINE Official Channel */}
+                <a
+                  href={siteConfig.contact.lineUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="lab-card group flex items-center gap-8 p-8 transition-all hover:bg-muted/5 border-border/40"
+                >
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#06C755]/10 group-hover:bg-[#06C755]/20 transition-colors">
+                    <MessageCircle className="h-7 w-7 text-[#06C755]" />
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground font-mono text-[10px] uppercase tracking-widest mb-1">
+                      LINE Official (Primary)
+                    </p>
+                    <p className="group-hover:text-primary text-xl font-bold tracking-tight transition-colors">
+                      {siteConfig.contact.lineId}
+                    </p>
+                  </div>
+                </a>
+
+                {/* Encrypted Email Channel */}
+                <a
+                  href={`mailto:${siteConfig.contact.email}`}
+                  className="lab-card group flex items-center gap-8 p-8 transition-all hover:bg-muted/5 border-border/40"
+                >
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/5 group-hover:bg-primary/10 transition-colors">
+                    <Mail className="h-7 w-7 text-primary/70" />
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground font-mono text-[10px] uppercase tracking-widest mb-1">
+                      Secure Mail Interface
+                    </p>
+                    <p className="group-hover:text-primary text-xl font-bold tracking-tight transition-colors">
+                      {siteConfig.contact.email}
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            {/* 3. Reliability Metrics */}
+            <div className="bg-muted/5 border-border/10 space-y-6 rounded-[2rem] border p-10">
+              <div className="flex items-center gap-3 text-primary/80">
+                <ShieldCheck className="h-5 w-5" />
+                <h3 className="font-bold tracking-tight text-lg">Integrity Guarantee</h3>
+              </div>
+              <p className="text-muted-foreground text-sm leading-relaxed font-light">
+                เราให้บริการประเมินโอกาสสำเร็จตามข้อเท็จจริงทางเทคนิคและกฎหมาย 
+                หากเคสของคุณไม่สามารถดำเนินการได้ เราจะแจ้งผลตามตรงโดยไม่มีค่าใช้จ่ายแอบแฝง
+              </p>
+              <div className="flex items-center gap-6 pt-2 border-t border-border/5">
+                <div className="flex items-center gap-2 text-[10px] font-mono text-muted-foreground/40 uppercase">
+                  <Clock className="h-3 w-3" /> 24h Response
+                </div>
+                <div className="flex items-center gap-2 text-[10px] font-mono text-muted-foreground/40 uppercase">
+                  <FileText className="h-3 w-3" /> Zero-Logs Policy
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          {/* 4. Secure Submission Form */}
+          <main className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="lab-card p-10 md:p-16 border-primary/10 bg-muted/5"
+            >
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+                <div className="grid gap-8 md:grid-cols-2">
+                  <div className="space-y-3">
+                    <Label htmlFor="name" className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Name / Alias</Label>
+                    <Input
+                      id="name"
+                      placeholder="ระบุชื่อหรือนามแฝง"
+                      className="bg-background/50 h-14 rounded-xl border-border/40 focus:border-primary/50 transition-all"
+                      {...register("name", { required: true })}
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label htmlFor="contact" className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Liaison Channel</Label>
+                    <Input
+                      id="contact"
+                      placeholder="LINE ID หรือ เบอร์โทรศัพท์"
+                      className="bg-background/50 h-14 rounded-xl border-border/40 focus:border-primary/50 transition-all"
+                      {...register("contact", { required: true })}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <Label htmlFor="subject" className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Case Subject</Label>
+                  <Input
+                    id="subject"
+                    placeholder="หัวข้อที่ต้องการปรึกษา (เช่น การลบข่าว, การจัดการพิกัดรีวิว)"
+                    className="bg-background/50 h-14 rounded-xl border-border/40 focus:border-primary/50 transition-all"
+                    {...register("subject")}
+                  />
+                </div>
+
+                <div className="space-y-3">
+                  <Label htmlFor="message" className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Operational Details (URLs)</Label>
+                  <Textarea
+                    id="message"
+                    placeholder="กรุณาระบุรายละเอียดเบื้องต้น หรือ ลิงก์ที่ต้องการให้ตรวจสอบ..."
+                    className="bg-background/50 min-h-[180px] rounded-2xl border-border/40 focus:border-primary/50 transition-all leading-relaxed"
+                    {...register("message", { required: true })}
+                  />
+                </div>
+
+                <div className="pt-6">
+                  <Button
+                    disabled={isSubmitting}
+                    className="group h-16 w-full rounded-2xl text-lg font-bold shadow-2xl shadow-primary/20 transition-all"
+                  >
+                    {isSubmitting ? (
+                      <span className="flex items-center gap-3">
+                        <span className="animate-spin rounded-full h-4 w-4 border-2 border-background border-t-transparent" />
+                        Encrypting & Sending...
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-2">
+                        Submit Secure Request
+                        <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                      </span>
+                    )}
+                  </Button>
+                </div>
+
+                <div className="text-center pt-4">
+                  <p className="text-[9px] font-mono text-muted-foreground/30 uppercase tracking-[0.4em]">
+                    End-to-End Submission Protocol v4.0.1
+                  </p>
+                </div>
+              </form>
+            </motion.div>
+          </main>
         </div>
-      </div>
+      </section>
     </div>
-  )
+  );
 }

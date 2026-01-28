@@ -1,167 +1,161 @@
-import type { Metadata } from "next"
-import { Badge } from "@/components/ui/badge"
-import FaqSection from "@/components/sections/FaqSection"
-import ContactCTA from "@/components/sections/ContactCTA"
-import {
-  FileText,
-  ShieldCheck,
-  Clock,
-  HelpCircle,
-  Activity,
-  Fingerprint,
-} from "lucide-react"
+/** @format */
 
-/**
- *
- * Metadata Optimization:
- * ออกแบบมาเพื่อสร้าง Authority และความชัดเจนในบริการ
- */
+import { Metadata } from "next"
+import { siteConfig } from "@/constants/site-config"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import {
+  HelpCircle,
+  ShieldCheck,
+  Scale,
+  Globe,
+  Lock,
+  MessageCircle,
+} from "lucide-react"
+import ContactCTA from "@/components/sections/ContactCTA"
+
 export const metadata: Metadata = {
-  title: "คำถามที่พบบ่อย (FAQ) | ศูนย์ข้อมูลการจัดการดิจิทัล",
+  title: "FAQ & Knowledge Center | UnlinkTH",
   description:
-    "รวบรวมข้อสงสัยเกี่ยวกับการลบประวัติออนไลน์ เทคนิคการจัดการ Digital Footprint และมาตรการรักษาความปลอดภัยข้อมูลส่วนบุคคลตามมาตรฐาน UNLINK",
-  openGraph: {
-    title: "FAQ | UNLINK Digital Fixer",
-    description:
-      "ไขข้อสงสัยเชิงเทคนิคเกี่ยวกับการจัดการชื่อเสียงและสิทธิในการถูกลืม",
-    type: "website",
-  },
+    "รวบรวมคำถามที่พบบ่อยเกี่ยวกับกระบวนการ De-indexing, การจัดการภาพลักษณ์ออนไลน์ (ORM) และข้อกฎหมาย PDPA",
 }
 
-/**
- * FAQ Page - หน้าศูนย์รวมคำถามและระเบียบปฏิบัติการ
- * ยุทธศาสตร์: Clarity -> Quick Guide -> Detailed Q&A -> Conversion
- */
-export default function FaqPage() {
+// ข้อมูลคำถามแบ่งตามหมวดหมู่ (Architect Strategy)
+const faqCategories = [
+  {
+    id: "cleanup",
+    label: "Cleanup & Removal",
+    icon: ShieldCheck,
+    questions: [
+      {
+        q: "บริการ De-indexing คืออะไร และต่างจากการลบปกติอย่างไร?",
+        a: "De-indexing คือกระบวนการทางเทคนิคเพื่อแจ้งให้ Search Engine (เช่น Google) ถอนดัชนี URL ออกจากฐานข้อมูลถาวร ข้อมูลจะไม่ปรากฏในการค้นหาแม้จะใช้คีย์เวิร์ดที่ตรงตัว ต่างจากการลบโพสต์ทั่วไปที่อาจยังมี Cache หรือข้อมูลตกค้างอยู่ในระบบการค้นหาครับ",
+      },
+      {
+        q: "สามารถลบกระทู้ Pantip หรือข่าวอาชญากรรมเก่าได้จริงหรือไม่?",
+        a: "ทำได้ครับ หากข้อมูลนั้นเข้าข่ายละเมิดสิทธิส่วนบุคคล บิดเบือน หรือเป็นข้อมูลที่สิ้นสุดผลทางกฎหมายแล้ว เราจะใช้มาตรการทางเทคนิคร่วมกับข้อกฎหมาย PDPA เพื่อดำเนินการถอดถอนข้อมูลเหล่านั้นออกอย่างถาวร",
+      },
+    ],
+  },
+  {
+    id: "architect",
+    label: "Reputation Architecting",
+    icon: Globe,
+    questions: [
+      {
+        q: "SEO Shadowing ทำงานอย่างไร?",
+        a: "เป็นกลยุทธ์เชิงรุกโดยการสร้าง 'กำแพงเนื้อหาเชิงบวก' (Positive Assets) ที่มีความน่าเชื่อถือสูง เพื่อเข้ายึดครองพื้นที่หน้าแรกของ Google ผลลัพธ์คือข้อมูลที่คุณต้องการให้โลกเห็นจะโดดเด่นขึ้นมา และเบียดข่าวเสียเดิมให้ตกไปอยู่ในหน้าหลังที่ไม่มีคนเข้าถึง",
+      },
+      {
+        q: "การสร้างตัวตนใหม่บน Google ใช้เวลานานแค่ไหน?",
+        a: "สำหรับการสร้างภาพลักษณ์ใหม่ (Architecting) จะเริ่มเห็นผลใน 4-8 สัปดาห์ เนื่องจากต้องรอให้ Google Bot เข้ามาเก็บข้อมูลและประเมินค่าความน่าเชื่อถือ (E-E-A-T) ของเนื้อหาใหม่ที่เราวางระบบไว้ครับ",
+      },
+    ],
+  },
+  {
+    id: "legal",
+    label: "Security & Legal",
+    icon: Scale,
+    questions: [
+      {
+        q: "ความลับของลูกค้าจะถูกจัดการอย่างไร?",
+        a: "เรายึดถือมาตรฐานสูงสุด (Non-Disclosure Protocol) ข้อมูลทุกอย่างจะถูกเข้ารหัส และไม่มีการเปิดเผยชื่อลูกค้าหรือเคสในเชิงพาณิชย์หากไม่ได้รับอนุญาต ทีมงานทุกคนทำงานภายใต้สัญญา NDA ที่เข้มงวด",
+      },
+      {
+        q: "โมเดล Success Fee คืออะไร?",
+        a: "สำหรับบริการลบลิ้งก์บางประเภท เราใช้โมเดล 'Success-Based' คือลูกค้าจะชำระค่าธรรมเนียมส่วนใหญ่ต่อเมื่อการดำเนินการสำเร็จและลิงก์หายไปจากหน้า Google แล้วเท่านั้น เพื่อความมั่นใจสูงสุดของคุณครับ",
+      },
+    ],
+  },
+]
+
+export default function FAQPage() {
   return (
-    <div className="bg-background flex w-full flex-col">
-      {/* 01: Hero Segment - The Vision of Clarity */}
-      <section className="relative overflow-hidden pt-32 pb-16 lg:pt-56 lg:pb-32">
-        {/* Tactical Background Decor */}
-        <div
-          className="pointer-events-none absolute inset-0 z-0 opacity-[0.03]"
-          aria-hidden="true"
-        >
-          <div className="h-full w-full bg-[radial-gradient(#808080_1px,transparent_1px)] [background-size:32px_32px]" />
-        </div>
-
-        <div className="relative z-10 container mx-auto px-6">
-          <div className="max-w-4xl">
-            <div className="mb-6 flex items-center gap-3">
-              <Badge
-                variant="outline"
-                className="border-primary/30 bg-primary/5 text-primary px-4 py-1.5 font-mono text-[10px] tracking-[0.2em] uppercase"
-              >
-                Information Center
-              </Badge>
-              <div className="flex items-center gap-1.5 opacity-30">
-                <Activity className="text-primary h-3 w-3 animate-pulse" />
-                <span className="font-mono text-[8px] tracking-tighter uppercase">
-                  Knowledge Base Active
-                </span>
-              </div>
+    <div className="pb-20">
+      {/* Header Section */}
+      <header className="bg-muted/20 border-border/50 border-b py-24">
+        <div className="container">
+          <div className="max-w-3xl space-y-6">
+            <div className="bg-primary/10 border-primary/20 text-primary inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-xs">
+              <HelpCircle className="h-4 w-4" />
+              <span>Unlink Support Protocol</span>
             </div>
-
-            <h1 className="text-foreground mb-8 text-5xl leading-tight font-extrabold tracking-tighter md:text-7xl lg:text-8xl">
-              ความชัดเจน <br />
-              <span className="text-muted-foreground text-4xl font-light italic md:text-6xl lg:text-7xl">
-                คือจุดเริ่มต้นของความไว้วางใจ
-              </span>
+            <h1 className="text-4xl font-bold tracking-tighter md:text-6xl">
+              Questions & <span className="text-primary">Intelligence</span>
             </h1>
-
-            <p className="text-muted-foreground/80 max-w-2xl text-xl leading-relaxed md:text-2xl">
-              เรารวบรวมคำถามสำคัญเชิงเทคนิคและกระบวนการทำงาน
-              เพื่อตอบข้อสงสัยที่คุณอาจกังวลใจ ภายใต้มาตรฐาน{" "}
-              <span className="text-foreground font-bold italic">
-                Confidentiality Protocol
-              </span>{" "}
-              ระดับสูงสุด
+            <p className="text-muted-foreground text-xl leading-relaxed">
+              เจาะลึกทุกข้อสงสัยเกี่ยวกับการจัดการอัตลักษณ์ดิจิทัล
+              จากมุมมองวิศวกรรมข้อมูลและที่ปรึกษาด้านชื่อเสียง
             </p>
           </div>
         </div>
+      </header>
 
-        {/* Floating Decorative Icon */}
-        <HelpCircle
-          className="text-primary/5 pointer-events-none absolute -right-20 -bottom-20 h-96 w-96 rotate-12"
-          aria-hidden="true"
-        />
-      </section>
-
-      {/* 02: Structured Guidelines - Quick Analysis Cards */}
-      <section className="border-border/40 bg-muted/5 relative z-10 border-y py-24">
-        <div className="container mx-auto px-6">
-          <div className="grid gap-8 md:grid-cols-3">
-            {/* Guarantee Card */}
-            <div className="group border-border/50 bg-background hover:border-primary/40 hover:shadow-primary/5 flex flex-col gap-6 rounded-[2rem] border p-8 transition-all duration-500 hover:shadow-xl">
-              <div className="bg-primary/10 group-hover:bg-primary/20 flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:rotate-12">
-                <ShieldCheck className="text-primary h-6 w-6" />
-              </div>
-              <div>
-                <h3 className="group-hover:text-primary mb-3 text-xl font-bold tracking-tight transition-colors">
-                  การันตีความลับ
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  เราไม่มีระบบสมาชิกหรือฐานข้อมูลกลาง ข้อมูลของคุณจะถูกทำลายทิ้ง
-                  (Secure Purge) ทันทีหลังภารกิจลุล่วงตามมาตรฐาน No-Log Policy
-                </p>
-              </div>
+      {/* FAQ Grid */}
+      <section className="container py-20">
+        <div className="grid gap-16 lg:grid-cols-12">
+          {/* Side Info */}
+          <aside className="space-y-8 lg:col-span-4">
+            <div className="lab-card sticky top-24 p-8">
+              <Lock className="text-primary mb-6 h-8 w-8" />
+              <h3 className="mb-4 text-xl font-bold">Secure Support</h3>
+              <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
+                หากคุณมีคำถามที่ละเอียดอ่อนและไม่สามารถเปิดเผยในที่สาธารณะได้
+                เราแนะนำให้ปรึกษาผ่านช่องทางส่วนตัวที่ปลอดภัย
+              </p>
+              <a
+                href={siteConfig.contact.lineUrl}
+                className="text-primary inline-flex items-center gap-2 font-bold hover:underline"
+              >
+                <MessageCircle className="h-4 w-4" />
+                Private Consultation →
+              </a>
             </div>
+          </aside>
 
-            {/* Diagnosis Card */}
-            <div className="group border-border/50 bg-background hover:border-primary/40 hover:shadow-primary/5 flex flex-col gap-6 rounded-[2rem] border p-8 transition-all duration-500 hover:shadow-xl">
-              <div className="bg-primary/10 group-hover:bg-primary/20 flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:rotate-12">
-                <Clock className="text-primary h-6 w-6" />
-              </div>
-              <div>
-                <h3 className="group-hover:text-primary mb-3 text-xl font-bold tracking-tight transition-colors">
-                  ประเมินรวดเร็ว
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  ใช้เวลาวิเคราะห์ทางเทคนิคเบื้องต้น (Technical Diagnosis) เพียง
-                  15-30 นาที เพื่อสรุปความเป็นไปได้และราคาอย่างตรงไปตรงมา
-                </p>
-              </div>
-            </div>
+          {/* FAQ Content */}
+          <main className="space-y-16 lg:col-span-8">
+            {faqCategories.map((category) => (
+              <div key={category.id} className="space-y-6">
+                <div className="border-border/50 flex items-center gap-3 border-b pb-4">
+                  <category.icon className="text-primary h-5 w-5" />
+                  <h2 className="text-foreground/80 text-xl font-bold tracking-widest uppercase">
+                    {category.label}
+                  </h2>
+                </div>
 
-            {/* Transparency Card */}
-            <div className="group border-border/50 bg-background hover:border-primary/40 hover:shadow-primary/5 flex flex-col gap-6 rounded-[2rem] border p-8 transition-all duration-500 hover:shadow-xl">
-              <div className="bg-primary/10 group-hover:bg-primary/20 flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:rotate-12">
-                <FileText className="text-primary h-6 w-6" />
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="w-full space-y-4"
+                >
+                  {category.questions.map((item, idx) => (
+                    <AccordionItem
+                      key={idx}
+                      value={`${category.id}-${idx}`}
+                      className="lab-card border-none px-6"
+                    >
+                      <AccordionTrigger className="hover:text-primary py-6 text-left font-medium transition-colors">
+                        {item.q}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
+                        {item.a}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </div>
-              <div>
-                <h3 className="group-hover:text-primary mb-3 text-xl font-bold tracking-tight transition-colors">
-                  ความโปร่งใส
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  ระบุเงื่อนไขการดำเนินงานชัดเจน
-                  หากวิเคราะห์แล้วไม่สามารถดำเนินการได้ในเชิงเทคนิค
-                  เราจะแจ้งให้ทราบทันทีโดยไม่มีค่าใช้จ่าย
-                </p>
-              </div>
-            </div>
-          </div>
+            ))}
+          </main>
         </div>
       </section>
 
-      {/* 03: Main Q&A Component */}
-      <section className="py-24 lg:py-32">
-        <div className="container mx-auto px-6">
-          <div className="mb-16 flex items-center justify-between">
-            <div className="text-muted-foreground/40 flex items-center gap-3 font-mono text-[11px] font-black tracking-[0.4em] uppercase">
-              <Fingerprint className="h-4 w-4" />
-              Operational Q&A
-            </div>
-            <div className="bg-border/40 ml-8 hidden h-px flex-1 md:block" />
-          </div>
-          {/* เรียกใช้คอมโพเนนต์ FAQ ที่จัดการสถานะ Accordion */}
-          <FaqSection />
-        </div>
-      </section>
-
-      {/* 04: Final Protocol CTA */}
-      <div className="border-border/40 bg-muted/5 border-t">
-        <ContactCTA />
-      </div>
+      {/* CTA Section */}
+      <ContactCTA />
     </div>
   )
 }

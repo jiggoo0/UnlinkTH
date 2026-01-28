@@ -1,122 +1,138 @@
 /**
- * UNLINK-TH - Core Type Definitions (2026 Optimized)
- * รวบรวมคำนิยามประเภทข้อมูลเพื่อควบคุม Type Safety ทั่วทั้งโปรเจกต์
+ * UNLINK-TH | Global Type Definitions (2026 Optimized)
+ * -------------------------------------------------------------------------
+ * รวบรวม Schema ทั้งหมดของระบบเพื่อให้มั่นใจว่าข้อมูลไหลเวียนอย่างถูกต้อง
+ * ตั้งแต่ Config, Services ไปจนถึง Case Studies
  */
 
-// --- Shared Types ---
+import * as LucideIcons from "lucide-react"
+
 /**
- * Category: หมวดหมู่หลักของบริการและกรณีศึกษา
- * ใช้สำหรับการคัดกรอง (Filtering) และการจัดกลุ่มเนื้อหา
+ * 1. SEO & Metadata Configuration
  */
-export type Category =
-  | "Personal"
-  | "Corporate"
-  | "Legal"
-  | "Technical"
-  | "Social"
+export interface SEOConfig {
+  titleTemplate?: string
+  defaultTitle: string
+  defaultDescription: string
+  keywords: string[]
+  title?: string // สำหรับหน้าย่อย
+  description?: string // สำหรับหน้าย่อย
+}
 
 /**
- * PriceModel: รูปแบบการคิดค่าบริการ
- * - Success Fee: จ่ายเมื่อสำเร็จเท่านั้น (Key Selling Point ของ Unlink)
- * - Fixed Rate: ราคาคงที่สำหรับงานมาตรฐาน
- * - Retainer: รายเดือนสำหรับการเฝ้าระวัง (Monitoring)
+ * 2. Contact & Identity Linkage
  */
-export type PriceModel = "Success Fee" | "Fixed Rate" | "Retainer"
-
-// --- Service Types ---
-export interface Service {
-  id: string
-  slug: string
-  title: string
-  description: string
-  shortDescription: string
-  iconName: string // อ้างอิงชื่อไอคอนจาก Lucide Icons (e.g., "Search", "Shield")
-  category: Category
-  features: string[]
-  content?: string // รองรับเนื้อหาแบบ MDX หรือ Plain Text
-
-  /** * priceInfo: ข้อมูลราคาเบื้องต้นสำหรับการประเมินของลูกค้า
-   */
-  priceInfo?: {
-    startingAt: string // เช่น "15,000"
-    unit: string // เช่น "บาท / ลิงก์" หรือ "บาท / เคส"
-    model: PriceModel
-  }
-
-  metadata: {
-    title: string
-    description: string
-    keywords: string[]
-  }
+export interface ContactInfo {
+  primaryChannel: string
+  lineUrl: string
+  lineId: string
+  phone: string
+  email: string
+  note: string
 }
 
-// --- Case Study Types ---
-export interface CaseStudy {
-  slug: string
-  title: string
-  category: string
-  incident: string
-  protocol: string
-  result: string
-  impact: string
-  image: string
-  contentPath: string
-  date?: string // ISO Date หรือ String สำหรับ Sitemap
+export interface SocialLinks {
+  facebook?: string
+  twitter?: string
+  line: string
+  linkedin?: string
+  github?: string
 }
 
-// --- Navigation Types ---
-export interface NavItem {
-  title: string
-  href: string
-  disabled?: boolean
-  external?: boolean
-  description?: string
-}
-
-// --- Global Site Configuration ---
 /**
- * SiteConfig: โครงสร้างข้อมูลหลักของเว็บไซต์
- * สอดคล้องกับไฟล์ constants/site-config.ts
+ * 3. Business Philosophy & Strategy
+ */
+export interface CompanyPhilosophy {
+  slogan?: string
+  approach: string
+  positioning: string
+}
+
+export interface FooterConfig {
+  disclaimer: string
+  trustNote: string
+}
+
+/**
+ * 4. Master Site Configuration
  */
 export interface SiteConfig {
   name: string
+  fullName: string
   description: string
   url: string
   ogImage: string
   locale: string
   language: string
-  contact: {
-    primaryChannel: string
-    lineUrl: string
-    lineId: string
-    phone: string
-    email: string
-    note: string
-  }
-  links: {
-    facebook: string
-    twitter: string
-    line: string
-  }
-  seo: {
-    titleTemplate: string
-    defaultTitle: string
-    defaultDescription: string
-    keywords: string[]
-  }
-  company: {
-    approach: string
-    positioning: string
-  }
-  footer: {
-    disclaimer: string
-    trustNote: string
-  }
+  contact: ContactInfo
+  links: SocialLinks
+  seo: SEOConfig
+  company: CompanyPhilosophy
+  footer: FooterConfig
 }
 
-// --- FAQ Types ---
-export interface FAQItem {
-  question: string
-  answer: string
-  category?: string
+/**
+ * 5. Service Schema (Reputation Architect Services)
+ */
+export type ServiceCategory =
+  | "Technical"
+  | "Social"
+  | "Personal"
+  | "Legal"
+  | "Cleanup"
+  | "Architect"
+
+export interface PriceInfo {
+  startingAt: string
+  unit: string
+  model:
+    | "Success Fee"
+    | "Fixed Rate"
+    | "Subscription"
+    | "Project Based"
+    | string
+}
+
+export interface Service {
+  id: string
+  slug: string
+  title: string
+  shortDescription: string
+  description: string
+  iconName: keyof typeof LucideIcons // ดึงชื่อ Icon จาก Lucide โดยตรง
+  category: ServiceCategory
+  features: string[]
+  priceInfo: PriceInfo
+  metadata: SEOConfig
+}
+
+/**
+ * 6. Case Study Schema (Social Proof)
+ */
+export interface CaseStudy {
+  slug: string
+  title: string
+  category: string
+  thumbnail: string
+  excerpt: string
+  content?: any // สำหรับ MDX Remote หรือ MDX Component
+  date: string
+  featured?: boolean
+  tags?: string[]
+}
+
+/**
+ * 7. UI Components & Shared Types
+ */
+export interface NavItem {
+  title: string
+  href: string
+  disabled?: boolean
+  external?: boolean
+}
+
+export interface MainNavItem extends NavItem {}
+
+export interface SidebarNavItem extends NavItem {
+  items: NavItem[]
 }
