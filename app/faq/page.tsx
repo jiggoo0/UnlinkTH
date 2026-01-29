@@ -18,13 +18,20 @@ import {
 } from "lucide-react"
 import ContactCTA from "@/components/sections/ContactCTA"
 
+/**
+ * UNLINK-TH | Intelligence FAQ Interface (2026)
+ * -------------------------------------------------------------------------
+ * ศูนย์รวบรวมข้อมูลเชิงเทคนิคและข้อกฎหมายดิจิทัล
+ * ออกแบบเพื่อจัดการข้อโต้แย้งและสร้างความมั่นใจในระดับปฏิบัติการ
+ */
+
 export const metadata: Metadata = {
-  title: "FAQ & Knowledge Center | UnlinkTH",
+  title: "FAQ & Intelligence Center | UNLINK-TH",
   description:
-    "รวบรวมคำถามที่พบบ่อยเกี่ยวกับกระบวนการ De-indexing, การจัดการภาพลักษณ์ออนไลน์ (ORM) และข้อกฎหมาย PDPA",
+    "รวบรวมคำตอบเกี่ยวกับกระบวนการจัดการข้อมูล (De-indexing), การออกแบบภาพลักษณ์ใหม่ และระเบียบข้อกฎหมาย PDPA",
 }
 
-// ข้อมูลคำถามแบ่งตามหมวดหมู่ (Architect Strategy)
+// ข้อมูลคำถามแบ่งตามหมวดหมู่ปฏิบัติการ
 const faqCategories = [
   {
     id: "cleanup",
@@ -32,12 +39,12 @@ const faqCategories = [
     icon: ShieldCheck,
     questions: [
       {
-        q: "บริการ De-indexing คืออะไร และต่างจากการลบปกติอย่างไร?",
-        a: "De-indexing คือกระบวนการทางเทคนิคเพื่อแจ้งให้ Search Engine (เช่น Google) ถอนดัชนี URL ออกจากฐานข้อมูลถาวร ข้อมูลจะไม่ปรากฏในการค้นหาแม้จะใช้คีย์เวิร์ดที่ตรงตัว ต่างจากการลบโพสต์ทั่วไปที่อาจยังมี Cache หรือข้อมูลตกค้างอยู่ในระบบการค้นหาครับ",
+        q: "กระบวนการ De-indexing คืออะไร และมีความแตกต่างจากการลบข้อมูลปกติอย่างไร?",
+        a: "De-indexing คือกระบวนการเชิงเทคนิคเพื่อยื่นคำร้องให้ระบบการค้นหาถอนดัชนี URL ออกจากฐานข้อมูลถาวร ข้อมูลจะไม่ปรากฏในการค้นหาแม้จะใช้คีย์เวิร์ดที่ตรงตัว ต่างจากการลบโพสต์ทั่วไปที่อาจยังมีข้อมูลตกค้างอยู่ในระบบการสืบค้น",
       },
       {
-        q: "สามารถลบกระทู้ Pantip หรือข่าวอาชญากรรมเก่าได้จริงหรือไม่?",
-        a: "ทำได้ครับ หากข้อมูลนั้นเข้าข่ายละเมิดสิทธิส่วนบุคคล บิดเบือน หรือเป็นข้อมูลที่สิ้นสุดผลทางกฎหมายแล้ว เราจะใช้มาตรการทางเทคนิคร่วมกับข้อกฎหมาย PDPA เพื่อดำเนินการถอดถอนข้อมูลเหล่านั้นออกอย่างถาวร",
+        q: "สามารถดำเนินการถอดถอนกระทู้สาธารณะหรือข่าวสารในอดีตได้จริงหรือไม่?",
+        a: "สามารถดำเนินการได้หากข้อมูลนั้นเข้าข่ายละเมิดสิทธิส่วนบุคคล หรือเป็นข้อมูลที่สิ้นสุดผลทางกฎหมายแล้ว เราใช้มาตรการทางเทคนิคร่วมกับข้อกฎหมาย PDPA เพื่อดำเนินการถอดถอนข้อมูลออกอย่างถาวร",
       },
     ],
   },
@@ -47,27 +54,27 @@ const faqCategories = [
     icon: Globe,
     questions: [
       {
-        q: "SEO Shadowing ทำงานอย่างไร?",
-        a: "เป็นกลยุทธ์เชิงรุกโดยการสร้าง 'กำแพงเนื้อหาเชิงบวก' (Positive Assets) ที่มีความน่าเชื่อถือสูง เพื่อเข้ายึดครองพื้นที่หน้าแรกของ Google ผลลัพธ์คือข้อมูลที่คุณต้องการให้โลกเห็นจะโดดเด่นขึ้นมา และเบียดข่าวเสียเดิมให้ตกไปอยู่ในหน้าหลังที่ไม่มีคนเข้าถึง",
+        q: "ยุทธศาสตร์การปรับปรุงโครงสร้างตัวตน (SEO Authority) ทำงานอย่างไร?",
+        a: "เป็นกระบวนการเชิงรุกโดยการสร้างข้อมูลชุดใหม่ที่มีความน่าเชื่อถือสูง เพื่อเข้ายึดครองพื้นที่การแสดงผลหน้าแรก ส่งผลให้ข้อมูลที่ท่านต้องการนำเสนอโดดเด่นขึ้น และผลักดันข้อมูลเดิมให้พ้นจากความสนใจของระบบการสืบค้นอย่างเป็นระบบ",
       },
       {
-        q: "การสร้างตัวตนใหม่บน Google ใช้เวลานานแค่ไหน?",
-        a: "สำหรับการสร้างภาพลักษณ์ใหม่ (Architecting) จะเริ่มเห็นผลใน 4-8 สัปดาห์ เนื่องจากต้องรอให้ Google Bot เข้ามาเก็บข้อมูลและประเมินค่าความน่าเชื่อถือ (E-E-A-T) ของเนื้อหาใหม่ที่เราวางระบบไว้ครับ",
+        q: "การสร้างตัวตนใหม่บนระบบการค้นหาใช้ระยะเวลาเท่าใด?",
+        a: "โดยปกติจะเริ่มเห็นผลการเปลี่ยนแปลงภายใน 4-8 สัปดาห์ เนื่องจากต้องรอให้ระบบประมวลผลทำการเก็บข้อมูลและประเมินค่าความน่าเชื่อถือของเนื้อหาใหม่ที่ถูกจัดวางไว้ในระบบ",
       },
     ],
   },
   {
     id: "legal",
-    label: "Security & Legal",
+    label: "Security & Confidentiality",
     icon: Scale,
     questions: [
       {
-        q: "ความลับของลูกค้าจะถูกจัดการอย่างไร?",
-        a: "เรายึดถือมาตรฐานสูงสุด (Non-Disclosure Protocol) ข้อมูลทุกอย่างจะถูกเข้ารหัส และไม่มีการเปิดเผยชื่อลูกค้าหรือเคสในเชิงพาณิชย์หากไม่ได้รับอนุญาต ทีมงานทุกคนทำงานภายใต้สัญญา NDA ที่เข้มงวด",
+        q: "มาตรการรักษาความลับของลูกค้าถูกจัดการอย่างไร?",
+        a: "เรายึดถือมาตรฐานสูงสุด ข้อมูลทุกอย่างจะถูกเข้ารหัสและไม่มีการเปิดเผยข้อมูลการรับบริการต่อสาธารณะในทุกกรณี ทีมปฏิบัติการทุกคนทำงานภายใต้สัญญา NDA ที่เข้มงวด",
       },
       {
-        q: "โมเดล Success Fee คืออะไร?",
-        a: "สำหรับบริการลบลิ้งก์บางประเภท เราใช้โมเดล 'Success-Based' คือลูกค้าจะชำระค่าธรรมเนียมส่วนใหญ่ต่อเมื่อการดำเนินการสำเร็จและลิงก์หายไปจากหน้า Google แล้วเท่านั้น เพื่อความมั่นใจสูงสุดของคุณครับ",
+        q: "เงื่อนไขโมเดล Success-Based คืออะไร?",
+        a: "สำหรับรายการปฏิบัติการบางประเภท เราใช้รูปแบบที่อิงตามผลสำเร็จของงาน โดยท่านจะดำเนินการตามพันธสัญญาเมื่อภารกิจเสร็จสิ้นและข้อมูลเป้าหมายถูกถอดถอนออกจากระบบการค้นหาแล้วเท่านั้น",
       },
     ],
   },
@@ -76,54 +83,59 @@ const faqCategories = [
 export default function FAQPage() {
   return (
     <div className="pb-20">
-      {/* Header Section */}
+      {/* 1. Protocol Header Section */}
       <header className="bg-muted/20 border-border/50 border-b py-24">
         <div className="container">
-          <div className="max-w-3xl space-y-6">
-            <div className="bg-primary/10 border-primary/20 text-primary inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-xs">
+          <div className="max-w-4xl space-y-6">
+            <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-2 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
               <HelpCircle className="h-4 w-4" />
-              <span>Unlink Support Protocol</span>
+              <span>Operational Support Protocol</span>
             </div>
             <h1 className="text-4xl font-bold tracking-tighter md:text-6xl">
-              Questions & <span className="text-primary">Intelligence</span>
+              Intelligence <br />
+              <span className="text-primary font-light italic">& Response</span>
             </h1>
-            <p className="text-muted-foreground text-xl leading-relaxed">
+            <p className="text-muted-foreground text-xl leading-relaxed font-light md:text-2xl">
               เจาะลึกทุกข้อสงสัยเกี่ยวกับการจัดการอัตลักษณ์ดิจิทัล
-              จากมุมมองวิศวกรรมข้อมูลและที่ปรึกษาด้านชื่อเสียง
+              ผ่านมุมมองการจัดการข้อมูลเชิงลึกและยุทธศาสตร์ชื่อเสียง
             </p>
           </div>
         </div>
       </header>
 
-      {/* FAQ Grid */}
-      <section className="container py-20">
+      {/* 2. Tactical FAQ Grid */}
+      <section className="container py-24">
         <div className="grid gap-16 lg:grid-cols-12">
-          {/* Side Info */}
-          <aside className="space-y-8 lg:col-span-4">
-            <div className="lab-card sticky top-24 p-8">
+          {/* Secure Liaison Side Info */}
+          <aside className="lg:col-span-4">
+            <div className="lab-card border-border/40 bg-muted/5 sticky top-28 p-8">
               <Lock className="text-primary mb-6 h-8 w-8" />
-              <h3 className="mb-4 text-xl font-bold">Secure Support</h3>
-              <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
-                หากคุณมีคำถามที่ละเอียดอ่อนและไม่สามารถเปิดเผยในที่สาธารณะได้
-                เราแนะนำให้ปรึกษาผ่านช่องทางส่วนตัวที่ปลอดภัย
+              <h3 className="mb-4 text-xl font-bold tracking-tight">
+                Secure Liaison
+              </h3>
+              <p className="text-muted-foreground mb-8 text-sm leading-relaxed font-light">
+                ในกรณีที่มีคำถามที่มีความละเอียดอ่อนสูงและไม่สามารถเปิดเผยต่อสาธารณะได้
+                กรุณาติดต่อผ่านช่องทางประสานงานส่วนบุคคลเพื่อความปลอดภัยของข้อมูล
               </p>
               <a
                 href={siteConfig.contact.lineUrl}
-                className="text-primary inline-flex items-center gap-2 font-bold hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary flex items-center gap-2 text-xs font-bold tracking-widest uppercase transition-opacity hover:opacity-80"
               >
                 <MessageCircle className="h-4 w-4" />
-                Private Consultation →
+                Private Liaison Center →
               </a>
             </div>
           </aside>
 
-          {/* FAQ Content */}
-          <main className="space-y-16 lg:col-span-8">
+          {/* Categorized Intelligence Content */}
+          <main className="space-y-20 lg:col-span-8">
             {faqCategories.map((category) => (
-              <div key={category.id} className="space-y-6">
-                <div className="border-border/50 flex items-center gap-3 border-b pb-4">
+              <div key={category.id} className="space-y-8">
+                <div className="border-border/10 flex items-center gap-4 border-b pb-4">
                   <category.icon className="text-primary h-5 w-5" />
-                  <h2 className="text-foreground/80 text-xl font-bold tracking-widest uppercase">
+                  <h2 className="text-foreground/80 font-mono text-[11px] font-bold tracking-[0.4em] uppercase">
                     {category.label}
                   </h2>
                 </div>
@@ -137,12 +149,12 @@ export default function FAQPage() {
                     <AccordionItem
                       key={idx}
                       value={`${category.id}-${idx}`}
-                      className="lab-card border-none px-6"
+                      className="lab-card border-border/40 bg-muted/5 hover:bg-muted/10 overflow-hidden rounded-2xl px-8 transition-all duration-500"
                     >
-                      <AccordionTrigger className="hover:text-primary py-6 text-left font-medium transition-colors">
+                      <AccordionTrigger className="hover:text-primary py-8 text-left text-lg font-bold tracking-tight transition-colors hover:no-underline">
                         {item.q}
                       </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
+                      <AccordionContent className="text-muted-foreground pb-8 text-lg leading-relaxed font-light">
                         {item.a}
                       </AccordionContent>
                     </AccordionItem>
@@ -154,7 +166,7 @@ export default function FAQPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* 3. Operational CTA */}
       <ContactCTA />
     </div>
   )

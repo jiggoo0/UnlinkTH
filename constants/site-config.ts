@@ -2,18 +2,11 @@
 
 import { SiteConfig } from "@/types"
 
-/**
- * UNLINK-TH | Global Strategic Configuration (2026)
- * -------------------------------------------------------------------------
- * ศูนย์บัญชาการข้อมูล Metadata และ Identity สำหรับโครงการ Unlink-TH
- * ออกแบบเพื่อรองรับ Search Generative Experience (SGE) และคะแนน E-E-A-T
- */
-
 export const siteConfig: SiteConfig = {
   name: "UNLINK-TH",
-  fullName: "UNLINK-TH Reputation Architect",
+  fullName: "มืออาชีพด้านการจัดการวิกฤตชื่อเสียงและภาพลักษณ์",
   description:
-    "Unlink the Past, Architect Your Future. บริการจัดการภาพลักษณ์ออนไลน์เชิงยุทธศาสตร์ ลบข้อมูลเชิงลบถาวร พร้อมสร้างตัวตนใหม่ที่ทรงพลังด้วยเทคนิค SEO Shadowing และ Knowledge Graph Architecture",
+    "เปลี่ยนวิกฤตให้เป็นโอกาส ลบทุกประวัติที่อยากให้หายไป พร้อมวางแผนสร้างภาพลักษณ์ใหม่ให้ดูดีมีระดับ เพื่อการยอมรับครั้งใหม่ที่ดียิ่งกว่า",
 
   url: "https://www.unlink-th.com",
   ogImage: "/images/og-main.png",
@@ -21,7 +14,27 @@ export const siteConfig: SiteConfig = {
   locale: "th_TH",
   language: "th",
 
-  // --- Secure Liaison Protocols (ช่องทางติดต่อรักษาความลับ) ---
+  // ------------------------------------------------------------------
+  // STRATEGY: DARK & BRIGHT (ลบอดีต vs สร้างอนาคต)
+  // ------------------------------------------------------------------
+  hero: {
+    leftSide: {
+      tone: "dark",
+      headline: "จบทุกดราม่าที่เคยแพ้",
+      subHeadline: "ลบประวัติเสียและข้อมูลที่ทำร้ายคุณ",
+      action: "ลบประวัติเสีย",
+    },
+    rightSide: {
+      tone: "bright",
+      headline: "สร้างกระแสใหม่ที่น่าชื่นชม",
+      subHeadline: "ปั้นภาพลักษณ์ใหม่ให้ดูดีมีระดับ",
+      action: "สร้างภาพลักษณ์",
+    },
+  },
+
+  // ------------------------------------------------------------------
+  // SECURE LIAISON (ช่องทางติดต่อความลับสูง)
+  // ------------------------------------------------------------------
   contact: {
     primaryChannel: "LINE Official (VIP)",
     lineUrl: "https://lin.ee/bWcwyir",
@@ -31,55 +44,58 @@ export const siteConfig: SiteConfig = {
     note: "Non-Disclosure Policy: ข้อมูลการสนทนาทั้งหมดถูกเข้ารหัสและทำลายทันทีหลังการประเมินเพื่อความปลอดภัยสูงสุดของลูกค้า",
   },
 
-  // --- Identity Linkage (การเชื่อมโยงเครือข่าย) ---
   links: {
     facebook: "https://www.facebook.com/share/1DDfxWEdt5/",
     twitter: "https://twitter.com/unlinkth",
     line: "https://lin.ee/bWcwyir",
   },
 
-  // --- Search Engine Architecture (SGE/AEO Mastery) ---
+  // ------------------------------------------------------------------
+  // SEO ARCHITECTURE
+  // ------------------------------------------------------------------
   seo: {
-    titleTemplate: "%s | UNLINK-TH Reputation Architect",
+    titleTemplate: "%s | UNLINK-TH Reputation Management",
     defaultTitle:
-      "UNLINK-TH | บริการลบลิงก์ Google และออกแบบชื่อเสียงออนไลน์ใหม่",
+      "UNLINK-TH | บริการลบข่าวเสีย ลบประวัติออนไลน์ และสร้างภาพลักษณ์ใหม่",
     defaultDescription:
-      "จัดการ Digital Footprint อย่างเป็นระบบ ลบข่าวเสีย กระทู้ Pantip และประวัติออนไลน์ที่ไม่พึงประสงค์ พร้อมปั้นโปรไฟล์ใหม่ให้มีความน่าเชื่อถือระดับ Authority โดยผู้เชี่ยวชาญตัวจริง",
+      "บริการจัดการชื่อเสียงครบวงจร รับลบลิงก์ข่าวเสีย กระทู้โจมตี และข้อมูล PDPA พร้อมบริการ Personal Branding สร้างตัวตนใหม่ที่น่าเชื่อถือ ปรึกษาฟรี รักษาความลับ 100%",
     keywords: [
-      // PHASE 1: UNLINK (Cleanup)
-      "รับลบลิงก์ Google",
-      "ลบข่าวเสีย",
+      // SOLUTION: DELETE (ลบ)
+      "รับลบข่าวเสีย",
+      "ลบประวัติ Google",
       "ลบกระทู้ Pantip",
-      "De-indexing Service Thailand",
-      "ลบประวัติออนไลน์",
+      "ลบรูปหลุด",
+      "แจ้งลบรีวิว Google Maps",
+      "PDPA ลบข้อมูลส่วนบุคคล",
 
-      // PHASE 2: ARCHITECT (Building)
-      "Online Reputation Management",
-      "SEO Shadowing",
-      "Knowledge Graph Setup",
-      "ปั้นแบรนด์บุคคล",
-      "สร้างความน่าเชื่อถือบน Google",
+      // SOLUTION: BUILD (สร้าง)
+      "สร้างภาพลักษณ์ผู้บริหาร",
+      "Personal Branding",
+      "แก้ข่าวเสีย",
+      "รับมือทัวร์ลง",
+      "SEO สายขาว",
+      "Reputation Management Thailand",
 
-      // COMPLIANCE
-      "สิทธิในการถูกลืม (Right to be Forgotten)",
-      "PDPA ข้อมูลส่วนบุคคล",
-      "Digital Footprint Audit",
+      // BRAND BRANDING
+      "UNLINK-TH",
+      "สิทธิในการเริ่มต้นใหม่",
     ],
   },
 
-  // --- Brand Philosophy & Positioning ---
+  // ------------------------------------------------------------------
+  // BRAND PHILOSOPHY
+  // ------------------------------------------------------------------
   company: {
-    slogan: "Unlink the Past, Architect Your Future",
+    slogan: "จบทุกดราม่าที่เคยแพ้ สร้างกระแสใหม่ที่น่าชื่นชม",
     approach:
-      "Reputation Engineering: เราใช้กระบวนการทางวิศวกรรมข้อมูลเพื่อจัดการอดีตที่บิดเบือน และใช้ศาสตร์การสื่อสารเพื่อสร้างภาพจำใหม่ที่โลกควรเห็น",
+      "Strategic Reputation Renewal: เราไม่เพียงแค่ลบอดีต แต่เราออกแบบอนาคตดิจิทัลของคุณใหม่ ด้วยกลยุทธ์ที่ผสมผสานเทคนิคการลบข้อมูล (Deletion) และการสร้างสรรค์ตัวตน (Creation) อย่างสมดุล",
     positioning:
-      "Silent Guardian: ที่ปรึกษาลับสำหรับผู้บริหาร ดารา และองค์กรชั้นนำ ที่ต้องการความกริบและความชัวร์ในการจัดการข้อมูลดิจิทัล",
+      "The Crisis Solver: ที่พึ่งสุดท้ายสำหรับผู้ที่ต้องการจบปัญหาชื่อเสียงออนไลน์อย่างมืออาชีพ และต้องการกลับมายืนในสังคมได้อย่างสง่างาม",
   },
 
-  // --- Trust & Technical Integrity ---
   footer: {
     disclaimer:
-      "UNLINK-TH ดำเนินการภายใต้ขอบเขตของกฎหมายและสิทธิส่วนบุคคล เราขอสงวนสิทธิ์ไม่รับเคสที่เป็นการละเมิดจริยธรรมหรือข้อมูลที่ส่งผลต่อความปลอดภัยสาธารณะ",
+      "UNLINK-TH ดำเนินการภายใต้ขอบเขตของกฎหมายและสิทธิส่วนบุคคล มุ่งเน้นการให้โอกาสและการเริ่มต้นใหม่ เราขอสงวนสิทธิ์ไม่รับเคสที่ขัดต่อความมั่นคงสาธารณะ",
     trustNote:
       "Managed & Engineered by Alongkorl (AEMDEVWEB) | All Operations are 100% Confidential.",
   },

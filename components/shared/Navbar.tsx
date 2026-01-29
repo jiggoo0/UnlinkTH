@@ -11,6 +11,13 @@ import { Shield, Menu, X, Lock, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { siteConfig } from "@/constants/site-config"
 
+/**
+ * UNLINK-TH | Desktop & Mobile Navigation Intelligence
+ * -------------------------------------------------------------------------
+ * ระบบนำทางหลักที่ใช้ Framer Motion สำหรับการตอบสนองเชิงโต้ตอบ
+ * เน้นการสร้าง Authority และสัญญาณความปลอดภัย (Trust Signals)
+ */
+
 const navLinks = [
   { name: "Services", href: "/services" },
   { name: "Case Studies", href: "/case-studies" },
@@ -22,7 +29,7 @@ export default function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = React.useState(false)
 
-  // ปิดเมนูเมื่อมีการเปลี่ยนหน้า
+  // ปิดเมนูเมื่อตรวจพบการเปลี่ยนหน้า
   React.useEffect(() => {
     setIsOpen(false)
   }, [pathname])
@@ -30,7 +37,7 @@ export default function Navbar() {
   return (
     <header className="bg-background/60 sticky top-0 z-50 w-full border-b border-white/5 backdrop-blur-xl">
       <div className="container flex h-16 items-center justify-between">
-        {/* --- Brand Identity --- */}
+        {/* --- Brand Identity Protocol --- */}
         <Link
           href="/"
           className="group flex items-center gap-2 transition-opacity hover:opacity-90"
@@ -44,7 +51,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* --- Desktop Intelligence Navigation --- */}
+        {/* --- Desktop Navigation Interface --- */}
         <nav className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => {
             const isActive = pathname === link.href
@@ -84,7 +91,7 @@ export default function Navbar() {
           </Button>
         </nav>
 
-        {/* --- Mobile Interaction Toggle --- */}
+        {/* --- Mobile Liaison Toggle --- */}
         <button
           className="text-muted-foreground hover:text-primary p-2 transition-colors md:hidden"
           onClick={() => setIsOpen(!isOpen)}
@@ -98,7 +105,6 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -107,7 +113,6 @@ export default function Navbar() {
               className="bg-background/80 fixed inset-0 top-16 backdrop-blur-sm md:hidden"
             />
 
-            {/* Menu Panel */}
             <motion.div
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -138,7 +143,7 @@ export default function Navbar() {
                   asChild
                 >
                   <Link href={siteConfig.contact.lineUrl}>
-                    Initiate Secure Connection
+                    Initiate Connection
                   </Link>
                 </Button>
                 <p className="text-muted-foreground/50 text-center font-mono text-[10px] tracking-widest uppercase">

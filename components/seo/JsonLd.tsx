@@ -7,22 +7,20 @@
 
 "use client"
 
-/**
- * [NOTE] สำหรับ React 17+ ไม่จำเป็นต้อง import React ในไฟล์ที่ใช้ JSX
- * การนำออกช่วยลดขนาด Bundle และแก้ปัญหา 'React' is defined but never used
- */
-
 interface JsonLdProps {
   /**
-   * ข้อมูล Schema ในรูปแบบ Object ที่จะถูกแปลงเป็น JSON-LD
-   * แนะนำให้ใช้ Type ตามมาตรฐาน Schema.org
+   * ข้อมูล Schema ในรูปแบบ Object หรือ Array ที่จะถูกแปลงเป็น JSON-LD
+   * ใช้ unknown แทน any เพื่อความปลอดภัยของ Type
    */
-  data: Record<string, any>
+  data: Record<string, unknown> | Record<string, unknown>[]
 }
 
 export default function JsonLd({ data }: JsonLdProps) {
   // [1] Integrity Check: ตรวจสอบความถูกต้องของข้อมูลก่อนการ Render
-  if (!data || Object.keys(data).length === 0) {
+  if (
+    !data ||
+    (Array.isArray(data) ? data.length === 0 : Object.keys(data).length === 0)
+  ) {
     return null
   }
 
@@ -31,7 +29,7 @@ export default function JsonLd({ data }: JsonLdProps) {
    * จัดการกับอักขระพิเศษเพื่อความปลอดภัยสูงสุด (Prevent XSS)
    * และเพื่อให้โครงสร้าง JSON ถูกต้องตามมาตรฐานของ Google Search Console
    */
-  const sanitizeJsonLd = (obj: Record<string, any>) => {
+  const sanitizeJsonLd = (obj: unknown) => {
     try {
       return JSON.stringify(obj)
         .replace(/</g, "\\u003c")

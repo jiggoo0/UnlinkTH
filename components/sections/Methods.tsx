@@ -11,29 +11,29 @@ import Link from "next/link"
  * UNLINK-TH | Core Methodologies Protocol (2026)
  * -------------------------------------------------------------------------
  * รวบรวมยุทธวิธีหลักในการจัดการชื่อเสียงออนไลน์เชิงเทคนิค
- * เน้นความสะอาดของโครงสร้างและการเคลื่อนไหวที่นุ่มนวล
+ * เน้นความสะอาดของโครงสร้างและการนำเสนอข้อมูลแบบ Operational Logic
  */
 
 const methods = [
   {
     title: "Technical De-indexing",
-    subtitle: "Metadata Cleansing Protocol",
+    subtitle: "Data Cleansing Protocol",
     description:
-      "เราใช้กระบวนการ Eradicate เพื่อถอนรากถอนโคนข้อมูลออกจากฐานข้อมูล Google Search โดยตรง ผ่านระบบบริหารจัดการคำร้องระดับวิศวกรรมข้อมูล",
+      "กระบวนการถอนรากถอนโคนข้อมูลออกจากระบบการค้นหาโดยตรง ผ่านกลไกการบริหารจัดการคำร้องที่แม่นยำและเป็นไปตามระเบียบของแพลตฟอร์ม",
     icon: Cpu,
   },
   {
     title: "Reputation Shielding",
-    subtitle: "SEO Shadowing Domination",
+    subtitle: "Authority Domination",
     description:
-      "การสร้าง Digital Assets ความน่าเชื่อถือสูงเพื่อเข้ายึดครองพื้นที่การแสดงผลหน้าแรก และผลักดันข้อมูลเชิงลบให้พ้นจากสายตาการสืบค้นอย่างเป็นระบบ",
+      "การสร้างและควบคุมพื้นที่การแสดงผลหน้าแรกด้วยข้อมูลชุดใหม่ที่มีความน่าเชื่อถือสูง เพื่อปรับเปลี่ยนโครงสร้างการรับรู้ของผู้สืบค้นอย่างเป็นระบบ",
     icon: Globe,
   },
   {
     title: "Legal Enforcement",
-    subtitle: "PDPA & Right to be Forgotten",
+    subtitle: "PDPA Compliance",
     description:
-      "ปฏิบัติการผ่านข้อกฎหมายดิจิทัลร่วมกับมาตรการทางเทคนิค เพื่อบังคับใช้สิทธิการถอดถอนข้อมูลส่วนบุคคลตามมาตรฐานสากล",
+      "ปฏิบัติการผ่านข้อกฎหมายดิจิทัลร่วมกับมาตรการทางเทคนิค เพื่อบังคับใช้สิทธิการถอดถอนข้อมูลส่วนบุคคลตามมาตรฐานสิทธิอันชอบธรรมในการถูกลืม",
     icon: Scale,
   },
 ]
@@ -41,7 +41,7 @@ const methods = [
 export default function Methods() {
   return (
     <section className="border-border/5 container border-t py-24">
-      {/* 1. Protocol Header */}
+      {/* 1. Protocol Header: Strategic Context */}
       <div className="mb-20 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -54,14 +54,14 @@ export default function Methods() {
             <span>Operational Methodologies</span>
           </div>
           <h2 className="text-4xl leading-[1.1] font-bold tracking-tighter md:text-6xl">
-            Advanced{" "}
+            Strategic{" "}
             <span className="text-primary font-light italic">Reputation</span>{" "}
             <br />
-            Architectures
+            Management
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed font-light md:text-xl">
-            ผสมผสานวิศวกรรมข้อมูลระดับสูงร่วมกับยุทธศาสตร์กฎหมายดิจิทัล
-            เพื่อสร้างทางออกที่ทรงพลังและยั่งยืนที่สุดให้แก่ภาพลักษณ์ออนไลน์ของคุณ
+            ผสมผสานกระบวนการจัดการข้อมูลร่วมกับยุทธศาสตร์กฎหมายดิจิทัล
+            เพื่อสร้างทางออกที่เด็ดขาดและยั่งยืนที่สุดให้แก่ภาพลักษณ์ออนไลน์ของคุณ
           </p>
         </motion.div>
 
@@ -77,13 +77,13 @@ export default function Methods() {
             asChild
           >
             <Link href="/services" className="flex items-center gap-2">
-              View Technical Specs <ArrowRight className="h-4 w-4" />
+              Access Technical Specs <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
         </motion.div>
       </div>
 
-      {/* 2. Method Grid */}
+      {/* 2. Method Grid: Execution Layers */}
       <div className="grid gap-8 md:grid-cols-3">
         {methods.map((method, idx) => (
           <motion.div
@@ -115,7 +115,7 @@ export default function Methods() {
 
             <div className="border-border/10 text-muted-foreground/30 mt-10 flex items-center justify-between border-t pt-6 font-mono text-[9px] tracking-widest uppercase">
               <span>Security Level: Alpha</span>
-              <span>2026.01</span>
+              <span>Ref: 2026.Q1</span>
             </div>
           </motion.div>
         ))}

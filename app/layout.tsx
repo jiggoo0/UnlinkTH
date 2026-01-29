@@ -1,38 +1,40 @@
 /** @format */
 
-import type { Metadata, Viewport } from "next";
-import { Inter, Noto_Sans_Thai, JetBrains_Mono } from "next/font/google";
-import NextTopLoader from "nextjs-toploader";
-import { siteConfig } from "@/constants/site-config";
-import Navbar from "@/components/shared/Navbar";
-import Footer from "@/components/shared/Footer";
-import JsonLd from "@/components/seo/JsonLd";
-import "./globals.css";
+import type { Metadata, Viewport } from "next"
+import { Inter, Noto_Sans_Thai, JetBrains_Mono } from "next/font/google"
+import NextTopLoader from "nextjs-toploader"
+import { siteConfig } from "@/constants/site-config"
+import Navbar from "@/components/shared/Navbar"
+import Footer from "@/components/shared/Footer"
+import JsonLd from "@/components/seo/JsonLd"
+import "./globals.css"
 
 /**
  * Font Architectures
  * กำหนดค่า Font Variables สำหรับใช้ในระบบ Tailwind CSS
+ * แยกประเภทการใช้งานตามบริบท: Inter (Global), Noto (Thai Content), Mono (Technical Data)
  */
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-});
+})
 
 const notoThai = Noto_Sans_Thai({
   subsets: ["thai"],
   variable: "--font-noto-thai",
   display: "swap",
-});
+})
 
 const mono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
-});
+})
 
 /**
  * Viewport Optimization
+ * ปรับแต่งเพื่อการแสดงผลบนอุปกรณ์เคลื่อนที่และควบคุม Theme ของ Browser
  */
 export const viewport: Viewport = {
   themeColor: "#0a0a0a",
@@ -40,11 +42,12 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-};
+}
 
 /**
- * Intelligence Metadata
- * แก้ไขปัญหา Type 'string | undefined' ด้วยการใช้ Nullish Coalescing
+ * Metadata Framework
+ * ดึงข้อมูลจาก Site Configuration เพื่อใช้ในระบบ SEO และ Social Sharing
+ * ใช้ Nullish Coalescing เพื่อป้องกันความผิดพลาดของข้อมูลประเภท String
  */
 export const metadata: Metadata = {
   title: {
@@ -81,12 +84,16 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-};
+}
 
+/**
+ * Root Layout Protocol
+ * โครงสร้างหลักของระบบเว็บแอพพลิเคชัน
+ */
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html
@@ -95,14 +102,14 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-background text-foreground selection:bg-primary/20 selection:text-primary font-sans antialiased">
-        {/* Loading Protocol */}
+        {/* Navigation Loading Indicator */}
         <NextTopLoader
           color="hsl(142 71% 45%)"
           showSpinner={false}
           shadow="0 0 10px hsl(var(--color-primary) / 0.5)"
         />
 
-        {/* Structured Data Intelligence - แก้ไขการส่ง Props data */}
+        {/* Structured Data Implementation */}
         <JsonLd data={siteConfig} />
 
         <div className="relative flex min-h-screen flex-col">
@@ -112,5 +119,5 @@ export default function RootLayout({
         </div>
       </body>
     </html>
-  );
+  )
 }

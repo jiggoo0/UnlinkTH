@@ -12,34 +12,35 @@ import {
 import { HelpCircle, ShieldCheck, Zap, Lock } from "lucide-react"
 
 /**
- * UNLINK-TH | Intelligence FAQ Section (2026)
+ * UNLINK-TH | Intelligence FAQ Protocol (2026)
  * -------------------------------------------------------------------------
- * ออกแบบเพื่อจัดการข้อโต้แย้ง (Objection Handling) และสร้างความมั่นใจในเชิงเทคนิค
+ * ภาคส่วนจัดการข้อโต้แย้งเชิงเทคนิคและกฎหมาย
+ * เน้นการสร้างความโปร่งใสในกระบวนการจัดการข้อมูลและการออกแบบตัวตนใหม่
  */
 
 const faqs = [
   {
-    question: "การลบลิงก์หรือข่าวเสียผิดกฎหมายหรือไม่?",
+    question: "การถอดถอนข้อมูลเชิงลบขัดต่อข้อกฎหมายหรือไม่?",
     answer:
-      "ไม่ผิดกฎหมายครับ เราดำเนินการภายใต้สิทธิ Right to be Forgotten ตามหลักกฎหมาย PDPA ของไทยและมาตรฐาน GDPR สากล โดยใช้เครื่องมือและช่องทางที่ถูกต้องของ Search Engine เพื่อปกป้องสิทธิส่วนบุคคลที่ถูกละเมิด",
+      "การดำเนินการทั้งหมดอยู่ภายใต้สิทธิ Right to be Forgotten ตามกรอบกฎหมาย PDPA ของไทยและมาตรฐานสากล เราทำหน้าที่เป็นตัวแทนในการยื่นคำร้องผ่านช่องทางที่ถูกต้องของระบบการค้นหา เพื่อปกป้องสิทธิส่วนบุคคลจากการบิดเบือนข้อมูล",
     icon: ShieldCheck,
   },
   {
-    question: "ลบแล้วมีโอกาสที่ข้อมูลเดิมจะกลับมาอีกไหม?",
+    question: "หลังจากดำเนินการลบแล้ว ข้อมูลมีโอกาสจะกลับมาปรากฏซ้ำหรือไม่?",
     answer:
-      "หากเป็นการลบแบบ De-indexing ถาวร ข้อมูลเดิมจะไม่กลับมาใน URL เดิมครับ อย่างไรก็ตาม เราแนะนำให้ทำระบบ Reputation Shield ควบคู่ไปด้วยเพื่อสร้างแนวป้องกันเชิงรุกต่อข้อมูลใหม่ที่อาจเกิดขึ้นในอนาคต",
+      "การลบผ่านกระบวนการ De-indexing คือการถอดถอนดัชนีออกจากฐานข้อมูลโดยตรง ข้อมูลในที่อยู่เดิมจะไม่กลับมาปรากฏในระบบการค้นหา อย่างไรก็ตาม เราแนะนำให้วางเกราะป้องกันเชิงรุก (Reputation Shield) เพื่อป้องกันความพยายามสร้างข้อมูลใหม่ในอนาคต",
     icon: Zap,
   },
   {
-    question: "ใช้เวลานานเท่าไหร่ถึงจะเห็นผลการดำเนินการ?",
+    question: "กรอบเวลามาตรฐานในการเห็นผลลัพธ์ปฏิบัติการคือเท่าใด?",
     answer:
-      "ปกติกระบวนการถอดถอนดัชนีจะเริ่มแสดงผลภายใน 7-14 วันทำการ ทั้งนี้ขึ้นอยู่กับความซับซ้อนของแพลตฟอร์มต้นทางและปริมาณข้อมูล โดยผู้เชี่ยวชาญจะทำการประเมินกรอบเวลาที่แน่นอนให้ทราบก่อนเริ่มปฏิบัติการ",
+      "โดยปกติระบบการค้นหาจะเริ่มตอบสนองต่อคำร้องและแสดงผลการเปลี่ยนแปลงภายใน 7-14 วันทำการ ทั้งนี้ขึ้นอยู่กับความซับซ้อนของโครงสร้างแพลตฟอร์มต้นทาง ซึ่งจะมีการประเมินกรอบเวลาเฉพาะเคสให้ทราบก่อนเริ่มงาน",
     icon: HelpCircle,
   },
   {
-    question: "มาตรการรักษาความลับของข้อมูลลูกค้าเป็นอย่างไร?",
+    question: "มาตรการความปลอดภัยและการรักษาความลับข้อมูลลูกค้า?",
     answer:
-      "เราถือปฏิบัติภายใต้นโยบาย Non-Disclosure Policy ขั้นสูงสุด ข้อมูลและเอกสารทั้งหมดที่ใช้ในการดำเนินงานจะถูกเข้ารหัสและทำลายทิ้งทันที (Secure Data Purge) หลังเสร็จสิ้นภารกิจ เพื่อรับประกันความปลอดภัยของลูกค้า 100%",
+      "UNLINK-TH ยึดถือ Zero-Knowledge Policy ข้อมูลและเอกสารทั้งหมดจะถูกจัดเก็บในระบบเข้ารหัสชั้นสูง และจะถูกทำลายทิ้งทันที (Secure Shredding) หลังสิ้นสุดภารกิจ เพื่อรับประกันว่าความเป็นส่วนตัวจะถูกปกป้องอย่างสมบูรณ์",
     icon: Lock,
   },
 ]
@@ -47,55 +48,63 @@ const faqs = [
 export default function FaqSection() {
   return (
     <section className="container py-24" id="faq-protocol">
-      <div className="grid gap-16 lg:grid-cols-3">
-        {/* Header Column */}
+      <div className="grid gap-20 lg:grid-cols-12">
+        {/* Header Column: Strategic Context */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="space-y-6 lg:col-span-1"
+          className="space-y-8 lg:col-span-5"
         >
-          <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[10px] tracking-[0.2em] uppercase">
+          <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-3 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
             <HelpCircle className="h-3.5 w-3.5" />
-            <span>Support Center</span>
+            <span>Intelligence Support Protocol</span>
           </div>
-          <h2 className="text-4xl leading-[1.1] font-bold tracking-tight">
-            คำถามที่พบบ่อย <br />
-            <span className="text-muted-foreground font-light">
-              เกี่ยวกับบริการ
-            </span>
-          </h2>
-          <p className="text-muted-foreground max-w-sm leading-relaxed">
-            เราตอบทุกข้อสงสัยเชิงเทคนิคอย่างตรงไปตรงมา
-            เพื่อความโปร่งใสในกระบวนการทำงานระดับสถาปนิกจัดการชื่อเสียง
-          </p>
+
+          <div className="space-y-4">
+            <h2 className="text-4xl leading-[1.1] font-bold tracking-tighter md:text-6xl">
+              Technical <br />
+              <span className="text-primary font-light italic">Inquiries</span>
+            </h2>
+            <p className="text-muted-foreground max-w-md text-lg leading-relaxed font-light md:text-xl">
+              รวบรวมคำตอบเชิงเทคนิคและกฎหมาย
+              เพื่อความโปร่งใสในกระบวนการจัดการชื่อเสียงและตัวตนดิจิทัล
+            </p>
+          </div>
+
+          <div className="border-border/10 border-t pt-8">
+            <div className="text-primary/40 flex items-center gap-4 font-mono text-[9px] tracking-widest uppercase">
+              <span className="bg-primary/20 h-px w-8"></span>
+              Verified Response v4.0.1
+            </div>
+          </div>
         </motion.div>
 
-        {/* Content Column */}
+        {/* Content Column: The Accordion Interface */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="lg:col-span-2"
+          className="lg:col-span-7"
         >
-          <Accordion type="single" collapsible className="w-full space-y-4">
+          <Accordion type="single" collapsible className="w-full space-y-6">
             {faqs.map((faq, idx) => (
               <AccordionItem
                 key={idx}
                 value={`item-${idx}`}
-                className="lab-card border-border/40 bg-muted/5 hover:bg-muted/10 px-8 transition-all"
+                className="lab-card border-border/40 bg-muted/5 hover:bg-muted/10 overflow-hidden rounded-[2rem] border px-10 transition-all duration-500"
               >
-                <AccordionTrigger className="hover:text-primary group py-8 text-left text-lg font-semibold transition-colors hover:no-underline">
-                  <span className="flex items-center gap-4">
-                    <span className="text-primary/40 group-hover:text-primary font-mono text-sm transition-colors">
-                      0{idx + 1}
+                <AccordionTrigger className="hover:text-primary group py-10 text-left text-xl font-bold tracking-tight transition-all hover:no-underline">
+                  <div className="flex items-center gap-6">
+                    <span className="text-primary/20 group-hover:text-primary font-mono text-xs transition-colors duration-500">
+                      /{(idx + 1).toString().padStart(2, "0")}
                     </span>
-                    {faq.question}
-                  </span>
+                    <span className="leading-tight">{faq.question}</span>
+                  </div>
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground/90 border-border/5 border-t pt-4 pb-8 pl-9 text-base leading-relaxed">
-                  {faq.answer}
+                <AccordionContent className="text-muted-foreground border-border/5 border-t pt-6 pb-10 pl-14 text-lg leading-relaxed font-light">
+                  <div className="max-w-2xl">{faq.answer}</div>
                 </AccordionContent>
               </AccordionItem>
             ))}

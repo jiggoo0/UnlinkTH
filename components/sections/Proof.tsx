@@ -9,7 +9,7 @@ import { ShieldCheck, BarChart3, Fingerprint, Lock, Shield } from "lucide-react"
  * UNLINK-TH | Evidence-Based Reputation Control (2026)
  * -------------------------------------------------------------------------
  * ส่วนแสดงผลลัพธ์เชิงสถิติที่ผ่านการรับรอง (Verified Metrics)
- * ออกแบบเพื่อเสริมสร้าง E-E-A-T ในสายตาผู้ใช้งานและ Search Engine
+ * ออกแบบเพื่อเสริมสร้างความน่าเชื่อถือผ่านข้อมูลเชิงประจักษ์
  */
 
 const stats = [
@@ -29,12 +29,12 @@ export default function Proof() {
         transition={{ duration: 0.6 }}
         className="lab-card bg-muted/5 border-border/40 relative overflow-hidden p-10 md:p-20"
       >
-        {/* Architectural Background Grid */}
+        {/* Background Grid Protocol: สร้างบรรยากาศการจัดการข้อมูลเชิงลึก */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] bg-[size:40px_40px]" />
         <div className="bg-primary/5 pointer-events-none absolute top-0 right-0 h-96 w-96 rounded-full blur-[120px]" />
 
         <div className="relative z-10 grid items-center gap-16 lg:grid-cols-2">
-          {/* Text Intelligence Section */}
+          {/* Text Intelligence Section: การสื่อสารยุทธศาสตร์หลัก */}
           <div className="space-y-8">
             <div className="bg-primary/5 border-primary/10 text-primary inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[10px] tracking-[0.2em] uppercase">
               <Shield className="h-3.5 w-3.5" />
@@ -50,7 +50,7 @@ export default function Proof() {
               </h2>
               <p className="text-muted-foreground max-w-md text-lg leading-relaxed font-light md:text-xl">
                 เราเปลี่ยนความกังวลให้เป็นตัวเลขที่พิสูจน์ได้ผ่านกระบวนการตรวจสอบข้อมูลเชิงลึก
-                ทุกปฏิบัติการถูกบันทึกและควบคุมภายใต้มาตรฐานความปลอดภัยระดับสูงสุด
+                ทุกปฏิบัติการถูกบันทึกและควบคุมภายใต้มาตรฐานความปลอดภัยที่เข้มงวด
               </p>
             </div>
 
@@ -64,7 +64,7 @@ export default function Proof() {
             </div>
           </div>
 
-          {/* Metrics Visualization Grid */}
+          {/* Metrics Visualization Grid: การแสดงผลสถิติเชิงปฏิบัติการ */}
           <div className="grid grid-cols-2 gap-4 md:gap-6">
             {stats.map((stat, idx) => (
               <motion.div
@@ -91,7 +91,7 @@ export default function Proof() {
           </div>
         </div>
 
-        {/* Footer Meta */}
+        {/* Footer Integrity Metadata */}
         <div className="border-border/5 text-muted-foreground/20 mt-16 flex items-center justify-between border-t pt-8 font-mono text-[9px] tracking-[0.3em] uppercase">
           <span>Data Integrity Certified: 2026.01.28</span>
           <span>Security Class: Confidential</span>

@@ -1,118 +1,101 @@
-/**
- * UNLINK-TH | Global Navigation Protocols (2026 Optimized)
- * -------------------------------------------------------------------------
- * รวบรวมโครงสร้างเมนูที่เน้น User Journey แบบ Reputation Architect
- * ทุกจุดสัมผัส (Touchpoint) ถูกออกแบบมาเพื่อสร้าง Authority และ Trust
- */
+/** @format */
 
+import { NavItem, FooterNav } from "@/types"
 import { siteConfig } from "./site-config"
 
-/**
- * 1. Blueprint for Navigation items
- */
-export interface NavItem {
-  title: string
-  href: string
-  external?: boolean
-  description?: string
-  icon?: string // สำหรับกรณีใช้เป็นเมนูแบบ Mega Menu ในอนาคต
-}
-
-/**
- * 2. Primary Protocols (Main Navigation)
- * เมนูหลักที่แสดงบน Header - เน้นความกริบและเข้าถึงง่าย
- */
 export const mainNav: NavItem[] = [
   {
-    title: "Services",
+    title: "บริการทั้งหมด",
     href: "/services",
-    description: "ยุทธศาสตร์การถอดถอนและจัดการข้อมูลเชิงเทคนิค",
+    description: "บริการลบประวัติเสียและสร้างภาพลักษณ์ใหม่ครบวงจร",
   },
   {
-    title: "Case Studies",
-    href: "/case-studies",
-    description: "บันทึกปฏิบัติการและผลลัพธ์การจัดการวิกฤตจริง",
+    title: "รีวิวและผลลัพธ์",
+    href: "/reviews",
+    description: "เสียงจากลูกค้าจริงและการกู้คืนชื่อเสียงที่สำเร็จ",
   },
   {
-    title: "FAQ",
-    href: "/faq",
-    description: "คลังความรู้เชิงนิติวิทยาศาสตร์ดิจิทัล",
+    title: "ราคาและขั้นตอน",
+    href: "/pricing",
+    description: "ความคุ้มค่าและกระบวนการทำงานที่โปร่งใส",
   },
   {
-    title: "About",
+    title: "เกี่ยวกับเรา",
     href: "/about",
-    description: "มาตรฐานสากลและมาตรการรักษาความลับสูงสุด",
+    description: "มาตรฐานความปลอดภัยและทีมงานผู้เชี่ยวชาญ",
   },
 ]
 
-/**
- * 3. Resource Logs (Footer Navigation)
- * จัดกลุ่มตาม Topical Authority เพื่อประสิทธิภาพสูงสุดด้าน SEO
- */
-export const footerNav = {
-  protocols: [
+export const footerNav: FooterNav = {
+  solutions: [
     {
-      title: "Google De-indexing",
-      href: "/services/how-to-fix-negative-google-search-results",
+      title: "Digital Detox (ลบอดีตวัยเกรียน)",
+      href: "/services/digital-detox-jobbers",
     },
     {
-      title: "Platform Cleanup",
-      href: "/services/remove-social-media-content-pantip-twitter",
+      title: "Crisis Clean-Up (จบดราม่า)",
+      href: "/services/crisis-cleanup",
     },
     {
-      title: "Background Shield",
-      href: "/services/online-background-check-for-job-application",
+      title: "Blacklist Remover (กู้ชื่อ)",
+      href: "/services/blacklist-remover",
     },
     {
-      title: "PDPA Specialist",
-      href: "/services/right-to-be-forgotten-thailand-pdpa",
+      title: "Ex-Partner Eraser (มูฟออน)",
+      href: "/services/ex-partner-eraser",
     },
-  ] as NavItem[],
-  security: [
     {
-      title: "Privacy Protocol",
+      title: "SME Rescue (กู้ดาวร้านค้า)",
+      href: "/services/sme-reputation-rescue",
+    },
+  ],
+  support: [
+    {
+      title: "นโยบายความเป็นส่วนตัว",
       href: "/privacy",
     },
     {
-      title: "Editorial Ethics",
-      href: "/editorial-policy",
-    },
-    {
-      title: "Knowledge Base",
+      title: "คำถามที่พบบ่อย (FAQ)",
       href: "/faq",
     },
     {
-      title: "Consultant Liaison",
+      title: "แจ้งลบข้อมูล (PDPA)",
+      href: "/request-removal",
+    },
+    {
+      title: "ติดต่อทีมงาน",
       href: "/contact",
     },
-  ] as NavItem[],
-  liaison: [
+  ],
+  connect: [
     {
-      title: "LINE Official (VIP)",
+      title: "LINE Official (ตอบไวสุด)",
       href: siteConfig.contact.lineUrl,
       external: true,
     },
     {
-      title: "Direct Specialist",
+      title: "Facebook Page",
+      href: siteConfig.links.facebook,
+      external: true,
+    },
+    {
+      title: "Email Support",
       href: `mailto:${siteConfig.contact.email}`,
       external: true,
     },
-  ] as NavItem[],
+  ],
 }
 
-/**
- * 4. UI Operational Logic
- * ค่าคงที่สำหรับการควบคุม Interface ส่วนการนำทาง
- */
 export const navigationConfig = {
   header: {
     sticky: true,
     blur: true,
-    ctaText: "ประเมินเคสส่วนตัว (Private)",
+    ctaText: "ปรึกษาผู้เชี่ยวชาญ (ความลับ)",
+    ctaLink: siteConfig.contact.lineUrl,
   },
   footer: {
-    disclaimer: "Every byte handled with 100% Confidentiality.",
+    disclaimer: "UNLINK-TH: Your Past is History, Your Future is Designed.",
     copy: `© ${new Date().getFullYear()} UNLINK-TH | Managed by AEMDEVWEB`,
   },
-  securityNote: "Secure Submission: ข้อมูลทั้งหมดจะถูก Purge ทันทีหลังจบภารกิจ",
+  securityNote: "Data Auto-Purge: ข้อมูลการสนทนาจะถูกลบอัตโนมัติหลังจบเคส",
 }

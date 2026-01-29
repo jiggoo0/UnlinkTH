@@ -4,57 +4,39 @@ import { MetadataRoute } from "next"
 import { siteConfig } from "@/constants/site-config"
 
 /**
- * UNLINK-TH | Crawler Governance Protocol (2026 Edition)
+ * UNLINK-TH | Search Engine & AI Intelligence Protocol 2026
  * -------------------------------------------------------------------------
- * จัดการการเข้าถึงของ Search Engine และ AI Agents
- * ออกแบบมาเพื่อรักษาสมดุลระหว่าง SEO Visibility และ Data Privacy
+ * ยุทธศาสตร์: "Ultra-Open Visibility" (เปิดพิกัดเต็มสูบเพื่อการ Indexing ที่ไวที่สุด)
+ * วางระบบโดย: นายเอ็มซ่ามากส์ (AEMDEVWEB Specialist)
+ * เป้าหมาย: ให้ AI และ Search Engine เก็บข้อมูลได้ครบ 100% ไม่เสียเวลา
  */
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = siteConfig.url
+  // ดึงพิกัด Domain จาก siteConfig หรือล็อกค่ามาตรฐาน
+  const baseUrl = siteConfig.url || "https://www.unlink-th.com"
 
   return {
     rules: [
       {
-        /**
-         * [STRATEGY: PUBLIC VISIBILITY]
-         * อนุญาตให้ Search Engine มาตรฐาน (Google, Bing, DuckDuckGo)
-         * เข้าถึงเนื้อหาเพื่อทำอันดับและดึง Traffic เข้าสู่เว็บไซต์
+        /** * [STRATEGY: GLOBAL ACCESS]
+         * อนุญาตให้บอททุกประเภท (Google, Bing, AI Bots) เข้าถึงได้ทุกพิกัด
          */
         userAgent: "*",
-        allow: "/",
+        allow: [
+          "/",
+          "/services/", // พิกัดบริการหลัก
+          "/case-studies/", // พิกัดผลงานกรณีศึกษา
+          "/faq/", // พิกัดคำถามที่พบบ่อย
+          "/_next/static/", // เปิดให้โหลด JS/CSS เพื่อเรนเดอร์หน้าเว็บ
+          "/_next/image", // เปิดให้โหลดรูปภาพที่จูนสปีดไว้
+        ],
         disallow: [
-          "/api/", // เส้นทางส่งข้อมูลหลังบ้าน
-          "/_next/", // ไฟล์ระบบของ Next.js
-          "/private/", // โซนข้อมูลความลับ
-          "/*.json$", // ป้องกันการดึง Schema ข้อมูล
-          "/contact/success", // หน้าขอบคุณ (ป้องกันการนับ Conversion ผิดพลาด)
-          "/editorial-policy/internal", // นโยบายภายในที่ไม่เปิดเผย
+          "/api/", // พิกัดรับส่งข้อมูลภายใน
+          "/_next/data/", // ปิดพิกัดข้อมูลดิบ JSON เพื่อให้บอทโฟกัสที่หน้า Render จริง
+          "/*?*", // [CRITICAL]: ปิดพิกัด Parameter เพื่อป้องกัน Duplicate Content
         ],
-      },
-      {
-        /**
-         * [STRATEGY: AI SHIELD]
-         * บล็อก AI Bots จากค่ายใหญ่ เพื่อไม่ให้ดึงข้อมูลเคสศึกษา
-         * หรือเนื้อหาไปใช้ในการฝึกฝน LLM (Large Language Models)
-         * เพื่อรักษาความลับขั้นสูงสุดของลูกค้า Unlink
-         */
-        userAgent: [
-          "GPTBot", // OpenAI
-          "ChatGPT-User", // OpenAI
-          "CCBot", // Common Crawl
-          "Google-Extended", // Google Gemini Training
-          "anthropic-ai", // Anthropic Claude
-          "Claude-Web", // Claude
-          "PerplexityBot", // Perplexity AI
-          "claudebot",
-          "Omgilibot",
-        ],
-        disallow: "/",
       },
     ],
-    /**
-     * ระบุตำแหน่ง XML Sitemap เพื่อความรวดเร็วในการทำ Indexing
-     */
+    /** แจ้งพิกัดแผนผังเว็บไซต์เพื่อนำทางบอทให้วิ่งงานได้เนี้ยบที่สุด */
     sitemap: `${baseUrl}/sitemap.xml`,
   }
 }

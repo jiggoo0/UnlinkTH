@@ -1,8 +1,8 @@
 /** @format */
 
-import type { MDXComponents } from "mdx/types";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
+import type { MDXComponents } from "mdx/types"
+import Link from "next/link"
+import { cn } from "@/lib/utils"
 
 /**
  * UNLINK-TH | MDX Style Blueprint (2026)
@@ -53,8 +53,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       />
     ),
     a: ({ className, href, ...props }) => {
-      const isInternal = href?.startsWith("/");
-      const Component = isInternal ? Link : "a";
+      const isInternal = href?.startsWith("/")
+      const Component = isInternal ? Link : "a"
       return (
         <Component
           href={href as string}
@@ -67,7 +67,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             : { target: "_blank", rel: "noopener noreferrer" })}
           {...props}
         />
-      );
+      )
     },
 
     // --- Blocks & Lists (โครงสร้างแบบ Technical Report) ---
@@ -124,5 +124,5 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 
     // รวมคอมโพเนนต์อื่นๆ ที่ส่งผ่านมา
     ...components,
-  };
+  }
 }

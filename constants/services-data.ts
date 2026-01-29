@@ -2,186 +2,155 @@
 
 import { Service } from "@/types"
 
-/**
- * UNLINK-TH | Services Matrix (2026 Reputation Architect Edition)
- * -------------------------------------------------------------------------
- * ยุทธศาสตร์: "Unlink the Past, Architect Your Future"
- * จัดหมวดหมู่ตามกระบวนการ: Cleanup (ล้าง), Architect (สร้าง), Legal (คุ้มครอง)
- */
-
 export const servicesData: Service[] = [
-  // --- PHASE 1: THE CLEANUP (การจัดการอดีต) ---
+  // ------------------------------------------------------------------
+  // GROUP 1: PERSONAL CLEANUP (ล้างประวัติส่วนบุคคล)
+  // ------------------------------------------------------------------
   {
-    id: "ser-cleanup-001",
-    slug: "technical-de-indexing",
-    title: "Technical De-indexing",
+    id: "ser-thai-001",
+    slug: "digital-detox-jobbers",
+    title: "Digital Detox for Jobbers (ล้างอดีตวัยเกรียน)",
     shortDescription:
-      "ถอนรากถอนโคนข้อมูลเชิงลบออกจากฐานข้อมูล Google Search ถาวร",
+      "ลบโพสต์เสี่ยงย้อนหลัง ปรับ Bio ให้มืออาชีพ สำหรับคนหางานและข้าราชการ",
     description:
-      "เหนือกว่าการดันลิงก์คือการ 'ลบ' เราใช้เทคนิค Metadata Cleansing และการส่งสัญญาณ De-indexing เพื่อแจ้งให้ Search Engine นำ URL ที่ไม่พึงประสงค์ออกจากฐานข้อมูลถาวร จัดการได้ทั้งข่าวอาชญากรรมเก่า ข่าวบิดเบือน หรือข้อมูลส่วนตัวที่รั่วไหล",
-    iconName: "Trash2",
-    category: "Cleanup",
+      "เตรียมตัวสมัครงานใหม่หรือสอบราชการอย่างมั่นใจ เราช่วยสแกนและลบโพสต์ย้อนหลัง 5-10 ปีที่มีความเสี่ยง ทั้งคำหยาบ รูปปาร์ตี้หลุดโลก หรือการบ่นเจ้านายเก่าที่อาจทำให้ HR ปัดตก พร้อมปรับตั้งค่าความเป็นส่วนตัว (Privacy Audit) ไม่ให้ใครขุดเจออดีตของคุณ",
+    iconName: "History",
+    category: "Personal",
     features: [
-      "Permanent De-indexing: ลบ URL ออกจากผลการค้นหาถาวร",
-      "Cache Removal: ล้างสำเนาข้อมูลเก่าที่ยังค้างอยู่ในระบบ",
-      "Search Result Audit: รายงานสถานะความสะอาดของชื่อรายสัปดาห์",
-      "Confidential Protocol: รักษาความลับลูกค้าขั้นสูงสุด",
+      "Risk Scan: สแกนโพสต์ย้อนหลัง 5-10 ปี ด้วยคีย์เวิร์ดสุ่มเสี่ยง",
+      "Toxic Clean: ลบคำหยาบและเนื้อหาที่ดูไม่เป็นมืออาชีพบน FB/IG/X",
+      "Privacy Audit: ล็อกโปรไฟล์ให้ปลอดภัยจากการส่องของบุคคลภายนอก",
+      "Pro Bio: แนะนำการเขียนแนะนำตัวใหม่ให้ดูภูมิฐานบน LinkedIn",
+    ],
+    priceInfo: {
+      startingAt: "2,900",
+      unit: "ครั้ง",
+      model: "One-time Payment",
+    },
+    metadata: {
+      defaultTitle: "บริการลบโพสต์ย้อนหลัง ตรวจประวัติก่อนสมัครงาน | UNLINK-TH",
+      defaultDescription:
+        "ล้างประวัติโซเชียล ลบคำหยาบ รูปปาร์ตี้ เตรียมตัวสมัครงานราชการและเอกชน",
+      keywords: ["ลบโพสต์เก่า", "ตรวจประวัติโซเชียล", "Digital Footprint"],
+    },
+  },
+  {
+    id: "ser-thai-002",
+    slug: "ex-partner-eraser",
+    title: "Ex-Partner Eraser (มูฟออนความทรงจำ)",
+    shortDescription:
+      "ลบรูปคู่ รูปหลุด คลิปส่วนตัว เพื่อการเริ่มต้นใหม่ที่สดใส",
+    description:
+      "เมื่อความรักจบ แต่ Digital Footprint ยังอยู่... เราช่วยเจรจาและดำเนินการทางเทคนิคเพื่อลบรูปคู่ที่ไม่อยากจำ หรือจัดการเคสรูปหลุด/คลิปส่วนตัว (Revenge Porn) อย่างเร่งด่วนและเป็นความลับที่สุด เพื่อให้คุณมูฟออนได้อย่างไร้กังวล",
+    iconName: "ImageOff",
+    category: "Personal",
+    features: [
+      "Content Removal: แจ้งลบรูปคู่และแท็กที่ไม่ต้องการออกจากระบบ",
+      "Sensitive Takedown: ดำเนินการทางกฎหมายลบภาพลับ/คลิปหลุดทันที",
+      "DMCA Notice: แจ้งละเมิดลิขสิทธิ์ภาพส่วนตัว",
+      "New Profile (Optional): บริการถ่ายรูปโปรไฟล์ใหม่ปรับลุคให้สดใส",
+    ],
+    priceInfo: {
+      startingAt: "3,900",
+      unit: "เคส",
+      model: "Starting Price",
+    },
+    metadata: {
+      defaultTitle: "รับลบรูปหลุด ลบรูปแฟนเก่า มูฟออนออนไลน์ | UNLINK-TH",
+      defaultDescription:
+        "บริการลบภาพส่วนตัว คลิปหลุด และจัดการ Digital Footprint หลังเลิกรา",
+      keywords: ["ลบรูปหลุด", "Revenge Porn", "ลบรูปแฟนเก่า"],
+    },
+  },
+
+  // ------------------------------------------------------------------
+  // GROUP 2: REPUTATION RESCUE (กู้ชื่อเสียงและวิกฤต)
+  // ------------------------------------------------------------------
+  {
+    id: "ser-thai-003",
+    slug: "crisis-cleanup",
+    title: "Crisis Clean-Up (จบดราม่าทัวร์ลง)",
+    shortDescription: "หยุดไฟดราม่า ลบต้นตอ และร่างแถลงการณ์ขอโทษอย่างถูกจริต",
+    description:
+      "เมื่อทัวร์ลงจนตั้งตัวไม่ทัน เราคือทีมฉุกเฉินที่จะเข้าไปช่วยดับไฟ ดำเนินการ Report ลบโพสต์ต้นเรื่อง ซ่อนคอมเมนต์ Toxic ยื่นเรื่อง De-index ข่าวเสียออกจาก Google พร้อมช่วยร่างคำแถลงการณ์ (Apology Statement) ที่จริงใจเพื่อเปลี่ยนกระแสลบให้กลับมาเป็นบวก",
+    iconName: "Siren",
+    category: "Crisis",
+    features: [
+      "Urgent Takedown: รีพอร์ตลบโพสต์และต้นตอดราม่าเร่งด่วน",
+      "Toxic Comment Hide: ซ่อนคอมเมนต์ด่าทอที่สร้างความเสียหาย",
+      "Google De-index: นำลิงก์ข่าวดราม่าออกจากผลการค้นหา",
+      "Apology Script: ร่างคำขอโทษที่จริงใจ ลดแรงปะทะจากสังคม",
     ],
     priceInfo: {
       startingAt: "15,000",
-      unit: "บาท / ลิงก์",
-      model: "Success Fee",
-    },
-    metadata: {
-      defaultTitle:
-        "รับลบลิงก์ Google และข่าวเสียด้วยเทคนิค De-indexing | UNLINK-TH",
-      defaultDescription:
-        "ลบชื่อติด Google และลิงก์ข่าวเสียถาวร ด้วยเทคนิควิศวกรรมข้อมูลระดับสูง ปลอดภัย 100% ประเมินโอกาสสำเร็จฟรี",
-      keywords: [
-        "รับลบลิงก์ Google",
-        "ลบข่าวเสีย",
-        "De-indexing Service",
-        "ลบประวัติออนไลน์",
-      ],
-    },
-  },
-  {
-    id: "ser-cleanup-002",
-    slug: "social-platform-removal",
-    title: "Platform Removal",
-    shortDescription:
-      "หยุดดราม่า ลบกระทู้หมิ่นประมาท และรีวิวปลอมบนโซเชียลมีเดีย",
-    description:
-      "จัดการปัญหาบนหน้าแพลตฟอร์มโดยตรง (Pantip, Facebook, X, Google Maps) เราประสานงานตามกฎชุมชนและข้อกฎหมายเพื่อระงับเนื้อหาที่คุกคามความเป็นส่วนตัวหรือรีวิวที่สร้างความเสียหายโดยไม่เป็นธรรม",
-    iconName: "MessageSquareOff",
-    category: "Cleanup",
-    features: [
-      "Forum Takedown: ประสานงานลบกระทู้ Pantip และ Archive ลิงก์",
-      "Review Management: แจ้งลบรีวิวปลอมบน Google Maps",
-      "Social Crisis Control: ระงับการกระจายของข้อมูลบิดเบือน",
-      "Account Defense: รายงานปิดบัญชีปลอมที่สวมรอยเป็นธุรกิจ",
-    ],
-    priceInfo: {
-      startingAt: "8,500",
-      unit: "บาท / รายการ",
-      model: "Fixed Rate",
-    },
-    metadata: {
-      defaultTitle: "รับลบกระทู้ Pantip และรีวิว Google Maps | UNLINK-TH",
-      defaultDescription:
-        "บริการแจ้งลบเนื้อหาหมิ่นประมาทบนโซเชียลมีเดีย จัดการดราม่าออนไลน์รวดเร็ว เห็นผลทันใจ",
-      keywords: [
-        "ลบกระทู้ Pantip",
-        "ลบรีวิว Google Maps",
-        "แจ้งลบเพจปลอม",
-        "จัดการดราม่า",
-      ],
-    },
-  },
-
-  // --- PHASE 2: THE ARCHITECT (การออกแบบอนาคต) ---
-  {
-    id: "ser-build-001",
-    slug: "seo-shadowing-domination",
-    title: "SEO Shadowing",
-    shortDescription:
-      "สร้าง 'กำแพงชื่อเสียง' ด้วยเนื้อหาเชิงบวก เพื่อบังและเบียดข้อมูลเสีย",
-    description:
-      "กลยุทธ์เชิงรุกที่ทรงพลังที่สุด เราสร้างเว็บไซต์และเนื้อหาคุณภาพสูง (High-Authority Assets) เพื่อเข้ายึดครองพื้นที่ 10 อันดับแรกของ Google ข่าวเสียจะถูกเบียดไปอยู่หน้าหลังจนไม่มีใครมองเห็น",
-    iconName: "ShieldCheck",
-    category: "Architect",
-    features: [
-      "SERP Domination: ยึดพื้นที่หน้า 1 ด้วยเว็บเครือข่ายคุณภาพสูง",
-      "Narrative Control: ออกแบบเรื่องราวที่คุณต้องการให้โลกจำ",
-      "Keyword Blocking: ป้องกันคำค้นหาเชิงลบใน Google Suggest",
-      "Reputation Insurance: เฝ้าระวังและป้องกันข่าวเสียรายปี",
-    ],
-    priceInfo: {
-      startingAt: "45,000",
-      unit: "บาท / โปรเจกต์",
+      unit: "เคส",
       model: "Project Based",
     },
     metadata: {
-      defaultTitle:
-        "SEO Shadowing บริการสร้างกำแพงชื่อเสียงบน Google | UNLINK-TH",
+      defaultTitle: "บริการแก้ข่าวเสีย รับมือทัวร์ลง ดราม่าโซเชียล | UNLINK-TH",
       defaultDescription:
-        "จองพื้นที่หน้าแรก Google ด้วยเนื้อหาที่ดีที่สุดของคุณ ป้องกันข่าวเสียและสร้างความน่าเชื่อถือระดับสูงสุด",
-      keywords: [
-        "SEO Shadowing",
-        "Online Reputation Management",
-        "ปั้นชื่อเสียงแบรนด์",
-        "คุมหน้าแรก Google",
-      ],
+        "ทีมฉุกเฉินกู้ชื่อเสียงจากดราม่า ลบข่าวเสีย ร่างคำแถลงการณ์หยุดวิกฤต",
+      keywords: ["แก้ข่าวเสีย", "รับมือทัวร์ลง", "Crisis Management"],
     },
   },
   {
-    id: "ser-build-002",
-    slug: "digital-authority-hub",
-    title: "Authority Hub",
+    id: "ser-thai-004",
+    slug: "blacklist-remover",
+    title: "Blacklist Remover (กู้ชื่อหนี้นอกระบบ)",
     shortDescription:
-      "สร้างความน่าเชื่อถือด้วย Google Knowledge Panel และ E-E-A-T Profile",
+      "ลบรูปประจานหน้าบัตรประชาชน กู้คืนชื่อเสียงจากการถูกแอบอ้าง",
     description:
-      "เราสร้าง 'ตัวตนระดับผู้เชี่ยวชาญ' (Authority) โดยการวางโครงสร้างข้อมูลให้ Google สร้าง Knowledge Panel เสริมความน่าเชื่อถือให้ธุรกิจหรือบุคคลสำคัญ",
-    iconName: "UserCheck",
-    category: "Architect",
+      "หากคุณค้นชื่อตัวเองแล้วเจอรูปถือบัตรประชาชน หรือถูกเว็บพนัน/แอปเงินกู้เถื่อนนำรูปไปประจานว่า 'โกง' ทั้งที่ไม่เป็นความจริง เราช่วยประสานงานแจ้งลบรูปเหล่านั้นออกจาก Google ด้วยกฎหมาย PDPA และสร้างหน้าโปรไฟล์ใหม่ที่มีความน่าเชื่อถือขึ้นมาแทนที่",
+    iconName: "ShieldAlert",
+    category: "Legal",
     features: [
-      "Knowledge Graph Setup: จัดการข้อมูล Schema เพื่อสร้าง Google Panel",
-      "E-E-A-T Optimization: ปรับแต่งโปรไฟล์ให้บอท AI ยอมรับความเป็น Expert",
-      "Editorial Placement: ผลักดันบทความประวัติไปยังเว็บไซต์ข่าวชั้นนำ",
-      "Verified Persona: สร้างตัวตนดิจิทัลที่ขาวสะอาด",
+      "PDPA Erasure: แจ้งลบรูปบัตรประชาชนและข้อมูลส่วนตัว",
+      "Fake Site Report: รีพอร์ตปิดเว็บประจานที่ละเมิดกฎหมาย",
+      "Search Clean: ลบผลการค้นหาคำว่า 'โกง' หรือ 'Blacklist' ที่ไม่จริง",
+      "Profile Rebuild: สร้างโปรไฟล์ขาวสะอาดบนเว็บ Authority สูง",
     ],
     priceInfo: {
-      startingAt: "25,000",
-      unit: "บาท / โปรเจกต์",
+      startingAt: "5,900",
+      unit: "ชื่อ/เคส",
       model: "Fixed Rate",
     },
     metadata: {
-      defaultTitle:
-        "รับทำ Google Knowledge Panel และสร้างตัวตนผู้เชี่ยวชาญ | UNLINK-TH",
+      defaultTitle: "รับลบรูปประจาน ลบแบล็คลิสต์ออนไลน์ | UNLINK-TH",
       defaultDescription:
-        "ยกระดับความน่าเชื่อถือด้วยการสร้างกล่องข้อมูล Google และวางระบบ E-E-A-T ให้ตัวตนของคุณดูแพงและเป็นมืออาชีพ",
-      keywords: [
-        "สร้าง Google Knowledge Panel",
-        "ทำประวัติบุคคล",
-        "Expert Branding",
-        "E-E-A-T",
-      ],
+        "กู้ชื่อเสียงจากการถูกแอปเงินกู้ประจาน ลบรูปบัตรประชาชนบน Google",
+      keywords: ["ลบรูปประจาน", "ลบแบล็คลิสต์", "PDPA"],
     },
   },
 
-  // --- PHASE 3: LEGAL & COMPLIANCE (การคุ้มครองสิทธิ) ---
+  // ------------------------------------------------------------------
+  // GROUP 3: BUSINESS BOOSTER (กู้ศักดิ์ศรีธุรกิจ)
+  // ------------------------------------------------------------------
   {
-    id: "ser-legal-001",
-    slug: "pdpa-legal-takedown",
-    title: "Legal Takedown",
+    id: "ser-thai-005",
+    slug: "sme-reputation-rescue",
+    title: "SME Reputation Rescue (กู้ศักดิ์ศรีร้านค้า)",
     shortDescription:
-      "บังคับลบข้อมูลด้วยข้อกฎหมาย PDPA และการยื่นโนติสโดยทนายความ",
+      "จัดการรีวิวปลอม หน้าม้าดิสเครดิต ดันดาวร้านค้าให้กลับมาปัง",
     description:
-      "ปฏิบัติการผ่านช่องทางกฎหมายดิจิทัล ดำเนินการร่าง Notice To Remove ถึงผู้ควบคุมข้อมูลตามสิทธิ Right to Erasure ของกฎหมาย PDPA เหมาะสำหรับเคสที่ต้องใช้มาตรการบังคับอย่างเป็นทางการ",
-    iconName: "Gavel",
-    category: "Legal",
+      "ปกป้องธุรกิจของคุณจากการโจมตีของคู่แข่งและรีวิวผี (Fake Reviews) เรายื่นเรื่องคัดค้านรีวิวที่ไม่เป็นความจริงกับ Google Maps/Facebook พร้อมทำแคมเปญ 'Seeding น้ำดี' กระตุ้นให้ลูกค้าจริงกลับมารีวิว และเขียนบทความ SEO เชียร์ร้านเพื่อกลบข่าวด้านลบ",
+    iconName: "Store",
+    category: "Business",
     features: [
-      "Official Notice: ร่างและส่งจดหมายเตือนอย่างเป็นทางการโดยทนายความ",
-      "Right to Erasure: บังคับใช้สิทธิในการลบข้อมูลตามกฎหมายไทย",
-      "Legal Liaison: ประสานงานฝ่ายกฎหมายของ ISP และแพลตฟอร์ม",
-      "Compliance Audit: ตรวจสอบความสอดคล้องของข้อมูลตามหลัก PDPA",
+      "Fake Review Fight: ยื่นเรื่องลบรีวิวปลอมที่ผิดนโยบายแพลตฟอร์ม",
+      "Pantip Defense: ชี้แจงและจัดการกระทู้โจมตีร้านค้า",
+      "Good Seeding: กระตุ้นรีวิว 5 ดาวจากลูกค้าจริง",
+      "SEO Shield: เขียนบทความเชียร์ร้านดันขึ้นหน้าแรก Google",
     ],
     priceInfo: {
       startingAt: "12,000",
-      unit: "บาท / เคส",
-      model: "Fixed Rate",
+      unit: "เดือน/โปรเจกต์",
+      model: "Monthly/Project",
     },
     metadata: {
-      defaultTitle:
-        "ทนายลบรูป ลบชื่อ ทนาย PDPA และสิทธิในการถูกลืม | UNLINK-TH",
+      defaultTitle: "รับลบรีวิวแย่ Google Maps กู้ดาวร้านค้า | UNLINK-TH",
       defaultDescription:
-        "ใช้กฎหมายบังคับลบข้อมูลอย่างถูกต้อง ปรึกษาผู้เชี่ยวชาญกฎหมายดิจิทัลและ PDPA เพื่อปกป้องความเป็นส่วนตัว",
-      keywords: [
-        "ทนาย PDPA",
-        "สิทธิในการถูกลืม",
-        "ลบรูปหลุดทนาย",
-        "โนติสลบข้อมูล",
-      ],
+        "จัดการรีวิวหน้าม้า กู้ชื่อเสียงร้านอาหาร คลินิก และธุรกิจ SME",
+      keywords: ["ลบรีวิว Google Maps", "แก้ดาวตก", "Reputation Management"],
     },
   },
 ]

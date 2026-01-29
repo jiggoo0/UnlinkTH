@@ -6,40 +6,52 @@ import { createRequire } from "node:module"
 const require = createRequire(import.meta.url)
 const nextPlugin = require("@next/eslint-plugin-next")
 
-export default tseslint.config({
-  // 1. กำหนดไฟล์ที่จะตรวจสอบและ Parser
-  files: ["**/*.{ts,tsx,js,jsx}"],
-  languageOptions: {
-    parser: tseslint.parser,
-    parserOptions: {
-      ecmaFeatures: { jsx: true },
+export default tseslint.config(
+  {
+    ignores: [
+      ".next/**",
+      "node_modules/**",
+      "out/**",
+      "public/**",
+      "**/*.d.ts",
+      "*.config.mjs",
+      "*.config.ts",
+    ],
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    files: ["**/*.{ts,tsx,js,jsx}"],
+    plugins: {
+      "@next/next": nextPlugin,
     },
-  },
-  // 2. Ignores
-  ignores: [
-    ".next/**",
-    "node_modules/**",
-    "out/**",
-    "public/**",
-    "**/*.d.ts",
-    "eslint.config.mjs",
-  ],
-  // 3. Plugins
-  plugins: {
-    "@next/next": nextPlugin,
-    "@typescript-eslint": tseslint.plugin,
-  },
-  // 4. Rules
-  rules: {
-    ...js.configs.recommended.rules,
-    ...tseslint.configs.recommended[1].rules, // ดึงกฎแนะนำของ TS
-    ...nextPlugin.configs.recommended.rules,
-    ...nextPlugin.configs["core-web-vitals"].rules,
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+        ecmaVersion: "latest",
+        sourceType: "module",
+      },
+    },
+    rules: {
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs["core-web-vitals"].rules,
 
-    "react/react-in-jsx-scope": "off",
-    "no-undef": "off",
-    "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@next/next/no-img-element": "warn",
-  },
-})
+      "react/react-in-jsx-scope": "off",
+
+      // คุมเข้มเรื่องการใช้ Type ในโฟลเดอร์ constants และ lib
+      "@typescript-eslint/no-explicit-any": "error",
+
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
+
+      // บังคับใช้ Next Image เท่านั้น เพราะโปรเจกต์คุณมีรูปใน public/images เยอะมาก
+      "@next/next/no-img-element": "error",
+
+      // ห้ามเขียน inline style ที่ซับซ้อนในหน้า MDX (เพื่อรักษา Pagespeed)
+      "no-inline-comments": "off",
+    },
+  }
+)
