@@ -6,8 +6,8 @@ import { siteConfig } from "@/constants/site-config"
 /**
  * UNLINK-TH | Search Engine & AI Intelligence Protocol (2026)
  * -------------------------------------------------------------------------
- * ยุทธศาสตร์: "Architectural Clarity" (เปิดทางให้บอทเข้าถึง Trust Signals ได้ครบถ้วน)
- * วางระบบเพื่อ: สนับสนุนการทำ Entity Linking และเพิ่มคะแนน E-E-A-T
+ * ยุทธศาสตร์: "Visual & Architectural Clarity"
+ * แก้ไข: เปิดทางให้ Googlebot เข้าถึงรูปภาพที่ผ่านการ Optimize (Next.js Image)
  */
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = siteConfig.url || "https://www.unlink-th.com"
@@ -15,35 +15,35 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        /** * [STRATEGY: MAXIMUM VISIBILITY]
-         * อนุญาตให้ Search Engines และ AI Crawler เข้าถึงเพื่อประมวลผล Identity
-         */
         userAgent: "*",
         allow: [
           "/",
-          "/about",            // สำคัญ: พิกัดยืนยันตัวตนเจ้าของ
-          "/services/",         // พิกัด Solutions ของแบรนด์
-          "/case-studies/",     // พิกัด Social Proof & Evidence
-          "/editorial-policy",  // พิกัดจริยธรรมและความน่าเชื่อถือ (Trust)
+          "/about",
+          "/services/",
+          "/case-studies/",
+          "/editorial-policy",
           "/faq/",
-          "/_next/static/",    // จำเป็นสำหรับการ Render หน้าเว็บที่ถูกต้อง
-          "/images/",          // เปิดให้บอทเก็บรูปภาพประกอบบทความ
+          "/_next/static/",
+          "/_next/image", // [CRITICAL FIX]: เปิดให้บอทเข้าถึงระบบจัดการรูปภาพของ Next.js
+          "/images/",      // เปิดให้เข้าถึงโฟลเดอร์รูปภาพต้นฉบับ
         ],
         disallow: [
-          "/api/",             // ปิดกั้นการเข้าถึงระบบ Backend
-          "/_next/data/",      // ปิดกั้นข้อมูลดิบ JSON เพื่อป้องกันการ Index ซ้ำซ้อน
-          "/*?*",              // ป้องกันปัญหา Duplicate Content จาก Query Parameters
+          "/api/",
+          "/_next/data/",
+          /** * [MODIFIED]: เลิกใช้ /*?* แบบกวาดล้าง 
+           * เพื่อป้องกันไม่ให้ไปบล็อก /_next/image?url=... 
+           * หากต้องการป้องกัน Duplicate Content ให้ใช้ Canonical Tag ในหน้าเพจแทน
+           */
+          "/*?fbclid=", // บล็อกเฉพาะ Parameter จาก Facebook (ถ้าต้องการ)
+          "/*?utm_",    // บล็อกเฉพาะ Parameter จากการตลาด (ถ้าต้องการ)
         ],
       },
       {
-        /** [AI BOT SPECIFIC]
-         * เปิดทางให้ AI Crawler (เช่น GPTBot) นำเนื้อหาไปเรียนรู้เพื่อแนะนำแบรนด์ต่อ
-         */
+        /** [AI BOT SPECIFIC] */
         userAgent: ["GPTBot", "ChatGPT-User"],
         allow: ["/"],
       }
     ],
-    /** นำทางบอทไปยังแผนผังเว็บไซต์ที่เพิ่งอัปเดตพิกัดความสำคัญใหม่ */
     sitemap: `${baseUrl}/sitemap.xml`,
   }
 }
