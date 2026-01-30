@@ -11,8 +11,6 @@ import "./globals.css"
 
 /**
  * Font Architectures
- * กำหนดค่า Font Variables สำหรับใช้ในระบบ Tailwind CSS
- * แยกประเภทการใช้งานตามบริบท: Inter (Global), Noto (Thai Content), Mono (Technical Data)
  */
 const inter = Inter({
   subsets: ["latin"],
@@ -34,7 +32,6 @@ const mono = JetBrains_Mono({
 
 /**
  * Viewport Optimization
- * ปรับแต่งเพื่อการแสดงผลบนอุปกรณ์เคลื่อนที่และควบคุม Theme ของ Browser
  */
 export const viewport: Viewport = {
   themeColor: "#0a0a0a",
@@ -45,9 +42,7 @@ export const viewport: Viewport = {
 }
 
 /**
- * Metadata Framework
- * ดึงข้อมูลจาก Site Configuration เพื่อใช้ในระบบ SEO และ Social Sharing
- * ใช้ Nullish Coalescing เพื่อป้องกันความผิดพลาดของข้อมูลประเภท String
+ * Metadata Framework (Enhanced for Entity Linking)
  */
 export const metadata: Metadata = {
   title: {
@@ -58,6 +53,15 @@ export const metadata: Metadata = {
   keywords: siteConfig.seo.keywords,
   metadataBase: new URL(siteConfig.url),
   alternates: { canonical: "/" },
+  
+  // การระบุตัวตนเจ้าของ (Entity Linking) ทั้งไทยและอังกฤษ
+  authors: [
+    { name: siteConfig.founder.name, url: siteConfig.founder.url },
+    { name: siteConfig.founder.nameTh, url: siteConfig.founder.url },
+  ],
+  creator: `${siteConfig.founder.name} (${siteConfig.founder.nameTh})`,
+  publisher: siteConfig.name,
+
   openGraph: {
     type: "website",
     locale: siteConfig.locale,
@@ -88,7 +92,6 @@ export const metadata: Metadata = {
 
 /**
  * Root Layout Protocol
- * โครงสร้างหลักของระบบเว็บแอพพลิเคชัน
  */
 export default function RootLayout({
   children,
@@ -109,8 +112,11 @@ export default function RootLayout({
           shadow="0 0 10px hsl(var(--color-primary) / 0.5)"
         />
 
-        {/* Structured Data Implementation */}
-        <JsonLd data={siteConfig} />
+        {/* Global Brand Identity (Schema.org)
+            เรียกใช้งานโดยไม่ต้องส่ง props เพื่อให้ Component ดึงข้อมูล Founder
+            จาก siteConfig มาสร้าง Organization Schema อัตโนมัติ
+        */}
+        <JsonLd />
 
         <div className="relative flex min-h-screen flex-col">
           <Navbar />

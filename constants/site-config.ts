@@ -15,6 +15,21 @@ export const siteConfig: SiteConfig = {
   language: "th",
 
   // ------------------------------------------------------------------
+  // ENTITY LINKING: FOUNDER & AUTHORITY (Bilingual Identity for Google)
+  // ------------------------------------------------------------------
+  founder: {
+    name: "Alongkorl Yomkerd",
+    nameTh: "อลงกรณ์ ยมเกิด",
+    role: "Technical Data Architect",
+    roleTh: "สถาปนิกข้อมูลทางเทคนิค",
+    url: "https://me.aemdevweb.com",
+    sameAs: [
+      "https://www.aemdevweb.com",
+      "https://www.linkedin.com/in/alongkorl-aemdevweb",
+    ],
+  },
+
+  // ------------------------------------------------------------------
   // STRATEGY: DARK & BRIGHT (ลบอดีต vs สร้างอนาคต)
   // ------------------------------------------------------------------
   hero: {

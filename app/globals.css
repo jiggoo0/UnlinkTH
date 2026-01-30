@@ -1,12 +1,13 @@
-/* app/globals.css */
+/** @format */
+
+@import "tailwindcss";
+
 /* =========================================================
    UNLINK PROTOCOL: REPUTATION ARCHITECT BASELINE (2026)
    ---------------------------------------------------------
-   Updated: Support Thai Font Subsets & Tailwind v4
    Architecture: Noto Sans Thai + Inter + JetBrains Mono
+   Identity: Sophisticated Privacy & Decisive Action
    ========================================================= */
-
-@import "tailwindcss";
 
 /* ---------------------------------------------------------
    1. DESIGN TOKENS (The Core Identity)
@@ -18,7 +19,7 @@
   --color-muted: 240 3.7% 15.9%;
   --color-border: 240 3.7% 15.9% / 0.5;
 
-  /* Primary Accent: Emerald Success (ความปลอดภัย) */
+  /* Primary Accent: Emerald Success (ความปลอดภัยและความแม่นยำ) */
   --color-primary: 142 71% 45%;
   --color-primary-fg: 144 33% 97%;
 
@@ -33,35 +34,37 @@
 }
 
 /* ---------------------------------------------------------
-   2. TAILWIND v4 THEME BRIDGE (Mapping font variables)
+   2. TAILWIND v4 THEME BRIDGE
 --------------------------------------------------------- */
 @theme {
-  /* Colors */
+  /* Surface System */
   --color-background: hsl(var(--color-bg));
   --color-foreground: hsl(var(--color-fg));
   --color-muted-foreground: hsl(var(--color-fg) / 0.65);
+  --color-border: hsl(var(--color-border));
+  
+  /* Primary Action System */
   --color-primary: hsl(var(--color-primary));
   --color-primary-foreground: hsl(var(--color-primary-fg));
-  --color-border: hsl(var(--color-border));
   --color-accent: hsl(var(--color-primary) / 0.1);
   --color-accent-foreground: hsl(var(--color-primary));
 
-  /* Typography: Mapping variables from app/layout.tsx */
+  /* Typography Infrastructure: Mapping variables from layout.tsx */
   --font-sans:
     var(--font-noto-thai), var(--font-inter), ui-sans-serif, system-ui,
     sans-serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
 
-  /* Global Radius */
+  /* Global Metrics */
   --radius-lg: var(--radius-md);
 
-  /* Animations */
+  /* Animation Protocol */
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 }
 
 /* ---------------------------------------------------------
-   3. BASE LAYER (Modern Web Baseline)
+   3. BASE LAYER (Operational Baseline)
 --------------------------------------------------------- */
 @layer base {
   *,
@@ -74,7 +77,7 @@
   html {
     scroll-behavior: smooth;
     background-color: var(--color-background);
-    /* ปรับแต่งสีพื้นหลังตอนโหลดหน้าเว็บเพื่อไม่ให้เกิดอาการแสงขาวแวบ (Flash of White) */
+    /* ป้องกันอาการ Flash of White ระหว่างโหลด */
     color-scheme: dark;
   }
 
@@ -87,31 +90,28 @@
     line-height: 1.65;
   }
 
-  /* Typography Balance */
-  h1,
-  h2,
-  h3,
-  h4 {
+  /* Typography Balance Control */
+  h1, h2, h3, h4 {
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     text-wrap: balance;
     color: hsl(var(--color-fg));
   }
 
   p {
     color: var(--color-muted-foreground);
-    max-width: 65ch; /* ความยาวบรรทัดที่เหมาะสมที่สุดสำหรับการอ่าน */
+    max-width: 65ch; /* ความยาวบรรทัดที่เหมาะสมที่สุดสำหรับการอ่านภาษาไทย */
   }
 
-  /* Custom Selection */
+  /* Custom Selection Protocol */
   ::selection {
     background-color: var(--color-accent);
     color: var(--color-accent-foreground);
   }
 
-  /* Professional Slim Scrollbar */
+  /* Secure Liaison Scrollbar (Minimalist Slim) */
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
@@ -119,16 +119,15 @@
   ::-webkit-scrollbar-thumb {
     background: hsl(var(--color-muted));
     border-radius: 20px;
-    border: 1px solid transparent;
-    background-clip: content-box;
+    transition: background 0.3s ease;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--color-primary) / 0.6);
+    background: hsl(var(--color-primary) / 0.5);
   }
 }
 
 /* ---------------------------------------------------------
-   4. UTILITIES (The Architect's Toolkit)
+   4. UTILITIES (Operational Protocols)
 --------------------------------------------------------- */
 @layer utilities {
   .container {
@@ -138,7 +137,7 @@
     max-width: 80rem;
   }
 
-  /* Lab Card: Glassmorphism แบบสุขุม */
+  /* Lab Card Interface: ระบบแสดงผลแบบขรึมและปลอดภัย */
   .lab-card {
     background-color: hsl(var(--color-muted) / 0.2);
     border: 1px solid hsl(var(--color-border));
@@ -151,18 +150,23 @@
   .lab-card:hover {
     background-color: hsl(var(--color-muted) / 0.35);
     border-color: hsl(var(--color-primary) / 0.3);
-    box-shadow: 0 10px 30px -15px hsl(var(--color-primary) / 0.15);
-    transform: translateY(-3px);
+    box-shadow: 0 10px 40px -15px hsl(var(--color-primary) / 0.2);
+    transform: translateY(-4px);
   }
 
-  /* Emerald Glow: ใช้สำหรับจุดที่ต้องการความน่าเชื่อถือ */
+  /* Emerald Glow: สัญญาณความถูกต้องเชิงเทคนิค */
   .glow-emerald {
-    filter: drop-shadow(0 0 12px hsl(var(--color-primary) / 0.25));
+    filter: drop-shadow(0 0 10px hsl(var(--color-primary) / 0.3));
+  }
+
+  /* Typography Utilities */
+  .text-balance {
+    text-wrap: balance;
   }
 }
 
 /* ---------------------------------------------------------
-   5. ACCESSIBILITY
+   5. ACCESSIBILITY (Zero Latency)
 --------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   * {

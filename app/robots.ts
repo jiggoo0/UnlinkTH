@@ -4,39 +4,46 @@ import { MetadataRoute } from "next"
 import { siteConfig } from "@/constants/site-config"
 
 /**
- * UNLINK-TH | Search Engine & AI Intelligence Protocol 2026
+ * UNLINK-TH | Search Engine & AI Intelligence Protocol (2026)
  * -------------------------------------------------------------------------
- * ยุทธศาสตร์: "Ultra-Open Visibility" (เปิดพิกัดเต็มสูบเพื่อการ Indexing ที่ไวที่สุด)
- * วางระบบโดย: นายเอ็มซ่ามากส์ (AEMDEVWEB Specialist)
- * เป้าหมาย: ให้ AI และ Search Engine เก็บข้อมูลได้ครบ 100% ไม่เสียเวลา
+ * ยุทธศาสตร์: "Architectural Clarity" (เปิดทางให้บอทเข้าถึง Trust Signals ได้ครบถ้วน)
+ * วางระบบเพื่อ: สนับสนุนการทำ Entity Linking และเพิ่มคะแนน E-E-A-T
  */
 export default function robots(): MetadataRoute.Robots {
-  // ดึงพิกัด Domain จาก siteConfig หรือล็อกค่ามาตรฐาน
   const baseUrl = siteConfig.url || "https://www.unlink-th.com"
 
   return {
     rules: [
       {
-        /** * [STRATEGY: GLOBAL ACCESS]
-         * อนุญาตให้บอททุกประเภท (Google, Bing, AI Bots) เข้าถึงได้ทุกพิกัด
+        /** * [STRATEGY: MAXIMUM VISIBILITY]
+         * อนุญาตให้ Search Engines และ AI Crawler เข้าถึงเพื่อประมวลผล Identity
          */
         userAgent: "*",
         allow: [
           "/",
-          "/services/", // พิกัดบริการหลัก
-          "/case-studies/", // พิกัดผลงานกรณีศึกษา
-          "/faq/", // พิกัดคำถามที่พบบ่อย
-          "/_next/static/", // เปิดให้โหลด JS/CSS เพื่อเรนเดอร์หน้าเว็บ
-          "/_next/image", // เปิดให้โหลดรูปภาพที่จูนสปีดไว้
+          "/about",            // สำคัญ: พิกัดยืนยันตัวตนเจ้าของ
+          "/services/",         // พิกัด Solutions ของแบรนด์
+          "/case-studies/",     // พิกัด Social Proof & Evidence
+          "/editorial-policy",  // พิกัดจริยธรรมและความน่าเชื่อถือ (Trust)
+          "/faq/",
+          "/_next/static/",    // จำเป็นสำหรับการ Render หน้าเว็บที่ถูกต้อง
+          "/images/",          // เปิดให้บอทเก็บรูปภาพประกอบบทความ
         ],
         disallow: [
-          "/api/", // พิกัดรับส่งข้อมูลภายใน
-          "/_next/data/", // ปิดพิกัดข้อมูลดิบ JSON เพื่อให้บอทโฟกัสที่หน้า Render จริง
-          "/*?*", // [CRITICAL]: ปิดพิกัด Parameter เพื่อป้องกัน Duplicate Content
+          "/api/",             // ปิดกั้นการเข้าถึงระบบ Backend
+          "/_next/data/",      // ปิดกั้นข้อมูลดิบ JSON เพื่อป้องกันการ Index ซ้ำซ้อน
+          "/*?*",              // ป้องกันปัญหา Duplicate Content จาก Query Parameters
         ],
       },
+      {
+        /** [AI BOT SPECIFIC]
+         * เปิดทางให้ AI Crawler (เช่น GPTBot) นำเนื้อหาไปเรียนรู้เพื่อแนะนำแบรนด์ต่อ
+         */
+        userAgent: ["GPTBot", "ChatGPT-User"],
+        allow: ["/"],
+      }
     ],
-    /** แจ้งพิกัดแผนผังเว็บไซต์เพื่อนำทางบอทให้วิ่งงานได้เนี้ยบที่สุด */
+    /** นำทางบอทไปยังแผนผังเว็บไซต์ที่เพิ่งอัปเดตพิกัดความสำคัญใหม่ */
     sitemap: `${baseUrl}/sitemap.xml`,
   }
 }

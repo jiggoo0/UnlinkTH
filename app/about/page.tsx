@@ -8,21 +8,15 @@ import {
   Cpu,
   Scale,
   Globe,
-  History,
   Zap,
   ExternalLink,
   Lock,
   Target,
+  Users,
+  Terminal,
 } from "lucide-react"
 import Link from "next/link"
 import ContactCTA from "@/components/sections/ContactCTA"
-
-/**
- * UNLINK-TH | Operational Identity & Philosophy (2026)
- * -------------------------------------------------------------------------
- * สถาปัตยกรรมแบรนด์ที่เน้นการเปลี่ยนผ่านจากวิกฤตสู่อนาคตดิจิทัลที่มั่นคง
- * พัฒนาโดย: Reputation Architect
- */
 
 export default function AboutPage() {
   const values = [
@@ -48,7 +42,7 @@ export default function AboutPage() {
 
   return (
     <div className="pb-24">
-      {/* 1. Protocol Header: Vision & Identity */}
+      {/* 1. Protocol Header */}
       <header className="bg-muted/10 border-border/50 relative overflow-hidden border-b py-32">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.05),transparent)]" />
         <div className="relative z-10 container">
@@ -69,15 +63,14 @@ export default function AboutPage() {
             </h1>
             <p className="text-muted-foreground max-w-2xl text-xl leading-relaxed font-light md:text-3xl">
               &quot;Unlink the Past, Architect Your Future&quot; —
-              เราคือผู้เชี่ยวชาญด้านการจัดการชื่อเสียงออนไลน์
-              ที่ไม่ได้เพียงแค่ลบอดีต
-              แต่เราออกแบบโครงสร้างความเชื่อมั่นใหม่ให้คุณ
+              UNLINK-TH คือทีมผู้เชี่ยวชาญด้านการจัดการชื่อเสียงออนไลน์
+              ที่เปลี่ยนจากวิกฤตสู่อนาคตดิจิทัลที่มั่นคงด้วยวิศวกรรมข้อมูล
             </p>
           </motion.div>
         </div>
       </header>
 
-      {/* 2. Strategic Methodology: Unlink vs Architect */}
+      {/* 2. Methodology */}
       <section className="container py-32">
         <div className="grid items-center gap-20 lg:grid-cols-2">
           <div className="space-y-12">
@@ -86,10 +79,8 @@ export default function AboutPage() {
                 The Architect <br /> Methodology
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed font-light">
-                ในยุคที่อินเทอร์เน็ตมีระบบจดจำที่ซับซ้อน
-                การลบเพียงอย่างเดียวไม่เพียงพอต่อการกู้คืนเกียรติยศ UNLINK-TH
-                จึงใช้กระบวนการเชิงเทคนิคเพื่อจัดการระบบนิเวศการค้นหาทั้งหมด
-                เพื่อให้โลกจดจำคุณในแบบที่เป็นความจริงในปัจจุบัน
+                ในยุคที่อินเทอร์เน็ตมีระบบจดจำที่ซับซ้อน การลบเพียงอย่างเดียวไม่เพียงพอ
+                UNLINK-TH จึงบูรณาการเทคนิค SEO ขั้นสูงเข้ากับมาตรการทางกฎหมายดิจิทัล
               </p>
             </div>
 
@@ -103,8 +94,7 @@ export default function AboutPage() {
                     Phase 1: Unlink Protocol
                   </h4>
                   <p className="text-foreground text-lg leading-snug font-bold">
-                    Neutralize
-                    ข้อมูลเชิงลบและอดีตที่บิดเบือนออกจากระบบการค้นหาอย่างถาวร
+                    Neutralize ข้อมูลเชิงลบออกจากระบบการค้นหาอย่างถาวร
                   </p>
                 </div>
               </div>
@@ -117,8 +107,7 @@ export default function AboutPage() {
                     Phase 2: Architect Protocol
                   </h4>
                   <p className="text-foreground text-lg leading-snug font-bold">
-                    Construct รากฐานชื่อเสียงใหม่ที่ทรงพลังผ่านเทคนิค SEO
-                    Authority ขั้นสูง
+                    Construct รากฐานชื่อเสียงใหม่ผ่านโครงสร้าง Digital Authority
                   </p>
                 </div>
               </div>
@@ -140,21 +129,21 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. The Technical Backbone: Strategic Identity */}
+      {/* 3. The Technical Backbone */}
       <section className="border-border/10 bg-muted/5 border-y py-32">
         <div className="container grid items-center gap-20 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <div className="lab-card border-primary/20 bg-muted/20 relative aspect-square overflow-hidden rounded-[3rem]">
               <div className="absolute inset-0 flex items-center justify-center">
-                <History className="text-primary/5 h-48 w-48" />
+                <Terminal className="text-primary/5 h-48 w-48" />
               </div>
               <div className="from-background/90 absolute inset-0 z-10 bg-gradient-to-t via-transparent to-transparent" />
               <div className="absolute bottom-12 left-12 z-20 space-y-2">
                 <p className="text-primary font-mono text-[10px] tracking-[0.4em] uppercase">
-                  Chief Architect
+                  Operational Core
                 </p>
                 <p className="text-3xl font-bold tracking-tighter">
-                  Alongkorl Y.
+                  UNLINK-TH Team
                 </p>
               </div>
             </div>
@@ -164,46 +153,39 @@ export default function AboutPage() {
             <div className="space-y-8">
               <div className="text-primary inline-flex items-center gap-4 font-mono text-[10px] tracking-widest uppercase">
                 <span className="bg-primary/30 h-px w-12"></span>
-                <span>The Visionary behind Unlink</span>
+                <span>The Visionary Expertise</span>
               </div>
               <h2 className="text-5xl leading-none font-bold tracking-tighter md:text-7xl">
-                อลงกรณ์ ยมเกิด <br />
+                Technical Data <br />
                 <span className="text-muted-foreground/50 text-2xl font-light md:text-3xl">
-                  (Technical Data Architect)
+                  Reputation Architects
                 </span>
               </h2>
               <blockquote className="border-primary/40 space-y-6 border-l-2 pl-10">
                 <p className="text-muted-foreground text-xl leading-relaxed font-light italic md:text-3xl">
-                  &quot;ในโลกดิจิทัล ชื่อเสียงคืออัลกอริทึมที่สามารถออกแบบได้
-                  ผมใช้เทคโนโลยีเพื่อคืนสิทธิในความเป็นส่วนตัว
-                  และสร้างมาตรฐานใหม่ให้กับตัวตนที่วัดผลได้จริง&quot;
+                  &quot;ในโลกดิจิทัล ชื่อเสียงคืออัลกอริทึมที่เราสามารถออกแบบได้ 
+                  เราใช้เทคโนโลยีเพื่อคืนสิทธิในความเป็นส่วนตัวอย่างยั่งยืน&quot;
                 </p>
               </blockquote>
             </div>
 
             <div className="flex flex-wrap gap-10 pt-4">
               <Link
-                href="https://me.aemdevweb.com"
-                target="_blank"
-                className="group text-primary/60 hover:text-primary flex items-center gap-3 font-mono text-xs tracking-widest uppercase transition-colors"
-              >
-                Identity Hub{" "}
-                <ExternalLink className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-              <Link
                 href="https://www.aemdevweb.com"
                 target="_blank"
                 className="group text-primary/60 hover:text-primary flex items-center gap-3 font-mono text-xs tracking-widest uppercase transition-colors"
               >
-                Engineering Core{" "}
-                <ExternalLink className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                Engineering Core <ExternalLink className="h-3.5 w-3.5" />
               </Link>
+              <div className="group text-muted-foreground/40 flex items-center gap-3 font-mono text-xs tracking-widest uppercase">
+                <Users className="h-3.5 w-3.5" /> Specialist Certified
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4. Core Values: Integrity Protocol */}
+      {/* 4. Core Values */}
       <section className="container py-32">
         <div className="mb-24 space-y-4 text-center">
           <h2 className="text-4xl font-bold tracking-tighter uppercase md:text-5xl">

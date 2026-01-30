@@ -1,5 +1,11 @@
 /** @format */
 
+/**
+ * UNLINK-TH | Global Type Definitions (2026)
+ * -------------------------------------------------------------------------
+ * สถาปัตยกรรมประเภทข้อมูลเพื่อความปลอดภัยและโครงสร้างที่แม่นยำ
+ */
+
 export interface HeroSide {
   tone: "dark" | "bright" | string
   headline: string
@@ -15,14 +21,30 @@ export interface SiteConfig {
   ogImage: string
   locale: string
   language: string
-  // ปรับปรุง: ให้รองรับโครงสร้าง Strategy: Dark & Bright
+
+  // ------------------------------------------------------------------
+  // ENTITY LINKING: FOUNDER DATA Structure
+  // ------------------------------------------------------------------
+  founder: {
+    name: string
+    nameTh: string
+    role: string
+    roleTh: string
+    url: string
+    sameAs: string[]
+  }
+
+  // ------------------------------------------------------------------
+  // UI & BRAND STRATEGY
+  // ------------------------------------------------------------------
   hero: {
-    title?: string // ใส่ ? เพื่อรองรับกรณีที่ไม่ได้ใช้ key นี้โดยตรง
+    title?: string
     subtitle?: string
     badge?: string
     leftSide: HeroSide
     rightSide: HeroSide
   }
+
   contact: {
     primaryChannel: string
     lineUrl: string
@@ -31,29 +53,41 @@ export interface SiteConfig {
     email: string
     note: string
   }
+
   links: {
     facebook: string
     twitter: string
     line: string
   }
+
   seo: {
     titleTemplate: string
     defaultTitle: string
     defaultDescription: string
     keywords: string[]
   }
+
   company: {
     slogan: string
     approach: string
     positioning: string
   }
+
   footer: {
     disclaimer: string
     trustNote: string
   }
-  // Index Signature เพื่อความยืดหยุ่นของ JsonLd
+
+  /**
+   * Index Signature: เพื่อความยืดหยุ่นในการดึงข้อมูลแบบ Dynamic
+   * ช่วยป้องกัน Error TS18046 ในไฟล์ JsonLd และ Metadata
+   */
   [key: string]: unknown
 }
+
+// ------------------------------------------------------------------
+// SERVICE & SOLUTION TYPES
+// ------------------------------------------------------------------
 
 export interface ServicePrice {
   startingAt: string
@@ -86,6 +120,10 @@ export interface Service {
   metadata: ServiceMetadata
 }
 
+// ------------------------------------------------------------------
+// EVIDENCE & PORTFOLIO TYPES
+// ------------------------------------------------------------------
+
 export interface CaseStudy {
   slug: string
   title: string
@@ -99,6 +137,10 @@ export interface CaseStudy {
   outcome?: string
   image?: string
 }
+
+// ------------------------------------------------------------------
+// NAVIGATION ARCHITECTURE
+// ------------------------------------------------------------------
 
 export interface NavItem {
   title: string

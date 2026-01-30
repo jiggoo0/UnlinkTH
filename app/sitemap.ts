@@ -8,48 +8,51 @@ import { getAllCaseStudies } from "@/lib/case-studies"
 /**
  * UNLINK-TH | SEO Sitemap Engine (2026)
  * -------------------------------------------------------------------------
- * สร้างดัชนี URL อัตโนมัติเพื่อประสิทธิภาพสูงสุดในการทำ Indexing
- * แบ่งสถาปัตยกรรมข้อมูลตามระดับความสำคัญ (Priority Logic)
+ * หน้าที่: สร้างแผนผังเว็บไซต์แบบ Dynamic เพื่อให้ Google Index ข้อมูลได้ครบถ้วน
+ * มุ่งเน้นการส่งสัญญาณด้าน Trust & Authority (E-E-A-T) ผ่านหน้า Identity ต่างๆ
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url
 
-  // [1] ดึงข้อมูล Dynamic Case Studies จากเนื้อหา MDX
+  // [1] ดึงข้อมูล Dynamic Case Studies (Social Proof / Evidence)
   const allCases = await getAllCaseStudies()
   const caseEntries: MetadataRoute.Sitemap = allCases.map((item) => ({
     url: `${baseUrl}/case-studies/${item.slug}`,
     lastModified: new Date(item.date || new Date()),
     changeFrequency: "monthly" as const,
-    priority: 0.7, // เคสศึกษาเป็น Social Proof ที่ช่วยสนับสนุนหน้าหลัก
+    priority: 0.7, // เคสศึกษาช่วยเสริมความน่าเชื่อถือให้กับบริการหลัก
   }))
 
-  // [2] ดึงข้อมูล Service Protocols จาก Constants
+  // [2] ดึงข้อมูล Service Protocols (Main Conversion Pages)
   const serviceEntries: MetadataRoute.Sitemap = servicesData.map((service) => ({
     url: `${baseUrl}/services/${service.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
-    priority: 0.9, // บริการคือ Key Conversion Page ที่ต้องการอันดับสูง
+    priority: 0.9, // หน้านี้คือหัวใจสำคัญของการค้นหาบริการ
   }))
 
-  // [3] หน้า Static หลักและหน้าที่เกี่ยวข้องกับความน่าเชื่อถือ
+  // [3] หน้าหลักและหน้าที่สร้างความน่าเชื่อถือ (Trust & Identity Signals)
   const staticRoutes = [
-    "", // Index (Home)
-    "/about", // Identity
-    "/services", // Protocol Catalog
-    "/case-studies", // Evidence Portfolio
-    "/faq", // Intelligence Hub
-    "/contact", // Secure Liaison
-    "/privacy", // Security Protocol
-    "/editorial-policy", // Ethics Charter
+    { path: "", priority: 1.0, changeFreq: "daily" as const },            // Home
+    { path: "/about", priority: 0.8, changeFreq: "weekly" as const },     // Identity & Founder
+    { path: "/editorial-policy", priority: 0.8, changeFreq: "monthly" as const }, // Ethics & Trust
+    { path: "/services", priority: 0.8, changeFreq: "weekly" as const },
+    { path: "/case-studies", priority: 0.8, changeFreq: "weekly" as const },
+    { path: "/faq", priority: 0.6, changeFreq: "weekly" as const },
+    { path: "/contact", priority: 0.7, changeFreq: "monthly" as const },
+    { path: "/privacy", priority: 0.5, changeFreq: "monthly" as const },
   ]
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
-    url: `${baseUrl}${route}`,
+    url: `${baseUrl}${route.path}`,
     lastModified: new Date(),
-    changeFrequency: route === "" ? ("daily" as const) : ("weekly" as const),
-    priority: route === "" ? 1.0 : 0.8,
+    changeFrequency: route.changeFreq,
+    priority: route.priority,
   }))
 
-  // รวมชุดข้อมูล URL ทั้งหมดเข้าด้วยกัน
+  /**
+   * รวมชุดข้อมูล URL ทั้งหมด
+   * ลำดับการรวม: Static (Core) -> Services (Solutions) -> Case Studies (Evidence)
+   */
   return [...staticEntries, ...serviceEntries, ...caseEntries]
 }

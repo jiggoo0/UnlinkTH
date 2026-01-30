@@ -9,42 +9,45 @@ import {
   ShieldAlert,
   Server,
   FileKey,
+  ChevronRight,
 } from "lucide-react"
 import ContactCTA from "@/components/sections/ContactCTA"
+import { siteConfig } from "@/constants/site-config"
 
 /**
  * UNLINK-TH | Confidentiality & Privacy Protocol (2026)
  * -------------------------------------------------------------------------
  * มาตรฐานการคุ้มครองข้อมูลภายใต้หลักการ Zero-Knowledge Security
  * ออกแบบเพื่อรองรับมาตรฐาน PDPA และพันธสัญญาการรักษาความลับสากล
+ * Managed by: Alongkorl Yomkerd (Technical Data Architect)
  */
 
 export const metadata: Metadata = {
-  title: "Confidentiality & Privacy Protocol | UNLINK-TH",
+  title: `Confidentiality & Privacy Protocol | ${siteConfig.name}`,
   description:
-    "นโยบายการรักษาความลับและมาตรฐานการจัดการข้อมูลส่วนบุคคลภายใต้กฎหมาย PDPA ของ UNLINK-TH",
+    "นโยบายการรักษาความลับและมาตรฐานการจัดการข้อมูลส่วนบุคคลภายใต้กฎหมาย PDPA ของ UNLINK-TH เพื่อความปลอดภัยสูงสุดของลูกค้าระดับ VIP",
 }
 
 export default function PrivacyPage() {
-  const lastUpdated = "28 มกราคม 2026"
+  const lastUpdated = "29 มกราคม 2026"
 
   const protocols = [
     {
       title: "Non-Disclosure Policy",
       description:
-        "ข้อมูลทุกอย่างที่ระบุในระหว่างการปรึกษา จะถูกเก็บเป็นความลับสูงสุดภายใต้สัญญา NDA ทันที ไม่มีการเปิดเผยตัวตนในทุกกรณี",
+        "ข้อมูลทุกอย่างที่ระบุในระหว่างการปรึกษา จะถูกเก็บเป็นความลับสูงสุดภายใต้สัญญา NDA (Non-Disclosure Agreement) ทันที ไม่มีการเปิดเผยตัวตนในทุกกรณี",
       icon: EyeOff,
     },
     {
       title: "Data Destruction Protocol",
       description:
-        "นโยบายทำลายข้อมูล (Secure Shredding) ทันทีหลังจบโปรเจกต์ หรือเมื่อการประเมินงานสิ้นสุดลง เพื่อป้องกันการรั่วไหลของข้อมูล",
+        "นโยบายทำลายข้อมูล (Secure Shredding) ทันทีหลังจบโปรเจกต์ หรือเมื่อการประเมินงานสิ้นสุดลง เพื่อป้องกันการตกค้างของข้อมูลในระบบนิเวศดิจิทัล",
       icon: Trash2,
     },
     {
       title: "Encrypted Communication",
       description:
-        "การรับส่งข้อมูลและเอกสารทั้งหมดดำเนินการผ่านช่องทางที่มีการเข้ารหัส (End-to-End Encryption) มาตรฐานระดับสูง",
+        "การรับส่งข้อมูลและเอกสารทั้งหมดดำเนินการผ่านช่องทางที่มีการเข้ารหัส (End-to-End Encryption) มาตรฐานระดับเดียวกับสถาบันการเงิน",
       icon: Lock,
     },
   ]
@@ -52,7 +55,7 @@ export default function PrivacyPage() {
   return (
     <div className="pb-24">
       {/* 1. Technical Header Section: สัญญาณความปลอดภัยหลัก */}
-      <header className="bg-muted/10 border-border/50 relative overflow-hidden border-b py-28">
+      <header className="bg-muted/10 border-border/50 relative overflow-hidden border-b py-32">
         <div className="bg-primary/5 pointer-events-none absolute top-0 right-0 -z-10 h-[500px] w-[500px] rounded-full blur-[120px]" />
         <div className="relative z-10 container">
           <div className="max-w-4xl space-y-8">
@@ -66,7 +69,7 @@ export default function PrivacyPage() {
             </h1>
             <p className="text-muted-foreground max-w-2xl text-xl leading-relaxed font-light md:text-2xl">
               เพราะชื่อเสียงของคุณเริ่มต้นที่ความลับของเรา
-              เราจึงวางระบบจัดการข้อมูลที่เข้มงวดที่สุดเพื่อปกป้องความเป็นส่วนตัวในทุกขั้นตอนปฏิบัติการ
+              เราจึงวางระบบจัดการข้อมูลที่เข้มงวดที่สุดเพื่อปกป้องความเป็นส่วนตัวภายใต้มาตรฐาน **PDPA (Thailand)**
             </p>
             <div className="flex items-center gap-4 pt-4">
               <span className="text-muted-foreground/40 border-border/10 rounded border px-3 py-1 font-mono text-[10px] tracking-widest uppercase">
@@ -108,13 +111,13 @@ export default function PrivacyPage() {
           <h2 className="border-border/10 border-b pb-4 tracking-tighter uppercase">
             Data Protection Standard (PDPA Compliance)
           </h2>
-          <p>
-            UNLINK-TH ในฐานะผู้ควบคุมข้อมูลส่วนบุคคล (Data Controller)
-            ยึดถือจริยธรรมดิจิทัลในการจัดการข้อมูล
-            นโยบายฉบับนี้ออกแบบมาเพื่อประกาศมาตรฐานความปลอดภัยสำหรับกระบวนการจัดการชื่อเสียง
+          <p className="text-lg">
+            {siteConfig.name} ในฐานะผู้ควบคุมข้อมูลส่วนบุคคล (Data Controller)
+            ภายใต้การกำกับดูแลของทีมวิศวกรรมข้อมูล ยึดถือจริยธรรมดิจิทัลในการจัดการข้อมูลสูงสุด
+            นโยบายฉบับนี้คือพันธสัญญาในการคุ้มครองสิทธิความเป็นส่วนตัวของท่าน
           </p>
 
-          {/* Visualizing Data Processing Flow */}
+          
 
           <div className="mt-16 grid gap-12">
             <div className="space-y-4">
@@ -123,23 +126,20 @@ export default function PrivacyPage() {
                 1. ขอบเขตการจัดเก็บข้อมูล (Data Minimization)
               </h3>
               <p>
-                เราจัดเก็บข้อมูลเฉพาะส่วนที่จำเป็นอย่างยิ่งต่อการดำเนินงาน
-                De-indexing และการปรับปรุงภาพลักษณ์ ได้แก่:
+                เรายึดถือหลักการจัดเก็บข้อมูลเท่าที่จำเป็น (Minimalism) เพื่อใช้ในการดำเนินงานด้านเทคนิคเท่านั้น:
               </p>
-              <ul className="border-primary/20 list-none space-y-2 border-l pl-4">
-                <li className="text-sm italic">
-                  {" "}
-                  ข้อมูลระบุตัวตนทางธุรกิจหรือบุคคล (เพื่อใช้ในสัญญา NDA)
+              <ul className="border-primary/20 list-none space-y-3 border-l pl-6">
+                <li className="flex items-start gap-2 text-sm italic">
+                  <ChevronRight className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  ข้อมูลระบุตัวตนที่จำเป็นสำหรับการทำสัญญา NDA
                 </li>
-                <li className="text-sm italic">
-                  {" "}
-                  พิกัดดิจิทัล (ลิงก์ข่าว, URL,
-                  หรือข้อมูลที่ละเมิดความเป็นส่วนตัว)
+                <li className="flex items-start gap-2 text-sm italic">
+                  <ChevronRight className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  Digital Footprint (URL หรือลิงก์ที่ต้องการให้จัดการจัดการ)
                 </li>
-                <li className="text-sm italic">
-                  {" "}
-                  เอกสารแสดงสิทธิตามกฎหมาย
-                  (ใช้ยื่นต่อผู้ให้บริการระบบการค้นหาเท่านั้น)
+                <li className="flex items-start gap-2 text-sm italic">
+                  <ChevronRight className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  หลักฐานแสดงสิทธิ (เพื่อใช้ยื่นต่อผู้ให้บริการ Search Engine หรือ Platform เท่านั้น)
                 </li>
               </ul>
             </div>
@@ -150,10 +150,8 @@ export default function PrivacyPage() {
                 2. วัตถุประสงค์และการประมวลผล
               </h3>
               <p>
-                ข้อมูลจะถูกใช้เพื่อวัตถุประสงค์เดียวคือ{" "}
-                <strong>การปกป้องชื่อเสียง</strong>
-                เราไม่มีนโยบายนำข้อมูลไปใช้ทางการตลาด
-                หรือเปิดเผยข้อมูลการรับบริการต่อสาธารณะไม่ว่ากรณีใดๆ
+                ข้อมูลของท่านจะถูกประมวลผลภายใต้วัตถุประสงค์เดียวคือ <strong>การจัดการและปกป้องชื่อเสียงออนไลน์</strong> 
+                โดย {siteConfig.name} จะไม่มีการนำข้อมูลไปใช้ในเชิงพาณิชย์ หรือเปิดเผยต่อบุคคลที่สามโดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษร
               </p>
             </div>
           </div>
@@ -163,35 +161,38 @@ export default function PrivacyPage() {
             <ShieldAlert className="text-primary mt-1 h-7 w-7 shrink-0" />
             <div className="space-y-3">
               <h4 className="text-foreground text-lg font-bold">
-                Internal Security Audit (Tier-1)
+                Zero-Knowledge Infrastructure
               </h4>
               <p className="text-muted-foreground m-0 text-sm leading-relaxed font-light">
-                ระบบจัดการโครงการมีการบันทึกประวัติการเข้าถึง (Access Log)
-                ทุกขั้นตอน ข้อมูลจะถูกเข้ารหัสระดับสูง และจะถูกถอนการติดตั้ง
-                (Secure Purge) ออกจากระบบทันทีที่สิ้นสุดสัญญาจ้าง
+                เราใช้ระบบจัดการโครงการที่บันทึกประวัติการเข้าถึง (Access Log) อย่างเข้มงวด 
+                ข้อมูลจะถูกเข้ารหัสระดับ AES-256 และจะถูกถอนการติดตั้ง (Secure Purge) 
+                ออกจากระบบปฏิบัติการของเราทันทีที่ภารกิจลุล่วง
               </p>
             </div>
           </div>
 
-          <h3 className="font-bold tracking-tight">
-            3. สิทธิเหนือข้อมูลส่วนบุคคล
-          </h3>
-          <p>
-            ท่านมีสิทธิในการขอเข้าถึง, แก้ไข, ระงับการใช้งาน หรือสั่งทำลายข้อมูล
-            (Right to Erasure) ได้ทุกเวลา
-            โดยเราจะดำเนินการทันทีภายในกรอบเวลาปฏิบัติการที่กำหนด
-          </p>
+          <div className="space-y-6 border-t border-border/10 pt-10">
+            <h3 className="font-bold tracking-tight text-xl">
+              3. สิทธิเหนือข้อมูลส่วนบุคคล (Your Rights)
+            </h3>
+            <p>
+              ตามกฎหมาย PDPA ท่านมีสิทธิในการขอเข้าถึง, แก้ไข, ระงับการใช้งาน หรือสั่งทำลายข้อมูล 
+              (Right to Erasure) ได้ทุกเวลาผ่านเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลของเรา
+            </p>
 
-          <h3 className="font-bold tracking-tight">
-            4. การติดต่อประสานงานด้านความลับ
-          </h3>
-          <p>
-            หากท่านมีข้อสงสัยหรือต้องการยื่นคำร้องเกี่ยวกับข้อมูลส่วนบุคคล
-            กรุณาติดต่อทีมประสานงานความปลอดภัยได้ที่: <br />
-            <strong className="text-primary font-mono text-sm tracking-widest">
-              security@unlink-th.com
-            </strong>
-          </p>
+            <h3 className="font-bold tracking-tight text-xl">
+              4. การติดต่อประสานงานด้านความปลอดภัย
+            </h3>
+            <p>
+              หากท่านมีข้อสงสัยเกี่ยวกับมาตรการความเป็นส่วนตัว หรือต้องการใช้สิทธิเหนือข้อมูล 
+              กรุณาติดต่อเจ้าหน้าที่ดูแลความปลอดภัยข้อมูล (DPO) โดยตรง:
+            </p>
+            <div className="bg-muted/10 inline-block rounded-xl border border-border/50 px-6 py-4">
+              <strong className="text-primary font-mono text-sm tracking-[0.2em] uppercase">
+                {siteConfig.contact.email.replace('contact', 'security')}
+              </strong>
+            </div>
+          </div>
         </div>
       </section>
 
