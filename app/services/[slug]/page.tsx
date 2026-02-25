@@ -8,6 +8,8 @@ import { useMDXComponents } from "@/mdx-components"
 import { Badge } from "@/components/ui/badge"
 import { ShieldCheck, Lock, ArrowRight, Terminal } from "lucide-react"
 import ContactCTA from "@/components/sections/ContactCTA"
+import JsonLd from "@/components/seo/JsonLd"
+import { getServiceSchema, getBreadcrumbSchema } from "@/lib/seo-schemas"
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>
@@ -27,8 +29,12 @@ export async function generateMetadata({
 
   return {
     title: service.metadata.defaultTitle ?? service.title,
-    description: service.metadata.defaultDescription,
+    description:
+      service.metadata.defaultDescription ?? service.shortDescription,
     keywords: service.metadata.keywords,
+    alternates: {
+      canonical: `/services/${slug}/`,
+    },
   }
 }
 
@@ -50,8 +56,16 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
 
   if (!service) notFound()
 
+  const breadcrumbs = [
+    { name: "Home", item: "/" },
+    { name: "Services", item: "/services" },
+    { name: service.title, item: `/services/${service.slug}` },
+  ]
+
   return (
     <article className="pb-24">
+      <JsonLd data={getServiceSchema(service)} />
+      <JsonLd data={getBreadcrumbSchema(breadcrumbs)} />
       {/* 1. Protocol Intelligence Header */}
       <header className="border-border/50 bg-muted/10 relative mb-20 overflow-hidden border-b py-24">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,rgba(16,185,129,0.05),transparent)]" />

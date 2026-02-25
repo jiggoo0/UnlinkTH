@@ -7,6 +7,7 @@ import { siteConfig } from "@/constants/site-config"
 import Navbar from "@/components/shared/Navbar"
 import Footer from "@/components/shared/Footer"
 import JsonLd from "@/components/seo/JsonLd"
+import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
 
 /**
@@ -42,7 +43,7 @@ export const viewport: Viewport = {
 }
 
 /**
- * Metadata Framework (Enhanced for Entity Linking)
+ * Metadata Framework (Enhanced for Entity Linking & Attribution)
  */
 export const metadata: Metadata = {
   title: {
@@ -53,14 +54,18 @@ export const metadata: Metadata = {
   keywords: siteConfig.seo.keywords,
   metadataBase: new URL(siteConfig.url),
   alternates: { canonical: "/" },
-  
-  // การระบุตัวตนเจ้าของ (Entity Linking) ทั้งไทยและอังกฤษ
+
+  // Developer Attribution Protocol
   authors: [
-    { name: siteConfig.founder.name, url: siteConfig.founder.url },
-    { name: siteConfig.founder.nameTh, url: siteConfig.founder.url },
+    {
+      name: "นาย อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)",
+      url: "https://me.aemdevweb.com",
+    },
+    { name: "AemDevWeb Studio", url: "https://www.aemdevweb.com" },
   ],
-  creator: `${siteConfig.founder.name} (${siteConfig.founder.nameTh})`,
+  creator: "AemDevWeb Studio (www.aemdevweb.com)",
   publisher: siteConfig.name,
+  generator: "Alongkorl Yomkerd (me.aemdevweb.com)",
 
   openGraph: {
     type: "website",
@@ -88,6 +93,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: "G-XXXXXXXXXX", // Replace with actual Google Search Console verification key
+  },
 }
 
 /**
@@ -95,34 +103,30 @@ export const metadata: Metadata = {
  */
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
     <html
       lang={siteConfig.language}
       className={`${inter.variable} ${notoThai.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
-      <body className="bg-background text-foreground selection:bg-primary/20 selection:text-primary font-sans antialiased">
+      <body className="bg-background text-foreground selection:bg-primary/20 selection:text-primary relative flex min-h-screen flex-col font-sans antialiased">
         {/* Navigation Loading Indicator */}
         <NextTopLoader
-          color="hsl(142 71% 45%)"
+          color="hsl(var(--color-primary))"
           showSpinner={false}
           shadow="0 0 10px hsl(var(--color-primary) / 0.5)"
         />
 
-        {/* Global Brand Identity (Schema.org)
-            เรียกใช้งานโดยไม่ต้องส่ง props เพื่อให้ Component ดึงข้อมูล Founder
-            จาก siteConfig มาสร้าง Organization Schema อัตโนมัติ
-        */}
+        {/* Global Brand Identity (Schema.org) */}
         <JsonLd />
+        <Toaster />
 
-        <div className="relative flex min-h-screen flex-col">
-          <Navbar />
-          <main className="flex-1 overflow-hidden">{children}</main>
-          <Footer />
-        </div>
+        <Navbar />
+        <main className="flex-1 overflow-hidden">{children}</main>
+        <Footer />
       </body>
     </html>
   )

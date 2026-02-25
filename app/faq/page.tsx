@@ -16,6 +16,8 @@ import {
   Lock,
   MessageCircle,
 } from "lucide-react"
+import JsonLd from "@/components/seo/JsonLd"
+import { getFaqSchema, getBreadcrumbSchema } from "@/lib/seo-schemas"
 import ContactCTA from "@/components/sections/ContactCTA"
 
 /**
@@ -29,6 +31,9 @@ export const metadata: Metadata = {
   title: "FAQ & Intelligence Center | UNLINK-TH",
   description:
     "รวบรวมคำตอบเกี่ยวกับกระบวนการจัดการข้อมูล (De-indexing), การออกแบบภาพลักษณ์ใหม่ และระเบียบข้อกฎหมาย PDPA",
+  alternates: {
+    canonical: "/faq",
+  },
 }
 
 // ข้อมูลคำถามแบ่งตามหมวดหมู่ปฏิบัติการ
@@ -81,23 +86,34 @@ const faqCategories = [
 ]
 
 export default function FAQPage() {
+  const allFaqs = faqCategories.flatMap((cat) => cat.questions)
+
+  const breadcrumbs = [
+    { name: "Home", item: "/" },
+    { name: "FAQ", item: "/faq" },
+  ]
+
   return (
     <div className="pb-20">
+      <JsonLd data={getFaqSchema(allFaqs)} />
+      <JsonLd data={getBreadcrumbSchema(breadcrumbs)} />
       {/* 1. Protocol Header Section */}
       <header className="bg-muted/20 border-border/50 border-b py-24">
         <div className="container">
           <div className="max-w-4xl space-y-6">
             <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-2 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
               <HelpCircle className="h-4 w-4" />
-              <span>Operational Support Protocol</span>
+              <span>เราพร้อมคลายทุกข้อสงสัยเพื่อความสบายใจของคุณ</span>
             </div>
             <h1 className="text-4xl font-bold tracking-tighter md:text-6xl">
-              Intelligence <br />
-              <span className="text-primary font-light italic">& Response</span>
+              ศูนย์ช่วยเหลือ <br />
+              <span className="text-primary font-light italic">
+                & ความเข้าใจ
+              </span>
             </h1>
             <p className="text-muted-foreground text-xl leading-relaxed font-light md:text-2xl">
-              เจาะลึกทุกข้อสงสัยเกี่ยวกับการจัดการอัตลักษณ์ดิจิทัล
-              ผ่านมุมมองการจัดการข้อมูลเชิงลึกและยุทธศาสตร์ชื่อเสียง
+              เราเข้าใจดีว่าปัญหาชื่อเสียงออนไลน์เป็นเรื่องละเอียดอ่อน
+              รวบรวมคำตอบและแนวทางการจัดการข้อมูลเพื่อให้คุณมั่นใจในทุกก้าวของการเริ่มต้นใหม่
             </p>
           </div>
         </div>

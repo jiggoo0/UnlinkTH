@@ -14,30 +14,30 @@ import { Search, ShieldAlert, Hammer, Eye } from "lucide-react"
 
 const protocols = [
   {
-    title: "1. Assessment",
+    title: "1. Listen & Assess",
     description:
-      "วิเคราะห์พิกัดความเสียหายและประเมินโอกาสสำเร็จด้วยระบบวิเคราะห์ข้อมูลเชิงลึก",
+      "เราพร้อมรับฟังปัญหาของคุณอย่างเป็นส่วนตัว เพื่อวิเคราะห์แนวทางที่เหมาะสมที่สุดตามข้อเท็จจริง",
     icon: Search,
     color: "text-blue-500/80",
   },
   {
-    title: "2. Neutralization",
+    title: "2. Resolve & Restore",
     description:
-      "ตัดวงจรข้อมูลเชิงลบถาวรผ่านกระบวนการ De-indexing และมาตรการทางกฎหมาย",
+      "ดำเนินการแก้ไขและนำข้อมูลที่ส่งผลเสียออกอย่างมืออาชีพ เพื่อคืนความสบายใจให้กับตัวตนดิจิทัลของคุณ",
     icon: ShieldAlert,
     color: "text-red-500/80",
   },
   {
-    title: "3. Construction",
+    title: "3. Build & Design",
     description:
-      "วางรากฐานตัวตนใหม่ด้วยเทคนิค SEO Authority เพื่อยึดครองพื้นที่การสืบค้น",
+      "สร้างโอกาสใหม่ด้วยการวางรากฐานตัวตนออนไลน์ที่แข็งแกร่งและน่าเชื่อถือ เพื่ออนาคตที่ก้าวกระโดด",
     icon: Hammer,
     color: "text-primary",
   },
   {
-    title: "4. Surveillance",
+    title: "4. Support & Protect",
     description:
-      "ระบบเฝ้าระวังและป้องกันข้อมูลรายปี เพื่อความมั่นคงของภาพลักษณ์ในระยะยาว",
+      "เรายังคงเคียงข้างเพื่อเฝ้าระวังและป้องกันไม่ให้ปัญหาเดิมกลับมาทำร้ายคุณได้อีกในระยะยาว",
     icon: Eye,
     color: "text-purple-500/80",
   },

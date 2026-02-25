@@ -5,81 +5,86 @@ import { siteConfig } from "./site-config"
 
 export const mainNav: NavItem[] = [
   {
-    title: "บริการทั้งหมด",
+    title: "ทางออกเพื่อการเริ่มต้นใหม่",
     href: "/services",
-    description: "บริการลบประวัติเสียและสร้างภาพลักษณ์ใหม่ครบวงจร",
+    description: "คืนสิทธิความเป็นส่วนตัวและพื้นที่ชีวิตที่สะอาดตาให้คุณ",
   },
   {
-    title: "รีวิวและผลลัพธ์",
-    href: "/reviews",
-    description: "เสียงจากลูกค้าจริงและการกู้คืนชื่อเสียงที่สำเร็จ",
+    title: "บันทึกความสำเร็จ",
+    href: "/case-studies",
+    description: "เรื่องราวการกู้คืนชื่อเสียงและรอยยิ้มที่กลับมาอีกครั้ง",
   },
   {
-    title: "ราคาและขั้นตอน",
-    href: "/pricing",
-    description: "ความคุ้มค่าและกระบวนการทำงานที่โปร่งใส",
+    title: "บทความวิเคราะห์",
+    href: "/blog",
+    description: "ความรู้เจาะลึกด้านการจัดการชื่อเสียงและภัยคุกคามออนไลน์",
   },
   {
-    title: "เกี่ยวกับเรา",
+    title: "คำถามและข้อสงสัย",
+    href: "/faq",
+    description: "ทุกคำตอบเรื่องเทคนิคและกฎหมายที่คุณสบายใจได้",
+  },
+  {
+    title: "ทำความรู้จักเรา",
     href: "/about",
-    description: "มาตรฐานความปลอดภัยและทีมงานผู้เชี่ยวชาญ",
+    description: "ทีมผู้เชี่ยวชาญที่พร้อมเคียงข้างคุณในทุกวิกฤต",
   },
 ]
 
 export const footerNav: FooterNav = {
   solutions: [
     {
-      title: "Digital Detox (ลบอดีตวัยเกรียน)",
+      title: "ล้างอดีตวัยเกรียน (Jobbers Detox)",
       href: "/services/digital-detox-jobbers",
     },
     {
-      title: "Crisis Clean-Up (จบดราม่า)",
+      title: "ยุติดราม่าทัวร์ลง (Crisis Cleanup)",
       href: "/services/crisis-cleanup",
     },
     {
-      title: "Blacklist Remover (กู้ชื่อ)",
+      title: "กู้ชื่อหนี้นอกระบบ (Blacklist Remover)",
       href: "/services/blacklist-remover",
     },
     {
-      title: "Ex-Partner Eraser (มูฟออน)",
+      title: "มูฟออนความทรงจำ (Ex-Partner Eraser)",
       href: "/services/ex-partner-eraser",
     },
     {
-      title: "SME Rescue (กู้ดาวร้านค้า)",
+      title: "กู้ดาวร้านค้า SME (Reputation Rescue)",
       href: "/services/sme-reputation-rescue",
     },
   ],
   support: [
     {
-      title: "นโยบายความเป็นส่วนตัว",
+      title: "นโยบายความเป็นส่วนตัว (Confidentiality)",
       href: "/privacy",
     },
     {
-      title: "คำถามที่พบบ่อย (FAQ)",
+      title: "ศูนย์ช่วยเหลือ (FAQ)",
       href: "/faq",
     },
     {
-      title: "แจ้งลบข้อมูล (PDPA)",
-      href: "/request-removal",
+      title: "จริยธรรมข้อมูล (Ethics)",
+      href: "/editorial-policy",
     },
     {
-      title: "ติดต่อทีมงาน",
+      title: "ประสานงานส่วนบุคคล",
       href: "/contact",
     },
   ],
   connect: [
     {
-      title: "LINE Official (ตอบไวสุด)",
+      title: "LINE Official (ปรึกษาลับเฉพาะ)",
       href: siteConfig.contact.lineUrl,
       external: true,
     },
     {
-      title: "Facebook Page",
+      title: "Facebook Community",
       href: siteConfig.links.facebook,
       external: true,
     },
     {
-      title: "Email Support",
+      title: "Secure Email",
       href: `mailto:${siteConfig.contact.email}`,
       external: true,
     },
@@ -90,12 +95,13 @@ export const navigationConfig = {
   header: {
     sticky: true,
     blur: true,
-    ctaText: "ปรึกษาผู้เชี่ยวชาญ (ความลับ)",
+    ctaText: "เริ่มต้นการประเมิน (ฟรี)",
     ctaLink: siteConfig.contact.lineUrl,
   },
   footer: {
-    disclaimer: "UNLINK-TH: Your Past is History, Your Future is Designed.",
-    copy: `© ${new Date().getFullYear()} UNLINK-TH | Managed by AEMDEVWEB`,
+    disclaimer: "UNLINK-TH: เพราะทุกคนสมควรได้รับโอกาสเริ่มต้นใหม่เสมอ",
+    copy: `© ${new Date().getFullYear()} UNLINK-TH | Managed by AEMDEVWEB Security Unit`,
   },
-  securityNote: "Data Auto-Purge: ข้อมูลการสนทนาจะถูกลบอัตโนมัติหลังจบเคส",
+  securityNote:
+    "Privacy First: ข้อมูลการสนทนาจะถูกลบอัตโนมัติเพื่อความปลอดภัยสูงสุด",
 }

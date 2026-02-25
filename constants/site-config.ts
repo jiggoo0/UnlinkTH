@@ -4,9 +4,9 @@ import { SiteConfig } from "@/types"
 
 export const siteConfig: SiteConfig = {
   name: "UNLINK-TH",
-  fullName: "มืออาชีพด้านการจัดการวิกฤตชื่อเสียงและภาพลักษณ์",
+  fullName: "สถาบันการจัดการชื่อเสียงดิจิทัลและการเริ่มต้นใหม่",
   description:
-    "เปลี่ยนวิกฤตให้เป็นโอกาส ลบทุกประวัติที่อยากให้หายไป พร้อมวางแผนสร้างภาพลักษณ์ใหม่ให้ดูดีมีระดับ เพื่อการยอมรับครั้งใหม่ที่ดียิ่งกว่า",
+    "เราเชื่อว่าทุกคนมีสิทธิในการเริ่มต้นใหม่ UNLINK-TH ช่วยคืนพื้นที่ชีวิตดิจิทัลที่สะอาดและน่าเชื่อถือให้คุณ ด้วยวิศวกรรมข้อมูลเชิงลึกและมาตรการรักษาความลับสูงสุด",
 
   url: "https://www.unlink-th.com",
   ogImage: "/images/og-main.png",
@@ -15,18 +15,30 @@ export const siteConfig: SiteConfig = {
   language: "th",
 
   // ------------------------------------------------------------------
-  // ENTITY LINKING: FOUNDER & AUTHORITY (Bilingual Identity for Google)
+  // ENTITY LINKING: FOUNDER & AUTHORITY (Personal Identity)
   // ------------------------------------------------------------------
   founder: {
     name: "Alongkorl Yomkerd",
     nameTh: "อลงกรณ์ ยมเกิด",
+    nickname: "Mza-Marks (นายเอ็มซ่ามากส์)",
     role: "Technical Data Architect",
-    roleTh: "สถาปนิกข้อมูลทางเทคนิค",
+    roleTh: "ผู้เชี่ยวชาญด้านสถาปัตยกรรมข้อมูลทางเทคนิค",
     url: "https://me.aemdevweb.com",
     sameAs: [
-      "https://www.aemdevweb.com",
+      "https://www.facebook.com/alongkorl.yomkerd",
       "https://www.linkedin.com/in/alongkorl-aemdevweb",
     ],
+  },
+
+  // ------------------------------------------------------------------
+  // DEVELOPER ATTRIBUTION (Business Entity)
+  // ------------------------------------------------------------------
+  developer: {
+    name: "AemDevWeb",
+    fullname: "AemDevWeb Studio - Full-stack & SEO Specialist",
+    url: "https://www.aemdevweb.com",
+    mcp: "https://mcp.aemdevweb.com",
+    role: "Operational Infrastructure & SEO Architecture",
   },
 
   // ------------------------------------------------------------------
@@ -35,15 +47,15 @@ export const siteConfig: SiteConfig = {
   hero: {
     leftSide: {
       tone: "dark",
-      headline: "จบทุกดราม่าที่เคยแพ้",
-      subHeadline: "ลบประวัติเสียและข้อมูลที่ทำร้ายคุณ",
-      action: "ลบประวัติเสีย",
+      headline: "ก้าวข้ามอดีตที่เป็นอุปสรรค",
+      subHeadline: "จัดการข้อมูลที่บิดเบือนและทำร้ายตัวตนของคุณอย่างเด็ดขาด",
+      action: "เริ่มต้นลบประวัติเสีย",
     },
     rightSide: {
       tone: "bright",
-      headline: "สร้างกระแสใหม่ที่น่าชื่นชม",
-      subHeadline: "ปั้นภาพลักษณ์ใหม่ให้ดูดีมีระดับ",
-      action: "สร้างภาพลักษณ์",
+      headline: "ออกแบบอนาคตที่น่าเชื่อถือ",
+      subHeadline: "วางรากฐานตัวตนดิจิทัลใหม่ให้โดดเด่นและเป็นมืออาชีพ",
+      action: "สร้างภาพลักษณ์ใหม่",
     },
   },
 
@@ -51,12 +63,12 @@ export const siteConfig: SiteConfig = {
   // SECURE LIAISON (ช่องทางติดต่อความลับสูง)
   // ------------------------------------------------------------------
   contact: {
-    primaryChannel: "LINE Official (VIP)",
+    primaryChannel: "LINE Official (Consult Private)",
     lineUrl: "https://lin.ee/bWcwyir",
     lineId: "@204uuzew",
     phone: "099-999-8989",
     email: "contact@unlink-th.com",
-    note: "Non-Disclosure Policy: ข้อมูลการสนทนาทั้งหมดถูกเข้ารหัสและทำลายทันทีหลังการประเมินเพื่อความปลอดภัยสูงสุดของลูกค้า",
+    note: "นโยบายรักษาความลับสูงสุด: เราพร้อมรับฟังทุกปัญหาด้วยความเข้าใจ ข้อมูลของคุณจะถูกเก็บเป็นความลับและทำลายทันทีหลังการประเมินเพื่อความสบายใจสูงสุด",
   },
 
   links: {
@@ -69,31 +81,21 @@ export const siteConfig: SiteConfig = {
   // SEO ARCHITECTURE
   // ------------------------------------------------------------------
   seo: {
-    titleTemplate: "%s | UNLINK-TH Reputation Management",
+    titleTemplate: "%s | UNLINK-TH",
     defaultTitle:
-      "UNLINK-TH | บริการลบข่าวเสีย ลบประวัติออนไลน์ และสร้างภาพลักษณ์ใหม่",
+      "UNLINK-TH | บริการลบชื่อเสีย จัดการตัวตนดิจิทัล และคืนสิทธิในการเริ่มต้นใหม่",
     defaultDescription:
-      "บริการจัดการชื่อเสียงครบวงจร รับลบลิงก์ข่าวเสีย กระทู้โจมตี และข้อมูล PDPA พร้อมบริการ Personal Branding สร้างตัวตนใหม่ที่น่าเชื่อถือ ปรึกษาฟรี รักษาความลับ 100%",
+      "ปรึกษาผู้เชี่ยวชาญด้านการลบข่าวเสีย ลบกระทู้ และจัดการข้อมูลบน Search Engine เราช่วยคืนพื้นที่ชีวิตที่สะอาดและน่าเชื่อถือให้คุณด้วยกระบวนการทางเทคนิคและกฎหมายที่แม่นยำ รักษาความลับสูงสุด 100%",
     keywords: [
-      // SOLUTION: DELETE (ลบ)
       "รับลบข่าวเสีย",
-      "ลบประวัติ Google",
-      "ลบกระทู้ Pantip",
-      "ลบรูปหลุด",
-      "แจ้งลบรีวิว Google Maps",
-      "PDPA ลบข้อมูลส่วนบุคคล",
-
-      // SOLUTION: BUILD (สร้าง)
-      "สร้างภาพลักษณ์ผู้บริหาร",
-      "Personal Branding",
-      "แก้ข่าวเสีย",
-      "รับมือทัวร์ลง",
-      "SEO สายขาว",
+      "ลบชื่อจาก Google",
+      "จัดการชื่อเสียงออนไลน์",
+      "ลบประวัติเสีย",
+      "กู้คืนภาพลักษณ์",
+      "ลบกระทู้ดราม่า",
+      "PDPA ลบข้อมูล",
       "Reputation Management Thailand",
-
-      // BRAND BRANDING
       "UNLINK-TH",
-      "สิทธิในการเริ่มต้นใหม่",
     ],
   },
 

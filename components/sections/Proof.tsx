@@ -13,10 +13,10 @@ import { ShieldCheck, BarChart3, Fingerprint, Lock, Shield } from "lucide-react"
  */
 
 const stats = [
-  { label: "Links Removed", value: "2,500+", icon: ShieldCheck },
-  { label: "Success Rate", value: "94%", icon: BarChart3 },
-  { label: "Entities Protected", value: "450+", icon: Fingerprint },
-  { label: "Privacy Score", value: "100/100", icon: Lock },
+  { label: "คืนพื้นที่ชีวิตให้สะอาด", value: "2,500+", icon: ShieldCheck },
+  { label: "โอกาสเริ่มต้นใหม่สำเร็จ", value: "94%", icon: BarChart3 },
+  { label: "ได้รับความไว้วางใจ", value: "450+", icon: Fingerprint },
+  { label: "คะแนนความพึงพอใจ", value: "100%", icon: Lock },
 ]
 
 export default function Proof() {

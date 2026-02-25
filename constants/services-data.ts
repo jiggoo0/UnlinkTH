@@ -11,10 +11,11 @@ export const servicesData: Service[] = [
     slug: "digital-detox-jobbers",
     title: "Digital Detox for Jobbers (ล้างอดีตวัยเกรียน)",
     shortDescription:
-      "ลบโพสต์เสี่ยงย้อนหลัง ปรับ Bio ให้มืออาชีพ สำหรับคนหางานและข้าราชการ",
+      "สแกนและลบประวัติโซเชียลสุ่มเสี่ยงย้อนหลัง 10 ปี เพื่อผ่าน Background Check ในบริษัทชั้นนำและงานราชการ",
     description:
       "เตรียมตัวสมัครงานใหม่หรือสอบราชการอย่างมั่นใจ เราช่วยสแกนและลบโพสต์ย้อนหลัง 5-10 ปีที่มีความเสี่ยง ทั้งคำหยาบ รูปปาร์ตี้หลุดโลก หรือการบ่นเจ้านายเก่าที่อาจทำให้ HR ปัดตก พร้อมปรับตั้งค่าความเป็นส่วนตัว (Privacy Audit) ไม่ให้ใครขุดเจออดีตของคุณ",
     iconName: "History",
+    image: "/images/service/jobbers-clean.webp",
     category: "Personal",
     features: [
       "Risk Scan: สแกนโพสต์ย้อนหลัง 5-10 ปี ด้วยคีย์เวิร์ดสุ่มเสี่ยง",
@@ -39,10 +40,11 @@ export const servicesData: Service[] = [
     slug: "ex-partner-eraser",
     title: "Ex-Partner Eraser (มูฟออนความทรงจำ)",
     shortDescription:
-      "ลบรูปคู่ รูปหลุด คลิปส่วนตัว เพื่อการเริ่มต้นใหม่ที่สดใส",
+      "จัดการลบรูปคู่และคลิปส่วนตัวออกจากระบบการค้นหาถาวร เพื่อการเริ่มต้นใหม่ที่สง่างามและเป็นส่วนตัว",
     description:
       "เมื่อความรักจบ แต่ Digital Footprint ยังอยู่... เราช่วยเจรจาและดำเนินการทางเทคนิคเพื่อลบรูปคู่ที่ไม่อยากจำ หรือจัดการเคสรูปหลุด/คลิปส่วนตัว (Revenge Porn) อย่างเร่งด่วนและเป็นความลับที่สุด เพื่อให้คุณมูฟออนได้อย่างไร้กังวล",
     iconName: "ImageOff",
+    image: "/images/service/ex-eraser.webp",
     category: "Personal",
     features: [
       "Content Removal: แจ้งลบรูปคู่และแท็กที่ไม่ต้องการออกจากระบบ",
@@ -70,10 +72,12 @@ export const servicesData: Service[] = [
     id: "ser-thai-003",
     slug: "crisis-cleanup",
     title: "Crisis Clean-Up (จบดราม่าทัวร์ลง)",
-    shortDescription: "หยุดไฟดราม่า ลบต้นตอ และร่างแถลงการณ์ขอโทษอย่างถูกจริต",
+    shortDescription:
+      "ระงับวิกฤตทัวร์ลงใน 24 ชม. ลบต้นตอข่าวเสียและร่างแถลงการณ์เชิงยุทธศาสตร์เพื่อหยุดยั้งความเสียหาย",
     description:
       "เมื่อทัวร์ลงจนตั้งตัวไม่ทัน เราคือทีมฉุกเฉินที่จะเข้าไปช่วยดับไฟ ดำเนินการ Report ลบโพสต์ต้นเรื่อง ซ่อนคอมเมนต์ Toxic ยื่นเรื่อง De-index ข่าวเสียออกจาก Google พร้อมช่วยร่างคำแถลงการณ์ (Apology Statement) ที่จริงใจเพื่อเปลี่ยนกระแสลบให้กลับมาเป็นบวก",
     iconName: "Siren",
+    image: "/images/service/crisis-radar.webp",
     category: "Crisis",
     features: [
       "Urgent Takedown: รีพอร์ตลบโพสต์และต้นตอดราม่าเร่งด่วน",
@@ -98,10 +102,11 @@ export const servicesData: Service[] = [
     slug: "blacklist-remover",
     title: "Blacklist Remover (กู้ชื่อหนี้นอกระบบ)",
     shortDescription:
-      "ลบรูปประจานหน้าบัตรประชาชน กู้คืนชื่อเสียงจากการถูกแอบอ้าง",
+      "ลบชื่อจากเว็บแบล็คลิสต์และรูปประจานหน้าบัตรประชาชน กู้คืนศักดิ์ศรีจากการถูกแอบอ้างออนไลน์",
     description:
       "หากคุณค้นชื่อตัวเองแล้วเจอรูปถือบัตรประชาชน หรือถูกเว็บพนัน/แอปเงินกู้เถื่อนนำรูปไปประจานว่า 'โกง' ทั้งที่ไม่เป็นความจริง เราช่วยประสานงานแจ้งลบรูปเหล่านั้นออกจาก Google ด้วยกฎหมาย PDPA และสร้างหน้าโปรไฟล์ใหม่ที่มีความน่าเชื่อถือขึ้นมาแทนที่",
     iconName: "ShieldAlert",
+    image: "/images/service/shield-id.webp",
     category: "Legal",
     features: [
       "PDPA Erasure: แจ้งลบรูปบัตรประชาชนและข้อมูลส่วนตัว",
@@ -130,10 +135,11 @@ export const servicesData: Service[] = [
     slug: "sme-reputation-rescue",
     title: "SME Reputation Rescue (กู้ศักดิ์ศรีร้านค้า)",
     shortDescription:
-      "จัดการรีวิวปลอม หน้าม้าดิสเครดิต ดันดาวร้านค้าให้กลับมาปัง",
+      "จัดการรีวิวปลอมและหน้าม้าดิสเครดิตบน Google Maps กู้คะแนนดาวเพื่อรักษาฐานลูกค้าและผลกำไร",
     description:
       "ปกป้องธุรกิจของคุณจากการโจมตีของคู่แข่งและรีวิวผี (Fake Reviews) เรายื่นเรื่องคัดค้านรีวิวที่ไม่เป็นความจริงกับ Google Maps/Facebook พร้อมทำแคมเปญ 'Seeding น้ำดี' กระตุ้นให้ลูกค้าจริงกลับมารีวิว และเขียนบทความ SEO เชียร์ร้านเพื่อกลบข่าวด้านลบ",
     iconName: "Store",
+    image: "/images/service/sme-rescue.webp",
     category: "Business",
     features: [
       "Fake Review Fight: ยื่นเรื่องลบรีวิวปลอมที่ผิดนโยบายแพลตฟอร์ม",
@@ -151,6 +157,43 @@ export const servicesData: Service[] = [
       defaultDescription:
         "จัดการรีวิวหน้าม้า กู้ชื่อเสียงร้านอาหาร คลินิก และธุรกิจ SME",
       keywords: ["ลบรีวิว Google Maps", "แก้ดาวตก", "Reputation Management"],
+    },
+  },
+  // ------------------------------------------------------------------
+  // GROUP 4: EXTREME MEASURES (มาตรการขั้นเด็ดขาด)
+  // ------------------------------------------------------------------
+  {
+    id: "ser-thai-006",
+    slug: "extreme-intervention",
+    title: "The Last Resort (ปฏิบัติการแทรกแซงขั้นสูงสุด)",
+    shortDescription:
+      "เทคนิคพิเศษเพื่อจัดการเคส 'ลบไม่ได้' หรือคู่กรณีที่มีอิทธิพลสูง ด้วยมาตรการแทรกแซงเชิงลึกที่เห็นผลจริง",
+    description:
+      "เมื่อมาตรการทางกฎหมายและเทคนิคปกติเข้าถึงจุดตัน เราใช้ 'Advanced Unconventional Tactics' เพื่อทำลายโครงสร้างพื้นฐานของข้อมูลเสียและระงับการเข้าถึงจากต้นตออย่างเบ็ดเสร็จ",
+    iconName: "Zap",
+    image: "/images/service/extreme-intervention.webp",
+    category: "Extreme",
+    features: [
+      "Infrastructure Disruption: ตัดวงจรการทำงานของเว็บไซต์ต้นทาง",
+      "Saturation Shield: กลบข้อมูลเสียด้วยระบบกระจายสัญญาณแบบ Multiplex",
+      "Deep Liaison: การเจรจาเชิงลึกผ่านเครือข่าย Specialist สากล",
+      "Total Erasure: มาตรการถอนรากถอนโคนข้อมูลที่ยากที่สุด",
+    ],
+    priceInfo: {
+      startingAt: "50,000",
+      unit: "โปรเจกต์",
+      model: "Custom Strategy",
+    },
+    metadata: {
+      defaultTitle:
+        "บริการจัดการชื่อเสียงขั้นสูง เทคนิคพิเศษเห็นผลจริง | UNLINK-TH",
+      defaultDescription:
+        "มาตรการขั้นสุดท้ายสำหรับเคสที่ยากที่สุด จัดการข่าวเสียและข้อมูลทำลายชื่อเสียงที่ลบไม่สำเร็จด้วยวิธีปกติ",
+      keywords: [
+        "เทคนิคพิเศษลบข่าว",
+        "แก้ชื่อเสียงเสียขั้นรุนแรง",
+        "The Last Resort",
+      ],
     },
   },
 ]

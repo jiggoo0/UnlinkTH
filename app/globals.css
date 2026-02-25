@@ -1,6 +1,31 @@
-/** @format */
-
 @import "tailwindcss";
+
+@theme {
+  /* Surface System */
+  --color-background: hsl(var(--color-bg));
+  --color-foreground: hsl(var(--color-fg));
+  --color-muted-foreground: hsl(var(--color-fg) / 0.65);
+  --color-border: hsl(var(--color-border));
+
+  /* Primary Action System */
+  --color-primary: hsl(var(--color-primary));
+  --color-primary-foreground: hsl(var(--color-primary-fg));
+  --color-accent: hsl(var(--color-primary) / 0.1);
+  --color-accent-foreground: hsl(var(--color-primary));
+
+  /* Typography Infrastructure: Mapping variables from layout.tsx */
+  --font-sans:
+    var(--font-noto-thai), var(--font-inter), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+
+  /* Global Metrics */
+  --radius-lg: var(--radius-md);
+
+  /* Animation Protocol */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
 
 /* =========================================================
    UNLINK PROTOCOL: REPUTATION ARCHITECT BASELINE (2026)
@@ -34,50 +59,19 @@
 }
 
 /* ---------------------------------------------------------
-   2. TAILWIND v4 THEME BRIDGE
---------------------------------------------------------- */
-@theme {
-  /* Surface System */
-  --color-background: hsl(var(--color-bg));
-  --color-foreground: hsl(var(--color-fg));
-  --color-muted-foreground: hsl(var(--color-fg) / 0.65);
-  --color-border: hsl(var(--color-border));
-  
-  /* Primary Action System */
-  --color-primary: hsl(var(--color-primary));
-  --color-primary-foreground: hsl(var(--color-primary-fg));
-  --color-accent: hsl(var(--color-primary) / 0.1);
-  --color-accent-foreground: hsl(var(--color-primary));
-
-  /* Typography Infrastructure: Mapping variables from layout.tsx */
-  --font-sans:
-    var(--font-noto-thai), var(--font-inter), ui-sans-serif, system-ui,
-    sans-serif;
-  --font-mono: var(--font-mono), ui-monospace, monospace;
-
-  /* Global Metrics */
-  --radius-lg: var(--radius-md);
-
-  /* Animation Protocol */
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-}
-
-/* ---------------------------------------------------------
-   3. BASE LAYER (Operational Baseline)
+   2. BASE LAYER (Operational Baseline)
 --------------------------------------------------------- */
 @layer base {
   *,
   *::before,
   *::after {
     box-sizing: border-box;
-    border-color: hsl(var(--color-border) / 0.1);
+    border-color: var(--color-border);
   }
 
   html {
     scroll-behavior: smooth;
     background-color: var(--color-background);
-    /* ป้องกันอาการ Flash of White ระหว่างโหลด */
     color-scheme: dark;
   }
 
@@ -90,26 +84,26 @@
     line-height: 1.65;
   }
 
-  /* Typography Balance Control */
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-weight: 600;
     letter-spacing: -0.025em;
     text-wrap: balance;
-    color: hsl(var(--color-fg));
+    color: var(--color-foreground);
   }
 
   p {
     color: var(--color-muted-foreground);
-    max-width: 65ch; /* ความยาวบรรทัดที่เหมาะสมที่สุดสำหรับการอ่านภาษาไทย */
+    max-width: 65ch;
   }
 
-  /* Custom Selection Protocol */
   ::selection {
     background-color: var(--color-accent);
     color: var(--color-accent-foreground);
   }
 
-  /* Secure Liaison Scrollbar (Minimalist Slim) */
   ::-webkit-scrollbar {
     width: 4px;
   }
@@ -127,7 +121,7 @@
 }
 
 /* ---------------------------------------------------------
-   4. UTILITIES (Operational Protocols)
+   3. UTILITIES (Operational Protocols)
 --------------------------------------------------------- */
 @layer utilities {
   .container {
@@ -137,10 +131,9 @@
     max-width: 80rem;
   }
 
-  /* Lab Card Interface: ระบบแสดงผลแบบขรึมและปลอดภัย */
   .lab-card {
     background-color: hsl(var(--color-muted) / 0.2);
-    border: 1px solid hsl(var(--color-border));
+    border: 1px solid var(--color-border);
     backdrop-filter: blur(16px);
     border-radius: var(--radius-md);
     transition: all var(--duration-base) var(--ease-out);
@@ -154,19 +147,17 @@
     transform: translateY(-4px);
   }
 
-  /* Emerald Glow: สัญญาณความถูกต้องเชิงเทคนิค */
   .glow-emerald {
     filter: drop-shadow(0 0 10px hsl(var(--color-primary) / 0.3));
   }
 
-  /* Typography Utilities */
   .text-balance {
     text-wrap: balance;
   }
 }
 
 /* ---------------------------------------------------------
-   5. ACCESSIBILITY (Zero Latency)
+   4. ACCESSIBILITY (Zero Latency)
 --------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   * {

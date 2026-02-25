@@ -47,20 +47,18 @@ export default function ContactCTA() {
 
           {/* Strategic Headline */}
           <h2 className="text-4xl leading-[1.1] font-bold tracking-tighter text-balance md:text-6xl">
-            Ready to{" "}
+            Because Everyone Deserves <br className="hidden md:block" />
             <span className="text-primary glow-emerald font-light italic">
-              Unlink the Past
-            </span>{" "}
-            <br className="hidden md:block" />
-            and Architect Your Future?
+              a Fresh Start
+            </span>
           </h2>
 
           {/* Operational Description */}
           <p className="text-muted-foreground mx-auto max-w-2xl text-lg leading-relaxed font-light md:text-2xl">
-            เริ่มต้นกระบวนการจัดการชื่อเสียงออนไลน์อย่างเป็นระบบ
-            ภายใต้มาตรฐานการรักษาความลับที่เข้มงวดที่สุด
+            ให้เราช่วยคุณก้าวผ่านอดีตและสร้างอนาคตใหม่ที่น่าภาคภูมิใจ
+            ปรึกษาเราเพื่อประเมินสถานการณ์เบื้องต้นด้วยความสบายใจ
             <span className="text-foreground mt-2 block font-medium tracking-tight uppercase">
-              Non-Disclosure Agreement (NDA) Protected
+              รับประกันความลับสูงสุด (Confidentiality Guaranteed)
             </span>
           </p>
 

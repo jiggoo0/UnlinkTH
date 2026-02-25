@@ -2,7 +2,21 @@
 
 import type { MDXComponents } from "mdx/types"
 import Link from "next/link"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
+import {
+  AlertCircle,
+  Wrench,
+  CheckCircle,
+  Shield,
+  AlertTriangle,
+  Search,
+  BarChart,
+  Lightbulb,
+  ClipboardList,
+  Lock,
+  FileText,
+} from "lucide-react"
 
 /**
  * UNLINK-TH | MDX Style Blueprint (2026)
@@ -13,7 +27,57 @@ import { cn } from "@/lib/utils"
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    // --- Headings (สไตล์เรียบหรูและเน้นความอ่านง่าย) ---
+    // --- Custom Components ---
+    AlertCircle: (props) => (
+      <AlertCircle
+        className="mr-2 inline-block h-5 w-5 text-red-500"
+        {...props}
+      />
+    ),
+    Wrench: (props) => (
+      <Wrench className="text-primary mr-2 inline-block h-5 w-5" {...props} />
+    ),
+    CheckCircle: (props) => (
+      <CheckCircle
+        className="mr-2 inline-block h-5 w-5 text-emerald-500"
+        {...props}
+      />
+    ),
+    Shield: (props) => (
+      <Shield className="text-primary mr-2 inline-block h-5 w-5" {...props} />
+    ),
+    AlertTriangle: (props) => (
+      <AlertTriangle
+        className="mr-2 inline-block h-5 w-5 text-amber-500"
+        {...props}
+      />
+    ),
+    Search: (props) => (
+      <Search className="text-primary mr-2 inline-block h-5 w-5" {...props} />
+    ),
+    BarChart: (props) => (
+      <BarChart className="text-primary mr-2 inline-block h-5 w-5" {...props} />
+    ),
+    Lightbulb: (props) => (
+      <Lightbulb
+        className="text-primary mr-2 inline-block h-5 w-5"
+        {...props}
+      />
+    ),
+    ClipboardList: (props) => (
+      <ClipboardList
+        className="text-primary mr-2 inline-block h-5 w-5"
+        {...props}
+      />
+    ),
+    Lock: (props) => (
+      <Lock className="text-primary mr-2 inline-block h-5 w-5" {...props} />
+    ),
+    FileText: (props) => (
+      <FileText className="text-primary mr-2 inline-block h-5 w-5" {...props} />
+    ),
+
+    // --- Headings ---
     h1: ({ className, ...props }) => (
       <h1
         className={cn(
@@ -42,7 +106,21 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       />
     ),
 
-    // --- Typography (เน้นความชัดเจนของข้อมูลหลัก) ---
+    // --- Media ---
+    img: ({ src, className, alt, ...props }) => (
+      <div className="border-border/40 relative mt-10 mb-10 aspect-video overflow-hidden rounded-[2rem] border">
+        <Image
+          src={src || ""}
+          fill
+          className={cn("object-cover", className)}
+          alt={alt || "Operational Image"}
+          sizes="(max-width: 768px) 100vw, 80vw"
+          {...(props as Record<string, unknown>)}
+        />
+      </div>
+    ),
+
+    // --- Typography ---
     p: ({ className, ...props }) => (
       <p
         className={cn(

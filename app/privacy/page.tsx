@@ -61,15 +61,17 @@ export default function PrivacyPage() {
           <div className="max-w-4xl space-y-8">
             <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-3 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
               <ShieldCheck className="h-4 w-4" />
-              <span>Zero-Knowledge Security Framework</span>
+              <span>ความสบายใจของคุณคือภารกิจสำคัญที่สุดของเรา</span>
             </div>
             <h1 className="text-5xl leading-[0.9] font-bold tracking-tighter md:text-8xl">
               Privacy <br />
-              <span className="text-primary font-light italic">& Protocol</span>
+              <span className="text-primary font-light italic">
+                & Protection
+              </span>
             </h1>
             <p className="text-muted-foreground max-w-2xl text-xl leading-relaxed font-light md:text-2xl">
-              เพราะชื่อเสียงของคุณเริ่มต้นที่ความลับของเรา
-              เราจึงวางระบบจัดการข้อมูลที่เข้มงวดที่สุดเพื่อปกป้องความเป็นส่วนตัวภายใต้มาตรฐาน **PDPA (Thailand)**
+              เพราะชื่อเสียงและการเริ่มต้นใหม่ของคุณเริ่มต้นที่ความลับของเรา
+              เราจึงวางระบบจัดการข้อมูลที่เข้มงวดที่สุดเพื่อปกป้องสิทธิส่วนบุคคลตามมาตรฐานสูงสุด
             </p>
             <div className="flex items-center gap-4 pt-4">
               <span className="text-muted-foreground/40 border-border/10 rounded border px-3 py-1 font-mono text-[10px] tracking-widest uppercase">
@@ -113,11 +115,10 @@ export default function PrivacyPage() {
           </h2>
           <p className="text-lg">
             {siteConfig.name} ในฐานะผู้ควบคุมข้อมูลส่วนบุคคล (Data Controller)
-            ภายใต้การกำกับดูแลของทีมวิศวกรรมข้อมูล ยึดถือจริยธรรมดิจิทัลในการจัดการข้อมูลสูงสุด
+            ภายใต้การกำกับดูแลของทีมวิศวกรรมข้อมูล
+            ยึดถือจริยธรรมดิจิทัลในการจัดการข้อมูลสูงสุด
             นโยบายฉบับนี้คือพันธสัญญาในการคุ้มครองสิทธิความเป็นส่วนตัวของท่าน
           </p>
-
-          
 
           <div className="mt-16 grid gap-12">
             <div className="space-y-4">
@@ -126,20 +127,22 @@ export default function PrivacyPage() {
                 1. ขอบเขตการจัดเก็บข้อมูล (Data Minimization)
               </h3>
               <p>
-                เรายึดถือหลักการจัดเก็บข้อมูลเท่าที่จำเป็น (Minimalism) เพื่อใช้ในการดำเนินงานด้านเทคนิคเท่านั้น:
+                เรายึดถือหลักการจัดเก็บข้อมูลเท่าที่จำเป็น (Minimalism)
+                เพื่อใช้ในการดำเนินงานด้านเทคนิคเท่านั้น:
               </p>
               <ul className="border-primary/20 list-none space-y-3 border-l pl-6">
                 <li className="flex items-start gap-2 text-sm italic">
-                  <ChevronRight className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <ChevronRight className="text-primary mt-0.5 h-4 w-4 shrink-0" />
                   ข้อมูลระบุตัวตนที่จำเป็นสำหรับการทำสัญญา NDA
                 </li>
                 <li className="flex items-start gap-2 text-sm italic">
-                  <ChevronRight className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <ChevronRight className="text-primary mt-0.5 h-4 w-4 shrink-0" />
                   Digital Footprint (URL หรือลิงก์ที่ต้องการให้จัดการจัดการ)
                 </li>
                 <li className="flex items-start gap-2 text-sm italic">
-                  <ChevronRight className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                  หลักฐานแสดงสิทธิ (เพื่อใช้ยื่นต่อผู้ให้บริการ Search Engine หรือ Platform เท่านั้น)
+                  <ChevronRight className="text-primary mt-0.5 h-4 w-4 shrink-0" />
+                  หลักฐานแสดงสิทธิ (เพื่อใช้ยื่นต่อผู้ให้บริการ Search Engine
+                  หรือ Platform เท่านั้น)
                 </li>
               </ul>
             </div>
@@ -150,8 +153,10 @@ export default function PrivacyPage() {
                 2. วัตถุประสงค์และการประมวลผล
               </h3>
               <p>
-                ข้อมูลของท่านจะถูกประมวลผลภายใต้วัตถุประสงค์เดียวคือ <strong>การจัดการและปกป้องชื่อเสียงออนไลน์</strong> 
-                โดย {siteConfig.name} จะไม่มีการนำข้อมูลไปใช้ในเชิงพาณิชย์ หรือเปิดเผยต่อบุคคลที่สามโดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษร
+                ข้อมูลของท่านจะถูกประมวลผลภายใต้วัตถุประสงค์เดียวคือ{" "}
+                <strong>การจัดการและปกป้องชื่อเสียงออนไลน์</strong>
+                โดย {siteConfig.name} จะไม่มีการนำข้อมูลไปใช้ในเชิงพาณิชย์
+                หรือเปิดเผยต่อบุคคลที่สามโดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษร
               </p>
             </div>
           </div>
@@ -164,32 +169,35 @@ export default function PrivacyPage() {
                 Zero-Knowledge Infrastructure
               </h4>
               <p className="text-muted-foreground m-0 text-sm leading-relaxed font-light">
-                เราใช้ระบบจัดการโครงการที่บันทึกประวัติการเข้าถึง (Access Log) อย่างเข้มงวด 
-                ข้อมูลจะถูกเข้ารหัสระดับ AES-256 และจะถูกถอนการติดตั้ง (Secure Purge) 
+                เราใช้ระบบจัดการโครงการที่บันทึกประวัติการเข้าถึง (Access Log)
+                อย่างเข้มงวด ข้อมูลจะถูกเข้ารหัสระดับ AES-256
+                และจะถูกถอนการติดตั้ง (Secure Purge)
                 ออกจากระบบปฏิบัติการของเราทันทีที่ภารกิจลุล่วง
               </p>
             </div>
           </div>
 
-          <div className="space-y-6 border-t border-border/10 pt-10">
-            <h3 className="font-bold tracking-tight text-xl">
+          <div className="border-border/10 space-y-6 border-t pt-10">
+            <h3 className="text-xl font-bold tracking-tight">
               3. สิทธิเหนือข้อมูลส่วนบุคคล (Your Rights)
             </h3>
             <p>
-              ตามกฎหมาย PDPA ท่านมีสิทธิในการขอเข้าถึง, แก้ไข, ระงับการใช้งาน หรือสั่งทำลายข้อมูล 
-              (Right to Erasure) ได้ทุกเวลาผ่านเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลของเรา
+              ตามกฎหมาย PDPA ท่านมีสิทธิในการขอเข้าถึง, แก้ไข, ระงับการใช้งาน
+              หรือสั่งทำลายข้อมูล (Right to Erasure)
+              ได้ทุกเวลาผ่านเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลของเรา
             </p>
 
-            <h3 className="font-bold tracking-tight text-xl">
+            <h3 className="text-xl font-bold tracking-tight">
               4. การติดต่อประสานงานด้านความปลอดภัย
             </h3>
             <p>
-              หากท่านมีข้อสงสัยเกี่ยวกับมาตรการความเป็นส่วนตัว หรือต้องการใช้สิทธิเหนือข้อมูล 
+              หากท่านมีข้อสงสัยเกี่ยวกับมาตรการความเป็นส่วนตัว
+              หรือต้องการใช้สิทธิเหนือข้อมูล
               กรุณาติดต่อเจ้าหน้าที่ดูแลความปลอดภัยข้อมูล (DPO) โดยตรง:
             </p>
-            <div className="bg-muted/10 inline-block rounded-xl border border-border/50 px-6 py-4">
+            <div className="bg-muted/10 border-border/50 inline-block rounded-xl border px-6 py-4">
               <strong className="text-primary font-mono text-sm tracking-[0.2em] uppercase">
-                {siteConfig.contact.email.replace('contact', 'security')}
+                {siteConfig.contact.email.replace("contact", "security")}
               </strong>
             </div>
           </div>

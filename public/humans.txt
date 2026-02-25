@@ -1,0 +1,18 @@
+/* TEAM */
+  Developer: นาย อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)
+  Identity: https://me.aemdevweb.com
+  Twitter: @mzamarks
+  LinkedIn: https://www.linkedin.com/in/alongkorl-aemdevweb
+  Location: Thailand
+
+/* THANKS */
+  Studio: AemDevWeb Studio
+  Business URL: https://www.aemdevweb.com
+
+/* SITE */
+  Last update: 2026/02/26
+  Language: Thai / English
+  Doctype: HTML5
+  Framework: Next.js 16 (App Router)
+  Components: Radix UI, TailwindCSS, Lucide Icons
+  Reputation Strategy: Engineered by AemDevWeb (Alongkorl Yomkerd)

@@ -55,8 +55,12 @@ export default function CaseStudyCard({
             {imageSrc ? (
               <Image
                 src={imageSrc}
-                alt={study.title || "Operational Record"}
+                alt={`บันทึกการปฏิบัติการ: ${study.title || "Classified Operation"}`}
                 fill
+                priority={
+                  study.slug.includes("online-drama") ||
+                  study.slug.includes("defamation")
+                }
                 className="object-cover opacity-80 transition-transform duration-700 group-hover:scale-105 group-hover:opacity-100"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />

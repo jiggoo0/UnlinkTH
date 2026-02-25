@@ -3,13 +3,16 @@
 import Hero from "@/components/shared/Hero"
 import ProtocolStepper from "@/components/sections/ProtocolStepper"
 import Methods from "@/components/sections/Methods"
+import Proof from "@/components/sections/Proof"
 import ServiceCard from "@/components/shared/ServiceCard"
 import CaseStudyCard from "@/components/shared/CaseStudyCard"
 import FaqSection from "@/components/sections/FaqSection"
 import ContactCTA from "@/components/sections/ContactCTA"
 
+import { siteConfig } from "@/constants/site-config"
 import { servicesData } from "@/constants/services-data"
 import { getLatestCaseStudies } from "@/lib/case-studies"
+import { Metadata } from "next"
 
 /**
  * UNLINK-TH | Central Intelligence Home (2026)
@@ -17,6 +20,12 @@ import { getLatestCaseStudies } from "@/lib/case-studies"
  * สถาปัตยกรรมหน้าแรกที่รวบรวมทุก Protocol และผลลัพธ์เชิงประจักษ์
  * ออกแบบมาเพื่อนำเสนอแนวทางการจัดการชื่อเสียงแบบ Dualism (Dark & Bright)
  */
+
+export const metadata: Metadata = {
+  title: siteConfig.seo.defaultTitle,
+  description: siteConfig.seo.defaultDescription,
+  keywords: siteConfig.seo.keywords,
+}
 
 export default async function HomePage() {
   // ดึงบันทึกปฏิบัติการล่าสุด 3 รายการจากฐานข้อมูล MDX
@@ -89,7 +98,10 @@ export default async function HomePage() {
       {/* PHASE 4: Technical Expertise (Methods) */}
       <Methods />
 
-      {/* PHASE 5: Verified Outcomes (Case Studies) */}
+      {/* PHASE 5: Proof of Success */}
+      <Proof />
+
+      {/* PHASE 6: Verified Outcomes (Case Studies) */}
       <section className="container">
         <div className="border-border/10 mb-16 flex flex-col items-end justify-between gap-8 border-b pb-8 md:flex-row">
           <div className="max-w-xl space-y-2">
@@ -112,7 +124,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* PHASE 6: Final Liaison (FAQ & CTA) */}
+      {/* PHASE 7: Final Liaison (FAQ & CTA) */}
       <div className="space-y-24">
         <FaqSection />
         <ContactCTA />

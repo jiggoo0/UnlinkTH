@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, Calendar, FileText, Lock, ShieldCheck } from "lucide-react"
 import Link from "next/link"
 import ContactCTA from "@/components/sections/ContactCTA"
+import JsonLd from "@/components/seo/JsonLd"
+import { getCaseStudySchema, getBreadcrumbSchema } from "@/lib/seo-schemas"
 
 interface CasePageProps {
   params: Promise<{ slug: string }>
@@ -29,6 +31,9 @@ export async function generateMetadata({
   return {
     title: `${study.frontmatter.title} | Operational Record UNLINK-TH`,
     description: study.frontmatter.excerpt || study.frontmatter.description,
+    alternates: {
+      canonical: `/case-studies/${slug}/`,
+    },
   }
 }
 
@@ -49,8 +54,16 @@ export default async function SingleCasePage({ params }: CasePageProps) {
 
   const { frontmatter, content } = study
 
+  const breadcrumbs = [
+    { name: "Home", item: "/" },
+    { name: "Case Studies", item: "/case-studies" },
+    { name: frontmatter.title, item: `/case-studies/${slug}` },
+  ]
+
   return (
     <article className="pb-24">
+      <JsonLd data={getCaseStudySchema(study)} />
+      <JsonLd data={getBreadcrumbSchema(breadcrumbs)} />
       {/* Navigation Interface */}
       <div className="container py-12">
         <Link

@@ -5,6 +5,8 @@ import { getAllServices } from "@/lib/services"
 import ServiceCard from "@/components/shared/ServiceCard"
 import { siteConfig } from "@/constants/site-config"
 import { ShieldAlert, Cpu, Database, ArrowRight } from "lucide-react"
+import JsonLd from "@/components/seo/JsonLd"
+import { getBreadcrumbSchema } from "@/lib/seo-schemas"
 
 /**
  * UNLINK-TH | Operational Service Protocols (2026)
@@ -13,16 +15,25 @@ import { ShieldAlert, Cpu, Database, ArrowRight } from "lucide-react"
  */
 
 export const metadata: Metadata = {
-  title: "Service Protocols & Digital Architectures | UNLINK-TH",
+  title: "บริการลบชื่อเสีย และออกแบบภาพลักษณ์ใหม่ | UNLINK-TH",
   description:
-    "สำรวจโซลูชันการจัดการชื่อเสียงออนไลน์เชิงเทคนิค ตั้งแต่การ De-indexing ข้อมูลที่เป็นเท็จ ไปจนถึงการวางระบบเกราะป้องกันตัวตนดิจิทัล (SEO Shadowing)",
+    "โซลูชันกู้คืนภาพลักษณ์ออนไลน์ ตั้งแต่การลบข้อมูลที่ผิดพลาดในอดีต (De-indexing) ไปจนถึงการวางระบบสร้างตัวตนดิจิทัลใหม่ที่โดดเด่นและน่าเชื่อถือ",
+  alternates: {
+    canonical: "/services",
+  },
 }
 
 export default async function ServicesPage() {
   const services = await getAllServices()
 
+  const breadcrumbs = [
+    { name: "Home", item: "/" },
+    { name: "Services", item: "/services" },
+  ]
+
   return (
     <div className="pb-32">
+      <JsonLd data={getBreadcrumbSchema(breadcrumbs)} />
       {/* 1. Technical Header */}
       <header className="bg-muted/10 border-border/50 relative mb-20 overflow-hidden border-b py-28">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,rgba(16,185,129,0.05),transparent)]" />
@@ -30,18 +41,20 @@ export default async function ServicesPage() {
           <div className="max-w-4xl space-y-8">
             <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-3 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
               <Database className="h-4 w-4" />
-              <span>Intelligence Service Catalog 2026</span>
+              <span>ทางเลือกเพื่อการเริ่มต้นใหม่ที่ยั่งยืน</span>
             </div>
 
             <h1 className="text-5xl leading-[0.9] font-bold tracking-tighter md:text-8xl">
-              Reputation <br />
-              <span className="text-primary font-light italic">Protocols</span>
+              Restore <br />
+              <span className="text-primary font-light italic">
+                Your Identity
+              </span>
             </h1>
 
             <p className="text-muted-foreground max-w-2xl text-xl leading-relaxed font-light md:text-2xl">
-              เราให้บริการจัดการภาพลักษณ์ดิจิทัลผ่านกระบวนการทางวิศวกรรมข้อมูล
-              แบ่งเป็น 2 ระยะหลัก: การถอดถอนอดีต (Cleanup Phase)
-              และการออกแบบสถาปัตยกรรมอนาคต (Architect Phase)
+              คืนพื้นที่ชีวิตดิจิทัลที่สะอาดตาและน่าเชื่อถือ
+              ผ่านกระบวนการจัดการข้อมูลที่แม่นยำและเป็นระบบ
+              เพื่อให้คุณก้าวต่อไปสู่อนาคตที่สดใสกว่าเดิม
             </p>
           </div>
         </div>

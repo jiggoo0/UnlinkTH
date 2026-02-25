@@ -30,7 +30,8 @@ export default function EditorialPolicyPage() {
   const lastUpdated = "30 มกราคม 2026"
 
   // Type Casting เพื่อป้องกัน Error TS18046: 'siteConfig.founder' is of type 'unknown'
-  const founderName = (siteConfig.founder as { nameTh: string })?.nameTh || "Founder"
+  const founderName =
+    (siteConfig.founder as { nameTh: string })?.nameTh || "Founder"
 
   const principles = [
     {
@@ -69,7 +70,8 @@ export default function EditorialPolicyPage() {
               <span className="text-primary font-light italic">& Ethics</span>
             </h1>
             <p className="text-muted-foreground max-w-2xl text-xl leading-relaxed font-light md:text-2xl">
-              พันธกิจของ **{siteConfig.name}** คือการสร้างระบบนิเวศข้อมูลที่สะอาดและถูกต้อง 
+              พันธกิจของ **{siteConfig.name}**
+              คือการสร้างระบบนิเวศข้อมูลที่สะอาดและถูกต้อง
               ภายใต้การกำกับดูแลโดยผู้เชี่ยวชาญด้านสถาปัตยกรรมข้อมูลทางเทคนิค
             </p>
             <div className="flex items-center gap-4 pt-4">
@@ -113,8 +115,10 @@ export default function EditorialPolicyPage() {
             Content Management Protocol
           </h2>
           <p className="text-lg">
-            เรายึดถือว่าข้อมูลดิจิทัลคือโครงสร้างพื้นฐานของความเชื่อมั่น 
-            **{siteConfig.name}** จึงกำหนดแนวทางปฏิบัติภายใต้การบริหารของ **{founderName}** เพื่อให้การจัดการเนื้อหาเป็นไปอย่างมีประสิทธิภาพและชอบธรรมสูงสุด
+            เรายึดถือว่าข้อมูลดิจิทัลคือโครงสร้างพื้นฐานของความเชื่อมั่น **
+            {siteConfig.name}** จึงกำหนดแนวทางปฏิบัติภายใต้การบริหารของ **
+            {founderName}**
+            เพื่อให้การจัดการเนื้อหาเป็นไปอย่างมีประสิทธิภาพและชอบธรรมสูงสุด
           </p>
 
           <div className="mt-16 grid gap-12">
@@ -124,7 +128,8 @@ export default function EditorialPolicyPage() {
                 1. การคัดกรองกรณีปฏิบัติการ (Case Evaluation)
               </h3>
               <p>
-                เราทำหน้าที่เป็นหน่วยคัดกรองจริยธรรม ทุกคำร้องจะต้องผ่านการตรวจสอบแรงจูงใจและข้อเท็จจริงเบื้องต้น 
+                เราทำหน้าที่เป็นหน่วยคัดกรองจริยธรรม
+                ทุกคำร้องจะต้องผ่านการตรวจสอบแรงจูงใจและข้อเท็จจริงเบื้องต้น
                 เพื่อให้มั่นใจว่าการปฏิบัติการนั้นเป็นไปเพื่อปกป้องสิทธิส่วนบุคคลจากการถูกคุกคามหรือข้อมูลที่บิดเบือน
               </p>
             </div>
@@ -135,7 +140,8 @@ export default function EditorialPolicyPage() {
                 2. ความถูกต้องและการพิสูจน์สิทธิ
               </h3>
               <p>
-                ในกระบวนการวางสถาปัตยกรรมชื่อเสียงใหม่ ข้อมูลทั้งหมดต้องผ่านการตรวจสอบ (Fact-Check) 
+                ในกระบวนการวางสถาปัตยกรรมชื่อเสียงใหม่
+                ข้อมูลทั้งหมดต้องผ่านการตรวจสอบ (Fact-Check)
                 เพื่อให้ระบบการค้นหายอมรับความมีตัวตนของข้อมูลในระยะยาวอย่างยั่งยืน
               </p>
             </div>
@@ -149,7 +155,8 @@ export default function EditorialPolicyPage() {
                 Transparency & AI Governance
               </h4>
               <p className="text-muted-foreground m-0 text-sm leading-relaxed font-light">
-                เรามีนโยบายควบคุมการใช้ปัญญาประดิษฐ์ (AI) อย่างเคร่งครัด โดยจะไม่ใช้เครื่องมืออัตโนมัติในการตัดสินใจด้านจริยธรรม 
+                เรามีนโยบายควบคุมการใช้ปัญญาประดิษฐ์ (AI) อย่างเคร่งครัด
+                โดยจะไม่ใช้เครื่องมืออัตโนมัติในการตัดสินใจด้านจริยธรรม
                 ทุกกระบวนการคัดกรองจะถูกตรวจสอบโดยผู้เชี่ยวชาญเสมอ
               </p>
             </div>

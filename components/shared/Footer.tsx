@@ -106,7 +106,7 @@ export default function Footer() {
           <div className="text-muted-foreground/40 text-center font-mono text-[9px] leading-relaxed tracking-[0.15em] uppercase lg:text-left">
             © {currentYear} UNLINK-TH REPUTATION MANAGEMENT.{" "}
             <br className="md:hidden" />
-            OPERATED UNDER THE AEMDEVWEB SECURITY FRAMEWORK.
+            ENGINEERED & POWERED BY AEMDEVWEB SECURITY FRAMEWORK.
           </div>
 
           <div className="text-muted-foreground/60 flex items-center gap-6 font-mono text-[9px] tracking-[0.2em] uppercase">
@@ -116,7 +116,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="hover:text-primary group flex items-center gap-1.5 transition-colors"
             >
-              Built by AEMDEVWEB
+              Built by AemDevWeb (Alongkorl)
               <ExternalLink className="h-2.5 w-2.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
             <span className="h-3 w-px bg-white/10" />

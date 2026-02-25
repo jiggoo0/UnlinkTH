@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Shield, Menu, X, Lock, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { siteConfig } from "@/constants/site-config"
+import { mainNav, navigationConfig } from "@/constants/navigation"
 
 /**
  * UNLINK-TH | Desktop & Mobile Navigation Intelligence
@@ -17,13 +17,6 @@ import { siteConfig } from "@/constants/site-config"
  * ระบบนำทางหลักที่ใช้ Framer Motion สำหรับการตอบสนองเชิงโต้ตอบ
  * เน้นการสร้าง Authority และสัญญาณความปลอดภัย (Trust Signals)
  */
-
-const navLinks = [
-  { name: "Services", href: "/services" },
-  { name: "Case Studies", href: "/case-studies" },
-  { name: "FAQ", href: "/faq" },
-  { name: "About", href: "/about" },
-]
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -53,18 +46,19 @@ export default function Navbar() {
 
         {/* --- Desktop Navigation Interface --- */}
         <nav className="hidden items-center gap-1 md:flex">
-          {navLinks.map((link) => {
+          {mainNav.map((link) => {
             const isActive = pathname === link.href
             return (
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={isActive ? "page" : undefined}
                 className={cn(
                   "hover:text-primary relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
                   isActive ? "text-primary" : "text-muted-foreground"
                 )}
               >
-                {link.name}
+                {link.title}
                 {isActive && (
                   <motion.div
                     layoutId="nav-active"
@@ -84,9 +78,9 @@ export default function Navbar() {
             className="border-primary/20 bg-primary/5 hover:bg-primary/10 group shadow-primary/5 rounded-full px-6 shadow-lg"
             asChild
           >
-            <Link href={siteConfig.contact.lineUrl}>
+            <Link href={navigationConfig.header.ctaLink}>
               <Lock className="text-primary mr-2 h-3 w-3" />
-              Contact VIP
+              {navigationConfig.header.ctaText}
             </Link>
           </Button>
         </nav>
@@ -120,7 +114,7 @@ export default function Navbar() {
               className="bg-background absolute top-16 left-0 w-full border-b border-white/5 p-8 shadow-2xl md:hidden"
             >
               <div className="flex flex-col gap-6">
-                {navLinks.map((link) => (
+                {mainNav.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
@@ -131,7 +125,7 @@ export default function Navbar() {
                         : "text-muted-foreground"
                     )}
                   >
-                    {link.name}
+                    {link.title}
                     <ArrowRight className="h-5 w-5 -translate-x-4 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
                   </Link>
                 ))}
@@ -142,12 +136,12 @@ export default function Navbar() {
                   className="h-14 w-full rounded-2xl text-lg font-bold"
                   asChild
                 >
-                  <Link href={siteConfig.contact.lineUrl}>
-                    Initiate Connection
+                  <Link href={navigationConfig.header.ctaLink}>
+                    {navigationConfig.header.ctaText}
                   </Link>
                 </Button>
                 <p className="text-muted-foreground/50 text-center font-mono text-[10px] tracking-widest uppercase">
-                  Encryption Mode Enabled
+                  {navigationConfig.securityNote}
                 </p>
               </div>
             </motion.div>

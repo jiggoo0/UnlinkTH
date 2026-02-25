@@ -4,6 +4,9 @@ import { MetadataRoute } from "next"
 import { siteConfig } from "@/constants/site-config"
 import { servicesData } from "@/constants/services-data"
 import { getAllCaseStudies } from "@/lib/case-studies"
+import { getAllBlogPosts } from "@/lib/blog"
+
+export const dynamic = "force-static"
 
 /**
  * UNLINK-TH | SEO Sitemap Engine (2026)
@@ -20,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}/case-studies/${item.slug}`,
     lastModified: new Date(item.date || new Date()),
     changeFrequency: "monthly" as const,
-    priority: 0.7, // เคสศึกษาช่วยเสริมความน่าเชื่อถือให้กับบริการหลัก
+    priority: 0.7,
   }))
 
   // [2] ดึงข้อมูล Service Protocols (Main Conversion Pages)
@@ -28,14 +31,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}/services/${service.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
-    priority: 0.9, // หน้านี้คือหัวใจสำคัญของการค้นหาบริการ
+    priority: 0.9,
   }))
 
-  // [3] หน้าหลักและหน้าที่สร้างความน่าเชื่อถือ (Trust & Identity Signals)
+  // [3] ดึงข้อมูล Blog Posts (Educational / Intent Capture)
+  const allBlogs = await getAllBlogPosts()
+  const blogEntries: MetadataRoute.Sitemap = allBlogs.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.date || new Date()),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }))
+
+  // [4] หน้าหลักและหน้าที่สร้างความน่าเชื่อถือ (Trust & Identity Signals)
   const staticRoutes = [
-    { path: "", priority: 1.0, changeFreq: "daily" as const },            // Home
-    { path: "/about", priority: 0.8, changeFreq: "weekly" as const },     // Identity & Founder
-    { path: "/editorial-policy", priority: 0.8, changeFreq: "monthly" as const }, // Ethics & Trust
+    { path: "", priority: 1.0, changeFreq: "daily" as const }, // Home
+    { path: "/about", priority: 0.8, changeFreq: "weekly" as const }, // Identity & Founder
+    {
+      path: "/editorial-policy",
+      priority: 0.8,
+      changeFreq: "monthly" as const,
+    },
     { path: "/services", priority: 0.8, changeFreq: "weekly" as const },
     { path: "/case-studies", priority: 0.8, changeFreq: "weekly" as const },
     { path: "/faq", priority: 0.6, changeFreq: "weekly" as const },
@@ -50,9 +66,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route.priority,
   }))
 
-  /**
-   * รวมชุดข้อมูล URL ทั้งหมด
-   * ลำดับการรวม: Static (Core) -> Services (Solutions) -> Case Studies (Evidence)
-   */
-  return [...staticEntries, ...serviceEntries, ...caseEntries]
+  return [...staticEntries, ...serviceEntries, ...caseEntries, ...blogEntries]
 }

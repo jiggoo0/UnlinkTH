@@ -48,9 +48,9 @@ export default function Hero() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-6xl leading-[0.9] font-bold tracking-tighter text-balance md:text-9xl"
             >
-              Unlink the Past, <br />
+              The Right to <br />
               <span className="text-primary glow-emerald font-light italic">
-                Architect Your Future
+                Start Over
               </span>
             </motion.h1>
 
@@ -60,12 +60,13 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-muted-foreground mx-auto max-w-3xl text-lg leading-relaxed font-light md:text-2xl"
             >
-              เราเปลี่ยนภาพจำที่เป็นอุปสรรคให้เป็น{" "}
+              ก้าวพ้นพันธนาการดิจิทัล
+              เพื่อคืนสิทธิความเป็นส่วนตัวและอนาคตที่สะอาดตา
+              เราพร้อมเคียงข้างคุณในการ{" "}
               <span className="text-foreground font-medium">
-                Digital Authority
+                จัดการทุกข้อมูลผิดพลาด
               </span>{" "}
-              ที่ทรงพลัง
-              ด้วยการออกแบบตัวตนดิจิทัลใหม่ที่วัดผลได้จริงภายใต้มาตรฐานความลับสูงสุด
+              เพื่อให้ตัวตนใหม่ของคุณโดดเด่นและน่าเชื่อถืออีกครั้ง
             </motion.p>
           </div>
 

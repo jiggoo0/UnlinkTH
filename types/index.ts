@@ -28,10 +28,22 @@ export interface SiteConfig {
   founder: {
     name: string
     nameTh: string
+    nickname?: string
     role: string
     roleTh: string
     url: string
     sameAs: string[]
+  }
+
+  // ------------------------------------------------------------------
+  // DEVELOPER ATTRIBUTION (Business Entity)
+  // ------------------------------------------------------------------
+  developer?: {
+    name: string
+    fullname: string
+    url: string
+    mcp?: string
+    role: string
   }
 
   // ------------------------------------------------------------------
@@ -108,6 +120,7 @@ export interface Service {
   shortDescription: string
   description: string
   iconName: string
+  image?: string
   category:
     | "Cleanup"
     | "Architect"
@@ -115,9 +128,27 @@ export interface Service {
     | "Personal"
     | "Crisis"
     | "Business"
+    | "Extreme"
   features: string[]
   priceInfo: ServicePrice
   metadata: ServiceMetadata
+}
+
+// ------------------------------------------------------------------
+// CONTENT & MEDIA TYPES
+// ------------------------------------------------------------------
+
+export interface BlogPostFrontmatter {
+  title: string
+  description: string
+  date: string
+  category: string
+  thumbnail: string
+}
+
+export interface BlogPost extends BlogPostFrontmatter {
+  slug: string
+  content: string
 }
 
 // ------------------------------------------------------------------
