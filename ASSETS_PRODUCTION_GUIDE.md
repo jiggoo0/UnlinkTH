@@ -75,12 +75,12 @@ _ใช้สำหรับบทความให้ความรู้ (Ed
 
 ### Services (public/images/service/)
 
-- [ ] `jobbers-clean.webp` (Digital Detox)
-- [ ] `ex-eraser.webp` (Ex-Partner Eraser)
-- [ ] `crisis-radar.webp` (Crisis Clean-up)
-- [ ] `shield-id.webp` (Blacklist Remover)
-- [ ] `sme-rescue.webp` (SME Rescue)
-- [ ] `extreme-intervention.webp` (Extreme Intervention)
+- [x] `jobbers-clean.webp` (Digital Detox)
+- [x] `ex-eraser.webp` (Ex-Partner Eraser)
+- [x] `crisis-radar.webp` (Crisis Clean-up)
+- [x] `shield-id.webp` (Blacklist Remover)
+- [x] `sme-rescue.webp` (SME Rescue)
+- [x] `extreme-intervention.webp` (Extreme Intervention)
 
 ### Case Studies (public/images/cases/)
 
@@ -89,20 +89,20 @@ _ใช้สำหรับบทความให้ความรู้ (Ed
 - [x] `seo-push.webp` (SEO Push Case)
 - [x] `clear-blacklist.webp` (Misunderstood Case)
 - [x] `defamation-cleanup.webp` (Defamation Case)
-- [ ] `gambling-intervene.webp` (Gambling Network Case)
+- [x] `gambling-intervene.webp` (Gambling Network Case)
 
 ### Blog (public/images/blog/)
 
-- [ ] `digital-ghost.webp` (Digital Footprint Blog)
-- [ ] `sme-review-war.webp` (SME Warfare Blog)
+- [x] `digital-ghost.webp` (Digital Footprint Blog)
+- [x] `sme-review-war.webp` (SME Warfare Blog)
 - [ ] `executive-reputation.webp` (High-Profile Defamation Blog)
 
 ### Static & Global (public/images/)
 
 - [x] `og-main.png` (Main OG)
-- [ ] `methodology-abstract.webp` (About Page)
-- [ ] `operational-core.webp` (About Page)
-- [ ] `favicon.png` (Site Icon)
+- [x] `methodology-abstract.webp` (About Page)
+- [x] `operational-core.webp` (About Page)
+- [x] `favicon.png` (Site Icon)
 
 ---
 

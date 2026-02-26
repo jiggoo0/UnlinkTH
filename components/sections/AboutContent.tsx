@@ -3,17 +3,16 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 import {
   ShieldCheck,
   Cpu,
   Scale,
-  Globe,
   Zap,
   ExternalLink,
   Lock,
   Target,
   Users,
-  Terminal,
 } from "lucide-react"
 import Link from "next/link"
 import ContactCTA from "@/components/sections/ContactCTA"
@@ -124,11 +123,17 @@ export default function AboutContent({ founderName }: AboutContentProps) {
 
           <div className="group relative">
             <div className="from-primary/20 absolute -inset-1 rounded-[3rem] bg-gradient-to-r to-transparent opacity-25 blur transition duration-1000 group-hover:opacity-50"></div>
-            <div className="bg-muted/5 border-border/40 relative flex aspect-square items-center justify-center overflow-hidden rounded-[3rem] border p-12">
-              <Globe className="text-primary/5 h-full w-full animate-pulse" />
-              <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4 p-6 text-center">
-                <Lock className="text-primary glow-emerald h-16 w-16" />
-                <span className="text-primary/60 font-mono text-[10px] tracking-[0.5em] uppercase">
+            <div className="bg-muted/5 border-border/40 relative flex aspect-square items-center justify-center overflow-hidden rounded-[3rem] border">
+              <Image
+                src="/images/methodology-abstract.webp"
+                alt="Methodology Abstract"
+                fill
+                className="object-cover opacity-60 transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="from-background via-background/20 absolute inset-0 bg-gradient-to-t to-transparent" />
+              <div className="absolute inset-0 flex flex-col items-center justify-end space-y-4 p-12 text-center">
+                <Lock className="text-primary glow-emerald h-12 w-12" />
+                <span className="text-primary/80 font-mono text-[10px] tracking-[0.5em] uppercase drop-shadow-md">
                   Data Sovereignty Secured
                 </span>
               </div>
@@ -141,16 +146,19 @@ export default function AboutContent({ founderName }: AboutContentProps) {
       <section className="border-border/10 bg-muted/5 border-y py-32">
         <div className="container grid items-center gap-20 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <div className="lab-card border-primary/20 bg-muted/20 relative aspect-square overflow-hidden rounded-[3rem]">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Terminal className="text-primary/5 h-48 w-48" />
-              </div>
-              <div className="from-background/90 absolute inset-0 z-10 bg-gradient-to-t via-transparent to-transparent" />
+            <div className="lab-card border-primary/20 bg-muted/20 group relative aspect-square overflow-hidden rounded-[3rem]">
+              <Image
+                src="/images/operational-core.webp"
+                alt="Operational Core"
+                fill
+                className="object-cover opacity-80 transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="from-background/90 via-background/20 absolute inset-0 z-10 bg-gradient-to-t to-transparent" />
               <div className="absolute bottom-12 left-12 z-20 space-y-2">
-                <p className="text-primary font-mono text-[10px] tracking-[0.4em] uppercase">
+                <p className="text-primary font-mono text-[10px] tracking-[0.4em] uppercase drop-shadow-md">
                   Operational Core
                 </p>
-                <p className="text-3xl font-bold tracking-tighter">
+                <p className="text-3xl font-bold tracking-tighter drop-shadow-lg">
                   {siteConfig.name} Team
                 </p>
               </div>

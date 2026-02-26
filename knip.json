@@ -16,25 +16,13 @@
     "constants/**/*.ts",
     "types/**/*.ts"
   ],
-  "ignore": [
-    "content/**/*.mdx",
-    ".next/**",
-    "node_modules/**",
-    "public/**",
-    "scripts/**"
-  ],
   "ignoreDependencies": [
-    "@tailwindcss/postcss",
     "tailwindcss-animate",
     "tw-animate-css",
-    "prettier-plugin-tailwindcss",
-    "remark-frontmatter",
-    "remark-gfm",
     "@next/bundle-analyzer",
     "@tailwindcss/typography",
     "eslint-config-next",
     "tailwindcss",
     "@next/eslint-plugin-next"
-  ],
-  "ignoreBinaries": ["echo"]
+  ]
 }

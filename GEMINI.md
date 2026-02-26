@@ -17,4 +17,7 @@
 ## 📌 Development Roadmap
 
 - [x] Standard AI Architecture Applied
-- [ ] Define Core Logic & Features
+- [x] Define Core Logic & Features
+- [x] Implement Visual Assets & UI Polish
+- [x] Code Quality Audit (Lint, Format, Type-Check, Knip)
+- [ ] Prepare for Production Deployment
