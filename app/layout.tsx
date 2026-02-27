@@ -7,6 +7,7 @@ import { siteConfig } from "@/constants/site-config"
 import Navbar from "@/components/shared/Navbar"
 import Footer from "@/components/shared/Footer"
 import JsonLd from "@/components/seo/JsonLd"
+import PdpaConsent from "@/components/shared/PdpaConsent"
 import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
 
@@ -122,6 +123,7 @@ export default function RootLayout({
 
         {/* Global Brand Identity (Schema.org) */}
         <JsonLd />
+        <PdpaConsent />
         <Toaster />
 
         <Navbar />

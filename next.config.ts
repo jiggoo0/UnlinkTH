@@ -10,17 +10,11 @@ import remarkFrontmatter from "remark-frontmatter"
  * Strategy: Zero-Runtime Image Handling & MDX Turbo
  */
 const nextConfig: NextConfig = {
-  // 1. Static Export Protocol
-  output: "export",
-  trailingSlash: true, // ดีต่อ SEO และการทำ Folder Structure บน Hosting ทั่วไป
-  distDir: "out",
+  // 1. Production Architecture (Server Mode)
+  // หมายเหตุ: เอา output: "export" ออกเพื่อให้รองรับ Dynamic Features และ Next.js Image Optimization เต็มรูปแบบ
 
-  // 2. Image Optimization Fix (หัวใจสำคัญที่ทำให้ Error หาย)
-  // ในโหมด export เราไม่สามารถใช้ Image Optimization API ของ Next.js ได้
+  // 2. Image Optimization Infrastructure (Industrial Standard)
   images: {
-    unoptimized: true,
-    // หมายเหตุ: formats และ remotePatterns จะถูกข้ามไปเมื่อใช้ unoptimized: true
-    // แต่ใส่ไว้เพื่อรองรับการเปลี่ยนกลับมาใช้ Server Mode ในอนาคตได้
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
       { protocol: "https", hostname: "lin.ee" },

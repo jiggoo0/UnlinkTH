@@ -2,6 +2,7 @@
 
 import Hero from "@/components/shared/Hero"
 import ProtocolStepper from "@/components/sections/ProtocolStepper"
+import StatusTracker from "@/components/shared/StatusTracker"
 import Methods from "@/components/sections/Methods"
 import Proof from "@/components/sections/Proof"
 import ServiceCard from "@/components/shared/ServiceCard"
@@ -46,6 +47,9 @@ export default async function HomePage() {
             กระบวนการทำงาน 4 ขั้นตอนที่เปลี่ยนวิกฤตชื่อเสียงให้เป็นโอกาสใหม่
             ด้วยการผสานเทคนิคจัดการข้อมูลและนิติศาสตร์ดิจิทัลขั้นสูง
           </p>
+        </div>
+        <div className="mx-auto mb-12 max-w-4xl">
+          <StatusTracker />
         </div>
         <ProtocolStepper />
       </section>
