@@ -10,7 +10,8 @@
 ## 2. รายการแก้ไขที่เสร็จสิ้น (Completed Tasks)
 *   **Build Fixes:**
     - [x] ลบ Broken Symlink ของ `GEMINI.md` ออกจาก Git Index
-    - [x] แก้ไข Error `ENOENT` บน Vercel โดยการจัดลำดับการ Prerender ใหม่
+    - [x] แก้ไข Error `ENOENT` บน Vercel (Broken Symlinks: `commands`, `skills`)
+    - [x] เพิ่ม `.gitignore` สำหรับ AI-only directories (`commands/`, `skills/`)
     - [x] แก้ไข `next.config.ts` จาก `experimental.ppr` เป็น `cacheComponents: true` (Next.js 16 Standard)
 *   **Dependency Management:**
     - [x] กู้คืน `framer-motion` เข้าสู่ `package.json`
