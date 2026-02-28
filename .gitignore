@@ -76,3 +76,9 @@ GEMINI.md
 commands/
 skills/
 .geminiignore
+
+# AI-only directories (Symbolic Links)
+commands/
+skills/
+.gemini/commands/
+.gemini/skills/
