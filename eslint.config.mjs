@@ -10,6 +10,8 @@ export default tseslint.config(
   {
     ignores: [
       ".gemini/**",
+      "commands/**",
+      "skills/**",
       ".next/**",
       "node_modules/**",
       "out/**",
