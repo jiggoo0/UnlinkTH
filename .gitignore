@@ -71,3 +71,8 @@ structure.txt
 .contentlayer/
 MISSION.md
 GEMINI.md
+
+# AI Symlinks
+commands/
+skills/
+.geminiignore
