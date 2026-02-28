@@ -73,8 +73,8 @@ MISSION.md
 GEMINI.md
 
 # AI Symlinks
-commands/
-skills/
+commands
+skills
 .geminiignore
 
 # AI-only directories (Symbolic Links)
