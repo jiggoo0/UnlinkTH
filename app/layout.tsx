@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from "next"
 import { Inter, Noto_Sans_Thai, JetBrains_Mono } from "next/font/google"
 import NextTopLoader from "nextjs-toploader"
 import { siteConfig } from "@/constants/site-config"
+import { Suspense } from "react"
 import Navbar from "@/components/shared/Navbar"
 import Footer from "@/components/shared/Footer"
 import JsonLd from "@/components/seo/JsonLd"
@@ -128,7 +129,15 @@ export default function RootLayout({
 
         <Navbar />
         <main className="flex-1 overflow-hidden">{children}</main>
-        <Footer />
+
+        {/* Footer Streaming Shell (PPR) */}
+        <Suspense
+          fallback={
+            <footer className="bg-background border-t border-white/5 py-8" />
+          }
+        >
+          <Footer />
+        </Suspense>
       </body>
     </html>
   )

@@ -18,8 +18,6 @@
   ],
   "ignoreDependencies": [
     "tailwindcss-animate",
-    "tw-animate-css",
-    "@next/bundle-analyzer",
     "@tailwindcss/typography",
     "eslint-config-next",
     "tailwindcss",

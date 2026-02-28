@@ -9,6 +9,7 @@ const nextPlugin = require("@next/eslint-plugin-next")
 export default tseslint.config(
   {
     ignores: [
+      ".gemini/**",
       ".next/**",
       "node_modules/**",
       "out/**",

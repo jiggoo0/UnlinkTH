@@ -4,6 +4,7 @@ import Link from "next/link"
 import { siteConfig } from "@/constants/site-config"
 import { footerNav } from "@/constants/navigation"
 import { Shield, Mail, MessageCircle, ExternalLink, Lock } from "lucide-react"
+import { connection } from "next/server"
 
 /**
  * UNLINK-TH | Operational Footer Interface (2026)
@@ -12,7 +13,8 @@ import { Shield, Mail, MessageCircle, ExternalLink, Lock } from "lucide-react"
  * ออกแบบมาเพื่อสร้าง Authority และความเชื่อมั่นเป็นครั้งสุดท้ายก่อนจบเซสชัน
  */
 
-export default function Footer() {
+export default async function Footer() {
+  await connection()
   const currentYear = new Date().getFullYear()
 
   return (
