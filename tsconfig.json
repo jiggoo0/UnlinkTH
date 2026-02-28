@@ -53,5 +53,13 @@
     "out/dev/types/**/*.ts"
   ],
   /* [6] Exclusions: ป้องกันการตรวจสอบไฟล์ที่ไม่จำเป็นเพื่อลดภาระการประมวลผล */
-  "exclude": ["node_modules", ".next", "out", "build"]
+  "exclude": [
+    "node_modules",
+    ".next",
+    "out",
+    "build",
+    "commands",
+    "skills",
+    ".gemini"
+  ]
 }
