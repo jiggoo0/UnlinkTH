@@ -17,7 +17,7 @@ import { siteConfig } from "@/constants/site-config"
  * UNLINK-TH | Editorial Policy & Data Ethics Framework (2026)
  * -------------------------------------------------------------------------
  * มาตรฐานการคัดกรองเนื้อหาและจริยธรรมในการจัดการชื่อเสียงออนไลน์
- * Oversight by: Alongkorl Yomkerd (Technical Data Architect)
+ * Oversight by: อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์) - Technical Data Architect
  */
 
 export const metadata: Metadata = {

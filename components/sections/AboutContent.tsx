@@ -159,7 +159,7 @@ export default function AboutContent({ founderName }: AboutContentProps) {
                   Operational Core
                 </p>
                 <p className="text-3xl font-bold tracking-tighter drop-shadow-lg">
-                  {siteConfig.name} Team
+                  {founderName} (นายเอ็มซ่ามากส์)
                 </p>
               </div>
             </div>

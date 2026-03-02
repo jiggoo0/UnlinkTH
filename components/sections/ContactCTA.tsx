@@ -55,10 +55,10 @@ export default function ContactCTA() {
 
           {/* Operational Description */}
           <p className="text-muted-foreground mx-auto max-w-2xl text-lg leading-relaxed font-light md:text-2xl">
-            ให้เราช่วยคุณก้าวผ่านอดีตและสร้างอนาคตใหม่ที่น่าภาคภูมิใจ
-            ปรึกษาเราเพื่อประเมินสถานการณ์เบื้องต้นด้วยความสบายใจ
-            <span className="text-foreground mt-2 block font-medium tracking-tight uppercase">
-              รับประกันความลับสูงสุด (Confidentiality Guaranteed)
+            อดีตที่ผิดพลาดเพียงครั้งเดียวไม่ควรตัดสินคุณไปตลอดชีวิต
+            คืนอำนาจการเล่าเรื่องตัวตนดิจิทัลให้กลับมาอยู่ในมือคุณอีกครั้ง
+            <span className="text-foreground mt-4 block font-medium tracking-tight uppercase">
+              รับคำปรึกษาภายใต้สัญญา NDA 100% (ข้อมูลปลอดภัย ไม่ตัดสินเคส)
             </span>
           </p>
 
@@ -71,7 +71,7 @@ export default function ContactCTA() {
             >
               <Link href={siteConfig.contact.lineUrl}>
                 <MessageCircle className="mr-3 h-6 w-6 fill-current" />
-                เริ่มกระบวนการประเมิน
+                รับคำปรึกษาปกปิดตัวตนฟรี
                 <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1.5" />
               </Link>
             </Button>

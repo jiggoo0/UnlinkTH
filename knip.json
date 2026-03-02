@@ -16,13 +16,6 @@
     "constants/**/*.ts",
     "types/**/*.ts"
   ],
-  "ignore": [
-    ".gemini/**",
-    "commands/**",
-    "skills/**",
-    "GEMINI.md",
-    "MISSION.md"
-  ],
   "ignoreDependencies": [
     "tailwindcss-animate",
     "@tailwindcss/typography",

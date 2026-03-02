@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { siteConfig } from "@/constants/site-config"
 import { footerNav } from "@/constants/navigation"
-import { Shield, Mail, MessageCircle, ExternalLink, Lock } from "lucide-react"
+import { Shield, Mail, MessageCircle, Lock } from "lucide-react"
 import { connection } from "next/server"
 
 /**
@@ -106,34 +106,38 @@ export default async function Footer() {
         {/* Root Attribution & System Integrity */}
         <div className="flex flex-col items-center justify-between gap-8 border-t border-white/5 pt-8 lg:flex-row">
           <div className="text-muted-foreground/40 text-center font-mono text-[9px] leading-relaxed tracking-[0.15em] uppercase lg:text-left">
-            © {currentYear} UNLINK-TH REPUTATION MANAGEMENT.{" "}
+            © {currentYear} {siteConfig.name} REPUTATION MANAGEMENT.{" "}
             <br className="md:hidden" />
-            ENGINEERED & POWERED BY AEMDEVWEB SECURITY FRAMEWORK.
+            ALL RIGHTS RESERVED.
           </div>
 
-          <div className="text-muted-foreground/60 flex items-center gap-6 font-mono text-[9px] tracking-[0.2em] uppercase">
+          <div className="flex flex-col items-center gap-6 md:flex-row lg:items-end">
+            {/* Engineering Signature */}
             <Link
-              href="https://www.aemdevweb.com"
+              href={siteConfig.developer?.url || "https://www.aemdevweb.com"}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary group flex items-center gap-1.5 transition-colors"
+              className="text-muted-foreground/20 hover:text-primary/50 group flex items-center gap-3 font-mono text-[8px] tracking-[0.2em] uppercase transition-colors"
             >
-              Built by AemDevWeb (Alongkorl)
-              <ExternalLink className="h-2.5 w-2.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <span className="group-hover:bg-primary/20 h-px w-8 bg-white/5 transition-colors" />
+              Engineered by {siteConfig.developer?.name} Studio
+              (นายเอ็มซ่ามากส์)
             </Link>
-            <span className="h-3 w-px bg-white/10" />
-            <Link
-              href="/privacy"
-              className="hover:text-primary transition-colors"
-            >
-              Privacy
-            </Link>
-            <Link
-              href="/editorial-policy"
-              className="hover:text-primary transition-colors"
-            >
-              Ethics
-            </Link>
+
+            <div className="text-muted-foreground/60 flex items-center gap-6 font-mono text-[9px] tracking-[0.2em] uppercase">
+              <Link
+                href="/privacy"
+                className="hover:text-primary transition-colors"
+              >
+                Privacy
+              </Link>
+              <Link
+                href="/editorial-policy"
+                className="hover:text-primary transition-colors"
+              >
+                Ethics
+              </Link>
+            </div>
           </div>
         </div>
 

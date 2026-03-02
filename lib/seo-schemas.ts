@@ -27,8 +27,8 @@ export const getBrandIdentitySchema = () => {
     description: siteConfig.description,
     founder: {
       "@type": "Person",
-      name: siteConfig.founder.name,
-      alternateName: siteConfig.founder.nameTh,
+      name: `${siteConfig.founder.nameTh} (นายเอ็มซ่ามากส์)`,
+      alternateName: siteConfig.founder.name,
       jobTitle: siteConfig.founder.role,
       url: siteConfig.founder.url,
       sameAs: siteConfig.founder.sameAs,
@@ -40,6 +40,13 @@ export const getBrandIdentitySchema = () => {
       areaServed: "TH",
       availableLanguage: ["Thai", "English"],
     },
+    knowsAbout: [
+      "Digital Reputation Management",
+      "Online Privacy",
+      "PDPA Thailand",
+      "Right to be Forgotten",
+      "Cybersecurity",
+    ],
     sameAs: [
       siteConfig.links.facebook,
       siteConfig.links.twitter,
@@ -57,14 +64,10 @@ export const getBrandIdentitySchema = () => {
     creator: {
       "@type": "Person",
       "@id": "https://me.aemdevweb.com/#person",
-      name: "นาย อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)",
-      url: "https://me.aemdevweb.com",
-      jobTitle: "Technical Data Architect & Full-stack Developer",
-      sameAs: [
-        "https://www.facebook.com/alongkorl.yomkerd",
-        "https://www.linkedin.com/in/alongkorl-aemdevweb",
-        "https://github.com/mzamarks",
-      ],
+      name: `อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)`,
+      url: siteConfig.founder.url,
+      jobTitle: "Technical Data Architect & Reputation Specialist",
+      sameAs: siteConfig.founder.sameAs,
     },
     maintainer: {
       "@type": "Organization",
@@ -104,8 +107,10 @@ export const getBlogSchema = (post: BlogPost) => {
     datePublished: post.date,
     dateModified: post.date,
     author: {
-      "@type": "Organization",
-      "@id": `${siteConfig.url}/#organization`,
+      "@type": "Person",
+      "@id": "https://me.aemdevweb.com/#person",
+      name: "อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)",
+      url: siteConfig.founder.url,
     },
     publisher: {
       "@id": `${siteConfig.url}/#organization`,
@@ -135,8 +140,10 @@ export const getCaseStudySchema = (study: {
     image: `${siteConfig.url}${study.frontmatter.thumbnail || siteConfig.ogImage}`,
     datePublished: study.frontmatter.date,
     author: {
-      "@type": "Organization",
-      "@id": `${siteConfig.url}/#organization`,
+      "@type": "Person",
+      "@id": "https://me.aemdevweb.com/#person",
+      name: "อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)",
+      url: siteConfig.founder.url,
     },
     publisher: {
       "@id": `${siteConfig.url}/#organization`,

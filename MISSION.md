@@ -1,35 +1,21 @@
-# 🎯 Active Mission: UnlinkTH Maintenance & Optimization
-> **Status:** COMPLETED (Stable 100%)
-> **Last Update:** Sat Feb 28 17:35:00 +07 2026
+# 🎯 ภารกิจหลัก (MISSION.md)
+*สถานะล่าสุด: อัปเดตเมื่อ 2 มีนาคม 2026*
 
-## 1. สถานะการดำเนินการ (Final Status)
-*   **ภารกิจ:** Build Failure Investigation & Fix (Vercel) + Next.js 16 Optimization
-*   **ความคืบหน้า:** 100% (Verified via `pnpm run check`)
-*   **สถานะระบบ:** ◐ Partial Prerender (PPR) Enabled | React 19 Compiler Active
+## 🏁 เป้าหมายปัจจุบัน
+1.  [x] ตรวจสอบความถูกต้องและคุณภาพของโค้ด (Linting & Type-checking)
+2.  [x] ตรวจสอบประสิทธิภาพการทำงานบน Termux (RAM/CPU Optimization)
+3.  [ ] วิเคราะห์ส่วนที่ต้องการการพัฒนาเพิ่มเติมเพื่อให้บรรลุมาตรฐาน UX สากล
 
-## 2. รายการแก้ไขที่เสร็จสิ้น (Completed Tasks)
-*   **Build Fixes:**
-    - [x] ลบ Broken Symlink ของ `GEMINI.md` ออกจาก Git Index
-    - [x] แก้ไข Error `ENOENT` บน Vercel (Broken Symlinks: `commands`, `skills`)
-    - [x] เพิ่ม `.gitignore` สำหรับ AI-only directories (`commands/`, `skills/`)
-    - [x] แก้ไข `next.config.ts` จาก `experimental.ppr` เป็น `cacheComponents: true` (Next.js 16 Standard)
-*   **Dependency Management:**
-    - [x] กู้คืน `framer-motion` เข้าสู่ `package.json`
-    - [x] ติดตั้ง `tsx` สำหรับการรัน Schema Test ในขั้นตอน Build
-    - [x] ติดตั้ง `babel-plugin-react-compiler` เพื่อรองรับ React 19
-*   **Architecture & Stability:**
-    - [x] สร้าง `lib/schema.ts` และ `lib/schema-validator.ts` เพื่อรองรับระบบ Validation
-    - [x] แก้ไข `Footer.tsx` และ `navigation.ts` เพื่อป้องกัน Prerender Failure โดยใช้ `connection()`
-    - [x] วาง `Suspense Boundary` ใน `app/layout.tsx` เพื่อรองรับระบบ Streaming Shell (PPR)
-    - [x] **Audit Finalization**: ตรวจสอบ Dead Code และ Unused Dependencies ด้วย `knip` สำเร็จ (Zero Issues)
+## 🛠️ รายการงานที่กำลังดำเนินการ (Active Tasks)
+- [x] เริ่มต้นไฟล์ `MISSION.md` เพื่อติดตามสถานะ
+- [x] รัน Health Check (`aipc`) - ผ่านทั้งหมด (Build สำเร็จใน 2.3 นาที)
 
-## 3. ข้อมูลเชิงเทคนิค (Technical Insights)
-*   **PPR Engine:** ระบบจะ Prerender หน้าเว็บเป็น Static HTML และ Stream ข้อมูล Dynamic (เช่น Copyright Year ใน Footer) เข้ามาภายหลังผ่าน Suspense
-*   **Schema Security:** ทุกการ Build จะมีการตรวจสอบ SEO Schema Integrity เพื่อให้มั่นใจว่า Structured Data ถูกต้อง 100%
+## ⏳ ประวัติความคืบหน้า (Progress Log)
+- **Turn 1:** ตรวจสอบโครงสร้างพื้นฐานและสร้างไฟล์ `MISSION.md`
+- **Turn 2:** รัน `pnpm run aipc` ตรวจสอบคุณภาพโค้ดและ Build ผลลัพธ์ผ่านเกณฑ์มาตรฐาน
 
-## 4. ข้อเสนอแนะสำหรับรอบถัดไป (Next Steps)
-*   ดำเนินการ Commit การเปลี่ยนแปลงทั้งหมด (Surgical Fixes) เพื่อ Deploy สู่ Production
-*   ตรวจสอบประสิทธิภาพ (LCP/CLS) หลังจากเปิดใช้งาน PPR บนสภาพแวดล้อมจริง
-
----
-**Protocol:** ภารกิจเสร็จสิ้นตามมาตรฐานสูงสุดของ UnlinkTH Security Unit.
+## 📊 สถานะระบบ (System Status)
+- **Framework:** Next.js 16.1.6 (PPR Enabled)
+- **Architecture:** Client-side focus (Static & Partial Prerendering)
+- **Build Status:** ✅ PASSED
+- **Performance:** ✅ Optimized for Termux (Build < 3 mins)

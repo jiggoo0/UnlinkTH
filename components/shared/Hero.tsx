@@ -60,13 +60,13 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-muted-foreground mx-auto max-w-3xl text-lg leading-relaxed font-light md:text-2xl"
             >
-              ก้าวพ้นพันธนาการดิจิทัล
-              เพื่อคืนสิทธิความเป็นส่วนตัวและอนาคตที่สะอาดตา
-              เราพร้อมเคียงข้างคุณในการ{" "}
+              ความผิดพลาดในอดีตไม่ควรเป็นกำแพงขวางกั้นอนาคตของคุณ
+              ทวงคืนสิทธิความเป็นส่วนตัวและพื้นที่ชีวิตดิจิทัลที่ขาวสะอาด
+              เราพร้อมเคียงข้างในการ{" "}
               <span className="text-foreground font-medium">
-                จัดการทุกข้อมูลผิดพลาด
+                ลบร่องรอยที่ผิดพลาด
               </span>{" "}
-              เพื่อให้ตัวตนใหม่ของคุณโดดเด่นและน่าเชื่อถืออีกครั้ง
+              เพื่อคืนอำนาจให้คุณออกแบบตัวตนใหม่ที่น่าเชื่อถืออีกครั้ง
             </motion.p>
           </div>
 
@@ -83,7 +83,7 @@ export default function Hero() {
               asChild
             >
               <Link href={siteConfig.contact.lineUrl}>
-                เริ่มกระบวนการประเมิน
+                รับคำปรึกษาปกปิดตัวตนฟรี
                 <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1.5" />
               </Link>
             </Button>

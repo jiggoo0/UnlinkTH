@@ -60,14 +60,17 @@ export const metadata: Metadata = {
   // Developer Attribution Protocol
   authors: [
     {
-      name: "นาย อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)",
-      url: "https://me.aemdevweb.com",
+      name: "อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)",
+      url: siteConfig.founder.url,
     },
-    { name: "AemDevWeb Studio", url: "https://www.aemdevweb.com" },
+    {
+      name: siteConfig.developer?.fullname || "AemDevWeb Studio",
+      url: siteConfig.developer?.url,
+    },
   ],
-  creator: "AemDevWeb Studio (www.aemdevweb.com)",
+  creator: `อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์) - ${siteConfig.developer?.fullname}`,
   publisher: siteConfig.name,
-  generator: "Alongkorl Yomkerd (me.aemdevweb.com)",
+  generator: `อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)`,
 
   openGraph: {
     type: "website",

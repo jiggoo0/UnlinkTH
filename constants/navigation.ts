@@ -100,7 +100,7 @@ export const navigationConfig = {
   },
   footer: {
     disclaimer: "UNLINK-TH: เพราะทุกคนสมควรได้รับโอกาสเริ่มต้นใหม่เสมอ",
-    copy: "UNLINK-TH | Managed by AEMDEVWEB Security Unit",
+    copy: "UNLINK-TH | Engineered by AEMDEVWEB (นายเอ็มซ่ามากส์)",
   },
   securityNote:
     "Privacy First: ข้อมูลการสนทนาจะถูกลบอัตโนมัติเพื่อความปลอดภัยสูงสุด",

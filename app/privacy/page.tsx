@@ -19,7 +19,7 @@ import { siteConfig } from "@/constants/site-config"
  * -------------------------------------------------------------------------
  * มาตรฐานการคุ้มครองข้อมูลภายใต้หลักการ Zero-Knowledge Security
  * ออกแบบเพื่อรองรับมาตรฐาน PDPA และพันธสัญญาการรักษาความลับสากล
- * Managed by: Alongkorl Yomkerd (Technical Data Architect)
+ * Managed by: อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์) - Technical Data Architect
  */
 
 export const metadata: Metadata = {

@@ -2,6 +2,7 @@
   "name": "www.unlink-th.com",
   "version": "1.0.0",
   "private": true,
+  "author": "Alongkorl Yomkerd (นายเอ็มซ่ามากส์) <contact@aemdevweb.com> (https://me.aemdevweb.com)",
   "scripts": {
     "dev": "next dev",
     "build": "pnpm test:schema && next build --webpack",
