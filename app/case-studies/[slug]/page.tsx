@@ -1,19 +1,19 @@
 /** @format */
 
-import { notFound } from "next/navigation"
-import { Metadata } from "next"
-import { getCaseStudyBySlug, getAllCaseStudies } from "@/lib/case-studies"
-import { MDXRemote } from "next-mdx-remote/rsc"
-import { useMDXComponents } from "@/mdx-components"
-import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Calendar, FileText, Lock, ShieldCheck } from "lucide-react"
-import Link from "next/link"
-import ContactCTA from "@/components/sections/ContactCTA"
-import JsonLd from "@/components/seo/JsonLd"
-import { getCaseStudySchema, getBreadcrumbSchema } from "@/lib/seo-schemas"
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import { getCaseStudyBySlug, getAllCaseStudies } from "@/lib/case-studies";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { useMDXComponents } from "@/mdx-components";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, Calendar, FileText, Lock, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { SecureChannel } from "@/components/sections";
+import JsonLd from "@/components/seo/JsonLd";
+import { getCaseStudySchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 interface CasePageProps {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }
 
 /**
@@ -23,10 +23,10 @@ interface CasePageProps {
 export async function generateMetadata({
   params,
 }: CasePageProps): Promise<Metadata> {
-  const { slug } = await params
-  const study = await getCaseStudyBySlug(slug)
+  const { slug } = await params;
+  const study = await getCaseStudyBySlug(slug);
   if (!study || !study.frontmatter)
-    return { title: "Operational Record Not Found" }
+    return { title: "Operational Record Not Found" };
 
   return {
     title: `${study.frontmatter.title} | Operational Record UNLINK-TH`,
@@ -34,31 +34,31 @@ export async function generateMetadata({
     alternates: {
       canonical: `/case-studies/${slug}/`,
     },
-  }
+  };
 }
 
 /**
  * Static Generation Interface
  */
 export async function generateStaticParams() {
-  const cases = await getAllCaseStudies()
-  return cases.map((c) => ({ slug: c.slug }))
+  const cases = await getAllCaseStudies();
+  return cases.map((c) => ({ slug: c.slug }));
 }
 
 export default async function SingleCasePage({ params }: CasePageProps) {
-  const { slug } = await params
-  const study = await getCaseStudyBySlug(slug)
-  const mdxComponents = useMDXComponents({})
+  const { slug } = await params;
+  const study = await getCaseStudyBySlug(slug);
+  const mdxComponents = useMDXComponents({});
 
-  if (!study || !study.frontmatter) notFound()
+  if (!study || !study.frontmatter) notFound();
 
-  const { frontmatter, content } = study
+  const { frontmatter, content } = study;
 
   const breadcrumbs = [
     { name: "Home", item: "/" },
     { name: "Case Studies", item: "/case-studies" },
     { name: frontmatter.title, item: `/case-studies/${slug}` },
-  ]
+  ];
 
   return (
     <article className="pb-24">
@@ -152,8 +152,8 @@ export default async function SingleCasePage({ params }: CasePageProps) {
       {/* Visual Outcome Proof */}
 
       <div className="mt-40">
-        <ContactCTA />
+        <SecureChannel />
       </div>
     </article>
-  )
+  );
 }

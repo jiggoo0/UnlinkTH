@@ -1,31 +1,29 @@
 /** @format */
 
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { motion, AnimatePresence } from "framer-motion"
-import { cn } from "@/lib/utils"
-import { Shield, Menu, X, Lock, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { mainNav, navigationConfig } from "@/constants/navigation"
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { Menu, X, Lock, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { mainNav, navigationConfig } from "@/constants/navigation";
+import Image from "next/image";
+import { siteConfig } from "@/constants/site-config";
 
 /**
- * UNLINK-TH | Desktop & Mobile Navigation Intelligence
- * -------------------------------------------------------------------------
- * ระบบนำทางหลักที่ใช้ Framer Motion สำหรับการตอบสนองเชิงโต้ตอบ
- * เน้นการสร้าง Authority และสัญญาณความปลอดภัย (Trust Signals)
+ * UNLINK-GLOBAL | Desktop & Mobile Navigation Intelligence
  */
-
 export default function Navbar() {
-  const pathname = usePathname()
-  const [isOpen, setIsOpen] = React.useState(false)
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = React.useState(false);
 
   // ปิดเมนูเมื่อตรวจพบการเปลี่ยนหน้า
   React.useEffect(() => {
-    setIsOpen(false)
-  }, [pathname])
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <header className="bg-background/60 sticky top-0 z-50 w-full border-b border-white/5 backdrop-blur-xl">
@@ -33,21 +31,30 @@ export default function Navbar() {
         {/* --- Brand Identity Protocol --- */}
         <Link
           href="/"
-          className="group flex items-center gap-2 transition-opacity hover:opacity-90"
+          className="group flex items-center gap-3 transition-opacity hover:opacity-90"
         >
-          <div className="relative">
-            <Shield className="text-primary glow-emerald h-7 w-7 transition-transform group-hover:scale-110" />
-            <div className="bg-primary/20 absolute inset-0 rounded-full opacity-0 blur-lg transition-opacity group-hover:opacity-100" />
+          <div className="relative h-9 w-9">
+            <Image
+              src="/branding/logo.svg"
+              alt="Unlink-Global Logo"
+              fill
+              className="glow-gold transition-transform group-hover:scale-110"
+            />
           </div>
           <span className="font-mono text-xl font-bold tracking-tighter uppercase">
-            Unlink<span className="text-primary align-top text-sm">TH</span>
+            {siteConfig.name.split("-")[0]}
+            <span className="text-primary align-top text-sm">
+              {siteConfig.name.split("-")[1]
+                ? `-${siteConfig.name.split("-")[1]}`
+                : ""}
+            </span>
           </span>
         </Link>
 
         {/* --- Desktop Navigation Interface --- */}
         <nav className="hidden items-center gap-1 md:flex">
           {mainNav.map((link) => {
-            const isActive = pathname === link.href
+            const isActive = pathname === link.href;
             return (
               <Link
                 key={link.href}
@@ -55,7 +62,7 @@ export default function Navbar() {
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
                   "hover:text-primary relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                  isActive ? "text-primary" : "text-muted-foreground"
+                  isActive ? "text-primary" : "text-muted-foreground",
                 )}
               >
                 {link.title}
@@ -67,7 +74,7 @@ export default function Navbar() {
                   />
                 )}
               </Link>
-            )
+            );
           })}
 
           <div className="mx-4 h-4 w-px bg-white/10" />
@@ -122,7 +129,7 @@ export default function Navbar() {
                       "group flex items-center justify-between text-2xl font-bold tracking-tight transition-colors",
                       pathname === link.href
                         ? "text-primary"
-                        : "text-muted-foreground"
+                        : "text-muted-foreground",
                     )}
                   >
                     {link.title}
@@ -149,5 +156,5 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </header>
-  )
+  );
 }

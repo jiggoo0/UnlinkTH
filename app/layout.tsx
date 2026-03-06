@@ -1,16 +1,16 @@
 /** @format */
 
-import type { Metadata, Viewport } from "next"
-import { Inter, Noto_Sans_Thai, JetBrains_Mono } from "next/font/google"
-import NextTopLoader from "nextjs-toploader"
-import { siteConfig } from "@/constants/site-config"
-import { Suspense } from "react"
-import Navbar from "@/components/shared/Navbar"
-import Footer from "@/components/shared/Footer"
-import JsonLd from "@/components/seo/JsonLd"
-import PdpaConsent from "@/components/shared/PdpaConsent"
-import { Toaster } from "@/components/ui/sonner"
-import "./globals.css"
+import type { Metadata, Viewport } from "next";
+import { Inter, Noto_Sans_Thai, JetBrains_Mono } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
+import { siteConfig } from "@/constants/site-config";
+import { Suspense } from "react";
+import Navbar from "@/components/shared/Navbar";
+import Footer from "@/components/shared/Footer";
+import JsonLd from "@/components/seo/JsonLd";
+import PdpaConsent from "@/components/shared/PdpaConsent";
+import { Toaster } from "@/components/ui/sonner";
+import "./globals.css";
 
 /**
  * Font Architectures
@@ -19,19 +19,19 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-})
+});
 
 const notoThai = Noto_Sans_Thai({
   subsets: ["thai"],
   variable: "--font-noto-thai",
   display: "swap",
-})
+});
 
 const mono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
-})
+});
 
 /**
  * Viewport Optimization
@@ -42,7 +42,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-}
+};
 
 /**
  * Metadata Framework (Enhanced for Entity Linking & Attribution)
@@ -71,6 +71,12 @@ export const metadata: Metadata = {
   creator: `อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์) - ${siteConfig.developer?.fullname}`,
   publisher: siteConfig.name,
   generator: `อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)`,
+
+  icons: {
+    icon: "/branding/icon.svg",
+    shortcut: "/branding/icon.svg",
+    apple: "/branding/icon.svg",
+  },
 
   openGraph: {
     type: "website",
@@ -101,7 +107,9 @@ export const metadata: Metadata = {
   verification: {
     google: "G-XXXXXXXXXX", // Replace with actual Google Search Console verification key
   },
-}
+};
+
+import { ThemeProvider } from "@/components/theme-provider";
 
 /**
  * Root Layout Protocol
@@ -109,7 +117,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html
@@ -118,30 +126,37 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-background text-foreground selection:bg-primary/20 selection:text-primary relative flex min-h-screen flex-col font-sans antialiased">
-        {/* Navigation Loading Indicator */}
-        <NextTopLoader
-          color="hsl(var(--color-primary))"
-          showSpinner={false}
-          shadow="0 0 10px hsl(var(--color-primary) / 0.5)"
-        />
-
-        {/* Global Brand Identity (Schema.org) */}
-        <JsonLd />
-        <PdpaConsent />
-        <Toaster />
-
-        <Navbar />
-        <main className="flex-1 overflow-hidden">{children}</main>
-
-        {/* Footer Streaming Shell (PPR) */}
-        <Suspense
-          fallback={
-            <footer className="bg-background border-t border-white/5 py-8" />
-          }
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
         >
-          <Footer />
-        </Suspense>
+          {/* Navigation Loading Indicator */}
+          <NextTopLoader
+            color="oklch(var(--color-primary))"
+            showSpinner={false}
+            shadow="0 0 10px oklch(var(--color-primary) / 0.5)"
+          />
+
+          {/* Global Brand Identity (Schema.org) */}
+          <JsonLd />
+          <PdpaConsent />
+          <Toaster />
+
+          <Navbar />
+          <main className="flex-1 overflow-hidden">{children}</main>
+
+          {/* Footer Streaming Shell (PPR) */}
+          <Suspense
+            fallback={
+              <footer className="bg-background border-t border-white/5 py-8" />
+            }
+          >
+            <Footer />
+          </Suspense>
+        </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

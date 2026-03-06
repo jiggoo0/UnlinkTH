@@ -1,13 +1,13 @@
 /** @format */
 
-import { Metadata } from "next"
-import { siteConfig } from "@/constants/site-config"
+import { Metadata } from "next";
+import { siteConfig } from "@/constants/site-config";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
+} from "@/components/ui/accordion";
 import {
   HelpCircle,
   ShieldCheck,
@@ -15,10 +15,10 @@ import {
   Globe,
   Lock,
   MessageCircle,
-} from "lucide-react"
-import JsonLd from "@/components/seo/JsonLd"
-import { getFaqSchema, getBreadcrumbSchema } from "@/lib/seo-schemas"
-import ContactCTA from "@/components/sections/ContactCTA"
+} from "lucide-react";
+import JsonLd from "@/components/seo/JsonLd";
+import { getFaqSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
+import { SecureChannel } from "@/components/sections";
 
 /**
  * UNLINK-TH | Intelligence FAQ Interface (2026)
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/faq",
   },
-}
+};
 
 // ข้อมูลคำถามแบ่งตามหมวดหมู่ปฏิบัติการ
 const faqCategories = [
@@ -83,15 +83,15 @@ const faqCategories = [
       },
     ],
   },
-]
+];
 
 export default function FAQPage() {
-  const allFaqs = faqCategories.flatMap((cat) => cat.questions)
+  const allFaqs = faqCategories.flatMap((cat) => cat.questions);
 
   const breadcrumbs = [
     { name: "Home", item: "/" },
     { name: "FAQ", item: "/faq" },
-  ]
+  ];
 
   return (
     <div className="pb-20">
@@ -106,7 +106,7 @@ export default function FAQPage() {
               <span>เราพร้อมคลายทุกข้อสงสัยเพื่อความสบายใจของคุณ</span>
             </div>
             <h1 className="text-4xl font-bold tracking-tighter md:text-6xl">
-              ศูนย์ช่วยเหลือ <br />
+              ศูนย์ดูแล <br />
               <span className="text-primary font-light italic">
                 & ความเข้าใจ
               </span>
@@ -183,7 +183,7 @@ export default function FAQPage() {
       </section>
 
       {/* 3. Operational CTA */}
-      <ContactCTA />
+      <SecureChannel />
     </div>
-  )
+  );
 }

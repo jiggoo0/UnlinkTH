@@ -1,9 +1,9 @@
 /** @format */
 
-"use client"
+"use client";
 
-import { ShieldAlert, RotateCcw, Terminal } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ShieldAlert, RotateCcw, Terminal } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 /**
  * UNLINK-TH | Global System Recovery (Level 0)
@@ -15,8 +15,8 @@ export default function GlobalError({
   error,
   reset,
 }: {
-  error: Error & { digest?: string }
-  reset: () => void
+  error: Error & { digest?: string };
+  reset: () => void;
 }) {
   return (
     <html lang="th">
@@ -67,5 +67,5 @@ export default function GlobalError({
         </div>
       </body>
     </html>
-  )
+  );
 }

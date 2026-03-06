@@ -1,10 +1,11 @@
 /** @format */
 
-import Link from "next/link"
-import { siteConfig } from "@/constants/site-config"
-import { footerNav } from "@/constants/navigation"
-import { Shield, Mail, MessageCircle, Lock } from "lucide-react"
-import { connection } from "next/server"
+import Link from "next/link";
+import Image from "next/image";
+import { siteConfig } from "@/constants/site-config";
+import { footerNav } from "@/constants/navigation";
+import { Shield, Mail, MessageCircle, Lock } from "lucide-react";
+import { connection } from "next/server";
 
 /**
  * UNLINK-TH | Operational Footer Interface (2026)
@@ -14,8 +15,8 @@ import { connection } from "next/server"
  */
 
 export default async function Footer() {
-  await connection()
-  const currentYear = new Date().getFullYear()
+  await connection();
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-background border-t border-white/5 pt-20 pb-8">
@@ -25,11 +26,23 @@ export default async function Footer() {
           <div className="space-y-8 lg:col-span-2">
             <Link
               href="/"
-              className="group flex items-center gap-2 text-2xl font-bold tracking-tighter"
+              className="group flex items-center gap-3 text-2xl font-bold tracking-tighter"
             >
-              <Shield className="text-primary glow-emerald h-8 w-8 transition-transform group-hover:scale-110" />
+              <div className="relative h-10 w-10">
+                <Image
+                  src="/branding/logo.svg"
+                  alt="Unlink-Global Logo"
+                  fill
+                  className="glow-gold transition-transform group-hover:scale-110"
+                />
+              </div>
               <span className="font-mono uppercase">
-                UNLINK<span className="text-primary">-TH</span>
+                {siteConfig.name.split("-")[0]}
+                <span className="text-primary">
+                  {siteConfig.name.split("-")[1]
+                    ? `-${siteConfig.name.split("-")[1]}`
+                    : ""}
+                </span>
               </span>
             </Link>
             <p className="text-muted-foreground max-w-sm text-sm leading-relaxed font-light">
@@ -149,5 +162,5 @@ export default async function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

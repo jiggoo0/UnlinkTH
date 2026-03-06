@@ -1,12 +1,13 @@
 /** @format */
 
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { siteConfig } from "@/constants/site-config"
-import { Button } from "@/components/ui/button"
-import { ShieldCheck, ArrowRight, Activity, Lock } from "lucide-react"
-import Link from "next/link"
+import { motion } from "framer-motion";
+import { siteConfig } from "@/constants/site-config";
+
+import { Button } from "@/components/ui/button";
+import { ShieldCheck, ArrowRight, Activity, Lock } from "lucide-react";
+import Link from "next/link";
 
 /**
  * UNLINK-TH | Operational Hero Intelligence (2026)
@@ -48,9 +49,9 @@ export default function Hero() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-6xl leading-[0.9] font-bold tracking-tighter text-balance md:text-9xl"
             >
-              The Right to <br />
-              <span className="text-primary glow-emerald font-light italic">
-                Start Over
+              {siteConfig.hero.headlineLine1} <br />
+              <span className="text-primary glow-gold font-light italic">
+                {siteConfig.hero.headlineLine2}
               </span>
             </motion.h1>
 
@@ -60,13 +61,11 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-muted-foreground mx-auto max-w-3xl text-lg leading-relaxed font-light md:text-2xl"
             >
-              ความผิดพลาดในอดีตไม่ควรเป็นกำแพงขวางกั้นอนาคตของคุณ
-              ทวงคืนสิทธิความเป็นส่วนตัวและพื้นที่ชีวิตดิจิทัลที่ขาวสะอาด
-              เราพร้อมเคียงข้างในการ{" "}
-              <span className="text-foreground font-medium">
-                ลบร่องรอยที่ผิดพลาด
-              </span>{" "}
-              เพื่อคืนอำนาจให้คุณออกแบบตัวตนใหม่ที่น่าเชื่อถืออีกครั้ง
+              อำนาจในการจัดการตัวตนดิจิทัลควรอยู่ในมือคุณ
+              เราคือที่ปรึกษาในการ{" "}
+              <span className="text-foreground font-medium">จัดการประวัติเสีย</span>{" "}
+              ลบข้อมูลเชิงลบ
+              และกู้คืนสิทธิในการเริ่มต้นใหม่ให้คุณอย่างปลอดภัย
             </motion.p>
           </div>
 
@@ -79,11 +78,11 @@ export default function Hero() {
           >
             <Button
               size="lg"
-              className="shadow-primary/20 group h-18 w-full rounded-full px-12 text-xl shadow-2xl transition-all sm:w-auto"
+              className="shadow-primary/20 group h-18 w-full rounded-full px-12 text-xl shadow-2xl transition-all sm:w-auto bg-primary text-primary-foreground font-bold tracking-widest uppercase"
               asChild
             >
               <Link href={siteConfig.contact.lineUrl}>
-                รับคำปรึกษาปกปิดตัวตนฟรี
+                {siteConfig.hero.ctaPrimary.label}
                 <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1.5" />
               </Link>
             </Button>
@@ -94,7 +93,7 @@ export default function Hero() {
               className="border-primary/20 hover:bg-primary/5 h-18 w-full rounded-full px-12 text-xl backdrop-blur-md transition-all sm:w-auto"
               asChild
             >
-              <Link href="/case-studies">สำรวจบันทึกปฏิบัติการ</Link>
+              <Link href={siteConfig.hero.ctaSecondary.href}>{siteConfig.hero.ctaSecondary.label}</Link>
             </Button>
           </motion.div>
 
@@ -107,18 +106,18 @@ export default function Hero() {
           >
             {[
               {
-                label: "Operational Integrity",
-                value: "100% SUCCESS BASED",
+                label: "ความสำเร็จของงาน",
+                value: "98% SUCCESS RATE",
                 icon: ShieldCheck,
               },
               {
-                label: "Data Security Protocol",
-                value: "NDA ENFORCED",
+                label: "มาตรฐานความปลอดภัย",
+                value: "100% CONFIDENTIAL",
                 icon: Lock,
               },
               {
-                label: "Expert Liaison",
-                value: "DIRECT PRIORITY",
+                label: "การติดต่อเจ้าหน้าที่",
+                value: "DIRECT LINE",
                 icon: Activity,
               },
             ].map((stat, i) => (
@@ -143,5 +142,5 @@ export default function Hero() {
         </div>
       </div>
     </section>
-  )
+  );
 }

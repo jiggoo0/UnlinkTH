@@ -1,65 +1,36 @@
 {
   "compilerOptions": {
-    /* [1] Base Environment & Library */
-    "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "target": "ESNext",
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
-    "incremental": true,
-    "module": "esnext",
     "esModuleInterop": true,
+    "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
+    "incremental": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "plugins": [
       {
         "name": "next"
       }
     ],
-    /* [2] Path Aliases Configuration */
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
-    },
-    /* [3] Operational Rigidity (ความเข้มงวดระดับ Specialist Unit) */
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "strictPropertyInitialization": false, // ปรับเพื่อให้ยืดหยุ่นกับ Data Models ที่มีการ Init ภายหลัง
-    "noImplicitReturns": true, // บังคับให้ฟังก์ชันต้องมีการ return ค่าที่ชัดเจน
-    "noImplicitThis": true, // ป้องกันปัญหาเรื่องขอบเขตของ 'this'
-    /* [4] Metadata & Future Compatibility */
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    }
   },
-  /* [5] Inclusions: รองรับไฟล์เนื้อหา MDX และโครงสร้างระบบ Next.js 15 */
   "include": [
     "next-env.d.ts",
-    ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.md",
-    "**/*.mdx",
-    "lib/**/*.ts",
-    "constants/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "out/types/**/*.ts",
-    "out/dev/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
-  /* [6] Exclusions: ป้องกันการตรวจสอบไฟล์ที่ไม่จำเป็นเพื่อลดภาระการประมวลผล */
-  "exclude": [
-    "node_modules",
-    ".next",
-    "out",
-    "build",
-    "commands",
-    "skills",
-    ".gemini"
-  ]
+  "exclude": ["node_modules", ".next"]
 }

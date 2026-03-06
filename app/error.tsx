@@ -1,11 +1,11 @@
 /** @format */
 
-"use client"
+"use client";
 
-import * as React from "react"
-import { ShieldAlert, RotateCcw, Home, Terminal } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import * as React from "react";
+import { ShieldAlert, RotateCcw, Home, Terminal } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 /**
  * UNLINK-TH | Global Protocol Failure
@@ -16,19 +16,19 @@ export default function Error({
   error,
   reset,
 }: {
-  error: Error & { digest?: string }
-  reset: () => void
+  error: Error & { digest?: string };
+  reset: () => void;
 }) {
   React.useEffect(() => {
     // รายงานข้อผิดพลาดเข้าสู่ระบบ Audit Log
-    console.error("Critical System Breach Detected:", error)
-  }, [error])
+    console.error("Critical System Breach Detected:", error);
+  }, [error]);
 
   return (
     <div className="container flex min-h-[80vh] flex-col items-center justify-center space-y-12 py-32 text-center">
       {/* Visual Error Signal */}
       <div className="bg-destructive/10 border-destructive/20 relative flex aspect-square h-40 w-40 items-center justify-center rounded-[3rem] border">
-        <ShieldAlert className="text-destructive glow-emerald h-20 w-20" />
+        <ShieldAlert className="text-destructive glow-gold h-20 w-20" />
         <div className="from-destructive/30 absolute -inset-2 animate-pulse rounded-[3.5rem] bg-gradient-to-tr to-transparent opacity-30 blur-xl" />
       </div>
 
@@ -84,5 +84,5 @@ export default function Error({
         Managed & Secured by UNLINK-TH Incident Response Unit
       </p>
     </div>
-  )
+  );
 }

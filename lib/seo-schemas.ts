@@ -1,13 +1,12 @@
 /** @format */
 
-import { siteConfig } from "@/constants/site-config"
-import { BlogPost, Service } from "@/types"
+import { siteConfig } from "@/constants/site-config";
+import { BlogPost, Service } from "@/types";
 
 /**
- * UNLINK-TH | SEO Schema Library
+ * UNLINK-GLOBAL | SEO Schema Library
  * -------------------------------------------------------------------------
  * รวบรวมฟังก์ชันสำหรับสร้าง JSON-LD Structured Data
- * แยกออกมาจาก Component เพื่อให้เรียกใช้ได้ทั้งใน Server และ Client
  */
 
 export const getBrandIdentitySchema = () => {
@@ -27,7 +26,7 @@ export const getBrandIdentitySchema = () => {
     description: siteConfig.description,
     founder: {
       "@type": "Person",
-      name: `${siteConfig.founder.nameTh} (นายเอ็มซ่ามากส์)`,
+      name: `${siteConfig.founder.nameTh}`,
       alternateName: siteConfig.founder.name,
       jobTitle: siteConfig.founder.role,
       url: siteConfig.founder.url,
@@ -42,19 +41,20 @@ export const getBrandIdentitySchema = () => {
     },
     knowsAbout: [
       "Digital Reputation Management",
-      "Online Privacy",
-      "PDPA Thailand",
-      "Right to be Forgotten",
-      "Cybersecurity",
+      "Financial Credit Engineering",
+      "Global Mobility Strategy",
+      "PDPA Compliance",
+      "Online Privacy Protection",
     ],
     sameAs: [
       siteConfig.links.facebook,
       siteConfig.links.twitter,
       siteConfig.links.line,
     ],
-  }
+  };
 
   const webSite = {
+    "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${siteConfig.url}/#website`,
     url: siteConfig.url,
@@ -63,27 +63,26 @@ export const getBrandIdentitySchema = () => {
     publisher: { "@id": `${siteConfig.url}/#organization` },
     creator: {
       "@type": "Person",
-      "@id": "https://me.aemdevweb.com/#person",
-      name: `อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)`,
+      "@id": `${siteConfig.founder.url}/#person`,
+      name: siteConfig.founder.nameTh,
       url: siteConfig.founder.url,
-      jobTitle: "Technical Data Architect & Reputation Specialist",
+      jobTitle: siteConfig.founder.role,
       sameAs: siteConfig.founder.sameAs,
     },
     maintainer: {
       "@type": "Organization",
       "@id": "https://www.aemdevweb.com/#organization",
-      name: "AemDevWeb Studio",
+      name: "AemDevWeb - Systems Architecture",
       url: "https://www.aemdevweb.com",
-      logo: "https://www.aemdevweb.com/logo.png",
     },
     copyrightHolder: { "@id": `${siteConfig.url}/#organization` },
-  }
+  };
 
-  return [organization, webSite]
-}
+  return [organization, webSite];
+};
 
 export const getBreadcrumbSchema = (
-  items: { name: string; item: string }[]
+  items: { name: string; item: string }[],
 ) => {
   return {
     "@context": "https://schema.org",
@@ -92,10 +91,12 @@ export const getBreadcrumbSchema = (
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `${siteConfig.url}${item.item}`,
+      item: item.item.startsWith("http")
+        ? item.item
+        : `${siteConfig.url}${item.item}`,
     })),
-  }
-}
+  };
+};
 
 export const getBlogSchema = (post: BlogPost) => {
   return {
@@ -103,13 +104,12 @@ export const getBlogSchema = (post: BlogPost) => {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
-    image: `${siteConfig.url}${post.thumbnail || siteConfig.ogImage}`,
+    image: `${siteConfig.url}${post.thumbnail || siteConfig.image || siteConfig.ogImage}`,
     datePublished: post.date,
     dateModified: post.date,
     author: {
       "@type": "Person",
-      "@id": "https://me.aemdevweb.com/#person",
-      name: "อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)",
+      name: siteConfig.founder.nameTh,
       url: siteConfig.founder.url,
     },
     publisher: {
@@ -119,37 +119,37 @@ export const getBlogSchema = (post: BlogPost) => {
       "@type": "WebPage",
       "@id": `${siteConfig.url}/blog/${post.slug}`,
     },
-  }
-}
+  };
+};
 
 export const getCaseStudySchema = (study: {
-  slug: string
+  slug: string;
   frontmatter: {
-    title: string
-    thumbnail?: string
-    excerpt?: string
-    description?: string
-    date: string
-  }
+    title: string;
+    thumbnail?: string;
+    image?: string;
+    excerpt?: string;
+    description?: string;
+    date: string;
+  };
 }) => {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: study.frontmatter.title,
     description: study.frontmatter.excerpt || study.frontmatter.description,
-    image: `${siteConfig.url}${study.frontmatter.thumbnail || siteConfig.ogImage}`,
+    image: `${siteConfig.url}${study.frontmatter.thumbnail || study.frontmatter.image || siteConfig.ogImage}`,
     datePublished: study.frontmatter.date,
     author: {
       "@type": "Person",
-      "@id": "https://me.aemdevweb.com/#person",
-      name: "อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)",
+      name: siteConfig.founder.nameTh,
       url: siteConfig.founder.url,
     },
     publisher: {
       "@id": `${siteConfig.url}/#organization`,
     },
-  }
-}
+  };
+};
 
 export const getServiceSchema = (service: Service) => {
   return {
@@ -164,9 +164,15 @@ export const getServiceSchema = (service: Service) => {
       "@type": "Country",
       name: "Thailand",
     },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "THB",
+      price: service.priceInfo?.startingAt?.replace(/[^0-9]/g, "") || "0",
+      availability: "https://schema.org/InStock",
+    },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Reputation Management Services",
+      name: "International Identity & Data Architecture Services",
       itemListElement: [
         {
           "@type": "Offer",
@@ -177,8 +183,8 @@ export const getServiceSchema = (service: Service) => {
         },
       ],
     },
-  }
-}
+  };
+};
 
 export const getFaqSchema = (faqs: { q: string; a: string }[]) => {
   return {
@@ -192,5 +198,5 @@ export const getFaqSchema = (faqs: { q: string; a: string }[]) => {
         text: faq.a,
       },
     })),
-  }
-}
+  };
+};

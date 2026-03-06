@@ -1,9 +1,9 @@
 /** @format */
 
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Search, ShieldAlert, Hammer, Eye } from "lucide-react"
+import { motion } from "framer-motion";
+import { Search, ShieldAlert, Hammer, Eye } from "lucide-react";
 
 /**
  * UNLINK-TH | Operational Protocol Stepper (2026)
@@ -41,7 +41,7 @@ const protocols = [
     icon: Eye,
     color: "text-purple-500/80",
   },
-]
+];
 
 export default function ProtocolStepper() {
   return (
@@ -82,5 +82,5 @@ export default function ProtocolStepper() {
         </motion.div>
       ))}
     </div>
-  )
+  );
 }

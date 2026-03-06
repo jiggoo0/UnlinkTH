@@ -1,8 +1,8 @@
 /** @format */
 
-import Link from "next/link"
-import { ShieldAlert, ArrowLeft, Terminal } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { ShieldAlert, ArrowLeft, Terminal } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 /**
  * UNLINK-TH | Data Loss / Protocol 404
@@ -13,7 +13,7 @@ export default function NotFound() {
   return (
     <div className="container flex min-h-[80vh] flex-col items-center justify-center space-y-12 py-32 text-center">
       <div className="bg-primary/5 border-primary/20 relative flex aspect-square h-40 w-40 items-center justify-center rounded-[3rem] border">
-        <ShieldAlert className="text-primary glow-emerald h-20 w-20" />
+        <ShieldAlert className="text-primary glow-gold h-20 w-20" />
         <div className="from-primary/20 absolute -inset-2 animate-pulse rounded-[3.5rem] bg-gradient-to-tr to-transparent opacity-20 blur-xl" />
       </div>
 
@@ -59,5 +59,5 @@ export default function NotFound() {
         Managed & Secured by UNLINK-TH Security Unit
       </p>
     </div>
-  )
+  );
 }

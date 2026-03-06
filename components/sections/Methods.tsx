@@ -1,42 +1,43 @@
 /** @format */
 
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Cpu, Globe, Scale, ArrowRight, ShieldCheck } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { motion } from "framer-motion";
+import { Cpu, Globe, Scale, ArrowRight, ShieldCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { siteConfig } from "@/constants/site-config";
 
 /**
- * UNLINK-TH | Core Methodologies Protocol (2026)
+ * UNLINK-GLOBAL | Core Methodologies Protocol (2026)
  * -------------------------------------------------------------------------
  * รวบรวมยุทธวิธีหลักในการจัดการชื่อเสียงออนไลน์เชิงเทคนิค
- * เน้นความสะอาดของโครงสร้างและการนำเสนอข้อมูลแบบ Operational Logic
+ * เน้นความสะอาดของโครงสร้างและการนำเสนอข้อมูลที่คนไทยเข้าใจง่าย
  */
 
 const methods = [
   {
-    title: "Technical De-indexing",
-    subtitle: "Data Cleansing Protocol",
+    title: "การลบข้อมูลถาวร",
+    subtitle: "Infrastructure Neutralization",
     description:
-      "กระบวนการถอนรากถอนโคนข้อมูลออกจากระบบการค้นหาและฐานข้อมูลสำรอง (Cache) ผ่านกลไกการสื่อสารระดับเทคนิคและมาตรฐานนโยบายความปลอดภัยสากล",
+      "ปฏิบัติการถอดถอนข้อมูลและประวัติการค้นหาออกจากฐานข้อมูลออนไลน์อย่างถาวร ผ่านกระบวนการแทรกแซงทางเทคนิคและมาตรการความปลอดภัยระดับสูง",
     icon: Cpu,
   },
   {
-    title: "Reputation Shielding",
-    subtitle: "Authority Domination",
+    title: "การสร้างตัวตนใหม่",
+    subtitle: "Identity Reconstruction",
     description:
-      "ยุทธศาสตร์การปรับปรุงโครงสร้างตัวตนดิจิทัลใหม่ (SEO Architect) เพื่อสร้างเกราะป้องกันข้อมูลเชิงลบ และยึดครองพื้นที่แสดงผลหน้าแรกอย่างยั่งยืน",
+      "การจัดวางสถาปัตยกรรมตัวตนใหม่เพื่อยึดครองพื้นที่แสดงผลหน้าแรก (SEO) พร้อมสร้างเกราะป้องกันข้อมูลเชิงลบด้วยโครงสร้างข้อมูลที่ถูกต้อง",
     icon: Globe,
   },
   {
-    title: "Legal Enforcement",
-    subtitle: "PDPA/GDPR Compliance",
+    title: "การบังคับใช้สิทธิ์ทางกฎหมาย",
+    subtitle: "PDPA Strategic Liaison",
     description:
-      "ปฏิบัติการผ่านสิทธิอันชอบธรรมในการถูกลืม (Right to be Forgotten) โดยอ้างอิง PDPA มาตรา 34/35 เพื่อบังคับใช้การระงับและลบข้อมูลที่ละเมิดสิทธิส่วนบุคคล",
+      "การใช้สิทธิอันชอบธรรมตามกฎหมาย PDPA (Right to Erasure) เพื่อสั่งระงับและทำลายชุดข้อมูลที่ละเมิดสิทธิเสรีภาพในโลกดิจิทัลของคุณ",
     icon: Scale,
   },
-]
+];
 
 export default function Methods() {
   return (
@@ -51,13 +52,13 @@ export default function Methods() {
         >
           <div className="text-primary flex items-center gap-2 font-mono text-[10px] tracking-[0.3em] uppercase">
             <ShieldCheck className="h-4 w-4" />
-            <span>Operational Methodologies</span>
+            <span>กระบวนการทำงานระดับวิศวกรรม</span>
           </div>
           <h2 className="text-4xl leading-[1.1] font-bold tracking-tighter md:text-6xl">
-            Strategic{" "}
-            <span className="text-primary font-light italic">Reputation</span>{" "}
+            ยุทธศาสตร์การจัดการ{" "}
+            <span className="text-primary font-light italic">ชื่อเสียง</span>{" "}
             <br />
-            Management
+            ในโลกดิจิทัล
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed font-light md:text-xl">
             ผสมผสานกระบวนการจัดการข้อมูลร่วมกับยุทธศาสตร์กฎหมายดิจิทัล
@@ -76,8 +77,8 @@ export default function Methods() {
             className="border-primary/20 bg-primary/5 hover:bg-primary/10 rounded-full px-8 transition-all"
             asChild
           >
-            <Link href="/services" className="flex items-center gap-2">
-              Access Technical Specs <ArrowRight className="h-4 w-4" />
+            <Link href={siteConfig.contact.lineUrl} className="flex items-center gap-2">
+              ปรึกษาทีม Specialist <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
         </motion.div>
@@ -96,7 +97,7 @@ export default function Methods() {
           >
             <div className="space-y-6">
               <div className="bg-primary/5 border-primary/10 group-hover:bg-primary/20 flex h-14 w-14 items-center justify-center rounded-2xl border transition-all duration-500 group-hover:scale-110">
-                <method.icon className="text-primary glow-emerald h-7 w-7" />
+                <method.icon className="text-primary glow-gold h-7 w-7" />
               </div>
 
               <div className="space-y-2">
@@ -121,5 +122,5 @@ export default function Methods() {
         ))}
       </div>
     </section>
-  )
+  );
 }

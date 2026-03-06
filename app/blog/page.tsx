@@ -1,11 +1,11 @@
 /** @format */
 
-import { Metadata } from "next"
-import { getAllBlogPosts } from "@/lib/blog"
-import Link from "next/link"
-import { BookOpen, Calendar, ChevronRight } from "lucide-react"
-import JsonLd from "@/components/seo/JsonLd"
-import { getBreadcrumbSchema } from "@/lib/seo-schemas"
+import { Metadata } from "next";
+import { getAllBlogPosts } from "@/lib/blog";
+import Link from "next/link";
+import { BookOpen, Calendar, ChevronRight } from "lucide-react";
+import JsonLd from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 export const metadata: Metadata = {
   title: "คู่มือรับมือดราม่า และความรู้ด้าน Digital Reputation | UNLINK-TH",
@@ -14,15 +14,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/blog",
   },
-}
+};
 
 export default async function BlogPage() {
-  const posts = await getAllBlogPosts()
+  const posts = await getAllBlogPosts();
 
   const breadcrumbs = [
     { name: "Home", item: "/" },
     { name: "Blog", item: "/blog" },
-  ]
+  ];
 
   return (
     <div className="pb-24">
@@ -57,7 +57,14 @@ export default async function BlogPage() {
               className="lab-card group border-border/40 bg-muted/5 flex flex-col overflow-hidden transition-all"
             >
               <div className="bg-muted/20 relative aspect-video overflow-hidden">
-                <div className="bg-primary/10 absolute inset-0 flex items-center justify-center font-mono text-[10px] tracking-widest uppercase opacity-20 transition-opacity group-hover:opacity-40">
+                {post.image && (
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="absolute inset-0 h-full w-full object-cover opacity-60 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
+                  />
+                )}
+                <div className="bg-primary/10 absolute inset-0 flex items-center justify-center font-mono text-[10px] tracking-widest uppercase opacity-20 transition-opacity group-hover:opacity-0">
                   Data Stream Active
                 </div>
               </div>
@@ -86,5 +93,5 @@ export default async function BlogPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }

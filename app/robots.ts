@@ -1,7 +1,7 @@
-import { MetadataRoute } from "next"
-import { siteConfig } from "@/constants/site-config"
+import { MetadataRoute } from "next";
+import { siteConfig } from "@/constants/site-config";
 
-export const dynamic = "force-static"
+export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -14,5 +14,5 @@ export default function robots(): MetadataRoute.Robots {
     ],
     sitemap: `${siteConfig.url}/sitemap.xml`,
     host: siteConfig.url,
-  }
+  };
 }

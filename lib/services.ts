@@ -1,41 +1,55 @@
 /** @format */
 
-import { servicesData } from "@/constants/services-data"
-import { Service, ServiceMetadata } from "@/types"
-import { readMDXFile } from "./mdx"
+import { Service } from "@/types";
+import { getAllPosts, getPostBySlug, ServiceFrontmatter } from "./mdx";
+
+/**
+ * Helper to map frontmatter to Service type
+ */
+function mapFrontmatterToService(fm: ServiceFrontmatter): Service {
+  return {
+    id: fm.id || fm.slug,
+    slug: fm.slug,
+    title: fm.title,
+    shortDescription: fm.shortDescription || fm.description,
+    description: fm.description, // Initial description from frontmatter
+    iconName: fm.iconName || "Activity",
+    image: fm.image || fm.imageUrl || "/images/services/default.webp",
+    category: fm.category,
+    features: fm.features || [],
+    priceInfo: fm.priceInfo || {
+      startingAt: "0",
+      unit: "ครั้ง",
+      model: "Contact for Pricing",
+    },
+    metadata: fm.metadata || {
+      defaultTitle: fm.title,
+      defaultDescription: fm.description,
+      keywords: [],
+    },
+  };
+}
 
 /**
  * ดึงข้อมูล Protocol ทั้งหมด
  */
 export async function getAllServices(): Promise<Service[]> {
-  return servicesData
+  const posts = await getAllPosts<ServiceFrontmatter>("services");
+  return posts.map(mapFrontmatterToService);
 }
 
 /**
  * ดึงข้อมูลบริการเชิงลึก
  */
 export async function getServiceBySlug(slug: string) {
-  const baseInfo = servicesData.find((s) => s.slug === slug)
-  if (!baseInfo) return null
+  const result = await getPostBySlug<ServiceFrontmatter>("services", slug);
+  if (!result) return null;
 
-  const item = readMDXFile<{ metadata?: ServiceMetadata }>("services", slug)
-
-  if (!item) {
-    return {
-      ...baseInfo,
-      content: "",
-    }
-  }
-
-  const { frontmatter, content } = item
+  const { data: frontmatter, content } = result;
+  const service = mapFrontmatterToService(frontmatter);
 
   return {
-    ...baseInfo,
-    ...frontmatter,
-    description: content,
-    metadata: {
-      ...baseInfo.metadata,
-      ...(frontmatter.metadata || {}),
-    },
-  }
+    ...service,
+    description: content, // Override with full MDX content for the page
+  };
 }

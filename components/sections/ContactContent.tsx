@@ -1,9 +1,9 @@
 /** @format */
 
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { siteConfig } from "@/constants/site-config"
+import { motion } from "framer-motion";
+import { siteConfig } from "@/constants/site-config";
 import {
   MessageCircle,
   Mail,
@@ -14,8 +14,8 @@ import {
   ArrowRight,
   ShieldAlert,
   Zap,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 /**
  * UNLINK-TH | Secure Liaison Interface
@@ -29,7 +29,7 @@ export default function ContactContent() {
     <div className="pb-24">
       {/* 1. Protocol Header Interface */}
       <header className="bg-muted/10 border-border/50 relative overflow-hidden border-b py-24">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.03),transparent)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary),transparent)] opacity-5" />
         <div className="relative z-10 container">
           <div className="max-w-4xl space-y-8">
             <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-3 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
@@ -73,28 +73,10 @@ export default function ContactContent() {
                   </div>
                   <div>
                     <p className="text-muted-foreground mb-1 font-mono text-[10px] tracking-widest uppercase">
-                      LINE Official (Primary)
+                      LINE Official (ช่องทางหลัก)
                     </p>
                     <p className="group-hover:text-primary text-xl font-bold tracking-tight transition-colors">
                       {siteConfig.contact.lineId}
-                    </p>
-                  </div>
-                </a>
-
-                {/* Encrypted Email Channel */}
-                <a
-                  href={`mailto:${siteConfig.contact.email}`}
-                  className="lab-card group hover:bg-muted/5 border-border/40 flex items-center gap-8 p-8 transition-all"
-                >
-                  <div className="bg-primary/5 group-hover:bg-primary/10 flex h-14 w-14 items-center justify-center rounded-2xl transition-colors">
-                    <Mail className="text-primary/70 h-7 w-7" />
-                  </div>
-                  <div>
-                    <p className="text-muted-foreground mb-1 font-mono text-[10px] tracking-widest uppercase">
-                      Secure Mail Interface
-                    </p>
-                    <p className="group-hover:text-primary text-xl font-bold tracking-tight transition-colors">
-                      {siteConfig.contact.email}
                     </p>
                   </div>
                 </a>
@@ -110,7 +92,7 @@ export default function ContactContent() {
                 </h3>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed font-light">
-                เพื่อป้องกันการรั่วไหลของข้อมูล (Data Breach) UNLINK-TH มีนโยบาย
+                เพื่อป้องกันการรั่วไหลของข้อมูล (Data Breach) UNLINK-GLOBAL มีนโยบาย
                 **Zero-Server Logs** โดยข้อมูลการปรึกษาทั้งหมดจะถูกจัดการผ่าน
                 End-to-End Encryption ของแอปพลิเคชัน LINE เท่านั้น
               </p>
@@ -192,5 +174,5 @@ export default function ContactContent() {
         </div>
       </section>
     </div>
-  )
+  );
 }

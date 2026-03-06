@@ -1,33 +1,33 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { ShieldCheck } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { ShieldCheck } from "lucide-react";
 
 /**
  * PDPA Consent Protocol (UnlinkTH Standard)
  * บังคับใช้ตามกฎหมายคุ้มครองข้อมูลส่วนบุคคล มาตรฐานปี 2026
  */
 export default function PdpaConsent() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [mounted, setMounted] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-    const consent = localStorage.getItem("unlink-pdpa-consent")
+    setMounted(true);
+    const consent = localStorage.getItem("unlink-pdpa-consent");
     if (!consent) {
-      const timer = setTimeout(() => setIsVisible(true), 1500)
-      return () => clearTimeout(timer)
+      const timer = setTimeout(() => setIsVisible(true), 1500);
+      return () => clearTimeout(timer);
     }
-    return undefined
-  }, [])
+    return undefined;
+  }, []);
 
   const handleAccept = () => {
-    localStorage.setItem("unlink-pdpa-consent", "accepted")
-    setIsVisible(false)
-  }
+    localStorage.setItem("unlink-pdpa-consent", "accepted");
+    setIsVisible(false);
+  };
 
-  if (!mounted || !isVisible) return null
+  if (!mounted || !isVisible) return null;
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-10 fixed bottom-6 left-1/2 z-50 w-[90%] max-w-2xl -translate-x-1/2 duration-500">
@@ -61,5 +61,5 @@ export default function PdpaConsent() {
         </div>
       </div>
     </div>
-  )
+  );
 }

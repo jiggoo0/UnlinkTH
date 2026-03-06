@@ -1,9 +1,9 @@
 /** @format */
 
-import { Metadata } from "next"
-import { getAllCaseStudies } from "@/lib/case-studies"
-import CaseStudyCard from "@/components/shared/CaseStudyCard"
-import { ShieldCheck, FileSearch } from "lucide-react"
+import { Metadata } from "next";
+import { getAllCaseStudies } from "@/lib/case-studies";
+import CaseStudyCard from "@/components/shared/CaseStudyCard";
+import { ShieldCheck, FileSearch } from "lucide-react";
 
 /**
  * UNLINK-TH | Evidence & Operational Portfolio (2026)
@@ -16,11 +16,11 @@ export const metadata: Metadata = {
   title: "Evidence Portfolio | UNLINK-TH Reputation Management",
   description:
     "รวบรวมบันทึกปฏิบัติการจัดการชื่อเสียงออนไลน์ การถอดถอนข้อมูลเชิงลบ และการสร้างเกราะป้องกันภาพลักษณ์ที่ประสบความสำเร็จ",
-}
+};
 
 export default async function CaseStudiesPage() {
   // ดึงบันทึกปฏิบัติการทั้งหมดจากระบบบริหารจัดการเนื้อหา (MDX Store)
-  const allCases = await getAllCaseStudies()
+  const allCases = await getAllCaseStudies();
 
   return (
     <div className="container py-24">
@@ -70,5 +70,5 @@ export default async function CaseStudiesPage() {
         </button>
       </div>
     </div>
-  )
+  );
 }

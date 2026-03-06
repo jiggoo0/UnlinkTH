@@ -1,24 +1,24 @@
 /** @format */
 
-"use client"
+"use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import { motion } from "framer-motion"
-import { Badge } from "@/components/ui/badge"
-import { ArrowUpRight, ImageOff, ShieldCheck } from "lucide-react"
-import { cn } from "@/lib/utils"
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
+import { ArrowUpRight, ImageOff, ShieldCheck } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface CaseStudyCardProps {
   study: {
-    slug: string
-    title: string
-    category: string
-    thumbnail: string
-    excerpt: string
-    date?: string
-  }
-  className?: string
+    slug: string;
+    title: string;
+    category: string;
+    thumbnail: string;
+    excerpt: string;
+    date?: string;
+  };
+  className?: string;
 }
 
 /**
@@ -28,7 +28,7 @@ interface CaseStudyCardProps {
  * ออกแบบเพื่อสะท้อนถึงผลลัพธ์เชิงประจักษ์ (Verified Outcomes)
  */
 
-const FALLBACK_IMAGE = "/images/unlink-th.webp"
+const FALLBACK_IMAGE = "/images/unlink-th.webp";
 
 export default function CaseStudyCard({
   study,
@@ -38,7 +38,7 @@ export default function CaseStudyCard({
   const imageSrc =
     study.thumbnail && study.thumbnail.trim() !== ""
       ? study.thumbnail
-      : FALLBACK_IMAGE
+      : FALLBACK_IMAGE;
 
   return (
     <motion.div
@@ -118,5 +118,5 @@ export default function CaseStudyCard({
         </div>
       </Link>
     </motion.div>
-  )
+  );
 }

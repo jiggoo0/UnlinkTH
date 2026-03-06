@@ -1,58 +1,158 @@
-/** @format */
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 
-import fs from "fs"
-import path from "path"
-import matter from "gray-matter"
+const contentDir = path.join(process.cwd(), "content");
 
 /**
- * UNLINK-TH | Central MDX Processing Engine
- * -------------------------------------------------------------------------
- * หัวใจหลักในการจัดการข้อมูลเนื้อหาแบบ Static
- * รองรับการทำ Audit, Validation และ Parsing อย่างเป็นระบบ
+ * @TYPE_SYSTEM: Discriminated Unions for Industrial Grade Content
  */
+export type ContentCategory = "blog" | "case-studies" | "services";
 
-interface MDXData<T> {
-  slug: string
-  frontmatter: T
-  content: string
+export interface BaseFrontmatter {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  author: string;
+  image?: string;
+  thumbnail?: string;
+  imageUrl?: string;
 }
 
-const CONTENT_ROOT = path.join(process.cwd(), "content")
-
-function getMDXFiles(dir: string) {
-  const fullDir = path.join(CONTENT_ROOT, dir)
-  if (!fs.existsSync(fullDir)) return []
-  return fs.readdirSync(fullDir).filter((file) => file.endsWith(".mdx"))
+export interface BlogFrontmatter extends BaseFrontmatter {
+  category: string;
 }
 
-export function readMDXFile<T>(dir: string, slug: string): MDXData<T> | null {
-  try {
-    const fullPath = path.join(CONTENT_ROOT, dir, `${slug}.mdx`)
-    if (!fs.existsSync(fullPath)) return null
+export interface CaseStudyFrontmatter extends BaseFrontmatter {
+  category: string;
+  client: string;
+  outcome: string;
+  excerpt?: string;
+}
 
-    const fileContents = fs.readFileSync(fullPath, "utf8")
-    const { data, content } = matter(fileContents)
+export interface ServiceFrontmatter extends BaseFrontmatter {
+  id: string;
+  category: string;
+  tagline?: string;
+  iconName?: string;
+  shortDescription?: string;
+  features?: string[];
+  priceInfo?: {
+    startingAt: string;
+    unit: string;
+    model: string;
+  };
+  metadata?: {
+    defaultTitle: string;
+    defaultDescription: string;
+    keywords: string[];
+  };
+  feeEstimate?: string;
+  timeline?: string;
+  protocol?: Array<{ title: string; description: string }>;
+}
 
-    return {
-      slug,
-      frontmatter: data as T,
-      content,
+export type PostFrontmatter =
+  | BlogFrontmatter
+  | CaseStudyFrontmatter
+  | ServiceFrontmatter;
+
+export interface PostResult<T extends PostFrontmatter> {
+  data: T;
+  content: string;
+  slug: string;
+}
+
+/**
+ * ค้นหาไฟล์ .mdx แบบ Recursive
+ */
+function findFileRecursive(dir: string, slug: string): string | null {
+  const entries = fs.readdirSync(dir);
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry);
+    const stat = fs.statSync(fullPath);
+    if (stat.isDirectory()) {
+      const found = findFileRecursive(fullPath, slug);
+      if (found) return found;
+    } else if (entry === `${slug}.mdx`) {
+      return fullPath;
     }
-  } catch (error) {
-    console.error(
-      `Audit Error: Failed to read MDX file [${dir}/${slug}]`,
-      error
-    )
-    return null
   }
+  return null;
 }
 
-export function getAllMDXData<T>(dir: string): MDXData<T>[] {
-  const files = getMDXFiles(dir)
-  return files
-    .map((file) => {
-      const slug = file.replace(".mdx", "")
-      return readMDXFile<T>(dir, slug)
-    })
-    .filter((data): data is MDXData<T> => data !== null)
+export async function getPostBySlug<T extends PostFrontmatter>(
+  category: ContentCategory,
+  slug: string,
+): Promise<PostResult<T> | null> {
+  const categoryPath = path.join(contentDir, category);
+  if (!fs.existsSync(categoryPath)) return null;
+
+  const fullPath = findFileRecursive(categoryPath, slug);
+  if (!fullPath) return null;
+
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const { data, content } = matter(fileContents);
+
+  const postData = {
+    ...data,
+    slug,
+    title: data.title || "Untitled",
+    description: data.description || "",
+    date: data.date || new Date().toISOString(),
+    author: data.author || "Strategic Operative",
+    image:
+      data.image ||
+      data.thumbnail ||
+      data.imageUrl ||
+      "/images/blog/digital-ghost.webp",
+  } as T;
+
+  return { data: postData, content, slug };
+}
+
+export async function getAllPosts<T extends PostFrontmatter>(
+  category: ContentCategory,
+): Promise<T[]> {
+  const categoryPath = path.join(contentDir, category);
+  if (!fs.existsSync(categoryPath) || !fs.statSync(categoryPath).isDirectory())
+    return [];
+
+  const posts: T[] = [];
+
+  function scanDir(dir: string) {
+    const entries = fs.readdirSync(dir);
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry);
+      const stat = fs.statSync(fullPath);
+
+      if (stat.isDirectory()) {
+        scanDir(fullPath);
+      } else if (entry.endsWith(".mdx")) {
+        const fileContents = fs.readFileSync(fullPath, "utf8");
+        const { data } = matter(fileContents);
+        const slug = entry.replace(".mdx", "");
+        posts.push({
+          ...data,
+          slug,
+          title: data.title || "Untitled",
+          description: data.description || "",
+          date: data.date || new Date().toISOString(),
+          author: data.author || "Strategic Operative",
+          image:
+            data.image ||
+            data.thumbnail ||
+            data.imageUrl ||
+            "/images/blog/digital-ghost.webp",
+        } as T);
+      }
+    }
+  }
+
+  scanDir(categoryPath);
+
+  return posts.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
 }

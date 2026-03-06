@@ -1,18 +1,18 @@
 /** @format */
 
-import { notFound } from "next/navigation"
-import { Metadata } from "next"
-import { getServiceBySlug, getAllServices } from "@/lib/services"
-import { MDXRemote } from "next-mdx-remote/rsc"
-import { useMDXComponents } from "@/mdx-components"
-import { Badge } from "@/components/ui/badge"
-import { ShieldCheck, Lock, ArrowRight, Terminal } from "lucide-react"
-import ContactCTA from "@/components/sections/ContactCTA"
-import JsonLd from "@/components/seo/JsonLd"
-import { getServiceSchema, getBreadcrumbSchema } from "@/lib/seo-schemas"
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import { getServiceBySlug, getAllServices } from "@/lib/services";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { useMDXComponents } from "@/mdx-components";
+import { Badge } from "@/components/ui/badge";
+import { ShieldCheck, Lock, ArrowRight, Terminal } from "lucide-react";
+import { SecureChannel } from "@/components/sections";
+import JsonLd from "@/components/seo/JsonLd";
+import { getServiceSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 interface ServicePageProps {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }
 
 /**
@@ -22,10 +22,10 @@ interface ServicePageProps {
 export async function generateMetadata({
   params,
 }: ServicePageProps): Promise<Metadata> {
-  const { slug } = await params
-  const service = await getServiceBySlug(slug)
+  const { slug } = await params;
+  const service = await getServiceBySlug(slug);
 
-  if (!service || !service.metadata) return { title: "Protocol Not Found" }
+  if (!service || !service.metadata) return { title: "Protocol Not Found" };
 
   return {
     title: service.metadata.defaultTitle ?? service.title,
@@ -35,7 +35,7 @@ export async function generateMetadata({
     alternates: {
       canonical: `/services/${slug}/`,
     },
-  }
+  };
 }
 
 /**
@@ -43,29 +43,63 @@ export async function generateMetadata({
  * เพิ่มประสิทธิภาพการโหลดข้อมูลด้วยการสร้างหน้าแบบ Static ล่วงหน้า
  */
 export async function generateStaticParams() {
-  const services = await getAllServices()
+  const services = await getAllServices();
   return services.map((service) => ({
     slug: service.slug,
-  }))
+  }));
 }
 
-export default async function SingleServicePage({ params }: ServicePageProps) {
-  const { slug } = await params
-  const service = await getServiceBySlug(slug)
-  const mdxComponents = useMDXComponents({})
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import Link from "next/link";
 
-  if (!service) notFound()
+export default async function SingleServicePage({ params }: ServicePageProps) {
+  const { slug } = await params;
+  const service = await getServiceBySlug(slug);
+  const mdxComponents = useMDXComponents({});
+
+  if (!service) notFound();
 
   const breadcrumbs = [
     { name: "Home", item: "/" },
     { name: "Services", item: "/services" },
     { name: service.title, item: `/services/${service.slug}` },
-  ]
+  ];
 
   return (
     <article className="pb-24">
       <JsonLd data={getServiceSchema(service)} />
       <JsonLd data={getBreadcrumbSchema(breadcrumbs)} />
+
+      {/* 0. Breadcrumb Navigation */}
+      <div className="container pt-8">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/">Home</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/services">Services</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{service.title}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+
       {/* 1. Protocol Intelligence Header */}
       <header className="border-border/50 bg-muted/10 relative mb-20 overflow-hidden border-b py-24">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,rgba(16,185,129,0.05),transparent)]" />
@@ -179,8 +213,8 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
       </div>
 
       <div className="mt-40">
-        <ContactCTA />
+        <SecureChannel />
       </div>
     </article>
-  )
+  );
 }

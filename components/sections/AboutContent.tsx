@@ -1,9 +1,9 @@
 /** @format */
 
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Image from "next/image"
+import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   ShieldCheck,
   Cpu,
@@ -13,13 +13,12 @@ import {
   Lock,
   Target,
   Users,
-} from "lucide-react"
-import Link from "next/link"
-import ContactCTA from "@/components/sections/ContactCTA"
-import { siteConfig } from "@/constants/site-config"
+} from "lucide-react";
+import Link from "next/link";
+import { siteConfig } from "@/constants/site-config";
 
 interface AboutContentProps {
-  founderName: string
+  founderName: string;
 }
 
 export default function AboutContent({ founderName }: AboutContentProps) {
@@ -42,13 +41,13 @@ export default function AboutContent({ founderName }: AboutContentProps) {
         "ความลับคือพันธกิจที่สำคัญที่สุด ข้อมูลลูกค้าจะถูกเข้ารหัสและทำลายทิ้งทันที (Secure Shredding) หลังภารกิจสำเร็จ",
       icon: Lock,
     },
-  ]
+  ];
 
   return (
     <div className="pb-24">
       {/* 1. Protocol Header */}
       <header className="bg-muted/10 border-border/50 relative overflow-hidden border-b py-32">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.05),transparent)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary),transparent)] opacity-5" />
         <div className="relative z-10 container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -132,7 +131,7 @@ export default function AboutContent({ founderName }: AboutContentProps) {
               />
               <div className="from-background via-background/20 absolute inset-0 bg-gradient-to-t to-transparent" />
               <div className="absolute inset-0 flex flex-col items-center justify-end space-y-4 p-12 text-center">
-                <Lock className="text-primary glow-emerald h-12 w-12" />
+                <Lock className="text-primary glow-gold h-12 w-12" />
                 <span className="text-primary/80 font-mono text-[10px] tracking-[0.5em] uppercase drop-shadow-md">
                   Data Sovereignty Secured
                 </span>
@@ -179,12 +178,15 @@ export default function AboutContent({ founderName }: AboutContentProps) {
               </h2>
               <blockquote className="border-primary/40 space-y-6 border-l-2 pl-10">
                 <p className="text-muted-foreground text-xl leading-relaxed font-light italic md:text-3xl">
-                  &quot;{siteConfig.company.approach}&quot;
+                  &quot;ในยุคที่อินเทอร์เน็ตมีระบบจดจำที่ซับซ้อน
+                  การลบเพียงอย่างเดียวไม่เพียงพอ เราบูรณาการเทคนิค SEO
+                  ขั้นสูงเข้ากับมาตรการทางกฎหมายดิจิทัล
+                  เพื่อจัดวางสถาปัตยกรรมตัวตนใหม่ที่แข็งแกร่งกว่าเดิม&quot;
                 </p>
                 <footer className="text-primary mt-4 font-mono text-xs tracking-widest uppercase">
                   — {founderName}
                 </footer>
-              </blockquote>
+              </blockquote>{" "}
             </div>
 
             <div className="flex flex-wrap gap-10 pt-4">
@@ -222,7 +224,7 @@ export default function AboutContent({ founderName }: AboutContentProps) {
               className="lab-card border-border/40 hover:border-primary/40 bg-muted/5 space-y-8 p-12 text-center transition-all duration-500"
             >
               <div className="bg-primary/5 border-primary/10 mx-auto flex h-20 w-20 items-center justify-center rounded-3xl border">
-                <v.icon className="text-primary glow-emerald h-10 w-10" />
+                <v.icon className="text-primary glow-gold h-10 w-10" />
               </div>
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold tracking-tight">{v.title}</h3>
@@ -234,8 +236,6 @@ export default function AboutContent({ founderName }: AboutContentProps) {
           ))}
         </div>
       </section>
-
-      <ContactCTA />
     </div>
-  )
+  );
 }

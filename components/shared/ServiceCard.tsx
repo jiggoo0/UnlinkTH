@@ -1,15 +1,15 @@
 /** @format */
 
-"use client"
+"use client";
 
-import Link from "next/link"
-import * as LucideIcons from "lucide-react"
-import { motion } from "framer-motion"
-import { Service } from "@/types"
-import { ArrowRight, ShieldCheck } from "lucide-react"
+import Link from "next/link";
+import * as LucideIcons from "lucide-react";
+import { motion } from "framer-motion";
+import { Service } from "@/types";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 
 interface ServiceCardProps {
-  service: Service
+  service: Service;
 }
 
 /**
@@ -20,12 +20,12 @@ interface ServiceCardProps {
  */
 
 export default function ServiceCard({ service }: ServiceCardProps) {
-  if (!service) return null
+  if (!service) return null;
 
   // Resolve dynamic icons จาก Library อย่างปลอดภัยเพื่อป้องกันปัญหา Runtime
   const IconComponent = (LucideIcons[
     service.iconName as keyof typeof LucideIcons
-  ] || ShieldCheck) as LucideIcons.LucideIcon
+  ] || ShieldCheck) as LucideIcons.LucideIcon;
 
   return (
     <motion.div
@@ -42,7 +42,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
         {/* 1. Technical Status Header */}
         <div className="flex items-start justify-between">
           <div className="bg-primary/5 border-primary/10 group-hover:bg-primary/20 group-hover:border-primary/40 flex h-16 w-16 items-center justify-center rounded-2xl border transition-all duration-500 group-hover:scale-110">
-            <IconComponent className="text-primary glow-emerald h-8 w-8" />
+            <IconComponent className="text-primary glow-gold h-8 w-8" />
           </div>
           <div className="bg-background/50 border-border/10 text-muted-foreground/60 flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[9px] tracking-[0.2em] uppercase">
             <span className="bg-primary h-1.5 w-1.5 animate-pulse rounded-full" />
@@ -96,5 +96,5 @@ export default function ServiceCard({ service }: ServiceCardProps) {
         </Link>
       </div>
     </motion.div>
-  )
+  );
 }

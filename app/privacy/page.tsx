@@ -1,6 +1,6 @@
 /** @format */
 
-import { Metadata } from "next"
+import { Metadata } from "next";
 import {
   ShieldCheck,
   Lock,
@@ -10,9 +10,9 @@ import {
   Server,
   FileKey,
   ChevronRight,
-} from "lucide-react"
-import ContactCTA from "@/components/sections/ContactCTA"
-import { siteConfig } from "@/constants/site-config"
+} from "lucide-react";
+import { SecureChannel } from "@/components/sections";
+import { siteConfig } from "@/constants/site-config";
 
 /**
  * UNLINK-TH | Confidentiality & Privacy Protocol (2026)
@@ -26,10 +26,10 @@ export const metadata: Metadata = {
   title: `Confidentiality & Privacy Protocol | ${siteConfig.name}`,
   description:
     "นโยบายการรักษาความลับและมาตรฐานการจัดการข้อมูลส่วนบุคคลภายใต้กฎหมาย PDPA ของ UNLINK-TH เพื่อความปลอดภัยสูงสุดของลูกค้าระดับ VIP",
-}
+};
 
 export default function PrivacyPage() {
-  const lastUpdated = "29 มกราคม 2026"
+  const lastUpdated = "29 มกราคม 2026";
 
   const protocols = [
     {
@@ -50,7 +50,7 @@ export default function PrivacyPage() {
         "การรับส่งข้อมูลและเอกสารทั้งหมดดำเนินการผ่านช่องทางที่มีการเข้ารหัส (End-to-End Encryption) มาตรฐานระดับเดียวกับสถาบันการเงิน",
       icon: Lock,
     },
-  ]
+  ];
 
   return (
     <div className="pb-24">
@@ -205,8 +205,8 @@ export default function PrivacyPage() {
       </section>
 
       <div className="mt-20">
-        <ContactCTA />
+        <SecureChannel />
       </div>
     </div>
-  )
+  );
 }

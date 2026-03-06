@@ -1,31 +1,24 @@
 /** @format */
 
-import { BlogPost, BlogPostFrontmatter } from "@/types"
-import { getAllMDXData, readMDXFile } from "./mdx"
+import { BlogPost, BlogPostFrontmatter } from "@/types";
+import { getAllPosts, getPostBySlug } from "./mdx";
 
-export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  const allData = getAllMDXData<BlogPostFrontmatter>("blog")
+export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
+  const allData = await getAllPosts<BlogPostFrontmatter>("blog");
 
-  const posts = allData.map((item) => ({
-    slug: item.slug,
-    content: item.content,
-    ...item.frontmatter,
-  }))
-
-  return posts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  )
+  return allData.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
 }
 
 export async function getBlogPostBySlug(
-  slug: string
+  slug: string,
 ): Promise<BlogPost | null> {
-  const item = readMDXFile<BlogPostFrontmatter>("blog", slug)
-  if (!item) return null
+  const result = await getPostBySlug<BlogPostFrontmatter>("blog", slug);
+  if (!result) return null;
 
   return {
-    slug: item.slug,
-    content: item.content,
-    ...item.frontmatter,
-  }
+    content: result.content,
+    ...result.data,
+  };
 }

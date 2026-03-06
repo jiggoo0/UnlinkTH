@@ -1,62 +1,63 @@
 /** @format */
 
-import { NavItem, FooterNav } from "@/types"
-import { siteConfig } from "./site-config"
+import { NavItem, FooterNav } from "@/types";
+import { siteConfig } from "./site-config";
 
 export const mainNav: NavItem[] = [
   {
-    title: "ทางออกเพื่อการเริ่มต้นใหม่",
+    title: "บริการทางยุทธศาสตร์",
     href: "/services",
-    description: "คืนสิทธิความเป็นส่วนตัวและพื้นที่ชีวิตที่สะอาดตาให้คุณ",
+    description: "คืนสิทธิความเป็นส่วนตัวและปลดล็อกโอกาสทางการเงินให้คุณ",
   },
   {
-    title: "บันทึกความสำเร็จ",
+    title: "บันทึกปฏิบัติการ",
     href: "/case-studies",
-    description: "เรื่องราวการกู้คืนชื่อเสียงและรอยยิ้มที่กลับมาอีกครั้ง",
+    description: "เรื่องราวการกู้คืนอัตลักษณ์และผลความสำเร็จจริง",
   },
   {
     title: "บทความวิเคราะห์",
     href: "/blog",
-    description: "ความรู้เจาะลึกด้านการจัดการชื่อเสียงและภัยคุกคามออนไลน์",
+    description:
+      "ความรู้เจาะลึกด้าน Reputation Intelligence และ Global Mobility",
   },
   {
-    title: "คำถามและข้อสงสัย",
+    title: "คำถามที่พบบ่อย",
     href: "/faq",
-    description: "ทุกคำตอบเรื่องเทคนิคและกฎหมายที่คุณสบายใจได้",
+    description: "ทุกคำตอบเรื่องเทคนิคและความปลอดภัยที่คุณสบายใจได้",
   },
   {
-    title: "ทำความรู้จักเรา",
+    title: "เกี่ยวกับเรา",
     href: "/about",
-    description: "ทีมผู้เชี่ยวชาญที่พร้อมเคียงข้างคุณในทุกวิกฤต",
+    description: "ทีมผู้เชี่ยวชาญ UNLINK-GLOBAL ที่พร้อมเคียงข้างคุณ",
   },
-]
+];
 
 export const footerNav: FooterNav = {
   solutions: [
     {
-      title: "ล้างอดีตวัยเกรียน (Jobbers Detox)",
-      href: "/services/digital-detox-jobbers",
+      title: "กู้บ้านอาชีพอิสระ (Credit Engineering)",
+      href: "/services/credit-engineering",
     },
     {
-      title: "ยุติดราม่าทัวร์ลง (Crisis Cleanup)",
-      href: "/services/crisis-cleanup",
-    },
-    {
-      title: "กู้ชื่อหนี้นอกระบบ (Blacklist Remover)",
+      title: "ลบชื่อประจานออนไลน์ (Blacklist Remover)",
       href: "/services/blacklist-remover",
     },
     {
-      title: "มูฟออนความทรงจำ (Ex-Partner Eraser)",
-      href: "/services/ex-partner-eraser",
+      title: "สำรองที่นั่งจริง (GDS Live Reservation)",
+      href: "/services/flight-hotel-confirmed-status",
     },
     {
-      title: "กู้ดาวร้านค้า SME (Reputation Rescue)",
+      title: "กู้ชื่อร้านค้า SME (Reputation Rescue)",
       href: "/services/sme-reputation-rescue",
+    },
+    {
+      title: "Protocol ขั้นสูงสุด (The Last Resort)",
+      href: "/services/extreme-intervention",
     },
   ],
   support: [
     {
-      title: "นโยบายความเป็นส่วนตัว (Confidentiality)",
+      title: "นโยบายความเป็นส่วนตัว",
       href: "/privacy",
     },
     {
@@ -64,7 +65,7 @@ export const footerNav: FooterNav = {
       href: "/faq",
     },
     {
-      title: "จริยธรรมข้อมูล (Ethics)",
+      title: "จริยธรรมและการทำงาน",
       href: "/editorial-policy",
     },
     {
@@ -74,7 +75,7 @@ export const footerNav: FooterNav = {
   ],
   connect: [
     {
-      title: "LINE Official (ปรึกษาลับเฉพาะ)",
+      title: "LINE Official (ปรึกษาลับ)",
       href: siteConfig.contact.lineUrl,
       external: true,
     },
@@ -89,7 +90,7 @@ export const footerNav: FooterNav = {
       external: true,
     },
   ],
-}
+};
 
 export const navigationConfig = {
   header: {
@@ -99,9 +100,9 @@ export const navigationConfig = {
     ctaLink: siteConfig.contact.lineUrl,
   },
   footer: {
-    disclaimer: "UNLINK-TH: เพราะทุกคนสมควรได้รับโอกาสเริ่มต้นใหม่เสมอ",
-    copy: "UNLINK-TH | Engineered by AEMDEVWEB (นายเอ็มซ่ามากส์)",
+    disclaimer: "UNLINK-GLOBAL: เพราะทุกคนสมควรได้รับโอกาสเริ่มต้นใหม่เสมอ",
+    copy: "UNLINK-GLOBAL | International Data & Identity Architecture",
   },
   securityNote:
-    "Privacy First: ข้อมูลการสนทนาจะถูกลบอัตโนมัติเพื่อความปลอดภัยสูงสุด",
-}
+    "Confidentiality: ข้อมูลทั้งหมดจะถูกจัดการในระบบปิดเพื่อความปลอดภัยสูงสุด",
+};

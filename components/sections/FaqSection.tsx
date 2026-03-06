@@ -1,15 +1,15 @@
 /** @format */
 
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
-import { HelpCircle, ShieldCheck, Zap, Lock } from "lucide-react"
+} from "@/components/ui/accordion";
+import { HelpCircle, ShieldCheck, Zap, Lock } from "lucide-react";
 
 /**
  * UNLINK-TH | Intelligence FAQ Protocol (2026)
@@ -43,7 +43,7 @@ const faqs = [
       "UNLINK-TH ยึดถือ Zero-Knowledge Policy ข้อมูลและเอกสารทั้งหมดจะถูกจัดเก็บในระบบเข้ารหัสชั้นสูง และจะถูกทำลายทิ้งทันที (Secure Shredding) หลังสิ้นสุดภารกิจ เพื่อรับประกันว่าความเป็นส่วนตัวจะถูกปกป้องอย่างสมบูรณ์",
     icon: Lock,
   },
-]
+];
 
 export default function FaqSection() {
   return (
@@ -112,5 +112,5 @@ export default function FaqSection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

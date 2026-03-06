@@ -1,26 +1,21 @@
 {
-  "$schema": "https://unpkg.com/knip@5/schema.json",
-  "next": {
-    "entry": [
-      "next.config.{ts,js,mjs}",
-      "app/**/{page,layout,loading,error,not-found,global-error,route,template,default}.{tsx,ts}",
-      "app/{robots,sitemap}.ts",
-      "mdx-components.tsx",
-      "proxy.ts"
-    ]
-  },
-  "project": [
-    "app/**/*.{ts,tsx}",
-    "components/**/*.{ts,tsx}",
-    "lib/**/*.ts",
-    "constants/**/*.ts",
-    "types/**/*.ts"
+  "$schema": "https://knip.dev/schema-json",
+  "entry": [
+    "next.config.mjs",
+    "app/**/page.tsx",
+    "app/**/layout.tsx",
+    "app/sitemap.ts",
+    "app/robots.ts",
+    "lib/mdx.ts"
   ],
+  "project": ["**/*.{ts,tsx}"],
   "ignoreDependencies": [
-    "tailwindcss-animate",
-    "@tailwindcss/typography",
-    "eslint-config-next",
-    "tailwindcss",
-    "@next/eslint-plugin-next"
+    "lucide-react",
+    "framer-motion",
+    "@radix-ui/*",
+    "@tailwindcss/postcss",
+    "postcss",
+    "autoprefixer",
+    "tailwindcss-animate"
   ]
 }

@@ -1,10 +1,10 @@
 /** @format */
 
-import { Metadata } from "next"
-import { siteConfig } from "@/constants/site-config"
-import AboutContent from "@/components/sections/AboutContent"
-import JsonLd from "@/components/seo/JsonLd"
-import { getBreadcrumbSchema } from "@/lib/seo-schemas"
+import { Metadata } from "next";
+import { siteConfig } from "@/constants/site-config";
+import AboutContent from "@/components/sections/AboutContent";
+import JsonLd from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 /**
  * UNLINK-TH | Identity & Architectural Vision
@@ -19,21 +19,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/about",
   },
-}
+};
 
 export default function AboutPage() {
   const founderName =
-    (siteConfig.founder as { nameTh: string })?.nameTh || "Founder"
+    (siteConfig.founder as { nameTh: string })?.nameTh || "Founder";
 
   const breadcrumbs = [
     { name: "Home", item: "/" },
     { name: "About", item: "/about" },
-  ]
+  ];
 
   return (
     <>
       <JsonLd data={getBreadcrumbSchema(breadcrumbs)} />
       <AboutContent founderName={founderName} />
     </>
-  )
+  );
 }

@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { Badge } from "@/components/ui/badge"
-import { Search, Trash2, Globe, CheckCircle2 } from "lucide-react"
+import { Badge } from "@/components/ui/badge";
+import { Search, Trash2, Globe, CheckCircle2 } from "lucide-react";
 
 const statusItems = [
   { label: "วิเคราะห์ข้อมูล", icon: Search, status: "completed" },
   { label: "De-indexing", icon: Globe, status: "processing" },
   { label: "Content Removal", icon: Trash2, status: "pending" },
-]
+];
 
 /**
  * Industrial Status Tracker (Reputation Architecture)
@@ -54,5 +54,5 @@ export default function StatusTracker() {
         </div>
       </div>
     </div>
-  )
+  );
 }

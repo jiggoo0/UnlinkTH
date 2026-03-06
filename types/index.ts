@@ -1,4 +1,4 @@
-/** @format */
+import React from "react";
 
 /**
  * UNLINK-TH | Global Type Definitions (2026)
@@ -7,94 +7,142 @@
  */
 
 export interface HeroSide {
-  tone: "dark" | "bright" | string
-  headline: string
-  subHeadline: string
-  action: string
+  tone: "dark" | "bright" | string;
+  headline: string;
+  subHeadline: string;
+  action: string;
 }
 
 export interface SiteConfig {
-  name: string
-  fullName: string
-  description: string
-  url: string
-  ogImage: string
-  locale: string
-  language: string
+  name: string;
+  fullName: string;
+  description: string;
+  url: string;
+  ogImage: string;
+  locale: string;
+  language: string;
 
-  // ------------------------------------------------------------------
-  // ENTITY LINKING: FOUNDER DATA Structure
-  // ------------------------------------------------------------------
   founder: {
-    name: string
-    nameTh: string
-    nickname?: string
-    role: string
-    roleTh: string
-    url: string
-    sameAs: string[]
-  }
+    name: string;
+    nameTh: string;
+    nickname?: string;
+    role: string;
+    roleTh: string;
+    url: string;
+    sameAs: string[];
+  };
 
-  // ------------------------------------------------------------------
-  // DEVELOPER ATTRIBUTION (Business Entity)
-  // ------------------------------------------------------------------
   developer?: {
-    name: string
-    fullname: string
-    url: string
-    mcp?: string
-    role: string
-  }
-
-  // ------------------------------------------------------------------
-  // UI & BRAND STRATEGY
-  // ------------------------------------------------------------------
-  hero: {
-    title?: string
-    subtitle?: string
-    badge?: string
-    leftSide: HeroSide
-    rightSide: HeroSide
-  }
+    name: string;
+    fullname: string;
+    url: string;
+    mcp?: string;
+    role: string;
+  };
 
   contact: {
-    primaryChannel: string
-    lineUrl: string
-    lineId: string
-    phone: string
-    email: string
-    note: string
-  }
+    primaryChannel: string;
+    lineUrl: string;
+    lineId: string;
+    phone: string;
+    email: string;
+    qrImage?: string;
+    note: string;
+  };
 
   links: {
-    facebook: string
-    twitter: string
-    line: string
-  }
+    facebook: string;
+    twitter: string;
+    line: string;
+  };
 
   seo: {
-    titleTemplate: string
-    defaultTitle: string
-    defaultDescription: string
-    keywords: string[]
-  }
+    titleTemplate: string;
+    defaultTitle: string;
+    defaultDescription: string;
+    keywords: string[];
+  };
 
   company: {
-    slogan: string
-    approach: string
-    positioning: string
-  }
+    slogan: string;
+    approach: string;
+    positioning: string;
+  };
 
   footer: {
-    disclaimer: string
-    trustNote: string
-  }
+    disclaimer: string;
+    trustNote: string;
+    copyright?: string;
+    links?: Array<{ title: string; href: string }>;
+  };
 
-  /**
-   * Index Signature: เพื่อความยืดหยุ่นในการดึงข้อมูลแบบ Dynamic
-   * ช่วยป้องกัน Error TS18046 ในไฟล์ JsonLd และ Metadata
-   */
-  [key: string]: unknown
+  hero: {
+    headlineLine1: string;
+    headlineLine2: string;
+    description: string;
+    ctaPrimary: { label: string; href: string };
+    ctaSecondary: { label: string; href: string };
+    stats: Array<{ label: string; value: string }>;
+    title?: string;
+    subtitle?: string;
+    badge?: string;
+    leftSide: HeroSide;
+    rightSide: HeroSide;
+  };
+
+  leadCapture: {
+    title: string;
+    description: string;
+    badge: string;
+    successTitle: string;
+    successDescription: string;
+    buttonText: string;
+    fields: {
+      name: { label: string; placeholder: string };
+      email: { label: string; placeholder: string };
+      company: { label: string; placeholder: string };
+    };
+  };
+
+  pricing: {
+    badge: string;
+    title: string;
+    description: string;
+    tiers: Array<{
+      name: string;
+      price: string;
+      description?: string;
+      period?: string;
+      highlighted?: boolean;
+      cta?: string;
+      features: string[];
+    }>;
+  };
+  portfolio: {
+    badge: string;
+    title: string;
+    description: string;
+    items: Array<{
+      title: string;
+      category: string;
+      image: string;
+      span?: string;
+      aspect?: string;
+    }>;
+  };
+  protocols: {
+    badge: string;
+    title: string;
+    description: string;
+    items: Array<{
+      title: string;
+      description: string;
+      icon?: React.ElementType;
+      features?: string[];
+    }>;
+  };
+
+  [key: string]: unknown;
 }
 
 // ------------------------------------------------------------------
@@ -102,36 +150,29 @@ export interface SiteConfig {
 // ------------------------------------------------------------------
 
 export interface ServicePrice {
-  startingAt: string
-  unit: string
-  model: string
+  startingAt: string;
+  unit: string;
+  model: string;
 }
 
 export interface ServiceMetadata {
-  defaultTitle: string
-  defaultDescription: string
-  keywords: string[]
+  defaultTitle: string;
+  defaultDescription: string;
+  keywords: string[];
 }
 
 export interface Service {
-  id: string
-  slug: string
-  title: string
-  shortDescription: string
-  description: string
-  iconName: string
-  image?: string
-  category:
-    | "Cleanup"
-    | "Architect"
-    | "Legal"
-    | "Personal"
-    | "Crisis"
-    | "Business"
-    | "Extreme"
-  features: string[]
-  priceInfo: ServicePrice
-  metadata: ServiceMetadata
+  id: string;
+  slug: string;
+  title: string;
+  shortDescription: string;
+  description: string;
+  iconName: string;
+  image?: string;
+  category: string;
+  features: string[];
+  priceInfo: ServicePrice;
+  metadata: ServiceMetadata;
 }
 
 // ------------------------------------------------------------------
@@ -139,16 +180,19 @@ export interface Service {
 // ------------------------------------------------------------------
 
 export interface BlogPostFrontmatter {
-  title: string
-  description: string
-  date: string
-  category: string
-  thumbnail: string
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  author: string;
+  category: string;
+  thumbnail: string;
+  image?: string;
 }
 
 export interface BlogPost extends BlogPostFrontmatter {
-  slug: string
-  content: string
+  slug: string;
+  content: string;
 }
 
 // ------------------------------------------------------------------
@@ -156,17 +200,17 @@ export interface BlogPost extends BlogPostFrontmatter {
 // ------------------------------------------------------------------
 
 export interface CaseStudy {
-  slug: string
-  title: string
-  category: string
-  thumbnail: string
-  excerpt: string
-  date: string
-  priority?: number
-  client?: string
-  description?: string
-  outcome?: string
-  image?: string
+  slug: string;
+  title: string;
+  category: string;
+  thumbnail: string;
+  excerpt: string;
+  date: string;
+  priority?: number;
+  client?: string;
+  description?: string;
+  outcome?: string;
+  image?: string;
 }
 
 // ------------------------------------------------------------------
@@ -174,17 +218,17 @@ export interface CaseStudy {
 // ------------------------------------------------------------------
 
 export interface NavItem {
-  title: string
-  href: string
-  external?: boolean
-  description?: string
+  title: string;
+  href: string;
+  external?: boolean;
+  description?: string;
 }
 
 export interface FooterNav {
-  solutions: NavItem[]
-  support: NavItem[]
-  connect: NavItem[]
-  protocols?: NavItem[]
-  security?: NavItem[]
-  liaison?: NavItem[]
+  solutions: NavItem[];
+  support: NavItem[];
+  connect: NavItem[];
+  protocols?: NavItem[];
+  security?: NavItem[];
+  liaison?: NavItem[];
 }

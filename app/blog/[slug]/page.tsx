@@ -1,26 +1,26 @@
 /** @format */
 
-import { Metadata } from "next"
-import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/blog"
-import { notFound } from "next/navigation"
-import { MDXRemote } from "next-mdx-remote/rsc"
-import { useMDXComponents } from "@/mdx-components"
-import ContactCTA from "@/components/sections/ContactCTA"
-import { Calendar, ChevronLeft, Clock } from "lucide-react"
-import Link from "next/link"
-import JsonLd from "@/components/seo/JsonLd"
-import { getBlogSchema, getBreadcrumbSchema } from "@/lib/seo-schemas"
+import { Metadata } from "next";
+import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/blog";
+import { notFound } from "next/navigation";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { useMDXComponents } from "@/mdx-components";
+import { SecureChannel } from "@/components/sections";
+import { Calendar, ChevronLeft, Clock } from "lucide-react";
+import Link from "next/link";
+import JsonLd from "@/components/seo/JsonLd";
+import { getBlogSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 interface BlogPageProps {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata> {
-  const { slug } = await params
-  const post = await getBlogPostBySlug(slug)
-  if (!post) return {}
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
+  if (!post) return {};
 
   return {
     title: `${post.title} | UNLINK-TH Insights`,
@@ -28,28 +28,28 @@ export async function generateMetadata({
     alternates: {
       canonical: `/blog/${slug}/`,
     },
-  }
+  };
 }
 
 export async function generateStaticParams() {
-  const posts = await getAllBlogPosts()
+  const posts = await getAllBlogPosts();
   return posts.map((post) => ({
     slug: post.slug,
-  }))
+  }));
 }
 
 export default async function BlogPostPage({ params }: BlogPageProps) {
-  const { slug } = await params
-  const post = await getBlogPostBySlug(slug)
-  const mdxComponents = useMDXComponents({})
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug);
+  const mdxComponents = useMDXComponents({});
 
-  if (!post) notFound()
+  if (!post) notFound();
 
   const breadcrumbs = [
     { name: "Home", item: "/" },
     { name: "Blog", item: "/blog" },
     { name: post.title, item: `/blog/${post.slug}` },
-  ]
+  ];
 
   return (
     <div className="pb-24">
@@ -91,7 +91,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
         </div>
       </article>
 
-      <ContactCTA />
+      <SecureChannel />
     </div>
-  )
+  );
 }

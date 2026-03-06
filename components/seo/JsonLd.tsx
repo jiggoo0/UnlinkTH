@@ -7,18 +7,18 @@
  * รองรับการแสดงผล Rich Snippets เช่น Organization, Case Study, และ FAQ
  */
 
-import { getBrandIdentitySchema } from "@/lib/seo-schemas"
+import { getBrandIdentitySchema } from "@/lib/seo-schemas";
 
 interface JsonLdProps {
   /**
    * ข้อมูล Schema ในรูปแบบ Object หรือ Array
    */
-  data?: Record<string, unknown> | Record<string, unknown>[]
+  data?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 export default function JsonLd({ data }: JsonLdProps) {
   // [1] Integrity Check: หากไม่มีการส่ง data มา ให้ใช้ BrandIdentitySchema เป็นค่าเริ่มต้น
-  const schemaData = data || getBrandIdentitySchema()
+  const schemaData = data || getBrandIdentitySchema();
 
   if (
     !schemaData ||
@@ -26,7 +26,7 @@ export default function JsonLd({ data }: JsonLdProps) {
       ? schemaData.length === 0
       : Object.keys(schemaData).length === 0)
   ) {
-    return null
+    return null;
   }
 
   /**
@@ -39,16 +39,16 @@ export default function JsonLd({ data }: JsonLdProps) {
       return JSON.stringify(obj)
         .replace(/</g, "\\u003c")
         .replace(/>/g, "\\u003e")
-        .replace(/&/g, "\\u0026")
+        .replace(/&/g, "\\u0026");
     } catch (error) {
-      console.error("[JSON_LD_ERROR] Serialization failed:", error)
-      return ""
+      console.error("[JSON_LD_ERROR] Serialization failed:", error);
+      return "";
     }
-  }
+  };
 
-  const jsonLdContent = sanitizeJsonLd(schemaData)
+  const jsonLdContent = sanitizeJsonLd(schemaData);
 
-  if (!jsonLdContent) return null
+  if (!jsonLdContent) return null;
 
   return (
     <script
@@ -56,5 +56,5 @@ export default function JsonLd({ data }: JsonLdProps) {
       suppressHydrationWarning
       dangerouslySetInnerHTML={{ __html: jsonLdContent }}
     />
-  )
+  );
 }

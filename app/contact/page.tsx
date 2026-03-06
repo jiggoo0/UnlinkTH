@@ -1,9 +1,9 @@
 /** @format */
 
-import { Metadata } from "next"
-import ContactContent from "@/components/sections/ContactContent"
-import JsonLd from "@/components/seo/JsonLd"
-import { getBreadcrumbSchema } from "@/lib/seo-schemas"
+import { Metadata } from "next";
+import ContactContent from "@/components/sections/ContactContent";
+import JsonLd from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 /**
  * UNLINK-TH | Secure Liaison Access
@@ -18,18 +18,18 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/contact",
   },
-}
+};
 
 export default function ContactPage() {
   const breadcrumbs = [
     { name: "Home", item: "/" },
     { name: "Contact", item: "/contact" },
-  ]
+  ];
 
   return (
     <>
       <JsonLd data={getBreadcrumbSchema(breadcrumbs)} />
       <ContactContent />
     </>
-  )
+  );
 }

@@ -1,6 +1,6 @@
 /** @format */
 
-import { Metadata } from "next"
+import { Metadata } from "next";
 import {
   BookOpen,
   Scale,
@@ -9,9 +9,9 @@ import {
   Info,
   ShieldAlert,
   Fingerprint,
-} from "lucide-react"
-import ContactCTA from "@/components/sections/ContactCTA"
-import { siteConfig } from "@/constants/site-config"
+} from "lucide-react";
+import { SecureChannel } from "@/components/sections";
+import { siteConfig } from "@/constants/site-config";
 
 /**
  * UNLINK-TH | Editorial Policy & Data Ethics Framework (2026)
@@ -24,14 +24,14 @@ export const metadata: Metadata = {
   title: `Editorial Policy & Ethics | ${siteConfig.name}`,
   description:
     "มาตรฐานการคัดกรองเนื้อหาและจริยธรรมในการจัดการชื่อเสียงออนไลน์ภายใต้หลักสิทธิส่วนบุคคลและความชอบธรรมทางกฎหมายของ UNLINK-TH",
-}
+};
 
 export default function EditorialPolicyPage() {
-  const lastUpdated = "30 มกราคม 2026"
+  const lastUpdated = "30 มกราคม 2026";
 
   // Type Casting เพื่อป้องกัน Error TS18046: 'siteConfig.founder' is of type 'unknown'
   const founderName =
-    (siteConfig.founder as { nameTh: string })?.nameTh || "Founder"
+    (siteConfig.founder as { nameTh: string })?.nameTh || "Founder";
 
   const principles = [
     {
@@ -52,7 +52,7 @@ export default function EditorialPolicyPage() {
         "เราใช้ดุลยพินิจที่เป็นอิสระในการประเมินกรณีปฏิบัติการ เพื่อรักษาสมดุลระหว่างความเป็นส่วนตัวและสิทธิในการรับรู้ของสังคม",
       icon: Info,
     },
-  ]
+  ];
 
   return (
     <div className="pb-24">
@@ -165,8 +165,8 @@ export default function EditorialPolicyPage() {
       </section>
 
       <div className="mt-20">
-        <ContactCTA />
+        <SecureChannel />
       </div>
     </div>
-  )
+  );
 }

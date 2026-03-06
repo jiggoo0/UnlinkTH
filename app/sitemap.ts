@@ -1,12 +1,12 @@
 /** @format */
 
-import { MetadataRoute } from "next"
-import { siteConfig } from "@/constants/site-config"
-import { servicesData } from "@/constants/services-data"
-import { getAllCaseStudies } from "@/lib/case-studies"
-import { getAllBlogPosts } from "@/lib/blog"
+import { MetadataRoute } from "next";
+import { siteConfig } from "@/constants/site-config";
+import { getAllServices } from "@/lib/services";
+import { getAllCaseStudies } from "@/lib/case-studies";
+import { getAllBlogPosts } from "@/lib/blog";
 
-export const dynamic = "force-static"
+export const dynamic = "force-static";
 
 /**
  * UNLINK-TH | SEO Sitemap Engine (2026)
@@ -15,16 +15,17 @@ export const dynamic = "force-static"
  * มุ่งเน้นการส่งสัญญาณด้าน Trust & Authority (E-E-A-T) ผ่านหน้า Identity ต่างๆ
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = siteConfig.url
+  const baseUrl = siteConfig.url;
+  const servicesData = await getAllServices();
 
   // [1] ดึงข้อมูล Dynamic Case Studies (Social Proof / Evidence)
-  const allCases = await getAllCaseStudies()
+  const allCases = await getAllCaseStudies();
   const caseEntries: MetadataRoute.Sitemap = allCases.map((item) => ({
     url: `${baseUrl}/case-studies/${item.slug}`,
     lastModified: new Date(item.date || new Date()),
     changeFrequency: "monthly" as const,
     priority: 0.7,
-  }))
+  }));
 
   // [2] ดึงข้อมูล Service Protocols (Main Conversion Pages)
   const serviceEntries: MetadataRoute.Sitemap = servicesData.map((service) => ({
@@ -32,16 +33,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.9,
-  }))
+  }));
 
   // [3] ดึงข้อมูล Blog Posts (Educational / Intent Capture)
-  const allBlogs = await getAllBlogPosts()
+  const allBlogs = await getAllBlogPosts();
   const blogEntries: MetadataRoute.Sitemap = allBlogs.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.date || new Date()),
     changeFrequency: "monthly" as const,
     priority: 0.6,
-  }))
+  }));
 
   // [4] หน้าหลักและหน้าที่สร้างความน่าเชื่อถือ (Trust & Identity Signals)
   const staticRoutes = [
@@ -57,14 +58,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/faq", priority: 0.6, changeFreq: "weekly" as const },
     { path: "/contact", priority: 0.7, changeFreq: "monthly" as const },
     { path: "/privacy", priority: 0.5, changeFreq: "monthly" as const },
-  ]
+  ];
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route.path}`,
     lastModified: new Date(),
     changeFrequency: route.changeFreq,
     priority: route.priority,
-  }))
+  }));
 
-  return [...staticEntries, ...serviceEntries, ...caseEntries, ...blogEntries]
+  return [...staticEntries, ...serviceEntries, ...caseEntries, ...blogEntries];
 }

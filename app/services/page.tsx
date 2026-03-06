@@ -1,12 +1,12 @@
 /** @format */
 
-import { Metadata } from "next"
-import { getAllServices } from "@/lib/services"
-import ServiceCard from "@/components/shared/ServiceCard"
-import { siteConfig } from "@/constants/site-config"
-import { ShieldAlert, Cpu, Database, ArrowRight } from "lucide-react"
-import JsonLd from "@/components/seo/JsonLd"
-import { getBreadcrumbSchema } from "@/lib/seo-schemas"
+import { Metadata } from "next";
+import { getAllServices } from "@/lib/services";
+import ServiceCard from "@/components/shared/ServiceCard";
+import { siteConfig } from "@/constants/site-config";
+import { ShieldAlert, Cpu, Database, ArrowRight } from "lucide-react";
+import JsonLd from "@/components/seo/JsonLd";
+import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 /**
  * UNLINK-TH | Operational Service Protocols (2026)
@@ -21,22 +21,22 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/services",
   },
-}
+};
 
 export default async function ServicesPage() {
-  const services = await getAllServices()
+  const services = await getAllServices();
 
   const breadcrumbs = [
     { name: "Home", item: "/" },
     { name: "Services", item: "/services" },
-  ]
+  ];
 
   return (
     <div className="pb-32">
       <JsonLd data={getBreadcrumbSchema(breadcrumbs)} />
       {/* 1. Technical Header */}
       <header className="bg-muted/10 border-border/50 relative mb-20 overflow-hidden border-b py-28">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,rgba(16,185,129,0.05),transparent)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,var(--primary),transparent)] opacity-5" />
         <div className="relative z-10 container">
           <div className="max-w-4xl space-y-8">
             <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-3 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
@@ -108,5 +108,5 @@ export default async function ServicesPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }
