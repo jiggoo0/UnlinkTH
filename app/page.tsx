@@ -1,7 +1,7 @@
 /** @format */
 
 import { Metadata } from "next";
-// 🛡️ แก้ไข: เปลี่ยนมาใช้ Alias (@/) ตามมาตรฐานโครงสร้างโปรเจกต์
+import { Suspense } from "react";
 import { siteConfig } from "@/constants/site-config";
 import { getAllServices } from "@/lib/services";
 import { getLatestCaseStudies } from "@/lib/case-studies";
@@ -21,13 +21,10 @@ import FaqSection from "@/components/sections/FaqSection";
 
 /**
  * UNLINK-GLOBAL | High-Signal Home (2026)
- * Performance: Optimized for Server-side Runtime
  */
 
 export async function generateMetadata(): Promise<Metadata> {
-  // ตรวจสอบความปลอดภัยของ Object ก่อนเข้าถึง (In-depth: Node.js Runtime Guard)
   const seo = siteConfig?.seo || {};
-
   return {
     title: seo.defaultTitle || "UNLINK-GLOBAL",
     description: seo.defaultDescription,
@@ -35,16 +32,46 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function HomePage() {
-  // Parallel Fetching: รันงานพร้อมกันเพื่อลด Bottleneck ใน Termux
-  const [latestCases, servicesData] = await Promise.all([
-    getLatestCaseStudies(3).catch(() => []), // Error Handling: ป้องกันหน้าขาวถ้า DB/File พัง
-    getAllServices().catch(() => []),
-  ]);
+// แยกส่วนบริการออกมาเป็น Component ย่อยเพื่อทำ Suspense
+async function ServicesGrid() {
+  const servicesData = await getAllServices().catch(() => []);
+
+  if (servicesData.length === 0) {
+    return (
+      <div className="border-border/20 col-span-2 rounded-3xl border border-dashed py-20 text-center">
+        <p className="text-muted-foreground font-mono text-sm uppercase tracking-widest">
+          กำลังดึงข้อมูลระบบ...
+        </p>
+      </div>
+    );
+  }
 
   return (
+    <div className="grid gap-6 sm:grid-cols-2 lg:col-span-2">
+      {servicesData.slice(0, 4).map((service) => (
+        <ServiceCard key={service.id} service={service} />
+      ))}
+    </div>
+  );
+}
+
+// แยกส่วน Case Studies ออกมาเป็น Component ย่อย
+async function LatestCaseStudies() {
+  const latestCases = await getLatestCaseStudies(3).catch(() => []);
+
+  return (
+    <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+      {latestCases.map((study, index) => (
+        <CaseStudyCard key={study.slug} study={study} priority={index < 2} />
+      ))}
+    </div>
+  );
+}
+
+export default function HomePage() {
+  return (
     <div className="flex flex-col gap-24 overflow-x-hidden pb-20">
-      {/* 1. Hero Section */}
+      {/* 1. Hero Section - แสดงผลทันที */}
       <Hero />
 
       {/* 2. Protocol & How it Works */}
@@ -86,21 +113,20 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:col-span-2">
-              {servicesData.length > 0 ? (
-                servicesData
-                  .slice(0, 4)
-                  .map((service) => (
-                    <ServiceCard key={service.id} service={service} />
-                  ))
-              ) : (
-                <div className="border-border/20 col-span-2 rounded-3xl border border-dashed py-20 text-center">
-                  <p className="text-muted-foreground font-mono text-sm uppercase tracking-widest">
-                    กำลังดึงข้อมูลระบบ...
-                  </p>
+            <Suspense
+              fallback={
+                <div className="grid gap-6 sm:grid-cols-2 lg:col-span-2 animate-pulse">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div
+                      key={i}
+                      className="bg-white/5 rounded-3xl h-64 border border-white/10"
+                    />
+                  ))}
                 </div>
-              )}
-            </div>
+              }
+            >
+              <ServicesGrid />
+            </Suspense>
           </div>
         </div>
       </section>
@@ -126,11 +152,20 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {latestCases.map((study) => (
-            <CaseStudyCard key={study.slug} study={study} />
-          ))}
-        </div>
+        <Suspense
+          fallback={
+            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 animate-pulse">
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="bg-white/5 rounded-2xl h-80 border border-white/10"
+                />
+              ))}
+            </div>
+          }
+        >
+          <LatestCaseStudies />
+        </Suspense>
       </section>
 
       <div className="space-y-24">

@@ -56,11 +56,14 @@ export function SecureChannel() {
               </div>
               <h2 className="text-5xl md:text-7xl font-bold tracking-tighter leading-none">
                 เริ่มแก้ <br />
-                <span className="text-primary glow-gold italic">ปัญหาของคุณ</span>
+                <span className="text-primary glow-gold italic">
+                  ปัญหาของคุณ
+                </span>
               </h2>
               <p className="text-muted-foreground text-lg font-light leading-relaxed max-w-md">
                 เพื่อความปลอดภัยสูงสุด เราจะคุยตรงกับท่านผ่าน LINE เท่านั้น
-                ไม่มีการเก็บข้อมูลลงฐานข้อมูลหน้าเว็บ มั่นใจได้ว่าปัญหาของคุณจะเป็นความลับตลอดไป
+                ไม่มีการเก็บข้อมูลลงฐานข้อมูลหน้าเว็บ
+                มั่นใจได้ว่าปัญหาของคุณจะเป็นความลับตลอดไป
               </p>
             </div>
 

@@ -69,7 +69,7 @@ export default async function ServicesPage() {
       {/* 1. Cinematic Header */}
       <header className="relative mb-20 overflow-hidden border-b border-white/5 py-32 md:py-48">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,rgba(16,185,129,0.1),transparent)]" />
-        <div className="absolute inset-0 bg-[url('/images/methodology-abstract.webp')] bg-cover bg-center opacity-10 mix-blend-overlay" />
+        <div className="absolute inset-0 bg-[url('https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/methodology-abstract.webp')] bg-cover bg-center opacity-10 mix-blend-overlay" />
 
         <div className="relative z-10 container">
           <div className="max-w-4xl space-y-10">

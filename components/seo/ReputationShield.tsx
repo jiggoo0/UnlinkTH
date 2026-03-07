@@ -3,18 +3,15 @@
 import { siteConfig } from "@/constants/site-config";
 import JsonLd from "./JsonLd";
 
-/**
- * REPUTATION SHIELD | Advanced Identity Infrastructure
- * -------------------------------------------------------------------------
- * หน้าที่: สร้างความน่าเชื่อถือระดับสูงสุด (E-E-A-T) ให้กับผู้ก่อตั้งและองค์กร
- * เพื่อป้องกันการกลั่นแกล้งทางข้อมูล (Blacklist) และยืนยันตัวตนกับ Google
- */
-
 export default function ReputationShield() {
-  const { founder, developer, url, name, fullName, description, ogImage } = siteConfig;
+  const { founder, developer, url, name, fullName, description, ogImage } =
+    siteConfig;
+
+  // ป้องกัน undefined สำหรับ developer
+  const devUrl = developer?.url || "https://aemdevweb.com";
+  const devName = developer?.name || "AemDevWeb";
 
   const reputationSchema = [
-    // [1] FOUNDER IDENTITY (ยืนยันตัวตนจริงของผู้ก่อตั้ง)
     {
       "@context": "https://schema.org",
       "@type": "Person",
@@ -25,16 +22,11 @@ export default function ReputationShield() {
       url: founder.url,
       image: `${url}${ogImage}`,
       description: `Founder of UNLINK-GLOBAL and AemDevWeb. Expert in Data Architecture and Digital Reputation.`,
-      sameAs: [
-        ...founder.sameAs,
-        developer.url,
-        url
-      ],
+      sameAs: [...(founder.sameAs || []), devUrl, url],
       worksFor: {
-        "@id": `${url}/#organization`
-      }
+        "@id": `${url}/#organization`,
+      },
     },
-    // [2] ORGANIZATION AUTHORITY (ยืนยันความน่าเชื่อถือของบริษัท)
     {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -44,7 +36,7 @@ export default function ReputationShield() {
       url: url,
       logo: {
         "@type": "ImageObject",
-        url: `${url}${ogImage}`
+        url: `${url}${ogImage}`,
       },
       description: description,
       founder: { "@id": `${founder.url}/#person` },
@@ -52,17 +44,16 @@ export default function ReputationShield() {
         "Digital Reputation Management",
         "Cyber Security",
         "Data Privacy",
-        "SEO Engineering"
+        "SEO Engineering",
       ],
       contactPoint: {
         "@type": "ContactPoint",
         telephone: siteConfig.contact.phone,
         contactType: "customer service",
         areaServed: "TH",
-        availableLanguage: ["Thai", "English"]
-      }
+        availableLanguage: ["Thai", "English"],
+      },
     },
-    // [3] TECHNICAL PARTNERSHIP (ยืนยันความสัมพันธ์กับ AemDevWeb)
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
@@ -73,11 +64,11 @@ export default function ReputationShield() {
       creator: { "@id": `${founder.url}/#person` },
       maintainer: {
         "@type": "Organization",
-        "@id": `${developer.url}/#organization`,
-        name: developer.name,
-        url: developer.url
-      }
-    }
+        "@id": `${devUrl}/#organization`,
+        name: devName,
+        url: devUrl,
+      },
+    },
   ];
 
   return <JsonLd data={reputationSchema} />;

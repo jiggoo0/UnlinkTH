@@ -1,7 +1,6 @@
 /** @format */
 
 import { Metadata } from "next";
-import { siteConfig } from "@/constants/site-config";
 import AboutContent from "@/components/sections/AboutContent";
 import JsonLd from "@/components/seo/JsonLd";
 import { getBreadcrumbSchema } from "@/lib/seo-schemas";
@@ -13,7 +12,8 @@ import { getBreadcrumbSchema } from "@/lib/seo-schemas";
  */
 
 export const metadata: Metadata = {
-  title: "Vision & Architecture - ทีมวิศวกรที่ปรึกษากู้ชื่อเสียงดิจิทัล | UNLINK-GLOBAL",
+  title:
+    "Vision & Architecture - ทีมวิศวกรที่ปรึกษากู้ชื่อเสียงดิจิทัล | UNLINK-GLOBAL",
   description:
     "ทำความรู้จักเบื้องหลัง UNLINK-GLOBAL พันธกิจ 'กอบกู้ตัวตน' เพื่อให้ทุกคนมีสิทธิเริ่มต้นใหม่ โดยการขับเคลื่อนของทีมวิศวกรผู้เชี่ยวชาญด้านข้อมูลและกฎหมายดิจิทัลจาก AemDevWeb Studio",
   alternates: {

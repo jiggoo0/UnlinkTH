@@ -56,10 +56,11 @@ export default function Methods() {
           </div>
           <h2 className="text-4xl leading-[1.1] font-bold tracking-tighter md:text-6xl">
             ทางรอดที่เป็นระบบ <br />
-            เพื่อ <span className="text-primary font-light italic">เริ่มต้นใหม่</span>
+            เพื่อ{" "}
+            <span className="text-primary font-light italic">เริ่มต้นใหม่</span>
           </h2>
           <p className="text-muted-foreground text-lg font-light leading-relaxed md:text-xl">
-            เราผสมผสานเทคนิคการจัดการข้อมูลเข้ากับข้อกฎหมายดิจิทัล 
+            เราผสมผสานเทคนิคการจัดการข้อมูลเข้ากับข้อกฎหมายดิจิทัล
             เพื่อให้คุณได้กลับมาใช้ชีวิตได้อย่างมั่นใจและสง่างามอีกครั้ง
           </p>
         </motion.div>

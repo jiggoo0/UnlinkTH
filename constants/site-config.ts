@@ -112,7 +112,10 @@ export const siteConfig: SiteConfig = {
     headlineLine2: "เริ่มต้นชีวิตใหม่",
     description:
       "จัดการทุกร่องรอยดิจิทัลที่ฉุดรั้งคุณไว้ และออกแบบภาพลักษณ์ใหม่ให้ธนาคารและสังคมเชื่อใจคุณอีกครั้ง",
-    ctaPrimary: { label: "ปรึกษาเคสของคุณผ่าน LINE", href: "https://lin.ee/a8egw6Y" },
+    ctaPrimary: {
+      label: "ปรึกษาเคสของคุณผ่าน LINE",
+      href: "https://lin.ee/a8egw6Y",
+    },
     ctaSecondary: { label: "ดูวิธีการทำงานของเรา", href: "#protocol" },
     stats: [
       { label: "เคสที่ทำสำเร็จ", value: "98% SUCCESS" },
@@ -145,15 +148,22 @@ export const siteConfig: SiteConfig = {
         label: "ชื่อเรียกแทนคุณ",
         placeholder: "จะให้เราเรียกว่าอะไรดีครับ?",
       },
-      email: { label: "อีเมลที่ติดต่อได้", placeholder: "contact@yourmail.com" },
-      company: { label: "ปัญหาที่ต้องการปรึกษา", placeholder: "แจ้งรายละเอียดสั้นๆ ได้เลยครับ" },
+      email: {
+        label: "อีเมลที่ติดต่อได้",
+        placeholder: "contact@yourmail.com",
+      },
+      company: {
+        label: "ปัญหาที่ต้องการปรึกษา",
+        placeholder: "แจ้งรายละเอียดสั้นๆ ได้เลยครับ",
+      },
     },
   },
 
   pricing: {
     badge: "ค่าบริการและแผนปฏิบัติงาน",
     title: "การลงทุนในชื่อเสียงของคุณ",
-    description: "เรามีแผนงานที่ชัดเจน ตรงไปตรงมา เพื่อผลลัพธ์ที่ดีที่สุดสำหรับคุณ",
+    description:
+      "เรามีแผนงานที่ชัดเจน ตรงไปตรงมา เพื่อผลลัพธ์ที่ดีที่สุดสำหรับคุณ",
     tiers: [
       {
         name: "ประเมินและวิเคราะห์สถานะ",
@@ -200,7 +210,6 @@ export const siteConfig: SiteConfig = {
     ],
   },
 
-
   portfolio: {
     badge: "Verified Intelligence",
     title: "Operational Records",
@@ -210,21 +219,24 @@ export const siteConfig: SiteConfig = {
       {
         title: "Global Income Alignment",
         category: "FINANCIAL",
-        image: "/images/cases/case-data-fusion.webp",
+        image:
+          "https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/cases/case-data-fusion.webp",
         span: "md:col-span-2",
         aspect: "aspect-[2/1]",
       },
       {
         title: "Trust Reconstruction",
         category: "IMMIGRATION",
-        image: "/images/cases/case-preview-vault.webp",
+        image:
+          "https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/cases/case-preview-vault.webp",
         span: "md:col-span-1",
         aspect: "aspect-square",
       },
       {
         title: "Credit Engineering",
         category: "FINANCIAL",
-        image: "/images/cases/case-finance-jet.webp",
+        image:
+          "https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/cases/case-finance-jet.webp",
         span: "md:col-span-1",
         aspect: "aspect-square",
       },

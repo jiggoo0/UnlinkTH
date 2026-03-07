@@ -67,7 +67,8 @@ export default function FaqSection() {
               <span className="text-primary font-light italic">ที่พบบ่อย</span>
             </h2>
             <p className="text-muted-foreground max-w-md text-lg leading-relaxed font-light md:text-xl">
-              เรารวบรวมข้อสงสัยที่คุณอาจกังวลใจ เพื่อความโปร่งใสและมั่นใจในบริการของเรา
+              เรารวบรวมข้อสงสัยที่คุณอาจกังวลใจ
+              เพื่อความโปร่งใสและมั่นใจในบริการของเรา
             </p>
           </div>
 

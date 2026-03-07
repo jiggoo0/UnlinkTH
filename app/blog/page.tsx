@@ -55,7 +55,7 @@ export default async function BlogPage() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="lab-card group border-border/40 bg-muted/5 flex flex-col overflow-hidden transition-all"
+              className="lab-card group border-border/40 bg-muted/5 flex flex-col overflow-hidden transition-all duration-300 active:scale-[0.98] cursor-pointer"
             >
               <div className="bg-muted/20 relative aspect-video overflow-hidden">
                 {post.image && (

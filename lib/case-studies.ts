@@ -29,7 +29,10 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
       slug: item.slug,
       title: item.title || "Untitled Operation",
       category: item.category || "General",
-      thumbnail: item.thumbnail || item.image || "/images/cases/unlink-th.webp",
+      thumbnail:
+        item.thumbnail ||
+        item.image ||
+        "https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/cases/unlink-th.webp",
       excerpt: item.excerpt || item.description || "",
       date: item.date || "2026-01-01",
       priority: item.priority || 0,
@@ -60,7 +63,7 @@ export async function getCaseStudyBySlug(slug: string) {
       thumbnail:
         frontmatter.thumbnail ||
         frontmatter.image ||
-        "/images/cases/unlink-th.webp",
+        "https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/cases/unlink-th.webp",
       excerpt: frontmatter.excerpt || frontmatter.description || "",
       date: frontmatter.date || "2026-01-01",
       description: frontmatter.description || "",

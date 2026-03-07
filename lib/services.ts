@@ -14,7 +14,10 @@ function mapFrontmatterToService(fm: ServiceFrontmatter): Service {
     shortDescription: fm.shortDescription || fm.description,
     description: fm.description, // Initial description from frontmatter
     iconName: fm.iconName || "Activity",
-    image: fm.image || fm.imageUrl || "/images/services/default.webp",
+    image:
+      fm.image ||
+      fm.imageUrl ||
+      "https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/services/default.webp",
     category: fm.category,
     features: fm.features || [],
     priceInfo: fm.priceInfo || {

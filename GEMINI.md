@@ -5,9 +5,11 @@
 ---
 
 ## 🔍 [1] GOOGLE RICH RESULTS (SCHEMA.ORG) PROTOCOL
-*AI ต้องตรวจสอบการตั้งค่า JSON-LD ทุกครั้งที่มีการสร้างหรือแก้ไขหน้าเนื้อหา*
+
+_AI ต้องตรวจสอบการตั้งค่า JSON-LD ทุกครั้งที่มีการสร้างหรือแก้ไขหน้าเนื้อหา_
 
 ### ✅ Mandatory Implementation
+
 1. **Organization & WebSite:** ต้องทำงานผ่าน `<JsonLd />` ใน `RootLayout` (ติดตั้งแล้ว)
 2. **Specific Schemas:**
    - **Blog:** ต้องมี `BlogPosting` (Headline, Date, Author, Publisher)
@@ -20,9 +22,11 @@
 ---
 
 ## 🚀 [2] PAGESPEED INSIGHTS (WEB VITALS) PROTOCOL
-*AI ต้องรักษาระดับ Performance ของ Next.js 16 ให้อยู่ในระดับสูงสุด*
+
+_AI ต้องรักษาระดับ Performance ของ Next.js 16 ให้อยู่ในระดับสูงสุด_
 
 ### ✅ Performance Constraints
+
 1. **LCP (Largest Contentful Paint) < 2.5s:**
    - รูปภาพ "Above the Fold" (Hero Image) ต้องใส่ Prop `priority` เสมอ
    - ห้ามใช้ `next/image` โดยไม่กำหนด `width` และ `height` (ยกเว้นใช้ `fill`)
@@ -36,7 +40,8 @@
 ---
 
 ## 🛠️ [3] AI ACTION CHECKLIST (PRECISION SETUP)
-*ก่อนส่งงาน AI ต้องยืนยันรายการเหล่านี้ (Self-Audit)*
+
+_ก่อนส่งงาน AI ต้องยืนยันรายการเหล่านี้ (Self-Audit)_
 
 1. [ ] **Build Check:** รัน `npm run build` เพื่อตรวจสอบ Compile Error และ Bundle Size
 2. [ ] **Metadata Scan:** ตรวจสอบ `generateMetadata` ว่ามีครบทั้ง `title`, `description` และ `openGraph`
@@ -46,4 +51,5 @@
 ---
 
 ## 🛡️ ENFORCED BY MASTER CONTROLLER
+
 หาก AI รุ่นถัดไปตรวจพบว่าโค้ดที่เขียนขัดกับ Blueprint นี้ **ต้องทำการแก้ไขทันที** โดยไม่ต้องรอคำสั่งเพิ่มเติมจากผู้ใช้งาน

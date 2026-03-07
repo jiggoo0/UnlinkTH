@@ -18,6 +18,7 @@ interface CaseStudyCardProps {
     excerpt: string;
     date?: string;
   };
+  priority?: boolean;
   className?: string;
 }
 
@@ -28,10 +29,12 @@ interface CaseStudyCardProps {
  * ออกแบบเพื่อสะท้อนถึงผลลัพธ์เชิงประจักษ์ (Verified Outcomes)
  */
 
-const FALLBACK_IMAGE = "/images/unlink-th.webp";
+const FALLBACK_IMAGE =
+  "https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/unlink-th.webp";
 
 export default function CaseStudyCard({
   study,
+  priority = false,
   className,
 }: CaseStudyCardProps) {
   // ตรวจสอบความถูกต้องของเส้นทางรูปภาพ
@@ -48,7 +51,10 @@ export default function CaseStudyCard({
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={cn("h-full", className)}
     >
-      <Link href={`/case-studies/${study.slug}`} className="group block h-full">
+      <Link
+        href={`/case-studies/${study.slug}`}
+        className="group block h-full cursor-pointer transition-transform duration-200 active:scale-[0.98]"
+      >
         <div className="lab-card border-border/40 group-hover:border-primary/40 group-hover:shadow-primary/5 flex h-full flex-col overflow-hidden transition-all duration-500 group-hover:shadow-2xl">
           {/* 1. Operational Evidence Header */}
           <div className="bg-muted/30 border-border/10 relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b">
@@ -57,10 +63,7 @@ export default function CaseStudyCard({
                 src={imageSrc}
                 alt={`บันทึกการปฏิบัติการ: ${study.title || "Classified Operation"}`}
                 fill
-                priority={
-                  study.slug.includes("online-drama") ||
-                  study.slug.includes("defamation")
-                }
+                priority={priority}
                 className="object-cover opacity-80 transition-transform duration-700 group-hover:scale-105 group-hover:opacity-100"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
