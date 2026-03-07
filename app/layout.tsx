@@ -4,7 +4,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Noto_Sans_Thai, JetBrains_Mono } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { siteConfig } from "@/constants/site-config";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
