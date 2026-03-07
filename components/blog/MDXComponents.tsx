@@ -112,7 +112,7 @@ export const MDXComponents = {
   h1: ({ className, ...props }: React.ComponentPropsWithoutRef<"h1">) => (
     <h1
       className={cn(
-        "mt-12 mb-8 text-4xl font-black tracking-tighter text-white uppercase md:text-5xl",
+        "mt-12 mb-8 text-4xl font-black tracking-tighter text-white uppercase md:text-6xl flex items-center flex-wrap gap-4",
         className,
       )}
       {...props}
@@ -121,7 +121,7 @@ export const MDXComponents = {
   h2: ({ className, ...props }: React.ComponentPropsWithoutRef<"h2">) => (
     <h2
       className={cn(
-        "mt-16 mb-6 border-b border-slate-900 pb-4 text-2xl font-black tracking-tight text-white uppercase md:text-3xl",
+        "mt-16 mb-8 border-b border-white/5 pb-6 text-3xl font-bold tracking-tight text-white uppercase md:text-4xl flex items-center flex-wrap gap-3",
         className,
       )}
       {...props}
@@ -130,7 +130,7 @@ export const MDXComponents = {
   h3: ({ className, ...props }: React.ComponentPropsWithoutRef<"h3">) => (
     <h3
       className={cn(
-        "text-accent mt-10 mb-4 text-xl font-bold tracking-widest uppercase",
+        "text-primary mt-12 mb-6 text-xl font-bold tracking-widest uppercase flex items-center flex-wrap gap-2",
         className,
       )}
       {...props}
@@ -139,31 +139,71 @@ export const MDXComponents = {
   p: ({ className, ...props }: React.ComponentPropsWithoutRef<"p">) => (
     <p
       className={cn(
-        "mb-8 text-base leading-loose font-light tracking-wide text-slate-400 md:text-lg",
+        "mb-10 text-base leading-relaxed font-light tracking-wide text-slate-300 md:text-xl/9",
+        className,
+      )}
+      {...props}
+    />
+  ),
+  strong: ({
+    className,
+    ...props
+  }: React.ComponentPropsWithoutRef<"strong">) => (
+    <strong
+      className={cn("font-bold text-primary italic", className)}
+      {...props}
+    />
+  ),
+  a: ({ className, ...props }: React.ComponentPropsWithoutRef<"a">) => (
+    <a
+      className={cn(
+        "text-primary underline decoration-primary/30 underline-offset-8 transition-all hover:decoration-primary hover:text-white font-medium",
         className,
       )}
       {...props}
     />
   ),
   ul: ({ className, ...props }: React.ComponentPropsWithoutRef<"ul">) => (
-    <ul className={cn("my-8 ml-4 list-none space-y-4", className)} {...props} />
+    <ul
+      className={cn("my-10 ml-2 list-none space-y-6", className)}
+      {...props}
+    />
   ),
-  li: ({ className, ...props }: React.ComponentPropsWithoutRef<"li">) => (
-    <li
+  ol: ({ className, ...props }: React.ComponentPropsWithoutRef<"ol">) => (
+    <ol
       className={cn(
-        "before:bg-accent relative pl-8 font-light tracking-wide text-slate-300 before:absolute before:top-3 before:left-0 before:h-1.5 before:w-1.5 before:rounded-full before:shadow-[0_0_8px_rgba(180,140,40,0.5)]",
+        "my-10 ml-2 list-none space-y-6 counter-reset-item",
         className,
       )}
       {...props}
     />
   ),
+  li: ({
+    className,
+    ...props
+  }: React.ComponentPropsWithoutRef<"li"> & { parent?: string }) => {
+    const isOrdered = props.parent === "ol";
+    return (
+      <li
+        className={cn(
+          "relative pl-12 font-light tracking-wide text-slate-200 md:text-lg",
+          "before:absolute before:left-0 before:flex before:h-8 before:w-8 before:items-center before:justify-center before:rounded-full before:text-[10px] before:font-bold before:transition-all",
+          "hover:before:scale-110",
+          !isOrdered &&
+            "before:content-[''] before:top-2 before:h-2 before:w-2 before:bg-primary before:shadow-[0_0_15px_rgba(16,185,129,0.5)]",
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
   blockquote: ({
     className,
     ...props
   }: React.ComponentPropsWithoutRef<"blockquote">) => (
     <blockquote
       className={cn(
-        "border-accent bg-accent/5 my-12 rounded-sm border-l-2 p-10 text-xl font-light text-slate-200 italic backdrop-blur-sm",
+        "border-primary/50 bg-primary/5 my-12 rounded-sm border-l-2 p-10 text-xl font-light text-slate-200 italic backdrop-blur-sm",
         className,
       )}
       {...props}
@@ -172,7 +212,7 @@ export const MDXComponents = {
   code: ({ className, ...props }: React.ComponentPropsWithoutRef<"code">) => (
     <code
       className={cn(
-        "text-accent-light rounded-sm border border-slate-800 bg-slate-900 px-2 py-1 font-mono text-sm",
+        "text-primary rounded-sm border border-slate-800 bg-slate-900 px-2 py-1 font-mono text-sm",
         className,
       )}
       {...props}

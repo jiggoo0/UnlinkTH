@@ -58,6 +58,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function SingleServicePage({ params }: ServicePageProps) {
   const { slug } = await params;
@@ -101,8 +102,21 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
       </div>
 
       {/* 1. Protocol Intelligence Header */}
-      <header className="border-border/50 bg-muted/10 relative mb-20 overflow-hidden border-b py-24">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_-20%,rgba(16,185,129,0.05),transparent)]" />
+      <header className="border-border/50 bg-muted/10 relative mb-20 overflow-hidden border-b py-24 min-h-[400px] flex items-center">
+        {/* Background Image Layer */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {service.image && (
+            <Image
+              src={service.image}
+              alt={service.title}
+              fill
+              priority
+              className="object-cover opacity-20 saturate-0"
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(16,185,129,0.1),transparent)]" />
+        </div>
 
         <div className="relative z-10 container">
           <div className="flex max-w-5xl flex-col gap-8">
@@ -118,7 +132,7 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
               </span>
             </div>
 
-            <h1 className="text-5xl leading-[1.1] font-bold tracking-tighter text-balance md:text-7xl">
+            <h1 className="text-5xl leading-[1.1] font-bold tracking-tighter text-balance md:text-7xl text-white">
               {service.title}
             </h1>
 
