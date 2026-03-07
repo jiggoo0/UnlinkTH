@@ -26,10 +26,14 @@ import {
   Globe,
   Activity,
   ArrowRight,
+  Target,
 } from "lucide-react";
 import { siteConfig } from "@/constants/site-config";
 
 export const MDXComponents = {
+  Target: (props: React.ComponentProps<"svg">) => (
+    <Target className="text-primary mr-2 inline-block h-5 w-5" {...props} />
+  ),
   AlertCircle: (props: React.ComponentProps<"svg">) => (
     <AlertCircle
       className="text-primary mr-2 inline-block h-5 w-5"

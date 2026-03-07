@@ -9,6 +9,8 @@
     "keystatic.config.ts"
   ],
   "project": ["**/*.{ts,tsx,mjs}"],
+  "ignoreExportsUsedInFile": true,
+  "ignore": ["components/ui/**"],
   "ignoreDependencies": [
     "@radix-ui/*",
     "autoprefixer",

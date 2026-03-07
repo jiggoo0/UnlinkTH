@@ -38,17 +38,23 @@ async function ServicesGrid() {
 
   if (servicesData.length === 0) {
     return (
-      <div className="border-border/20 col-span-2 rounded-3xl border border-dashed py-20 text-center">
-        <p className="text-muted-foreground font-mono text-sm uppercase tracking-widest">
-          กำลังดึงข้อมูลระบบ...
-        </p>
+      <div className="border-border/10 bg-white/5 col-span-2 rounded-[2.5rem] border border-dashed py-24 text-center backdrop-blur-sm">
+        <div className="mx-auto max-w-xs space-y-4">
+          <p className="text-primary font-mono text-[10px] tracking-[0.4em] uppercase">
+            System Synchronizing
+          </p>
+          <p className="text-slate-400 text-sm font-light leading-relaxed">
+            กำลังปรับปรุงและอัปโหลดข้อมูลยุทธศาสตร์ใหม่ <br />
+            กรุณารอสักครู่เพื่อเข้าถึงโปรโตคอลล่าสุด
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:col-span-2">
-      {servicesData.slice(0, 4).map((service) => (
+      {servicesData.slice(0, 6).map((service) => (
         <ServiceCard key={service.id} service={service} />
       ))}
     </div>
@@ -116,10 +122,10 @@ export default function HomePage() {
             <Suspense
               fallback={
                 <div className="grid gap-6 sm:grid-cols-2 lg:col-span-2 animate-pulse">
-                  {[1, 2, 3, 4].map((i) => (
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
                     <div
                       key={i}
-                      className="bg-white/5 rounded-3xl h-64 border border-white/10"
+                      className="bg-white/5 rounded-[2.5rem] h-64 border border-white/10"
                     />
                   ))}
                 </div>

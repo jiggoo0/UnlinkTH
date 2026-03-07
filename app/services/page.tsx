@@ -36,7 +36,12 @@ export default async function ServicesPage() {
       description: "ปฏิบัติการกู้คืนชื่อเสียงและระงับข้อมูลเชิงลบออนไลน์",
       icon: ShieldCheck,
       services: allServices.filter(
-        (s) => s.category === "Reputation" || s.category === "Legal",
+        (s) =>
+          s.category.toLowerCase() === "reputation" ||
+          s.category.toLowerCase() === "legal" ||
+          s.category.toLowerCase() === "personal" ||
+          s.category.toLowerCase() === "extreme" ||
+          s.category.toLowerCase() === "business",
       ),
     },
     {
@@ -44,7 +49,9 @@ export default async function ServicesPage() {
       name: "Financial Strategy",
       description: "วิศวกรรมการเงินและการวางแผนกู้บ้านสำหรับอาชีพอิสระ",
       icon: TrendingUp,
-      services: allServices.filter((s) => s.category === "Financial"),
+      services: allServices.filter(
+        (s) => s.category.toLowerCase() === "financial",
+      ),
     },
     {
       id: "immigration",
@@ -52,7 +59,9 @@ export default async function ServicesPage() {
       description: "ยุทธศาสตร์การเตรียมเอกสารวีซ่าและพำนักระยะยาวสากล",
       icon: Globe,
       services: allServices.filter(
-        (s) => s.category === "Immigration" || s.category === "Documentation",
+        (s) =>
+          s.category.toLowerCase() === "immigration" ||
+          s.category.toLowerCase() === "documentation",
       ),
     },
   ];
