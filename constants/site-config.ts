@@ -19,7 +19,7 @@ export const siteConfig: SiteConfig = {
   // ------------------------------------------------------------------
   founder: {
     name: "Alongkorl Yomkerd",
-    nameTh: "อลงกรณ์ ยมเกิด",
+    nameTh: "นาย อลงกรณ์ ยมเกิด",
     nickname: "Mza-Marks",
     role: "Chief Technology & Data Architect",
     roleTh: "ผู้อำนวยการฝ่ายสถาปัตยกรรมข้อมูลและเทคโนโลยี",
@@ -78,6 +78,7 @@ export const siteConfig: SiteConfig = {
       "วิศวกรรมเครดิต",
       "ลบข้อมูลส่วนตัวจาก Google",
       "UNLINK-GLOBAL",
+      "นาย อลงกรณ์ ยมเกิด",
       "อลงกรณ์ ยมเกิด",
       "จัดการวิกฤตชื่อเสียง",
     ],

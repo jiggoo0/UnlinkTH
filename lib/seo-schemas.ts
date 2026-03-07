@@ -64,7 +64,8 @@ export const getBrandIdentitySchema = () => {
     creator: {
       "@type": "Person",
       "@id": `${siteConfig.founder.url}/#person`,
-      name: siteConfig.founder.nameTh,
+      name: "นาย อลงกรณ์ ยมเกิด",
+      alternateName: "Alongkorl Yomkerd (Mza-Marks)",
       url: siteConfig.founder.url,
       jobTitle: siteConfig.founder.role,
       sameAs: siteConfig.founder.sameAs,
@@ -72,7 +73,7 @@ export const getBrandIdentitySchema = () => {
     maintainer: {
       "@type": "Organization",
       "@id": "https://www.aemdevweb.com/#organization",
-      name: "AemDevWeb - Systems Architecture",
+      name: "AemDevWeb Studio โดย นาย อลงกรณ์ ยมเกิด",
       url: "https://www.aemdevweb.com",
     },
     copyrightHolder: { "@id": `${siteConfig.url}/#organization` },

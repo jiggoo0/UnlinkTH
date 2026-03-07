@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   // Developer Attribution Protocol
   authors: [
     {
-      name: "อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)",
+      name: "นาย อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)",
       url: siteConfig.founder.url,
     },
     {
@@ -68,9 +68,9 @@ export const metadata: Metadata = {
       url: siteConfig.developer?.url,
     },
   ],
-  creator: `อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์) - ${siteConfig.developer?.fullname}`,
+  creator: `นาย อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์) - ${siteConfig.developer?.fullname}`,
   publisher: siteConfig.name,
-  generator: `อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)`,
+  generator: `นาย อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)`,
 
   icons: {
     icon: "/branding/icon.svg",

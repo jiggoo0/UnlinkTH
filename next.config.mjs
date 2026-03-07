@@ -1,10 +1,12 @@
 /** @format */
+import withBundleAnalyzer from "@next/bundle-analyzer";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // 🛡️ ปิด standalone เนื่องจากสร้างปัญหา Path Mapping ในระบบไฟล์ Android/Termux
   // ทำให้ Next.js ค้นหาโมดูลในระดับ Runtime ได้แม่นยำขึ้น
   output: undefined,
+// ... (rest of the file)
 
   typescript: {
     // ข้ามการตรวจประเภทเพื่อความเร็วในการ Build บนทรัพยากรที่จำกัด
@@ -40,4 +42,8 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const analyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+export default analyzer(nextConfig);
