@@ -106,7 +106,9 @@ export async function getPostBySlug<T extends PostFrontmatter>(
       data.image ||
       data.thumbnail ||
       data.imageUrl ||
-      "https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/blog/digital-ghost.webp",
+      (category === "services"
+        ? "/images/services/default.webp"
+        : "/images/blog/digital-ghost.webp"),
   } as T;
 
   return { data: postData, content, slug };
@@ -147,7 +149,9 @@ export async function getAllPosts<T extends PostFrontmatter>(
             data.image ||
             data.thumbnail ||
             data.imageUrl ||
-            "https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/blog/digital-ghost.webp",
+            (category === "services"
+              ? "/images/services/default.webp"
+              : "/images/blog/digital-ghost.webp"),
         } as T);
       }
     }

@@ -8,16 +8,10 @@ import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { ArrowUpRight, ImageOff, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CaseStudy } from "@/types";
 
 interface CaseStudyCardProps {
-  study: {
-    slug: string;
-    title: string;
-    category: string;
-    thumbnail: string;
-    excerpt: string;
-    date?: string;
-  };
+  study: CaseStudy;
   priority?: boolean;
   className?: string;
 }
@@ -29,8 +23,7 @@ interface CaseStudyCardProps {
  * ออกแบบเพื่อสะท้อนถึงผลลัพธ์เชิงประจักษ์ (Verified Outcomes)
  */
 
-const FALLBACK_IMAGE =
-  "https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/unlink-th.webp";
+const FALLBACK_IMAGE = "/images/cases/default.webp";
 
 export default function CaseStudyCard({
   study,
@@ -64,7 +57,7 @@ export default function CaseStudyCard({
                 alt={`บันทึกการปฏิบัติการ: ${study.title || "Classified Operation"}`}
                 fill
                 priority={priority}
-                className="object-cover opacity-80 transition-transform duration-700 group-hover:scale-105 group-hover:opacity-100"
+                className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105 group-hover:opacity-100"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             ) : (

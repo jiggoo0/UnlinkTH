@@ -111,7 +111,7 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
               alt={service.title}
               fill
               priority
-              className="object-cover opacity-20 saturate-0"
+              className="object-cover opacity-40 saturate-[0.3]"
             />
           )}
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />

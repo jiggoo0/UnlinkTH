@@ -35,13 +35,10 @@ export default async function ServicesPage() {
       name: "Reputation Management",
       description: "ปฏิบัติการกู้คืนชื่อเสียงและระงับข้อมูลเชิงลบออนไลน์",
       icon: ShieldCheck,
-      services: allServices.filter(
-        (s) =>
-          s.category.toLowerCase() === "reputation" ||
-          s.category.toLowerCase() === "legal" ||
-          s.category.toLowerCase() === "personal" ||
-          s.category.toLowerCase() === "extreme" ||
-          s.category.toLowerCase() === "business",
+      services: allServices.filter((s) =>
+        ["reputation", "extreme", "business", "personal", "legal"].includes(
+          s.category.toLowerCase(),
+        ),
       ),
     },
     {
@@ -58,10 +55,8 @@ export default async function ServicesPage() {
       name: "Global Mobility",
       description: "ยุทธศาสตร์การเตรียมเอกสารวีซ่าและพำนักระยะยาวสากล",
       icon: Globe,
-      services: allServices.filter(
-        (s) =>
-          s.category.toLowerCase() === "immigration" ||
-          s.category.toLowerCase() === "documentation",
+      services: allServices.filter((s) =>
+        ["immigration", "documentation"].includes(s.category.toLowerCase()),
       ),
     },
   ];
@@ -93,8 +88,10 @@ export default async function ServicesPage() {
             </h1>
 
             <p className="text-slate-400 max-w-2xl text-xl leading-relaxed font-light md:text-2xl">
-              คืนพื้นที่ชีวิตดิจิทัลที่ใสสะอาดและวางรากฐานการเงินที่มั่นคง
-              ผ่านกระบวนการวิศวกรรมข้อมูลระดับมาตรฐานสากล
+              เราคือ **"สถาปนิกผู้คุมกฎข้อมูล"**
+              ที่รู้วิธีสร้างบัลลังก์แห่งความน่าเชื่อถือให้คุณ
+              และมีอำนาจในการระงับมลพิษข้อมูลที่ผู้ไม่หวังดีจ้องทำลายคุณ...
+              เพราะในสมรภูมิดิจิทัล ความจริงคือสิ่งที่เรากำหนดขึ้นครับ
             </p>
           </div>
         </div>

@@ -3,20 +3,23 @@ import withBundleAnalyzer from "@next/bundle-analyzer";
 
 /** @type {import('next').NextConfig} */
 /* global process */
+const isTermux = process.env.SHELL?.includes("com.termux") || process.env.TERMUX === "true";
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 🛡️ ปิด standalone เนื่องจากสร้างปัญหา Path Mapping ในระบบไฟล์ Android/Termux
-  // ทำให้ Next.js ค้นหาโมดูลในระดับ Runtime ได้แม่นยำขึ้น
-  output: undefined,
-  // ... (rest of the file)
+  // 🛡️ ปรับโหมด Standalone อัตโนมัติ: 'standalone' สำหรับ Production (Vercel)
+  // แต่เป็น undefined สำหรับ Local Termux เพื่อเลี่ยงปัญหา Path Mapping
+  output: isTermux ? undefined : "standalone",
 
   typescript: {
-    // ข้ามการตรวจประเภทเพื่อความเร็วในการ Build บนทรัพยากรที่จำกัด
-    ignoreBuildErrors: true,
+    // 🛡️ เข้มงวดใน Production แต่ยืดหยุ่นใน Local Termux เพื่อความเร็ว
+    ignoreBuildErrors: isTermux,
   },
 
   images: {
-    // จำเป็นสำหรับ Termux เนื่องจากไม่มี Library สำหรับประมวลผลรูปภาพ (เช่น sharp) ที่สมบูรณ์
-    unoptimized: true,
+    // 🚀 เปิดใช้ Image Optimization ใน Production เพื่อคะแนน LCP สูงสุด
+    // แต่ปิดใน Termux เนื่องจากข้อจำกัดของ Library ประมวลผลรูปภาพ (เช่น sharp)
+    unoptimized: isTermux,
     remotePatterns: [
       {
         protocol: "https",
@@ -36,6 +39,7 @@ const nextConfig = {
       "@/constants",
     ],
   },
+
 
   // 🛠️ Webpack Configuration (Fallback สำหรับ Node.js Modules)
   webpack: (config, { isServer }) => {

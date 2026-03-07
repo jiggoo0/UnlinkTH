@@ -1,12 +1,12 @@
 /** @format */
 
 import { siteConfig } from "@/constants/site-config";
-import { BlogPost, Service } from "@/types";
+import { BlogPost, Service, CaseStudy } from "@/types";
 
 /**
- * UNLINK-GLOBAL | SEO Schema Library
+ * UNLINK-GLOBAL | Supreme SEO Schema Architecture
  * -------------------------------------------------------------------------
- * รวบรวมฟังก์ชันสำหรับสร้าง JSON-LD Structured Data
+ * รวบรวมฟังก์ชันสำหรับสร้าง JSON-LD Structured Data ระดับสากล
  */
 
 export const getBrandIdentitySchema = () => {
@@ -19,18 +19,28 @@ export const getBrandIdentitySchema = () => {
     url: siteConfig.url,
     logo: {
       "@type": "ImageObject",
-      url: `${siteConfig.url}${siteConfig.ogImage}`,
-      width: "1200",
-      height: "630",
+      "@id": `${siteConfig.url}/#logo`,
+      url: `${siteConfig.url}/icon.png`,
+      width: "512",
+      height: "512",
     },
     description: siteConfig.description,
     founder: {
       "@type": "Person",
+      "@id": `${siteConfig.founder.url}/#person`,
       name: `${siteConfig.founder.nameTh}`,
       alternateName: siteConfig.founder.name,
       jobTitle: siteConfig.founder.role,
+      description: siteConfig.founder.description,
       url: siteConfig.founder.url,
       sameAs: siteConfig.founder.sameAs,
+      knowsAbout: [
+        "Advanced Reputation Management",
+        "Digital Identity Rehabilitation",
+        "Strategic Data Intervention",
+        "Cyber Security Infrastructure",
+        "International Financial Architecture",
+      ],
     },
     contactPoint: {
       "@type": "ContactPoint",
@@ -39,13 +49,6 @@ export const getBrandIdentitySchema = () => {
       areaServed: "TH",
       availableLanguage: ["Thai", "English"],
     },
-    knowsAbout: [
-      "Digital Reputation Management",
-      "Financial Credit Engineering",
-      "Global Mobility Strategy",
-      "PDPA Compliance",
-      "Online Privacy Protection",
-    ],
     sameAs: [
       siteConfig.links.facebook,
       siteConfig.links.twitter,
@@ -61,25 +64,100 @@ export const getBrandIdentitySchema = () => {
     name: siteConfig.name,
     description: siteConfig.description,
     publisher: { "@id": `${siteConfig.url}/#organization` },
-    creator: {
-      "@type": "Person",
-      "@id": `${siteConfig.founder.url}/#person`,
-      name: "นาย อลงกรณ์ ยมเกิด",
-      alternateName: "Alongkorl Yomkerd (Mza-Marks)",
-      url: siteConfig.founder.url,
-      jobTitle: siteConfig.founder.role,
-      sameAs: siteConfig.founder.sameAs,
-    },
-    maintainer: {
-      "@type": "Organization",
-      "@id": "https://www.aemdevweb.com/#organization",
-      name: "AemDevWeb Studio โดย นาย อลงกรณ์ ยมเกิด",
-      url: "https://www.aemdevweb.com",
-    },
+    creator: { "@id": `${siteConfig.founder.url}/#person` },
     copyrightHolder: { "@id": `${siteConfig.url}/#organization` },
   };
 
   return [organization, webSite];
+};
+
+export const getBlogSchema = (post: BlogPost) => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${siteConfig.url}/blog/${post.slug}/#article`,
+    headline: post.title,
+    description: post.description,
+    image: `${siteConfig.url}${post.image || siteConfig.ogImage}`,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Person",
+      "@id": `${siteConfig.founder.url}/#person`,
+      name: siteConfig.founder.nameTh,
+      url: siteConfig.founder.url,
+    },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteConfig.url}/blog/${post.slug}`,
+    },
+  };
+};
+
+export const getServiceSchema = (service: Service) => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${siteConfig.url}/services/${service.slug}/#service`,
+    name: service.title,
+    serviceType: service.category,
+    provider: { "@id": `${siteConfig.url}/#organization` },
+    description: service.shortDescription || service.description,
+    areaServed: { "@type": "Country", name: "Thailand" },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "THB",
+      price: service.priceInfo?.startingAt?.replace(/[^0-9]/g, "") || "0",
+      availability: "https://schema.org/InStock",
+    },
+  };
+};
+
+export const getCaseStudySchema = (study: CaseStudy) => {
+  const title = study.title || study.frontmatter?.title;
+  const description =
+    study.description ||
+    study.excerpt ||
+    study.frontmatter?.description ||
+    study.frontmatter?.excerpt;
+  const image =
+    study.image ||
+    study.thumbnail ||
+    study.frontmatter?.image ||
+    study.frontmatter?.thumbnail;
+  const date = study.date || study.frontmatter?.date;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${siteConfig.url}/case-studies/${study.slug}/#article`,
+    headline: title,
+    description: description,
+    image: `${siteConfig.url}${image || siteConfig.ogImage}`,
+    datePublished: date,
+    author: {
+      "@type": "Person",
+      "@id": `${siteConfig.founder.url}/#person`,
+      name: siteConfig.founder.nameTh,
+    },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+  };
+};
+
+export const getFaqSchema = (faqs: { q: string; a: string }[]) => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
+  };
 };
 
 export const getBreadcrumbSchema = (
@@ -95,109 +173,6 @@ export const getBreadcrumbSchema = (
       item: item.item.startsWith("http")
         ? item.item
         : `${siteConfig.url}${item.item}`,
-    })),
-  };
-};
-
-export const getBlogSchema = (post: BlogPost) => {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.description,
-    image: `${siteConfig.url}${post.thumbnail || siteConfig.image || siteConfig.ogImage}`,
-    datePublished: post.date,
-    dateModified: post.date,
-    author: {
-      "@type": "Person",
-      name: siteConfig.founder.nameTh,
-      url: siteConfig.founder.url,
-    },
-    publisher: {
-      "@id": `${siteConfig.url}/#organization`,
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `${siteConfig.url}/blog/${post.slug}`,
-    },
-  };
-};
-
-export const getCaseStudySchema = (study: {
-  slug: string;
-  frontmatter: {
-    title: string;
-    thumbnail?: string;
-    image?: string;
-    excerpt?: string;
-    description?: string;
-    date: string;
-  };
-}) => {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: study.frontmatter.title,
-    description: study.frontmatter.excerpt || study.frontmatter.description,
-    image: `${siteConfig.url}${study.frontmatter.thumbnail || study.frontmatter.image || siteConfig.ogImage}`,
-    datePublished: study.frontmatter.date,
-    author: {
-      "@type": "Person",
-      name: siteConfig.founder.nameTh,
-      url: siteConfig.founder.url,
-    },
-    publisher: {
-      "@id": `${siteConfig.url}/#organization`,
-    },
-  };
-};
-
-export const getServiceSchema = (service: Service) => {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    serviceType: service.title,
-    provider: {
-      "@id": `${siteConfig.url}/#organization`,
-    },
-    description: service.shortDescription || service.description,
-    areaServed: {
-      "@type": "Country",
-      name: "Thailand",
-    },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "THB",
-      price: service.priceInfo?.startingAt?.replace(/[^0-9]/g, "") || "0",
-      availability: "https://schema.org/InStock",
-    },
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "International Identity & Data Architecture Services",
-      itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: service.title,
-          },
-        },
-      ],
-    },
-  };
-};
-
-export const getFaqSchema = (faqs: { q: string; a: string }[]) => {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.a,
-      },
     })),
   };
 };

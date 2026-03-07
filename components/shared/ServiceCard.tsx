@@ -53,11 +53,11 @@ export default function ServiceCard({ service }: ServiceCardProps) {
               alt={service.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover opacity-40 saturate-[0.2] transition-all duration-700 group-hover:scale-110 group-hover:opacity-60 group-hover:saturate-100"
+              className="object-cover opacity-80 saturate-[0.8] transition-all duration-700 group-hover:scale-110 group-hover:opacity-100 group-hover:saturate-100"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1d] via-[#0a0f1d]/60 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.1),transparent)] opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1d] via-[#0a0f1d]/40 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.15),transparent)] opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
         </div>
 
         {/* 2. Content Layer */}

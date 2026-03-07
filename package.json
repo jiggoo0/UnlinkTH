@@ -10,6 +10,7 @@
     "format": "prettier --write .",
     "check": "tsc --noEmit",
     "knip": "knip",
+    "audit:unused": "bash scripts/audit-unused.sh",
     "aisetup": "bash .gemini/bin/aisetup.sh",
     "modedev": "echo '🛡️ [DEV_MODE] Activated - Enforcing Strict Rule Compliance' && cat .gemini/rules/DEV_MODE.md",
     "analyze": "ANALYZE=true next build",
@@ -17,8 +18,7 @@
     "audit:perf": "echo '🚀 Checking Performance Constraints...' && grep -r 'priority' components/shared && echo '✅ Performance cues verified.'"
   },
   "dependencies": {
-    "@keystatic/core": "^0.5.48",
-    "@keystatic/next": "^5.0.4",
+    "@next/third-parties": "^16.1.6",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
     "@radix-ui/react-aspect-ratio": "1.1.1",
@@ -47,6 +47,7 @@
     "@radix-ui/react-toggle-group": "1.1.1",
     "@radix-ui/react-tooltip": "1.1.6",
     "@supabase/supabase-js": "^2.98.0",
+    "@vercel/analytics": "^1.6.1",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

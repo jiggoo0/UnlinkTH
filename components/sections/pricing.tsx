@@ -7,6 +7,8 @@ import { siteConfig } from "@/constants/site-config";
 export function PricingSection() {
   const { pricing } = siteConfig;
 
+  if (!pricing) return null;
+
   return (
     <section id="pricing" className="relative py-24 lg:py-32 overflow-hidden">
       {/* Background elements */}

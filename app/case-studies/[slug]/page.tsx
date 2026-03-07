@@ -52,17 +52,28 @@ export default async function SingleCasePage({ params }: CasePageProps) {
 
   if (!study || !study.frontmatter) notFound();
 
-  const { frontmatter, content } = study;
+  const frontmatter = study.frontmatter as Record<string, string>;
+  const { content } = study;
 
   const breadcrumbs = [
     { name: "Home", item: "/" },
     { name: "Case Studies", item: "/case-studies" },
-    { name: frontmatter.title, item: `/case-studies/${slug}` },
+    { name: frontmatter.title || "Classified", item: `/case-studies/${slug}` },
   ];
 
   return (
     <article className="pb-24">
-      <JsonLd data={getCaseStudySchema(study)} />
+      <JsonLd
+        data={getCaseStudySchema({
+          slug,
+          title: frontmatter.title,
+          category: frontmatter.category,
+          date: frontmatter.date,
+          image: frontmatter.image,
+          description: frontmatter.description || frontmatter.excerpt,
+          frontmatter,
+        })}
+      />
       <JsonLd data={getBreadcrumbSchema(breadcrumbs)} />
       {/* Navigation Interface */}
       <div className="container py-12">

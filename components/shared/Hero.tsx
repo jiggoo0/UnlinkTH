@@ -4,54 +4,70 @@
 
 import { motion } from "framer-motion";
 import { siteConfig } from "@/constants/site-config";
-
-import { Button } from "@/components/ui/button";
-import { ShieldCheck, ArrowRight, Activity, Lock } from "lucide-react";
+import { ShieldCheck, ArrowRight, Lock, Database, Zap } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 /**
- * UNLINK-TH | Operational Hero Intelligence (2026)
+ * UNLINK-TH | Supreme Hero Intelligence (Final Protocol)
  * -------------------------------------------------------------------------
- * ส่วนการแสดงผลเริ่มต้นที่เน้นการสร้างความน่าเชื่อถือและส่งสัญญาณความปลอดภัย
- * ออกแบบเพื่อรองรับกลุ่มลูกค้าที่ต้องการความเป็นส่วนตัวและความเด็ดขาดในการแก้ปัญหา
+ * ผสานทักษะวิศวกรรมข้อมูลเข้ากับงานดีไซน์ระดับพรีเมียม
+ * ออกแบบมาเพื่อ "ขายความสำเร็จ" (Selling Success) และ "ความมั่นคง" (Stability)
  */
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden pt-24 pb-20 md:pt-36 md:pb-40">
-      {/* Intelligence Ambient Layer: ควบคุมบรรยากาศด้วยแสงและเงา */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-[15%] left-1/2 aspect-square w-[140%] max-w-7xl -translate-x-1/2 opacity-20">
-          <div className="bg-radial-gradient from-primary/30 h-full w-full via-transparent to-transparent blur-[140px]" />
-        </div>
-        <div className="bg-primary/5 absolute top-[10%] right-[5%] h-96 w-96 animate-pulse blur-[120px]" />
+    <section className="relative min-h-[90vh] w-full overflow-hidden bg-[#050810] flex items-center pt-24 pb-20 md:pt-32 md:pb-36">
+      {/* 1. Operational Background Infrastructure */}
+      <div className="absolute inset-0 z-0">
+        {/* Glow & Depth Layers */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.1),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+
+        {/* Strategic Visual Anchor */}
+        <Image
+          src="https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/methodology-abstract.webp"
+          alt="Technical Methodology"
+          fill
+          priority
+          className="object-cover opacity-[0.07] mix-blend-luminosity grayscale"
+        />
+
+        {/* Animated Scanner Effect: สื่อถึงการตรวจสอบและ Intervene ข้อมูล */}
+        <motion.div
+          initial={{ top: "-10%" }}
+          animate={{ top: "110%" }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          className="absolute left-0 h-[2px] w-full bg-gradient-to-r from-transparent via-primary/20 to-transparent blur-sm z-10"
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050810]/40 to-[#050810]" />
       </div>
 
-      <div className="relative z-10 container">
+      <div className="relative z-20 container mx-auto px-6">
         <div className="mx-auto flex max-w-6xl flex-col items-center space-y-12 text-center">
-          {/* Status Badge Protocol: บ่งบอกสถานะการทำงานของระบบ */}
+          {/* Clearance Badge: สร้างความรู้สึกทางการ */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-primary/5 border-primary/10 text-primary inline-flex items-center gap-2.5 rounded-full border px-5 py-2 font-mono text-[10px] tracking-[0.3em] uppercase"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-3 rounded-full border px-6 py-2 font-mono text-[10px] font-black tracking-[0.4em] uppercase backdrop-blur-xl shadow-[0_0_20px_rgba(16,185,129,0.1)]"
           >
-            <Lock className="h-3.5 w-3.5" />
-            <span className="animate-pulse">
-              Reputation Protocol v4.0 Active
-            </span>
+            <Lock className="h-3 w-3" />
+            <span>Identity Security Clearance Level: Vault-S</span>
           </motion.div>
 
-          {/* Strategic Headline Interface: การสื่อสารหลักของแบรนด์ */}
-          <div className="space-y-6">
+          {/* Strategic Narrative Hierarchy */}
+          {/* Strategic Narrative Hierarchy */}
+          <div className="space-y-10">
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-6xl leading-[0.9] font-bold tracking-tighter text-balance md:text-9xl"
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="text-5xl leading-[0.85] font-black tracking-tighter text-white sm:text-7xl md:text-[9rem] uppercase"
             >
-              {siteConfig.hero.headlineLine1} <br />
-              <span className="text-primary glow-gold font-light italic">
-                {siteConfig.hero.headlineLine2}
+              Real <br />
+              <span className="text-primary italic font-light lowercase opacity-90">
+                solutions
               </span>
             </motion.h1>
 
@@ -59,82 +75,65 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-muted-foreground mx-auto max-w-3xl text-lg leading-relaxed font-light md:text-2xl"
+              className="text-slate-400 mx-auto max-w-3xl text-lg leading-relaxed font-light md:text-2xl"
             >
-              อำนาจในการจัดการตัวตนดิจิทัลควรอยู่ในมือคุณ เราคือที่ปรึกษาในการ{" "}
-              <span className="text-foreground font-medium">
-                จัดการประวัติเสีย
-              </span>{" "}
-              ลบข้อมูลเชิงลบ และกู้คืนสิทธิในการเริ่มต้นใหม่ให้คุณอย่างปลอดภัย
+              ทางออกของ <span className="text-white font-medium italic">"อาชีพพิเศษและเคสยาก"</span> 
+              ที่ธนาคารไม่รองรับ เราช่วยล้างประวัติและวางแผนการเงินให้คุณเริ่มต้นใหม่ได้จริง 
+              จ่ายแล้วจบ ไม่ต้องเสี่ยง ที่นี่คือ "ความลับสูงสุด" ไม่ส่งต่อข้อมูลให้หน่วยงานใดทั้งสิ้น
             </motion.p>
-          </div>
+            </div>
 
-          {/* Tactical Liaison Actions: ช่องทางการติดต่อสื่อสาร */}
+            {/* Execution CTAs: ปรับแต่งให้ดูมีความเด็ดขาดและเป็นมืออาชีพ */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex w-full flex-col items-center gap-5 pt-6 sm:w-auto sm:flex-row"
+            className="flex w-full flex-col items-center justify-center gap-5 pt-10 sm:flex-row"
           >
-            <Button
-              size="lg"
-              className="shadow-primary/20 group h-18 w-full rounded-full px-12 text-xl shadow-2xl transition-all sm:w-auto bg-primary text-primary-foreground font-bold tracking-widest uppercase"
-              asChild
+            <Link
+              href={siteConfig.contact.lineUrl}
+              className="group relative flex h-16 w-full items-center justify-center overflow-hidden rounded-full bg-primary px-12 text-[12px] font-black tracking-[0.3em] text-black uppercase transition-all hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(16,185,129,0.3)] active:scale-[0.98] sm:w-auto"
             >
-              <Link href={siteConfig.contact.lineUrl}>
-                {siteConfig.hero.ctaPrimary.label}
-                <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-1.5" />
-              </Link>
-            </Button>
+              <span className="relative z-10 flex items-center gap-3">
+                Initiate Protocol
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-2" />
+              </span>
+              <div className="absolute inset-0 z-0 bg-gradient-to-r from-white/30 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+            </Link>
 
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-primary/20 hover:bg-primary/5 h-18 w-full rounded-full px-12 text-xl backdrop-blur-md transition-all sm:w-auto"
-              asChild
+            <Link
+              href="/case-studies"
+              className="flex h-16 w-full items-center justify-center rounded-full border border-white/10 bg-white/[0.02] px-12 text-[12px] font-black tracking-[0.3em] text-white uppercase backdrop-blur-md transition-all hover:bg-white/5 hover:border-white/20 sm:w-auto"
             >
-              <Link href={siteConfig.hero.ctaSecondary.href}>
-                {siteConfig.hero.ctaSecondary.label}
-              </Link>
-            </Button>
+              View Proven Outcomes
+            </Link>
           </motion.div>
 
-          {/* System Verification Metrics: ข้อมูลยืนยันประสิทธิภาพ */}
+          {/* Core Verification Nodes */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.5, delay: 1 }}
-            className="border-border/10 grid w-full max-w-5xl grid-cols-1 gap-16 border-t pt-20 md:grid-cols-3"
+            transition={{ duration: 1.5, delay: 0.8 }}
+            className="border-white/5 grid w-full max-w-5xl grid-cols-2 gap-12 border-t pt-24 md:grid-cols-4"
           >
             {[
-              {
-                label: "ความสำเร็จของงาน",
-                value: "98% SUCCESS RATE",
-                icon: ShieldCheck,
-              },
-              {
-                label: "มาตรฐานความปลอดภัย",
-                value: "100% CONFIDENTIAL",
-                icon: Lock,
-              },
-              {
-                label: "การติดต่อเจ้าหน้าที่",
-                value: "DIRECT LINE",
-                icon: Activity,
-              },
+              { label: "Asset Unlocked", value: "฿500M+", icon: Database },
+              { label: "Cases Resolved", value: "1.2K+", icon: Zap },
+              { label: "System Uptime", value: "24/7/365", icon: ShieldCheck },
+              { label: "Privacy Level", value: "Vault-S", icon: Lock },
             ].map((stat, i) => (
               <div
                 key={i}
-                className="group flex flex-col items-center space-y-3"
+                className="group flex flex-col items-center md:items-start space-y-4"
               >
-                <div className="bg-primary/5 group-hover:bg-primary/10 rounded-2xl p-3 transition-colors">
-                  <stat.icon className="text-primary/50 group-hover:text-primary h-5 w-5 transition-colors" />
+                <div className="bg-primary/5 group-hover:bg-primary/10 rounded-2xl p-4 transition-all duration-500 border border-primary/10 group-hover:border-primary/40">
+                  <stat.icon className="text-primary/30 group-hover:text-primary h-5 w-5 transition-colors duration-500" />
                 </div>
-                <div className="space-y-1">
-                  <span className="text-muted-foreground/30 block font-mono text-[9px] tracking-[0.4em] uppercase">
+                <div className="space-y-1 text-center md:text-left">
+                  <span className="text-slate-600 block font-mono text-[9px] tracking-[0.4em] uppercase">
                     {stat.label}
                   </span>
-                  <span className="text-foreground text-sm font-bold tracking-widest uppercase">
+                  <span className="text-white text-lg font-black tracking-tighter uppercase">
                     {stat.value}
                   </span>
                 </div>
@@ -143,6 +142,9 @@ export default function Hero() {
           </motion.div>
         </div>
       </div>
+
+      {/* Finishing Bottom Gradient */}
+      <div className="absolute bottom-0 left-0 h-40 w-full bg-gradient-to-t from-[#050810] via-[#050810]/80 to-transparent z-10" />
     </section>
   );
 }

@@ -28,6 +28,7 @@ export interface SiteConfig {
     nickname?: string;
     role: string;
     roleTh: string;
+    description?: string; // เพิ่มฟิลด์นี้
     url: string;
     sameAs: string[];
   };
@@ -76,7 +77,7 @@ export interface SiteConfig {
     links?: Array<{ title: string; href: string }>;
   };
 
-  hero: {
+  hero?: {
     headlineLine1: string;
     headlineLine2: string;
     description: string;
@@ -90,7 +91,7 @@ export interface SiteConfig {
     rightSide: HeroSide;
   };
 
-  leadCapture: {
+  leadCapture?: {
     title: string;
     description: string;
     badge: string;
@@ -104,7 +105,7 @@ export interface SiteConfig {
     };
   };
 
-  pricing: {
+  pricing?: {
     badge: string;
     title: string;
     description: string;
@@ -118,7 +119,7 @@ export interface SiteConfig {
       features: string[];
     }>;
   };
-  portfolio: {
+  portfolio?: {
     badge: string;
     title: string;
     description: string;
@@ -130,7 +131,7 @@ export interface SiteConfig {
       aspect?: string;
     }>;
   };
-  protocols: {
+  protocols?: {
     badge: string;
     title: string;
     description: string;
@@ -203,14 +204,15 @@ export interface CaseStudy {
   slug: string;
   title: string;
   category: string;
-  thumbnail: string;
-  excerpt: string;
+  thumbnail?: string;
+  excerpt?: string;
   date: string;
-  priority?: number;
+  priority?: boolean | number;
   client?: string;
   description?: string;
   outcome?: string;
   image?: string;
+  frontmatter?: Record<string, unknown>; // รองรับข้อมูลดิบจาก MDX โดยไม่ใช้ any
 }
 
 // ------------------------------------------------------------------

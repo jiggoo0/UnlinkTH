@@ -65,8 +65,8 @@ export default function AboutContent({ founderName }: AboutContentProps) {
               </span>
             </h1>
             <p className="text-muted-foreground max-w-2xl text-xl leading-relaxed font-light md:text-3xl">
-              &quot;{siteConfig.hero.leftSide.headline},{" "}
-              {siteConfig.hero.rightSide.headline}&quot; —{siteConfig.name}{" "}
+              &quot;{siteConfig.hero?.leftSide?.headline},{" "}
+              {siteConfig.hero?.rightSide?.headline}&quot; —{siteConfig.name}{" "}
               คือทีมผู้เชี่ยวชาญด้านการจัดการชื่อเสียงออนไลน์
               ที่เปลี่ยนจากวิกฤตสู่อนาคตดิจิทัลที่มั่นคงด้วยวิศวกรรมข้อมูล
             </p>

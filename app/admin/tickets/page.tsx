@@ -4,16 +4,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
-import { createTicketAction } from "@/app/actions/ticket";
+import { createTicketAction, TicketData } from "@/app/actions/ticket";
 
 import { Badge } from "@/components/ui/badge";
 import { SombatTicket } from "@/components/shared/SombatTicket";
 
 export default function AdminTicketPage() {
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [lastTicket, setLastTicket] = useState<any>(null);
-  const [formData, setFormData] = useState({
+  const [lastTicket, setLastTicket] = useState<TicketData | null>(null);
+  const [formData, setFormData] = useState<TicketData>({
     ticket_number: "",
     passenger_name: "",
     id_card_last_4: "",

@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { TicketData } from "@/app/actions/ticket";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -15,8 +16,7 @@ function VerifyContent() {
   const [ticketNumber, setTicketNumber] = useState("");
   const [idLast4, setIdLast4] = useState("");
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [ticketData, setTicketData] = useState<any>(null);
+  const [ticketData, setTicketData] = useState<TicketData | null>(null);
   const [showScanner, setShowScanner] = useState(false);
 
   // ตรวจสอบข้อมูลจาก URL เมื่อโหลดหน้า (กรณีสแกนมา)

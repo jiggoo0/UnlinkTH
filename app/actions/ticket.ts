@@ -4,7 +4,9 @@ import { getSupabaseAdmin } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
 
 // กำหนด Type ให้ชัดเจนเพื่อป้องกันข้อมูลผิดพลาด
-type TicketData = {
+export type TicketData = {
+  id?: string;
+  created_at?: string;
   ticket_number: string;
   passenger_name: string;
   id_card_last_4: string;

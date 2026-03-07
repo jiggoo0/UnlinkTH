@@ -8,6 +8,8 @@ import { siteConfig } from "@/constants/site-config";
 export function PortfolioSection() {
   const { portfolio } = siteConfig;
 
+  if (!portfolio) return null;
+
   return (
     <section id="portfolio" className="relative py-24 lg:py-32">
       <div className="container mx-auto px-6">

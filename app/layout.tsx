@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Noto_Sans_Thai, JetBrains_Mono } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { siteConfig } from "@/constants/site-config";
+import { Analytics } from "@vercel/analytics/react";
 import { Suspense } from "react";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
@@ -14,7 +15,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 /**
- * Font Architectures
+ * Advanced Font Architectures (PageSpeed Optimized)
  */
 const inter = Inter({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ const notoThai = Noto_Sans_Thai({
   subsets: ["thai"],
   variable: "--font-noto-thai",
   display: "swap",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 const mono = JetBrains_Mono({
@@ -34,50 +36,28 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-/**
- * Viewport Optimization
- */
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
-  colorScheme: "dark",
+  themeColor: "#050810",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
 };
 
 /**
- * Metadata Framework (Enhanced for Entity Linking & Attribution)
+ * 🛡️ UNLINK-GLOBAL | Supreme Semantic Metadata
  */
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.seo.defaultTitle,
-    template: siteConfig.seo.titleTemplate ?? `%s | ${siteConfig.name}`,
+    template: siteConfig.seo.titleTemplate,
   },
   description: siteConfig.seo.defaultDescription,
   keywords: siteConfig.seo.keywords,
-  metadataBase: new URL(siteConfig.url),
-  alternates: { canonical: "/" },
-
-  // Developer Attribution Protocol
-  authors: [
-    {
-      name: "Chief Data Architect",
-      url: siteConfig.founder.url,
-    },
-    {
-      name: "AemDevWeb Studio",
-      url: siteConfig.developer?.url,
-    },
-  ],
-  creator: `UNLINK-GLOBAL Infrastructure Team - ${siteConfig.developer?.fullname}`,
+  authors: [{ name: siteConfig.founder.nameTh, url: siteConfig.founder.url }],
+  creator: `UNLINK-GLOBAL Infrastructure Team`,
   publisher: siteConfig.name,
-  generator: `UNLINK-GLOBAL Security Infrastructure`,
-
-  icons: {
-    icon: "/branding/icon.svg",
-    shortcut: "/branding/icon.svg",
-    apple: "/branding/icon.svg",
-  },
+  formatDetection: { email: false, address: false, telephone: false },
 
   openGraph: {
     type: "website",
@@ -95,6 +75,12 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.seo.defaultTitle,
+    description: siteConfig.seo.defaultDescription,
+    images: [siteConfig.ogImage],
+  },
   robots: {
     index: true,
     follow: true,
@@ -105,16 +91,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "G-XXXXXXXXXX", // Replace with actual Google Search Console verification key
-  },
 };
 
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { ThemeProvider } from "@/components/theme-provider";
 
-/**
- * Root Layout Protocol
- */
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -126,37 +107,34 @@ export default function RootLayout({
       className={`${inter.variable} ${notoThai.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
-      <body className="bg-background text-foreground selection:bg-primary/20 selection:text-primary relative flex min-h-screen flex-col font-sans antialiased">
+      <body className="bg-[#050810] text-foreground selection:bg-primary/20 selection:text-primary relative flex min-h-screen flex-col font-sans antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          {/* Navigation Loading Indicator */}
           <NextTopLoader
             color="oklch(var(--color-primary))"
             showSpinner={false}
             shadow="0 0 10px oklch(var(--color-primary) / 0.5)"
           />
 
-          {/* Global Brand Identity (Schema.org) */}
+          {/* Global Authority Signals */}
           <JsonLd />
           <ReputationShield />
           <PdpaConsent />
           <Toaster />
 
           <Navbar />
-          <main className="flex-1 overflow-hidden">{children}</main>
+          <main className="flex-1">{children}</main>
 
-          {/* Footer Streaming Shell (PPR) */}
-          <Suspense
-            fallback={
-              <footer className="bg-background border-t border-white/5 py-8" />
-            }
-          >
+          <Suspense fallback={<div className="h-20" />}>
             <Footer />
           </Suspense>
+
+          <Analytics />
+          <GoogleAnalytics gaId="G-VRLM7ZEH9X" />
         </ThemeProvider>
       </body>
     </html>

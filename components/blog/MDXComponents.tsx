@@ -11,6 +11,7 @@ import {
   AlertTriangle,
   CheckCircle2,
   Shield,
+  ShieldCheck,
   Lock,
   AlertCircle,
   Wrench,
@@ -51,6 +52,12 @@ export const MDXComponents = {
   ),
   Shield: (props: React.ComponentProps<"svg">) => (
     <Shield className="text-primary mr-2 inline-block h-5 w-5" {...props} />
+  ),
+  ShieldCheck: (props: React.ComponentProps<"svg">) => (
+    <ShieldCheck
+      className="text-primary mr-2 inline-block h-5 w-5"
+      {...props}
+    />
   ),
   Lock: (props: React.ComponentProps<"svg">) => (
     <Lock className="text-primary mr-2 inline-block h-5 w-5" {...props} />
