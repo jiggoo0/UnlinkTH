@@ -13,17 +13,16 @@ import { getBreadcrumbSchema } from "@/lib/seo-schemas";
  */
 
 export const metadata: Metadata = {
-  title: "รู้จักเรา - ทีมวิศวกรและที่ปรึกษากู้ชื่อเสียงดิจิทัล | UNLINK-TH",
+  title: "Vision & Architecture - ทีมวิศวกรที่ปรึกษากู้ชื่อเสียงดิจิทัล | UNLINK-GLOBAL",
   description:
-    "ทำความรู้จักเบื้องหลัง UNLINK-TH โดย นาย อลงกรณ์ ยมเกิด กับพันธกิจ 'กอบกู้ตัวตน' เพื่อให้ทุกคนมีสิทธิเริ่มต้นใหม่ ทีมงานมืออาชีพด้านวิศวกรรมข้อมูลและกฎหมายดิจิทัล",
+    "ทำความรู้จักเบื้องหลัง UNLINK-GLOBAL พันธกิจ 'กอบกู้ตัวตน' เพื่อให้ทุกคนมีสิทธิเริ่มต้นใหม่ โดยการขับเคลื่อนของทีมวิศวกรผู้เชี่ยวชาญด้านข้อมูลและกฎหมายดิจิทัลจาก AemDevWeb Studio",
   alternates: {
     canonical: "/about",
   },
 };
 
 export default function AboutPage() {
-  const founderName =
-    (siteConfig.founder as { nameTh: string })?.nameTh || "Founder";
+  const founderName = "Chief Technology & Data Architect";
 
   const breadcrumbs = [
     { name: "Home", item: "/" },

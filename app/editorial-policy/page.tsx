@@ -14,24 +14,22 @@ import { SecureChannel } from "@/components/sections/SecureChannel";
 import { siteConfig } from "@/constants/site-config";
 
 /**
- * UNLINK-TH | Editorial Policy & Data Ethics Framework (2026)
+ * UNLINK-GLOBAL | Editorial Policy & Data Ethics Framework (2026)
  * -------------------------------------------------------------------------
  * มาตรฐานการคัดกรองเนื้อหาและจริยธรรมในการจัดการชื่อเสียงออนไลน์
- * Oversight by: อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์) - Technical Data Architect
+ * Infrastructure Managed by: AemDevWeb Studio - Technical Data Architecture Team
  */
 
 export const metadata: Metadata = {
   title: `Editorial Policy & Ethics | ${siteConfig.name}`,
   description:
-    "มาตรฐานการคัดกรองเนื้อหาและจริยธรรมในการจัดการชื่อเสียงออนไลน์ภายใต้หลักสิทธิส่วนบุคคลและความชอบธรรมทางกฎหมายของ UNLINK-TH",
+    "มาตรฐานการคัดกรองเนื้อหาและจริยธรรมในการจัดการชื่อเสียงออนไลน์ภายใต้หลักสิทธิส่วนบุคคลและความชอบธรรมทางกฎหมายของ UNLINK-GLOBAL",
 };
 
 export default function EditorialPolicyPage() {
   const lastUpdated = "30 มกราคม 2026";
 
-  // Type Casting เพื่อป้องกัน Error TS18046: 'siteConfig.founder' is of type 'unknown'
-  const founderName =
-    (siteConfig.founder as { nameTh: string })?.nameTh || "Founder";
+  const founderRole = "Chief Technology & Data Architect";
 
   const principles = [
     {
@@ -117,7 +115,7 @@ export default function EditorialPolicyPage() {
           <p className="text-lg">
             เรายึดถือว่าข้อมูลดิจิทัลคือโครงสร้างพื้นฐานของความเชื่อมั่น **
             {siteConfig.name}** จึงกำหนดแนวทางปฏิบัติภายใต้การบริหารของ **
-            {founderName}**
+            {founderRole}**
             เพื่อให้การจัดการเนื้อหาเป็นไปอย่างมีประสิทธิภาพและชอบธรรมสูงสุด
           </p>
 
@@ -137,12 +135,13 @@ export default function EditorialPolicyPage() {
             <div className="space-y-4">
               <h3 className="flex items-center gap-3 font-bold tracking-tight">
                 <Fingerprint className="h-5 w-5" />
-                2. ความถูกต้องและการพิสูจน์สิทธิ
+                2. อนามัยข้อมูลและความเป็นส่วนตัว (Data Privacy & Anonymity)
               </h3>
               <p>
-                ในกระบวนการวางสถาปัตยกรรมชื่อเสียงใหม่
-                ข้อมูลทั้งหมดต้องผ่านการตรวจสอบ (Fact-Check)
-                เพื่อให้ระบบการค้นหายอมรับความมีตัวตนของข้อมูลในระยะยาวอย่างยั่งยืน
+                ในฐานะผู้เชี่ยวชาญด้านสถาปัตยกรรมอัตลักษณ์
+                เราให้ความสำคัญสูงสุดกับการรักษาความลับและความเป็นส่วนตัวของทั้งลูกค้าและทีมงานวิศวกร
+                โดยใช้หลักปฏิบัติแบบ Role-based Identity
+                เพื่อให้การดำเนินงานทางเทคนิคเป็นอิสระและปลอดภัยสูงสุด
               </p>
             </div>
           </div>

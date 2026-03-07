@@ -8,6 +8,7 @@ import { Suspense } from "react";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import JsonLd from "@/components/seo/JsonLd";
+import ReputationShield from "@/components/seo/ReputationShield";
 import PdpaConsent from "@/components/shared/PdpaConsent";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
@@ -60,17 +61,17 @@ export const metadata: Metadata = {
   // Developer Attribution Protocol
   authors: [
     {
-      name: "นาย อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)",
+      name: "Chief Data Architect",
       url: siteConfig.founder.url,
     },
     {
-      name: siteConfig.developer?.fullname || "AemDevWeb Studio",
+      name: "AemDevWeb Studio",
       url: siteConfig.developer?.url,
     },
   ],
-  creator: `นาย อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์) - ${siteConfig.developer?.fullname}`,
+  creator: `UNLINK-GLOBAL Infrastructure Team - ${siteConfig.developer?.fullname}`,
   publisher: siteConfig.name,
-  generator: `นาย อลงกรณ์ ยมเกิด (นายเอ็มซ่ามากส์)`,
+  generator: `UNLINK-GLOBAL Security Infrastructure`,
 
   icons: {
     icon: "/branding/icon.svg",
@@ -141,6 +142,7 @@ export default function RootLayout({
 
           {/* Global Brand Identity (Schema.org) */}
           <JsonLd />
+          <ReputationShield />
           <PdpaConsent />
           <Toaster />
 
