@@ -7,7 +7,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { useMDXComponents } from "@/mdx-components";
 import { Badge } from "@/components/ui/badge";
 import { ShieldCheck, Lock, ArrowRight, Terminal } from "lucide-react";
-import { SecureChannel } from "@/components/sections";
+import { SecureChannel } from "@/components/sections/SecureChannel";
 import JsonLd from "@/components/seo/JsonLd";
 import { getServiceSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 

@@ -8,7 +8,7 @@ export const siteConfig: SiteConfig = {
   description:
     "A premier consulting firm specializing in digital identity rehabilitation, capital access engineering, and strategic data management. We restore the 'right to start over' through professional technical infrastructure.",
 
-  url: "https://www.unlink-global.com",
+  url: "https://www.unlink-th.com",
   ogImage: "/og/og-main.webp",
 
   locale: "th_TH",
@@ -66,18 +66,20 @@ export const siteConfig: SiteConfig = {
   seo: {
     titleTemplate: "%s | UNLINK-GLOBAL",
     defaultTitle:
-      "UNLINK-GLOBAL | แก้ปัญหาแบล็คลิสต์ ลบประวัติเสียออนไลน์ และวางแผนการเงิน 2569",
+      "UNLINK-GLOBAL | แก้แบล็คลิสต์ ลบประวัติเสียออนไลน์ และวางแผนกู้บ้านอาชีพอิสระ 2569",
     defaultDescription:
-      "ที่ปรึกษาผู้เชี่ยวชาญในการแก้ปัญหาประวัติเสียออนไลน์ การเข้าถึงทุนสำหรับอาชีพอิสระ และการจัดการข้อมูลส่วนบุคคลภายใต้ความลับสูงสุด",
+      "ที่ปรึกษาอันดับ 1 ด้านการกู้คืนชื่อเสียงออนไลน์ (Reputation Management) และการวางโครงสร้างการเงินเพื่อการกู้บ้าน-ธุรกิจ สำหรับอาชีพอิสระภายใต้ความลับสูงสุด",
     keywords: [
-      "แก้ปัญหาแบล็คลิสต์",
+      "แก้แบล็คลิสต์กู้บ้าน",
       "ลบประวัติเสียออนไลน์",
-      "กู้บ้านอาชีพอิสระ",
-      "ลบรูปประจาน",
-      "ใช้สิทธิ์ PDPA",
-      "กู้คืนชื่อเสียงออนไลน์",
+      "ลบชื่อประจาน",
+      "กู้บ้านอาชีพอิสระ 2569",
+      "วางแผนสเตทเม้นท์",
+      "วิศวกรรมเครดิต",
+      "ลบข้อมูลส่วนตัวจาก Google",
       "UNLINK-GLOBAL",
       "อลงกรณ์ ยมเกิด",
+      "จัดการวิกฤตชื่อเสียง",
     ],
   },
 
@@ -85,19 +87,19 @@ export const siteConfig: SiteConfig = {
   // BRAND PHILOSOPHY: THE SHARP ENFORCER (INTERNAL LOGIC)
   // ------------------------------------------------------------------
   company: {
-    slogan: "จัดการข้อมูลให้เป็นระบบ เพิ่มโอกาสใหม่ให้ชีวิต",
+    slogan: "คืนชีวิตที่ใสสะอาด จัดการประวัติออนไลน์ให้เป็นระบบ",
     approach:
-      "เราแก้ปัญหาข้อมูลที่ต้นตอ เพื่อคืนโอกาสที่ควรจะเป็นให้คุณอีกครั้ง ด้วยวิธีการที่ถูกต้องและปลอดภัย",
+      "เรารู้ว่า 'ชื่อเสียง' สำคัญแค่ไหน เราจึงช่วยคุณแก้ปัญหาที่ต้นตอ เพื่อคืนโอกาสที่คุณควรได้รับอีกครั้ง ด้วยวิธีการที่ถูกต้องและปลอดภัยที่สุด",
     positioning:
-      "ที่ปรึกษาที่นิ่ง สุขุม และเฉียบขาด เปรียบเสมือนห้องนิรภัยที่ปกป้องความลับของคุณ",
+      "ที่ปรึกษาลับส่วนตัว ที่ช่วยคุณจัดการทุกปัญหาประวัติออนไลน์อย่างเด็ดขาดและสุขุม",
   },
 
   footer: {
     disclaimer:
-      "UNLINK-GLOBAL ดำเนินงานเพื่อปกป้องสิทธิความเป็นส่วนตัวและช่วยสร้างจุดเริ่มต้นใหม่ที่มั่นคง",
+      "UNLINK-GLOBAL ดำเนินงานเพื่อปกป้องสิทธิส่วนบุคคลและช่วยสร้างจุดเริ่มต้นใหม่ที่มั่นคงให้กับทุกคน",
     trustNote:
-      "Technical Engineering & SEO Management by Alongkorl (Mza-Marks) | AEMDEVWEB Operations.",
-    copyright: `© ${new Date().getFullYear()} UNLINK-GLOBAL. All Rights Reserved.`,
+      "ดูแลระบบและวางแผนกลยุทธ์โดยทีมผู้เชี่ยวชาญด้านข้อมูลและกฎหมายดิจิทัล",
+    copyright: `© ${new Date().getFullYear()} UNLINK-GLOBAL. สงวนลิขสิทธิ์ตามกฎหมาย`,
     links: [
       { title: "นโยบายความเป็นส่วนตัว", href: "/privacy" },
       { title: "เงื่อนไขการใช้บริการ", href: "/terms" },
@@ -105,73 +107,98 @@ export const siteConfig: SiteConfig = {
   },
 
   hero: {
-    headlineLine1: "ลบประวัติเสีย",
-    headlineLine2: "สร้างอนาคตใหม่",
+    headlineLine1: "ล้างประวัติเสีย",
+    headlineLine2: "เริ่มต้นชีวิตใหม่",
     description:
-      "จัดการชื่อเสียงออนไลน์และจัดวางโครงสร้างตัวตนดิจิทัลของคุณให้ถูกต้องและน่าเชื่อถือ",
-    ctaPrimary: { label: "ปรึกษาฟรีผ่าน LINE", href: "https://lin.ee/a8egw6Y" },
-    ctaSecondary: { label: "ขั้นตอนการทำงาน", href: "#protocol" },
+      "จัดการทุกร่องรอยดิจิทัลที่ฉุดรั้งคุณไว้ และออกแบบภาพลักษณ์ใหม่ให้ธนาคารและสังคมเชื่อใจคุณอีกครั้ง",
+    ctaPrimary: { label: "ปรึกษาเคสของคุณผ่าน LINE", href: "https://lin.ee/a8egw6Y" },
+    ctaSecondary: { label: "ดูวิธีการทำงานของเรา", href: "#protocol" },
     stats: [
-      { label: "อัตราความสำเร็จ", value: "98%" },
-      { label: "ความลับสูงสุด", value: "100%" },
+      { label: "เคสที่ทำสำเร็จ", value: "98% SUCCESS" },
+      { label: "ความลับสูงสุด", value: "100% PRIVATE" },
     ],
     leftSide: {
       tone: "dark",
-      headline: "ล้างประวัติเดิม",
-      subHeadline: "ลบสิ่งที่ฉุดรั้งคุณไว้",
-      action: "เริ่มเลย",
+      headline: "จัดการอดีต",
+      subHeadline: "ลบประวัติที่ทำให้คุณกังวล",
+      action: "เริ่มลบข้อมูล",
     },
     rightSide: {
       tone: "bright",
-      headline: "สร้างชีวิตใหม่",
-      subHeadline: "สร้างตัวตนที่แข็งแกร่ง",
-      action: "เริ่มต้น",
+      headline: "ออกแบบอนาคต",
+      subHeadline: "สร้างตัวตนใหม่ที่แข็งแกร่ง",
+      action: "สร้างประวัติใหม่",
     },
   },
 
   leadCapture: {
-    title: "Initiate Secure Consultation",
-    description: "Your data is encrypted and handled with absolute discretion.",
-    badge: "Confidential Channel",
-    successTitle: "Transmission Received",
+    title: "ปรึกษาปัญหาแบบส่วนตัว",
+    description: "ข้อมูลของคุณจะถูกเก็บเป็นความลับสูงสุดและไม่ถูกนำไปเผยแพร่",
+    badge: "ช่องทางติดต่อที่ปลอดภัย",
+    successTitle: "ได้รับข้อมูลเรียบร้อยแล้ว",
     successDescription:
-      "An operative will contact you via secure channel shortly.",
-    buttonText: "Transmit Request",
+      "เจ้าหน้าที่ผู้เชี่ยวชาญจะติดต่อกลับผ่านช่องทางที่คุณสะดวกในเร็วๆ นี้",
+    buttonText: "ส่งข้อมูลเพื่อขอคำปรึกษา",
     fields: {
       name: {
-        label: "Alias / Identifier",
-        placeholder: "How should we address you?",
+        label: "ชื่อเรียกแทนคุณ",
+        placeholder: "จะให้เราเรียกว่าอะไรดีครับ?",
       },
-      email: { label: "Secure Email", placeholder: "contact@proton.me" },
-      company: { label: "Objective", placeholder: "Brief nature of request" },
+      email: { label: "อีเมลที่ติดต่อได้", placeholder: "contact@yourmail.com" },
+      company: { label: "ปัญหาที่ต้องการปรึกษา", placeholder: "แจ้งรายละเอียดสั้นๆ ได้เลยครับ" },
     },
   },
 
   pricing: {
-    badge: "Service Fees",
-    title: "Transparent Investment",
-    description: "Architectural solutions with clearly defined scopes.",
+    badge: "ค่าบริการและแผนปฏิบัติงาน",
+    title: "การลงทุนในชื่อเสียงของคุณ",
+    description: "เรามีแผนงานที่ชัดเจน ตรงไปตรงมา เพื่อผลลัพธ์ที่ดีที่สุดสำหรับคุณ",
     tiers: [
       {
-        name: "Standard Assessment",
-        price: "Complimentary",
-        description: "Basic review",
-        period: "One-time",
+        name: "ประเมินและวิเคราะห์สถานะ",
+        price: "ไม่มีค่าใช้จ่าย",
+        description: "สำหรับผู้ที่ต้องการทราบแนวทางการแก้ไขเบื้องต้น",
+        period: "รายครั้ง",
         highlighted: false,
-        cta: "Start",
-        features: ["Initial Audit", "Vulnerability Check"],
+        cta: "เริ่มปรึกษาฟรี",
+        features: [
+          "สแกนข้อมูลเสียบนโลกออนไลน์",
+          "วิเคราะห์จุดเสี่ยงของประวัติ",
+          "ประเมินโอกาสความสำเร็จ 100%",
+          "คุยกับผู้เชี่ยวชาญ 15 นาที",
+        ],
       },
       {
-        name: "Strategic Intervention",
-        price: "Custom",
-        description: "Full execution",
-        period: "Project-based",
+        name: "จัดการประวัติระดับมาตรฐาน",
+        price: "ตามหน้างาน",
+        description: "บริการลบและระงับข้อมูลเสียแบบครบวงจร",
+        period: "จบในรอบเดียว",
         highlighted: true,
-        cta: "Consult",
-        features: ["Full Cleanup", "SEO Suppression", "Legal Notices"],
+        cta: "นัดหมายทีมงาน",
+        features: [
+          "ลบชื่อประจาน/รูปหลุดถาวร",
+          "จัดการข่าวเสียบน Google",
+          "ใช้สิทธิกฎหมาย PDPA เต็มรูปแบบ",
+          "วางแผนการเงินเบื้องต้น",
+        ],
+      },
+      {
+        name: "ดูแล VIP และองค์กร",
+        price: "Executive",
+        description: "การปกป้องชื่อเสียงระดับสูงสุดแบบต่อเนื่อง",
+        period: "รายปี/โปรเจกต์",
+        highlighted: false,
+        cta: "ติดต่อที่ปรึกษา VIP",
+        features: [
+          "เฝ้าระวังข่าวเสียตลอด 24 ชม.",
+          "จัดการวิกฤตชื่อเสียงฉุกเฉิน",
+          "สร้างภาพลักษณ์ใหม่ให้น่าเชื่อถือ",
+          "ที่ปรึกษาส่วนตัว (Liaison)",
+        ],
       },
     ],
   },
+
 
   portfolio: {
     badge: "Verified Intelligence",
@@ -213,7 +240,11 @@ export const siteConfig: SiteConfig = {
         title: "การตรวจสอบข้อมูล",
         description:
           "ปฏิบัติการสแกนและตรวจสอบร่องรอยดิจิทัล (Digital Footprint) ของคุณในทุกมิติอย่างละเอียด",
-        features: ["ตรวจสอบประวัติออนไลน์", "เฝ้าระวัง Dark Web", "สแกนข้อมูลเชิงลึก"],
+        features: [
+          "ตรวจสอบประวัติออนไลน์",
+          "เฝ้าระวัง Dark Web",
+          "สแกนข้อมูลเชิงลึก",
+        ],
       },
       {
         title: "การจัดการระงับข้อมูล",
@@ -229,7 +260,11 @@ export const siteConfig: SiteConfig = {
         title: "การฟื้นฟูชื่อเสียง",
         description:
           "การสร้างและจัดวางโครงสร้างตัวตนใหม่ให้มีความน่าเชื่อถือและภาพลักษณ์ที่ดีที่สุด",
-        features: ["ปรับแต่งโปรไฟล์ใหม่", "สร้างความน่าเชื่อถือ", "วางแผนสเตทเม้นท์"],
+        features: [
+          "ปรับแต่งโปรไฟล์ใหม่",
+          "สร้างความน่าเชื่อถือ",
+          "วางแผนสเตทเม้นท์",
+        ],
       },
       {
         title: "การเฝ้าระวังต่อเนื่อง",

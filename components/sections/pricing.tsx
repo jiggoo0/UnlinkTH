@@ -74,7 +74,9 @@ export function PricingSection() {
                 </ul>
 
                 <a
-                  href="#contact"
+                  href={siteConfig.contact.lineUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`glow-border inline-flex items-center justify-center w-full py-3 rounded-lg text-sm font-semibold tracking-wide transition-all duration-300 ${
                     tier.highlighted
                       ? "bg-primary hover:bg-primary/90 text-primary-foreground hover:shadow-lg hover:shadow-primary/25"

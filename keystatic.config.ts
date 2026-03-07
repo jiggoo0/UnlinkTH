@@ -5,34 +5,41 @@ import { config, fields, collection } from "@keystatic/core";
 // 🛡️ [KEYSTATIC MDX COMPONENT SCHEMA] - Fully Aligned with Production MDX
 // -----------------------------------------------------------------------
 
-const mdxSchema = {
-  AlertCircle: fields.empty(),
-  AlertTriangle: fields.empty(),
-  BarChart: fields.empty(),
-  ClipboardList: fields.empty(),
-  FileText: fields.empty(),
-  Lightbulb: fields.empty(),
-  Lock: fields.empty(),
-  Search: fields.empty(),
-  Shield: fields.empty(),
-  Wrench: fields.empty(),
-  Terminal: fields.empty(),
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mdxSchema: Record<string, any> = {
+  AlertCircle: { label: "Alert Circle", schema: {} },
+  AlertTriangle: { label: "Alert Triangle", schema: {} },
+  BarChart: { label: "Bar Chart", schema: {} },
+  ClipboardList: { label: "Clipboard List", schema: {} },
+  FileText: { label: "File Text", schema: {} },
+  Lightbulb: { label: "Lightbulb", schema: {} },
+  Lock: { label: "Lock", schema: {} },
+  Search: { label: "Search", schema: {} },
+  Shield: { label: "Shield", schema: {} },
+  Wrench: { label: "Wrench", schema: {} },
+  Terminal: { label: "Terminal", schema: {} },
   // คอมโพเนนต์ที่รับค่า Props (ต้องระบุ Schema เพื่อป้องกัน Build Error)
-  Callout: fields.object({
-    type: fields.select({
-      label: "Type",
-      options: [
-        { label: "Info", value: "info" },
-        { label: "Warning", value: "warning" },
-        { label: "Secure", value: "secure" },
-      ],
-      defaultValue: "info",
-    }),
-  }),
-  Image: fields.object({
-    src: fields.text({ label: "Image Source Path" }),
-    alt: fields.text({ label: "Alternative Text" }),
-  }),
+  Callout: {
+    label: "Callout",
+    schema: {
+      type: fields.select({
+        label: "Type",
+        options: [
+          { label: "Info", value: "info" },
+          { label: "Warning", value: "warning" },
+          { label: "Secure", value: "secure" },
+        ],
+        defaultValue: "info",
+      }),
+    },
+  },
+  Image: {
+    label: "Image",
+    schema: {
+      src: fields.text({ label: "Image Source Path" }),
+      alt: fields.text({ label: "Alternative Text" }),
+    },
+  },
 };
 
 export default config({
@@ -49,7 +56,10 @@ export default config({
         title: fields.slug({ name: { label: "Title (หัวข้อ)" } }),
         description: fields.text({ label: "Description", multiline: true }),
         date: fields.date({ label: "Date" }),
-        author: fields.text({ label: "Author", defaultValue: "Strategic Operative" }),
+        author: fields.text({
+          label: "Author",
+          defaultValue: "Strategic Operative",
+        }),
         image: fields.text({ label: "Primary Image Path" }),
         category: fields.text({ label: "Category", defaultValue: "INSIGHTS" }),
         content: fields.mdx({
@@ -73,7 +83,10 @@ export default config({
         id: fields.text({ label: "Service ID" }),
         title: fields.slug({ name: { label: "Title" } }),
         category: fields.text({ label: "Category" }),
-        description: fields.text({ label: "Full Description", multiline: true }),
+        description: fields.text({
+          label: "Full Description",
+          multiline: true,
+        }),
         shortDescription: fields.text({ label: "Short Description" }),
         iconName: fields.text({ label: "Icon Name", defaultValue: "Shield" }),
         image: fields.text({ label: "Primary Image Path" }),
@@ -103,7 +116,10 @@ export default config({
         title: fields.slug({ name: { label: "Title" } }),
         description: fields.text({ label: "Summary", multiline: true }),
         date: fields.date({ label: "Date" }),
-        author: fields.text({ label: "Specialist", defaultValue: "Strategic Operative" }),
+        author: fields.text({
+          label: "Specialist",
+          defaultValue: "Strategic Operative",
+        }),
         category: fields.text({ label: "Category" }),
         client: fields.text({ label: "Client" }),
         outcome: fields.text({ label: "Outcome" }),

@@ -127,6 +127,7 @@ export default function AboutContent({ founderName }: AboutContentProps) {
                 src="/images/methodology-abstract.webp"
                 alt="Methodology Abstract"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover opacity-60 transition-transform duration-700 group-hover:scale-105"
               />
               <div className="from-background via-background/20 absolute inset-0 bg-gradient-to-t to-transparent" />
@@ -150,6 +151,7 @@ export default function AboutContent({ founderName }: AboutContentProps) {
                 src="/images/operational-core.webp"
                 alt="Operational Core"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover opacity-80 transition-transform duration-700 group-hover:scale-105"
               />
               <div className="from-background/90 via-background/20 absolute inset-0 z-10 bg-gradient-to-t to-transparent" />

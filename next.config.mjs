@@ -4,7 +4,7 @@
 const nextConfig = {
   // 🛡️ ปิด standalone เนื่องจากสร้างปัญหา Path Mapping ในระบบไฟล์ Android/Termux
   // ทำให้ Next.js ค้นหาโมดูลในระดับ Runtime ได้แม่นยำขึ้น
-  output: undefined, 
+  output: undefined,
 
   typescript: {
     // ข้ามการตรวจประเภทเพื่อความเร็วในการ Build บนทรัพยากรที่จำกัด

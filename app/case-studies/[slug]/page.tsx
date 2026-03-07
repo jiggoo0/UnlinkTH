@@ -8,7 +8,7 @@ import { useMDXComponents } from "@/mdx-components";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Calendar, FileText, Lock, ShieldCheck } from "lucide-react";
 import Link from "next/link";
-import { SecureChannel } from "@/components/sections";
+import { SecureChannel } from "@/components/sections/SecureChannel";
 import JsonLd from "@/components/seo/JsonLd";
 import { getCaseStudySchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 

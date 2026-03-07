@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { siteConfig } from "@/constants/site-config";
 import {
   MessageCircle,
-  Mail,
   ShieldCheck,
   Lock,
   Clock,
@@ -92,9 +91,10 @@ export default function ContactContent() {
                 </h3>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed font-light">
-                เพื่อป้องกันการรั่วไหลของข้อมูล (Data Breach) UNLINK-GLOBAL มีนโยบาย
-                **Zero-Server Logs** โดยข้อมูลการปรึกษาทั้งหมดจะถูกจัดการผ่าน
-                End-to-End Encryption ของแอปพลิเคชัน LINE เท่านั้น
+                เพื่อป้องกันการรั่วไหลของข้อมูล (Data Breach) UNLINK-GLOBAL
+                มีนโยบาย **Zero-Server Logs**
+                โดยข้อมูลการปรึกษาทั้งหมดจะถูกจัดการผ่าน End-to-End Encryption
+                ของแอปพลิเคชัน LINE เท่านั้น
               </p>
               <div className="border-border/5 flex items-center gap-6 border-t pt-2">
                 <div className="text-muted-foreground/40 flex items-center gap-2 font-mono text-[10px] uppercase">

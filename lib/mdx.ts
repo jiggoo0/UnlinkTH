@@ -7,9 +7,9 @@ const contentDir = path.join(process.cwd(), "content");
 /**
  * @TYPE_SYSTEM: Discriminated Unions for Industrial Grade Content
  */
-export type ContentCategory = "blog" | "case-studies" | "services";
+type ContentCategory = "blog" | "case-studies" | "services";
 
-export interface BaseFrontmatter {
+interface BaseFrontmatter {
   slug: string;
   title: string;
   description: string;
@@ -20,11 +20,11 @@ export interface BaseFrontmatter {
   imageUrl?: string;
 }
 
-export interface BlogFrontmatter extends BaseFrontmatter {
+interface BlogFrontmatter extends BaseFrontmatter {
   category: string;
 }
 
-export interface CaseStudyFrontmatter extends BaseFrontmatter {
+interface CaseStudyFrontmatter extends BaseFrontmatter {
   category: string;
   client: string;
   outcome: string;
@@ -53,12 +53,12 @@ export interface ServiceFrontmatter extends BaseFrontmatter {
   protocol?: Array<{ title: string; description: string }>;
 }
 
-export type PostFrontmatter =
+type PostFrontmatter =
   | BlogFrontmatter
   | CaseStudyFrontmatter
   | ServiceFrontmatter;
 
-export interface PostResult<T extends PostFrontmatter> {
+interface PostResult<T extends PostFrontmatter> {
   data: T;
   content: string;
   slug: string;
@@ -121,6 +121,9 @@ export async function getAllPosts<T extends PostFrontmatter>(
 
   const posts: T[] = [];
 
+  /**
+   * Recursive Scanner: ค้นหาไฟล์ .mdx ในทุกโฟลเดอร์ย่อย
+   */
   function scanDir(dir: string) {
     const entries = fs.readdirSync(dir);
     for (const entry of entries) {

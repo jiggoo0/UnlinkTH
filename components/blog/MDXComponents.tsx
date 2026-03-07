@@ -5,6 +5,7 @@
  */
 
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import {
   Info,
   AlertTriangle,
@@ -207,22 +208,31 @@ export const MDXComponents = {
       </div>
     );
   },
-  Image: ({ alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
-    <figure className="my-16">
-      <div className="group overflow-hidden rounded-sm border border-slate-900 bg-[#0c1122] p-3 shadow-2xl">
-        <img
-          className="h-auto w-full scale-[1.01] opacity-80 transition-all duration-1000 group-hover:scale-100 group-hover:opacity-100"
-          alt={alt}
-          {...props}
-        />
-      </div>
-      {alt && (
-        <figcaption className="mt-6 text-center text-[10px] font-black tracking-[0.5em] text-slate-600 uppercase">
-          {alt}
-        </figcaption>
-      )}
-    </figure>
-  ),
+  Image: (props: React.ComponentPropsWithoutRef<typeof Image>) => {
+    // 🛡️ Hierarchy Level 2: Architectural Integrity
+    // ต้องแยก width และ height ออกเพื่อป้องกันความขัดแย้งกับ 'fill' property ของ Next.js
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { width, height, src, alt, ...rest } = props;
+    return (
+      <figure className="my-16">
+        <div className="group relative aspect-video overflow-hidden rounded-sm border border-slate-900 bg-[#0c1122] p-3 shadow-2xl">
+          <Image
+            src={src || ""}
+            alt={alt || "Strategic Document Image"}
+            fill
+            sizes="(max-width: 768px) 100vw, 800px"
+            className="scale-[1.01] object-cover opacity-80 transition-all duration-1000 group-hover:scale-100 group-hover:opacity-100"
+            {...rest}
+          />
+        </div>
+        {alt && (
+          <figcaption className="mt-6 text-center text-[10px] font-black tracking-[0.5em] text-slate-600 uppercase">
+            {alt}
+          </figcaption>
+        )}
+      </figure>
+    );
+  },
   ProtocolCTA: () => {
     return (
       <div className="border-accent/20 my-20 rounded-sm border bg-gradient-to-br from-slate-900 to-slate-950 p-12 text-center">

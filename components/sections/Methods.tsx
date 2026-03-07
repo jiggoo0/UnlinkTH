@@ -17,24 +17,24 @@ import { siteConfig } from "@/constants/site-config";
 
 const methods = [
   {
-    title: "การลบข้อมูลถาวร",
-    subtitle: "Infrastructure Neutralization",
+    title: "ลบประวัติเสียถาวร",
+    subtitle: "Data Removal",
     description:
-      "ปฏิบัติการถอดถอนข้อมูลและประวัติการค้นหาออกจากฐานข้อมูลออนไลน์อย่างถาวร ผ่านกระบวนการแทรกแซงทางเทคนิคและมาตรการความปลอดภัยระดับสูง",
+      "จัดการถอนรากถอนโคนข้อมูลเสียและประวัติการค้นหาที่ทำร้ายคุณ ให้หายไปจากโลกออนไลน์อย่างถูกต้องและถาวร",
     icon: Cpu,
   },
   {
-    title: "การสร้างตัวตนใหม่",
-    subtitle: "Identity Reconstruction",
+    title: "สร้างตัวตนใหม่ให้น่าเชื่อถือ",
+    subtitle: "Trust Reconstruction",
     description:
-      "การจัดวางสถาปัตยกรรมตัวตนใหม่เพื่อยึดครองพื้นที่แสดงผลหน้าแรก (SEO) พร้อมสร้างเกราะป้องกันข้อมูลเชิงลบด้วยโครงสร้างข้อมูลที่ถูกต้อง",
+      "ออกแบบและจัดวางข้อมูลชุดใหม่ที่แข็งแกร่ง เพื่อยึดครองพื้นที่หน้าแรกของ Google และสร้างความเชื่อมั่นให้ธนาคารและคู่ค้า",
     icon: Globe,
   },
   {
-    title: "การบังคับใช้สิทธิ์ทางกฎหมาย",
-    subtitle: "PDPA Strategic Liaison",
+    title: "ปกป้องสิทธิ์ด้วยกฎหมาย PDPA",
+    subtitle: "Legal Protection",
     description:
-      "การใช้สิทธิอันชอบธรรมตามกฎหมาย PDPA (Right to Erasure) เพื่อสั่งระงับและทำลายชุดข้อมูลที่ละเมิดสิทธิเสรีภาพในโลกดิจิทัลของคุณ",
+      "ใช้สิทธิ์ตามกฎหมายคุ้มครองข้อมูลส่วนบุคคล เพื่อสั่งระงับและทำลายข้อมูลที่บิดเบือนหรือละเมิดความเป็นส่วนตัวของคุณ",
     icon: Scale,
   },
 ];
@@ -52,17 +52,15 @@ export default function Methods() {
         >
           <div className="text-primary flex items-center gap-2 font-mono text-[10px] tracking-[0.3em] uppercase">
             <ShieldCheck className="h-4 w-4" />
-            <span>กระบวนการทำงานระดับวิศวกรรม</span>
+            <span>มาตรฐานการทำงานระดับมืออาชีพ</span>
           </div>
           <h2 className="text-4xl leading-[1.1] font-bold tracking-tighter md:text-6xl">
-            ยุทธศาสตร์การจัดการ{" "}
-            <span className="text-primary font-light italic">ชื่อเสียง</span>{" "}
-            <br />
-            ในโลกดิจิทัล
+            ทางรอดที่เป็นระบบ <br />
+            เพื่อ <span className="text-primary font-light italic">เริ่มต้นใหม่</span>
           </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed font-light md:text-xl">
-            ผสมผสานกระบวนการจัดการข้อมูลร่วมกับยุทธศาสตร์กฎหมายดิจิทัล
-            เพื่อสร้างทางออกที่เด็ดขาดและยั่งยืนที่สุดให้แก่ภาพลักษณ์ออนไลน์ของคุณ
+          <p className="text-muted-foreground text-lg font-light leading-relaxed md:text-xl">
+            เราผสมผสานเทคนิคการจัดการข้อมูลเข้ากับข้อกฎหมายดิจิทัล 
+            เพื่อให้คุณได้กลับมาใช้ชีวิตได้อย่างมั่นใจและสง่างามอีกครั้ง
           </p>
         </motion.div>
 
@@ -77,8 +75,11 @@ export default function Methods() {
             className="border-primary/20 bg-primary/5 hover:bg-primary/10 rounded-full px-8 transition-all"
             asChild
           >
-            <Link href={siteConfig.contact.lineUrl} className="flex items-center gap-2">
-              ปรึกษาทีม Specialist <ArrowRight className="h-4 w-4" />
+            <Link
+              href={siteConfig.contact.lineUrl}
+              className="flex items-center gap-2"
+            >
+              คุยกับทีมผู้เชี่ยวชาญ <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
         </motion.div>

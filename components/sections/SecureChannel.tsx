@@ -52,17 +52,15 @@ export function SecureChannel() {
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-primary font-mono text-[10px] tracking-[0.4em] uppercase">
                 <Activity className="h-3 w-3 animate-pulse" />
-                <span>เปิดช่องทางติดต่อปลอดภัย</span>
+                <span>ช่องทางปรึกษาแบบลับที่สุด</span>
               </div>
               <h2 className="text-5xl md:text-7xl font-bold tracking-tighter leading-none">
-                เริ่มการ <br />
-                <span className="text-primary glow-gold italic">
-                  ปรึกษาเคส
-                </span>
+                เริ่มแก้ <br />
+                <span className="text-primary glow-gold italic">ปัญหาของคุณ</span>
               </h2>
               <p className="text-muted-foreground text-lg font-light leading-relaxed max-w-md">
-                เราไม่ใช้ระบบฝากข้อความหน้าเว็บเพื่อความปลอดภัยสูงสุด
-                ข้อมูลของท่านจะเป็นความลับและคุยตรงกับทีมงานผ่าน LINE เท่านั้น
+                เพื่อความปลอดภัยสูงสุด เราจะคุยตรงกับท่านผ่าน LINE เท่านั้น
+                ไม่มีการเก็บข้อมูลลงฐานข้อมูลหน้าเว็บ มั่นใจได้ว่าปัญหาของคุณจะเป็นความลับตลอดไป
               </p>
             </div>
 
@@ -73,7 +71,7 @@ export function SecureChannel() {
                 </div>
                 <div>
                   <p className="text-[10px] font-mono text-primary/60 uppercase tracking-widest">
-                    มาตรการความเป็นส่วนตัว
+                    Privacy Guarantee
                   </p>
                   <p className="text-sm font-bold">
                     ปกปิดตัวตนและเป็นความลับ 100%
@@ -86,10 +84,10 @@ export function SecureChannel() {
                 </div>
                 <div>
                   <p className="text-[10px] font-mono text-primary/60 uppercase tracking-widest">
-                    การจัดการข้อมูล
+                    Data Handling
                   </p>
                   <p className="text-sm font-bold">
-                    ไม่มีการเก็บข้อมูลลงฐานข้อมูล
+                    ข้อมูลจบที่การคุย ไม่มีการนำไปใช้ต่อ
                   </p>
                 </div>
               </div>

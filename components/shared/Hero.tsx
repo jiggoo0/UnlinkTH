@@ -61,11 +61,11 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-muted-foreground mx-auto max-w-3xl text-lg leading-relaxed font-light md:text-2xl"
             >
-              อำนาจในการจัดการตัวตนดิจิทัลควรอยู่ในมือคุณ
-              เราคือที่ปรึกษาในการ{" "}
-              <span className="text-foreground font-medium">จัดการประวัติเสีย</span>{" "}
-              ลบข้อมูลเชิงลบ
-              และกู้คืนสิทธิในการเริ่มต้นใหม่ให้คุณอย่างปลอดภัย
+              อำนาจในการจัดการตัวตนดิจิทัลควรอยู่ในมือคุณ เราคือที่ปรึกษาในการ{" "}
+              <span className="text-foreground font-medium">
+                จัดการประวัติเสีย
+              </span>{" "}
+              ลบข้อมูลเชิงลบ และกู้คืนสิทธิในการเริ่มต้นใหม่ให้คุณอย่างปลอดภัย
             </motion.p>
           </div>
 
@@ -93,7 +93,9 @@ export default function Hero() {
               className="border-primary/20 hover:bg-primary/5 h-18 w-full rounded-full px-12 text-xl backdrop-blur-md transition-all sm:w-auto"
               asChild
             >
-              <Link href={siteConfig.hero.ctaSecondary.href}>{siteConfig.hero.ctaSecondary.label}</Link>
+              <Link href={siteConfig.hero.ctaSecondary.href}>
+                {siteConfig.hero.ctaSecondary.label}
+              </Link>
             </Button>
           </motion.div>
 

@@ -1,6 +1,7 @@
 /** @format */
 
 import { Metadata } from "next";
+import Image from "next/image";
 import { getAllBlogPosts } from "@/lib/blog";
 import Link from "next/link";
 import { BookOpen, Calendar, ChevronRight } from "lucide-react";
@@ -58,9 +59,11 @@ export default async function BlogPage() {
             >
               <div className="bg-muted/20 relative aspect-video overflow-hidden">
                 {post.image && (
-                  <img
+                  <Image
                     src={post.image}
                     alt={post.title}
+                    width={800}
+                    height={450}
                     className="absolute inset-0 h-full w-full object-cover opacity-60 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
                   />
                 )}

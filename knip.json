@@ -1,21 +1,18 @@
 {
   "$schema": "https://knip.dev/schema-json",
   "entry": [
-    "next.config.mjs",
-    "app/**/page.tsx",
-    "app/**/layout.tsx",
-    "app/sitemap.ts",
-    "app/robots.ts",
-    "lib/mdx.ts"
+    "app/**/loading.tsx",
+    "app/**/error.tsx",
+    "app/**/not-found.tsx",
+    "app/**/route.ts",
+    "mdx-components.tsx",
+    "keystatic.config.ts"
   ],
-  "project": ["**/*.{ts,tsx}"],
+  "project": ["**/*.{ts,tsx,mjs}"],
   "ignoreDependencies": [
-    "lucide-react",
-    "framer-motion",
     "@radix-ui/*",
-    "@tailwindcss/postcss",
-    "postcss",
     "autoprefixer",
+    "tailwindcss",
     "tailwindcss-animate"
   ]
 }

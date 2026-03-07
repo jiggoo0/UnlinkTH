@@ -1,8 +1,7 @@
-/** @format */
-
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import * as LucideIcons from "lucide-react";
 import { motion } from "framer-motion";
 import { Service } from "@/types";
@@ -12,88 +11,93 @@ interface ServiceCardProps {
   service: Service;
 }
 
-/**
- * UNLINK-TH | Service Protocol Interface (2026)
- * -------------------------------------------------------------------------
- * การ์ดแสดงผลรายการที่เน้นความชัดเจนของข้อมูลเชิงเทคนิคและความปลอดภัย
- * ออกแบบตามหลักการ Sophisticated Minimalist เพื่อกลุ่มลูกค้าที่เน้นผลลัพธ์
- */
-
 export default function ServiceCard({ service }: ServiceCardProps) {
   if (!service) return null;
 
-  // Resolve dynamic icons จาก Library อย่างปลอดภัยเพื่อป้องกันปัญหา Runtime
   const IconComponent = (LucideIcons[
     service.iconName as keyof typeof LucideIcons
   ] || ShieldCheck) as LucideIcons.LucideIcon;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="lab-card group border-border/40 hover:border-primary/40 bg-muted/5 hover:bg-muted/10 relative flex h-full flex-col justify-between p-10 transition-all duration-500"
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative flex h-[480px] flex-col overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#0a0f1d] transition-all duration-500 hover:border-primary/30"
     >
-      {/* Background Ambient Layer: สร้างบรรยากาศความลึกลับและทันสมัย */}
-      <div className="bg-primary/5 group-hover:bg-primary/10 pointer-events-none absolute top-0 right-0 h-40 w-40 rounded-full blur-[80px] transition-colors" />
-
-      <div className="relative z-10 space-y-8">
-        {/* 1. Technical Status Header */}
-        <div className="flex items-start justify-between">
-          <div className="bg-primary/5 border-primary/10 group-hover:bg-primary/20 group-hover:border-primary/40 flex h-16 w-16 items-center justify-center rounded-2xl border transition-all duration-500 group-hover:scale-110">
-            <IconComponent className="text-primary glow-gold h-8 w-8" />
-          </div>
-          <div className="bg-background/50 border-border/10 text-muted-foreground/60 flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[9px] tracking-[0.2em] uppercase">
-            <span className="bg-primary h-1.5 w-1.5 animate-pulse rounded-full" />
-            Protocol Verified
-          </div>
-        </div>
-
-        {/* 2. Specification Core */}
-        <div className="space-y-4">
-          <h3 className="group-hover:text-primary text-2xl leading-tight font-bold tracking-tighter transition-colors md:text-3xl">
-            {service.title || "Standard Intelligence"}
-          </h3>
-          <p className="text-muted-foreground line-clamp-3 text-sm leading-relaxed font-light">
-            {service.shortDescription || "ระบบอยู่ระหว่างการประมวลผลข้อมูล..."}
-          </p>
-        </div>
-
-        {/* 3. Capability Modules (Features) */}
-        {service.features && service.features.length > 0 && (
-          <div className="border-border/10 space-y-3 border-t pt-6">
-            {service.features.slice(0, 3).map((feature, idx) => (
-              <div
-                key={idx}
-                className="text-muted-foreground/70 flex items-center gap-3 text-[11px] font-light"
-              >
-                <ShieldCheck className="text-primary/40 h-3.5 w-3.5" />
-                <span className="line-clamp-1 italic">{feature}</span>
-              </div>
-            ))}
-          </div>
+      {/* 1. Image & Overlay Layer */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {service.image && (
+          <Image
+            src={service.image}
+            alt={service.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover opacity-20 saturate-0 transition-all duration-700 group-hover:scale-110 group-hover:opacity-30 group-hover:saturate-50"
+          />
         )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1d] via-[#0a0f1d]/80 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.05),transparent)] opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
       </div>
 
-      {/* 4. Classification & Action Liaison */}
-      <div className="border-border/10 relative z-10 mt-12 flex items-end justify-between border-t pt-8">
-        <div className="space-y-1">
-          <p className="text-muted-foreground/30 font-mono text-[9px] tracking-[0.3em] uppercase">
-            Classification
-          </p>
-          <p className="text-primary/60 font-mono text-[10px] font-bold tracking-widest uppercase">
-            {service.category || "Classified"}
-          </p>
+      {/* 2. Content Layer */}
+      <div className="relative z-10 flex h-full flex-col justify-between p-10">
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div className="bg-primary/5 border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/40 flex h-14 w-14 items-center justify-center rounded-2xl border backdrop-blur-sm transition-all duration-500">
+              <IconComponent className="text-primary glow-gold h-7 w-7" />
+            </div>
+            <div className="text-primary/40 font-mono text-[9px] tracking-[0.3em] uppercase">
+              ID: {service.id}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="text-2xl font-bold tracking-tighter text-white transition-colors group-hover:text-primary md:text-3xl">
+              {service.title}
+            </h3>
+            <p className="text-muted-foreground line-clamp-2 text-sm leading-relaxed font-light">
+              {service.shortDescription}
+            </p>
+          </div>
+
+          {/* Core Specs Modules */}
+          {service.features && service.features.length > 0 && (
+            <div className="flex flex-wrap gap-2 pt-2">
+              {service.features.slice(0, 3).map((feature, idx) => (
+                <span
+                  key={idx}
+                  className="bg-white/5 border-white/10 rounded-full border px-3 py-1 font-mono text-[9px] tracking-wider text-slate-400 uppercase backdrop-blur-md"
+                >
+                  {feature}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
-        <Link
-          href={`/services/${service.slug}`}
-          className="group/btn text-primary relative inline-flex items-center gap-3 text-xs font-bold tracking-widest uppercase transition-all hover:gap-4"
-        >
-          Access Specs
-          <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-        </Link>
+        {/* 3. Footer Action */}
+        <div className="flex items-end justify-between border-t border-white/5 pt-8">
+          <div className="space-y-1">
+            <p className="text-muted-foreground/30 font-mono text-[9px] tracking-[0.3em] uppercase">
+              Operational Category
+            </p>
+            <p className="text-primary/60 font-mono text-[10px] font-bold tracking-widest uppercase">
+              {service.category}
+            </p>
+          </div>
+
+          <Link
+            href={`/services/${service.slug}`}
+            className="bg-primary/10 hover:bg-primary group/btn flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 hover:w-32 hover:px-4"
+          >
+            <span className="hidden w-0 text-[10px] font-bold tracking-widest text-black uppercase opacity-0 transition-all group-hover/btn:block group-hover/btn:w-auto group-hover/btn:opacity-100">
+              Specs
+            </span>
+            <ArrowRight className="text-primary h-4 w-4 transition-colors group-hover/btn:text-black" />
+          </Link>
+        </div>
       </div>
     </motion.div>
   );

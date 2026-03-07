@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import JsonLd from "@/components/seo/JsonLd";
 import { getFaqSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
-import { SecureChannel } from "@/components/sections";
+import { SecureChannel } from "@/components/sections/SecureChannel";
 
 /**
  * UNLINK-TH | Intelligence FAQ Interface (2026)
