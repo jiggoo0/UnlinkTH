@@ -17,7 +17,9 @@ import {
 import JsonLd from "@/components/shared/JsonLd";
 import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
-export const dynamic = "force-static";
+// บังคับให้หน้าเว็บดึงข้อมูลใหม่เสมอ (Dynamic) เพื่อแก้ปัญหาไฟล์ไม่มา
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: "Service Protocols | ยุทธศาสตร์การจัดการข้อมูลและภาพลักษณ์ดิจิทัล",
@@ -31,38 +33,46 @@ export const metadata: Metadata = {
 export default async function ServicesPage() {
   const allServices = await getAllServices();
 
-  // จัดกลุ่มบริการตาม Category
+  // หากไม่มีข้อมูล ให้แสดง UI แจ้งเตือน
+  if (!allServices || allServices.length === 0) {
+    return (
+      <div className="min-h-screen bg-[#050810] flex items-center justify-center p-6 text-center">
+        <div className="max-w-md space-y-6">
+          <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center border border-primary/20 mx-auto">
+            <ShieldAlert className="text-primary w-10 h-10" />
+          </div>
+          <h1 className="text-3xl font-black text-white">System Synchronizing</h1>
+          <p className="text-slate-400">กำลังเชื่อมต่อฐานข้อมูลยุทธศาสตร์ กรุณารอสักครู่เพื่อเข้าถึงโปรโตคอลล่าสุดครับ</p>
+        </div>
+      </div>
+    );
+  }
+
+  // จัดกลุ่มบริการตาม Category (แบบ Case-insensitive)
+  const filterServices = (cats: string[]) => 
+    allServices.filter((s) => cats.includes((s.category || "").toLowerCase()));
+
   const categories = [
     {
       id: "reputation",
       name: "Reputation Management",
       description: "ปฏิบัติการกู้คืนชื่อเสียงและระงับข้อมูลเชิงลบออนไลน์",
       icon: ShieldCheck,
-      services: allServices.filter((s) =>
-        ["reputation", "extreme", "business", "personal", "legal"].includes(
-          (s.category || "").toLowerCase(),
-        ),
-      ),
+      services: filterServices(["reputation", "extreme", "business", "personal", "legal"]),
     },
     {
       id: "financial",
       name: "Financial Strategy",
       description: "วิศวกรรมการเงินและการวางแผนกู้บ้านสำหรับอาชีพอิสระ",
       icon: TrendingUp,
-      services: allServices.filter(
-        (s) => (s.category || "").toLowerCase() === "financial",
-      ),
+      services: filterServices(["financial"]),
     },
     {
       id: "immigration",
       name: "Global Mobility",
       description: "ยุทธศาสตร์การเตรียมเอกสารวีซ่าและพำนักระยะยาวสากล",
       icon: Globe,
-      services: allServices.filter((s) =>
-        ["immigration", "documentation"].includes(
-          (s.category || "").toLowerCase(),
-        ),
-      ),
+      services: filterServices(["immigration", "documentation"]),
     },
   ];
 
@@ -71,7 +81,6 @@ export default async function ServicesPage() {
     { name: "Services", item: "/services" },
   ];
 
-  // Prepare Background Image URL
   const methodologyAbstractUrl = getImageUrl("methodology-abstract.webp");
 
   return (
@@ -101,8 +110,7 @@ export default async function ServicesPage() {
             <p className="text-slate-400 max-w-2xl text-xl leading-relaxed font-light md:text-2xl">
               เราคือ **"สถาปนิกผู้คุมกฎข้อมูล"**
               ที่รู้วิธีสร้างบัลลังก์แห่งความน่าเชื่อถือให้คุณ
-              และมีอำนาจในการระงับมลพิษข้อมูลที่ผู้ไม่หวังดีจ้องทำลายคุณ...
-              เพราะในสมรภูมิดิจิทัล ความจริงคือสิ่งที่เรากำหนดขึ้นครับ
+              และมีอำนาจในการระงับมลพิษข้อมูลที่ผู้ไม่หวังดีจ้องทำลายคุณ
             </p>
           </div>
         </div>
@@ -111,36 +119,38 @@ export default async function ServicesPage() {
       {/* 2. Grouped Services Section */}
       <div className="container space-y-40">
         {categories.map((cat, catIdx) => (
-          <section key={cat.id} id={cat.id} className="scroll-mt-24">
-            <div className="mb-16 flex flex-col items-start justify-between gap-8 border-b border-white/5 pb-12 md:flex-row md:items-end">
-              <div className="space-y-4">
-                <div className="flex items-center gap-4 text-primary">
-                  <cat.icon className="h-8 w-8" />
-                  <span className="font-mono text-xs tracking-[0.4em] uppercase">
-                    Phase 0{catIdx + 1}
+          cat.services.length > 0 && (
+            <section key={cat.id} id={cat.id} className="scroll-mt-24">
+              <div className="mb-16 flex flex-col items-start justify-between gap-8 border-b border-white/5 pb-12 md:flex-row md:items-end">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4 text-primary">
+                    <cat.icon className="h-8 w-8" />
+                    <span className="font-mono text-xs tracking-[0.4em] uppercase">
+                      Phase 0{catIdx + 1}
+                    </span>
+                  </div>
+                  <h2 className="text-4xl font-bold tracking-tighter text-white md:text-6xl uppercase">
+                    {cat.name}
+                  </h2>
+                  <p className="text-slate-500 text-lg font-light">
+                    {cat.description}
+                  </p>
+                </div>
+                <div className="text-slate-600 font-mono text-[10px] tracking-[0.2em] uppercase text-right">
+                  Active Modules: {cat.services.length} <br />
+                  <span className="text-primary/40 text-[8px]">
+                    {siteConfig.name} Unit
                   </span>
                 </div>
-                <h2 className="text-4xl font-bold tracking-tighter text-white md:text-6xl uppercase">
-                  {cat.name}
-                </h2>
-                <p className="text-slate-500 text-lg font-light">
-                  {cat.description}
-                </p>
               </div>
-              <div className="text-slate-600 font-mono text-[10px] tracking-[0.2em] uppercase text-right">
-                Active Modules: {cat.services.length} <br />
-                <span className="text-primary/40 text-[8px]">
-                  Unlink-Global Unit
-                </span>
-              </div>
-            </div>
 
-            <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-              {cat.services.map((service) => (
-                <ServiceCard key={service.id} service={service} />
-              ))}
-            </div>
-          </section>
+              <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                {cat.services.map((service) => (
+                  <ServiceCard key={service.id} service={service} />
+                ))}
+              </div>
+            </section>
+          )
         ))}
       </div>
 
@@ -164,8 +174,7 @@ export default async function ServicesPage() {
               <p className="text-slate-400 text-lg leading-relaxed font-light md:text-xl">
                 หากปัญหาของคุณมีความซับซ้อนสูงหรืออยู่นอกเหนือจากโปรโตคอลมาตรฐาน
                 ทีมที่ปรึกษาระดับสูงของเราพร้อมออกแบบโซลูชันแบบเฉพาะตัว
-                (Tailor-made) เพื่อแก้ปัญหาที่ต้นเหตุภายใต้ความลับสูงสุดระดับ
-                Executive
+                เพื่อแก้ปัญหาที่ต้นเหตุภายใต้ความลับสูงสุด
               </p>
             </div>
 
