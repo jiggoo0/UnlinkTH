@@ -7,7 +7,7 @@ import crypto from "crypto";
 
 // Secret สำหรับใช้ทำ Cookie Signing (ควรตั้งค่าใน .env.local)
 const SESSION_SECRET =
-  process.env.ADMIN_SESSION_SECRET || "UL_SECRET_2026_9mzm";
+  process.env.ADMIN_SESSION_SECRET?.trim() || "UL_SECRET_2026_9mzm";
 const SESSION_COOKIE_NAME = "ul_admin_session";
 
 /**

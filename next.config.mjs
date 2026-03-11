@@ -6,13 +6,8 @@ const nextConfig = {
   // 🛡️ ระบบจะเลือก output: 'standalone' เมื่ออยู่บน Vercel อัตโนมัติ (ข้ามการตั้งค่าซับซ้อน)
 
   images: {
-    // 🚀 รองรับการเรียกรูปภาพจาก Vercel Blob อย่างสมบูรณ์แบบ
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**.public.blob.vercel-storage.com",
-      },
-    ],
+    // 🚀 ใช้ Local Assets เป็นหลัก
+    unoptimized: process.env.NODE_ENV === "development",
   },
 
   experimental: {

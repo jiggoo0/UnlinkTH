@@ -15,8 +15,8 @@ export type SlipOkResponse = {
  * Verify Slip using SlipOK API (High-Precision)
  */
 export async function verifySlip(logPayload: string): Promise<SlipOkResponse> {
-  const apiKey = process.env.SLIPOK_API_KEY;
-  const branchId = process.env.SLIPOK_BRANCH_ID;
+  const apiKey = process.env.SLIPOK_API_KEY?.trim();
+  const branchId = process.env.SLIPOK_BRANCH_ID?.trim();
 
   if (!apiKey || !branchId) {
     throw new Error("Missing SlipOK API configuration");

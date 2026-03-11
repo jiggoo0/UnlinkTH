@@ -7,13 +7,17 @@ export function cn(...inputs: ClassValue[]) {
 
 /**
  * Helper to get Local Asset URL (Public Folder)
+ * รองรับทั้งแบบระบุ /images/ มาแล้ว หรือระบุแค่หมวดหมู่
  */
 export function getImageUrl(path: string): string {
   if (!path) return "/images/services/default.webp";
   if (path.startsWith("http")) return path;
 
-  // เติม / ข้างหน้าถ้าไม่มี เพื่อดึงจากโฟลเดอร์ public
-  const cleanPath = path.startsWith("/") ? path : `/${path}`;
-  
-  return cleanPath;
+  // หากเป็นพาธที่ขึ้นต้นด้วย images/ หรือ /images/ อยู่แล้ว
+  if (path.includes("images/")) {
+    return path.startsWith("/") ? path : `/${path}`;
+  }
+
+  // หากระบุมาแค่หมวดหมู่ เช่น "services/abc.webp" ให้เติม /images/ นำหน้า
+  return `/images/${path.startsWith("/") ? path.slice(1) : path}`;
 }

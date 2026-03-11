@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 import { TicketData } from "@/app/actions/ticket";
 
-const resend = new Resend(process.env.RESEND_API_KEY || "re_mock_key");
+const resend = new Resend(process.env.RESEND_API_KEY?.trim() || "re_mock_key");
 
 export async function sendEmail({
   to,
