@@ -111,7 +111,6 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
             <Image
               src={getImageUrl(service.image)}
               alt={service.title}
-
               fill
               priority
               className="object-cover opacity-40 saturate-[0.3]"
