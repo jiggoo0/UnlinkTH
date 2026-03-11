@@ -25,12 +25,15 @@ const resolveImage = (img: string | undefined, category: string): string => {
 /**
  * ค้นหาไฟล์ .mdx ทั้งหมดในโฟลเดอร์ (รวมโฟลเดอร์ย่อย)
  */
-function getAllMdxFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
+function getAllMdxFiles(
+  dirPath: string,
+  arrayOfFiles: string[] = [],
+): string[] {
   if (!fs.existsSync(dirPath)) return [];
-  
+
   const files = fs.readdirSync(dirPath);
 
-  files.forEach(function(file) {
+  files.forEach(function (file) {
     const fullPath = path.join(dirPath, file);
     if (fs.statSync(fullPath).isDirectory()) {
       arrayOfFiles = getAllMdxFiles(fullPath, arrayOfFiles);
@@ -56,7 +59,7 @@ export async function getAllPosts<T>(category: ContentCategory): Promise<T[]> {
       const fileContents = fs.readFileSync(filePath, "utf8");
       const { data } = matter(fileContents);
       const slug = path.basename(filePath).replace(".mdx", "");
-      
+
       return {
         ...data,
         slug,
@@ -104,15 +107,15 @@ function mapFrontmatterToService(fm: any, slug: string): Service {
 
 export async function getAllServices(): Promise<Service[]> {
   const posts = await getAllPosts<any>("services");
-  return posts.map(post => mapFrontmatterToService(post, post.slug));
+  return posts.map((post) => mapFrontmatterToService(post, post.slug));
 }
 
 export async function getServiceBySlug(slug: string): Promise<Service | null> {
   try {
     const servicesPath = path.join(process.cwd(), "content", "services");
     const allFiles = getAllMdxFiles(servicesPath);
-    const filePath = allFiles.find(f => path.basename(f) === `${slug}.mdx`);
-    
+    const filePath = allFiles.find((f) => path.basename(f) === `${slug}.mdx`);
+
     if (!filePath) return null;
 
     const { data, content } = matter(fs.readFileSync(filePath, "utf8"));
@@ -148,14 +151,18 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
       } as CaseStudy;
     });
 
-    return cases.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return cases.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
   } catch (error) {
     console.error("[MDX] Error in getAllCaseStudies:", error);
     return [];
   }
 }
 
-export async function getLatestCaseStudies(limit: number = 3): Promise<CaseStudy[]> {
+export async function getLatestCaseStudies(
+  limit: number = 3,
+): Promise<CaseStudy[]> {
   const allCases = await getAllCaseStudies();
   return allCases.slice(0, limit);
 }
@@ -164,7 +171,7 @@ export async function getCaseStudyBySlug(slug: string) {
   try {
     const categoryPath = path.join(process.cwd(), "content", "case-studies");
     const allFiles = getAllMdxFiles(categoryPath);
-    const filePath = allFiles.find(f => path.basename(f) === `${slug}.mdx`);
+    const filePath = allFiles.find((f) => path.basename(f) === `${slug}.mdx`);
 
     if (!filePath) return null;
 
@@ -196,11 +203,13 @@ export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
   return posts;
 }
 
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+export async function getBlogPostBySlug(
+  slug: string,
+): Promise<BlogPost | null> {
   try {
     const categoryPath = path.join(process.cwd(), "content", "blog");
     const allFiles = getAllMdxFiles(categoryPath);
-    const filePath = allFiles.find(f => path.basename(f) === `${slug}.mdx`);
+    const filePath = allFiles.find((f) => path.basename(f) === `${slug}.mdx`);
 
     if (!filePath) return null;
 

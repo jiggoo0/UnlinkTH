@@ -56,16 +56,16 @@ export const metadata: Metadata = {
   keywords: siteConfig.seo.keywords,
   authors: [
     { name: "9mzm", url: "https://www.aemdevweb.com" },
-    { name: "9mzm", url: "https://me.aemdevweb.com" }
+    { name: "9mzm", url: "https://me.aemdevweb.com" },
   ],
   creator: "9mzm",
   publisher: "AemDevWeb Studio",
   formatDetection: { email: false, address: false, telephone: false },
   other: {
-    "designer": "9mzm",
-    "owner": "9mzm",
-    "copyright": "9mzm | AemDevWeb",
-    "signature": "9mzm-core-infra-2026"
+    designer: "9mzm",
+    owner: "9mzm",
+    copyright: "9mzm | AemDevWeb",
+    signature: "9mzm-core-infra-2026",
   },
 
   openGraph: {

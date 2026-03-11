@@ -26,6 +26,16 @@ const nextConfig = {
       },
     ],
   },
+  // ป้องกัน Error 'Can't resolve fs' เมื่อ import lib ที่ใช้ fs ใน Client Component
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        fs: false,
+        path: false,
+      };
+    }
+    return config;
+  },
 };
 
 export default nextConfig;

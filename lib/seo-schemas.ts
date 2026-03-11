@@ -27,7 +27,7 @@ export const getPersonSchema = (): WithContext<Person> => ({
     "Alongkorn Yomkerd",
     "Mza-Marks",
     "นายเอ็มซ่ามากส์",
-    "Alongkorn (9mzm)"
+    "Alongkorn (9mzm)",
   ],
   jobTitle: "Founder & Lead Infrastructure Architect",
   url: "https://me.aemdevweb.com",
@@ -38,14 +38,15 @@ export const getPersonSchema = (): WithContext<Person> => ({
     "https://www.aemdevweb.com",
     "https://me.aemdevweb.com",
     "https://mcp.aemdevweb.com",
-    "https://github.com/jiggoo0"
+    "https://github.com/jiggoo0",
   ],
   worksFor: {
     "@type": "Organization",
-    "name": "AemDevWeb Studio",
-    "url": "https://www.aemdevweb.com"
+    name: "AemDevWeb Studio",
+    url: "https://www.aemdevweb.com",
   },
-  description: "Expert in Data Architecture, Security, and Digital Reputation Management."
+  description:
+    "Expert in Data Architecture, Security, and Digital Reputation Management.",
 });
 
 // ------------------------------------------------------------------
@@ -61,15 +62,15 @@ export const getOrganizationSchema = (): WithContext<Organization> => ({
   founder: { "@id": "https://me.aemdevweb.com/#person" },
   parentOrganization: {
     "@type": "Organization",
-    "name": "AemDevWeb",
-    "url": "https://www.aemdevweb.com"
+    name: "AemDevWeb",
+    url: "https://www.aemdevweb.com",
   },
   contactPoint: {
     "@type": "ContactPoint",
     telephone: siteConfig.contact.phone,
     contactType: "customer service",
-    availableLanguage: ["Thai", "English"]
-  }
+    availableLanguage: ["Thai", "English"],
+  },
 });
 
 // ------------------------------------------------------------------
