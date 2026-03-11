@@ -6,7 +6,6 @@ import {
   CaseStudy,
   BlogPost,
   BlogPostFrontmatter,
-  ServiceFrontmatter,
 } from "@/types";
 import { getImageUrl } from "./utils";
 
