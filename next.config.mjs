@@ -1,39 +1,31 @@
-/** @format */
-import withBundleAnalyzer from "@next/bundle-analyzer";
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 🛡️ ระบบจะเลือก output: 'standalone' เมื่ออยู่บน Vercel อัตโนมัติ (ข้ามการตั้งค่าซับซ้อน)
-
-  images: {
-    // 🚀 ใช้ Local Assets เป็นหลัก
-    unoptimized: process.env.NODE_ENV === "development",
+  // บังคับให้ Next.js รวมโฟลเดอร์ content เข้าไปใน build output เพื่อให้ใช้งาน fs ได้บน Vercel
+  outputFileTracingIncludes: {
+    "/services": ["./content/services/**/*"],
+    "/blog": ["./content/blog/**/*"],
+    "/case-studies": ["./content/case-studies/**/*"],
+    "/services/[slug]": ["./content/services/**/*"],
+    "/blog/[slug]": ["./content/blog/**/*"],
+    "/case-studies/[slug]": ["./content/case-studies/**/*"],
   },
-
+  // ปรับปรุงประสิทธิภาพการ Import
   experimental: {
-    // 🚀 เพิ่มประสิทธิภาพการ Import (แนะนำสำหรับ Next.js 16+)
-    optimizePackageImports: [
-      "@/components/shared",
-      "@/components/sections",
-      "@/constants",
-    ],
+    optimizePackageImports: ["lucide-react", "framer-motion"],
   },
-
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        net: false,
-        tls: false,
-      };
-    }
-    return config;
+  // ตั้งค่ารูปภาพให้รองรับการรันบนเซิร์ฟเวอร์หลากหลาย
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "qr-official.line.me",
+      },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+      },
+    ],
   },
 };
 
-const analyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === "true",
-});
-
-export default analyzer(nextConfig);
+export default nextConfig;
