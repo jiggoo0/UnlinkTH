@@ -55,17 +55,16 @@ export const metadata: Metadata = {
   description: siteConfig.seo.defaultDescription,
   keywords: siteConfig.seo.keywords,
   authors: [
-    { name: "Alongkorn Yomkerd", url: "https://me.aemdevweb.com" },
     { name: "9mzm", url: "https://www.aemdevweb.com" },
-    { name: "นาย อลงกรณ์ ยมเกิด" }
+    { name: "9mzm", url: "https://me.aemdevweb.com" }
   ],
-  creator: "Alongkorn Yomkerd (9mzm)",
+  creator: "9mzm",
   publisher: "AemDevWeb Studio",
   formatDetection: { email: false, address: false, telephone: false },
   other: {
-    "designer": "Alongkorn Yomkerd",
-    "owner": "Alongkorn Yomkerd",
-    "copyright": "Alongkorn Yomkerd | AemDevWeb",
+    "designer": "9mzm",
+    "owner": "9mzm",
+    "copyright": "9mzm | AemDevWeb",
     "signature": "9mzm-core-infra-2026"
   },
 

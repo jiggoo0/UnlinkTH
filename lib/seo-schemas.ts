@@ -21,10 +21,10 @@ export const getPersonSchema = (): WithContext<Person> => ({
   "@context": "https://schema.org",
   "@type": "Person",
   "@id": "https://me.aemdevweb.com/#person",
-  name: "Alongkorn Yomkerd",
+  name: "9mzm",
   alternateName: [
     "นาย อลงกรณ์ ยมเกิด",
-    "9mzm",
+    "Alongkorn Yomkerd",
     "Mza-Marks",
     "นายเอ็มซ่ามากส์",
     "Alongkorn (9mzm)"
