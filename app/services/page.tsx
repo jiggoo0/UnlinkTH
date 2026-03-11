@@ -18,8 +18,8 @@ import JsonLd from "@/components/shared/JsonLd";
 import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 // บังคับให้หน้าเว็บดึงข้อมูลใหม่เสมอ (Dynamic) เพื่อแก้ปัญหาไฟล์ไม่มา
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const dynamic = "force-static";
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Service Protocols | ยุทธศาสตร์การจัดการข้อมูลและภาพลักษณ์ดิจิทัล",
