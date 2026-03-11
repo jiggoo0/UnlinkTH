@@ -17,8 +17,10 @@ export type TicketData = {
   destination: string;
   departure_time: string;
   seat_number: string;
-  email?: string; // เพิ่มฟิลด์เมล
-  slip_payload?: string; // ข้อมูลจาก QR Code สลิป
+  email?: string;
+  slip_payload?: string;
+  amount?: number; // ยอดเงินที่ต้องชำระ
+  status?: string;
 };
 
 /**
@@ -26,28 +28,54 @@ export type TicketData = {
  */
 export async function createTicketAction(formData: TicketData) {
   try {
+    const id = formData.id || uuidv4();
+    const ticket_number = formData.ticket_number.toUpperCase();
+    const expectedAmount = formData.amount || 0;
+
     // 1. ตรวจสอบสลิป (ถ้ามีการส่งมา)
     if (formData.slip_payload) {
       const verification = await verifySlip(formData.slip_payload);
-      if (!verification.success) {
+
+      if (!verification.success || !verification.data) {
         return {
           success: false,
-          error: "สลิปไม่ถูกต้องหรือถูกใช้ไปแล้ว: " + verification.error,
+          error:
+            "สลิปไม่ถูกต้องหรือถูกใช้ไปแล้ว: " +
+            (verification.error || "Unknown"),
         };
       }
-      // ตรวจสอบยอดเงินเพิ่มเติมได้ที่นี่ (ถ้าจำเป็น)
+
+      // ตรวจสอบยอดเงิน (Amount Match)
+      if (expectedAmount > 0 && verification.data.amount < expectedAmount) {
+        return {
+          success: false,
+          error: `ยอดเงินไม่ถูกต้อง: ต้องการ ${expectedAmount} บาท แต่ในสลิปมียอด ${verification.data.amount} บาท`,
+        };
+      }
+
+      // 2. บันทึกข้อมูลการชำระเงิน
+      await db.execute({
+        sql: `
+          INSERT INTO payments (id, ticket_id, amount, ref_number, status)
+          VALUES (?, ?, ?, ?, ?)
+        `,
+        args: [
+          uuidv4(),
+          id,
+          verification.data.amount,
+          verification.data.ref_number,
+          "completed",
+        ],
+      });
     }
 
-    const id = formData.id || uuidv4();
-    const ticket_number = formData.ticket_number.toUpperCase();
-
-    // 2. บันทึกข้อมูลลง Turso (SQLite)
+    // 3. บันทึกข้อมูลตั๋วลง Turso (SQLite)
     await db.execute({
       sql: `
         INSERT INTO tickets (
           id, ticket_number, passenger_name, id_card_last_4, 
-          origin, destination, departure_time, seat_number
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+          origin, destination, departure_time, seat_number, status
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
       `,
       args: [
         id,
@@ -58,10 +86,11 @@ export async function createTicketAction(formData: TicketData) {
         formData.destination,
         formData.departure_time,
         formData.seat_number,
+        formData.status || "confirmed",
       ],
     });
 
-    // 3. ส่งอีเมลยืนยัน (ถ้ามีอีเมล)
+    // 4. ส่งอีเมลยืนยัน (ถ้ามีอีเมล)
     if (formData.email) {
       await sendTicketConfirmationEmail(formData.email, {
         ...formData,
@@ -70,6 +99,7 @@ export async function createTicketAction(formData: TicketData) {
     }
 
     revalidatePath("/admin/tickets");
+    revalidatePath("/admin/payments");
     revalidatePath("/verify-ticket");
 
     return { success: true, data: { id, ticket_number } };

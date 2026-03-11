@@ -1,15 +1,17 @@
 export const dynamic = "force-dynamic";
 
 import { initDb } from "@/lib/db";
+import { seedAdminUser } from "@/app/actions/auth";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
     // ในโปรดักชันควรมีการเช็ค Auth หรือ Token ก่อนรัน
     await initDb();
+    await seedAdminUser();
     return NextResponse.json({
       success: true,
-      message: "Database tables initialized successfully",
+      message: "Database initialized and Admin user seeded successfully",
     });
   } catch (err: unknown) {
     const error =

@@ -6,6 +6,7 @@ import { getServiceBySlug, getAllServices } from "@/lib/services";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { useMDXComponents } from "@/mdx-components";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { ShieldCheck, Lock, ArrowRight, Terminal } from "lucide-react";
 import { SecureChannel } from "@/components/sections/SecureChannel";
 import JsonLd from "@/components/seo/JsonLd";
@@ -201,6 +202,21 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
                     </li>
                   ))}
                 </ul>
+              </div>
+
+              <div className="pt-10">
+                <Button
+                  asChild
+                  className="w-full h-14 bg-primary hover:bg-primary/90 text-black font-bold text-sm tracking-widest uppercase group"
+                >
+                  <Link href={`/services/${slug}/book`}>
+                    Book Protocol Now
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+                <p className="text-[10px] text-muted-foreground text-center mt-4 font-mono uppercase tracking-widest">
+                  Secure Automated Execution
+                </p>
               </div>
 
               <div className="border-border/10 space-y-6 border-t pt-8 text-center">
