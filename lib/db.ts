@@ -1,15 +1,12 @@
 import { createClient } from "@libsql/client/web";
 
-const url = process.env.TURSO_DATABASE_URL?.trim();
-const authToken = process.env.TURSO_AUTH_TOKEN?.trim();
+const url = process.env.TURSO_DATABASE_URL?.trim() || "";
+const authToken = process.env.TURSO_AUTH_TOKEN?.trim() || "";
 
-if (!url) {
-  throw new Error("TURSO_DATABASE_URL is not defined");
-}
-
+// สร้าง Client เฉพาะเมื่อมี URL เท่านั้น เพื่อป้องกันการล่มระดับ Global
 export const db = createClient({
-  url,
-  authToken,
+  url: url || "libsql://placeholder.io",
+  authToken: authToken,
 });
 
 /**

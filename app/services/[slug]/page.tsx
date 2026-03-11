@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ShieldCheck, Lock, ArrowRight, Terminal } from "lucide-react";
 import { SecureChannel } from "@/components/sections/SecureChannel";
+import { getImageUrl } from "@/lib/utils";
 import JsonLd from "@/components/seo/JsonLd";
 import { getServiceSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 
@@ -105,11 +106,12 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
       {/* 1. Protocol Intelligence Header */}
       <header className="border-border/50 bg-muted/10 relative mb-20 overflow-hidden border-b py-24 min-h-[400px] flex items-center">
         {/* Background Image Layer */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute inset-0 z-0">
           {service.image && (
             <Image
-              src={service.image}
+              src={getImageUrl(service.image)}
               alt={service.title}
+
               fill
               priority
               className="object-cover opacity-40 saturate-[0.3]"

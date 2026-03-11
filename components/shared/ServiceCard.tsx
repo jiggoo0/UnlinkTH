@@ -5,6 +5,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Service } from "@/types";
+import { getImageUrl } from "@/lib/utils";
 import { ArrowRight, ShieldCheck, LucideProps } from "lucide-react";
 
 interface ServiceCardProps {
@@ -49,7 +50,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
         <div className="absolute inset-0 z-0 overflow-hidden">
           {service.image && (
             <Image
-              src={service.image}
+              src={getImageUrl(service.image)}
               alt={service.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
