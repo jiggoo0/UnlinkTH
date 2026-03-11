@@ -54,10 +54,20 @@ export const metadata: Metadata = {
   },
   description: siteConfig.seo.defaultDescription,
   keywords: siteConfig.seo.keywords,
-  authors: [{ name: siteConfig.founder.nameTh, url: siteConfig.founder.url }],
-  creator: `UNLINK-GLOBAL Infrastructure Team`,
-  publisher: siteConfig.name,
+  authors: [
+    { name: "Alongkorn Yomkerd", url: "https://me.aemdevweb.com" },
+    { name: "9mzm", url: "https://www.aemdevweb.com" },
+    { name: "นาย อลงกรณ์ ยมเกิด" }
+  ],
+  creator: "Alongkorn Yomkerd (9mzm)",
+  publisher: "AemDevWeb Studio",
   formatDetection: { email: false, address: false, telephone: false },
+  other: {
+    "designer": "Alongkorn Yomkerd",
+    "owner": "Alongkorn Yomkerd",
+    "copyright": "Alongkorn Yomkerd | AemDevWeb",
+    "signature": "9mzm-core-infra-2026"
+  },
 
   openGraph: {
     type: "website",

@@ -20,20 +20,32 @@ import {
 export const getPersonSchema = (): WithContext<Person> => ({
   "@context": "https://schema.org",
   "@type": "Person",
-  name: siteConfig.founder.name,
+  "@id": "https://me.aemdevweb.com/#person",
+  name: "Alongkorn Yomkerd",
   alternateName: [
-    siteConfig.founder.nickname ?? "",
-    siteConfig.founder.alias ?? "",
-    siteConfig.founder.nameTh,
+    "นาย อลงกรณ์ ยมเกิด",
+    "9mzm",
+    "Mza-Marks",
+    "นายเอ็มซ่ามากส์",
+    "Alongkorn (9mzm)"
   ],
-  jobTitle: siteConfig.founder.role,
-  url: siteConfig.founder.url,
-  image: `${siteConfig.url}/branding/icon.webp`,
-  sameAs: siteConfig.founder.sameAs,
+  jobTitle: "Founder & Lead Infrastructure Architect",
+  url: "https://me.aemdevweb.com",
+  image: "https://me.aemdevweb.com/profile.webp",
+  sameAs: [
+    "https://www.facebook.com/share/16jjyWbPyG/",
+    "https://www.linkedin.com/in/alongkorl-aemdevweb",
+    "https://www.aemdevweb.com",
+    "https://me.aemdevweb.com",
+    "https://mcp.aemdevweb.com",
+    "https://github.com/jiggoo0"
+  ],
   worksFor: {
     "@type": "Organization",
-    name: "AemDevWeb",
+    "name": "AemDevWeb Studio",
+    "url": "https://www.aemdevweb.com"
   },
+  description: "Expert in Data Architecture, Security, and Digital Reputation Management."
 });
 
 // ------------------------------------------------------------------
@@ -42,22 +54,22 @@ export const getPersonSchema = (): WithContext<Person> => ({
 export const getOrganizationSchema = (): WithContext<Organization> => ({
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": `${siteConfig.url}/#organization`,
   name: siteConfig.name,
   url: siteConfig.url,
   logo: `${siteConfig.url}/branding/icon.webp`,
-  founder: getPersonSchema() as Person,
-  foundingDate: "2026-03-09",
+  founder: { "@id": "https://me.aemdevweb.com/#person" },
+  parentOrganization: {
+    "@type": "Organization",
+    "name": "AemDevWeb",
+    "url": "https://www.aemdevweb.com"
+  },
   contactPoint: {
     "@type": "ContactPoint",
     telephone: siteConfig.contact.phone,
-    contactType: "Strategic Liaison",
-    availableLanguage: ["Thai", "English"],
-  },
-  sameAs: [
-    siteConfig.links.facebook,
-    siteConfig.links.twitter,
-    "https://www.aemdevweb.com",
-  ],
+    contactType: "customer service",
+    availableLanguage: ["Thai", "English"]
+  }
 });
 
 // ------------------------------------------------------------------
