@@ -1,6 +1,6 @@
 /** @format */
 
-import { NavItem, FooterNav } from "@/types";
+import { NavItem } from "@/types";
 import { siteConfig } from "./site-config";
 
 export const mainNav: NavItem[] = [
@@ -32,7 +32,8 @@ export const mainNav: NavItem[] = [
   },
 ];
 
-export const footerNav: FooterNav = {
+/*
+const footerNav: FooterNav = {
   solutions: [
     {
       title: "กู้บ้านอาชีพอิสระ (Credit Engineering)",
@@ -91,6 +92,7 @@ export const footerNav: FooterNav = {
     },
   ],
 };
+*/
 
 export const navigationConfig = {
   header: {

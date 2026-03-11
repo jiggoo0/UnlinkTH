@@ -12,12 +12,14 @@
     "knip": "knip",
     "audit:unused": "bash scripts/audit-unused.sh",
     "aisetup": "bash .gemini/bin/aisetup.sh",
-    "modedev": "echo '🛡️ [DEV_MODE] Activated - Enforcing Strict Rule Compliance' && cat .gemini/rules/DEV_MODE.md",
+    "modedev": "echo '[DEV_MODE] Activated - Enforcing Strict Rule Compliance' && cat .gemini/rules/DEV_MODE.md",
     "analyze": "ANALYZE=true next build",
-    "audit:seo": "echo '🔍 Checking JSON-LD & Metadata Integrity...' && grep -r 'JsonLd' app components && echo '✅ Structure verification complete.'",
-    "audit:perf": "echo '🚀 Checking Performance Constraints...' && grep -r 'priority' components/shared && echo '✅ Performance cues verified.'"
+    "audit:seo": "echo 'Checking JSON-LD & Metadata Integrity...' && grep -r 'JsonLd' app components && echo 'Structure verification complete.'",
+    "audit:perf": "echo 'Checking Performance Constraints...' && grep -r 'priority' components/shared && echo 'Performance cues verified.'"
   },
   "dependencies": {
+    "@img/sharp-wasm32": "^0.34.5",
+    "@libsql/client": "^0.17.0",
     "@next/third-parties": "^16.1.6",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
@@ -46,12 +48,13 @@
     "@radix-ui/react-toggle": "1.1.1",
     "@radix-ui/react-toggle-group": "1.1.1",
     "@radix-ui/react-tooltip": "1.1.6",
-    "@supabase/supabase-js": "^2.98.0",
     "@vercel/analytics": "^1.6.1",
+    "@vercel/blob": "^2.3.1",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.34.2",
+    "google-auth-library": "^10.6.1",
     "gray-matter": "^4.0.3",
     "html5-qrcode": "^2.3.8",
     "lucide-react": "^0.575.0",
@@ -63,14 +66,18 @@
     "qrcode.react": "^4.2.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "resend": "^6.9.3",
+    "sharp": "^0.34.5",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "4.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@next/bundle-analyzer": "^16.1.6",
+    "@next/swc-android-arm64": "^13.2.4",
     "@tailwindcss/postcss": "4.2.1",
     "@types/mdx": "^2.0.13",
     "@types/node": "^22",
@@ -80,6 +87,7 @@
     "knip": "^5.85.0",
     "postcss": "^8.5",
     "prettier": "^3.8.1",
+    "schema-dts": "^1.1.5",
     "typescript": "^5",
     "typescript-eslint": "^8.56.1"
   }

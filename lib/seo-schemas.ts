@@ -1,93 +1,122 @@
 /** @format */
 
 import { siteConfig } from "@/constants/site-config";
-import { BlogPost, Service, CaseStudy } from "@/types";
+import { BlogPost, CaseStudy, Service } from "@/types";
+import {
+  WithContext,
+  Organization,
+  WebSite,
+  Person,
+  BreadcrumbList,
+  BlogPosting,
+  Service as ServiceSchema,
+  Article,
+  FAQPage,
+} from "schema-dts";
 
-/**
- * UNLINK-GLOBAL | Supreme SEO Schema Architecture
- * -------------------------------------------------------------------------
- * รวบรวมฟังก์ชันสำหรับสร้าง JSON-LD Structured Data ระดับสากล
- */
-
-export const getBrandIdentitySchema = () => {
-  const organization = {
-    "@context": "https://schema.org",
+// ------------------------------------------------------------------
+// 👑 MASTER AUTHORITY: Alongkorn Yomkerd (9mzm)
+// ------------------------------------------------------------------
+export const getPersonSchema = (): WithContext<Person> => ({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: siteConfig.founder.name,
+  alternateName: [
+    siteConfig.founder.nickname ?? "",
+    siteConfig.founder.alias ?? "",
+    siteConfig.founder.nameTh,
+  ],
+  jobTitle: siteConfig.founder.role,
+  url: siteConfig.founder.url,
+  image: `${siteConfig.url}/branding/icon.webp`,
+  sameAs: siteConfig.founder.sameAs,
+  worksFor: {
     "@type": "Organization",
-    "@id": `${siteConfig.url}/#organization`,
-    name: siteConfig.name,
-    alternateName: siteConfig.fullName,
-    url: siteConfig.url,
-    logo: {
-      "@type": "ImageObject",
-      "@id": `${siteConfig.url}/#logo`,
-      url: `${siteConfig.url}/icon.png`,
-      width: "512",
-      height: "512",
-    },
-    description: siteConfig.description,
-    founder: {
-      "@type": "Person",
-      "@id": `${siteConfig.founder.url}/#person`,
-      name: `${siteConfig.founder.nameTh}`,
-      alternateName: siteConfig.founder.name,
-      jobTitle: siteConfig.founder.role,
-      description: siteConfig.founder.description,
-      url: siteConfig.founder.url,
-      sameAs: siteConfig.founder.sameAs,
-      knowsAbout: [
-        "Advanced Reputation Management",
-        "Digital Identity Rehabilitation",
-        "Strategic Data Intervention",
-        "Cyber Security Infrastructure",
-        "International Financial Architecture",
-      ],
-    },
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: siteConfig.contact.phone,
-      contactType: "customer service",
-      areaServed: "TH",
-      availableLanguage: ["Thai", "English"],
-    },
-    sameAs: [
-      siteConfig.links.facebook,
-      siteConfig.links.twitter,
-      siteConfig.links.line,
-    ],
-  };
+    name: "AemDevWeb",
+  },
+});
 
-  const webSite = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": `${siteConfig.url}/#website`,
-    url: siteConfig.url,
-    name: siteConfig.name,
-    description: siteConfig.description,
-    publisher: { "@id": `${siteConfig.url}/#organization` },
-    creator: { "@id": `${siteConfig.founder.url}/#person` },
-    copyrightHolder: { "@id": `${siteConfig.url}/#organization` },
-  };
+// ------------------------------------------------------------------
+// 🏛️ ORGANIZATION SCHEMA (LINKED TO FOUNDER)
+// ------------------------------------------------------------------
+export const getOrganizationSchema = (): WithContext<Organization> => ({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  logo: `${siteConfig.url}/branding/icon.webp`,
+  founder: getPersonSchema() as Person,
+  foundingDate: "2026-03-09",
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: siteConfig.contact.phone,
+    contactType: "Strategic Liaison",
+    availableLanguage: ["Thai", "English"],
+  },
+  sameAs: [
+    siteConfig.links.facebook,
+    siteConfig.links.twitter,
+    "https://www.aemdevweb.com",
+  ],
+});
 
-  return [organization, webSite];
-};
+// ------------------------------------------------------------------
+// 🌐 WEBSITE SCHEMA
+// ------------------------------------------------------------------
+export const getWebSiteSchema = (): WithContext<WebSite> => ({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  publisher: getOrganizationSchema() as Organization,
+  author: getPersonSchema() as Person,
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${siteConfig.url}/search?q={search_term_string}`,
+    "query-input": "required name=search_term_string",
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any,
+});
 
-export const getBlogSchema = (post: BlogPost) => {
+// ------------------------------------------------------------------
+// 🧭 BREADCRUMB SCHEMA
+// ------------------------------------------------------------------
+export const getBreadcrumbSchema = (
+  items: { name: string; item: string }[],
+): WithContext<BreadcrumbList> => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.name,
+    item: item.item.startsWith("http")
+      ? item.item
+      : `${siteConfig.url}${item.item}`,
+  })),
+});
+
+// ------------------------------------------------------------------
+// ✍️ BLOG POSTING SCHEMA (LINKED TO AUTHOR 9mzm)
+// ------------------------------------------------------------------
+export const getBlogPostingSchema = (
+  post: BlogPost,
+): WithContext<BlogPosting> => {
+  const imageUrl = post.image
+    ? post.image.startsWith("http")
+      ? post.image
+      : `${siteConfig.url}${post.image}`
+    : `${siteConfig.url}/og/og-main.webp`;
+
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "@id": `${siteConfig.url}/blog/${post.slug}/#article`,
     headline: post.title,
     description: post.description,
-    image: `${siteConfig.url}${post.image || siteConfig.ogImage}`,
+    image: imageUrl,
     datePublished: post.date,
-    dateModified: post.date,
-    author: {
-      "@type": "Person",
-      "@id": `${siteConfig.founder.url}/#person`,
-      name: siteConfig.founder.nameTh,
-      url: siteConfig.founder.url,
-    },
-    publisher: { "@id": `${siteConfig.url}/#organization` },
+    author: getPersonSchema() as Person,
+    publisher: getOrganizationSchema() as Organization,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `${siteConfig.url}/blog/${post.slug}`,
@@ -95,84 +124,65 @@ export const getBlogSchema = (post: BlogPost) => {
   };
 };
 
-export const getServiceSchema = (service: Service) => {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": `${siteConfig.url}/services/${service.slug}/#service`,
-    name: service.title,
-    serviceType: service.category,
-    provider: { "@id": `${siteConfig.url}/#organization` },
-    description: service.shortDescription || service.description,
-    areaServed: { "@type": "Country", name: "Thailand" },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "THB",
-      price: service.priceInfo?.startingAt?.replace(/[^0-9]/g, "") || "0",
-      availability: "https://schema.org/InStock",
-    },
-  };
-};
+// ------------------------------------------------------------------
+// 🛠️ SERVICE SCHEMA
+// ------------------------------------------------------------------
+export const getServiceSchema = (
+  service: Service,
+): WithContext<ServiceSchema> => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: service.title,
+  description: service.description,
+  provider: getOrganizationSchema() as Organization,
+  serviceType: service.category,
+  areaServed: {
+    "@type": "Country",
+    name: "Thailand",
+  },
+});
 
-export const getCaseStudySchema = (study: CaseStudy) => {
-  const title = study.title || study.frontmatter?.title;
-  const description =
-    study.description ||
-    study.excerpt ||
-    study.frontmatter?.description ||
-    study.frontmatter?.excerpt;
-  const image =
-    study.image ||
-    study.thumbnail ||
-    study.frontmatter?.image ||
-    study.frontmatter?.thumbnail;
-  const date = study.date || study.frontmatter?.date;
+// ------------------------------------------------------------------
+// 📄 CASE STUDY (ARTICLE) SCHEMA
+// ------------------------------------------------------------------
+export const getCaseStudySchema = (
+  caseStudy: CaseStudy,
+): WithContext<Article> => {
+  const imageUrl = caseStudy.image
+    ? caseStudy.image.startsWith("http")
+      ? caseStudy.image
+      : `${siteConfig.url}${caseStudy.image}`
+    : `${siteConfig.url}/og/og-main.webp`;
 
   return {
     "@context": "https://schema.org",
     "@type": "Article",
-    "@id": `${siteConfig.url}/case-studies/${study.slug}/#article`,
-    headline: title,
-    description: description,
-    image: `${siteConfig.url}${image || siteConfig.ogImage}`,
-    datePublished: date,
-    author: {
-      "@type": "Person",
-      "@id": `${siteConfig.founder.url}/#person`,
-      name: siteConfig.founder.nameTh,
+    headline: caseStudy.title,
+    description: caseStudy.description,
+    image: imageUrl,
+    author: getPersonSchema() as Person,
+    publisher: getOrganizationSchema() as Organization,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteConfig.url}/case-studies/${caseStudy.slug}`,
     },
-    publisher: { "@id": `${siteConfig.url}/#organization` },
   };
 };
 
-export const getFaqSchema = (faqs: { q: string; a: string }[]) => {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.a,
-      },
-    })),
-  };
-};
-
-export const getBreadcrumbSchema = (
-  items: { name: string; item: string }[],
-) => {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.name,
-      item: item.item.startsWith("http")
-        ? item.item
-        : `${siteConfig.url}${item.item}`,
-    })),
-  };
-};
+// ------------------------------------------------------------------
+// ❓ FAQ SCHEMA
+// ------------------------------------------------------------------
+export const getFaqSchema = (
+  faqs: { question: string; answer: string }[],
+): WithContext<FAQPage> => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+});

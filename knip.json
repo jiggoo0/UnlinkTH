@@ -5,16 +5,20 @@
     "app/**/error.tsx",
     "app/**/not-found.tsx",
     "app/**/route.ts",
-    "mdx-components.tsx",
-    "keystatic.config.ts"
+    "mdx-components.tsx"
   ],
   "project": ["**/*.{ts,tsx,mjs}"],
   "ignoreExportsUsedInFile": true,
-  "ignore": ["components/ui/**"],
+  "ignore": ["lib/blob.ts"],
   "ignoreDependencies": [
     "@radix-ui/*",
     "autoprefixer",
     "tailwindcss",
-    "tailwindcss-animate"
+    "tailwindcss-animate",
+    "@vercel/blob",
+    "google-auth-library",
+    "sharp",
+    "@img/sharp-wasm32",
+    "@next/swc-android-arm64"
   ]
 }

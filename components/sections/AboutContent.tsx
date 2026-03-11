@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { siteConfig } from "@/constants/site-config";
+import { getImageUrl } from "@/lib/utils";
 
 interface AboutContentProps {
   founderName: string;
@@ -124,7 +125,7 @@ export default function AboutContent({ founderName }: AboutContentProps) {
             <div className="from-primary/20 absolute -inset-1 rounded-[3rem] bg-gradient-to-r to-transparent opacity-25 blur transition duration-1000 group-hover:opacity-50"></div>
             <div className="bg-muted/5 border-border/40 relative flex aspect-square items-center justify-center overflow-hidden rounded-[3rem] border">
               <Image
-                src="https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/methodology-abstract.webp"
+                src={getImageUrl("methodology-abstract.webp")}
                 alt="Methodology Abstract"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -148,7 +149,7 @@ export default function AboutContent({ founderName }: AboutContentProps) {
           <div className="lg:col-span-5">
             <div className="lab-card border-primary/20 bg-muted/20 group relative aspect-square overflow-hidden rounded-[3rem]">
               <Image
-                src="https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/operational-core.webp"
+                src={getImageUrl("operational-core.webp")}
                 alt="Operational Core"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"

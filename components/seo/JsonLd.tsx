@@ -4,21 +4,33 @@
  * UNLINK-TH | SEO Architecture: Structured Data Injection
  * -------------------------------------------------------------------------
  * หน้าที่: แทรก JSON-LD เพื่อช่วยให้ Search Engine (Google) เข้าใจบริบทเชิงลึก
- * รองรับการแสดงผล Rich Snippets เช่น Organization, Case Study, และ FAQ
+ * รองรับการแสดงผล Rich Snippets เช่น Organization, Person (9mzm), และ WebSite
  */
 
-import { getBrandIdentitySchema } from "@/lib/seo-schemas";
+import {
+  getWebSiteSchema,
+  getOrganizationSchema,
+  getPersonSchema,
+} from "@/lib/seo-schemas";
 
 interface JsonLdProps {
   /**
    * ข้อมูล Schema ในรูปแบบ Object หรือ Array
    */
-  data?: Record<string, unknown> | Record<string, unknown>[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data?: any;
 }
 
 export default function JsonLd({ data }: JsonLdProps) {
-  // [1] Integrity Check: หากไม่มีการส่ง data มา ให้ใช้ BrandIdentitySchema เป็นค่าเริ่มต้น
-  const schemaData = data || getBrandIdentitySchema();
+  // [1] Integrity Check: หากไม่มีการส่ง data มา ให้ใช้ชุดข้อมูลพื้นฐาน (WebSite + Organization + Person)
+  // วิธีนี้จะทำให้ Google เห็นความสัมพันธ์ระหว่างบุคคล องค์กร และเว็บไซต์ในทุกหน้า
+  const defaultSchemas = [
+    getWebSiteSchema(),
+    getOrganizationSchema(),
+    getPersonSchema(),
+  ];
+
+  const schemaData = data || defaultSchemas;
 
   if (
     !schemaData ||

@@ -2,8 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { supabase } from "@/lib/supabase";
-import { TicketData } from "@/app/actions/ticket";
+import { verifyTicketAction, TicketData } from "@/app/actions/ticket";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -26,27 +25,20 @@ function VerifyContent() {
     if (t && id) {
       setTicketNumber(t);
       setIdLast4(id);
-      // Auto-verify if both exist
+
       const autoVerify = async () => {
         setLoading(true);
         try {
-          const { data, error } = await supabase
-            .from("tickets")
-            .select("*")
-            .eq("ticket_number", t)
-            .eq("id_card_last_4", id)
-            .single();
-
-          if (error) throw error;
-          if (data) {
-            setTicketData(data);
+          const result = await verifyTicketAction(t, id);
+          if (result.success && result.data) {
+            // แปลง Type จาก Row เป็น TicketData อย่างปลอดภัย
+            setTicketData(result.data as unknown as TicketData);
             toast.success("ตรวจสอบตั๋วสำเร็จ");
           } else {
-            toast.error("ไม่พบข้อมูลตั๋วที่ระบุ");
+            toast.error(result.error || "ไม่พบข้อมูลตั๋วที่ระบุ");
           }
-        } catch (err: unknown) {
-          const error = err instanceof Error ? err : new Error("Unknown error");
-          toast.error(error.message || "เกิดข้อผิดพลาดในการตรวจสอบ");
+        } catch {
+          toast.error("เกิดข้อผิดพลาดในการตรวจสอบ");
         } finally {
           setLoading(false);
         }
@@ -82,9 +74,7 @@ function VerifyContent() {
             toast.error("QR Code ไม่ถูกต้อง");
           }
         },
-        () => {
-          // ignore error
-        },
+        () => {},
       );
     }
 
@@ -101,23 +91,17 @@ function VerifyContent() {
     setTicketData(null);
 
     try {
-      const { data, error } = await supabase
-        .from("tickets")
-        .select("*")
-        .eq("ticket_number", ticketNumber.toUpperCase())
-        .eq("id_card_last_4", idLast4)
-        .single();
-
-      if (error) throw error;
-      if (data) {
-        setTicketData(data);
+      const result = await verifyTicketAction(ticketNumber, idLast4);
+      if (result.success && result.data) {
+        // แปลง Type จาก Row เป็น TicketData อย่างปลอดภัย
+        setTicketData(result.data as unknown as TicketData);
         toast.success("ตรวจสอบตั๋วสำเร็จ");
       } else {
-        toast.error("ไม่พบข้อมูลตั๋ว กรุณาตรวจสอบเลขตั๋วและเลขท้ายบัตร");
+        toast.error(
+          result.error || "ไม่พบข้อมูลตั๋ว กรุณาตรวจสอบเลขตั๋วและเลขท้ายบัตร",
+        );
       }
-    } catch (err: unknown) {
-      const error = err instanceof Error ? err : new Error("Unknown error");
-      console.error(error);
+    } catch {
       toast.error("ไม่พบข้อมูลตั๋วใบนี้ในระบบ");
     } finally {
       setLoading(false);
@@ -130,7 +114,7 @@ function VerifyContent() {
         <div className="text-center mb-8">
           <div className="inline-block p-4 bg-white rounded-full shadow-xl mb-4">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv86BlfL2W8MXb8JvZfkzWV1-Wzm5WNp81fOqpA6seGA&s=10"
+              src="/branding/icon.webp"
               className="w-16 h-16 object-contain"
               alt="Logo"
             />
@@ -139,7 +123,7 @@ function VerifyContent() {
             ตรวจสอบตั๋วโดยสาร
           </h1>
           <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mt-2">
-            Sombat Tour Verification System
+            Sombat Tour Verification System (Turso Powered)
           </p>
         </div>
 

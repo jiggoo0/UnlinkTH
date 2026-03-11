@@ -7,6 +7,7 @@ import { siteConfig } from "@/constants/site-config";
 import { ShieldCheck, ArrowRight, Lock, Database, Zap } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { getImageUrl } from "@/lib/utils";
 
 /**
  * UNLINK-TH | Supreme Hero Intelligence (Final Protocol)
@@ -26,7 +27,7 @@ export default function Hero() {
 
         {/* Strategic Visual Anchor */}
         <Image
-          src="https://biwruclmzuaemlbrnbvu.supabase.co/storage/v1/object/public/UNLINK-TH/images/methodology-abstract.webp"
+          src={getImageUrl("methodology-abstract.webp")}
           alt="Technical Methodology"
           fill
           priority
@@ -77,13 +78,18 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-slate-400 mx-auto max-w-3xl text-lg leading-relaxed font-light md:text-2xl"
             >
-              ทางออกของ <span className="text-white font-medium italic">"อาชีพพิเศษและเคสยาก"</span> 
-              ที่ธนาคารไม่รองรับ เราช่วยล้างประวัติและวางแผนการเงินให้คุณเริ่มต้นใหม่ได้จริง 
-              จ่ายแล้วจบ ไม่ต้องเสี่ยง ที่นี่คือ "ความลับสูงสุด" ไม่ส่งต่อข้อมูลให้หน่วยงานใดทั้งสิ้น
+              ทางออกของ{" "}
+              <span className="text-white font-medium italic">
+                "อาชีพพิเศษและเคสยาก"
+              </span>
+              ที่ธนาคารไม่รองรับ
+              เราช่วยล้างประวัติและวางแผนการเงินให้คุณเริ่มต้นใหม่ได้จริง
+              จ่ายแล้วจบ ไม่ต้องเสี่ยง ที่นี่คือ "ความลับสูงสุด"
+              ไม่ส่งต่อข้อมูลให้หน่วยงานใดทั้งสิ้น
             </motion.p>
-            </div>
+          </div>
 
-            {/* Execution CTAs: ปรับแต่งให้ดูมีความเด็ดขาดและเป็นมืออาชีพ */}
+          {/* Execution CTAs: ปรับแต่งให้ดูมีความเด็ดขาดและเป็นมืออาชีพ */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

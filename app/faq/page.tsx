@@ -86,7 +86,12 @@ const faqCategories = [
 ];
 
 export default function FAQPage() {
-  const allFaqs = faqCategories.flatMap((cat) => cat.questions);
+  const allFaqs = faqCategories.flatMap((cat) =>
+    cat.questions.map((q) => ({
+      question: q.q,
+      answer: q.a,
+    })),
+  );
 
   const breadcrumbs = [
     { name: "Home", item: "/" },

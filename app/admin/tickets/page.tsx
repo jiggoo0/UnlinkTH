@@ -34,11 +34,14 @@ export default function AdminTicketPage() {
     try {
       const result = await createTicketAction(formData);
 
-      if (!result.success) {
-        throw new Error(result.error);
+      if (!result.success || !result.data) {
+        throw new Error(result.error || "ไม่ได้รับข้อมูลตั๋วกลับมา");
       }
 
-      setLastTicket(result.data);
+      // ตรวจสอบและแปลง Type ให้ถูกต้องตาม TicketData
+      const ticketResult = result.data as unknown as TicketData;
+      setLastTicket(ticketResult);
+
       toast.success(`ออกตั๋วสำเร็จ: ${formData.ticket_number}`);
       setFormData({
         ...formData,
@@ -65,7 +68,7 @@ export default function AdminTicketPage() {
         <Card className="lg:col-span-2 p-8 shadow-xl bg-white border-0">
           <div className="flex items-center gap-3 mb-6 border-b pb-4">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv86BlfL2W8MXb8JvZfkzWV1-Wzm5WNp81fOqpA6seGA&s=10"
+              src="/branding/icon.webp"
               className="w-10 h-10 object-contain"
               alt="Logo"
             />

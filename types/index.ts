@@ -26,6 +26,7 @@ export interface SiteConfig {
     name: string;
     nameTh: string;
     nickname?: string;
+    alias?: string; // เพิ่มฟิลด์นี้
     role: string;
     roleTh: string;
     description?: string; // เพิ่มฟิลด์นี้
@@ -226,7 +227,8 @@ export interface NavItem {
   description?: string;
 }
 
-export interface FooterNav {
+/*
+interface FooterNav {
   solutions: NavItem[];
   support: NavItem[];
   connect: NavItem[];
@@ -234,3 +236,4 @@ export interface FooterNav {
   security?: NavItem[];
   liaison?: NavItem[];
 }
+*/

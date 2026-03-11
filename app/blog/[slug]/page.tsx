@@ -9,7 +9,7 @@ import { SecureChannel } from "@/components/sections/SecureChannel";
 import { Calendar, ChevronLeft, Clock } from "lucide-react";
 import Link from "next/link";
 import JsonLd from "@/components/seo/JsonLd";
-import { getBlogSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
+import { getBlogPostingSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 interface BlogPageProps {
   params: Promise<{ slug: string }>;
@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
 
   return (
     <div className="pb-24">
-      <JsonLd data={getBlogSchema(post)} />
+      <JsonLd data={getBlogPostingSchema(post)} />
       <JsonLd data={getBreadcrumbSchema(breadcrumbs)} />
       <header className="bg-muted/5 border-border/50 border-b py-24 md:py-32">
         <div className="container">

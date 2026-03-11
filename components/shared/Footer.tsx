@@ -1,164 +1,176 @@
 /** @format */
 
 import Link from "next/link";
-import Image from "next/image";
 import { siteConfig } from "@/constants/site-config";
-import { footerNav } from "@/constants/navigation";
-import { Shield, Mail, MessageCircle, Lock } from "lucide-react";
-import { connection } from "next/server";
+import { ShieldCheck, Terminal, Cpu, Lock, ExternalLink } from "lucide-react";
 
-/**
- * UNLINK-TH | Operational Footer Interface (2026)
- * -------------------------------------------------------------------------
- * ส่วนท้ายของระบบที่รวบรวมช่องทางการติดต่อและการเชื่อมโยงนโยบายความปลอดภัย
- * ออกแบบมาเพื่อสร้าง Authority และความเชื่อมั่นเป็นครั้งสุดท้ายก่อนจบเซสชัน
- */
-
-export default async function Footer() {
-  await connection();
-  const currentYear = new Date().getFullYear();
-
+export default function Footer() {
   return (
-    <footer className="bg-background border-t border-white/5 pt-20 pb-8">
+    <footer className="border-t border-white/5 bg-[#050810] pt-24 pb-12">
       <div className="container">
-        <div className="mb-20 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
-          {/* Brand Identity Section */}
-          <div className="space-y-8 lg:col-span-2">
-            <Link
-              href="/"
-              className="group flex items-center gap-3 text-2xl font-bold tracking-tighter"
-            >
-              <div className="relative h-10 w-10">
-                <Image
-                  src="/branding/logo.svg"
-                  alt="Unlink-Global Logo"
-                  fill
-                  className="glow-gold transition-transform group-hover:scale-110"
-                />
-              </div>
-              <span className="font-mono uppercase">
-                {siteConfig.name.split("-")[0]}
-                <span className="text-primary">
-                  {siteConfig.name.split("-")[1]
-                    ? `-${siteConfig.name.split("-")[1]}`
-                    : ""}
-                </span>
-              </span>
-            </Link>
-            <p className="text-muted-foreground max-w-sm text-sm leading-relaxed font-light">
-              ผู้เชี่ยวชาญด้านการจัดการภาพลักษณ์ดิจิทัล
-              เราผสมผสานเทคนิคการจัดการข้อมูลและการสื่อสารเชิงยุทธศาสตร์
-              เพื่อปกป้องและสร้างสรรค์ตัวตนออนไลน์ที่น่าเชื่อถือที่สุด
-            </p>
-            <div className="text-primary/60 flex items-center gap-4 font-mono text-[10px] tracking-widest">
-              <div className="flex items-center gap-1.5 uppercase">
-                <Lock className="h-3 w-3" />
-                Secure Data Handling
-              </div>
-              <span className="opacity-20">|</span>
-              <div className="flex items-center gap-1.5 uppercase">
-                <Shield className="h-3 w-3" />
-                PDPA Compliant
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation Intelligence (SEO Optimized) */}
-          <div className="space-y-6">
-            <h4 className="text-primary/80 font-mono text-[10px] tracking-[0.2em] uppercase">
-              Active Solutions
-            </h4>
-            <ul className="space-y-3">
-              {footerNav.solutions?.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-muted-foreground hover:text-primary group flex items-center text-sm transition-colors duration-300"
-                  >
-                    <span className="bg-primary mr-0 h-px w-0 transition-all group-hover:mr-2 group-hover:w-2" />
-                    {item.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Secure Liaison Section */}
-          <div className="space-y-6">
-            <h4 className="text-primary/80 font-mono text-[10px] tracking-[0.2em] uppercase">
-              Secure Liaison
-            </h4>
-            <div className="flex flex-col gap-4">
-              <a
-                href={siteConfig.contact.lineUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="lab-card hover:border-primary/40 flex items-center gap-3 p-4 transition-all"
-              >
-                <MessageCircle className="text-primary h-5 w-5" />
+        <div className="grid gap-16 lg:grid-cols-12">
+          {/* Brand & Authority Section */}
+          <div className="space-y-10 lg:col-span-5">
+            <div className="space-y-6">
+              <Link href="/" className="group flex items-center gap-4">
+                <div className="bg-primary/10 flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/20 transition-all group-hover:bg-primary/20 group-hover:shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+                  <ShieldCheck className="text-primary h-8 w-8" />
+                </div>
                 <div className="flex flex-col">
-                  <span className="text-muted-foreground font-mono text-[9px] tracking-wider uppercase">
-                    Line Official
+                  <span className="text-2xl font-black tracking-tighter text-white">
+                    {siteConfig.name}
                   </span>
-                  <span className="text-sm font-bold tracking-tight">
-                    {siteConfig.contact.lineId}
+                  <span className="text-primary/60 font-mono text-[9px] tracking-[0.4em] uppercase">
+                    Data Integrity Unit
                   </span>
                 </div>
-              </a>
-              <a
-                href={`mailto:${siteConfig.contact.email}`}
-                className="text-muted-foreground hover:text-primary flex items-center gap-3 pl-4 text-sm transition-colors"
-              >
-                <Mail className="h-4 w-4" />
-                {siteConfig.contact.email}
-              </a>
+              </Link>
+              <p className="text-slate-400 max-w-sm text-lg leading-relaxed font-light">
+                หน่วยงานปฏิบัติการพิเศษด้านสถาปัตยกรรมข้อมูล
+                เพื่อทวงคืนสิทธิและศักดิ์ศรีในโลกดิจิทัลให้คุณ
+                ภายใต้การกำกับดูแลของทีมวิศวกร 9mzm
+              </p>
+            </div>
+
+            {/* Trust Badges */}
+            <div className="flex flex-wrap gap-4">
+              <div className="bg-white/5 border-white/10 flex items-center gap-3 rounded-xl border px-5 py-3 backdrop-blur-md">
+                <Lock className="text-primary h-4 w-4" />
+                <span className="text-slate-300 font-mono text-[10px] tracking-widest uppercase">
+                  End-to-End Encrypted
+                </span>
+              </div>
+              <div className="bg-white/5 border-white/10 flex items-center gap-3 rounded-xl border px-5 py-3 backdrop-blur-md">
+                <Cpu className="text-primary h-4 w-4" />
+                <span className="text-slate-300 font-mono text-[10px] tracking-widest uppercase">
+                  9mzm Core Infra
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="grid grid-cols-2 gap-10 lg:col-span-4 lg:grid-cols-2">
+            <div className="space-y-8">
+              <h4 className="text-xs font-bold tracking-[0.3em] text-white uppercase italic">
+                Navigation
+              </h4>
+              <ul className="space-y-4">
+                {[
+                  { label: "About Unit", href: "/about" },
+                  { label: "Case Studies", href: "/case-studies" },
+                  { label: "Service Protocols", href: "/services" },
+                  { label: "Official Blog", href: "/blog" },
+                ].map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      href={item.href}
+                      className="text-slate-500 hover:text-primary transition-colors text-sm font-light tracking-wide"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="space-y-8">
+              <h4 className="text-xs font-bold tracking-[0.3em] text-white uppercase italic">
+                Strategic Liaison
+              </h4>
+              <ul className="space-y-4">
+                <li>
+                  <a
+                    href={siteConfig.contact.lineUrl}
+                    target="_blank"
+                    className="text-slate-500 hover:text-primary transition-colors text-sm font-light tracking-wide flex items-center gap-2"
+                  >
+                    LINE Official <ExternalLink className="h-3 w-3" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`mailto:${siteConfig.contact.email}`}
+                    className="text-slate-500 hover:text-primary transition-colors text-sm font-light tracking-wide"
+                  >
+                    {siteConfig.contact.email}
+                  </a>
+                </li>
+                <li>
+                  <Link
+                    href="/verify-ticket"
+                    className="text-primary/60 hover:text-primary font-mono text-[10px] tracking-widest uppercase"
+                  >
+                    Verify Ticket Identity
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Developer Attribution (The 9mzm Signal) */}
+          <div className="space-y-8 lg:col-span-3">
+            <h4 className="text-xs font-bold tracking-[0.3em] text-white uppercase italic">
+              The Architect
+            </h4>
+            <div className="lab-card border-primary/20 bg-primary/5 p-8 space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="bg-primary/20 flex h-12 w-12 items-center justify-center rounded-xl">
+                  <Terminal className="text-primary h-6 w-6" />
+                </div>
+                <div>
+                  <p className="text-white font-black tracking-tight text-lg">
+                    9mzm
+                  </p>
+                  <p className="text-primary/60 font-mono text-[8px] tracking-widest uppercase">
+                    Lead Security Architect
+                  </p>
+                </div>
+              </div>
+              <p className="text-slate-400 text-xs leading-relaxed font-light">
+                Developed and secured by Alongkorn Yomkerd. Focusing on
+                high-precision data infrastructure.
+              </p>
+              <div className="flex flex-col gap-3 pt-2">
+                <a
+                  href="https://www.aemdevweb.com"
+                  target="_blank"
+                  className="text-primary hover:text-white flex items-center justify-between text-[10px] font-bold tracking-widest uppercase transition-all"
+                >
+                  Visit AemDevWeb <ExternalLink className="h-3 w-3" />
+                </a>
+                <a
+                  href="https://me.aemdevweb.com"
+                  target="_blank"
+                  className="text-primary hover:text-white flex items-center justify-between text-[10px] font-bold tracking-widest uppercase transition-all"
+                >
+                  Founder Portfolio <ExternalLink className="h-3 w-3" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Root Attribution & System Integrity */}
-        <div className="flex flex-col items-center justify-between gap-8 border-t border-white/5 pt-8 lg:flex-row">
-          <div className="text-muted-foreground/40 text-center font-mono text-[9px] leading-relaxed tracking-[0.15em] uppercase lg:text-left">
-            © {currentYear} {siteConfig.name} REPUTATION MANAGEMENT.{" "}
-            <br className="md:hidden" />
-            ALL RIGHTS RESERVED.
+        {/* Bottom Bar */}
+        <div className="mt-24 flex flex-col items-center justify-between gap-8 border-t border-white/5 pt-12 md:flex-row">
+          <div className="flex flex-col gap-2">
+            <p className="text-slate-600 text-[10px] tracking-widest uppercase">
+              {siteConfig.footer.copyright}
+            </p>
+            <p className="text-slate-800 font-mono text-[8px] tracking-[0.5em] uppercase">
+              Identity Signature Hash: 0x9mzm_INFRA_STABLE_2026
+            </p>
           </div>
-
-          <div className="flex flex-col items-center gap-6 md:flex-row lg:items-end">
-            {/* Engineering Signature */}
-            <Link
-              href={siteConfig.developer?.url || "https://www.aemdevweb.com"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground/20 hover:text-primary/50 group flex items-center gap-3 font-mono text-[8px] tracking-[0.2em] uppercase transition-colors"
-            >
-              <span className="group-hover:bg-primary/20 h-px w-8 bg-white/5 transition-colors" />
-              Engineered by {siteConfig.developer?.name} Studio
-              (นายเอ็มซ่ามากส์)
-            </Link>
-
-            <div className="text-muted-foreground/60 flex items-center gap-6 font-mono text-[9px] tracking-[0.2em] uppercase">
+          <div className="flex gap-8">
+            {siteConfig.footer.links?.map((link) => (
               <Link
-                href="/privacy"
-                className="hover:text-primary transition-colors"
+                key={link.title}
+                href={link.href}
+                className="text-slate-600 hover:text-slate-400 text-[10px] tracking-widest uppercase transition-colors"
               >
-                Privacy
+                {link.title}
               </Link>
-              <Link
-                href="/editorial-policy"
-                className="hover:text-primary transition-colors"
-              >
-                Ethics
-              </Link>
-            </div>
+            ))}
           </div>
-        </div>
-
-        {/* Final Disclaimer Policy */}
-        <div className="mx-auto mt-12 max-w-4xl">
-          <p className="text-muted-foreground/20 text-center text-[8px] leading-relaxed tracking-tighter uppercase">
-            {siteConfig.footer.disclaimer}
-          </p>
         </div>
       </div>
     </footer>
