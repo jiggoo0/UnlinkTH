@@ -17,6 +17,8 @@ import {
 import JsonLd from "@/components/shared/JsonLd";
 import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Service Protocols | ยุทธศาสตร์การจัดการข้อมูลและภาพลักษณ์ดิจิทัล",
   description:

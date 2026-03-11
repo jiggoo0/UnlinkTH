@@ -12,6 +12,8 @@ import { ShieldCheck, FileSearch } from "lucide-react";
  * พัฒนาภายใต้มาตรฐานความปลอดภัยข้อมูลและการรักษาความลับระดับสูงสุด
  */
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Evidence Portfolio | UNLINK-TH Reputation Management",
   description:

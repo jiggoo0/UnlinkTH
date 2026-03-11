@@ -4,7 +4,7 @@ import matter from "gray-matter";
 import { Service, CaseStudy, BlogPost, BlogPostFrontmatter } from "@/types";
 import { getImageUrl } from "./utils";
 
-const contentDir = path.join(process.cwd(), "content");
+const contentDir = path.resolve(process.cwd(), "content");
 
 /**
  * @TYPE_SYSTEM: Discriminated Unions for Industrial Grade Content
