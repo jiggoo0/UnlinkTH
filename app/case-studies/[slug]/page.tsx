@@ -2,14 +2,14 @@
 
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { getCaseStudyBySlug, getAllCaseStudies } from "@/lib/case-studies";
+import { getCaseStudyBySlug, getAllCaseStudies } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { useMDXComponents } from "@/mdx-components";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Calendar, FileText, Lock, ShieldCheck } from "lucide-react";
 import Link from "next/link";
-import { SecureChannel } from "@/components/sections/SecureChannel";
-import JsonLd from "@/components/seo/JsonLd";
+import { SecureChannel } from "@/components/shared/SecureChannel";
+import JsonLd from "@/components/shared/JsonLd";
 import { getCaseStudySchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 interface CasePageProps {

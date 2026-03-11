@@ -3,9 +3,8 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { siteConfig } from "@/constants/site-config";
-import { getAllServices } from "@/lib/services";
-import { getLatestCaseStudies } from "@/lib/case-studies";
-import { getAllPosts } from "@/lib/mdx";
+import { getAllServices, getAllPosts, getLatestCaseStudies } from "@/lib/mdx";
+import { BlogPostFrontmatter } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
@@ -17,11 +16,11 @@ import CaseStudyCard from "@/components/shared/CaseStudyCard";
 import StatusTracker from "@/components/shared/StatusTracker";
 
 // 📦 Section Components
-import { PortfolioSection } from "@/components/sections/portfolio";
-import { SecureChannel } from "@/components/sections/SecureChannel";
-import ProtocolStepper from "@/components/sections/ProtocolStepper";
-import Methods from "@/components/sections/Methods";
-import FaqSection from "@/components/sections/FaqSection";
+import { PortfolioSection } from "@/components/shared/Portfolio";
+import { SecureChannel } from "@/components/shared/SecureChannel";
+import ProtocolStepper from "@/components/shared/ProtocolStepper";
+import Methods from "@/components/shared/Methods";
+import FaqSection from "@/components/shared/FaqSection";
 
 /**
  * UNLINK-GLOBAL | High-Signal Home (2026)
@@ -80,12 +79,14 @@ async function LatestCaseStudies() {
 
 // แยกส่วน Blog ออกมาเป็น Component ย่อย
 async function LatestInsights() {
-  const allPosts = await getAllPosts("blog").catch(() => []);
+  const allPosts = await getAllPosts<BlogPostFrontmatter>("blog").catch(
+    () => [],
+  );
   const latestPosts = allPosts.slice(0, 3);
 
   return (
     <div className="grid gap-8 md:grid-cols-3">
-      {latestPosts.map((post, index) => (
+      {latestPosts.map((post: BlogPostFrontmatter, index: number) => (
         <Link
           key={post.slug}
           href={`/blog/${post.slug}`}

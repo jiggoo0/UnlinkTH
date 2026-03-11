@@ -136,3 +136,30 @@ export async function verifyTicketAction(
     return { success: false, error: "เกิดข้อผิดพลาดในการตรวจสอบข้อมูล" };
   }
 }
+
+/**
+ * ดึงรายการชำระเงินทั้งหมด (สำหรับ Admin)
+ */
+export async function getPaymentsAction() {
+  try {
+    const result = await db.execute(`
+      SELECT 
+        p.id, 
+        p.created_at, 
+        p.ticket_id, 
+        p.amount, 
+        p.ref_number, 
+        p.status, 
+        t.ticket_number, 
+        t.passenger_name 
+      FROM payments p
+      LEFT JOIN tickets t ON p.ticket_id = t.id
+      ORDER BY p.created_at DESC
+    `);
+
+    return { success: true, data: result.rows };
+  } catch (err) {
+    console.error("Fetch Payments Error:", err);
+    return { success: false, error: "ไม่สามารถเชื่อมต่อฐานข้อมูลได้" };
+  }
+}

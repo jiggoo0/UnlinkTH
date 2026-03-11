@@ -11,7 +11,7 @@ import {
   FileKey,
   ChevronRight,
 } from "lucide-react";
-import { SecureChannel } from "@/components/sections/SecureChannel";
+import { SecureChannel } from "@/components/shared/SecureChannel";
 import { siteConfig } from "@/constants/site-config";
 
 /**

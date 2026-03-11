@@ -1,7 +1,7 @@
 import type { MDXComponents } from "mdx/types";
 import Image, { ImageProps } from "next/image";
-import { MDXComponents as RichComponents } from "@/components/blog/MDXComponents";
-import { PricingSection } from "@/components/sections/pricing";
+import { MDXComponents as RichComponents } from "@/components/shared/MDXComponents";
+import { PricingSection } from "@/components/shared/Pricing";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {

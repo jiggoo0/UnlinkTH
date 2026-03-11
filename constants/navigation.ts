@@ -5,30 +5,30 @@ import { siteConfig } from "./site-config";
 
 export const mainNav: NavItem[] = [
   {
-    title: "บริการทางยุทธศาสตร์",
+    title: "บริการของเรา",
     href: "/services",
-    description: "คืนสิทธิความเป็นส่วนตัวและปลดล็อกโอกาสทางการเงินให้คุณ",
+    description: "แก้เครดิตบูโร กู้บ้านไม่ผ่าน และจัดการชื่อเสียงออนไลน์ให้คุณ",
   },
   {
-    title: "บันทึกปฏิบัติการ",
+    title: "ตัวอย่างความสำเร็จ",
     href: "/case-studies",
-    description: "เรื่องราวการกู้คืนอัตลักษณ์และผลความสำเร็จจริง",
+    description: "รวมเคสที่ช่วยลูกค้าแก้ปัญหาได้สำเร็จจริง มั่นใจในผลลัพธ์",
   },
   {
-    title: "บทความวิเคราะห์",
+    title: "บทความน่ารู้",
     href: "/blog",
     description:
-      "ความรู้เจาะลึกด้าน Reputation Intelligence และ Global Mobility",
+      "เคล็ดลับการขอวีซ่า วิธีเริ่มต้นใหม่ทางการเงิน และการป้องกันข้อมูลบนเน็ต",
   },
   {
     title: "คำถามที่พบบ่อย",
     href: "/faq",
-    description: "ทุกคำตอบเรื่องเทคนิคและความปลอดภัยที่คุณสบายใจได้",
+    description: "ทุกคำตอบที่คุณสงสัยเรื่องการบริการและความปลอดภัย",
   },
   {
     title: "เกี่ยวกับเรา",
     href: "/about",
-    description: "ทีมผู้เชี่ยวชาญ UNLINK-GLOBAL ที่พร้อมเคียงข้างคุณ",
+    description: "ทำความรู้จักทีมงาน UNLINK-GLOBAL ที่พร้อมช่วยเหลือคุณ",
   },
 ];
 
@@ -36,23 +36,23 @@ export const mainNav: NavItem[] = [
 const footerNav: FooterNav = {
   solutions: [
     {
-      title: "กู้บ้านอาชีพอิสระ (Credit Engineering)",
+      title: "แก้เครดิตบูโร/กู้บ้าน (Credit Support)",
       href: "/services/credit-engineering",
     },
     {
-      title: "ลบชื่อประจานออนไลน์ (Blacklist Remover)",
+      title: "ลบชื่อประจานออนไลน์ (Reputation Clean)",
       href: "/services/blacklist-remover",
     },
     {
-      title: "สำรองที่นั่งจริง (GDS Live Reservation)",
+      title: "บริการจองตั๋ว/โรงแรม (Travel Docs)",
       href: "/services/flight-hotel-confirmed-status",
     },
     {
-      title: "กู้ชื่อร้านค้า SME (Reputation Rescue)",
+      title: "กู้ชื่อเสียงร้านค้า SME (SME Rescue)",
       href: "/services/sme-reputation-rescue",
     },
     {
-      title: "Protocol ขั้นสูงสุด (The Last Resort)",
+      title: "บริการดูแลเคสพิเศษ (Premium Support)",
       href: "/services/extreme-intervention",
     },
   ],
@@ -66,17 +66,17 @@ const footerNav: FooterNav = {
       href: "/faq",
     },
     {
-      title: "จริยธรรมและการทำงาน",
+      title: "มาตรฐานการบริการ",
       href: "/editorial-policy",
     },
     {
-      title: "ประสานงานส่วนบุคคล",
+      title: "ติดต่อเรา",
       href: "/contact",
     },
   ],
   connect: [
     {
-      title: "LINE Official (ปรึกษาลับ)",
+      title: "LINE Official (ปรึกษาฟรี)",
       href: siteConfig.contact.lineUrl,
       external: true,
     },
@@ -86,7 +86,7 @@ const footerNav: FooterNav = {
       external: true,
     },
     {
-      title: "Secure Email",
+      title: "Email ติดต่อ",
       href: `mailto:${siteConfig.contact.email}`,
       external: true,
     },
@@ -98,13 +98,13 @@ export const navigationConfig = {
   header: {
     sticky: true,
     blur: true,
-    ctaText: "เริ่มต้นการประเมิน (ฟรี)",
+    ctaText: "ปรึกษาเคสฟรี (ทาง LINE)",
     ctaLink: siteConfig.contact.lineUrl,
   },
   footer: {
     disclaimer: "UNLINK-GLOBAL: เพราะทุกคนสมควรได้รับโอกาสเริ่มต้นใหม่เสมอ",
-    copy: "UNLINK-GLOBAL | International Data & Identity Architecture",
+    copy: "UNLINK-GLOBAL | ผู้เชี่ยวชาญด้านการจัดการข้อมูลและชื่อเสียงออนไลน์",
   },
   securityNote:
-    "Confidentiality: ข้อมูลทั้งหมดจะถูกจัดการในระบบปิดเพื่อความปลอดภัยสูงสุด",
+    "Confidentiality: ข้อมูลของคุณจะถูกเก็บเป็นความลับสูงสุดเพื่อความปลอดภัย",
 };

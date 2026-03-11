@@ -21,14 +21,14 @@ export default function Footer() {
                     {siteConfig.name}
                   </span>
                   <span className="text-primary/60 font-mono text-[9px] tracking-[0.4em] uppercase">
-                    Data Integrity Unit
+                    Trusted Reputation Advisor
                   </span>
                 </div>
               </Link>
               <p className="text-slate-400 max-w-sm text-lg leading-relaxed font-light">
-                หน่วยงานปฏิบัติการพิเศษด้านสถาปัตยกรรมข้อมูล
-                เพื่อทวงคืนสิทธิและศักดิ์ศรีในโลกดิจิทัลให้คุณ
-                ภายใต้การกำกับดูแลของทีมวิศวกร 9mzm
+                ผู้เชี่ยวชาญด้านการจัดการข้อมูลและกู้คืนชื่อเสียงออนไลน์
+                ช่วยคุณเริ่มต้นชีวิตใหม่ด้วยโอกาสทางการเงินที่มั่นคง
+                ภายใต้การดูแลของทีมงานมืออาชีพ
               </p>
             </div>
 
@@ -37,13 +37,13 @@ export default function Footer() {
               <div className="bg-white/5 border-white/10 flex items-center gap-3 rounded-xl border px-5 py-3 backdrop-blur-md">
                 <Lock className="text-primary h-4 w-4" />
                 <span className="text-slate-300 font-mono text-[10px] tracking-widest uppercase">
-                  End-to-End Encrypted
+                  Data Privacy Secured
                 </span>
               </div>
               <div className="bg-white/5 border-white/10 flex items-center gap-3 rounded-xl border px-5 py-3 backdrop-blur-md">
                 <Cpu className="text-primary h-4 w-4" />
                 <span className="text-slate-300 font-mono text-[10px] tracking-widest uppercase">
-                  9mzm Core Infra
+                  Professional Systems
                 </span>
               </div>
             </div>
@@ -53,14 +53,14 @@ export default function Footer() {
           <div className="grid grid-cols-2 gap-10 lg:col-span-4 lg:grid-cols-2">
             <div className="space-y-8">
               <h4 className="text-xs font-bold tracking-[0.3em] text-white uppercase italic">
-                Navigation
+                เมนูหลัก
               </h4>
               <ul className="space-y-4">
                 {[
-                  { label: "About Unit", href: "/about" },
-                  { label: "Case Studies", href: "/case-studies" },
-                  { label: "Service Protocols", href: "/services" },
-                  { label: "Official Blog", href: "/blog" },
+                  { label: "เกี่ยวกับเรา", href: "/about" },
+                  { label: "ตัวอย่างความสำเร็จ", href: "/case-studies" },
+                  { label: "บริการของเรา", href: "/services" },
+                  { label: "บทความน่ารู้", href: "/blog" },
                 ].map((item) => (
                   <li key={item.label}>
                     <Link
@@ -75,7 +75,7 @@ export default function Footer() {
             </div>
             <div className="space-y-8">
               <h4 className="text-xs font-bold tracking-[0.3em] text-white uppercase italic">
-                Strategic Liaison
+                ติดต่อเรา
               </h4>
               <ul className="space-y-4">
                 <li>
@@ -84,7 +84,8 @@ export default function Footer() {
                     target="_blank"
                     className="text-slate-500 hover:text-primary transition-colors text-sm font-light tracking-wide flex items-center gap-2"
                   >
-                    LINE Official <ExternalLink className="h-3 w-3" />
+                    LINE Official (ปรึกษาฟรี){" "}
+                    <ExternalLink className="h-3 w-3" />
                   </a>
                 </li>
                 <li>
@@ -100,7 +101,7 @@ export default function Footer() {
                     href="/verify-ticket"
                     className="text-primary/60 hover:text-primary font-mono text-[10px] tracking-widest uppercase"
                   >
-                    Verify Ticket Identity
+                    ตรวจสอบหมายเลขติดตาม
                   </Link>
                 </li>
               </ul>
@@ -110,7 +111,7 @@ export default function Footer() {
           {/* Developer Attribution (The 9mzm Signal) */}
           <div className="space-y-8 lg:col-span-3">
             <h4 className="text-xs font-bold tracking-[0.3em] text-white uppercase italic">
-              The Architect
+              ระบบเบื้องหลัง
             </h4>
             <div className="lab-card border-primary/20 bg-primary/5 p-8 space-y-6">
               <div className="flex items-center gap-4">
@@ -119,16 +120,16 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="text-white font-black tracking-tight text-lg">
-                    9mzm
+                    AemDevWeb
                   </p>
                   <p className="text-primary/60 font-mono text-[8px] tracking-widest uppercase">
-                    Lead Security Architect
+                    Lead Infrastructure Architect
                   </p>
                 </div>
               </div>
               <p className="text-slate-400 text-xs leading-relaxed font-light">
-                Developed and secured by Alongkorn Yomkerd. Focusing on
-                high-precision data infrastructure.
+                ออกแบบและพัฒนาระบบโดย Alongkorn Yomkerd
+                เพื่อมาตรฐานความปลอดภัยข้อมูลระดับสากล
               </p>
               <div className="flex flex-col gap-3 pt-2">
                 <a
@@ -136,14 +137,7 @@ export default function Footer() {
                   target="_blank"
                   className="text-primary hover:text-white flex items-center justify-between text-[10px] font-bold tracking-widest uppercase transition-all"
                 >
-                  Visit AemDevWeb <ExternalLink className="h-3 w-3" />
-                </a>
-                <a
-                  href="https://me.aemdevweb.com"
-                  target="_blank"
-                  className="text-primary hover:text-white flex items-center justify-between text-[10px] font-bold tracking-widest uppercase transition-all"
-                >
-                  Founder Portfolio <ExternalLink className="h-3 w-3" />
+                  เยี่ยมชม AemDevWeb <ExternalLink className="h-3 w-3" />
                 </a>
               </div>
             </div>

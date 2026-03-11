@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { getServiceBySlug } from "@/lib/services";
+import { getServiceBySlug } from "@/lib/mdx";
 import { Service } from "@/types";
-import { createTicketAction, TicketData } from "@/app/actions/ticket";
+import { createTicketAction, TicketData } from "@/app/actions/ticketAction";
 import { PromptPayQR } from "@/components/shared/PromptPayQR";
 import { UnlinkTicket } from "@/components/shared/UnlinkTicket";
 import { Button } from "@/components/ui/button";

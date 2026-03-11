@@ -23,7 +23,7 @@ function hashPassword(password: string): string {
 /**
  * สร้างผู้ใช้ Admin (ใช้รันครั้งแรก)
  */
-export async function seedAdminUser() {
+export async function seedAdminUserAction() {
   const username = "admin";
   const password = hashPassword("Aem25217.");
   const id = uuidv4();

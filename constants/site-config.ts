@@ -5,9 +5,9 @@ import { SiteConfig } from "@/types";
 export const siteConfig: SiteConfig = {
   name: "UNLINK-GLOBAL",
   fullName:
-    "UNLINK-GLOBAL | High-Security Data Architecture & Reputation Management",
+    "UNLINK-GLOBAL | ผู้เชี่ยวชาญด้านการจัดการข้อมูลและกู้คืนชื่อเสียงออนไลน์",
   description:
-    "หน่วยปฏิบัติการพิเศษด้านสถาปัตยกรรมข้อมูลและการจัดการชื่อเสียงระดับ VIP โดยทีมวิศวกรซอฟต์แวร์ผู้เชี่ยวชาญภายใต้เครือข่าย AemDevWeb",
+    "ช่วยคุณปลดล็อกปัญหาติดเครดิตบูโร กู้บ้านไม่ผ่าน หรือถูกประจานออนไลน์ ให้คุณกลับมาเริ่มต้นชีวิตใหม่ได้อย่างมั่นใจ ด้วยทีมงานมืออาชีพที่เข้าใจทุกปัญหาของคุณ",
 
   url: "https://www.unlink-th.com",
   ogImage: "/og/og-main.webp",
@@ -23,10 +23,10 @@ export const siteConfig: SiteConfig = {
     nameTh: "นาย อลงกรณ์ ยมเกิด",
     nickname: "Mza-Marks",
     alias: "9mzm", // Digital Signature
-    role: "Strategic Data Architect & CEO",
-    roleTh: "ผู้อำนวยการสถาปัตยกรรมข้อมูลเชิงกลยุทธ์",
+    role: "Digital Privacy Expert & CEO",
+    roleTh: "ที่ปรึกษาด้านความเป็นส่วนตัวและชื่อเสียงดิจิทัล",
     description:
-      "ผู้เชี่ยวชาญด้านระบบความปลอดภัยข้อมูลและวิศวกรรมซอฟต์แวร์ขั้นสูง ผู้ก่อตั้ง AemDevWeb และ UNLINK-GLOBAL",
+      "ผู้เชี่ยวชาญที่มีประสบการณ์ในการช่วยเหลือลูกค้าจัดการข้อมูลที่ละเอียดอ่อนและกู้คืนโอกาสทางการเงิน",
     url: "https://me.aemdevweb.com",
     sameAs: [
       "https://www.facebook.com/share/16jjyWbPyG/",
@@ -38,11 +38,10 @@ export const siteConfig: SiteConfig = {
   },
 
   company: {
-    slogan:
-      "ทวงคืนศักดิ์ศรีและความถูกต้องในโลกดิจิทัล (Data Integrity Redefined)",
-    approach: "วิศวกรรมข้อมูลระดับพรีเมียม (Premium Data Architecture)",
-    positioning:
-      "หน่วยปฏิบัติการพิเศษด้านชื่อเสียงออนไลน์ (Digital Reputation Specialist)",
+    slogan: "ปลดล็อกอดีต เพื่อโอกาสใหม่ในอนาคตของคุณ",
+    approach:
+      "บริการที่เน้นผลลัพธ์และความลับสูงสุด (Result-Oriented & Discreet)",
+    positioning: "ที่ปรึกษาอันดับหนึ่งด้านการจัดการประวัติและชื่อเสียงออนไลน์",
   },
 
   // ------------------------------------------------------------------
@@ -56,32 +55,32 @@ export const siteConfig: SiteConfig = {
   },
 
   seo: {
-    titleTemplate: "%s | UNLINK-GLOBAL (9mzm)",
-    defaultTitle: "UNLINK-GLOBAL | จัดการประวัติเสียและวิศวกรรมเครดิตโดย 9mzm",
+    titleTemplate: "%s | UNLINK-GLOBAL",
+    defaultTitle:
+      "UNLINK-GLOBAL | แก้เครดิตบูโร ลบประจานออนไลน์ กู้บ้านไม่ผ่านเราช่วยได้",
     defaultDescription:
-      "ปกป้องภาพลักษณ์และสร้างโอกาสใหม่ด้วยสถาปัตยกรรมข้อมูลระดับพรีเมียม โดย Alongkorn Yomkerd (9mzm) จาก AemDevWeb",
+      "พบปัญหาติดเครดิตบูโร กู้บ้านไม่ผ่าน หรือถูกประจานออนไลน์? UNLINK-GLOBAL ช่วยคุณจัดการข้อมูลอย่างถูกต้องตามกฎหมาย เพื่อให้คุณเริ่มต้นใหม่ได้จริง",
     keywords: [
-      "9mzm",
-      "Alongkorn Yomkerd",
+      "แก้เครดิตบูโร",
+      "กู้บ้านไม่ผ่านทำยังไง",
+      "ลบประจานออนไลน์",
+      "ลบชื่อจากเน็ต",
+      "ทำวีซ่าไม่ผ่าน",
+      "จัดการชื่อเสียงออนไลน์",
+      "กู้เงินธนาคาร",
+      "UNLINK-GLOBAL",
       "อลงกรณ์ ยมเกิด",
-      "Mza-Marks",
-      "AemDevWeb",
-      "วิศวกรรมข้อมูล VIP",
-      "แก้แบล็คลิสต์กู้บ้าน",
-      "ลบชื่อประจานออนไลน์",
-      "Data Architect Thailand",
-      "Digital Reputation Intelligence",
     ],
   },
 
   contact: {
-    primaryChannel: "LINE Official (Strategic Liaison)",
+    primaryChannel: "LINE Official (ปรึกษาฟรี)",
     lineUrl: "https://lin.ee/a8egw6Y",
     lineId: "@204uuzew",
     phone: "099-999-0000",
-    email: "liaison@unlink-global.com",
+    email: "contact@unlink-global.com",
     qrImage: "https://qr-official.line.me/gs/M_204uuzew_BW.png?oat_content=qr",
-    note: "High-Privacy Communications Protocol: Encrypted via 9mzm Infrastructure",
+    note: "เราให้ความสำคัญกับความเป็นส่วนตัวของคุณเป็นอันดับหนึ่ง ปรึกษาได้ทุกกรณีโดยไม่มีการเปิดเผยข้อมูล",
   },
 
   links: {
@@ -92,7 +91,7 @@ export const siteConfig: SiteConfig = {
 
   footer: {
     disclaimer:
-      "UNLINK-GLOBAL ดำเนินการภายใต้มาตรฐานความปลอดภัยข้อมูลโดย 9mzm Engineering Core",
+      "UNLINK-GLOBAL ดำเนินการภายใต้มาตรฐานความปลอดภัยข้อมูลระดับสากล",
     trustNote:
       "Architected by Alongkorn Yomkerd | Powered by AemDevWeb Infrastructure",
     copyright: `© ${new Date().getFullYear()} UNLINK-GLOBAL. International Rights Reserved. (Signature: 9mzm)`,

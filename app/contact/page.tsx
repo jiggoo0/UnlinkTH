@@ -1,8 +1,8 @@
 /** @format */
 
 import { Metadata } from "next";
-import ContactContent from "@/components/sections/ContactContent";
-import JsonLd from "@/components/seo/JsonLd";
+import ContactContent from "@/components/shared/ContactContent";
+import JsonLd from "@/components/shared/JsonLd";
 import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 /**

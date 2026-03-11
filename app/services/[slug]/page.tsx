@@ -2,15 +2,15 @@
 
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { getServiceBySlug, getAllServices } from "@/lib/services";
+import { getServiceBySlug, getAllServices } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { useMDXComponents } from "@/mdx-components";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ShieldCheck, Lock, ArrowRight, Terminal } from "lucide-react";
-import { SecureChannel } from "@/components/sections/SecureChannel";
+import { SecureChannel } from "@/components/shared/SecureChannel";
 import { getImageUrl } from "@/lib/utils";
-import JsonLd from "@/components/seo/JsonLd";
+import JsonLd from "@/components/shared/JsonLd";
 import { getServiceSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 interface ServicePageProps {

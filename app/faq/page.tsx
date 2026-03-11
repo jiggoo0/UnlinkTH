@@ -16,9 +16,9 @@ import {
   Lock,
   MessageCircle,
 } from "lucide-react";
-import JsonLd from "@/components/seo/JsonLd";
+import JsonLd from "@/components/shared/JsonLd";
 import { getFaqSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
-import { SecureChannel } from "@/components/sections/SecureChannel";
+import { SecureChannel } from "@/components/shared/SecureChannel";
 
 /**
  * UNLINK-TH | Intelligence FAQ Interface (2026)

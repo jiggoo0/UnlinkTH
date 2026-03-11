@@ -1,7 +1,7 @@
 /** @format */
 
 import { Metadata } from "next";
-import { getAllCaseStudies } from "@/lib/case-studies";
+import { getAllCaseStudies } from "@/lib/mdx";
 import CaseStudyCard from "@/components/shared/CaseStudyCard";
 import { ShieldCheck, FileSearch } from "lucide-react";
 

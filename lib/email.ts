@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { TicketData } from "@/app/actions/ticket";
+import { TicketData } from "@/app/actions/ticketAction";
 
 const resend = new Resend(process.env.RESEND_API_KEY?.trim() || "re_mock_key");
 

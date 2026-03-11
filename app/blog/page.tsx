@@ -2,10 +2,10 @@
 
 import { Metadata } from "next";
 import Image from "next/image";
-import { getAllBlogPosts } from "@/lib/blog";
+import { getAllBlogPosts } from "@/lib/mdx";
 import Link from "next/link";
 import { BookOpen, Calendar, ChevronRight } from "lucide-react";
-import JsonLd from "@/components/seo/JsonLd";
+import JsonLd from "@/components/shared/JsonLd";
 import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 export const metadata: Metadata = {

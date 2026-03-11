@@ -2,9 +2,9 @@
 
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/constants/site-config";
-import { getAllServices } from "@/lib/services";
-import { getAllCaseStudies } from "@/lib/case-studies";
-import { getAllBlogPosts } from "@/lib/blog";
+import { getAllServices } from "@/lib/mdx";
+import { getAllCaseStudies } from "@/lib/mdx";
+import { getAllBlogPosts } from "@/lib/mdx";
 
 export const dynamic = "force-static";
 

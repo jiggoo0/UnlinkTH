@@ -2,13 +2,13 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { verifyTicketAction, TicketData } from "@/app/actions/ticket";
+import { verifyTicketAction, TicketData } from "@/app/actions/ticketAction";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Html5QrcodeScanner } from "html5-qrcode";
-import { SombatTicket } from "@/components/shared/SombatTicket";
+import { UnlinkTicket } from "@/components/shared/UnlinkTicket";
 
 function VerifyContent() {
   const searchParams = useSearchParams();
@@ -31,11 +31,10 @@ function VerifyContent() {
         try {
           const result = await verifyTicketAction(t, id);
           if (result.success && result.data) {
-            // แปลง Type จาก Row เป็น TicketData อย่างปลอดภัย
             setTicketData(result.data as unknown as TicketData);
-            toast.success("ตรวจสอบตั๋วสำเร็จ");
+            toast.success("ตรวจสอบข้อมูลสำเร็จ");
           } else {
-            toast.error(result.error || "ไม่พบข้อมูลตั๋วที่ระบุ");
+            toast.error(result.error || "ไม่พบข้อมูลที่ระบุ");
           }
         } catch {
           toast.error("เกิดข้อผิดพลาดในการตรวจสอบ");
@@ -93,73 +92,74 @@ function VerifyContent() {
     try {
       const result = await verifyTicketAction(ticketNumber, idLast4);
       if (result.success && result.data) {
-        // แปลง Type จาก Row เป็น TicketData อย่างปลอดภัย
         setTicketData(result.data as unknown as TicketData);
-        toast.success("ตรวจสอบตั๋วสำเร็จ");
+        toast.success("ตรวจสอบสำเร็จ");
       } else {
         toast.error(
-          result.error || "ไม่พบข้อมูลตั๋ว กรุณาตรวจสอบเลขตั๋วและเลขท้ายบัตร",
+          result.error || "ไม่พบข้อมูล กรุณาตรวจสอบหมายเลขและเลขท้ายบัตร",
         );
       }
     } catch {
-      toast.error("ไม่พบข้อมูลตั๋วใบนี้ในระบบ");
+      toast.error("ไม่พบข้อมูลรายการนี้ในระบบ");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col items-center py-12 px-4 text-slate-900">
-      <div className="max-w-md w-full space-y-6">
-        <div className="text-center mb-8">
-          <div className="inline-block p-4 bg-white rounded-full shadow-xl mb-4">
+    <div className="min-h-screen bg-[#050810] flex flex-col items-center py-24 px-4 text-white">
+      <div className="max-w-md w-full space-y-8">
+        <div className="text-center mb-8 space-y-4">
+          <div className="inline-block p-5 bg-primary/10 rounded-full border border-primary/20 shadow-[0_0_30px_rgba(16,185,129,0.1)]">
             <img
               src="/branding/icon.webp"
               className="w-16 h-16 object-contain"
               alt="Logo"
             />
           </div>
-          <h1 className="text-3xl font-black text-blue-900 tracking-tight">
-            ตรวจสอบตั๋วโดยสาร
+          <h1 className="text-4xl font-black text-white tracking-tighter uppercase">
+            ตรวจสอบข้อมูล
           </h1>
-          <p className="text-slate-500 font-bold text-xs uppercase tracking-widest mt-2">
-            Sombat Tour Verification System (Turso Powered)
+          <p className="text-primary/60 font-mono text-[10px] tracking-[0.3em] uppercase">
+            UNLINK-GLOBAL Verification System
           </p>
         </div>
 
         <Button
           variant={showScanner ? "destructive" : "default"}
-          className={`w-full py-8 text-lg font-black shadow-lg transition-all ${!showScanner ? "bg-[#003399] hover:bg-blue-800" : ""}`}
+          className={`w-full py-8 text-sm font-bold tracking-widest uppercase shadow-lg transition-all ${!showScanner ? "bg-primary text-black hover:bg-primary/90" : ""}`}
           onClick={() => setShowScanner(!showScanner)}
         >
-          {showScanner ? "✖ ปิดกล้องสแกน" : "📷 สแกน QR Code ตั๋ว"}
+          {showScanner ? "✖ ปิดกล้องสแกน" : "📷 สแกน QR Code ตรวจสอบ"}
         </Button>
 
         {showScanner && (
           <div
             id="reader"
-            className="overflow-hidden rounded-2xl border-4 border-white shadow-2xl bg-white"
+            className="overflow-hidden rounded-2xl border-2 border-white/5 shadow-2xl bg-black"
           ></div>
         )}
 
         {!ticketData && (
-          <Card className="p-8 shadow-2xl border-0 bg-white/90 backdrop-blur-md">
-            <form onSubmit={handleVerify} className="space-y-5">
-              <div>
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 block">
-                  เลขที่ตั๋ว (Ticket No.)
+          <Card className="p-10 shadow-2xl border-white/5 bg-zinc-900/50 backdrop-blur-3xl">
+            <form onSubmit={handleVerify} className="space-y-6">
+              <div className="space-y-2">
+                <label className="text-[10px] font-mono text-primary/60 uppercase tracking-widest ml-1">
+                  หมายเลขตั๋ว (Ticket No.)
                 </label>
                 <Input
-                  placeholder="เช่น SB123456"
+                  placeholder="เช่น UL123456"
                   value={ticketNumber}
-                  onChange={(e) => setTicketNumber(e.target.value)}
+                  onChange={(e) =>
+                    setTicketNumber(e.target.value.toUpperCase())
+                  }
                   required
-                  className="bg-slate-50 border-slate-200 uppercase font-black text-blue-900 text-lg h-12"
+                  className="bg-black/40 border-white/5 font-bold text-white h-14 rounded-xl"
                 />
               </div>
-              <div>
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 block">
-                  รหัสยืนยัน (บัตร 4 ตัวท้าย)
+              <div className="space-y-2">
+                <label className="text-[10px] font-mono text-primary/60 uppercase tracking-widest ml-1">
+                  รหัสยืนยัน (เลขท้ายบัตร 4 ตัว)
                 </label>
                 <Input
                   placeholder="XXXX"
@@ -167,32 +167,32 @@ function VerifyContent() {
                   value={idLast4}
                   onChange={(e) => setIdLast4(e.target.value)}
                   required
-                  className="bg-slate-50 border-slate-200 text-lg h-12 font-bold"
+                  className="bg-black/40 border-white/5 font-bold text-white h-14 rounded-xl"
                 />
               </div>
               <Button
                 type="submit"
-                className="w-full bg-[#003399] hover:bg-blue-800 py-7 text-lg font-black text-white shadow-lg"
+                className="w-full bg-white text-black hover:bg-white/90 py-8 text-sm font-bold tracking-widest uppercase rounded-xl shadow-xl"
                 disabled={loading}
               >
-                {loading ? "กำลังตรวจสอบ..." : "ยืนยันข้อมูลตั๋ว"}
+                {loading ? "กำลังตรวจสอบระบบ..." : "ยืนยันการตรวจสอบ"}
               </Button>
             </form>
           </Card>
         )}
 
         {ticketData && (
-          <div className="animate-in zoom-in-95 duration-500 mt-8 space-y-4">
-            <div className="bg-green-600 text-white text-center py-2 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg">
-              Verified Successful ✅
+          <div className="animate-in zoom-in-95 duration-500 mt-8 space-y-6">
+            <div className="bg-primary/10 text-primary border border-primary/20 text-center py-3 rounded-xl font-mono text-xs tracking-widest uppercase">
+              Verification Successful ✅
             </div>
-            <SombatTicket data={ticketData} showQr={false} />
+            <UnlinkTicket data={ticketData} />
             <Button
               variant="outline"
-              className="w-full border-blue-900 text-blue-900 font-black h-12"
+              className="w-full border-white/10 text-slate-400 font-bold h-14 rounded-xl hover:bg-white/5 hover:text-white"
               onClick={() => setTicketData(null)}
             >
-              ตรวจสอบใบอื่น ↺
+              ตรวจสอบรายการอื่น ↺
             </Button>
           </div>
         )}
@@ -204,7 +204,11 @@ function VerifyContent() {
 export default function VerifyTicketPage() {
   return (
     <Suspense
-      fallback={<div className="p-20 text-center">กำลังโหลดระบบตรวจสอบ...</div>}
+      fallback={
+        <div className="p-20 text-center text-primary font-mono text-xs animate-pulse">
+          SYNCHRONIZING SYSTEM...
+        </div>
+      }
     >
       <VerifyContent />
     </Suspense>

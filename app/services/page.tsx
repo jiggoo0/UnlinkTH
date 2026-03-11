@@ -1,7 +1,7 @@
 /** @format */
 
 import { Metadata } from "next";
-import { getAllServices } from "@/lib/services";
+import { getAllServices } from "@/lib/mdx";
 import ServiceCard from "@/components/shared/ServiceCard";
 import { siteConfig } from "@/constants/site-config";
 import { getImageUrl } from "@/lib/utils";
@@ -14,7 +14,7 @@ import {
   TrendingUp,
   Globe,
 } from "lucide-react";
-import JsonLd from "@/components/seo/JsonLd";
+import JsonLd from "@/components/shared/JsonLd";
 import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 export const metadata: Metadata = {

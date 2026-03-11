@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { loginAction } from "@/app/actions/auth";
+import { loginAction } from "@/app/actions/authAction";
 import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

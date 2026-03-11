@@ -1,14 +1,14 @@
 export const dynamic = "force-dynamic";
 
 import { initDb } from "@/lib/db";
-import { seedAdminUser } from "@/app/actions/auth";
+import { seedAdminUserAction } from "@/app/actions/authAction";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
     // ในโปรดักชันควรมีการเช็ค Auth หรือ Token ก่อนรัน
     await initDb();
-    await seedAdminUser();
+    await seedAdminUserAction();
     return NextResponse.json({
       success: true,
       message: "Database initialized and Admin user seeded successfully",

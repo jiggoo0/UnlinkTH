@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { db } from "@/lib/db";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -15,7 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { logoutAction } from "@/app/actions/auth";
+import { logoutAction } from "@/app/actions/authAction";
+import { getPaymentsAction } from "@/app/actions/ticketAction";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -45,31 +45,17 @@ export default function AdminPaymentsPage() {
   const fetchPayments = async () => {
     setLoading(true);
     try {
-      // ปรับปรุง Query ให้ระบุคอลัมน์ชัดเจนและใช้ LEFT JOIN เพื่อความปลอดภัย
-      const result = await db.execute(`
-        SELECT 
-          p.id, 
-          p.created_at, 
-          p.ticket_id, 
-          p.amount, 
-          p.ref_number, 
-          p.status, 
-          t.ticket_number, 
-          t.passenger_name 
-        FROM payments p
-        LEFT JOIN tickets t ON p.ticket_id = t.id
-        ORDER BY p.created_at DESC
-      `);
+      const result = await getPaymentsAction();
 
-      // ตรวจสอบว่ามีข้อมูลกลับมาจริงหรือไม่
-      if (result && result.rows) {
-        setPayments(result.rows as unknown as PaymentRecord[]);
+      if (result.success && result.data) {
+        setPayments(result.data as unknown as PaymentRecord[]);
       } else {
+        toast.error(result.error || "Failed to load data");
         setPayments([]);
       }
     } catch (err) {
       console.error("Fetch Payments Error:", err);
-      toast.error("Database connection failure. System sandbox active.");
+      toast.error("Database connection failure.");
       setPayments([]);
     } finally {
       setLoading(false);
