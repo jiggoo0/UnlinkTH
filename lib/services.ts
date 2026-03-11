@@ -2,6 +2,7 @@
 
 import { Service } from "@/types";
 import { getAllPosts, getPostBySlug, ServiceFrontmatter } from "./mdx";
+import { getImageUrl } from "./utils";
 
 /**
  * Helper to map frontmatter to Service type
@@ -14,7 +15,9 @@ function mapFrontmatterToService(fm: ServiceFrontmatter): Service {
     shortDescription: fm.shortDescription || fm.description,
     description: fm.description, // Initial description from frontmatter
     iconName: fm.iconName || "Activity",
-    image: fm.image || fm.imageUrl || "/images/services/default.webp",
+    image: getImageUrl(
+      fm.image || fm.imageUrl || "images/services/default.webp",
+    ),
     category: fm.category,
     features: fm.features || [],
     priceInfo: fm.priceInfo || {

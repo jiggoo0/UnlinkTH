@@ -38,7 +38,7 @@ export default async function ServicesPage() {
       icon: ShieldCheck,
       services: allServices.filter((s) =>
         ["reputation", "extreme", "business", "personal", "legal"].includes(
-          s.category.toLowerCase(),
+          (s.category || "").toLowerCase(),
         ),
       ),
     },
@@ -48,7 +48,7 @@ export default async function ServicesPage() {
       description: "วิศวกรรมการเงินและการวางแผนกู้บ้านสำหรับอาชีพอิสระ",
       icon: TrendingUp,
       services: allServices.filter(
-        (s) => s.category.toLowerCase() === "financial",
+        (s) => (s.category || "").toLowerCase() === "financial",
       ),
     },
     {
@@ -57,7 +57,9 @@ export default async function ServicesPage() {
       description: "ยุทธศาสตร์การเตรียมเอกสารวีซ่าและพำนักระยะยาวสากล",
       icon: Globe,
       services: allServices.filter((s) =>
-        ["immigration", "documentation"].includes(s.category.toLowerCase()),
+        ["immigration", "documentation"].includes(
+          (s.category || "").toLowerCase(),
+        ),
       ),
     },
   ];
