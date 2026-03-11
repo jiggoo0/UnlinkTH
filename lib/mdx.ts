@@ -12,37 +12,49 @@ const contentDir = path.join(process.cwd(), "content");
 export type ContentCategory = "blog" | "case-studies" | "services";
 
 /**
+ * ปลอดภัยต่อการรันบน Server (Vercel)
+ */
+function getSafeContentDir() {
+  return contentDir;
+}
+
+/**
  * ดึงข้อมูล MDX ทั้งหมดในหมวดหมู่ที่ระบุ (Generic Version)
  */
 export async function getAllPosts<T>(category: ContentCategory): Promise<T[]> {
-  const categoryPath = path.join(contentDir, category);
-  const posts: T[] = [];
+  try {
+    const categoryPath = path.join(getSafeContentDir(), category);
+    const posts: T[] = [];
 
-  function scan(dir: string) {
-    if (!fs.existsSync(dir)) return;
-    const entries = fs.readdirSync(dir);
-    for (const entry of entries) {
-      const fullPath = path.join(dir, entry);
-      if (fs.statSync(fullPath).isDirectory()) {
-        scan(fullPath);
-      } else if (entry.endsWith(".mdx")) {
-        const { data } = matter(fs.readFileSync(fullPath, "utf8"));
-        posts.push({
-          ...data,
-          slug: entry.replace(".mdx", ""),
-          image: resolveImage(data.image || data.thumbnail, category),
-          date: data.date || new Date().toISOString(),
-        } as T);
+    function scan(dir: string) {
+      if (!fs.existsSync(dir)) return;
+      const entries = fs.readdirSync(dir);
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry);
+        if (fs.statSync(fullPath).isDirectory()) {
+          scan(fullPath);
+        } else if (entry.endsWith(".mdx")) {
+          const { data } = matter(fs.readFileSync(fullPath, "utf8"));
+          posts.push({
+            ...data,
+            slug: entry.replace(".mdx", ""),
+            image: resolveImage(data.image || data.thumbnail, category),
+            date: data.date || new Date().toISOString(),
+          } as T);
+        }
       }
     }
-  }
 
-  scan(categoryPath);
-  return posts.sort((a, b) => {
-    const dateA = new Date((a as { date: string }).date).getTime();
-    const dateB = new Date((b as { date: string }).date).getTime();
-    return dateB - dateA;
-  });
+    scan(categoryPath);
+    return posts.sort((a, b) => {
+      const dateA = new Date((a as { date: string }).date).getTime();
+      const dateB = new Date((b as { date: string }).date).getTime();
+      return dateB - dateA;
+    });
+  } catch (error) {
+    console.error(`Error in getAllPosts for category ${category}:`, error);
+    return [];
+  }
 }
 
 export interface ServiceFrontmatter {
@@ -75,17 +87,21 @@ export interface ServiceFrontmatter {
  * ค้นหาไฟล์ .mdx แบบ Recursive
  */
 function findFileRecursive(dir: string, slug: string): string | null {
-  if (!fs.existsSync(dir)) return null;
-  const entries = fs.readdirSync(dir);
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry);
-    const stat = fs.statSync(fullPath);
-    if (stat.isDirectory()) {
-      const found = findFileRecursive(fullPath, slug);
-      if (found) return found;
-    } else if (entry === `${slug}.mdx`) {
-      return fullPath;
+  try {
+    if (!fs.existsSync(dir)) return null;
+    const entries = fs.readdirSync(dir);
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry);
+      const stat = fs.statSync(fullPath);
+      if (stat.isDirectory()) {
+        const found = findFileRecursive(fullPath, slug);
+        if (found) return found;
+      } else if (entry === `${slug}.mdx`) {
+        return fullPath;
+      }
     }
+  } catch (err) {
+    console.error(`Recursive search error in ${dir}:`, err);
   }
   return null;
 }
@@ -132,34 +148,39 @@ function mapFrontmatterToService(fm: ServiceFrontmatter): Service {
 }
 
 export async function getAllServices(): Promise<Service[]> {
-  const servicesDir = path.join(contentDir, "services");
-  const services: Service[] = [];
+  try {
+    const servicesDir = path.join(getSafeContentDir(), "services");
+    const services: Service[] = [];
 
-  function scan(dir: string) {
-    if (!fs.existsSync(dir)) return;
-    const entries = fs.readdirSync(dir);
-    for (const entry of entries) {
-      const fullPath = path.join(dir, entry);
-      if (fs.statSync(fullPath).isDirectory()) {
-        scan(fullPath);
-      } else if (entry.endsWith(".mdx")) {
-        const { data } = matter(fs.readFileSync(fullPath, "utf8"));
-        services.push(
-          mapFrontmatterToService({
-            ...data,
-            slug: entry.replace(".mdx", ""),
-          } as ServiceFrontmatter),
-        );
+    function scan(dir: string) {
+      if (!fs.existsSync(dir)) return;
+      const entries = fs.readdirSync(dir);
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry);
+        if (fs.statSync(fullPath).isDirectory()) {
+          scan(fullPath);
+        } else if (entry.endsWith(".mdx")) {
+          const { data } = matter(fs.readFileSync(fullPath, "utf8"));
+          services.push(
+            mapFrontmatterToService({
+              ...data,
+              slug: entry.replace(".mdx", ""),
+            } as ServiceFrontmatter),
+          );
+        }
       }
     }
-  }
 
-  scan(servicesDir);
-  return services;
+    scan(servicesDir);
+    return services;
+  } catch (error) {
+    console.error("Error in getAllServices:", error);
+    return [];
+  }
 }
 
 export async function getServiceBySlug(slug: string): Promise<Service | null> {
-  const fullPath = findFileRecursive(path.join(contentDir, "services"), slug);
+  const fullPath = findFileRecursive(path.join(getSafeContentDir(), "services"), slug);
   if (!fullPath) return null;
 
   const { data, content } = matter(fs.readFileSync(fullPath, "utf8"));
@@ -176,36 +197,41 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
 // =========================================================
 
 export async function getAllCaseStudies(): Promise<CaseStudy[]> {
-  const categoryPath = path.join(contentDir, "case-studies");
-  const cases: CaseStudy[] = [];
+  try {
+    const categoryPath = path.join(getSafeContentDir(), "case-studies");
+    const cases: CaseStudy[] = [];
 
-  function scan(dir: string) {
-    if (!fs.existsSync(dir)) return;
-    const entries = fs.readdirSync(dir);
-    for (const entry of entries) {
-      const fullPath = path.join(dir, entry);
-      if (fs.statSync(fullPath).isDirectory()) {
-        scan(fullPath);
-      } else if (entry.endsWith(".mdx")) {
-        const { data } = matter(fs.readFileSync(fullPath, "utf8"));
-        const slug = entry.replace(".mdx", "");
-        cases.push({
-          slug,
-          title: data.title || "Untitled Operation",
-          category: data.category || "General",
-          thumbnail: resolveImage(data.image || data.thumbnail, "case-studies"),
-          excerpt: data.excerpt || data.description || "",
-          date: data.date || "2026-01-01",
-          priority: data.priority || 0,
-        } as CaseStudy);
+    function scan(dir: string) {
+      if (!fs.existsSync(dir)) return;
+      const entries = fs.readdirSync(dir);
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry);
+        if (fs.statSync(fullPath).isDirectory()) {
+          scan(fullPath);
+        } else if (entry.endsWith(".mdx")) {
+          const { data } = matter(fs.readFileSync(fullPath, "utf8"));
+          const slug = entry.replace(".mdx", "");
+          cases.push({
+            slug,
+            title: data.title || "Untitled Operation",
+            category: data.category || "General",
+            thumbnail: resolveImage(data.image || data.thumbnail, "case-studies"),
+            excerpt: data.excerpt || data.description || "",
+            date: data.date || "2026-01-01",
+            priority: data.priority || 0,
+          } as CaseStudy);
+        }
       }
     }
-  }
 
-  scan(categoryPath);
-  return cases.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+    scan(categoryPath);
+    return cases.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
+  } catch (error) {
+    console.error("Error in getAllCaseStudies:", error);
+    return [];
+  }
 }
 
 export async function getLatestCaseStudies(
@@ -217,7 +243,7 @@ export async function getLatestCaseStudies(
 
 export async function getCaseStudyBySlug(slug: string) {
   const fullPath = findFileRecursive(
-    path.join(contentDir, "case-studies"),
+    path.join(getSafeContentDir(), "case-studies"),
     slug,
   );
   if (!fullPath) return null;
@@ -242,38 +268,43 @@ export async function getCaseStudyBySlug(slug: string) {
 // =========================================================
 
 export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
-  const blogDir = path.join(contentDir, "blog");
-  const posts: BlogPostFrontmatter[] = [];
+  try {
+    const blogDir = path.join(getSafeContentDir(), "blog");
+    const posts: BlogPostFrontmatter[] = [];
 
-  function scan(dir: string) {
-    if (!fs.existsSync(dir)) return;
-    const entries = fs.readdirSync(dir);
-    for (const entry of entries) {
-      const fullPath = path.join(dir, entry);
-      if (fs.statSync(fullPath).isDirectory()) {
-        scan(fullPath);
-      } else if (entry.endsWith(".mdx")) {
-        const { data } = matter(fs.readFileSync(fullPath, "utf8"));
-        posts.push({
-          ...data,
-          slug: entry.replace(".mdx", ""),
-          image: resolveImage(data.image || data.thumbnail, "blog"),
-          date: data.date || new Date().toISOString(),
-        } as BlogPostFrontmatter);
+    function scan(dir: string) {
+      if (!fs.existsSync(dir)) return;
+      const entries = fs.readdirSync(dir);
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry);
+        if (fs.statSync(fullPath).isDirectory()) {
+          scan(fullPath);
+        } else if (entry.endsWith(".mdx")) {
+          const { data } = matter(fs.readFileSync(fullPath, "utf8"));
+          posts.push({
+            ...data,
+            slug: entry.replace(".mdx", ""),
+            image: resolveImage(data.image || data.thumbnail, "blog"),
+            date: data.date || new Date().toISOString(),
+          } as BlogPostFrontmatter);
+        }
       }
     }
-  }
 
-  scan(blogDir);
-  return posts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+    scan(blogDir);
+    return posts.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
+  } catch (error) {
+    console.error("Error in getAllBlogPosts:", error);
+    return [];
+  }
 }
 
 export async function getBlogPostBySlug(
   slug: string,
 ): Promise<BlogPost | null> {
-  const fullPath = findFileRecursive(path.join(contentDir, "blog"), slug);
+  const fullPath = findFileRecursive(path.join(getSafeContentDir(), "blog"), slug);
   if (!fullPath) return null;
 
   const { data, content } = matter(fs.readFileSync(fullPath, "utf8"));
