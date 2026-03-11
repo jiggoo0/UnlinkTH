@@ -1,32 +1,26 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // บังคับให้ Next.js รวมโฟลเดอร์ content เข้าไปใน build output เพื่อให้ใช้งาน fs ได้บน Vercel
-  outputFileTracingIncludes: {
-    "/services": ["./content/services/**/*"],
-    "/blog": ["./content/blog/**/*"],
-    "/case-studies": ["./content/case-studies/**/*"],
-    "/services/[slug]": ["./content/services/**/*"],
-    "/blog/[slug]": ["./content/blog/**/*"],
-    "/case-studies/[slug]": ["./content/case-studies/**/*"],
-  },
-  // ปรับปรุงประสิทธิภาพการ Import
+  // บังคับให้ Next.js รวมโฟลเดอร์ content เข้าไปใน build output ทั้งหมด
+  output: 'standalone',
   experimental: {
+    outputFileTracingRoot: path.join(__dirname),
+    outputFileTracingIncludes: {
+      '/**/*': ['./content/**/*'],
+    },
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },
-  // ตั้งค่ารูปภาพให้รองรับการรันบนเซิร์ฟเวอร์หลากหลาย
   images: {
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "qr-official.line.me",
-      },
-      {
-        protocol: "https",
-        hostname: "upload.wikimedia.org",
-      },
+      { protocol: "https", hostname: "qr-official.line.me" },
+      { protocol: "https", hostname: "upload.wikimedia.org" },
     ],
   },
-  // ป้องกัน Error 'Can't resolve fs' เมื่อ import lib ที่ใช้ fs ใน Client Component
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
