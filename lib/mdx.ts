@@ -10,14 +10,7 @@ import { getImageUrl } from "./utils";
 export type ContentCategory = "blog" | "case-studies" | "services";
 
 /**
- * ตัวช่วยดึงพาธ Content ที่ปลอดภัยที่สุด
- */
-function getContentPath(...subPaths: string[]) {
-  return path.join(process.cwd(), "content", ...subPaths);
-}
-
-/**
- * ตัวช่วยจัดการ Path รูปภาพให้ถูกต้อง (เริ่มด้วย /images/)
+ * ตัวช่วยจัดการ Path รูปภาพให้ถูกต้อง
  */
 const resolveImage = (img: string | undefined, category: string): string => {
   if (!img) {
@@ -29,42 +22,52 @@ const resolveImage = (img: string | undefined, category: string): string => {
   return `/images/${img}`;
 };
 
+/**
+ * ค้นหาไฟล์ .mdx ทั้งหมดในโฟลเดอร์ (รวมโฟลเดอร์ย่อย)
+ */
+function getAllMdxFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
+  if (!fs.existsSync(dirPath)) return [];
+  
+  const files = fs.readdirSync(dirPath);
+
+  files.forEach(function(file) {
+    const fullPath = path.join(dirPath, file);
+    if (fs.statSync(fullPath).isDirectory()) {
+      arrayOfFiles = getAllMdxFiles(fullPath, arrayOfFiles);
+    } else if (file.endsWith(".mdx")) {
+      arrayOfFiles.push(fullPath);
+    }
+  });
+
+  return arrayOfFiles;
+}
+
 // =========================================================
-// GENERIC FETCHER
+// CORE GENERIC FETCHER
 // =========================================================
 
 export async function getAllPosts<T>(category: ContentCategory): Promise<T[]> {
   try {
-    const categoryPath = getContentPath(category);
-    if (!fs.existsSync(categoryPath)) {
-      console.warn(`[MDX] Directory not found: ${categoryPath}`);
-      return [];
-    }
+    const categoryPath = path.join(process.cwd(), "content", category);
+    if (!fs.existsSync(categoryPath)) return [];
 
-    const posts: T[] = [];
+    const filePaths = getAllMdxFiles(categoryPath);
+    const posts = filePaths.map((filePath) => {
+      const fileContents = fs.readFileSync(filePath, "utf8");
+      const { data } = matter(fileContents);
+      const slug = path.basename(filePath).replace(".mdx", "");
+      
+      return {
+        ...data,
+        slug,
+        image: resolveImage(data.image || data.thumbnail, category),
+        date: data.date || "2026-01-01",
+      } as T;
+    });
 
-    function scan(dir: string) {
-      const entries = fs.readdirSync(dir);
-      for (const entry of entries) {
-        const fullPath = path.join(dir, entry);
-        if (fs.statSync(fullPath).isDirectory()) {
-          scan(fullPath);
-        } else if (entry.endsWith(".mdx")) {
-          const { data } = matter(fs.readFileSync(fullPath, "utf8"));
-          posts.push({
-            ...data,
-            slug: entry.replace(".mdx", ""),
-            image: resolveImage(data.image || data.thumbnail, category),
-            date: data.date || new Date().toISOString(),
-          } as T);
-        }
-      }
-    }
-
-    scan(categoryPath);
-    return posts.sort((a: any, b: any) => 
-      new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
-    );
+    return posts.sort((a: any, b: any) => {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
   } catch (error) {
     console.error(`[MDX] Error in getAllPosts (${category}):`, error);
     return [];
@@ -72,7 +75,7 @@ export async function getAllPosts<T>(category: ContentCategory): Promise<T[]> {
 }
 
 // =========================================================
-// SERVICES (CORE BUSINESS)
+// SERVICES
 // =========================================================
 
 function mapFrontmatterToService(fm: any, slug: string): Service {
@@ -100,93 +103,51 @@ function mapFrontmatterToService(fm: any, slug: string): Service {
 }
 
 export async function getAllServices(): Promise<Service[]> {
-  try {
-    const servicesDir = getContentPath("services");
-    if (!fs.existsSync(servicesDir)) return [];
-
-    const services: Service[] = [];
-    function scan(dir: string) {
-      const entries = fs.readdirSync(dir);
-      for (const entry of entries) {
-        const fullPath = path.join(dir, entry);
-        if (fs.statSync(fullPath).isDirectory()) {
-          scan(fullPath);
-        } else if (entry.endsWith(".mdx")) {
-          const { data } = matter(fs.readFileSync(fullPath, "utf8"));
-          services.push(mapFrontmatterToService(data, entry.replace(".mdx", "")));
-        }
-      }
-    }
-    scan(servicesDir);
-    return services;
-  } catch (error) {
-    console.error("[MDX] Error in getAllServices:", error);
-    return [];
-  }
+  const posts = await getAllPosts<any>("services");
+  return posts.map(post => mapFrontmatterToService(post, post.slug));
 }
 
 export async function getServiceBySlug(slug: string): Promise<Service | null> {
   try {
-    const servicesDir = getContentPath("services");
+    const servicesPath = path.join(process.cwd(), "content", "services");
+    const allFiles = getAllMdxFiles(servicesPath);
+    const filePath = allFiles.find(f => path.basename(f) === `${slug}.mdx`);
     
-    function findFile(dir: string): string | null {
-      const entries = fs.readdirSync(dir);
-      for (const entry of entries) {
-        const fullPath = path.join(dir, entry);
-        if (fs.statSync(fullPath).isDirectory()) {
-          const found = findFile(fullPath);
-          if (found) return found;
-        } else if (entry === `${slug}.mdx`) {
-          return fullPath;
-        }
-      }
-      return null;
-    }
-
-    const filePath = findFile(servicesDir);
     if (!filePath) return null;
 
     const { data, content } = matter(fs.readFileSync(filePath, "utf8"));
     const service = mapFrontmatterToService(data, slug);
     return { ...service, description: content };
   } catch (error) {
-    console.error(`[MDX] Error getting service by slug (${slug}):`, error);
+    console.error(`[MDX] Error in getServiceBySlug (${slug}):`, error);
     return null;
   }
 }
 
 // =========================================================
-// CASE STUDIES (PORTFOLIO)
+// CASE STUDIES
 // =========================================================
 
 export async function getAllCaseStudies(): Promise<CaseStudy[]> {
   try {
-    const categoryPath = getContentPath("case-studies");
+    const categoryPath = path.join(process.cwd(), "content", "case-studies");
     if (!fs.existsSync(categoryPath)) return [];
 
-    const cases: CaseStudy[] = [];
-    function scan(dir: string) {
-      const entries = fs.readdirSync(dir);
-      for (const entry of entries) {
-        const fullPath = path.join(dir, entry);
-        if (fs.statSync(fullPath).isDirectory()) {
-          scan(fullPath);
-        } else if (entry.endsWith(".mdx")) {
-          const { data } = matter(fs.readFileSync(fullPath, "utf8"));
-          const slug = entry.replace(".mdx", "");
-          cases.push({
-            slug,
-            title: data.title || "Untitled Operation",
-            category: data.category || "General",
-            thumbnail: resolveImage(data.image || data.thumbnail, "case-studies"),
-            excerpt: data.excerpt || data.description || "",
-            date: data.date || "2026-01-01",
-            priority: data.priority || 0,
-          } as CaseStudy);
-        }
-      }
-    }
-    scan(categoryPath);
+    const filePaths = getAllMdxFiles(categoryPath);
+    const cases = filePaths.map((filePath) => {
+      const { data } = matter(fs.readFileSync(filePath, "utf8"));
+      const slug = path.basename(filePath).replace(".mdx", "");
+      return {
+        slug,
+        title: data.title || "Untitled Operation",
+        category: data.category || "General",
+        thumbnail: resolveImage(data.image || data.thumbnail, "case-studies"),
+        excerpt: data.excerpt || data.description || "",
+        date: data.date || "2026-01-01",
+        priority: data.priority || 0,
+      } as CaseStudy;
+    });
+
     return cases.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   } catch (error) {
     console.error("[MDX] Error in getAllCaseStudies:", error);
@@ -201,23 +162,10 @@ export async function getLatestCaseStudies(limit: number = 3): Promise<CaseStudy
 
 export async function getCaseStudyBySlug(slug: string) {
   try {
-    const casesDir = getContentPath("case-studies");
-    
-    function findFile(dir: string): string | null {
-      const entries = fs.readdirSync(dir);
-      for (const entry of entries) {
-        const fullPath = path.join(dir, entry);
-        if (fs.statSync(fullPath).isDirectory()) {
-          const found = findFile(fullPath);
-          if (found) return found;
-        } else if (entry === `${slug}.mdx`) {
-          return fullPath;
-        }
-      }
-      return null;
-    }
+    const categoryPath = path.join(process.cwd(), "content", "case-studies");
+    const allFiles = getAllMdxFiles(categoryPath);
+    const filePath = allFiles.find(f => path.basename(f) === `${slug}.mdx`);
 
-    const filePath = findFile(casesDir);
     if (!filePath) return null;
 
     const { data, content } = matter(fs.readFileSync(filePath, "utf8"));
@@ -234,65 +182,26 @@ export async function getCaseStudyBySlug(slug: string) {
       content,
     };
   } catch (error) {
-    console.error(`[MDX] Error getting case study by slug (${slug}):`, error);
+    console.error(`[MDX] Error in getCaseStudyBySlug (${slug}):`, error);
     return null;
   }
 }
 
 // =========================================================
-// BLOG (INSIGHTS)
+// BLOG
 // =========================================================
 
 export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
-  try {
-    const blogDir = getContentPath("blog");
-    if (!fs.existsSync(blogDir)) return [];
-
-    const posts: BlogPostFrontmatter[] = [];
-    function scan(dir: string) {
-      const entries = fs.readdirSync(dir);
-      for (const entry of entries) {
-        const fullPath = path.join(dir, entry);
-        if (fs.statSync(fullPath).isDirectory()) {
-          scan(fullPath);
-        } else if (entry.endsWith(".mdx")) {
-          const { data } = matter(fs.readFileSync(fullPath, "utf8"));
-          posts.push({
-            ...data,
-            slug: entry.replace(".mdx", ""),
-            image: resolveImage(data.image || data.thumbnail, "blog"),
-            date: data.date || new Date().toISOString(),
-          } as BlogPostFrontmatter);
-        }
-      }
-    }
-    scan(blogDir);
-    return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  } catch (error) {
-    console.error("[MDX] Error in getAllBlogPosts:", error);
-    return [];
-  }
+  const posts = await getAllPosts<BlogPostFrontmatter>("blog");
+  return posts;
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
-    const blogDir = getContentPath("blog");
-    
-    function findFile(dir: string): string | null {
-      const entries = fs.readdirSync(dir);
-      for (const entry of entries) {
-        const fullPath = path.join(dir, entry);
-        if (fs.statSync(fullPath).isDirectory()) {
-          const found = findFile(fullPath);
-          if (found) return found;
-        } else if (entry === `${slug}.mdx`) {
-          return fullPath;
-        }
-      }
-      return null;
-    }
+    const categoryPath = path.join(process.cwd(), "content", "blog");
+    const allFiles = getAllMdxFiles(categoryPath);
+    const filePath = allFiles.find(f => path.basename(f) === `${slug}.mdx`);
 
-    const filePath = findFile(blogDir);
     if (!filePath) return null;
 
     const { data, content } = matter(fs.readFileSync(filePath, "utf8"));
@@ -303,7 +212,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       image: resolveImage(data.image || data.thumbnail, "blog"),
     } as BlogPost;
   } catch (error) {
-    console.error(`[MDX] Error getting blog post by slug (${slug}):`, error);
+    console.error(`[MDX] Error in getBlogPostBySlug (${slug}):`, error);
     return null;
   }
 }

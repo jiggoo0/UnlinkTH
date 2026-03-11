@@ -128,8 +128,7 @@ export default function Footer() {
                 </div>
               </div>
               <p className="text-slate-400 text-xs leading-relaxed font-light">
-                ออกแบบและพัฒนาระบบโดย Alongkorn Yomkerd
-                เพื่อมาตรฐานความปลอดภัยข้อมูลระดับสากล
+                ออกแบบและพัฒนาระบบโดย 9mzm เพื่อมาตรฐานความปลอดภัยข้อมูลระดับสากล
               </p>
               <div className="flex flex-col gap-3 pt-2">
                 <a

@@ -93,7 +93,7 @@ export const siteConfig: SiteConfig = {
     disclaimer:
       "UNLINK-GLOBAL ดำเนินการภายใต้มาตรฐานความปลอดภัยข้อมูลระดับสากล",
     trustNote:
-      "Architected by Alongkorn Yomkerd | Powered by AemDevWeb Infrastructure",
+      "Architected by 9mzm | Powered by AemDevWeb Infrastructure",
     copyright: `© ${new Date().getFullYear()} UNLINK-GLOBAL. International Rights Reserved. (Signature: 9mzm)`,
     links: [
       { title: "นโยบายความเป็นส่วนตัว", href: "/privacy" },
