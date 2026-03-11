@@ -6,11 +6,11 @@ const nextConfig = {
   // 🛡️ ระบบจะเลือก output: 'standalone' เมื่ออยู่บน Vercel อัตโนมัติ (ข้ามการตั้งค่าซับซ้อน)
 
   images: {
-    // 🚀 รองรับการเรียกรูปภาพจาก Vercel Blob
+    // 🚀 รองรับการเรียกรูปภาพจาก Vercel Blob อย่างสมบูรณ์แบบ
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "*.public.blob.vercel-storage.com",
+        hostname: "**.public.blob.vercel-storage.com",
       },
     ],
   },
