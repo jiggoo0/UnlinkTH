@@ -17,10 +17,7 @@ import {
 import JsonLd from "@/components/shared/JsonLd";
 import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
-// บังคับให้หน้าเว็บดึงข้อมูลใหม่เสมอ (Dynamic) เพื่อแก้ปัญหาไฟล์ไม่มา
-export const dynamic = "force-static";
-export const revalidate = 3600;
-
+// Static Site Generation (SSG) Protocol
 export const metadata: Metadata = {
   title: "Service Protocols | ยุทธศาสตร์การจัดการข้อมูลและภาพลักษณ์ดิจิทัล",
   description:
@@ -41,15 +38,20 @@ export default async function ServicesPage() {
           <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center border border-primary/20 mx-auto">
             <ShieldAlert className="text-primary w-10 h-10" />
           </div>
-          <h1 className="text-3xl font-black text-white">System Synchronizing</h1>
-          <p className="text-slate-400">กำลังเชื่อมต่อฐานข้อมูลยุทธศาสตร์ กรุณารอสักครู่เพื่อเข้าถึงโปรโตคอลล่าสุดครับ</p>
+          <h1 className="text-3xl font-black text-white">
+            System Synchronizing
+          </h1>
+          <p className="text-slate-400">
+            กำลังเชื่อมต่อฐานข้อมูลยุทธศาสตร์
+            กรุณารอสักครู่เพื่อเข้าถึงโปรโตคอลล่าสุดครับ
+          </p>
         </div>
       </div>
     );
   }
 
   // จัดกลุ่มบริการตาม Category (แบบ Case-insensitive)
-  const filterServices = (cats: string[]) => 
+  const filterServices = (cats: string[]) =>
     allServices.filter((s) => cats.includes((s.category || "").toLowerCase()));
 
   const categories = [
@@ -58,7 +60,13 @@ export default async function ServicesPage() {
       name: "Reputation Management",
       description: "ปฏิบัติการกู้คืนชื่อเสียงและระงับข้อมูลเชิงลบออนไลน์",
       icon: ShieldCheck,
-      services: filterServices(["reputation", "extreme", "business", "personal", "legal"]),
+      services: filterServices([
+        "reputation",
+        "extreme",
+        "business",
+        "personal",
+        "legal",
+      ]),
     },
     {
       id: "financial",
@@ -118,40 +126,41 @@ export default async function ServicesPage() {
 
       {/* 2. Grouped Services Section */}
       <div className="container space-y-40">
-        {categories.map((cat, catIdx) => (
-          cat.services.length > 0 && (
-            <section key={cat.id} id={cat.id} className="scroll-mt-24">
-              <div className="mb-16 flex flex-col items-start justify-between gap-8 border-b border-white/5 pb-12 md:flex-row md:items-end">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4 text-primary">
-                    <cat.icon className="h-8 w-8" />
-                    <span className="font-mono text-xs tracking-[0.4em] uppercase">
-                      Phase 0{catIdx + 1}
+        {categories.map(
+          (cat, catIdx) =>
+            cat.services.length > 0 && (
+              <section key={cat.id} id={cat.id} className="scroll-mt-24">
+                <div className="mb-16 flex flex-col items-start justify-between gap-8 border-b border-white/5 pb-12 md:flex-row md:items-end">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4 text-primary">
+                      <cat.icon className="h-8 w-8" />
+                      <span className="font-mono text-xs tracking-[0.4em] uppercase">
+                        Phase 0{catIdx + 1}
+                      </span>
+                    </div>
+                    <h2 className="text-4xl font-bold tracking-tighter text-white md:text-6xl uppercase">
+                      {cat.name}
+                    </h2>
+                    <p className="text-slate-500 text-lg font-light">
+                      {cat.description}
+                    </p>
+                  </div>
+                  <div className="text-slate-600 font-mono text-[10px] tracking-[0.2em] uppercase text-right">
+                    Active Modules: {cat.services.length} <br />
+                    <span className="text-primary/40 text-[8px]">
+                      {siteConfig.name} Unit
                     </span>
                   </div>
-                  <h2 className="text-4xl font-bold tracking-tighter text-white md:text-6xl uppercase">
-                    {cat.name}
-                  </h2>
-                  <p className="text-slate-500 text-lg font-light">
-                    {cat.description}
-                  </p>
                 </div>
-                <div className="text-slate-600 font-mono text-[10px] tracking-[0.2em] uppercase text-right">
-                  Active Modules: {cat.services.length} <br />
-                  <span className="text-primary/40 text-[8px]">
-                    {siteConfig.name} Unit
-                  </span>
-                </div>
-              </div>
 
-              <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-                {cat.services.map((service) => (
-                  <ServiceCard key={service.id} service={service} />
-                ))}
-              </div>
-            </section>
-          )
-        ))}
+                <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                  {cat.services.map((service) => (
+                    <ServiceCard key={service.id} service={service} />
+                  ))}
+                </div>
+              </section>
+            ),
+        )}
       </div>
 
       {/* 3. Custom Solution Liaison */}

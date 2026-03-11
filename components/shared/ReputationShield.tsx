@@ -2,6 +2,7 @@
 
 import { siteConfig } from "@/constants/site-config";
 import JsonLd from "./JsonLd";
+import { WithContext, Thing } from "schema-dts";
 
 export default function ReputationShield() {
   const { founder, developer, url, name, fullName, description, ogImage } =
@@ -11,11 +12,11 @@ export default function ReputationShield() {
   const devUrl = developer?.url || "https://aemdevweb.com";
   const devName = developer?.name || "AemDevWeb";
 
-  const reputationSchema = [
+  const reputationSchema: WithContext<Thing>[] = [
     {
       "@context": "https://schema.org",
       "@type": "Person",
-      "@id": `${founder.url}/#person`,
+      "@id": "https://me.aemdevweb.com/#person",
       name: founder.nameTh,
       alternateName: [founder.name, founder.nickname],
       jobTitle: founder.role,
@@ -24,9 +25,10 @@ export default function ReputationShield() {
       description: `Founder of UNLINK-GLOBAL and AemDevWeb. Expert in Data Architecture and Digital Reputation.`,
       sameAs: [...(founder.sameAs || []), devUrl, url],
       worksFor: {
-        "@id": `${url}/#organization`,
+        "@type": "Organization",
+        name: "AemDevWeb",
       },
-    },
+    } as WithContext<Thing>,
     {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -39,7 +41,7 @@ export default function ReputationShield() {
         url: `${url}${ogImage}`,
       },
       description: description,
-      founder: { "@id": `${founder.url}/#person` },
+      founder: { "@id": "https://me.aemdevweb.com/#person" },
       knowsAbout: [
         "Digital Reputation Management",
         "Cyber Security",
@@ -53,7 +55,7 @@ export default function ReputationShield() {
         areaServed: "TH",
         availableLanguage: ["Thai", "English"],
       },
-    },
+    } as WithContext<Thing>,
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
@@ -61,14 +63,14 @@ export default function ReputationShield() {
       url: url,
       name: name,
       publisher: { "@id": `${url}/#organization` },
-      creator: { "@id": `${founder.url}/#person` },
+      creator: { "@id": "https://me.aemdevweb.com/#person" },
       maintainer: {
         "@type": "Organization",
         "@id": `${devUrl}/#organization`,
         name: devName,
         url: devUrl,
       },
-    },
+    } as WithContext<Thing>,
   ];
 
   return <JsonLd data={reputationSchema} />;

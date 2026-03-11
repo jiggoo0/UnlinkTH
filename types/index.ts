@@ -163,6 +163,24 @@ export interface ServiceMetadata {
   keywords: string[];
 }
 
+export interface ServiceFrontmatter {
+  id?: string;
+  slug: string;
+  title: string;
+  description: string;
+  shortDescription?: string;
+  date?: string;
+  author?: string;
+  category?: string;
+  image?: string;
+  thumbnail?: string;
+  imageUrl?: string;
+  iconName?: string;
+  features?: string[];
+  priceInfo?: ServicePrice;
+  metadata?: ServiceMetadata;
+}
+
 export interface Service {
   id: string;
   slug: string;

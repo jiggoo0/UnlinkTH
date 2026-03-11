@@ -12,8 +12,7 @@ import { ShieldCheck, FileSearch } from "lucide-react";
  * พัฒนาภายใต้มาตรฐานความปลอดภัยข้อมูลและการรักษาความลับระดับสูงสุด
  */
 
-export const dynamic = "force-static";
-
+// Static Site Generation (SSG) Protocol
 export const metadata: Metadata = {
   title: "Evidence Portfolio | UNLINK-TH Reputation Management",
   description:

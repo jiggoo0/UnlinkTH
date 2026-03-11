@@ -13,12 +13,13 @@ import {
   getPersonSchema,
 } from "@/lib/seo-schemas";
 
+import { Thing, WithContext } from "schema-dts";
+
 interface JsonLdProps {
   /**
    * ข้อมูล Schema ในรูปแบบ Object หรือ Array
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data?: any;
+  data?: WithContext<Thing> | WithContext<Thing>[];
 }
 
 export default function JsonLd({ data }: JsonLdProps) {

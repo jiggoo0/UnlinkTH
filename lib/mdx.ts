@@ -1,8 +1,19 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { Service, CaseStudy, BlogPost, BlogPostFrontmatter } from "@/types";
+import {
+  Service,
+  CaseStudy,
+  BlogPost,
+  BlogPostFrontmatter,
+  ServiceFrontmatter,
+} from "@/types";
 import { getImageUrl } from "./utils";
+
+/**
+ * @TYPE_SYSTEM: Discriminated Unions for Industrial Grade Content
+ */
+export type ContentCategory = "blog" | "case-studies" | "services";
 
 /**
  * ดึงพาธ Content Root
@@ -11,6 +22,7 @@ const getRootPath = () => path.join(process.cwd(), "content");
 
 /**
  * ตัวช่วยจัดการ Path รูปภาพให้ถูกต้อง
+ * ปรับปรุงให้รองรับโครงสร้างโฟลเดอร์จริงใน public/images/
  */
 const resolveImage = (img: string | undefined, category: string): string => {
   if (!img) {
@@ -19,7 +31,17 @@ const resolveImage = (img: string | undefined, category: string): string => {
       : "/images/blog/digital-ghost.webp";
   }
   if (img.startsWith("/") || img.startsWith("http")) return img;
-  return `/images/${img}`;
+
+  // ตรวจสอบว่ามีชื่อโฟลเดอร์หมวดหมู่อยู่ใน path หรือยัง
+  if (
+    img.startsWith("blog/") ||
+    img.startsWith("cases/") ||
+    img.startsWith("services/")
+  ) {
+    return `/images/${img}`;
+  }
+
+  return `/images/${category}/${img}`;
 };
 
 /**
@@ -43,19 +65,31 @@ function scanMdxFiles(dir: string, fileList: string[] = []): string[] {
 // SERVICES
 // =========================================================
 
-function mapToService(data: any, slug: string): Service {
+function mapToService(data: Record<string, unknown>, slug: string): Service {
+  const d = data as unknown as ServiceFrontmatter;
+  const desc = d.shortDescription || d.description || "";
+  const imgPath = d.image || d.thumbnail || d.imageUrl || "";
+
   return {
-    id: data.id || slug,
+    id: d.id || slug,
     slug: slug,
-    title: data.title || "Untitled Service",
-    shortDescription: data.shortDescription || data.description || "",
-    description: data.description || "",
-    iconName: data.iconName || "ShieldCheck",
-    image: getImageUrl(resolveImage(data.image || data.imageUrl || data.thumbnail, "services")),
-    category: data.category || "General",
-    features: data.features || [],
-    priceInfo: data.priceInfo || { startingAt: "0", unit: "ครั้ง", model: "Contact" },
-    metadata: data.metadata || { defaultTitle: data.title, defaultDescription: data.description, keywords: [] },
+    title: d.title || "Untitled Service",
+    shortDescription: desc,
+    description: d.description || "",
+    iconName: d.iconName || "ShieldCheck",
+    image: getImageUrl(resolveImage(imgPath, "services")),
+    category: d.category || "General",
+    features: d.features || [],
+    priceInfo: d.priceInfo || {
+      startingAt: "0",
+      unit: "ครั้ง",
+      model: "Contact",
+    },
+    metadata: d.metadata || {
+      defaultTitle: d.title || "",
+      defaultDescription: desc,
+      keywords: [],
+    },
   };
 }
 
@@ -65,9 +99,13 @@ export async function getAllServices(): Promise<Service[]> {
     const files = scanMdxFiles(dir);
     return files.map((file) => {
       const { data } = matter(fs.readFileSync(file, "utf8"));
-      return mapToService(data, path.basename(file, ".mdx"));
+      return mapToService(
+        data as Record<string, unknown>,
+        path.basename(file, ".mdx"),
+      );
     });
-  } catch (e) {
+  } catch (error) {
+    console.error("getAllServices Error:", error);
     return [];
   }
 }
@@ -78,9 +116,11 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
     const file = files.find((f) => path.basename(f, ".mdx") === slug);
     if (!file) return null;
     const { data, content } = matter(fs.readFileSync(file, "utf8"));
-    const service = mapToService(data, slug);
-    return { ...service, description: content };
-  } catch (e) {
+    return {
+      ...mapToService(data as Record<string, unknown>, slug),
+      description: content,
+    };
+  } catch {
     return null;
   }
 }
@@ -95,18 +135,21 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
     const cases = files.map((file) => {
       const { data } = matter(fs.readFileSync(file, "utf8"));
       const slug = path.basename(file, ".mdx");
+      const d = data as unknown as CaseStudy;
       return {
         slug,
-        title: data.title || "Untitled Case",
-        category: data.category || "General",
-        thumbnail: resolveImage(data.image || data.thumbnail, "case-studies"),
-        excerpt: data.excerpt || data.description || "",
-        date: data.date || "2026-01-01",
-        priority: data.priority || 0,
+        title: d.title || "Untitled Case",
+        category: d.category || "General",
+        thumbnail: resolveImage(d.image || d.thumbnail, "case-studies"),
+        excerpt: d.excerpt || d.description || "",
+        date: d.date || "2026-01-01",
+        priority: d.priority || 0,
       } as CaseStudy;
     });
-    return cases.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  } catch (e) {
+    return cases.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
+  } catch {
     return [];
   }
 }
@@ -117,24 +160,27 @@ export async function getCaseStudyBySlug(slug: string) {
     const file = files.find((f) => path.basename(f, ".mdx") === slug);
     if (!file) return null;
     const { data, content } = matter(fs.readFileSync(file, "utf8"));
+    const d = data as unknown as CaseStudy;
     return {
       slug,
       frontmatter: {
-        title: data.title || "Classified",
-        category: data.category || "Operation",
-        thumbnail: resolveImage(data.image || data.thumbnail, "case-studies"),
-        excerpt: data.excerpt || data.description || "",
-        date: data.date || "2026-01-01",
-        description: data.description || "",
+        title: d.title || "Classified",
+        category: d.category || "Operation",
+        thumbnail: resolveImage(d.image || d.thumbnail, "case-studies"),
+        excerpt: d.excerpt || d.description || "",
+        date: d.date || "2026-01-01",
+        description: d.description || "",
       },
       content,
     };
-  } catch (e) {
+  } catch {
     return null;
   }
 }
 
-export async function getLatestCaseStudies(limit: number = 3): Promise<CaseStudy[]> {
+export async function getLatestCaseStudies(
+  limit: number = 3,
+): Promise<CaseStudy[]> {
   const all = await getAllCaseStudies();
   return all.slice(0, limit);
 }
@@ -146,37 +192,48 @@ export async function getLatestCaseStudies(limit: number = 3): Promise<CaseStudy
 export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
   try {
     const files = scanMdxFiles(path.join(getRootPath(), "blog"));
-    return files.map((file) => {
-      const { data } = matter(fs.readFileSync(file, "utf8"));
-      return {
-        ...data,
-        slug: path.basename(file, ".mdx"),
-        image: resolveImage(data.image || data.thumbnail, "blog"),
-        date: data.date || new Date().toISOString(),
-      } as BlogPostFrontmatter;
-    }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  } catch (e) {
+    return files
+      .map((file) => {
+        const { data } = matter(fs.readFileSync(file, "utf8"));
+        const d = data as unknown as BlogPostFrontmatter;
+        return {
+          ...d,
+          slug: path.basename(file, ".mdx"),
+          image: resolveImage(d.image || d.thumbnail, "blog"),
+          date: d.date || new Date().toISOString(),
+        } as BlogPostFrontmatter;
+      })
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  } catch {
     return [];
   }
 }
 
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+export async function getBlogPostBySlug(
+  slug: string,
+): Promise<BlogPost | null> {
   try {
     const files = scanMdxFiles(path.join(getRootPath(), "blog"));
     const file = files.find((f) => path.basename(f, ".mdx") === slug);
     if (!file) return null;
     const { data, content } = matter(fs.readFileSync(file, "utf8"));
-    return { content, ...data, slug, image: resolveImage(data.image || data.thumbnail, "blog") } as BlogPost;
-  } catch (e) {
+    const d = data as unknown as BlogPost;
+    return {
+      ...d,
+      content,
+      slug,
+      image: resolveImage(d.image || d.thumbnail, "blog"),
+    } as BlogPost;
+  } catch {
     return null;
   }
 }
 
-export type ContentCategory = "blog" | "case-studies" | "services";
-
 export async function getAllPosts<T>(category: ContentCategory): Promise<T[]> {
-  if (category === "blog") return (await getAllBlogPosts()) as any;
-  if (category === "services") return (await getAllServices()) as any;
-  if (category === "case-studies") return (await getAllCaseStudies()) as any;
+  if (category === "blog") return (await getAllBlogPosts()) as unknown as T[];
+  if (category === "services")
+    return (await getAllServices()) as unknown as T[];
+  if (category === "case-studies")
+    return (await getAllCaseStudies()) as unknown as T[];
   return [];
 }

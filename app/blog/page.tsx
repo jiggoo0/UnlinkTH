@@ -8,8 +8,7 @@ import { BookOpen, Calendar, ChevronRight } from "lucide-react";
 import JsonLd from "@/components/shared/JsonLd";
 import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
-export const dynamic = "force-static";
-
+// Static Site Generation (SSG) Protocol
 export const metadata: Metadata = {
   title: "คู่มือรับมือดราม่า และความรู้ด้าน Digital Reputation | UNLINK-TH",
   description:
