@@ -7,7 +7,7 @@ import { getAllServices, getAllPosts, getLatestCaseStudies } from "@/lib/mdx";
 import { BlogPostFrontmatter } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ShieldAlert } from "lucide-react";
 
 // 📦 Shared Components
 import Hero from "@/components/shared/Hero";
@@ -35,20 +35,17 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// แยกส่วนบริการออกมาเป็น Component ย่อยเพื่อทำ Suspense
+// แยกส่วนบริการออกมาเป็น Component ย่อย
 async function ServicesGrid() {
-  const servicesData = await getAllServices().catch(() => []);
+  const servicesData = await getAllServices();
 
-  if (servicesData.length === 0) {
+  if (!servicesData || servicesData.length === 0) {
     return (
       <div className="border-border/10 bg-white/5 col-span-2 rounded-[2.5rem] border border-dashed py-24 text-center backdrop-blur-sm">
         <div className="mx-auto max-w-xs space-y-4">
-          <p className="text-primary font-mono text-[10px] tracking-[0.4em] uppercase">
-            System Synchronizing
-          </p>
-          <p className="text-slate-400 text-sm font-light leading-relaxed">
-            กำลังปรับปรุงและอัปโหลดข้อมูลยุทธศาสตร์ใหม่ <br />
-            กรุณารอสักครู่เพื่อเข้าถึงโปรโตคอลล่าสุด
+          <ShieldAlert className="text-primary/20 w-10 h-10 mx-auto" />
+          <p className="text-slate-500 font-mono text-[10px] tracking-[0.4em] uppercase">
+            Matrix Modules Offline
           </p>
         </div>
       </div>
@@ -66,7 +63,7 @@ async function ServicesGrid() {
 
 // แยกส่วน Case Studies ออกมาเป็น Component ย่อย
 async function LatestCaseStudies() {
-  const latestCases = await getLatestCaseStudies(3).catch(() => []);
+  const latestCases = await getLatestCaseStudies(3);
 
   return (
     <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -79,9 +76,7 @@ async function LatestCaseStudies() {
 
 // แยกส่วน Blog ออกมาเป็น Component ย่อย
 async function LatestInsights() {
-  const allPosts = await getAllPosts<BlogPostFrontmatter>("blog").catch(
-    () => [],
-  );
+  const allPosts = await getAllPosts<BlogPostFrontmatter>("blog");
   const latestPosts = allPosts.slice(0, 3);
 
   return (
@@ -232,7 +227,7 @@ export default function HomePage() {
           </div>
           <div className="text-primary/40 font-mono text-[10px] tracking-[0.2em] uppercase text-right">
             Operational Records <br />
-            <span className="text-[8px]">Unlink-Global Unit</span>
+            <span className="text-[8px]">{siteConfig.name} Unit</span>
           </div>
         </div>
 
