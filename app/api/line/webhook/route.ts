@@ -3,22 +3,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as line from "@line/bot-sdk";
 
-// 1. ตั้งค่า LINE Client
-const config: line.MessagingApiConfig = {
+// 1. ตั้งค่า LINE Client (อัปเดตให้รองรับ v10.x)
+const client = new line.messagingApi.MessagingApiClient({
   channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN || "",
-};
-
-const client = new line.messagingApi.MessagingApiClient(config);
+});
 
 /**
  * LINE WEBHOOK HANDLER
  * -------------------------------------------------------------------------
- * ระบบรับข้อความจาก LINE และตอบกลับอัตโนมัติด้วยพลังของ AI
  */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const events: line.WebhookEvent[] = body.events;
+    const events: any[] = body.events;
 
     // จัดการข้อความที่ได้รับทีละอัน
     const results = await Promise.all(
@@ -44,13 +41,12 @@ export async function POST(req: NextRequest) {
 }
 
 /**
- * ฟังก์ชันจัดการเมื่อมีเพื่อนใหม่เพิ่มเข้ามา (Greeting Message)
+ * ฟังก์ชันจัดการเมื่อมีเพื่อนใหม่เพิ่มเข้ามา
  * -------------------------------------------------------------------------
  */
-async function handleFollowEvent(event: line.FollowEvent) {
+async function handleFollowEvent(event: any) {
   const replyToken = event.replyToken;
   
-  // ข้อความต้อนรับที่ออกแบบมาเป็นพิเศษ
   const greetingText = 
     "ยินดีที่ได้รู้จักนะครับ! ผมคือผู้ช่วยส่วนตัวจาก UNLINK-TH ครับ \n\n" +
     "เราเข้าใจดีว่าบางครั้งอดีตที่ผิดพลาด หรือการโดนกลั่นแกล้งออนไลน์ อาจทำให้ชีวิตคุณสะดุด... แต่ที่นี่คือ 'พื้นที่ปลอดภัย' สำหรับคุณครับ \n\n" +
@@ -69,15 +65,13 @@ async function handleFollowEvent(event: line.FollowEvent) {
 /**
  * ฟังก์ชันจัดการข้อความ Text
  * -------------------------------------------------------------------------
- * ตรงนี้เราจะส่งข้อความไปหา Gemini AI เพื่อขอคำตอบที่เหมาะสม
  */
-async function handleTextEvent(event: line.MessageEvent & { message: line.TextMessageContent }) {
+async function handleTextEvent(event: any) {
   const userMessage = event.message.text;
   const replyToken = event.replyToken;
 
   let replyMessage = "";
 
-  // 1. ตรวจสอบ Keyword จาก Rich Menu หรือการพิมพ์ของลูกค้า
   if (userMessage.includes("ขอลบแบล็คลิสต์") || userMessage.includes("ลบชื่อประจาน")) {
     replyMessage =
       "เข้าใจเลยครับว่าเรื่องชื่อเสียงสำคัญแค่ไหน... \n\n" +
@@ -98,7 +92,6 @@ async function handleTextEvent(event: line.MessageEvent & { message: line.TextMe
       "หากคุณมีปัญหาเรื่อง 'ประวัติการเงิน' หรือ 'ชื่อเสียงออนไลน์' สามารถกดเลือกบริการจากเมนูด้านล่าง หรือพิมพ์รายละเอียดทิ้งไว้ได้เลยครับ ทีมงานเราพร้อมลุยเคสยากให้คุณกลับมาเริ่มต้นใหม่ได้จริงครับ";
   }
 
-  // ส่งข้อความตอบกลับ
   return client.replyMessage({
     replyToken: replyToken,
     messages: [{ type: "text", text: replyMessage }],
