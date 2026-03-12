@@ -4,13 +4,14 @@ import { NextRequest, NextResponse } from "next/server";
 import * as line from "@line/bot-sdk";
 
 const LINE_TOKEN = "BgmQagMZBMPi+FSrt2eXy1Ujw3j+M40bjE5T00pzT2vRTOmKLcbr+mFq6r97hwydTq9REosBk4yXDePckiX+uXQ0KXKiU0MDy3AQrgQz8bnVCQ09m5vUsHUae0FBUL+43He2CSgxIuv6XCXIboHJIQdB04t89/1O/w1cDnyilFU=";
+const ADMIN_ID = "U40a4a0d00ff4a7bffc0aeae5902955a0"; // รหัสที่ถูกต้องของคุณเอ็ม
 
 const client = new line.messagingApi.MessagingApiClient({
   channelAccessToken: LINE_TOKEN,
 });
 
 /**
- * LINE WEBHOOK - DEBUG MODE (CATCH USER ID)
+ * LINE WEBHOOK HANDLER (FINAL PREMIUM VERSION)
  */
 export async function POST(req: NextRequest) {
   try {
@@ -19,30 +20,128 @@ export async function POST(req: NextRequest) {
 
     const results = await Promise.all(
       events.map(async (event) => {
-        if (event.type === "message" && event.message.type === "text") {
-          const userId = event.source.userId;
-          const userMessage = event.message.text;
-
-          // 🎯 ถ้าเราพิมพ์คำว่า "รหัสของฉัน" บอทจะตอบรหัส User ID มาให้ครับ
-          if (userMessage.includes("รหัสของฉัน")) {
-            return client.replyMessage({
-              replyToken: event.replyToken,
-              messages: [{ type: "text", text: `User ID ของคุณคือ: ${userId}` }],
-            });
-          }
-
-          // การตอบกลับทั่วไป
-          return client.replyMessage({
-            replyToken: event.replyToken,
-            messages: [{ type: "text", text: "แจ้งเจ้าหน้าที่ให้แล้วครับ (กำลังตรวจสอบรหัสแอดมิน)" }],
-          });
-        }
+        if (event.type === "follow") return handleFollowEvent(event);
+        if (event.type === "message" && event.message.type === "text") return handleTextEvent(event);
         return null;
       })
     );
 
     return NextResponse.json({ status: "success", results });
   } catch (err) {
+    console.error("Webhook Error:", err);
     return NextResponse.json({ status: "error" }, { status: 500 });
   }
+}
+
+async function handleFollowEvent(event: any) {
+  const replyToken = event.replyToken;
+  const greetingText = 
+    "ยินดีที่ได้รู้จักนะครับ! ผมคือผู้ช่วยส่วนตัวจาก UNLINK-TH ครับ \n\n" +
+    "เราคือทางออกสุดท้ายของผู้ที่มีปัญหา 'ประวัติการเงิน' และ 'ชื่อเสียงออนไลน์' \n\n" +
+    "เลือกบริการที่คุณต้องการปรึกษาจากเมนูด้านล่าง หรือพิมพ์รายละเอียดทิ้งไว้ได้เลยครับ ทีมงานผู้เชี่ยวชาญพร้อมดูแลคุณอย่างลับที่สุดครับ";
+
+  return client.replyMessage({
+    replyToken: replyToken,
+    messages: [{ type: "text", text: greetingText }],
+  });
+}
+
+async function handleTextEvent(event: any) {
+  const userMessage = event.message.text.toLowerCase();
+  const replyToken = event.replyToken;
+  const userId = event.source.userId;
+
+  // 1. ระบบแจ้งเตือนแอดมิน (Real-time Notification)
+  if (userMessage.includes("ด่วน") || userMessage.includes("แอดมิน") || userMessage.includes("เจ้าหน้าที่")) {
+    await client.pushMessage({
+      to: ADMIN_ID,
+      messages: [{ 
+        type: "text", 
+        text: `🚨 [ALERT] มีลูกค้าต้องการคุยด่วน!\nUser ID: ${userId}\nข้อความ: ${userMessage}\n\nรีบเข้าไปตอบลูกค้าในหน้าแชทเลยครับ!` 
+      }],
+    });
+    return client.replyMessage({
+      replyToken: replyToken,
+      messages: [{ type: "text", text: "รับทราบครับ! ผมแจ้งเจ้าหน้าที่ให้เรียบร้อยแล้วครับ รบกวนรอสักครู่นะครับ เจ้าหน้าที่จะรีบติดต่อกลับมาดูแลคุณโดยเร็วที่สุดครับ" }],
+    });
+  }
+
+  // 2. ส่ง Flex Message: ล้างประวัติ / แบล็คลิสต์
+  if (["ลบ", "แบล็คลิสต์", "ประจาน", "google"].some(k => userMessage.includes(k))) {
+    return client.replyMessage({ replyToken, messages: [getReputationFlexCard()] });
+  }
+
+  // 3. ส่ง Flex Message: กู้บ้าน / บูโร / สเตทเม้นท์
+  if (["กู้", "บ้าน", "บูโร", "สเตทเม้นท์", "ไม่ผ่าน"].some(k => userMessage.includes(k))) {
+    return client.replyMessage({ replyToken, messages: [getFinancialFlexCard()] });
+  }
+
+  // 4. กรณีพิมพ์ "รหัสของฉัน" (เก็บไว้เผื่อใช้)
+  if (userMessage.includes("รหัสของฉัน")) {
+    return client.replyMessage({
+      replyToken: replyToken,
+      messages: [{ type: "text", text: `User ID ของคุณคือ: ${userId}` }],
+    });
+  }
+
+  // 5. ข้อความตอบกลับทั่วไป
+  return client.replyMessage({
+    replyToken: replyToken,
+    messages: [{ type: "text", text: "สวัสดีครับ! ยินดีที่ได้ดูแลนะครับ หากคุณมีปัญหาเรื่องประวัติการเงินหรือชื่อเสียงออนไลน์ พิมพ์รายละเอียดทิ้งไว้ได้เลยครับ ทีมงานเราพร้อมลุยเคสยากให้คุณกลับมาเริ่มต้นใหม่ได้จริงครับ" }],
+  });
+}
+
+/**
+ * Templates (Flex Cards)
+ */
+function getReputationFlexCard(): any {
+  return {
+    type: "flex",
+    altText: "บริการทวงคืนชื่อเสียงออนไลน์ - UNLINK-TH",
+    contents: {
+      type: "bubble",
+      hero: { type: "image", url: "https://www.unlink-th.com/images/services/srv-identity-rehabilitation.webp", size: "full", aspectRatio: "20:13", aspectMode: "cover" },
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: "ทวงคืนตัวตนที่ใสสะอาด", weight: "bold", size: "xl", color: "#D4AF37" },
+          { type: "text", text: "ลบประวัติเน่าจาก Google และเว็บแบล็คลิสต์ 'ถอนรากถอนโคน' อย่างมืออาชีพ", wrap: true, size: "sm", color: "#aaaaaa" }
+        ]
+      },
+      footer: {
+        type: "box",
+        layout: "vertical",
+        contents: [{ type: "button", style: "primary", color: "#D4AF37", action: { type: "message", label: "ขอประเมินเคสฟรี", text: "ขอประเมินเคสลบประวัติ" } }]
+      },
+      styles: { body: { backgroundColor: "#050810" }, footer: { backgroundColor: "#050810" } }
+    }
+  };
+}
+
+function getFinancialFlexCard(): any {
+  return {
+    type: "flex",
+    altText: "บริการฟื้นฟูเครดิตกู้บ้าน - UNLINK-TH",
+    contents: {
+      type: "bubble",
+      hero: { type: "image", url: "https://www.unlink-th.com/images/services/srv-credit-engineering.webp", size: "full", aspectRatio: "20:13", aspectMode: "cover" },
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "md",
+        contents: [
+          { type: "text", text: "ปลดล็อกเครดิต ทวงคืนบ้านในฝัน", weight: "bold", size: "xl", color: "#D4AF37" },
+          { type: "text", text: "จัดระเบียบสเตทเม้นท์และฟื้นฟูประวัติบูโร แม้เคยพลาดมาก่อน", wrap: true, size: "sm", color: "#aaaaaa" }
+        ]
+      },
+      footer: {
+        type: "box",
+        layout: "vertical",
+        contents: [{ type: "button", style: "primary", color: "#D4AF37", action: { type: "message", label: "ปรึกษาแผนกู้บ้าน", text: "ขอปรึกษาแผนกู้บ้าน" } }]
+      },
+      styles: { body: { backgroundColor: "#050810" }, footer: { backgroundColor: "#050810" } }
+    }
+  };
 }
