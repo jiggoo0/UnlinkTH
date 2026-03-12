@@ -10,8 +10,9 @@ import {
   ShieldAlert,
   Fingerprint,
 } from "lucide-react";
-import { SecureChannel } from "@/components/shared/SecureChannel";
+import { SecureChannel } from "@/components/sections/SecureChannel";
 import { siteConfig } from "@/constants/site-config";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 /**
  * UNLINK-GLOBAL | Editorial Policy & Data Ethics Framework (2026)
@@ -58,28 +59,25 @@ export default function EditorialPolicyPage() {
       <header className="bg-muted/10 border-border/50 relative overflow-hidden border-b py-32">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.03),transparent)]" />
         <div className="relative z-10 container">
-          <div className="max-w-4xl space-y-8">
-            <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-3 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
-              <BookOpen className="h-4 w-4" />
-              <span>Standards & Compliance 2026</span>
-            </div>
-            <h1 className="text-5xl leading-[1.1] font-bold tracking-tighter md:text-8xl">
-              Editorial <br />
-              <span className="text-primary font-light italic">& Ethics</span>
-            </h1>
-            <p className="text-muted-foreground max-w-2xl text-xl leading-relaxed font-light md:text-2xl">
-              พันธกิจของ **{siteConfig.name}**
-              คือการสร้างระบบนิเวศข้อมูลที่สะอาดและถูกต้อง
-              ภายใต้การกำกับดูแลโดยผู้เชี่ยวชาญด้านสถาปัตยกรรมข้อมูลทางเทคนิค
-            </p>
-            <div className="flex items-center gap-4 pt-4">
-              <span className="text-muted-foreground/40 border-border/10 rounded border px-3 py-1 font-mono text-[10px] tracking-widest uppercase">
-                Policy ID: UTH-ETH-2026
-              </span>
-              <span className="text-muted-foreground/40 font-mono text-[10px] tracking-widest uppercase">
-                Last Updated: {lastUpdated}
-              </span>
-            </div>
+          <SectionHeader
+            badge={
+              <>
+                <BookOpen className="h-4 w-4" />
+                <span>Standards & Compliance 2026</span>
+              </>
+            }
+            title="Editorial"
+            titleHighlight="& Ethics"
+            description={`พันธกิจของ **${siteConfig.name}** คือการสร้างระบบนิเวศข้อมูลที่สะอาดและถูกต้อง ภายใต้การกำกับดูแลโดยผู้เชี่ยวชาญด้านสถาปัตยกรรมข้อมูลทางเทคนิค`}
+            className="mb-8"
+          />
+          <div className="flex items-center gap-4 pt-4">
+            <span className="text-muted-foreground/40 border-border/10 rounded border px-3 py-1 font-mono text-[10px] tracking-widest uppercase">
+              Policy ID: UTH-ETH-2026
+            </span>
+            <span className="text-muted-foreground/40 font-mono text-[10px] tracking-widest uppercase">
+              Last Updated: {lastUpdated}
+            </span>
           </div>
         </div>
       </header>

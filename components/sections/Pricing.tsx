@@ -1,8 +1,10 @@
 "use client";
 
-import { AnimatedSection, AnimatedCard } from "@/components/animated-section";
+import { AnimatedCard } from "@/components/animated-section";
 import { Check } from "lucide-react";
 import { siteConfig } from "@/constants/site-config";
+
+import SectionHeader from "@/components/shared/SectionHeader";
 
 export function PricingSection() {
   const { pricing } = siteConfig;
@@ -15,17 +17,12 @@ export function PricingSection() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-primary/3 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <AnimatedSection className="text-center mb-16">
-          <span className="text-primary font-mono text-xs tracking-[0.2em] uppercase">
-            {pricing.badge}
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mt-4 mb-4 tracking-tight">
-            {pricing.title}
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-            {pricing.description}
-          </p>
-        </AnimatedSection>
+        <SectionHeader
+          align="center"
+          badge={pricing.badge}
+          title={pricing.title}
+          description={pricing.description}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl mx-auto items-start">
           {pricing.tiers.map((tier, index) => (

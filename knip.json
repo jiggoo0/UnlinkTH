@@ -1,23 +1,27 @@
 {
   "$schema": "https://knip.dev/schema-json",
-  "entry": [
-    "app/**/loading.tsx",
-    "app/**/error.tsx",
-    "app/**/not-found.tsx",
-    "app/**/route.ts",
-    "mdx-components.tsx"
-  ],
+  "next": {
+    "entry": [
+      "app/**/page.{tsx,ts}",
+      "app/**/layout.{tsx,ts}",
+      "app/**/loading.{tsx,ts}",
+      "app/**/error.{tsx,ts}",
+      "app/**/not-found.{tsx,ts}",
+      "app/**/route.{tsx,ts}",
+      "app/**/robots.{tsx,ts}",
+      "app/**/sitemap.{tsx,ts}",
+      "mdx-components.tsx",
+      "middleware.ts"
+    ]
+  },
   "project": ["**/*.{ts,tsx,mjs}"],
   "ignoreExportsUsedInFile": true,
-  "ignore": [],
   "ignoreDependencies": [
-    "@radix-ui/*",
+    "@img/sharp-wasm32",
+    "@next/swc-android-arm64",
     "autoprefixer",
     "tailwindcss",
     "tailwindcss-animate",
-    "google-auth-library",
-    "sharp",
-    "@img/sharp-wasm32",
-    "@next/swc-android-arm64"
+    "sharp"
   ]
 }

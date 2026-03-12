@@ -11,8 +11,9 @@ import {
   FileKey,
   ChevronRight,
 } from "lucide-react";
-import { SecureChannel } from "@/components/shared/SecureChannel";
+import { SecureChannel } from "@/components/sections/SecureChannel";
 import { siteConfig } from "@/constants/site-config";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 /**
  * UNLINK-TH | Confidentiality & Privacy Protocol (2026)
@@ -58,29 +59,25 @@ export default function PrivacyPage() {
       <header className="bg-muted/10 border-border/50 relative overflow-hidden border-b py-32">
         <div className="bg-primary/5 pointer-events-none absolute top-0 right-0 -z-10 h-[500px] w-[500px] rounded-full blur-[120px]" />
         <div className="relative z-10 container">
-          <div className="max-w-4xl space-y-8">
-            <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-3 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
-              <ShieldCheck className="h-4 w-4" />
-              <span>ความสบายใจของคุณคือภารกิจสำคัญที่สุดของเรา</span>
-            </div>
-            <h1 className="text-5xl leading-[0.9] font-bold tracking-tighter md:text-8xl">
-              Privacy <br />
-              <span className="text-primary font-light italic">
-                & Protection
-              </span>
-            </h1>
-            <p className="text-muted-foreground max-w-2xl text-xl leading-relaxed font-light md:text-2xl">
-              เพราะชื่อเสียงและการเริ่มต้นใหม่ของคุณเริ่มต้นที่ความลับของเรา
-              เราจึงวางระบบจัดการข้อมูลที่เข้มงวดที่สุดเพื่อปกป้องสิทธิส่วนบุคคลตามมาตรฐานสูงสุด
-            </p>
-            <div className="flex items-center gap-4 pt-4">
-              <span className="text-muted-foreground/40 border-border/10 rounded border px-3 py-1 font-mono text-[10px] tracking-widest uppercase">
-                Document ID: UTH-PRV-2026
-              </span>
-              <span className="text-muted-foreground/40 font-mono text-[10px] tracking-widest uppercase">
-                Last Updated: {lastUpdated}
-              </span>
-            </div>
+          <SectionHeader
+            badge={
+              <>
+                <ShieldCheck className="h-4 w-4" />
+                <span>ความสบายใจของคุณคือภารกิจสำคัญที่สุดของเรา</span>
+              </>
+            }
+            title="Privacy"
+            titleHighlight="& Protection"
+            description="เพราะชื่อเสียงและการเริ่มต้นใหม่ของคุณเริ่มต้นที่ความลับของเรา เราจึงวางระบบจัดการข้อมูลที่เข้มงวดที่สุดเพื่อปกป้องสิทธิส่วนบุคคลตามมาตรฐานสูงสุด"
+            className="mb-8"
+          />
+          <div className="flex items-center gap-4 pt-4">
+            <span className="text-muted-foreground/40 border-border/10 rounded border px-3 py-1 font-mono text-[10px] tracking-widest uppercase">
+              Document ID: UTH-PRV-2026
+            </span>
+            <span className="text-muted-foreground/40 font-mono text-[10px] tracking-widest uppercase">
+              Last Updated: {lastUpdated}
+            </span>
           </div>
         </div>
       </header>

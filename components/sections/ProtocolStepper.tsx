@@ -2,8 +2,8 @@
 
 "use client";
 
-import { motion } from "framer-motion";
 import { Search, ShieldAlert, Hammer, Eye } from "lucide-react";
+import { AnimatedCard } from "@/components/animated-section";
 
 /**
  * UNLINK-TH | Operational Protocol Stepper (2026)
@@ -50,12 +50,9 @@ export default function ProtocolStepper() {
       <div className="bg-border/20 absolute top-12 left-0 -z-10 hidden h-px w-full md:block" />
 
       {protocols.map((step, idx) => (
-        <motion.div
+        <AnimatedCard
           key={idx}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: idx * 0.1, duration: 0.5 }}
-          viewport={{ once: true }}
+          delay={idx * 0.1}
           className="lab-card group hover:border-primary/30 relative p-6 transition-all duration-500"
         >
           {/* Icon Architecture */}
@@ -79,7 +76,7 @@ export default function ProtocolStepper() {
           <div className="bg-muted border-border absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full border font-mono text-[10px] font-bold shadow-sm">
             0{idx + 1}
           </div>
-        </motion.div>
+        </AnimatedCard>
       ))}
     </div>
   );

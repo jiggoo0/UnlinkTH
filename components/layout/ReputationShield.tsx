@@ -1,7 +1,7 @@
 /** @format */
 
 import { siteConfig } from "@/constants/site-config";
-import JsonLd from "./JsonLd";
+import JsonLd from "@/components/shared/JsonLd";
 import { WithContext, Thing } from "schema-dts";
 
 export default function ReputationShield() {

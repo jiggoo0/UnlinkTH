@@ -2,7 +2,6 @@
 
 "use client";
 
-import { motion } from "framer-motion";
 import { siteConfig } from "@/constants/site-config";
 import {
   MessageCircle,
@@ -15,6 +14,7 @@ import {
   Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AnimatedSection, AnimatedCard } from "@/components/animated-section";
 
 /**
  * UNLINK-TH | Secure Liaison Interface
@@ -30,7 +30,7 @@ export default function ContactContent() {
       <header className="bg-muted/10 border-border/50 relative overflow-hidden border-b py-24">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary),transparent)] opacity-5" />
         <div className="relative z-10 container">
-          <div className="max-w-4xl space-y-8">
+          <AnimatedSection className="max-w-4xl space-y-8">
             <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-3 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
               <Lock className="h-3.5 w-3.5" />
               <span>ความปลอดภัยของข้อมูลระดับสูงสุด (Privacy-First)</span>
@@ -47,7 +47,7 @@ export default function ContactContent() {
               และดำเนินการสื่อสารผ่านช่องทางเข้ารหัส (LINE Official)
               เพียงช่องทางเดียวเท่านั้น
             </p>
-          </div>
+          </AnimatedSection>
         </div>
       </header>
 
@@ -109,12 +109,7 @@ export default function ContactContent() {
 
           {/* 4. Secure Action Center */}
           <main className="lg:col-span-7">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="lab-card border-primary/20 bg-primary/5 relative overflow-hidden border p-10 md:p-16"
-            >
+            <AnimatedCard className="lab-card border-primary/20 bg-primary/5 relative overflow-hidden border p-10 md:p-16">
               <div className="bg-primary/10 pointer-events-none absolute top-0 right-0 -mt-20 -mr-20 h-64 w-64 rounded-full blur-3xl" />
 
               <div className="relative space-y-10">
@@ -169,7 +164,7 @@ export default function ContactContent() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </AnimatedCard>
           </main>
         </div>
       </section>

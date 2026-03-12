@@ -6,11 +6,11 @@ import NextTopLoader from "nextjs-toploader";
 import { siteConfig } from "@/constants/site-config";
 import { Analytics } from "@vercel/analytics/react";
 import { Suspense } from "react";
-import Navbar from "@/components/shared/Navbar";
-import Footer from "@/components/shared/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import JsonLd from "@/components/shared/JsonLd";
-import ReputationShield from "@/components/shared/ReputationShield";
-import PdpaConsent from "@/components/shared/PdpaConsent";
+import ReputationShield from "@/components/layout/ReputationShield";
+import PdpaConsent from "@/components/layout/PdpaConsent";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 

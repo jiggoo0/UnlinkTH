@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { getAllCaseStudies } from "@/lib/mdx";
 import CaseStudyCard from "@/components/shared/CaseStudyCard";
 import { ShieldCheck, FileSearch } from "lucide-react";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 /**
  * UNLINK-TH | Evidence & Operational Portfolio (2026)
@@ -25,23 +26,18 @@ export default async function CaseStudiesPage() {
 
   return (
     <div className="container py-24">
-      {/* 1. Page Header Interface: สัญญาณความเชื่อมั่นเชิงประจักษ์ */}
-      <div className="mb-20 max-w-4xl">
-        <div className="bg-primary/5 border-primary/20 text-primary mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
-          <ShieldCheck className="h-4 w-4" />
-          <span>Verified Operational Outcomes</span>
-        </div>
-
-        <h1 className="mb-8 text-5xl leading-[1.1] font-bold tracking-tighter md:text-8xl">
-          Evidence <br />
-          <span className="text-primary font-light italic">Portfolio</span>
-        </h1>
-
-        <p className="text-muted-foreground text-xl leading-relaxed font-light md:text-2xl">
-          บันทึกผลลัพธ์จากการปฏิบัติการจริงในการจัดการข้อมูลเชิงลบและปกป้องอัตลักษณ์ดิจิทัล
-          ทุกรายละเอียดถูกจัดทำขึ้นโดยยึดถือความเป็นส่วนตัวของคู่สัญญาเป็นลำดับแรก
-        </p>
-      </div>
+      <SectionHeader
+        badge={
+          <>
+            <ShieldCheck className="h-4 w-4" />
+            <span>Verified Operational Outcomes</span>
+          </>
+        }
+        title="Evidence"
+        titleHighlight="Portfolio"
+        description="บันทึกผลลัพธ์จากการปฏิบัติการจริงในการจัดการข้อมูลเชิงลบและปกป้องอัตลักษณ์ดิจิทัล ทุกรายละเอียดถูกจัดทำขึ้นโดยยึดถือความเป็นส่วนตัวของคู่สัญญาเป็นลำดับแรก"
+        className="mb-20"
+      />
 
       {/* 2. Intelligence Grid: แฟ้มบันทึกปฏิบัติการ */}
       <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,14 +1,12 @@
-/** @format */
-
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { ArrowUpRight, ImageOff, ShieldCheck } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, getImageUrl } from "@/lib/utils";
 import { CaseStudy } from "@/types";
+import { AnimatedCard } from "@/components/animated-section";
 
 interface CaseStudyCardProps {
   study: CaseStudy;
@@ -31,19 +29,10 @@ export default function CaseStudyCard({
   className,
 }: CaseStudyCardProps) {
   // ตรวจสอบความถูกต้องของเส้นทางรูปภาพ
-  const imageSrc =
-    study.thumbnail && study.thumbnail.trim() !== ""
-      ? study.thumbnail
-      : FALLBACK_IMAGE;
+  const imageSrc = getImageUrl(study.thumbnail || FALLBACK_IMAGE);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className={cn("h-full", className)}
-    >
+    <AnimatedCard className={cn("h-full", className)}>
       <Link
         href={`/case-studies/${study.slug}`}
         className="group block h-full cursor-pointer transition-transform duration-200 active:scale-[0.98]"
@@ -113,6 +102,6 @@ export default function CaseStudyCard({
           </div>
         </div>
       </Link>
-    </motion.div>
+    </AnimatedCard>
   );
 }

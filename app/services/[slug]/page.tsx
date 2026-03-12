@@ -8,7 +8,7 @@ import { useMDXComponents } from "@/mdx-components";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ShieldCheck, Lock, ArrowRight, Terminal } from "lucide-react";
-import { SecureChannel } from "@/components/shared/SecureChannel";
+import { SecureChannel } from "@/components/sections/SecureChannel";
 import { getImageUrl } from "@/lib/utils";
 import JsonLd from "@/components/shared/JsonLd";
 import { getServiceSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";

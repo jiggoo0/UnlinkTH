@@ -18,7 +18,8 @@ import {
 } from "lucide-react";
 import JsonLd from "@/components/shared/JsonLd";
 import { getFaqSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
-import { SecureChannel } from "@/components/shared/SecureChannel";
+import { SecureChannel } from "@/components/sections/SecureChannel";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 /**
  * UNLINK-TH | Intelligence FAQ Interface (2026)
@@ -105,22 +106,18 @@ export default function FAQPage() {
       {/* 1. Protocol Header Section */}
       <header className="bg-muted/20 border-border/50 border-b py-24">
         <div className="container">
-          <div className="max-w-4xl space-y-6">
-            <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-2 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
-              <HelpCircle className="h-4 w-4" />
-              <span>เราพร้อมคลายทุกข้อสงสัยเพื่อความสบายใจของคุณ</span>
-            </div>
-            <h1 className="text-4xl font-bold tracking-tighter md:text-6xl">
-              ศูนย์ดูแล <br />
-              <span className="text-primary font-light italic">
-                & ความเข้าใจ
-              </span>
-            </h1>
-            <p className="text-muted-foreground text-xl leading-relaxed font-light md:text-2xl">
-              เราเข้าใจดีว่าปัญหาชื่อเสียงออนไลน์เป็นเรื่องละเอียดอ่อน
-              รวบรวมคำตอบและแนวทางการจัดการข้อมูลเพื่อให้คุณมั่นใจในทุกก้าวของการเริ่มต้นใหม่
-            </p>
-          </div>
+          <SectionHeader
+            badge={
+              <>
+                <HelpCircle className="h-4 w-4" />
+                <span>เราพร้อมคลายทุกข้อสงสัยเพื่อความสบายใจของคุณ</span>
+              </>
+            }
+            title="ศูนย์ดูแล"
+            titleHighlight="& ความเข้าใจ"
+            description="เราเข้าใจดีว่าปัญหาชื่อเสียงออนไลน์เป็นเรื่องละเอียดอ่อน รวบรวมคำตอบและแนวทางการจัดการข้อมูลเพื่อให้คุณมั่นใจในทุกก้าวของการเริ่มต้นใหม่"
+            className="mb-0"
+          />
         </div>
       </header>
 

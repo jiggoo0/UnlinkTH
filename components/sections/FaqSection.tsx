@@ -1,8 +1,5 @@
-/** @format */
-
 "use client";
 
-import { motion } from "framer-motion";
 import {
   Accordion,
   AccordionContent,
@@ -10,6 +7,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { HelpCircle, ShieldCheck, Zap, Lock } from "lucide-react";
+import SectionHeader from "@/components/shared/SectionHeader";
+import { AnimatedSection } from "@/components/animated-section";
 
 /**
  * UNLINK-TH | Intelligence FAQ Protocol (2026)
@@ -52,27 +51,23 @@ export default function FaqSection() {
     <section className="container py-24" id="faq-protocol">
       <div className="grid gap-20 lg:grid-cols-12">
         {/* Header Column: Strategic Context */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="space-y-8 lg:col-span-5"
-        >
-          <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-3 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
-            <HelpCircle className="h-3.5 w-3.5" />
-            <span>ศูนย์ช่วยเหลือและตอบข้อสงสัย</span>
-          </div>
-
-          <div className="space-y-4">
-            <h2 className="text-4xl leading-[1.1] font-bold tracking-tighter md:text-6xl">
-              คำถาม <br />
-              <span className="text-primary font-light italic">ที่พบบ่อย</span>
-            </h2>
-            <p className="text-muted-foreground max-w-md text-lg leading-relaxed font-light md:text-xl">
-              เรารวบรวมข้อสงสัยที่คุณอาจกังวลใจ
-              เพื่อความโปร่งใสและมั่นใจในบริการของเรา
-            </p>
-          </div>
+        <div className="lg:col-span-5">
+          <SectionHeader
+            badge={
+              <>
+                <HelpCircle className="h-3.5 w-3.5" />
+                <span>ศูนย์ช่วยเหลือและตอบข้อสงสัย</span>
+              </>
+            }
+            title={
+              <>
+                คำถาม <br />
+              </>
+            }
+            titleHighlight="ที่พบบ่อย"
+            description="เรารวบรวมข้อสงสัยที่คุณอาจกังวลใจ เพื่อความโปร่งใสและมั่นใจในบริการของเรา"
+            className="mb-8"
+          />
 
           <div className="border-border/10 border-t pt-8">
             <div className="text-primary/40 flex items-center gap-4 font-mono text-[9px] tracking-widest uppercase">
@@ -80,16 +75,10 @@ export default function FaqSection() {
               Verified Response v4.0.1
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Content Column: The Accordion Interface */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="lg:col-span-7"
-        >
+        <AnimatedSection delay={0.2} className="lg:col-span-7">
           <Accordion type="single" collapsible className="w-full space-y-6">
             {faqs.map((faq, idx) => (
               <AccordionItem
@@ -111,7 +100,7 @@ export default function FaqSection() {
               </AccordionItem>
             ))}
           </Accordion>
-        </motion.div>
+        </AnimatedSection>
       </div>
     </section>
   );

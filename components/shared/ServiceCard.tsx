@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
 import { Service } from "@/types";
 import { getImageUrl } from "@/lib/utils";
 import { ArrowRight, ShieldCheck, LucideProps } from "lucide-react";
@@ -34,18 +33,14 @@ const DynamicIcon = ({ name, ...props }: { name: string } & LucideProps) => {
   );
 };
 
+import { AnimatedCard } from "@/components/animated-section";
+
 export default function ServiceCard({ service }: ServiceCardProps) {
   if (!service) return null;
 
   return (
     <Link href={`/services/${service.slug}`} className="block h-full">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="group relative flex h-[480px] cursor-pointer flex-col overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#0a0f1d] transition-all duration-500 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 active:scale-[0.98]"
-      >
+      <AnimatedCard className="group relative flex h-[480px] cursor-pointer flex-col overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#0a0f1d] transition-all duration-500 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 active:scale-[0.98]">
         {/* 1. Image & Overlay Layer */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           {service.image && (
@@ -119,7 +114,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
             </div>
           </div>
         </div>
-      </motion.div>
+      </AnimatedCard>
     </Link>
   );
 }

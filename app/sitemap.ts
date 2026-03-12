@@ -56,7 +56,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/faq", priority: 0.7, changeFreq: "weekly" as const }, // คำถามที่พบบ่อย (Rich Result Signal)
     { path: "/contact", priority: 0.7, changeFreq: "monthly" as const },
     { path: "/privacy", priority: 0.5, changeFreq: "monthly" as const },
-    { path: "/editorial-policy", priority: 0.6, changeFreq: "monthly" as const },
+    {
+      path: "/editorial-policy",
+      priority: 0.6,
+      changeFreq: "monthly" as const,
+    },
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({

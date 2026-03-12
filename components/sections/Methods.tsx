@@ -1,12 +1,11 @@
-/** @format */
-
 "use client";
 
-import { motion } from "framer-motion";
 import { Cpu, Globe, Scale, ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { siteConfig } from "@/constants/site-config";
+import SectionHeader from "@/components/shared/SectionHeader";
+import { AnimatedSection } from "@/components/animated-section";
 
 /**
  * UNLINK-GLOBAL | Core Methodologies Protocol (2026)
@@ -44,33 +43,25 @@ export default function Methods() {
     <section className="border-border/5 container border-t py-24">
       {/* 1. Protocol Header: Strategic Context */}
       <div className="mb-20 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-3xl space-y-4"
-        >
-          <div className="text-primary flex items-center gap-2 font-mono text-[10px] tracking-[0.3em] uppercase">
-            <ShieldCheck className="h-4 w-4" />
-            <span>มาตรฐานการทำงานระดับมืออาชีพ</span>
-          </div>
-          <h2 className="text-4xl leading-[1.1] font-bold tracking-tighter md:text-6xl">
-            ทางรอดที่เป็นระบบ <br />
-            เพื่อ{" "}
-            <span className="text-primary font-light italic">เริ่มต้นใหม่</span>
-          </h2>
-          <p className="text-muted-foreground text-lg font-light leading-relaxed md:text-xl">
-            เราผสมผสานเทคนิคการจัดการข้อมูลเข้ากับข้อกฎหมายดิจิทัล
-            เพื่อให้คุณได้กลับมาใช้ชีวิตได้อย่างมั่นใจและสง่างามอีกครั้ง
-          </p>
-        </motion.div>
+        <SectionHeader
+          badge={
+            <>
+              <ShieldCheck className="h-4 w-4" />
+              <span>มาตรฐานการทำงานระดับมืออาชีพ</span>
+            </>
+          }
+          title={
+            <>
+              ทางรอดที่เป็นระบบ <br />
+              เพื่อ{" "}
+            </>
+          }
+          titleHighlight="เริ่มต้นใหม่"
+          description="เราผสมผสานเทคนิคการจัดการข้อมูลเข้ากับข้อกฎหมายดิจิทัล เพื่อให้คุณได้กลับมาใช้ชีวิตได้อย่างมั่นใจและสง่างามอีกครั้ง"
+          className="mb-0"
+        />
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
+        <AnimatedSection delay={0.3} direction="up">
           <Button
             variant="outline"
             className="border-primary/20 bg-primary/5 hover:bg-primary/10 rounded-full px-8 transition-all"
@@ -83,18 +74,15 @@ export default function Methods() {
               คุยกับทีมผู้เชี่ยวชาญ <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
-        </motion.div>
+        </AnimatedSection>
       </div>
 
       {/* 2. Method Grid: Execution Layers */}
       <div className="grid gap-8 md:grid-cols-3">
         {methods.map((method, idx) => (
-          <motion.div
+          <AnimatedSection
             key={idx}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: idx * 0.15 }}
-            viewport={{ once: true }}
+            delay={idx * 0.15}
             className="lab-card group hover:bg-muted/5 flex flex-col justify-between p-10 transition-all duration-500"
           >
             <div className="space-y-6">
@@ -120,7 +108,7 @@ export default function Methods() {
               <span>Security Level: Alpha</span>
               <span>Ref: 2026.Q1</span>
             </div>
-          </motion.div>
+          </AnimatedSection>
         ))}
       </div>
     </section>

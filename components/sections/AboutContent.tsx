@@ -2,7 +2,6 @@
 
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import {
   ShieldCheck,
@@ -17,6 +16,8 @@ import {
 import Link from "next/link";
 import { siteConfig } from "@/constants/site-config";
 import { getImageUrl } from "@/lib/utils";
+import { AnimatedSection, AnimatedCard } from "@/components/animated-section";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 interface AboutContentProps {
   founderName: string;
@@ -50,11 +51,7 @@ export default function AboutContent({ founderName }: AboutContentProps) {
       <header className="bg-muted/10 border-border/50 relative overflow-hidden border-b py-32">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary),transparent)] opacity-5" />
         <div className="relative z-10 container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-5xl space-y-10"
-          >
+          <AnimatedSection className="max-w-5xl space-y-10">
             <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-2 rounded-full border px-4 py-2 font-mono text-[10px] tracking-[0.3em] uppercase">
               <ShieldCheck className="h-4 w-4" />
               <span>Operational Excellence Since 2026</span>
@@ -71,7 +68,7 @@ export default function AboutContent({ founderName }: AboutContentProps) {
               คือทีมผู้เชี่ยวชาญด้านการจัดการชื่อเสียงออนไลน์
               ที่เปลี่ยนจากวิกฤตสู่อนาคตดิจิทัลที่มั่นคงด้วยวิศวกรรมข้อมูล
             </p>
-          </motion.div>
+          </AnimatedSection>
         </div>
       </header>
 
@@ -125,7 +122,7 @@ export default function AboutContent({ founderName }: AboutContentProps) {
             <div className="from-primary/20 absolute -inset-1 rounded-[3rem] bg-gradient-to-r to-transparent opacity-25 blur transition duration-1000 group-hover:opacity-50"></div>
             <div className="bg-muted/5 border-border/40 relative flex aspect-square items-center justify-center overflow-hidden rounded-[3rem] border">
               <Image
-                src={getImageUrl("methodology-abstract.webp")}
+                src={getImageUrl("common/methodology-abstract.webp")}
                 alt="Methodology Abstract"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -149,7 +146,7 @@ export default function AboutContent({ founderName }: AboutContentProps) {
           <div className="lg:col-span-5">
             <div className="lab-card border-primary/20 bg-muted/20 group relative aspect-square overflow-hidden rounded-[3rem]">
               <Image
-                src={getImageUrl("operational-core.webp")}
+                src={getImageUrl("common/operational-core.webp")}
                 alt="Operational Core"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -210,20 +207,19 @@ export default function AboutContent({ founderName }: AboutContentProps) {
 
       {/* 4. Core Values */}
       <section className="container py-32">
-        <div className="mb-24 space-y-4 text-center">
-          <h2 className="text-4xl font-bold tracking-tighter uppercase md:text-5xl">
-            Operational Pillars
-          </h2>
-          <p className="text-muted-foreground text-lg font-light">
-            รากฐานความน่าเชื่อถือที่เรายึดถือในทุกภารกิจ
-          </p>
-        </div>
+        <SectionHeader
+          title="Operational"
+          titleHighlight="Pillars"
+          description="รากฐานความน่าเชื่อถือที่เรายึดถือในทุกภารกิจ"
+          align="center"
+          className="mb-24"
+        />
 
         <div className="grid gap-10 md:grid-cols-3">
           {values.map((v, i) => (
-            <motion.div
+            <AnimatedCard
               key={i}
-              whileHover={{ y: -10 }}
+              delay={i * 0.1}
               className="lab-card border-border/40 hover:border-primary/40 bg-muted/5 space-y-8 p-12 text-center transition-all duration-500"
             >
               <div className="bg-primary/5 border-primary/10 mx-auto flex h-20 w-20 items-center justify-center rounded-3xl border">
@@ -235,7 +231,7 @@ export default function AboutContent({ founderName }: AboutContentProps) {
                   {v.description}
                 </p>
               </div>
-            </motion.div>
+            </AnimatedCard>
           ))}
         </div>
       </section>

@@ -5,7 +5,7 @@ import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/mdx";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { useMDXComponents } from "@/mdx-components";
-import { SecureChannel } from "@/components/shared/SecureChannel";
+import { SecureChannel } from "@/components/sections/SecureChannel";
 import { Calendar, ChevronLeft, Clock } from "lucide-react";
 import Link from "next/link";
 import JsonLd from "@/components/shared/JsonLd";

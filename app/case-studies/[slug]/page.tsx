@@ -8,7 +8,7 @@ import { useMDXComponents } from "@/mdx-components";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Calendar, FileText, Lock, ShieldCheck } from "lucide-react";
 import Link from "next/link";
-import { SecureChannel } from "@/components/shared/SecureChannel";
+import { SecureChannel } from "@/components/sections/SecureChannel";
 import JsonLd from "@/components/shared/JsonLd";
 import { getCaseStudySchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 
@@ -44,6 +44,9 @@ export async function generateStaticParams() {
   const cases = await getAllCaseStudies();
   return cases.map((c) => ({ slug: c.slug }));
 }
+
+import Image from "next/image";
+import { getImageUrl } from "@/lib/utils";
 
 export default async function SingleCasePage({ params }: CasePageProps) {
   const { slug } = await params;
@@ -87,29 +90,49 @@ export default async function SingleCasePage({ params }: CasePageProps) {
 
       {/* 1. Operational Intelligence Header */}
       <header className="container mb-20">
-        <div className="flex max-w-5xl flex-col gap-8">
-          <div className="flex flex-wrap items-center gap-4">
-            <Badge
-              variant="outline"
-              className="border-primary/30 text-primary px-4 py-1 font-mono text-[10px] tracking-[0.2em] uppercase"
-            >
-              {frontmatter.category} Protocol
-            </Badge>
-            <div className="text-muted-foreground flex items-center gap-2 font-mono text-[10px] tracking-wider uppercase">
-              <Calendar className="h-3.5 w-3.5" /> REL-DATE: {frontmatter.date}
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
+          <div className="flex flex-col gap-8 lg:col-span-7">
+            <div className="flex flex-wrap items-center gap-4">
+              <Badge
+                variant="outline"
+                className="border-primary/30 text-primary px-4 py-1 font-mono text-[10px] tracking-[0.2em] uppercase"
+              >
+                {frontmatter.category} Protocol
+              </Badge>
+              <div className="text-muted-foreground flex items-center gap-2 font-mono text-[10px] tracking-wider uppercase">
+                <Calendar className="h-3.5 w-3.5" /> REL-DATE:{" "}
+                {frontmatter.date}
+              </div>
+              <div className="text-primary/60 bg-primary/5 border-primary/10 flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[10px] tracking-widest uppercase">
+                <Lock className="h-3 w-3" /> Classified Intelligence
+              </div>
             </div>
-            <div className="text-primary/60 bg-primary/5 border-primary/10 flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[10px] tracking-widest uppercase">
-              <Lock className="h-3 w-3" /> Classified Intelligence
-            </div>
+
+            <h1 className="text-5xl leading-[1.05] font-bold tracking-tighter text-balance md:text-7xl lg:text-8xl">
+              {frontmatter.title}
+            </h1>
+
+            <p className="text-muted-foreground border-primary/30 max-w-4xl border-l-2 py-3 pl-8 text-xl leading-relaxed font-light italic">
+              &quot;{frontmatter.excerpt}&quot;
+            </p>
           </div>
 
-          <h1 className="text-5xl leading-[1.05] font-bold tracking-tighter text-balance md:text-7xl lg:text-8xl">
-            {frontmatter.title}
-          </h1>
-
-          <p className="text-muted-foreground border-primary/30 max-w-4xl border-l-2 py-3 pl-8 text-xl leading-relaxed font-light italic">
-            &quot;{frontmatter.excerpt}&quot;
-          </p>
+          {/* Featured Case Image */}
+          <div className="lg:col-span-5">
+            <div className="lab-card border-primary/10 bg-muted/5 relative aspect-square overflow-hidden rounded-3xl border shadow-2xl">
+              {frontmatter.image && (
+                <Image
+                  src={getImageUrl(frontmatter.image)}
+                  alt={frontmatter.title}
+                  fill
+                  priority
+                  className="object-cover opacity-90 transition-transform duration-700 hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            </div>
+          </div>
         </div>
       </header>
 

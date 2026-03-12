@@ -27,7 +27,7 @@ export default function Hero() {
 
         {/* Strategic Visual Anchor */}
         <Image
-          src={getImageUrl("methodology-abstract.webp")}
+          src={getImageUrl("common/methodology-abstract.webp")}
           alt="Technical Methodology"
           fill
           priority

@@ -18,13 +18,13 @@ export default function robots(): MetadataRoute.Robots {
         allow: ["/"],
         disallow: [
           "/_next/", // ป้องกันการไต่ส่วนไฟล์ระบบของ Next.js
-          "/api/",   // ป้องกันการเข้าถึง Endpoint ภายใน
+          "/api/", // ป้องกันการเข้าถึง Endpoint ภายใน
         ],
       },
       {
         userAgent: "GPTBot", // บล็อก AI Bot หากต้องการรักษาความเป็นส่วนตัวของข้อมูลเคส
         disallow: ["/case-studies/"],
-      }
+      },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   };

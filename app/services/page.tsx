@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import JsonLd from "@/components/shared/JsonLd";
 import { getBreadcrumbSchema } from "@/lib/seo-schemas";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 /**
  * UNLINK-GLOBAL | Service Protocols (Pure SSG)
@@ -74,7 +75,9 @@ export default async function ServicesPage() {
     { name: "Services", item: "/services" },
   ];
 
-  const methodologyAbstractUrl = getImageUrl("methodology-abstract.webp");
+  const methodologyAbstractUrl = getImageUrl(
+    "common/methodology-abstract.webp",
+  );
 
   return (
     <div className="pb-32 bg-[#050810]">
@@ -89,23 +92,19 @@ export default async function ServicesPage() {
         />
 
         <div className="relative z-10 container">
-          <div className="max-w-4xl space-y-10">
-            <div className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-3 rounded-full border px-5 py-2 font-mono text-[10px] tracking-[0.4em] uppercase backdrop-blur-md">
-              <Database className="h-4 w-4" />
-              <span>Operational Service Protocols 2026</span>
-            </div>
-
-            <h1 className="text-6xl leading-[0.85] font-bold tracking-tighter text-white md:text-[9rem]">
-              Strategic <br />
-              <span className="text-primary italic font-light">Solutions</span>
-            </h1>
-
-            <p className="text-slate-400 max-w-2xl text-xl leading-relaxed font-light md:text-2xl">
-              เราคือ **"สถาปนิกผู้คุมกฎข้อมูล"**
-              ที่รู้วิธีสร้างบัลลังก์แห่งความน่าเชื่อถือให้คุณ
-              และมีอำนาจในการระงับมลพิษข้อมูลที่ผู้ไม่หวังดีจ้องทำลายคุณ
-            </p>
-          </div>
+          <SectionHeader
+            badge={
+              <>
+                <Database className="h-4 w-4" />
+                <span>Operational Service Protocols 2026</span>
+              </>
+            }
+            title="Strategic"
+            titleHighlight="Solutions"
+            description="เราคือ 'สถาปนิกผู้คุมกฎข้อมูล' ที่รู้วิธีสร้างบัลลังก์แห่งความน่าเชื่อถือให้คุณ และมีอำนาจในการระงับมลพิษข้อมูลที่ผู้ไม่หวังดีจ้องทำลายคุณ"
+            className="mb-0 max-w-4xl"
+            isItalic={true}
+          />
         </div>
       </header>
 
