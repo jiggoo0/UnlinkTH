@@ -21,7 +21,7 @@ const client = new line.messagingApi.MessagingApiClient({
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const events: any[] = body.events;
+    const events: line.webhook.Event[] = body.events || [];
 
     const results = await Promise.all(
       events.map(async (event) => {
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleFollowEvent(event: any) {
+async function handleFollowEvent(event: line.webhook.FollowEvent) {
   return client.replyMessage({
     replyToken: event.replyToken,
     messages: [getMainMenuFlex()],
@@ -65,10 +65,12 @@ async function getCaseFromDb(caseId: string) {
   }
 }
 
-async function handleTextEvent(event: any) {
+async function handleTextEvent(event: line.webhook.MessageEvent) {
+  if (event.message.type !== "text") return null;
+
   const input = event.message.text.trim();
   const replyToken = event.replyToken;
-  const userId = event.source.userId;
+  const userId = event.source?.userId || "unknown";
   const normalizedInput = input.toUpperCase().replace(/\s+/g, "");
 
   // 1. ระบบตรวจจับหมายเลขเคส (Smart DB Lookup)
@@ -122,7 +124,7 @@ async function handleTextEvent(event: any) {
       messages: [
         {
           type: "text",
-          text: "🔒 [UNLINK-SECURITY] รับทราบความประสงค์ครับ\nขณะนี้กำลังส่งข้อมูลให้ผู้เชี่ยวชาญเฉพาะทาง (Specialist) ตรวจสอบเคสของคุณโดยด่วน\n\nเจ้าหน้าที่จะตอบกลับคุณในช่องทางนี้เร็วที่สุดครับ",
+          text: "🔒 [UNLINK-SECURITY] รับทราบความประสงค์ครับ\nขณะนี้กำลังส่งข้อมูลให้ผู้เชี่ยวชาญเฉพาะทาง (Specialist) ตรวจสอบเคสของคุณโดยด่วน\n\nเจ้าหน้าหน้าที่ตรวจสอบจะตอบกลับคุณในช่องทางนี้เร็วที่สุดครับ",
         },
       ],
     });
@@ -256,7 +258,7 @@ async function handleTextEvent(event: any) {
  * [Design System] FLEX MESSAGE GENERATORS
  */
 
-function getMainMenuFlex(): any {
+function getMainMenuFlex(): line.messagingApi.FlexMessage {
   return {
     type: "flex",
     altText: "UNLINK-GLOBAL | Executive Menu",
@@ -282,7 +284,7 @@ function getMainMenuFlex(): any {
           {
             type: "text",
             text: "REPUTATION & FINANCIAL STRATEGY",
-            color: "#aaaaaa",
+            color: "#cccccc",
             size: "xxs",
             letterSpacing: "1px",
           },
@@ -310,7 +312,7 @@ function getMainMenuFlex(): any {
           {
             type: "text",
             text: "เลือกบริการที่ท่านต้องการปรึกษาภายใต้ความลับสูงสุด",
-            color: "#888888",
+            color: "#dddddd",
             size: "xs",
             wrap: true,
           },
@@ -329,7 +331,7 @@ function getMainMenuFlex(): any {
                 },
                 height: "sm",
                 style: "secondary",
-                color: "#1a1a1a",
+                color: "#333333",
               },
               {
                 type: "button",
@@ -340,7 +342,7 @@ function getMainMenuFlex(): any {
                 },
                 height: "sm",
                 style: "secondary",
-                color: "#1a1a1a",
+                color: "#333333",
               },
               {
                 type: "button",
@@ -351,7 +353,7 @@ function getMainMenuFlex(): any {
                 },
                 height: "sm",
                 style: "secondary",
-                color: "#1a1a1a",
+                color: "#333333",
               },
             ],
           },
@@ -378,7 +380,14 @@ function getMainMenuFlex(): any {
   };
 }
 
-function getOperationalStatusFlex(data: any): any {
+function getOperationalStatusFlex(data: {
+  caseId: string;
+  progress: number;
+  currentPhase: string;
+  step1?: string;
+  step2?: string;
+  step3?: string;
+}): line.messagingApi.FlexMessage {
   const progress = data.progress || 0;
   return {
     type: "flex",
@@ -453,7 +462,7 @@ function getOperationalStatusFlex(data: any): any {
                   {
                     type: "text",
                     text: "Phase:",
-                    color: "#888888",
+                    color: "#cccccc",
                     size: "xs",
                   },
                   {
@@ -470,7 +479,7 @@ function getOperationalStatusFlex(data: any): any {
                 type: "box",
                 layout: "vertical",
                 height: "4px",
-                backgroundColor: "#1a1a1a",
+                backgroundColor: "#333333",
                 margin: "sm",
                 contents: [
                   {
@@ -492,29 +501,38 @@ function getOperationalStatusFlex(data: any): any {
               {
                 type: "text",
                 text: `✓ ${data.step1 || "Step 1"}`,
-                color: data.step1.includes("สำเร็จ") ? "#D4AF37" : "#888888",
+                color:
+                  data.step1 && data.step1.includes("สำเร็จ")
+                    ? "#D4AF37"
+                    : "#aaaaaa",
                 size: "xs",
               },
               {
                 type: "text",
                 text: `↻ ${data.step2 || "Step 2"}`,
-                color: data.step2.includes("ดำเนินการ") ? "#ffffff" : "#444444",
+                color:
+                  data.step2 && data.step2.includes("ดำเนินการ")
+                    ? "#ffffff"
+                    : "#666666",
                 size: "xs",
-                weight: data.step2.includes("ดำเนินการ") ? "bold" : "regular",
+                weight:
+                  data.step2 && data.step2.includes("ดำเนินการ")
+                    ? "bold"
+                    : "regular",
               },
               {
                 type: "text",
                 text: `○ ${data.step3 || "Step 3"}`,
-                color: "#444444",
+                color: "#666666",
                 size: "xs",
               },
             ],
           },
-          { type: "separator", color: "#1a1a1a" },
+          { type: "separator", color: "#333333" },
           {
             type: "text",
             text: "Vault Protocol: ปลอดภัยระดับสูงสุด ความลับของคุณคือความสำคัญอันดับหนึ่ง",
-            color: "#666666",
+            color: "#aaaaaa",
             size: "xxs",
             wrap: true,
             align: "center",
@@ -536,7 +554,7 @@ function getServiceDetailFlex(
   id: string,
   title: string,
   instruction: string,
-): any {
+): line.messagingApi.FlexMessage {
   return {
     type: "flex",
     altText: `Service: ${title}`,
@@ -563,11 +581,11 @@ function getServiceDetailFlex(
             size: "lg",
             weight: "bold",
           },
-          { type: "separator", color: "#1a1a1a" },
+          { type: "separator", color: "#333333" },
           {
             type: "text",
             text: instruction,
-            color: "#bbbbbb",
+            color: "#eeeeee",
             size: "sm",
             wrap: true,
           },
@@ -575,14 +593,14 @@ function getServiceDetailFlex(
             type: "box",
             layout: "vertical",
             margin: "md",
-            backgroundColor: "#111111",
+            backgroundColor: "#222222",
             paddingAll: "md",
             cornerRadius: "sm",
             contents: [
               {
                 type: "text",
                 text: "🔒 ข้อมูลของคุณถูกคุ้มครองโดย PDPA & Vault Protocol",
-                color: "#666666",
+                color: "#aaaaaa",
                 size: "xxs",
                 align: "center",
               },
@@ -593,7 +611,7 @@ function getServiceDetailFlex(
             action: { type: "message", label: "BACK TO MENU", text: "0" },
             height: "sm",
             style: "link",
-            color: "#888888",
+            color: "#bbbbbb",
           },
         ],
       },
@@ -601,21 +619,21 @@ function getServiceDetailFlex(
   };
 }
 
-function getReputationMenuFlex(): any {
+function getReputationMenuFlex(): line.messagingApi.FlexMessage {
   return getSubMenuFlex("REPUTATION SHIELD", "การจัดการชื่อเสียงดิจิทัล", [
     { label: "ลบประจาน / ข่าวเสีย", text: "11" },
     { label: "ล้างแบล็คลิสต์ออนไลน์", text: "12" },
   ]);
 }
 
-function getFinancialMenuFlex(): any {
+function getFinancialMenuFlex(): line.messagingApi.FlexMessage {
   return getSubMenuFlex("FINANCIAL ENGINEERING", "วิศวกรรมการเงินและเครดิต", [
     { label: "ฟื้นฟูเครดิตบูโร", text: "21" },
     { label: "ปั้นสเตทเม้นท์พรีเมียม", text: "22" },
   ]);
 }
 
-function getOverseasMenuFlex(): any {
+function getOverseasMenuFlex(): line.messagingApi.FlexMessage {
   return getSubMenuFlex(
     "OVERSEAS OPERATIONS",
     "ยุทธศาสตร์สำหรับคนไทยในต่างประเทศ",
@@ -630,7 +648,7 @@ function getSubMenuFlex(
   id: string,
   title: string,
   buttons: { label: string; text: string }[],
-): any {
+): line.messagingApi.FlexMessage {
   return {
     type: "flex",
     altText: title,
@@ -671,7 +689,7 @@ function getSubMenuFlex(
             action: { type: "message", label: b.label, text: b.text },
             height: "sm",
             style: "secondary",
-            color: "#1a1a1a",
+            color: "#333333",
           }))
           .concat([
             {
@@ -679,7 +697,7 @@ function getSubMenuFlex(
               action: { type: "message", label: "BACK TO MENU", text: "0" },
               height: "sm",
               style: "link",
-              color: "#888888",
+              color: "#bbbbbb",
             },
           ] as any),
       },
