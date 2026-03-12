@@ -3,13 +3,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as line from "@line/bot-sdk";
 
-// 1. ตั้งค่า LINE Client (อัปเดตให้รองรับ v10.x)
+// 1. ตั้งค่า LINE Client (Messaging API v10.x)
 const client = new line.messagingApi.MessagingApiClient({
   channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN || "",
 });
 
 /**
- * LINE WEBHOOK HANDLER
+ * LINE WEBHOOK HANDLER (UNLINK-TH STRATEGIC BOT)
  * -------------------------------------------------------------------------
  */
 export async function POST(req: NextRequest) {
@@ -17,12 +17,14 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const events: any[] = body.events;
 
-    // จัดการข้อความที่ได้รับทีละอัน
+    // ประมวลผลแต่ละ Event ที่เกิดขึ้นใน LINE OA
     const results = await Promise.all(
       events.map(async (event) => {
+        // เมื่อมีคนเพิ่มเพื่อน (Greeting Message)
         if (event.type === "follow") {
           return handleFollowEvent(event);
         }
+        // เมื่อมีคนส่งข้อความ (Keyword & AI Response)
         if (event.type === "message" && event.message.type === "text") {
           return handleTextEvent(event);
         }
@@ -41,7 +43,7 @@ export async function POST(req: NextRequest) {
 }
 
 /**
- * ฟังก์ชันจัดการเมื่อมีเพื่อนใหม่เพิ่มเข้ามา
+ * [Greeting Message] - ส่งข้อความทักทายคนเพิ่มเพื่อนใหม่
  * -------------------------------------------------------------------------
  */
 async function handleFollowEvent(event: any) {
@@ -54,7 +56,7 @@ async function handleFollowEvent(event: any) {
     "✅ ล้างประวัติเน่า/แบล็คลิสต์ใน Google \n" +
     "✅ ปั้นสเตทเม้นท์เพื่อกู้บ้านให้ผ่าน 100% \n" +
     "✅ จัดการวิกฤตดราม่าออนไลน์เร่งด่วน \n\n" +
-    "คุณสามารถพิมพ์เรื่องที่ต้องการปรึกษาทิ้งไว้ได้เลยครับ ข้อมูลของคุณคือความลับสูงสุด (Private & Secure) ทีมงานผู้เชี่ยวชาญจะรีบมาประเมินเคสให้คุณทันทีครับ";
+    "คุณสามารถพิมพ์เรื่องที่ต้องการปรึกษาทิ้งไว้ หรือกดเลือกบริการจากเมนูด้านล่างได้เลยครับ ทีมงานผู้เชี่ยวชาญจะรีบมาประเมินเคสให้คุณทันทีครับ";
 
   return client.replyMessage({
     replyToken: replyToken,
@@ -63,7 +65,7 @@ async function handleFollowEvent(event: any) {
 }
 
 /**
- * ฟังก์ชันจัดการข้อความ Text
+ * [Keyword Response] - ตอบโต้ตามปุ่มกดจาก Rich Menu
  * -------------------------------------------------------------------------
  */
 async function handleTextEvent(event: any) {
@@ -72,21 +74,28 @@ async function handleTextEvent(event: any) {
 
   let replyMessage = "";
 
+  // กรณีเลือก "ขอลบแบล็คลิสต์"
   if (userMessage.includes("ขอลบแบล็คลิสต์") || userMessage.includes("ลบชื่อประจาน")) {
     replyMessage =
       "เข้าใจเลยครับว่าเรื่องชื่อเสียงสำคัญแค่ไหน... \n\n" +
       "ทีมงาน UNLINK-TH พร้อมช่วย 'ถอนรากถอนโคน' ประวัติเน่าและข้อมูลเสียออกจาก Google ให้ใสสะอาดครับ \n\n" +
       "เบื้องต้นรบกวนส่ง 'ลิงก์ที่กังวล' หรือ 'ชื่อที่โดนประจาน' มาให้เราวิเคราะห์แผนปฏิบัติการก่อนได้เลยครับ ข้อมูลของคุณคือความลับ 100% ครับ";
-  } else if (userMessage.includes("ขอกู้บ้าน") || userMessage.includes("บูโร") || userMessage.includes("สเตทเม้นท์")) {
+  } 
+  // กรณีเลือก "ขอกู้บ้าน"
+  else if (userMessage.includes("ขอกู้บ้าน") || userMessage.includes("บูโร") || userMessage.includes("สเตทเม้นท์")) {
     replyMessage =
       "ยื่นกู้ไม่ผ่าน หรือติดบูโร... ไม่ใช่จุดจบครับ! \n\n" +
       "เราเชี่ยวชาญการฟื้นฟูประวัติเน่าและจัดระเบียบสเตทเม้นท์ให้ธนาคารยอมรับได้จริง เพื่อให้คุณได้รับกุญแจบ้านในฝันครับ \n\n" +
       "รบกวนส่งรายละเอียดเคส หรือยอดหนี้ที่ค้างอยู่มาให้ผมช่วยประเมินโอกาสรอดเบื้องต้นก่อนได้เลยครับ ฟรีไม่มีค่าใช้จ่ายครับ";
-  } else if (userMessage.includes("ปรึกษาด่วน") || userMessage.includes("ติดต่อพนักงาน")) {
+  } 
+  // กรณีเลือก "ปรึกษาด่วน"
+  else if (userMessage.includes("ปรึกษาด่วน") || userMessage.includes("ติดต่อพนักงาน")) {
     replyMessage =
       "รับทราบครับ! ผมกำลังประสานงานให้ผู้เชี่ยวชาญมาดูแลเคสของคุณโดยตรงครับ \n\n" +
       "ระหว่างนี้รบกวนพิมพ์สรุปปัญหาที่ต้องการให้เราช่วยสั้นๆ ทิ้งไว้ได้เลยครับ เมื่อทีมงานมาถึงจะสามารถเริ่มงานได้ทันทีครับ";
-  } else {
+  } 
+  // ข้อความทักทายทั่วไป
+  else {
     replyMessage =
       "สวัสดีครับ! ผมคือผู้ช่วยส่วนตัวจาก UNLINK-TH ยินดีที่ได้ดูแลนะครับ \n\n" +
       "หากคุณมีปัญหาเรื่อง 'ประวัติการเงิน' หรือ 'ชื่อเสียงออนไลน์' สามารถกดเลือกบริการจากเมนูด้านล่าง หรือพิมพ์รายละเอียดทิ้งไว้ได้เลยครับ ทีมงานเราพร้อมลุยเคสยากให้คุณกลับมาเริ่มต้นใหม่ได้จริงครับ";
