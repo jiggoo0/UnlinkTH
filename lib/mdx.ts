@@ -86,7 +86,7 @@ function getFilesRecursive(dir: string): string[] {
 
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   const files = entries.map((entry) => {
-    const res = path.resolve(dir, entry.name);
+    const res = path.join(dir, entry.name);
     return entry.isDirectory() ? getFilesRecursive(res) : res;
   });
 
