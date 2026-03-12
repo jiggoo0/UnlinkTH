@@ -63,11 +63,11 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="text-5xl leading-[0.85] font-black tracking-tighter text-white sm:text-7xl md:text-[8rem] uppercase"
+              className="text-5xl leading-[0.85] font-black tracking-tighter text-white sm:text-7xl md:text-[8.5rem] uppercase"
             >
-              Unlock <br />
+              ปลดล็อกอดีต <br />
               <span className="text-primary italic font-light lowercase opacity-90">
-                your future
+                ทวงคืนอนาคต
               </span>
             </motion.h1>
 
@@ -77,13 +77,13 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-slate-400 mx-auto max-w-3xl text-lg leading-relaxed font-light md:text-2xl"
             >
-              ทางออกของ{" "}
+              ทางออกสุดท้ายของ{" "}
               <span className="text-white font-medium italic">
                 "คนอยากกู้บ้านแต่ติดบูโร"
-              </span>
+              </span>{" "}
               หรือถูกประจานออนไลน์
-              เราช่วยล้างประวัติเสียและจัดการข้อมูลเชิงลึกให้คุณเริ่มต้นใหม่ได้จริง
-              รวดเร็ว เป็นความลับ และเห็นผลลัพธ์ชัดเจน
+              เราช่วยฟื้นฟูประวัติเสียและจัดการข้อมูลดิจิทัลให้คุณกลับมาเริ่มต้นใหม่ได้จริง
+              รวดเร็ว ปลอดภัย และเห็นผลชัดเจน 100%
             </motion.p>
           </div>
 
@@ -99,7 +99,7 @@ export default function Hero() {
               className="group relative flex h-16 w-full items-center justify-center overflow-hidden rounded-full bg-primary px-12 text-[12px] font-black tracking-[0.3em] text-black uppercase transition-all hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(16,185,129,0.3)] active:scale-[0.98] sm:w-auto"
             >
               <span className="relative z-10 flex items-center gap-3">
-                ปรึกษาทางไลน์ฟรี
+                ปรึกษาทางไลน์ฟรี (24 ชม.)
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-2" />
               </span>
             </Link>
@@ -108,7 +108,7 @@ export default function Hero() {
               href="/services"
               className="flex h-16 w-full items-center justify-center rounded-full border border-white/10 bg-white/[0.02] px-12 text-[12px] font-black tracking-[0.3em] text-white uppercase backdrop-blur-md transition-all hover:bg-white/5 hover:border-white/20 sm:w-auto"
             >
-              ดูบริการทั้งหมด
+              ดูแนวทางการแก้ไข
             </Link>
           </motion.div>
 
@@ -120,14 +120,14 @@ export default function Hero() {
             className="border-white/5 grid w-full max-w-5xl grid-cols-2 gap-12 border-t pt-24 md:grid-cols-4"
           >
             {[
-              { label: "วงเงินที่ปลดล็อกได้", value: "฿500M+", icon: Database },
-              { label: "ปิดจบเคสประวัติเสีย", value: "1.2K+", icon: Zap },
+              { label: "เงินทุนที่ปลดล็อกได้", value: "฿500M+", icon: Database },
+              { label: "ปิดจบเคสประวัติเสีย", value: "1,200+", icon: Zap },
               {
-                label: "ความเร็วในการดำเนินการ",
-                value: "Fast-Track",
+                label: "ความเร็วการดำเนินการ",
+                value: "Fast-Action",
                 icon: ShieldCheck,
               },
-              { label: "ระดับความลับข้อมูล", value: "Top-Secret", icon: Lock },
+              { label: "ระดับความลับข้อมูล", value: "Vault-S", icon: Lock },
             ].map((stat, i) => (
               <div
                 key={i}

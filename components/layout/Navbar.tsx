@@ -20,10 +20,18 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = React.useState(false);
 
-  // ปิดเมนูเมื่อตรวจพบการเปลี่ยนหน้า
+  // ปิดเมนูเมื่อตรวจพบการเปลี่ยนหน้า (Safe Update Pattern)
   React.useEffect(() => {
-    setIsOpen(false);
+    setIsOpen((prev) => (prev ? false : prev));
   }, [pathname]);
+
+  const toggleMenu = React.useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
+
+  const closeMenu = React.useCallback(() => {
+    setIsOpen(false);
+  }, []);
 
   return (
     <header className="bg-background/60 sticky top-0 z-50 w-full border-b border-white/5 backdrop-blur-xl">

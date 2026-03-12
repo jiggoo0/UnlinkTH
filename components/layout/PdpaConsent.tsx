@@ -14,20 +14,34 @@ export default function PdpaConsent() {
 
   useEffect(() => {
     setMounted(true);
-    const consent = localStorage.getItem("unlink-pdpa-consent");
-    if (!consent) {
-      const timer = setTimeout(() => setIsVisible(true), 1500);
-      return () => clearTimeout(timer);
+    
+    // ตรวจสอบ Consent หลังจาก Component Mounted แล้วเท่านั้น
+    let timer: NodeJS.Timeout;
+    try {
+      const consent = localStorage.getItem("unlink-pdpa-consent");
+      if (!consent) {
+        timer = setTimeout(() => setIsVisible(true), 2500);
+      }
+    } catch (e) {
+      console.error("PDPA Consent Storage Access Error:", e);
     }
-    return undefined;
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
-  const handleAccept = () => {
-    localStorage.setItem("unlink-pdpa-consent", "accepted");
-    setIsVisible(false);
-  };
+  const handleAccept = useCallback(() => {
+    try {
+      localStorage.setItem("unlink-pdpa-consent", "accepted");
+      setIsVisible(false);
+    } catch (e) {
+      console.error("Failed to save PDPA Consent:", e);
+    }
+  }, []);
 
-  if (!mounted || !isVisible) return null;
+  // ไม่ Render อะไรเลยถ้ายังไม่ Mount
+  if (!mounted) return null;
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-10 fixed bottom-6 left-1/2 z-50 w-[90%] max-w-2xl -translate-x-1/2 duration-500">
