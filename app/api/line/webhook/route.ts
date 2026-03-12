@@ -4,9 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 import * as line from "@line/bot-sdk";
 
 // 📍 SETTINGS & SECURITY
-const LINE_TOKEN =
-  "BgmQagMZBMPi+FSrt2eXy1Ujw3j+M40bjE5T00pzT2vRTOmKLcbr+mFq6r97hwydTq9REosBk4yXDePckiX+uXQ0KXKiU0MDy3AQrgQz8bnVCQ09m5vUsHUae0FBUL+43He2CSgxIuv6XCXIboHJIQdB04t89/1O/w1cDnyilFU=";
-const ADMIN_ID = "U40a4a0d00ff4a7bffc0aeae5902955a0";
+const LINE_TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN || "";
+const ADMIN_ID = process.env.LINE_USER_ID || "";
 
 // 🌐 GOOGLE SHEETS API URL (ดึงจาก Vercel Environment Variables)
 const GSHEET_API_URL = process.env.GSHEET_API_URL || "";
