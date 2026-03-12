@@ -43,6 +43,7 @@ export async function POST(req: NextRequest) {
 }
 
 async function handleFollowEvent(event: line.webhook.FollowEvent) {
+  if (!event.replyToken) return null;
   return client.replyMessage({
     replyToken: event.replyToken,
     messages: [getMainMenuFlex()],
@@ -65,7 +66,7 @@ async function getCaseFromDb(caseId: string) {
 }
 
 async function handleTextEvent(event: line.webhook.MessageEvent) {
-  if (event.message.type !== "text") return null;
+  if (event.message.type !== "text" || !event.replyToken) return null;
 
   const input = event.message.text.trim();
   const replyToken = event.replyToken;
@@ -278,14 +279,12 @@ function getMainMenuFlex(): line.messagingApi.FlexMessage {
             weight: "bold",
             color: "#D4AF37",
             size: "sm",
-            letterSpacing: "2px",
           },
           {
             type: "text",
             text: "REPUTATION & FINANCIAL STRATEGY",
             color: "#cccccc",
             size: "xxs",
-            letterSpacing: "1px",
           },
         ],
       },
@@ -414,7 +413,6 @@ function getOperationalStatusFlex(data: {
                     color: "#D4AF37",
                     size: "xxs",
                     weight: "bold",
-                    letterSpacing: "1px",
                   },
                   {
                     type: "text",
@@ -487,6 +485,7 @@ function getOperationalStatusFlex(data: {
                     width: `${progress}%`,
                     height: "4px",
                     backgroundColor: "#D4AF37",
+                    contents: [],
                   },
                 ],
               },
@@ -550,7 +549,7 @@ function getOperationalStatusFlex(data: {
 }
 
 function getServiceDetailFlex(
-  id: string,
+  _id: string,
   title: string,
   instruction: string,
 ): line.messagingApi.FlexMessage {
@@ -571,7 +570,6 @@ function getServiceDetailFlex(
             color: "#D4AF37",
             size: "xxs",
             weight: "bold",
-            letterSpacing: "2px",
           },
           {
             type: "text",
@@ -648,6 +646,14 @@ function getSubMenuFlex(
   title: string,
   buttons: { label: string; text: string }[],
 ): line.messagingApi.FlexMessage {
+  const flexButtons: line.messagingApi.FlexComponent[] = buttons.map((b) => ({
+    type: "button",
+    action: { type: "message", label: b.label, text: b.text },
+    height: "sm",
+    style: "secondary",
+    color: "#333333",
+  }));
+
   return {
     type: "flex",
     altText: title,
@@ -667,7 +673,6 @@ function getSubMenuFlex(
             weight: "bold",
             color: "#D4AF37",
             size: "xxs",
-            letterSpacing: "2px",
           },
           {
             type: "text",
@@ -682,23 +687,16 @@ function getSubMenuFlex(
         type: "box",
         layout: "vertical",
         spacing: "sm",
-        contents: buttons
-          .map((b) => ({
+        contents: [
+          ...flexButtons,
+          {
             type: "button",
-            action: { type: "message", label: b.label, text: b.text },
+            action: { type: "message", label: "BACK TO MENU", text: "0" },
             height: "sm",
-            style: "secondary",
-            color: "#333333",
-          }))
-          .concat([
-            {
-              type: "button",
-              action: { type: "message", label: "BACK TO MENU", text: "0" },
-              height: "sm",
-              style: "link",
-              color: "#bbbbbb",
-            },
-          ] as line.messagingApi.FlexButton[]),
+            style: "link",
+            color: "#bbbbbb",
+          },
+        ],
       },
     },
   };
