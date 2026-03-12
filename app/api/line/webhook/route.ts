@@ -11,7 +11,7 @@ const client = new line.messagingApi.MessagingApiClient({
 });
 
 /**
- * LINE WEBHOOK HANDLER - NAVIGATION SYSTEM EDITION
+ * LINE WEBHOOK HANDLER - HIGH CONTRAST EDITION
  */
 export async function POST(req: NextRequest) {
   try {
@@ -32,51 +32,43 @@ export async function POST(req: NextRequest) {
   }
 }
 
-/**
- * [Greeting] ข้อความต้อนรับพร้อมเมนูนำทาง
- */
 async function handleFollowEvent(event: any) {
-  const replyToken = event.replyToken;
   return client.replyMessage({
-    replyToken: replyToken,
+    replyToken: event.replyToken,
     messages: [getMainMenuFlex()]
   });
 }
 
-/**
- * [Main Logic] ระบบนำทางด้วยหมายเลข
- */
 async function handleTextEvent(event: any) {
   const input = event.message.text.trim();
   const replyToken = event.replyToken;
   const userId = event.source.userId;
 
-  // 1. ตอบสนองตามหมายเลข หรือ คำสำคัญ
   switch (input) {
     case "1":
-    case "ลบแบล็คลิสต์":
+    case "ขอลบแบล็คลิสต์":
       return client.replyMessage({ replyToken, messages: [getReputationFlexCard()] });
 
     case "2":
-    case "กู้บ้าน":
+    case "ขอกู้บ้าน":
       return client.replyMessage({ replyToken, messages: [getFinancialFlexCard()] });
 
     case "3":
     case "รีวิว":
       return client.replyMessage({ 
         replyToken, 
-        messages: [{ type: "text", text: "ตรวจสอบความสำเร็จของเราได้ที่นี่ครับ: https://www.unlink-th.com/case-studies \n\nพิมพ์ '0' เพื่อกลับสู่เมนูหลัก" }] 
+        messages: [{ type: "text", text: "⭐ ตรวจสอบความสำเร็จของเราได้ที่นี่ครับ: https://www.unlink-th.com/case-studies \n\n(พิมพ์ '0' เพื่อกลับสู่เมนูหลัก)" }] 
       });
 
     case "4":
     case "ปรึกษาด่วน":
       await client.pushMessage({
         to: ADMIN_ID,
-        messages: [{ type: "text", text: `🚨 [URGENT] ลูกค้าต้องการคุยด่วน!\nUser ID: ${userId}\nข้อความล่าสุด: ${input}` }],
+        messages: [{ type: "text", text: `🚨 [URGENT] มีลูกค้าต้องการคุยด่วน!\nUser ID: ${userId}\nข้อความ: ${input}` }],
       });
       return client.replyMessage({ 
         replyToken, 
-        messages: [{ type: "text", text: "รับทราบครับ! ผมแจ้งเจ้าหน้าที่ให้เรียบร้อยแล้วครับ รบกวนรอสักครู่นะครับ \n\nพิมพ์ '0' เพื่อกลับสู่เมนูหลัก" }] 
+        messages: [{ type: "text", text: "✅ รับทราบครับ! แจ้งเจ้าหน้าที่ให้แล้วครับ รบกวนรอสักครู่นะครับ \n\n(พิมพ์ '0' เพื่อกลับสู่เมนูหลัก)" }] 
       });
 
     case "0":
@@ -84,19 +76,14 @@ async function handleTextEvent(event: any) {
       return client.replyMessage({ replyToken, messages: [getMainMenuFlex()] });
 
     default:
-      // ถ้าลูกค้าพิมพ์คำอื่นมา ให้ส่งเมนูหลักไปให้เลือก
-      if (["ลบ", "ประจาน", "แบล็คลิสต์"].some(k => input.includes(k))) {
-        return client.replyMessage({ replyToken, messages: [getReputationFlexCard()] });
-      }
-      if (["กู้", "บ้าน", "บูโร", "เงิน"].some(k => input.includes(k))) {
-        return client.replyMessage({ replyToken, messages: [getFinancialFlexCard()] });
-      }
+      if (["ลบ", "ประจาน", "แบล็คลิสต์"].some(k => input.includes(k))) return client.replyMessage({ replyToken, messages: [getReputationFlexCard()] });
+      if (["กู้", "บ้าน", "บูโร", "เงิน"].some(k => input.includes(k))) return client.replyMessage({ replyToken, messages: [getFinancialFlexCard()] });
       return client.replyMessage({ replyToken, messages: [getMainMenuFlex()] });
   }
 }
 
 /**
- * [Template] เมนูนำทางหลัก (Main Menu Flex)
+ * [Design] เมนูหลัก - เน้นอ่านง่าย (High Contrast)
  */
 function getMainMenuFlex(): any {
   return {
@@ -104,18 +91,24 @@ function getMainMenuFlex(): any {
     altText: "เมนูหลัก UNLINK-TH",
     contents: {
       type: "bubble",
-      hero: { type: "image", url: "https://www.unlink-th.com/images/og/og-main.webp", size: "full", aspectRatio: "20:13", aspectMode: "cover" },
+      hero: {
+        type: "image",
+        url: "https://www.unlink-th.com/og/og-main.webp", // ใช้พาธที่เข้าถึงได้จริง
+        size: "full",
+        aspectRatio: "20:13",
+        aspectMode: "cover"
+      },
       body: {
         type: "box",
         layout: "vertical",
-        backgroundColor: "#050810",
+        backgroundColor: "#000000", // พื้นหลังดำสนิทเพื่อให้อ่านง่าย
         contents: [
           { type: "text", text: "ยินดีต้อนรับสู่ UNLINK-TH", weight: "bold", color: "#D4AF37", size: "lg" },
-          { type: "text", text: "กรุณาเลือกบริการโดย 'กดหมายเลข' หรือ 'คลิกปุ่ม' ด้านล่างครับ", size: "xs", color: "#aaaaaa", margin: "sm" },
-          { type: "box", layout: "vertical", margin: "lg", spacing: "sm", contents: [
-            { type: "button", action: { type: "message", label: "1. ล้างประวัติเน่า / แบล็คลิสต์", text: "1" }, style: "secondary", color: "#1a1a1a" },
-            { type: "button", action: { type: "message", label: "2. ปั้นสเตทเม้นท์ / กู้บ้าน", text: "2" }, style: "secondary", color: "#1a1a1a" },
-            { type: "button", action: { type: "message", label: "3. ดูรีวิวความสำเร็จ", text: "3" }, style: "secondary", color: "#1a1a1a" },
+          { type: "text", text: "กรุณาเลือกบริการด้านล่างครับ", size: "sm", color: "#FFFFFF", margin: "sm" },
+          { type: "box", layout: "vertical", margin: "xl", spacing: "md", contents: [
+            { type: "button", action: { type: "message", label: "1. ล้างประวัติเน่า / แบล็คลิสต์", text: "1" }, style: "secondary", color: "#333333" },
+            { type: "button", action: { type: "message", label: "2. ปั้นสเตทเม้นท์ / กู้บ้าน", text: "2" }, style: "secondary", color: "#333333" },
+            { type: "button", action: { type: "message", label: "3. ดูรีวิวความสำเร็จ", text: "3" }, style: "secondary", color: "#333333" },
             { type: "button", action: { type: "message", label: "4. ปรึกษาเจ้าหน้าที่ (ด่วน)", text: "4" }, style: "primary", color: "#D4AF37" }
           ]}
         ]
@@ -130,22 +123,19 @@ function getReputationFlexCard(): any {
     altText: "บริการล้างประวัติ - UNLINK-TH",
     contents: {
       type: "bubble",
-      hero: { type: "image", url: "https://www.unlink-th.com/images/services/srv-identity-rehabilitation.webp", size: "full", aspectRatio: "20:13", aspectMode: "cover" },
       body: {
         type: "box",
         layout: "vertical",
-        backgroundColor: "#050810",
+        backgroundColor: "#000000",
+        spacing: "md",
         contents: [
-          { type: "text", text: "ล้างประวัติเน่า & ทวงคืนชื่อเสียง", weight: "bold", size: "xl", color: "#D4AF37" },
-          { type: "text", text: "เราช่วยลบข้อมูลเสียจาก Google และเว็บแบล็คลิสต์ 'ถอนรากถอนโคน' 100%", wrap: true, size: "sm", color: "#ffffff", margin: "md" },
-          { type: "text", text: "พิมพ์ '0' เพื่อกลับสู่เมนูหลัก", size: "xxs", color: "#aaaaaa", margin: "lg" }
+          { type: "text", text: "ล้างประวัติ & ทวงคืนชื่อเสียง", weight: "bold", size: "xl", color: "#D4AF37" },
+          { type: "text", text: "เราช่วยลบข้อมูลเสียจาก Google และเว็บแบล็คลิสต์อย่างมืออาชีพ", wrap: true, size: "md", color: "#FFFFFF" },
+          { type: "separator", color: "#333333" },
+          { type: "text", text: "✅ ลบรูปประจาน / ข้อมูลใส่ร้าย\n✅ ล้างชื่อจากเว็บรวมคนโกง\n✅ ระงับการเข้าถึง 100%", wrap: true, size: "sm", color: "#FFFFFF" },
+          { type: "button", style: "primary", color: "#D4AF37", margin: "lg", action: { type: "message", label: "ส่งเคสให้วิเคราะห์ฟรี", text: "ขอลบแบล็คลิสต์" } },
+          { type: "text", text: "พิมพ์ '0' กลับสู่เมนูหลัก", size: "xs", color: "#aaaaaa", align: "center" }
         ]
-      },
-      footer: {
-        type: "box",
-        layout: "vertical",
-        backgroundColor: "#050810",
-        contents: [{ type: "button", style: "primary", color: "#D4AF37", action: { type: "message", label: "ส่งเคสให้วิเคราะห์", text: "ขอประเมินเคสลบประวัติ" } }]
       }
     }
   };
@@ -157,22 +147,19 @@ function getFinancialFlexCard(): any {
     altText: "บริการกู้บ้าน - UNLINK-TH",
     contents: {
       type: "bubble",
-      hero: { type: "image", url: "https://www.unlink-th.com/images/services/srv-credit-engineering.webp", size: "full", aspectRatio: "20:13", aspectMode: "cover" },
       body: {
         type: "box",
         layout: "vertical",
-        backgroundColor: "#050810",
+        backgroundColor: "#000000",
+        spacing: "md",
         contents: [
           { type: "text", text: "ฟื้นฟูเครดิต & ปั้นสเตทเม้นท์", weight: "bold", size: "xl", color: "#D4AF37" },
-          { type: "text", text: "จัดระเบียบการเงินให้ธนาคารยอมรับ แม้เคยติดบูโรหรือยื่นกู้ไม่ผ่าน", wrap: true, size: "sm", color: "#ffffff", margin: "md" },
-          { type: "text", text: "พิมพ์ '0' เพื่อกลับสู่เมนูหลัก", size: "xxs", color: "#aaaaaa", margin: "lg" }
+          { type: "text", text: "จัดระเบียบการเงินให้ธนาคารยอมรับ แม้เคยติดบูโรหรือยื่นกู้ไม่ผ่าน", wrap: true, size: "md", color: "#FFFFFF" },
+          { type: "separator", color: "#333333" },
+          { type: "text", text: "✅ แก้ไขประวัติเสีย (บูโร)\n✅ ปั้นสเตทเม้นท์เพื่อยื่นกู้\n✅ พี่เลี้ยงจนถึงวันรับกุญแจ", wrap: true, size: "sm", color: "#FFFFFF" },
+          { type: "button", style: "primary", color: "#D4AF37", margin: "lg", action: { type: "message", label: "ปรึกษาแผนกู้บ้านฟรี", text: "ขอกู้บ้าน" } },
+          { type: "text", text: "พิมพ์ '0' กลับสู่เมนูหลัก", size: "xs", color: "#aaaaaa", align: "center" }
         ]
-      },
-      footer: {
-        type: "box",
-        layout: "vertical",
-        backgroundColor: "#050810",
-        contents: [{ type: "button", style: "primary", color: "#D4AF37", action: { type: "message", label: "ปรึกษาแผนกู้บ้าน", text: "ขอปรึกษาแผนกู้บ้าน" } }]
       }
     }
   };
