@@ -76,12 +76,17 @@ async function handleTextEvent(event: line.MessageEvent & { message: line.TextMe
     case "22":
       return client.replyMessage({ replyToken, messages: [{ type: "text", text: "📈 บริการปั้นสเตทเม้นท์ (Statement Optimization)\n\nเราช่วยออกแบบรายการเดินบัญชีให้ดูสวยงาม มีวินัย และน่าเชื่อถือที่สุดสำหรับยื่นกู้หรือขอวีซ่า\n👉 อาชีพปัจจุบันของคุณคืออะไรครับ? พิมพ์บอกเราได้เลยครับ" }] });
 
-    /* --- กลุ่มที่ 3: วีซ่า & ต่างประเทศ --- */
+    /* --- กลุ่มที่ 3: วีซ่า & พี่น้องสายบิน --- */
     case "3":
-      return client.replyMessage({ 
-        replyToken, 
-        messages: [{ type: "text", text: "✈️ บริการด้านเอกสารวีซ่าสำหรับคนทำงานต่างประเทศ\n\nเราช่วยเตรียมความพร้อมและอุดรอยรั่วของเอกสาร เพื่อเพิ่มโอกาสผ่านวีซ่าสูงสุด (DTV, Schengen, Dubai ฯลฯ)\n\nพิมพ์ประเทศที่คุณต้องการเดินทาง หรือสอบถามข้อมูลเพิ่มเติมได้เลยครับ" }] 
-      });
+      return client.replyMessage({ replyToken, messages: [getOverseasFlexCard()] });
+    case "31":
+      return client.replyMessage({ replyToken, messages: [{ type: "text", text: "🏠 บริการปั้นเอกสารกู้บ้าน (สำหรับพี่น้องสายบิน)\n\nทำงานต่างประเทศแต่อยากมีบ้านในไทย? เราช่วยจัดระเบียบสเตทเม้นท์และเตรียมเอกสารรายได้ให้ธนาคารยอมรับ 100% แม้ไม่มีสลิปเงินเดือนครับ\n👉 รบกวนแจ้ง 'ประเทศที่ทำงาน' และ 'ราคาบ้านที่อยากได้' ให้เราหน่อยครับ" }] });
+    case "32":
+      return client.replyMessage({ replyToken, messages: [{ type: "text", text: "✈️ วางแผนขอวีซ่าพำนักยาว (DTV / Schengen / Dubai)\n\nเราช่วยอุดรอยรั่วสเตทเม้นท์และเตรียมพอร์ตงานให้เข้าเกณฑ์วีซ่าใหม่ปี 2569 เพื่อให้คุณเดินทางและพำนักได้ยาวๆ แบบไม่ต้องกังวล ตม. ครับ\n👉 คุณอยากเดินทางไปประเทศไหนครับ?" }] });
+    case "33":
+      return client.replyMessage({ replyToken, messages: [{ type: "text", text: "💰 จัดระเบียบการเงิน & การโอนเงินกลับไทย\n\nโอนเงินกลับไทยอย่างไรให้ปลอดภัย ตรวจสอบได้ และไม่โดนเรื่องภาษีหรือธนาคารระงับบัญชี? เรามีแผนผังเส้นทางการเงินแนะนำให้ครับ\n👉 สอบถามรายละเอียดเพิ่มเติมพิมพ์ทิ้งไว้ได้เลยครับ" }] });
+    case "34":
+      return client.replyMessage({ replyToken, messages: [{ type: "text", text: "🔒 ปฏิบัติการ Digital Detox (ล้างประวัติก่อนกลับไทย)\n\nลบรูปภาพที่ไม่ต้องการ โพสต์ที่สุ่มเสี่ยง หรือข้อมูลในอดีตที่ไม่อยากให้ใครเห็น เพื่อเริ่มต้นชีวิตใหม่ในไทยอย่างสง่างามครับ\n👉 ส่งลิงก์หรือข้อมูลที่กังวลมาให้เราเช็กได้เลยครับ" }] });
 
     /* --- กลุ่มที่ 4: รีวิว --- */
     case "4":
@@ -192,12 +197,40 @@ function getFinancialFlexCard(): any {
         spacing: "md",
         contents: [
           { type: "text", text: "ฟื้นฟูเครดิต & ปั้นสเตทเม้นท์", weight: "bold", size: "xl", color: "#D4AF37" },
-          { type: "text", text: "เลือกระบุความต้องการของคุณครับ:", wrap: true, size: "sm", color: "#FFFFFF" },
+          { type: "text", text: "จัดระเบียบการเงินให้ธนาคารยอมรับ แม้เคยติดบูโรหรือยื่นกู้ไม่ผ่าน", wrap: true, size: "sm", color: "#FFFFFF" },
           { type: "box", layout: "vertical", margin: "md", spacing: "sm", contents: [
             { type: "button", action: { type: "message", label: "กด 21 : แก้บูโร / ประวัติเสีย", text: "21" }, style: "secondary", color: "#222222" },
             { type: "button", action: { type: "message", label: "กด 22 : ปั้นสเตทเม้นท์", text: "22" }, style: "secondary", color: "#222222" }
           ]},
           { type: "button", style: "primary", color: "#D4AF37", margin: "lg", action: { type: "message", label: "ปรึกษาแผนกู้บ้านฟรี", text: "5" } },
+          { type: "text", text: "พิมพ์ '0' กลับสู่เมนูหลัก", size: "xs", color: "#aaaaaa", align: "center", margin: "md" }
+        ]
+      }
+    }
+  };
+}
+
+function getOverseasFlexCard(): any {
+  return {
+    type: "flex",
+    altText: "บริการสำหรับพี่น้องสายบิน - UNLINK-TH",
+    contents: {
+      type: "bubble",
+      body: {
+        type: "box",
+        layout: "vertical",
+        backgroundColor: "#000000",
+        spacing: "md",
+        contents: [
+          { type: "text", text: "ยุทธศาสตร์พี่น้องสายบิน ✈️", weight: "bold", size: "xl", color: "#D4AF37" },
+          { type: "text", text: "เข้าใจทุกความเสี่ยง พร้อมเปลี่ยนรายได้ต่างแดนให้เป็นทรัพย์สินที่มั่นคงในไทยครับ", wrap: true, size: "sm", color: "#FFFFFF" },
+          { type: "box", layout: "vertical", margin: "md", spacing: "sm", contents: [
+            { type: "button", action: { type: "message", label: "กด 31 : ปั้นเอกสารกู้บ้านในไทย", text: "31" }, style: "secondary", color: "#222222" },
+            { type: "button", action: { type: "message", label: "กด 32 : วางแผนสเตทเม้นท์ขอวีซ่า", text: "32" }, style: "secondary", color: "#222222" },
+            { type: "button", action: { type: "message", label: "กด 33 : จัดระเบียบการเงินโอนกลับ", text: "33" }, style: "secondary", color: "#222222" },
+            { type: "button", action: { type: "message", label: "กด 34 : ล้างประวัติเน่าก่อนกลับไทย", text: "34" }, style: "secondary", color: "#222222" }
+          ]},
+          { type: "button", style: "primary", color: "#D4AF37", margin: "lg", action: { type: "message", label: "ปรึกษาผู้เชี่ยวชาญลับด่วน", text: "5" } },
           { type: "text", text: "พิมพ์ '0' กลับสู่เมนูหลัก", size: "xs", color: "#aaaaaa", align: "center", margin: "md" }
         ]
       }
