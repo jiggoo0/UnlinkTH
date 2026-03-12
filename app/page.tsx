@@ -8,7 +8,8 @@ import { Database, BookOpen } from "lucide-react";
 
 // 📦 Core Sections
 import Hero from "@/components/sections/Hero";
-import StatusTracker from "@/components/sections/StatusTracker";
+import CaseCommandCenter from "@/components/sections/CaseCommandCenter";
+import CaseTrackerInfo from "@/components/sections/CaseTrackerInfo";
 import { PortfolioSection } from "@/components/sections/Portfolio";
 import { SecureChannel } from "@/components/sections/SecureChannel";
 import ProtocolStepper from "@/components/sections/ProtocolStepper";
@@ -74,8 +75,11 @@ export default function HomePage() {
           titleHighlight="ให้เริ่มต้นใหม่ได้จริง"
           description="จาก 'เรื่องยาก' ให้กลายเป็น 'เรื่องง่าย' ด้วยกระบวนการที่รัดกุม ปิดความลับมิดชิด ปลอดภัย และจ่ายจริงตามเนื้องาน"
         />
-        <div className="mx-auto mb-12 max-w-4xl">
-          <StatusTracker />
+        <div className="mx-auto mb-12 max-w-5xl">
+          <CaseCommandCenter />
+        </div>
+        <div className="mx-auto mb-20 max-w-5xl">
+          <CaseTrackerInfo />
         </div>
         <ProtocolStepper />
       </section>

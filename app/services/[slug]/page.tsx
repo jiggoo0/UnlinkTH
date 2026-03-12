@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { ShieldCheck, Lock, ArrowRight, Terminal } from "lucide-react";
 import { SecureChannel } from "@/components/sections/SecureChannel";
 import { getImageUrl } from "@/lib/utils";
+import { siteConfig } from "@/constants/site-config";
 import JsonLd from "@/components/shared/JsonLd";
 import { getServiceSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 
@@ -210,7 +211,7 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
                   asChild
                   className="w-full h-14 bg-primary hover:bg-primary/90 text-black font-bold text-sm tracking-widest uppercase group"
                 >
-                  <Link href="https://line.me/ti/p/@unlinkth" target="_blank">
+                  <Link href={siteConfig.contact.lineUrl} target="_blank">
                     Contact Specialist
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>

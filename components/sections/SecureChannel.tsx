@@ -161,7 +161,7 @@ export function SecureChannel() {
                       asChild
                       className="w-full h-16 rounded-2xl bg-white text-black hover:bg-white/90 font-bold tracking-[0.2em] uppercase"
                     >
-                      <a href={siteConfig.links.line} target="_blank">
+                      <a href={siteConfig.contact.lineUrl} target="_blank">
                         คุยผ่าน LINE ทันที
                       </a>
                     </Button>

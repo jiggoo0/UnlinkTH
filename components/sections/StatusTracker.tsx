@@ -1,229 +1,165 @@
 "use client";
 
-import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import {
-  Search,
-  Trash2,
-  Globe,
-  CheckCircle2,
-  ShieldCheck,
-  Loader2,
-  ArrowRight,
-  User,
-  Zap,
-} from "lucide-react";
-import { searchCaseAction } from "@/lib/actions";
-import { motion, AnimatePresence } from "framer-motion";
-import type { CaseStatus, CaseStatusError } from "@/lib/google-sheets";
+import React, { useState } from "react";
+import { Search, Clock, CheckCircle2 } from "lucide-react";
 
-/**
- * 👑 VIP STATUS TRACKER (CONCIERGE EDITION)
- * ดึงข้อมูลจริงจาก Google Sheets แบบ 100% Managed
- */
+interface Step {
+  label: string;
+  status: "completed" | "active" | "pending";
+}
+
+const MOCK_CASES: Record<
+  string,
+  { service: string; progress: number; phase: string; steps: Step[] }
+> = {
+  "UL-2025": {
+    service: "Reputation Shield (ลบประวัติเสีย)",
+    progress: 65,
+    phase: "กำลังเจรจาลบข้อมูลรอบที่ 2",
+    steps: [
+      { label: "ตรวจสอบฐานข้อมูล & URL", status: "completed" },
+      { label: "ยื่นคำร้องและเข้าแทรกแซง", status: "active" },
+      { label: "ยืนยันผลการลบถาวร", status: "pending" },
+    ],
+  },
+  "UL-7089": {
+    service: "Immigration (แผนการเดินทาง)",
+    progress: 100,
+    phase: "ดำเนินการเสร็จสิ้น (Verified)",
+    steps: [
+      { label: "จัดเตรียมแผนการเดินทาง", status: "completed" },
+      { label: "จองและยืนยันรหัส PNR", status: "completed" },
+      { label: "ส่งมอบเอกสารฉบับสมบูรณ์", status: "completed" },
+    ],
+  },
+};
+
 export default function StatusTracker() {
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<CaseStatus | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
+  const [foundCase, setFoundCase] = useState<
+    (typeof MOCK_CASES)["UL-2025"] | null
+  >(null);
 
-  async function handleSearch(e: React.FormEvent<HTMLFormElement>) {
+  const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setResult(null);
-
-    const formData = new FormData(e.currentTarget);
-    const data = await searchCaseAction(formData);
-
-    if ("error" in data) {
-      setError(
-        data.error === "Case ID not found"
-          ? "ไม่พบข้อมูลหมายเลขเคสนี้ในระบบ"
-          : (data as CaseStatusError).error,
-      );
-    } else {
-      setResult(data as CaseStatus);
-    }
-    setLoading(false);
-  }
+    const result = MOCK_CASES[query.toUpperCase()];
+    setFoundCase(result || null);
+  };
 
   return (
-    <div className="lab-card overflow-hidden border-primary/20 bg-primary/5 shadow-2xl transition-all duration-500">
-      {/* 📡 System Header */}
-      <div className="border-b border-white/5 bg-white/[0.02] p-4 flex items-center justify-between">
-        <h3 className="flex items-center gap-2 text-[10px] font-bold text-white tracking-[0.2em] uppercase italic">
-          <Zap className="text-primary h-3 w-3 animate-pulse" />
-          Vault Protocol Status Engine
-        </h3>
-        <div className="flex items-center gap-2">
-          <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-          <span className="font-mono text-[9px] text-primary/60 tracking-widest uppercase">
-            Live Connection: Active
-          </span>
+    <section className="py-16 px-4 bg-black text-white">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold text-[#D4AF37] mb-4">
+            ระบบตรวจสอบสถานะเคส (Live Tracking)
+          </h2>
+          <p className="text-gray-400">
+            ระบุหมายเลขเคส (Case ID)
+            เพื่อติดตามความคืบหน้าของปฏิบัติการภายใต้ความลับสูงสุด
+          </p>
         </div>
-      </div>
 
-      <div className="p-6 md:p-10">
-        <AnimatePresence mode="wait">
-          {!result ? (
-            /* 🔍 SEARCH VIEW */
-            <motion.div
-              key="search"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="max-w-xl mx-auto space-y-8 text-center"
-            >
-              <div className="space-y-2">
-                <h4 className="text-2xl font-bold text-white tracking-tight">
-                  ตรวจสอบสถานะการปฏิบัติการ
-                </h4>
-                <p className="text-sm text-slate-400">
-                  กรอกหมายเลข Case ID ของคุณเพื่อดูความคืบหน้าแบบ Real-time
+        {/* 🔍 Search Input */}
+        <form onSubmit={handleSearch} className="flex gap-2 mb-12">
+          <input
+            type="text"
+            placeholder="เช่น UL-2025"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 focus:outline-none focus:border-[#D4AF37] transition-colors"
+          />
+          <button
+            type="submit"
+            className="bg-[#D4AF37] hover:bg-[#B8962E] text-black font-bold px-6 py-3 rounded-lg flex items-center gap-2 transition-all"
+          >
+            <Search size={20} />
+            ตรวจสอบ
+          </button>
+        </form>
+
+        {/* 📊 Status Display */}
+        {foundCase ? (
+          <div className="bg-zinc-900/50 border border-[#D4AF37]/30 rounded-2xl p-6 md:p-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+              <div>
+                <span className="text-[#D4AF37] text-xs font-bold tracking-widest uppercase">
+                  Vault Protocol Active
+                </span>
+                <h3 className="text-2xl font-bold mt-1">{foundCase.service}</h3>
+                <p className="text-gray-400 text-sm">
+                  Case ID: {query.toUpperCase()}
                 </p>
               </div>
+              <div className="text-right">
+                <span className="text-4xl font-black text-[#D4AF37]">
+                  {foundCase.progress}%
+                </span>
+                <p className="text-xs text-gray-500 mt-1 uppercase">
+                  Overall Progress
+                </p>
+              </div>
+            </div>
 
-              <form onSubmit={handleSearch} className="relative group">
-                <input
-                  name="caseId"
-                  type="text"
-                  placeholder="เช่น UL-0001"
-                  required
-                  className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-5 text-xl font-mono text-white placeholder:text-slate-600 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all shadow-inner uppercase"
-                />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="absolute right-3 top-3 bottom-3 px-6 bg-primary text-black rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-primary/80 transition-all disabled:opacity-50"
+            {/* Progress Bar */}
+            <div className="w-full h-3 bg-zinc-800 rounded-full mb-10 overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-[#D4AF37] to-[#F5E1A4] transition-all duration-1000 ease-out"
+                style={{ width: `${foundCase.progress}%` }}
+              />
+            </div>
+
+            {/* Steps Timeline */}
+            <div className="grid md:grid-cols-3 gap-6">
+              {foundCase.steps.map((step, idx) => (
+                <div
+                  key={idx}
+                  className={`p-4 rounded-xl border ${step.status === "active" ? "border-[#D4AF37] bg-[#D4AF37]/5" : "border-zinc-800"}`}
                 >
-                  {loading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <>
-                      วิเคราะห์ข้อมูล
-                      <ArrowRight className="h-4 w-4" />
-                    </>
-                  )}
-                </button>
-              </form>
-
-              {error && (
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="text-rose-500 text-xs font-medium"
-                >
-                  ⚠ {error}
-                </motion.p>
-              )}
-
-              <div className="pt-4 flex flex-wrap justify-center gap-6 opacity-40 grayscale">
-                <div className="flex items-center gap-2 text-[10px] font-mono text-white tracking-tighter uppercase">
-                  <ShieldCheck className="h-3 w-3" /> Data Secured
-                </div>
-                <div className="flex items-center gap-2 text-[10px] font-mono text-white tracking-tighter uppercase">
-                  <Globe className="h-3 w-3" /> Global Network
-                </div>
-              </div>
-            </motion.div>
-          ) : (
-            /* 📊 RESULTS VIEW (VIP DASHBOARD) */
-            <motion.div
-              key="result"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="space-y-8"
-            >
-              {/* Client Info & Main Status */}
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-white/5 pb-6">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-primary font-mono text-xs font-bold tracking-widest uppercase">
-                    <User className="h-3 w-3" /> Case Protocol: {result.caseId}
-                  </div>
-                  <h4 className="text-xl font-bold text-white uppercase italic tracking-tight">
-                    {result.customerName || "VIP CLIENT"}
-                  </h4>
-                </div>
-                <Badge className="bg-primary/20 text-primary border-primary/30 px-4 py-1 text-[10px] font-black italic uppercase tracking-[0.2em]">
-                  {result.mainStatus || "Active Operation"}
-                </Badge>
-              </div>
-
-              {/* Progress Engine */}
-              <div className="space-y-4">
-                <div className="flex justify-between items-end">
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-                      Current Operation
+                  <div className="flex items-center gap-3 mb-2">
+                    {step.status === "completed" && (
+                      <CheckCircle2 className="text-[#D4AF37]" size={20} />
+                    )}
+                    {step.status === "active" && (
+                      <Clock className="text-white animate-pulse" size={20} />
+                    )}
+                    {step.status === "pending" && (
+                      <div className="w-5 h-5 rounded-full border-2 border-zinc-700" />
+                    )}
+                    <span
+                      className={`text-sm font-bold ${step.status === "pending" ? "text-zinc-600" : "text-white"}`}
+                    >
+                      Step {idx + 1}
                     </span>
-                    <p className="text-sm font-bold text-white uppercase italic">
-                      {result.currentPhase}
-                    </p>
                   </div>
-                  <div className="text-right">
-                    <span className="text-2xl font-black text-primary italic">
-                      {result.progress}%
-                    </span>
-                    <p className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">
-                      Efficiency
-                    </p>
-                  </div>
-                </div>
-                <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5 p-[1px]">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${result.progress}%` }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
-                    className="h-full bg-primary rounded-full shadow-[0_0_15px_rgba(212,175,55,0.5)]"
-                  />
-                </div>
-              </div>
-
-              {/* Strategic Steps */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {[
-                  { label: "Data Integrity", step: result.step1, icon: Search },
-                  { label: "De-indexing", step: result.step2, icon: Globe },
-                  { label: "Final Cleanup", step: result.step3, icon: Trash2 },
-                ].map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-white/[0.02] border border-white/5 rounded-2xl p-5 space-y-3"
+                  <p
+                    className={`text-sm ${step.status === "pending" ? "text-zinc-600" : "text-gray-300"}`}
                   >
-                    <div className="flex justify-between items-center">
-                      <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                        <item.icon className="h-4 w-4" />
-                      </div>
-                      {item.step.includes("สำเร็จ") ? (
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                      ) : (
-                        <Loader2 className="h-4 w-4 text-slate-700 animate-spin" />
-                      )}
-                    </div>
-                    <div>
-                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1">
-                        {item.label}
-                      </p>
-                      <p className="text-xs font-bold text-white uppercase">
-                        {item.step}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                    {step.label}
+                  </p>
+                </div>
+              ))}
+            </div>
 
-              <div className="pt-4 text-center">
-                <button
-                  onClick={() => setResult(null)}
-                  className="text-[10px] font-bold text-slate-500 hover:text-primary transition-colors uppercase tracking-[0.2em] italic border-b border-transparent hover:border-primary pb-1"
-                >
-                  ← New Inquiry
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            <div className="mt-10 p-4 bg-zinc-950/50 rounded-lg text-center">
+              <p className="text-xs text-zinc-500 italic">
+                สถานะปัจจุบัน:{" "}
+                <span className="text-white not-italic font-bold">
+                  {foundCase.phase}
+                </span>
+              </p>
+            </div>
+          </div>
+        ) : (
+          query && (
+            <div className="text-center p-10 bg-zinc-900 rounded-2xl border border-dashed border-zinc-800">
+              <p className="text-zinc-500">
+                ไม่พบหมายเลขเคสนี้ในระบบ
+                หรือข้อมูลกำลังอยู่ระหว่างการเข้ารหัสความลับ
+              </p>
+            </div>
+          )
+        )}
       </div>
-    </div>
+    </section>
   );
 }

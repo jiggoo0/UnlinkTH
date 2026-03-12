@@ -96,7 +96,7 @@ export const siteConfig: SiteConfig = {
     copyright: `© ${new Date().getFullYear()} UNLINK-TH. | คืนสิทธิ์การเริ่มต้นใหม่ให้โปรไฟล์ของคุณ (Signature: 9mzm)`,
     links: [
       { title: "นโยบายความเป็นส่วนตัว", href: "/privacy" },
-      { title: "ยุทธศาสตร์สำหรับสายบิน", href: "/flying-path" },
+      { title: "มาตรฐานบริการ", href: "/editorial-policy" },
     ],
   },
 };

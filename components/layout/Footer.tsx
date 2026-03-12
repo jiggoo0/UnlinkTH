@@ -98,10 +98,10 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/verify-ticket"
+                    href="/contact"
                     className="text-primary/60 hover:text-primary font-mono text-[10px] tracking-widest uppercase"
                   >
-                    ตรวจสอบหมายเลขติดตาม
+                    แจ้งตรวจสอบสถานะเคส
                   </Link>
                 </li>
               </ul>

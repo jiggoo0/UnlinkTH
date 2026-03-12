@@ -16,7 +16,7 @@ export default async function LatestInsights() {
 
   return (
     <div className="grid gap-8 md:grid-cols-3">
-      {latestPosts.map((post: BlogPostFrontmatter) => (
+      {latestPosts.map((post: BlogPostFrontmatter, index: number) => (
         <Link
           key={post.slug}
           href={`/blog/${post.slug}`}
@@ -27,6 +27,7 @@ export default async function LatestInsights() {
               src={post.image || "/images/blog/default-insight.webp"}
               alt={post.title}
               fill
+              priority={index === 0}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-700 group-hover:scale-110"
             />

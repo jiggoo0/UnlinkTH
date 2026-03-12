@@ -19,6 +19,7 @@ import Image from "next/image";
 import JsonLd from "@/components/shared/JsonLd";
 import { getBlogPostingSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 import { getImageUrl } from "@/lib/utils";
+import { siteConfig } from "@/constants/site-config";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -213,7 +214,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
                   asChild
                   className="w-full h-14 bg-primary hover:bg-primary/90 text-black font-bold text-sm tracking-widest uppercase group"
                 >
-                  <Link href="https://line.me/ti/p/@unlinkth" target="_blank">
+                  <Link href={siteConfig.contact.lineUrl} target="_blank">
                     Contact Specialist
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>

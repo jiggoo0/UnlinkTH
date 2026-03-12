@@ -123,17 +123,21 @@ export default function Hero() {
           >
             {[
               {
-                label: "เงินทุนที่ปลดล็อกได้",
-                value: "฿500M+",
+                label: "Global Coverage",
+                value: "15+ Countries",
                 icon: Database,
               },
-              { label: "ปิดจบเคสประวัติเสีย", value: "1,200+", icon: Zap },
               {
-                label: "ความเร็วการดำเนินการ",
+                label: "Operational Precision",
+                value: "Zero-Error",
+                icon: Zap,
+              },
+              {
+                label: "Action Protocol",
                 value: "Fast-Action",
                 icon: ShieldCheck,
               },
-              { label: "ระดับความลับข้อมูล", value: "Vault-S", icon: Lock },
+              { label: "Identity Protection", value: "Vault-S", icon: Lock },
             ].map((stat, i) => (
               <div
                 key={i}

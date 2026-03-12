@@ -2,13 +2,11 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import * as line from "@line/bot-sdk";
+import { getCaseStatus } from "../../../../lib/google-sheets";
 
 // 📍 SETTINGS & SECURITY
 const LINE_TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN || "";
 const ADMIN_ID = process.env.LINE_USER_ID || "";
-
-// 🌐 GOOGLE SHEETS API URL (ดึงจาก Vercel Environment Variables)
-const GSHEET_API_URL = process.env.GSHEET_API_URL || "";
 
 const client = new line.messagingApi.MessagingApiClient({
   channelAccessToken: LINE_TOKEN,
@@ -50,21 +48,6 @@ async function handleFollowEvent(event: line.webhook.FollowEvent) {
   });
 }
 
-/**
- * ดึงข้อมูลเคสจาก Google Sheets
- */
-async function getCaseFromDb(caseId: string) {
-  try {
-    if (GSHEET_API_URL.includes("YOUR_DEPLOYMENT_ID")) return null;
-    const res = await fetch(`${GSHEET_API_URL}?caseId=${caseId}`);
-    const data = await res.json();
-    return data.error ? null : data;
-  } catch (e) {
-    console.error("DB Fetch Error:", e);
-    return null;
-  }
-}
-
 async function handleTextEvent(event: line.webhook.MessageEvent) {
   if (event.message.type !== "text" || !event.replyToken) return null;
 
@@ -84,9 +67,9 @@ async function handleTextEvent(event: line.webhook.MessageEvent) {
         ? rawId
         : `UL-${rawId}`;
 
-    const caseData = await getCaseFromDb(caseId);
+    const caseData = await getCaseStatus(caseId);
 
-    if (caseData) {
+    if ("caseId" in caseData) {
       return client.replyMessage({
         replyToken,
         messages: [getOperationalStatusFlex(caseData)],
@@ -130,32 +113,21 @@ async function handleTextEvent(event: line.webhook.MessageEvent) {
     });
   }
 
-  // 3. Strategic Routing
+  // 3. Strategic Routing (Standardized 2026 Protocol)
   switch (normalizedInput) {
     case "1":
       return client.replyMessage({
         replyToken,
-        messages: [getReputationMenuFlex()],
+        messages: [getDocMenuFlex()],
       });
     case "11":
       return client.replyMessage({
         replyToken,
         messages: [
           getServiceDetailFlex(
-            "REPUTATION_CLEANUP",
-            "ลบประจาน & ข่าวเสีย",
-            "ส่ง 'ลิงก์ที่ต้องการให้ลบ' เพื่อวิเคราะห์โครงสร้างข้อมูลเบื้องต้นได้ทันที",
-          ),
-        ],
-      });
-    case "12":
-      return client.replyMessage({
-        replyToken,
-        messages: [
-          getServiceDetailFlex(
-            "BLACKLIST_REMOVAL",
-            "ล้างชื่อแบล็คลิสต์",
-            "ส่ง 'ชื่อ-นามสกุล' ที่ติดปัญหา เพื่อตรวจสอบฐานข้อมูลแบล็คลิสต์ออนไลน์",
+            "DOC_INCOME",
+            "วางแผนเอกสารรายได้",
+            "รบกวนระบุ 'อาชีพปัจจุบัน' และ 'วัตถุประสงค์' (เช่น กู้บ้าน/ขอวีซ่า) เพื่อให้ทีมงานประเมินรูปแบบเอกสารที่เหมาะสมที่สุดครับ",
           ),
         ],
       });
@@ -198,25 +170,63 @@ async function handleTextEvent(event: line.webhook.MessageEvent) {
         replyToken,
         messages: [
           getServiceDetailFlex(
-            "GLOBAL_MORTGAGE",
-            "เอกสารกู้บ้านสายบิน",
-            "ระบุ 'ประเทศที่ทำงาน' และ 'เป้าหมายราคาบ้าน' เพื่อเริ่มขั้นตอนการจัดเตรียมเอกสารชั้นสูง",
+            "VERIFIED_ITINERARY",
+            "แผนการเดินทาง (Verified)",
+            "ระบุ 'ประเทศจุดหมาย' และ 'ช่วงวันที่เดินทาง' เพื่อจัดเตรียมแผนการจองที่ตรวจสอบได้จริงครับ",
           ),
         ],
       });
-    case "34":
+    case "32":
       return client.replyMessage({
         replyToken,
         messages: [
           getServiceDetailFlex(
-            "PRE_RETURN_CLEANUP",
-            "เคลียร์ประวัติก่อนกลับไทย",
-            "แจ้งข้อมูลที่คุณกังวลภายใต้ Vault Protocol (ความลับสูงสุด) เพื่อหาทางออกที่ปลอดภัยที่สุด",
+            "LIFESTYLE_VISA",
+            "วีซ่าไลฟ์สไตล์ (Move Globally)",
+            "แจ้ง 'ประเทศที่คุณสนใจ' และ 'สถานะปัจจุบัน' ภายใต้ Vault Protocol เพื่อประเมินโอกาสสำเร็จครับ",
           ),
         ],
       });
 
     case "4":
+      return client.replyMessage({
+        replyToken,
+        messages: [getReputationMenuFlex()],
+      });
+    case "41":
+      return client.replyMessage({
+        replyToken,
+        messages: [
+          getServiceDetailFlex(
+            "BLACKLIST_REMOVAL",
+            "ล้างแบล็คลิสต์ออนไลน์",
+            "ส่ง 'ชื่อ-นามสกุล' หรือ 'ลิงก์ที่ติดปัญหา' เพื่อตรวจสอบฐานข้อมูลแบล็คลิสต์ออนไลน์ทันทีครับ",
+          ),
+        ],
+      });
+    case "42":
+      return client.replyMessage({
+        replyToken,
+        messages: [
+          getServiceDetailFlex(
+            "PRIVACY_ERASER",
+            "ลบประวัติ / ข้อมูลส่วนตัว",
+            "แจ้งรายละเอียดข้อมูลที่คุณต้องการให้ 'หายไป' (เช่น รูปภาพ/ข่าว/ประวัติแฟนเก่า) เพื่อวิเคราะห์วิธีจัดการครับ",
+          ),
+        ],
+      });
+    case "43":
+      return client.replyMessage({
+        replyToken,
+        messages: [
+          getServiceDetailFlex(
+            "SME_RESCUE",
+            "กู้วิกฤตธุรกิจ (SME Rescue)",
+            "รบกวนระบุ 'ลักษณะธุรกิจ' และ 'ปัญหาที่กำลังเผชิญ' เพื่อจัดส่งทีมงาน Specialist เข้าช่วยทันทีครับ",
+          ),
+        ],
+      });
+
     case "รีวิว":
     case "REVIEW":
       return client.replyMessage({
@@ -324,7 +334,7 @@ function getMainMenuFlex(): line.messagingApi.FlexMessage {
                 type: "button",
                 action: {
                   type: "message",
-                  label: "🛡️ Reputation Shield",
+                  label: "📝 Documentation",
                   text: "1",
                 },
                 height: "sm",
@@ -335,7 +345,7 @@ function getMainMenuFlex(): line.messagingApi.FlexMessage {
                 type: "button",
                 action: {
                   type: "message",
-                  label: "🏦 Financial Engineering",
+                  label: "🏦 Financial",
                   text: "2",
                 },
                 height: "sm",
@@ -346,8 +356,19 @@ function getMainMenuFlex(): line.messagingApi.FlexMessage {
                 type: "button",
                 action: {
                   type: "message",
-                  label: "✈️ Overseas Operations",
+                  label: "✈️ Immigration",
                   text: "3",
+                },
+                height: "sm",
+                style: "secondary",
+                color: "#333333",
+              },
+              {
+                type: "button",
+                action: {
+                  type: "message",
+                  label: "🛡️ Reputation Shield",
+                  text: "4",
                 },
                 height: "sm",
                 style: "secondary",
@@ -618,8 +639,9 @@ function getServiceDetailFlex(
 
 function getReputationMenuFlex(): line.messagingApi.FlexMessage {
   return getSubMenuFlex("REPUTATION SHIELD", "การจัดการชื่อเสียงดิจิทัล", [
-    { label: "ลบประจาน / ข่าวเสีย", text: "11" },
-    { label: "ล้างแบล็คลิสต์ออนไลน์", text: "12" },
+    { label: "ลบประวัติ / ข้อมูลส่วนตัว", text: "42" },
+    { label: "ล้างแบล็คลิสต์ออนไลน์", text: "41" },
+    { label: "กู้วิกฤตธุรกิจ (SME)", text: "43" },
   ]);
 }
 
@@ -632,13 +654,19 @@ function getFinancialMenuFlex(): line.messagingApi.FlexMessage {
 
 function getOverseasMenuFlex(): line.messagingApi.FlexMessage {
   return getSubMenuFlex(
-    "OVERSEAS OPERATIONS",
-    "ยุทธศาสตร์สำหรับคนไทยในต่างประเทศ",
+    "IMMIGRATION & MOBILITY",
+    "ยุทธศาสตร์วีซ่าและการเดินทาง",
     [
-      { label: "เอกสารกู้บ้านสายบิน", text: "31" },
-      { label: "เคลียร์ประวัติก่อนกลับไทย", text: "34" },
+      { label: "แผนการเดินทาง (Verified)", text: "31" },
+      { label: "วีซ่าไลฟ์สไตล์ (Move)", text: "32" },
     ],
   );
+}
+
+function getDocMenuFlex(): line.messagingApi.FlexMessage {
+  return getSubMenuFlex("DOCUMENTATION STRATEGY", "การจัดเตรียมเอกสารชั้นสูง", [
+    { label: "วางแผนเอกสารรายได้", text: "11" },
+  ]);
 }
 
 function getSubMenuFlex(

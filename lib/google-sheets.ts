@@ -27,21 +27,28 @@ export async function getCaseStatus(
   caseId: string,
 ): Promise<CaseStatus | CaseStatusError> {
   try {
-    const SERVICE_ACCOUNT_KEY_PATH =
-      ".gemini/configs/tokens/gen-lang-client-0584860487-d8314f2c89df.json";
     const SPREADSHEET_ID = "1S4QuqkPxzuUK9NUkSBaR_12iKw-rShNEsTqpAsVuL4I";
+    const serviceAccountJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+
+    if (!serviceAccountJson) {
+      console.error("Missing GOOGLE_SERVICE_ACCOUNT_JSON environment variable");
+      return { error: "System Configuration Error" };
+    }
+
+    const credentials = JSON.parse(serviceAccountJson);
 
     const auth = new google.auth.GoogleAuth({
-      keyFile: SERVICE_ACCOUNT_KEY_PATH,
+      credentials,
       scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
     });
 
     const sheets = google.sheets({ version: "v4", auth });
 
-    // 📍 ใช้งานชื่อแท็บภาษาไทย: ชีต1 (คอลัมน์ A ถึง H)
+    // 📍 ใช้งานชื่อแท็บจาก Environment Variable (Default: ชีต1)
+    const sheetName = process.env.GOOGLE_SHEET_NAME || "ชีต1";
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
-      range: "ชีต1!A:H",
+      range: `${sheetName}!A:H`,
     });
 
     const rows = response.data.values;
