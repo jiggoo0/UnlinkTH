@@ -38,6 +38,12 @@ function resolveImagePath(img: string | undefined, category: string): string {
   if (cleanPath.startsWith(category + "/")) {
     return `/images/${cleanPath}`;
   }
+
+  // พิเศษสำหรับ Case Studies ที่โฟลเดอร์ใน public คือ cases
+  if (category === "case-studies") {
+    return `/images/cases/${cleanPath}`;
+  }
+
   return `/images/${category}/${cleanPath}`;
 }
 
