@@ -13,25 +13,26 @@ interface ServiceCardProps {
 
 /**
  * DynamicIcon Loader Protocol
- * 🛡️ Optimization: ป้องกัน CLS โดยการจองพื้นที่ Icon ไว้ล่วงหน้า
+ * 🛡️ Optimization: ย้ายออกนอก Component หลักเพื่อป้องกันการสร้าง Component ใหม่ทุกครั้งที่ Render
+ * ป้องกันปัญหา Maximum Update Depth ใน React 19
  */
-const DynamicIcon = ({ name, ...props }: { name: string } & LucideProps) => {
-  const Icon = dynamic(() =>
+const DynamicIcon = dynamic(
+  () =>
     import("lucide-react").then((mod) => {
-      // 🛡️ Technical Reason: 'any' is required here because Lucide icons are accessed
-      // via dynamic string keys from the module object at runtime.
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const icon = (mod as Record<string, any>)[name];
-      return icon || ShieldCheck;
+      return (props: LucideProps & { name: string }) => {
+        const { name, ...rest } = props;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const Icon = (mod as Record<string, any>)[name] || ShieldCheck;
+        return <Icon {...rest} />;
+      };
     }),
-  );
-
-  return (
-    <div className="flex h-7 w-7 items-center justify-center">
-      <Icon {...props} />
-    </div>
-  );
-};
+  {
+    ssr: true,
+    loading: () => (
+      <div className="h-7 w-7 animate-pulse bg-primary/10 rounded-lg" />
+    ),
+  },
+);
 
 import { AnimatedCard } from "@/components/animated-section";
 

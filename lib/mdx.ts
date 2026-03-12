@@ -17,15 +17,36 @@ import {
 // หาตำแหน่ง Root ของโปรเจกต์ที่แท้จริง
 const getProjectRoot = () => {
   const cwd = process.cwd();
-  // บน Vercel Standalone, content จะอยู่ใน .next/standalone/ (ซึ่งก็คือ root ของ node server)
-  // แต่บางครั้ง Next.js จะรันจาก .next/standalone/server.js
+
+  // 1. ตรวจสอบใน CWD โดยตรง
   if (fs.existsSync(path.join(cwd, "content"))) return cwd;
-  if (fs.existsSync(path.join(cwd, ".next", "standalone", "content"))) return path.join(cwd, ".next", "standalone");
+
+  // 2. ตรวจสอบในโครงสร้าง Standalone ของ Vercel
+  const standalonePath = path.join(cwd, ".next", "standalone");
+  if (fs.existsSync(path.join(standalonePath, "content")))
+    return standalonePath;
+
+  // 3. ตรวจสอบย้อนกลับจาก __dirname (สำหรับบาง Edge Cases)
+  const currentDir = path.resolve(__dirname);
+  const rootFromDir = currentDir.split(".next")[0];
+  if (fs.existsSync(path.join(rootFromDir, "content"))) return rootFromDir;
+
   return cwd;
 };
 
-const PROJECT_ROOT = getProjectRoot();
-const CONTENT_PATH = path.join(PROJECT_ROOT, "content");
+// ฟังก์ชันช่วยหา Content Path ที่เสถียรที่สุด (Compute on call)
+function getContentPath(): string {
+  const root = getProjectRoot();
+  const contentPath = path.join(root, "content");
+
+  if (process.env.NODE_ENV === "production" && !fs.existsSync(contentPath)) {
+    console.error(
+      `[MDX-SYSTEM] CRITICAL: Content path not found at ${contentPath}`,
+    );
+  }
+
+  return contentPath;
+}
 
 export type ContentCategory = "blog" | "case-studies" | "services";
 
@@ -56,13 +77,24 @@ function resolveImagePath(img: string | undefined, category: string): string {
  * สแกนไฟล์ Recursive แบบเสถียร
  */
 function getFilesRecursive(dir: string): string[] {
-  if (!fs.existsSync(dir)) return [];
+  if (!fs.existsSync(dir)) {
+    if (process.env.NODE_ENV === "production") {
+      console.warn(`[MDX-SYSTEM] Directory not found: ${dir}`);
+    }
+    return [];
+  }
+
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   const files = entries.map((entry) => {
     const res = path.resolve(dir, entry.name);
     return entry.isDirectory() ? getFilesRecursive(res) : res;
   });
-  return Array.prototype.concat(...files).filter((f) => f.endsWith(".mdx"));
+
+  const filteredFiles = Array.prototype
+    .concat(...files)
+    .filter((f) => f.endsWith(".mdx"));
+
+  return filteredFiles;
 }
 
 // =========================================================
@@ -71,10 +103,10 @@ function getFilesRecursive(dir: string): string[] {
 
 export async function getAllServices(): Promise<Service[]> {
   try {
+    const CONTENT_PATH = getContentPath();
     const servicesDir = path.join(CONTENT_PATH, "services");
-    
-    // Debug Logging (จะปรากฏใน Vercel Runtime Logs)
-    if (process.env.NODE_ENV === 'production') {
+
+    if (process.env.NODE_ENV === "production") {
       console.log(`[MDX-SYSTEM] Scanning services in: ${servicesDir}`);
     }
 
@@ -94,7 +126,10 @@ export async function getAllServices(): Promise<Service[]> {
           shortDescription: String(fm.shortDescription || fm.description || ""),
           description: String(fm.description || ""),
           iconName: String(fm.iconName || "ShieldCheck"),
-          image: resolveImagePath(fm.image || fm.imageUrl || fm.thumbnail, "services"),
+          image: resolveImagePath(
+            fm.image || fm.imageUrl || fm.thumbnail,
+            "services",
+          ),
           category: String(fm.category || "General").trim(),
           features: Array.isArray(fm.features) ? fm.features : [],
           priceInfo: {
@@ -104,8 +139,12 @@ export async function getAllServices(): Promise<Service[]> {
           },
           metadata: {
             defaultTitle: String(fm.metadata?.defaultTitle || fm.title || ""),
-            defaultDescription: String(fm.metadata?.defaultDescription || fm.shortDescription || ""),
-            keywords: Array.isArray(fm.metadata?.keywords) ? fm.metadata.keywords : [],
+            defaultDescription: String(
+              fm.metadata?.defaultDescription || fm.shortDescription || "",
+            ),
+            keywords: Array.isArray(fm.metadata?.keywords)
+              ? fm.metadata.keywords
+              : [],
           },
         } as Service;
       } catch (err) {
@@ -127,6 +166,7 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
     const service = services.find((s) => s.slug === slug);
     if (!service) return null;
 
+    const CONTENT_PATH = getContentPath();
     const servicesDir = path.join(CONTENT_PATH, "services");
     const files = getFilesRecursive(servicesDir);
     const filePath = files.find((f) => path.basename(f, ".mdx") === slug);
@@ -147,6 +187,7 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
 
 export async function getAllCaseStudies(): Promise<CaseStudy[]> {
   try {
+    const CONTENT_PATH = getContentPath();
     const dir = path.join(CONTENT_PATH, "case-studies");
     const files = getFilesRecursive(dir);
 
@@ -154,16 +195,19 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
       .map((filePath) => {
         const { data } = matter(fs.readFileSync(filePath, "utf8"));
         const slug = path.basename(filePath, ".mdx");
-        const d = data as Record<string, any>;
+        const d = data as Record<string, unknown>;
 
         return {
           slug,
-          title: d.title || "Classified Case",
-          category: d.category || "Operation",
-          thumbnail: resolveImagePath(d.image || d.thumbnail, "case-studies"),
-          excerpt: d.excerpt || d.description || "",
-          date: d.date || "2026-01-01",
-          priority: d.priority || 0,
+          title: String(d.title || "Classified Case"),
+          category: String(d.category || "Operation"),
+          thumbnail: resolveImagePath(
+            String(d.image || d.thumbnail || ""),
+            "case-studies",
+          ),
+          excerpt: String(d.excerpt || d.description || ""),
+          date: String(d.date || "2026-01-01"),
+          priority: Number(d.priority || 0),
         } as CaseStudy;
       })
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -177,6 +221,7 @@ export async function getCaseStudyBySlug(slug: string) {
   const found = all.find((c) => c.slug === slug);
   if (!found) return null;
 
+  const CONTENT_PATH = getContentPath();
   const dir = path.join(CONTENT_PATH, "case-studies");
   const files = getFilesRecursive(dir);
   const filePath = files.find((f) => path.basename(f, ".mdx") === slug);
@@ -190,6 +235,7 @@ export async function getCaseStudyBySlug(slug: string) {
 
 export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
   try {
+    const CONTENT_PATH = getContentPath();
     const dir = path.join(CONTENT_PATH, "blog");
     const files = getFilesRecursive(dir);
 
@@ -213,6 +259,7 @@ export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
 export async function getBlogPostBySlug(
   slug: string,
 ): Promise<BlogPost | null> {
+  const CONTENT_PATH = getContentPath();
   const dir = path.join(CONTENT_PATH, "blog");
   const files = getFilesRecursive(dir);
   const filePath = files.find((f) => path.basename(f, ".mdx") === slug);

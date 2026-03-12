@@ -37,7 +37,7 @@ export default async function ServicesPage() {
   const filterServices = (cats: string[]) =>
     allServices.filter((s) => {
       const category = (s.category || "").toLowerCase().trim();
-      return cats.some(c => category === c.toLowerCase().trim());
+      return cats.some((c) => category === c.toLowerCase().trim());
     });
 
   const categories = [
@@ -52,6 +52,7 @@ export default async function ServicesPage() {
         "business",
         "personal",
         "legal",
+        "reputation-management",
       ]),
     },
     {
@@ -59,23 +60,48 @@ export default async function ServicesPage() {
       name: "Financial Strategy",
       description: "วิศวกรรมการเงินและการวางแผนกู้บ้านสำหรับอาชีพอิสระ",
       icon: TrendingUp,
-      services: filterServices(["financial"]),
+      services: filterServices(["financial", "finance", "credit"]),
     },
     {
       id: "immigration",
       name: "Global Mobility",
       description: "ยุทธศาสตร์การเตรียมเอกสารวีซ่าและพำนักระยะยาวสากล",
       icon: Globe,
-      services: filterServices(["immigration", "documentation"]),
+      services: filterServices([
+        "immigration",
+        "documentation",
+        "visa",
+        "mobility",
+      ]),
     },
   ];
+
+  // Logic: ถ้าจัดหมวดหมู่แล้วไม่เจอเลย ให้แสดงทั้งหมดในหมวด "Other Services"
+  const categorizedServiceIds = new Set(
+    categories.flatMap((c) => c.services.map((s) => s.id)),
+  );
+  const otherServices = allServices.filter(
+    (s) => !categorizedServiceIds.has(s.id),
+  );
+
+  if (otherServices.length > 0) {
+    categories.push({
+      id: "others",
+      name: "Strategic Protocols",
+      description: "โปรโตคอลการจัดการข้อมูลระดับสูงสำหรับเคสเฉพาะทาง",
+      icon: Database,
+      services: otherServices,
+    });
+  }
 
   const breadcrumbs = [
     { name: "Home", item: "/" },
     { name: "Services", item: "/services" },
   ];
 
-  const methodologyAbstractUrl = getImageUrl("common/methodology-abstract.webp");
+  const methodologyAbstractUrl = getImageUrl(
+    "common/methodology-abstract.webp",
+  );
 
   return (
     <div className="pb-32 bg-[#050810]">
