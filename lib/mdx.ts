@@ -11,12 +11,27 @@ import {
 
 /**
  * @REBRANDED: UNLINK-GLOBAL Intelligence Engine
+ * 🛡️ PRODUCTION ADAPTATION: ปรับปรุงการหาโฟลเดอร์ Content ให้เสถียรใน Vercel (Standalone)
  */
 
-const CONTENT_PATH = path.join(process.cwd(), "content");
+// หาตำแหน่ง Root ของโปรเจกต์ที่แท้จริง
+const getProjectRoot = () => {
+  const cwd = process.cwd();
+  // บน Vercel Standalone, content จะอยู่ใน .next/standalone/ (ซึ่งก็คือ root ของ node server)
+  // แต่บางครั้ง Next.js จะรันจาก .next/standalone/server.js
+  if (fs.existsSync(path.join(cwd, "content"))) return cwd;
+  if (fs.existsSync(path.join(cwd, ".next", "standalone", "content"))) return path.join(cwd, ".next", "standalone");
+  return cwd;
+};
+
+const PROJECT_ROOT = getProjectRoot();
+const CONTENT_PATH = path.join(PROJECT_ROOT, "content");
 
 export type ContentCategory = "blog" | "case-studies" | "services";
 
+/**
+ * ตัวช่วยจัดการ Path รูปภาพ (Intelligence Layer)
+ */
 function resolveImagePath(img: string | undefined, category: string): string {
   if (!img) {
     return category === "services"
@@ -37,6 +52,9 @@ function resolveImagePath(img: string | undefined, category: string): string {
   return `/images/${category}/${cleanPath}`;
 }
 
+/**
+ * สแกนไฟล์ Recursive แบบเสถียร
+ */
 function getFilesRecursive(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -54,6 +72,12 @@ function getFilesRecursive(dir: string): string[] {
 export async function getAllServices(): Promise<Service[]> {
   try {
     const servicesDir = path.join(CONTENT_PATH, "services");
+    
+    // Debug Logging (จะปรากฏใน Vercel Runtime Logs)
+    if (process.env.NODE_ENV === 'production') {
+      console.log(`[MDX-SYSTEM] Scanning services in: ${servicesDir}`);
+    }
+
     const files = getFilesRecursive(servicesDir);
 
     const services = files.map((filePath) => {
@@ -63,7 +87,6 @@ export async function getAllServices(): Promise<Service[]> {
         const slug = path.basename(filePath, ".mdx");
         const fm = data as unknown as ServiceFrontmatter;
 
-        // Robust Mapping with Default Values
         return {
           id: String(fm.id || slug),
           slug: slug,
@@ -91,7 +114,6 @@ export async function getAllServices(): Promise<Service[]> {
       }
     });
 
-    // Filter out failed mappings
     return services.filter((s): s is Service => s !== null);
   } catch (error) {
     console.error("[INTELLIGENCE] Failed to fetch services:", error);
