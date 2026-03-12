@@ -15,6 +15,7 @@ import { siteConfig } from "@/constants/site-config";
 
 /**
  * UNLINK-GLOBAL | Desktop & Mobile Navigation Intelligence
+ * Optimized for React 19 & Next.js 16
  */
 export default function Navbar() {
   const pathname = usePathname();
@@ -40,6 +41,7 @@ export default function Navbar() {
         <Link
           href="/"
           className="group flex items-center gap-3 transition-opacity hover:opacity-90"
+          onClick={closeMenu}
         >
           <div className="relative h-9 w-9">
             <Image
@@ -47,6 +49,7 @@ export default function Navbar() {
               alt="Unlink-Global Logo"
               fill
               className="glow-gold transition-transform group-hover:scale-110"
+              priority
             />
           </div>
           <span className="font-mono text-xl font-bold tracking-tighter uppercase">
@@ -103,7 +106,7 @@ export default function Navbar() {
         {/* --- Mobile Liaison Toggle --- */}
         <button
           className="text-muted-foreground hover:text-primary p-2 transition-colors md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={toggleMenu}
           aria-label="Toggle Menu"
         >
           {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -118,7 +121,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
+              onClick={closeMenu}
               className="bg-background/80 fixed inset-0 top-16 backdrop-blur-sm md:hidden"
             />
 
@@ -133,6 +136,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
+                    onClick={closeMenu}
                     className={cn(
                       "group flex items-center justify-between text-2xl font-bold tracking-tight transition-colors",
                       pathname === link.href
@@ -150,6 +154,7 @@ export default function Navbar() {
                 <Button
                   className="h-14 w-full rounded-2xl text-lg font-bold"
                   asChild
+                  onClick={closeMenu}
                 >
                   <Link href={navigationConfig.header.ctaLink}>
                     {navigationConfig.header.ctaText}
