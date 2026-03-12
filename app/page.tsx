@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { siteConfig } from "@/constants/site-config";
 import Link from "next/link";
+import { Database, BookOpen } from "lucide-react";
 
 // 📦 Core Sections
 import Hero from "@/components/sections/Hero";
@@ -81,34 +82,37 @@ export default function HomePage() {
 
       {/* 3. Solutions Matrix: Core Services Discovery */}
       <section className="container">
-        <div className="bg-muted/5 border-border/40 shadow-primary/5 relative rounded-[3rem] border p-10 shadow-2xl md:p-16">
-          <div className="grid gap-16 lg:grid-cols-3">
-            <div className="flex flex-col justify-center space-y-8 lg:col-span-1">
-              <div className="space-y-4">
-                <h2 className="text-4xl font-bold tracking-tighter leading-none uppercase text-white">
-                  ทางเลือก <br />
-                  <span className="text-primary glow-gold italic">
-                    ปลดล็อกโอกาส
-                  </span>
-                </h2>
-                <p className="text-muted-foreground text-lg font-light leading-relaxed">
-                  ทางออกสำหรับคนทำงานอาชีพพิเศษ แม่ค้าออนไลน์ และนักธุรกิจ
-                  ที่ต้องการกู้บ้าน ยื่นวีซ่า หรือเริ่มต้นชีวิตใหม่แบบใสสะอาด
-                </p>
-              </div>
-              <div className="border-border/10 border-t pt-4">
-                <span className="text-primary/60 font-mono text-[10px] tracking-[0.3em] uppercase">
-                  Private Identity Services
-                </span>
-              </div>
-            </div>
+        <div className="bg-muted/5 border-border/40 shadow-primary/5 relative rounded-[3.5rem] border p-10 shadow-2xl md:p-20">
+          <div className="space-y-16">
+            <SectionHeader
+              align="center"
+              badge={
+                <>
+                  <Database className="h-4 w-4" />
+                  <span>Strategic Solutions 2026</span>
+                </>
+              }
+              title="โซลูชันกู้คืน"
+              titleHighlight="โอกาสและชื่อเสียง"
+              description="รวบรวมโปรโตคอลการจัดการข้อมูลเชิงลึกที่ดึงข้อมูลจากเคสปฏิบัติการจริง เพื่อให้คุณกลับมาโดดเด่นในระบบนิเวศดิจิทัลอีกครั้ง"
+              className="max-w-4xl mx-auto"
+            />
 
             <Suspense
               fallback={
-                <div className="h-96 animate-pulse bg-white/5 rounded-3xl" />
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                  {[1, 2, 3].map((i) => (
+                    <div
+                      key={i}
+                      className="h-[480px] bg-white/[0.02] border border-white/5 rounded-[2.5rem] animate-pulse"
+                    />
+                  ))}
+                </div>
               }
             >
-              <ServicesGrid />
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <ServicesGrid limit={6} />
+              </div>
             </Suspense>
           </div>
         </div>
@@ -120,18 +124,14 @@ export default function HomePage() {
 
       {/* 5. Success Records: Operational Transparency */}
       <section className="container">
-        <div className="border-border/10 mb-16 flex flex-col items-end justify-between gap-8 border-b pb-8 md:flex-row">
-          <div className="max-w-xl space-y-2">
-            <h2 className="text-4xl font-bold tracking-tighter uppercase text-white">
-              Proven <br />
-              <span className="text-primary glow-gold italic">Success</span>
-            </h2>
-            <p className="text-muted-foreground text-lg font-light">
-              บันทึกปฏิบัติการจริงที่กู้คืนชื่อเสียงและโอกาสให้กับลูกค้าระดับ
-              VIP
-            </p>
-          </div>
-          <div className="text-primary/40 font-mono text-[10px] tracking-[0.2em] uppercase text-right">
+        <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16 border-b border-white/5 pb-8">
+          <SectionHeader
+            title="Proven"
+            titleHighlight="Success"
+            description="บันทึกปฏิบัติการจริงที่กู้คืนชื่อเสียงและโอกาสให้กับลูกค้าระดับ VIP"
+            className="mb-0"
+          />
+          <div className="text-primary/40 font-mono text-[10px] tracking-[0.2em] uppercase text-right hidden md:block">
             Operational Records <br />
             <span className="text-[8px]">{siteConfig.name} Unit</span>
           </div>
@@ -139,7 +139,14 @@ export default function HomePage() {
 
         <Suspense
           fallback={
-            <div className="h-80 animate-pulse bg-white/5 rounded-2xl" />
+            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="h-[400px] bg-white/[0.02] border border-white/5 rounded-2xl animate-pulse"
+                />
+              ))}
+            </div>
           }
         >
           <LatestCaseStudies />
@@ -148,16 +155,19 @@ export default function HomePage() {
 
       {/* 6. Intelligence Hub: Strategic Insights */}
       <section className="container">
-        <div className="mb-16 flex items-center justify-between border-b border-white/5 pb-8">
-          <div className="space-y-2">
-            <h2 className="text-4xl font-bold tracking-tighter uppercase text-white">
-              Strategic <br />
-              <span className="text-primary glow-gold italic">Insights</span>
-            </h2>
-            <p className="text-muted-foreground text-lg font-light">
-              เจาะลึกยุทธศาสตร์การจัดการข้อมูลและภาพลักษณ์ระดับมืออาชีพ
-            </p>
-          </div>
+        <div className="flex items-center justify-between border-b border-white/5 pb-8 mb-16">
+          <SectionHeader
+            badge={
+              <>
+                <BookOpen className="h-4 w-4" />
+                <span>Knowledge & Authority</span>
+              </>
+            }
+            title="Strategic"
+            titleHighlight="Insights"
+            description="เจาะลึกยุทธศาสตร์การจัดการข้อมูลและภาพลักษณ์ระดับมืออาชีพ"
+            className="mb-0"
+          />
           <Link
             href="/blog"
             className="text-slate-500 hover:text-primary font-mono text-[10px] tracking-[0.3em] uppercase transition-colors"
@@ -168,7 +178,14 @@ export default function HomePage() {
 
         <Suspense
           fallback={
-            <div className="h-96 animate-pulse bg-white/5 rounded-3xl" />
+            <div className="grid gap-8 md:grid-cols-3">
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="h-[350px] bg-white/[0.02] border border-white/5 rounded-3xl animate-pulse"
+                />
+              ))}
+            </div>
           }
         >
           <LatestInsights />

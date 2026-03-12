@@ -159,6 +159,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       />
     ),
     Image: (props: React.ComponentPropsWithoutRef<typeof Image>) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { width: _width, height: _height, src, alt, ...rest } = props;
       return (
         <figure className="my-16">

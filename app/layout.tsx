@@ -143,7 +143,9 @@ export default function RootLayout({
           </Suspense>
 
           <Analytics />
-          <GoogleAnalytics gaId="G-VRLM7ZEH9X" />
+          <Suspense>
+            <GoogleAnalytics gaId="G-VRLM7ZEH9X" />
+          </Suspense>
         </ThemeProvider>
       </body>
     </html>
