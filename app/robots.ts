@@ -17,7 +17,6 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "*",
         allow: ["/"],
         disallow: [
-          "/_next/", // ป้องกันการไต่ส่วนไฟล์ระบบของ Next.js
           "/api/", // ป้องกันการเข้าถึง Endpoint ภายใน
         ],
       },

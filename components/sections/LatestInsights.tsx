@@ -16,7 +16,7 @@ export default async function LatestInsights() {
 
   return (
     <div className="grid gap-8 md:grid-cols-3">
-      {latestPosts.map((post: BlogPostFrontmatter, index: number) => (
+      {latestPosts.map((post: BlogPostFrontmatter) => (
         <Link
           key={post.slug}
           href={`/blog/${post.slug}`}
