@@ -39,51 +39,86 @@ async function handleFollowEvent(event: any) {
   });
 }
 
-async function handleTextEvent(event: any) {
+async function handleTextEvent(event: line.MessageEvent & { message: line.TextMessageContent }) {
   const input = event.message.text.trim();
   const replyToken = event.replyToken;
   const userId = event.source.userId;
+  const normalizedInput = input.toLowerCase().replace(/\s+/g, ''); // ตัดช่องว่างและทำเป็นพิมพ์เล็กเพื่อการค้นหาที่แม่นยำ
 
+  // 🚨 1. ตรวจสอบการเรียกแอดมินด่วนก่อนเสมอ
+  const adminKeywords = ["5", "ด่วน", "แอดมิน", "เจ้าหน้าที่", "คนจริง", "คุยกับคน", "ติดต่อพนักงาน"];
+  if (adminKeywords.some(k => normalizedInput.includes(k))) {
+    await client.pushMessage({
+      to: ADMIN_ID,
+      messages: [{ type: "text", text: `🚨 [URGENT] มีลูกค้าต้องการคุยด่วน!\nUser ID: ${userId}\nข้อความ: ${input}` }],
+    });
+    return client.replyMessage({ 
+      replyToken, 
+      messages: [{ type: "text", text: "✅ รับทราบครับ! ผมได้ส่งสัญญาณแจ้งเตือนไปที่มือถือของเจ้าหน้าที่โดยตรงแล้วครับ รบกวนรอสักครู่นะครับ \n\n(พิมพ์ '0' เพื่อดูเมนูอื่นๆ ระหว่างรอ)" }] 
+    });
+  }
+
+  // 🔍 2. ระบบ Routing ตามหมายเลขและ Keyword
   switch (input) {
+    /* --- กลุ่มที่ 1: ล้างประวัติ --- */
     case "1":
-    case "ขอลบแบล็คลิสต์":
       return client.replyMessage({ replyToken, messages: [getReputationFlexCard()] });
+    case "11":
+      return client.replyMessage({ replyToken, messages: [{ type: "text", text: "🔒 บริการลบโพสต์ประจาน/ข่าวเสีย\n\nเรามีทีมเจรจาและใช้กฎหมาย PDPA เพื่อนำข้อมูลลงอย่างเด็ดขาดครับ\n👉 รบกวนส่ง 'ลิงก์ที่ต้องการให้ลบ' มาให้เราประเมินความยากง่ายได้เลยครับ (ฟรี)" }] });
+    case "12":
+      return client.replyMessage({ replyToken, messages: [{ type: "text", text: "🛡️ บริการล้างชื่อจากเว็บคนโกง (Blacklist)\n\nไม่ว่าจะเป็นเรื่องเข้าใจผิด หรือเคลียร์จบแล้วแต่ชื่อยังอยู่ เราจัดการให้หายไปจาก Google ได้ครับ\n👉 รบกวนส่ง 'ชื่อ-นามสกุล' หรือ 'ลิงก์แบล็คลิสต์' มาให้เราเช็กได้เลยครับ" }] });
 
+    /* --- กลุ่มที่ 2: การเงิน --- */
     case "2":
-    case "ขอกู้บ้าน":
       return client.replyMessage({ replyToken, messages: [getFinancialFlexCard()] });
+    case "21":
+      return client.replyMessage({ replyToken, messages: [{ type: "text", text: "🏦 บริการแก้ไขเครดิตบูโร\n\nการติดบูโรไม่ใช่จุดจบครับ เราช่วยวิเคราะห์จุดตายและวางโครงสร้างหนี้ใหม่ให้ธนาคารยอมรับได้\n👉 รบกวนแจ้ง 'ยอดหนี้รวม' และ 'สถานะปัจจุบัน' ให้ทีมงานวิเคราะห์หน่อยนะครับ" }] });
+    case "22":
+      return client.replyMessage({ replyToken, messages: [{ type: "text", text: "📈 บริการปั้นสเตทเม้นท์ (Statement Optimization)\n\nเราช่วยออกแบบรายการเดินบัญชีให้ดูสวยงาม มีวินัย และน่าเชื่อถือที่สุดสำหรับยื่นกู้หรือขอวีซ่า\n👉 อาชีพปัจจุบันของคุณคืออะไรครับ? พิมพ์บอกเราได้เลยครับ" }] });
 
+    /* --- กลุ่มที่ 3: วีซ่า & ต่างประเทศ --- */
     case "3":
+      return client.replyMessage({ 
+        replyToken, 
+        messages: [{ type: "text", text: "✈️ บริการด้านเอกสารวีซ่าสำหรับคนทำงานต่างประเทศ\n\nเราช่วยเตรียมความพร้อมและอุดรอยรั่วของเอกสาร เพื่อเพิ่มโอกาสผ่านวีซ่าสูงสุด (DTV, Schengen, Dubai ฯลฯ)\n\nพิมพ์ประเทศที่คุณต้องการเดินทาง หรือสอบถามข้อมูลเพิ่มเติมได้เลยครับ" }] 
+      });
+
+    /* --- กลุ่มที่ 4: รีวิว --- */
+    case "4":
     case "รีวิว":
       return client.replyMessage({ 
         replyToken, 
-        messages: [{ type: "text", text: "⭐ ตรวจสอบความสำเร็จของเราได้ที่นี่ครับ: https://www.unlink-th.com/case-studies \n\n(พิมพ์ '0' เพื่อกลับสู่เมนูหลัก)" }] 
+        messages: [{ type: "text", text: "⭐ ตรวจสอบความสำเร็จและมาตรฐานการทำงานของเราได้ที่นี่ครับ: https://www.unlink-th.com/case-studies \n\n(พิมพ์ '0' เพื่อกลับสู่เมนูหลัก)" }] 
       });
 
-    case "4":
-    case "ปรึกษาด่วน":
-      await client.pushMessage({
-        to: ADMIN_ID,
-        messages: [{ type: "text", text: `🚨 [URGENT] มีลูกค้าต้องการคุยด่วน!\nUser ID: ${userId}\nข้อความ: ${input}` }],
-      });
-      return client.replyMessage({ 
-        replyToken, 
-        messages: [{ type: "text", text: "✅ รับทราบครับ! แจ้งเจ้าหน้าที่ให้แล้วครับ รบกวนรอสักครู่นะครับ \n\n(พิมพ์ '0' เพื่อกลับสู่เมนูหลัก)" }] 
-      });
-
+    /* --- กลับเมนูหลัก --- */
     case "0":
     case "เมนูหลัก":
+    case "เมนู":
       return client.replyMessage({ replyToken, messages: [getMainMenuFlex()] });
 
+    /* --- วิเคราะห์ Keyword ทั่วไป (Smart Fallback) --- */
     default:
-      if (["ลบ", "ประจาน", "แบล็คลิสต์"].some(k => input.includes(k))) return client.replyMessage({ replyToken, messages: [getReputationFlexCard()] });
-      if (["กู้", "บ้าน", "บูโร", "เงิน"].some(k => input.includes(k))) return client.replyMessage({ replyToken, messages: [getFinancialFlexCard()] });
+      if (["ลบ", "ประจาน", "แบล็คลิสต์", "ประวัติเน่า", "รูปหลุด", "pdpa"].some(k => normalizedInput.includes(k))) {
+        return client.replyMessage({ replyToken, messages: [getReputationFlexCard()] });
+      }
+      if (["กู้", "บ้าน", "บูโร", "เงิน", "สเตทเม้น", "สินเชื่อ", "หนี้"].some(k => normalizedInput.includes(k))) {
+        return client.replyMessage({ replyToken, messages: [getFinancialFlexCard()] });
+      }
+      if (["วีซ่า", "ตม", "บิน", "พาสปอร์ต", "ต่างประเทศ"].some(k => normalizedInput.includes(k))) {
+        return client.replyMessage({ 
+          replyToken, 
+          messages: [{ type: "text", text: "✈️ หากเป็นเรื่องการเดินทางหรือวีซ่า ทีมงานเรามีผู้เชี่ยวชาญเฉพาะทางคอยดูแลครับ พิมพ์จุดหมายปลายทางหรือปัญหาของคุณทิ้งไว้ได้เลยครับ" }] 
+        });
+      }
+      
+      // ถ้าไม่ตรงกับอะไรเลย ให้ส่งเมนูหลัก
       return client.replyMessage({ replyToken, messages: [getMainMenuFlex()] });
   }
 }
 
 /**
- * [Design] เมนูหลัก - เน้นอ่านง่าย (High Contrast)
+ * [Design] เมนูหลัก - เพิ่มบริการให้ครบถ้วน
  */
 function getMainMenuFlex(): any {
   return {
@@ -93,7 +128,7 @@ function getMainMenuFlex(): any {
       type: "bubble",
       hero: {
         type: "image",
-        url: "https://www.unlink-th.com/og/og-main.webp", // ใช้พาธที่เข้าถึงได้จริง
+        url: "https://www.unlink-th.com/images/og/og-main.webp",
         size: "full",
         aspectRatio: "20:13",
         aspectMode: "cover"
@@ -101,15 +136,16 @@ function getMainMenuFlex(): any {
       body: {
         type: "box",
         layout: "vertical",
-        backgroundColor: "#000000", // พื้นหลังดำสนิทเพื่อให้อ่านง่าย
+        backgroundColor: "#000000",
         contents: [
           { type: "text", text: "ยินดีต้อนรับสู่ UNLINK-TH", weight: "bold", color: "#D4AF37", size: "lg" },
-          { type: "text", text: "กรุณาเลือกบริการด้านล่างครับ", size: "sm", color: "#FFFFFF", margin: "sm" },
-          { type: "box", layout: "vertical", margin: "xl", spacing: "md", contents: [
-            { type: "button", action: { type: "message", label: "1. ล้างประวัติเน่า / แบล็คลิสต์", text: "1" }, style: "secondary", color: "#333333" },
-            { type: "button", action: { type: "message", label: "2. ปั้นสเตทเม้นท์ / กู้บ้าน", text: "2" }, style: "secondary", color: "#333333" },
-            { type: "button", action: { type: "message", label: "3. ดูรีวิวความสำเร็จ", text: "3" }, style: "secondary", color: "#333333" },
-            { type: "button", action: { type: "message", label: "4. ปรึกษาเจ้าหน้าที่ (ด่วน)", text: "4" }, style: "primary", color: "#D4AF37" }
+          { type: "text", text: "กรุณากดหมายเลข หรือคลิกปุ่มเพื่อเลือกบริการครับ", size: "xs", color: "#aaaaaa", margin: "sm" },
+          { type: "box", layout: "vertical", margin: "xl", spacing: "sm", contents: [
+            { type: "button", action: { type: "message", label: "1. ล้างประวัติเน่า / แบล็คลิสต์", text: "1" }, style: "secondary", color: "#222222" },
+            { type: "button", action: { type: "message", label: "2. ปั้นสเตทเม้นท์ / กู้บ้าน", text: "2" }, style: "secondary", color: "#222222" },
+            { type: "button", action: { type: "message", label: "3. บริการเอกสารวีซ่า", text: "3" }, style: "secondary", color: "#222222" },
+            { type: "button", action: { type: "message", label: "4. ดูรีวิวความสำเร็จ", text: "4" }, style: "secondary", color: "#222222" },
+            { type: "button", action: { type: "message", label: "5. ติดต่อเจ้าหน้าที่ (ด่วน)", text: "5" }, style: "primary", color: "#D4AF37", margin: "md" }
           ]}
         ]
       }
@@ -130,11 +166,13 @@ function getReputationFlexCard(): any {
         spacing: "md",
         contents: [
           { type: "text", text: "ล้างประวัติ & ทวงคืนชื่อเสียง", weight: "bold", size: "xl", color: "#D4AF37" },
-          { type: "text", text: "เราช่วยลบข้อมูลเสียจาก Google และเว็บแบล็คลิสต์อย่างมืออาชีพ", wrap: true, size: "md", color: "#FFFFFF" },
-          { type: "separator", color: "#333333" },
-          { type: "text", text: "✅ ลบรูปประจาน / ข้อมูลใส่ร้าย\n✅ ล้างชื่อจากเว็บรวมคนโกง\n✅ ระงับการเข้าถึง 100%", wrap: true, size: "sm", color: "#FFFFFF" },
-          { type: "button", style: "primary", color: "#D4AF37", margin: "lg", action: { type: "message", label: "ส่งเคสให้วิเคราะห์ฟรี", text: "ขอลบแบล็คลิสต์" } },
-          { type: "text", text: "พิมพ์ '0' กลับสู่เมนูหลัก", size: "xs", color: "#aaaaaa", align: "center" }
+          { type: "text", text: "เลือกระบุความต้องการของคุณครับ:", wrap: true, size: "sm", color: "#FFFFFF" },
+          { type: "box", layout: "vertical", margin: "md", spacing: "sm", contents: [
+            { type: "button", action: { type: "message", label: "กด 11 : ลบรูปประจาน/ข่าวเสีย", text: "11" }, style: "secondary", color: "#222222" },
+            { type: "button", action: { type: "message", label: "กด 12 : ล้างชื่อจากเว็บคนโกง", text: "12" }, style: "secondary", color: "#222222" }
+          ]},
+          { type: "button", style: "primary", color: "#D4AF37", margin: "lg", action: { type: "message", label: "ให้แอดมินวิเคราะห์เคส", text: "5" } },
+          { type: "text", text: "พิมพ์ '0' กลับสู่เมนูหลัก", size: "xs", color: "#aaaaaa", align: "center", margin: "md" }
         ]
       }
     }
@@ -154,11 +192,13 @@ function getFinancialFlexCard(): any {
         spacing: "md",
         contents: [
           { type: "text", text: "ฟื้นฟูเครดิต & ปั้นสเตทเม้นท์", weight: "bold", size: "xl", color: "#D4AF37" },
-          { type: "text", text: "จัดระเบียบการเงินให้ธนาคารยอมรับ แม้เคยติดบูโรหรือยื่นกู้ไม่ผ่าน", wrap: true, size: "md", color: "#FFFFFF" },
-          { type: "separator", color: "#333333" },
-          { type: "text", text: "✅ แก้ไขประวัติเสีย (บูโร)\n✅ ปั้นสเตทเม้นท์เพื่อยื่นกู้\n✅ พี่เลี้ยงจนถึงวันรับกุญแจ", wrap: true, size: "sm", color: "#FFFFFF" },
-          { type: "button", style: "primary", color: "#D4AF37", margin: "lg", action: { type: "message", label: "ปรึกษาแผนกู้บ้านฟรี", text: "ขอกู้บ้าน" } },
-          { type: "text", text: "พิมพ์ '0' กลับสู่เมนูหลัก", size: "xs", color: "#aaaaaa", align: "center" }
+          { type: "text", text: "เลือกระบุความต้องการของคุณครับ:", wrap: true, size: "sm", color: "#FFFFFF" },
+          { type: "box", layout: "vertical", margin: "md", spacing: "sm", contents: [
+            { type: "button", action: { type: "message", label: "กด 21 : แก้บูโร / ประวัติเสีย", text: "21" }, style: "secondary", color: "#222222" },
+            { type: "button", action: { type: "message", label: "กด 22 : ปั้นสเตทเม้นท์", text: "22" }, style: "secondary", color: "#222222" }
+          ]},
+          { type: "button", style: "primary", color: "#D4AF37", margin: "lg", action: { type: "message", label: "ปรึกษาแผนกู้บ้านฟรี", text: "5" } },
+          { type: "text", text: "พิมพ์ '0' กลับสู่เมนูหลัก", size: "xs", color: "#aaaaaa", align: "center", margin: "md" }
         ]
       }
     }
