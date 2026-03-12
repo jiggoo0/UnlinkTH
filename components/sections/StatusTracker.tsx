@@ -3,18 +3,18 @@
 import { Badge } from "@/components/ui/badge";
 import { Search, Trash2, Globe, CheckCircle2 } from "lucide-react";
 
-const statusItems = [
-  { label: "วิเคราะห์ข้อมูล", icon: Search, status: "completed" },
-  { label: "De-indexing", icon: Globe, status: "processing" },
-  { label: "Content Removal", icon: Trash2, status: "pending" },
-];
-
 /**
  * Industrial Status Tracker (Reputation Architecture)
  * แสดงความเป็นมืออาชีพและขั้นตอนการจัดการเนื้อหาที่ชัดเจน
  * ออกแบบมาเพื่อสร้าง Trust ให้เห็นว่ามีกระบวนการทำงานจริง
  */
 export default function StatusTracker() {
+  const statusItems = [
+    { label: "วิเคราะห์โครงสร้างข้อมูล", icon: Search, status: "สำเร็จ", sub: "Data Integrity Verified" },
+    { label: "ปฏิบัติการระงับการเข้าถึง", icon: Globe, status: "กำลังดำเนินการ", sub: "De-indexing Active" },
+    { label: "ถอนรากถอนโคนเนื้อหาเสีย", icon: Trash2, status: "รอเข้าคิว", sub: "Cleanup Sequence" },
+  ];
+
   return (
     <div className="lab-card overflow-hidden border-primary/20 bg-primary/5 shadow-2xl">
       <div className="border-b border-white/5 bg-white/[0.02] p-4 flex items-center justify-between">
@@ -29,11 +29,7 @@ export default function StatusTracker() {
       </div>
       <div className="p-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {[
-            { label: "วิเคราะห์โครงสร้างข้อมูล", icon: Search, status: "สำเร็จ", sub: "Data Integrity Verified" },
-            { label: "ปฏิบัติการระงับการเข้าถึง", icon: Globe, status: "กำลังดำเนินการ", sub: "De-indexing Active" },
-            { label: "ถอนรากถอนโคนเนื้อหาเสีย", icon: Trash2, status: "รอเข้าคิว", sub: "Cleanup Sequence" },
-          ].map((item, index) => (
+          {statusItems.map((item, index) => (
             <div key={index} className="relative flex flex-col items-center md:items-start gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5">
               <div
                 className={`flex h-12 w-12 items-center justify-center rounded-xl border ${
