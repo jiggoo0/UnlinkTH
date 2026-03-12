@@ -101,16 +101,7 @@ export default async function ServicesPage() {
             }
             title="Strategic"
             titleHighlight="Solutions"
-            description={
-              <div className="space-y-4">
-                <p className="text-2xl font-bold text-primary tracking-tight">
-                  โซลูชันกู้คืน โอกาสและชื่อเสียง
-                </p>
-                <p className="text-slate-400">
-                  รวบรวมโปรโตคอลการจัดการข้อมูลเชิงลึกที่ดึงข้อมูลจากเคสปฏิบัติการจริง เพื่อให้คุณกลับมาโดดเด่นในระบบนิเวศดิจิทัลอีกครั้ง
-                </p>
-              </div>
-            }
+            description="โซลูชันกู้คืน โอกาสและชื่อเสียง | รวบรวมโปรโตคอลการจัดการข้อมูลเชิงลึกที่ดึงข้อมูลจากเคสปฏิบัติการจริง เพื่อให้คุณกลับมาโดดเด่นในระบบนิเวศดิจิทัลอีกครั้ง"
             className="mb-0 max-w-4xl"
             isItalic={true}
           />
