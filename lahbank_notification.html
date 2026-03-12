@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[lahbank] แจ้งผลการนำเงินเข้าบัญชี (เช็คเคลียริ่ง) - รายการสำเร็จ</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap');
+        
+        body { 
+            font-family: 'Sarabun', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #eceff1; 
+            color: #263238;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrapper {
+            width: 100%;
+            table-layout: fixed;
+            background-color: #eceff1;
+            padding-bottom: 40px;
+        }
+        .main-table {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-spacing: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .header {
+            background-color: #ffffff;
+            padding: 25px 40px;
+            text-align: left;
+            border-bottom: 4px solid #004ba0;
+        }
+        .header img {
+            height: 45px;
+            width: auto;
+        }
+        .banner {
+            background: linear-gradient(135deg, #0056b3 0%, #003366 100%);
+            color: #ffffff;
+            padding: 30px 40px;
+        }
+        .banner h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .content {
+            padding: 40px;
+        }
+        .greeting {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #004ba0;
+        }
+        .intro-text {
+            font-size: 15px;
+            color: #546e7a;
+            margin-bottom: 25px;
+        }
+        .info-card {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        .info-row {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eeeeee;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .label {
+            font-size: 14px;
+            color: #78909c;
+            width: 140px;
+            display: inline-block;
+        }
+        .value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #263238;
+        }
+        .amount-row {
+            background-color: #e8f5e9;
+            padding: 20px;
+            text-align: center;
+        }
+        .amount-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2e7d32;
+        }
+        .amount-currency {
+            font-size: 16px;
+            font-weight: 400;
+            color: #4caf50;
+        }
+        .status-badge {
+            background-color: #4caf50;
+            color: #ffffff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .action-area {
+            text-align: center;
+            padding: 10px 0 30px 0;
+        }
+        .btn {
+            background-color: #0056b3;
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 14px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        .security-section {
+            padding: 25px 40px;
+            background-color: #fff9e6;
+            border-left: 5px solid #ffcc00;
+            margin-bottom: 30px;
+        }
+        .security-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #856404;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .security-text {
+            font-size: 12px;
+            color: #856404;
+            line-height: 1.5;
+        }
+        .footer {
+            padding: 40px;
+            text-align: center;
+            background-color: #263238;
+            color: #cfd8dc;
+        }
+        .footer p {
+            font-size: 12px;
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+        .social-links {
+            margin: 20px 0;
+        }
+        .social-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .legal-notice {
+            font-size: 10px;
+            color: #90a4ae;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <table class="main-table">
+            <!-- Header with Logo -->
+            <tr>
+                <td class="header">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYxZEyIfJ-X1Eghqa0epAG7mab4udkBZb3nw&s" alt="lahbank Official Logo">
+                </td>
+            </tr>
+            
+            <!-- Announcement Banner -->
+            <tr>
+                <td class="banner">
+                    <h1>แจ้งผลการนำเงินเข้าบัญชีสำเร็จ</h1>
+                    <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Transaction Successful Notification</p>
+                </td>
+            </tr>
+
+            <!-- Main Content -->
+            <tr>
+                <td class="content">
+                    <div class="greeting">เรียน คุณ อลงกรณ์ ยมเกิด</div>
+                    <div class="intro-text">
+                        ธนาคารขอแจ้งผลการดำเนินการนำเงินเข้าบัญชีจากรายการเช็คเคลียริ่ง (Check Clearing) ของท่าน โดยมียอดเงินพร้อมใช้งานในบัญชีแล้วตามรายละเอียดดังต่อไปนี้:
+                    </div>
+
+                    <div class="info-card">
+                        <div class="amount-row">
+                            <div style="font-size: 12px; color: #666; margin-bottom: 5px;">จำนวนเงินที่เข้าบัญชี (Amount)</div>
+                            <div class="amount-value">1.00 <span class="amount-currency">THB</span></div>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">เลขที่อ้างอิง:</span>
+                            <span class="value">LHBNK-690312-TRX942107</span>
+                        <div class="info-row">
+                            <span class="label">เข้าสู่บัญชี:</span>
+                            <span class="value">ออมทรัพย์ 098-X-XX123-4</span>
+                        </td>
+                        <div class="info-row">
+                            <span class="label">ประเภทรายการ:</span>
+                            <span class="value">เช็คเคลียริ่ง (Check Clearing)</span>
+                        </td>
+                        <div class="info-row">
+                            <span class="label">เลขที่เช็ค:</span>
+                            <span class="value">10293847</span>
+                        </td>
+                        <div class="info-row">
+                            <span class="label">วันเวลาที่ทำรายการ:</span>
+                            <span class="value">12 มีนาคม 2569 | 14:22:15 น.</span>
+                        </td>
+                        <div class="info-row">
+                            <span class="label">สถานะรายการ:</span>
+                            <span class="status-badge">ดำเนินการสำเร็จ</span>
+                        </td>
+                    </div>
+
+                    <div class="action-area">
+                        <a href="https://www.lahbank.com/app/login" class="btn">เข้าสู่ระบบเพื่อตรวจสอบ</a>
+                    </div>
+
+                    <div class="security-section">
+                        <span class="security-title">🔒 ข้อควรระวังด้านความปลอดภัย (Security Alert)</span>
+                        <div class="security-text">
+                            ธนาคารไม่มีนโยบายส่งลิงก์ผ่าน SMS หรืออีเมล เพื่อขอข้อมูลส่วนตัว รหัสผ่าน หรือรหัส OTP จากท่านในทุกกรณี โปรดสังเกตชื่อโดเมนหลักของธนาคารต้องเป็น <strong>lahbank.com</strong> เท่านั้น
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 13px; color: #78909c; text-align: center;">
+                        นี่คืออีเมลอัตโนมัติจากระบบ กรุณาอย่าตอบกลับอีเมลฉบับนี้
+                    </p>
+                </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+                <td class="footer">
+                    <p style="font-weight: 700; font-size: 16px; color: #ffffff;">lahbank</p>
+                    <p>Contact Center: 1XXX (ตลอด 24 ชั่วโมง) | ต่างประเทศ: +66 2 XXX XXXX</p>
+                    <p>สำนักงานใหญ่: อาคาร lahbank ทาวเวอร์ 123 ถนนสุขุมวิท เขตวัฒนา กรุงเทพฯ 10110</p>
+                    
+                    <div class="social-links">
+                        <a href="#">Facebook</a> | <a href="#">Line Official</a> | <a href="#">X (Twitter)</a>
+                    </div>
+
+                    <div class="legal-notice">
+                        อีเมลฉบับนี้ถูกส่งถึงคุณเนื่องจากมีการทำธุรกรรมผ่านระบบของ lahbank<br>
+                        การใช้บริการเป็นไปตามข้อกำหนดและเงื่อนไขของธนาคาร | <a href="#" style="color: #90a4ae;">นโยบายความเป็นส่วนตัว (Privacy Policy)</a>
+                        <p>© 2026 lahbank Public Company Limited. All rights reserved.</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

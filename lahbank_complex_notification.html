@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="th">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>แจ้งผลการเรียกเก็บเช็คและสรุปสถานะบัญชี - lahbank</title>
+    <style type="text/css">
+      @import url("https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap");
+      body {
+        font-family: "Sarabun", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f4f8;
+      }
+      .wrapper {
+        width: 100%;
+        max-width: 650px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        background-color: #002147;
+        padding: 30px;
+        color: #ffffff;
+      }
+      .status-header {
+        background-color: #f8fafc;
+        padding: 25px 40px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .fund-box {
+        background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+      }
+      .main-content {
+        padding: 40px;
+      }
+      .transaction-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 25px;
+        margin: 20px 0;
+        background-color: #ffffff;
+      }
+      .calc-table {
+        width: 100%;
+        font-size: 13px;
+        color: #64748b;
+        margin-top: 15px;
+        border-top: 1px dashed #cbd5e1;
+        padding-top: 15px;
+      }
+      .amount-big {
+        font-size: 32px;
+        font-weight: 700;
+        color: #059669;
+      }
+      .label-sm {
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #94a3b8;
+        letter-spacing: 0.5px;
+      }
+      .footer {
+        background-color: #1e293b;
+        padding: 40px;
+        color: #94a3b8;
+        font-size: 12px;
+        text-align: center;
+      }
+      .btn {
+        background-color: #002147;
+        color: #ffffff !important;
+        padding: 14px 30px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-block;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Header -->
+      <table
+        width="100%"
+        border="0"
+        cellspacing="0"
+        cellpadding="0"
+        class="header"
+      >
+        <tr>
+          <td align="left">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYxZEyIfJ-X1Eghqa0epAG7mab4udkBZb3nw&s"
+              alt="lahbank"
+              width="100"
+              style="filter: brightness(0) invert(1)"
+            />
+          </td>
+          <td align="right">
+            <div style="font-size: 12px; opacity: 0.8">e-Notification</div>
+            <div style="font-size: 14px; font-weight: 600">
+              Ref: CLG-77253-25751
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Portfolio Summary -->
+      <div class="status-header">
+        <div class="fund-box">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td>
+                <div class="label-sm" style="color: rgba(255, 255, 255, 0.7)">
+                  มูลค่าสินทรัพย์กองทุน (Mutual Fund TAV)
+                </div>
+                <div style="font-size: 24px; font-weight: 700">
+                  46,765.75
+                  <span style="font-size: 14px; font-weight: 400">THB</span>
+                </div>
+              </td>
+              <td align="right" style="vertical-align: bottom">
+                <div
+                  style="
+                    font-size: 11px;
+                    background: rgba(0, 0, 0, 0.2);
+                    padding: 4px 10px;
+                    border-radius: 4px;
+                  "
+                >
+                  กองทุนเปิด lah Wealth Plus
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="50%">
+              <div class="label-sm">ยอดเงินที่ใช้ได้ (Available)</div>
+              <div style="font-size: 20px; font-weight: 700; color: #ef4444">
+                0.00 <span style="font-size: 12px">THB</span>
+              </div>
+            </td>
+            <td align="right">
+              <div class="label-sm">สถานะบัญชีกระแสรายวัน</div>
+              <div style="color: #64748b; font-size: 14px">
+                ใช้งานปกติ (Active)
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Transaction Details -->
+      <div class="main-content">
+        <h2 style="margin: 0 0 10px 0; color: #1e293b">
+          เรียน คุณ อลงกรณ์ ยมเกิด
+        </h2>
+        <p style="color: #64748b; font-size: 14px; line-height: 1.6">
+          ธนาคารขอแจ้งผลการเรียกเก็บเงินตามเช็ค (งวดที่ 1/3)
+          และรายละเอียดการหักค่าธรรมเนียม/ภาษี ตามที่ระบุในสัญญาจ้างงาน ดังนี้:
+        </p>
+
+        <div class="transaction-card">
+          <div class="label-sm">ยอดเงินโอนเข้าสุทธิในงวดนี้ (Net Credit)</div>
+          <div class="amount-big">
+            25,751.28 <span style="font-size: 16px; font-weight: 400">THB</span>
+          </div>
+
+          <table class="calc-table" border="0" cellspacing="0" cellpadding="5">
+            <tr>
+              <td>ยอดเงินหน้าเช็คต้นทาง (Gross Amount)</td>
+              <td align="right">88,445.00</td>
+            </tr>
+            <tr>
+              <td>หัก ภาษี ณ ที่จ่าย (WHT 7%)</td>
+              <td align="right" style="color: #ef4444">-6,191.15</td>
+            </tr>
+            <tr>
+              <td>หัก เงินประกันผลงาน (Retention Fee)</td>
+              <td align="right" style="color: #ef4444">-5,000.00</td>
+            </tr>
+            <tr style="font-weight: 700; color: #1e293b">
+              <td style="padding-top: 10px; border-top: 1px solid #e2e8f0">
+                ยอดสุทธิหลังหักค่าใช้จ่าย (Net Receivable)
+              </td>
+              <td
+                align="right"
+                style="padding-top: 10px; border-top: 1px solid #e2e8f0"
+              >
+                77,253.85
+              </td>
+            </tr>
+            <tr>
+              <td
+                colspan="2"
+                style="
+                  font-style: italic;
+                  padding-top: 10px;
+                  color: #94a3b8;
+                  font-size: 12px;
+                "
+              >
+                * รายการแบ่งชำระรายงวด 1 ใน 3 (Partial Payment Settlement 1/3)
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div
+          style="
+            background-color: #fff9db;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #fab005;
+            font-size: 12px;
+            color: #856404;
+          "
+        >
+          <strong>หมายเหตุ:</strong> ยอดเงิน 25,751.28 THB
+          จะถูกนำเข้าบัญชีออมทรัพย์ของท่าน และสามารถใช้งานได้หลังจากเวลา 14:00
+          น. ของวันทำการถัดไปตามรอบการเคลียริ่งของ ICAS
+        </div>
+
+        <div align="center">
+          <a href="#" class="btn">เข้าสู่ระบบ lahbank Online</a>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <div style="font-weight: 700; color: #ffffff; margin-bottom: 10px">
+          lahbank Public Company Limited
+        </div>
+        ศูนย์บริการลูกค้า 1588 | ต่างประเทศ +66 2 012 3456<br />
+        © 2026 lahbank. นี่เป็นอีเมลที่ส่งโดยระบบอัตโนมัติ กรุณาอย่าตอบกลับ
+        <div
+          style="
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 10px;
+            opacity: 0.5;
+          "
+        >
+          HASH-ID: 77253B85-C9115-DIV3-SECURE-V4
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

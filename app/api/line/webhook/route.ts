@@ -3,16 +3,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as line from "@line/bot-sdk";
 
-// 📍 ตั้งค่ารหัสผ่าน (Hardcoded for immediate reliability)
-const LINE_TOKEN = "BgmQagMZBMPi+FSrt2eXy1Ujw3j+M40bjE5T00pzT2vRTOmKLcbr+mFq6r97hwydTq9REosBk4yXDePckiX+uXQ0KXKiU0MDy3AQrgQz8bnVCQ09m5vUsHUae0FBUL+43He2CSgxIuv6XCXIboHJIQdB04t89/1O/w1cDnyilFU=";
+// 📍 SETTINGS & SECURITY
+const LINE_TOKEN =
+  "BgmQagMZBMPi+FSrt2eXy1Ujw3j+M40bjE5T00pzT2vRTOmKLcbr+mFq6r97hwydTq9REosBk4yXDePckiX+uXQ0KXKiU0MDy3AQrgQz8bnVCQ09m5vUsHUae0FBUL+43He2CSgxIuv6XCXIboHJIQdB04t89/1O/w1cDnyilFU=";
 const ADMIN_ID = "U40a4a0d00ff4a7bffc0aeae5902955a0";
+
+// 🌐 GOOGLE SHEETS API URL (ดึงจาก Vercel Environment Variables)
+const GSHEET_API_URL = process.env.GSHEET_API_URL || "";
 
 const client = new line.messagingApi.MessagingApiClient({
   channelAccessToken: LINE_TOKEN,
 });
 
 /**
- * LINE WEBHOOK HANDLER - STABLE NAVIGATION VERSION
+ * UNLINK-GLOBAL: LINE OPERATIONAL WEBHOOK WITH DB INTEGRATION
  */
 export async function POST(req: NextRequest) {
   try {
@@ -23,17 +27,18 @@ export async function POST(req: NextRequest) {
       events.map(async (event) => {
         try {
           if (event.type === "follow") return handleFollowEvent(event);
-          if (event.type === "message" && event.message.type === "text") return handleTextEvent(event);
+          if (event.type === "message" && event.message.type === "text")
+            return handleTextEvent(event);
         } catch (e) {
-          console.error("Event Error:", e);
+          console.error("Operational Error:", e);
         }
         return null;
-      })
+      }),
     );
 
     return NextResponse.json({ status: "success", results });
   } catch (err) {
-    console.error("Main Webhook Error:", err);
+    console.error("Main Webhook Failure:", err);
     return NextResponse.json({ status: "error" }, { status: 500 });
   }
 }
@@ -41,144 +46,643 @@ export async function POST(req: NextRequest) {
 async function handleFollowEvent(event: any) {
   return client.replyMessage({
     replyToken: event.replyToken,
-    messages: [getMainMenuFlex()]
+    messages: [getMainMenuFlex()],
   });
+}
+
+/**
+ * ดึงข้อมูลเคสจาก Google Sheets
+ */
+async function getCaseFromDb(caseId: string) {
+  try {
+    if (GSHEET_API_URL.includes("YOUR_DEPLOYMENT_ID")) return null;
+    const res = await fetch(`${GSHEET_API_URL}?caseId=${caseId}`);
+    const data = await res.json();
+    return data.error ? null : data;
+  } catch (e) {
+    console.error("DB Fetch Error:", e);
+    return null;
+  }
 }
 
 async function handleTextEvent(event: any) {
   const input = event.message.text.trim();
   const replyToken = event.replyToken;
   const userId = event.source.userId;
-  const normalizedInput = input.toLowerCase().replace(/\s+/g, '');
+  const normalizedInput = input.toUpperCase().replace(/\s+/g, "");
 
-  // 🚨 1. แอดมินด่วน
-  if (["5", "ด่วน", "แอดมิน", "เจ้าหน้าที่"].some(k => normalizedInput.includes(k))) {
-    await client.pushMessage({
-      to: ADMIN_ID,
-      messages: [{ type: "text", text: `🚨 [URGENT] ลูกค้าต้องการคุยด่วน!\nUser ID: ${userId}\nข้อความ: ${input}` }],
-    });
-    return client.replyMessage({ replyToken, messages: [{ type: "text", text: "✅ รับทราบครับ! แจ้งเจ้าหน้าที่ให้แล้วครับ รบกวนรอสักครู่นะครับ \n\n(พิมพ์ '0' กลับสู่เมนูหลัก)" }] });
+  // 1. ระบบตรวจจับหมายเลขเคส (Smart DB Lookup)
+  const caseIdMatch =
+    normalizedInput.match(/(UL|CASE)-(\d{4,6})/) ||
+    normalizedInput.match(/^(\d{4,6})$/);
+  if (caseIdMatch) {
+    const rawId = caseIdMatch[0];
+    const caseId =
+      rawId.startsWith("UL") || rawId.startsWith("CASE")
+        ? rawId
+        : `UL-${rawId}`;
+
+    const caseData = await getCaseFromDb(caseId);
+
+    if (caseData) {
+      return client.replyMessage({
+        replyToken,
+        messages: [getOperationalStatusFlex(caseData)],
+      });
+    } else {
+      return client.replyMessage({
+        replyToken,
+        messages: [
+          {
+            type: "text",
+            text: `🔍 [UNLINK-SYSTEM] ตรวจหาเคส ${caseId}...\n\nขออภัยครับ ไม่พบหมายเลขเคสนี้ในระบบการทำความสะอาดข้อมูล หรือ API ยังไม่พร้อมใช้งาน\n\nรบกวนตรวจสอบหมายเลขอีกครั้ง หรือพิมพ์ '5' เพื่อสอบถามเจ้าหน้าที่ครับ`,
+          },
+        ],
+      });
+    }
   }
 
-  // 🔍 2. ระบบ Routing
-  switch (input) {
-    case "1": return client.replyMessage({ replyToken, messages: [getReputationFlexCard()] });
-    case "11": return client.replyMessage({ replyToken, messages: [{ type: "text", text: "🔒 บริการลบโพสต์ประจาน/ข่าวเสีย\n👉 รบกวนส่ง 'ลิงก์ที่ต้องการให้ลบ' มาให้เราเช็กได้เลยครับ" }] });
-    case "12": return client.replyMessage({ replyToken, messages: [{ type: "text", text: "🛡️ บริการล้างชื่อแบล็คลิสต์\n👉 รบกวนส่ง 'ชื่อ-นามสกุล' มาให้เราเช็กได้เลยครับ" }] });
+  // 2. ระบบขอความช่วยเหลือด่วน
+  if (
+    ["5", "ด่วน", "แอดมิน", "ADMIN", "HELP", "คุยกับคน"].some((k) =>
+      normalizedInput.includes(k),
+    )
+  ) {
+    await client.pushMessage({
+      to: ADMIN_ID,
+      messages: [
+        {
+          type: "text",
+          text: `🚨 [URGENT INTERVENTION]\nRequest from: ${userId}\nMessage: ${input}\nAction: Needs Human Specialist`,
+        },
+      ],
+    });
+    return client.replyMessage({
+      replyToken,
+      messages: [
+        {
+          type: "text",
+          text: "🔒 [UNLINK-SECURITY] รับทราบความประสงค์ครับ\nขณะนี้กำลังส่งข้อมูลให้ผู้เชี่ยวชาญเฉพาะทาง (Specialist) ตรวจสอบเคสของคุณโดยด่วน\n\nเจ้าหน้าที่จะตอบกลับคุณในช่องทางนี้เร็วที่สุดครับ",
+        },
+      ],
+    });
+  }
 
-    case "2": return client.replyMessage({ replyToken, messages: [getFinancialFlexCard()] });
-    case "21": return client.replyMessage({ replyToken, messages: [{ type: "text", text: "🏦 บริการแก้ไขเครดิตบูโร\n👉 รบกวนแจ้ง 'ยอดหนี้รวม' และ 'สถานะปัจจุบัน' ให้เราหน่อยนะครับ" }] });
-    case "22": return client.replyMessage({ replyToken, messages: [{ type: "text", text: "📈 บริการปั้นสเตทเม้นท์\n👉 อาชีพปัจจุบันของคุณคืออะไรครับ?" }] });
+  // 3. Strategic Routing
+  switch (normalizedInput) {
+    case "1":
+      return client.replyMessage({
+        replyToken,
+        messages: [getReputationMenuFlex()],
+      });
+    case "11":
+      return client.replyMessage({
+        replyToken,
+        messages: [
+          getServiceDetailFlex(
+            "REPUTATION_CLEANUP",
+            "ลบประจาน & ข่าวเสีย",
+            "ส่ง 'ลิงก์ที่ต้องการให้ลบ' เพื่อวิเคราะห์โครงสร้างข้อมูลเบื้องต้นได้ทันที",
+          ),
+        ],
+      });
+    case "12":
+      return client.replyMessage({
+        replyToken,
+        messages: [
+          getServiceDetailFlex(
+            "BLACKLIST_REMOVAL",
+            "ล้างชื่อแบล็คลิสต์",
+            "ส่ง 'ชื่อ-นามสกุล' ที่ติดปัญหา เพื่อตรวจสอบฐานข้อมูลแบล็คลิสต์ออนไลน์",
+          ),
+        ],
+      });
 
-    case "3": return client.replyMessage({ replyToken, messages: [getOverseasFlexCard()] });
-    case "31": return client.replyMessage({ replyToken, messages: [{ type: "text", text: "🏠 บริการปั้นเอกสารกู้บ้าน (สาวสายบิน)\n👉 รบกวนแจ้ง 'ประเทศที่ทำงาน' และ 'ราคาบ้าน' ครับ" }] });
-    case "34": return client.replyMessage({ replyToken, messages: [{ type: "text", text: "🔒 ล้างประวัติเน่าก่อนกลับไทย\n👉 ส่งข้อมูลที่กังวลมาให้เราเช็กได้เลยครับ" }] });
+    case "2":
+      return client.replyMessage({
+        replyToken,
+        messages: [getFinancialMenuFlex()],
+      });
+    case "21":
+      return client.replyMessage({
+        replyToken,
+        messages: [
+          getServiceDetailFlex(
+            "CREDIT_ENGINEERING",
+            "ฟื้นฟูเครดิตบูโร",
+            "รบกวนแจ้ง 'ยอดหนี้รวม' และ 'สถานะปัจจุบัน' เพื่อประเมินความเป็นไปได้ในการเข้าแทรกแซง",
+          ),
+        ],
+      });
+    case "22":
+      return client.replyMessage({
+        replyToken,
+        messages: [
+          getServiceDetailFlex(
+            "STATEMENT_CRAFTING",
+            "ปั้นสเตทเม้นท์พรีเมียม",
+            "ระบุ 'อาชีพปัจจุบัน' และ 'เป้าหมายที่ต้องการ' (เช่น ยอดกู้บ้าน) เพื่อวางแผนทางการเงิน",
+          ),
+        ],
+      });
 
-    case "4": case "รีวิว": return client.replyMessage({ replyToken, messages: [{ type: "text", text: "⭐ รีวิวความสำเร็จ: https://www.unlink-th.com/case-studies" }] });
-    case "0": case "เมนู": return client.replyMessage({ replyToken, messages: [getMainMenuFlex()] });
+    case "3":
+      return client.replyMessage({
+        replyToken,
+        messages: [getOverseasMenuFlex()],
+      });
+    case "31":
+      return client.replyMessage({
+        replyToken,
+        messages: [
+          getServiceDetailFlex(
+            "GLOBAL_MORTGAGE",
+            "เอกสารกู้บ้านสายบิน",
+            "ระบุ 'ประเทศที่ทำงาน' และ 'เป้าหมายราคาบ้าน' เพื่อเริ่มขั้นตอนการจัดเตรียมเอกสารชั้นสูง",
+          ),
+        ],
+      });
+    case "34":
+      return client.replyMessage({
+        replyToken,
+        messages: [
+          getServiceDetailFlex(
+            "PRE_RETURN_CLEANUP",
+            "เคลียร์ประวัติก่อนกลับไทย",
+            "แจ้งข้อมูลที่คุณกังวลภายใต้ Vault Protocol (ความลับสูงสุด) เพื่อหาทางออกที่ปลอดภัยที่สุด",
+          ),
+        ],
+      });
+
+    case "4":
+    case "รีวิว":
+    case "REVIEW":
+      return client.replyMessage({
+        replyToken,
+        messages: [
+          {
+            type: "text",
+            text: "⭐ UNLINK SUCCESS STORIES:\nเรามีเคสที่สำเร็จแล้วกว่า 1,000+ เคส\nตรวจสอบได้ที่: https://www.unlink-th.com/case-studies",
+          },
+        ],
+      });
+    case "0":
+    case "MENU":
+    case "เมนู":
+      return client.replyMessage({ replyToken, messages: [getMainMenuFlex()] });
 
     default:
-      if (["ลบ", "ประจาน", "แบล็คลิสต์"].some(k => normalizedInput.includes(k))) return client.replyMessage({ replyToken, messages: [getReputationFlexCard()] });
-      if (["กู้", "บ้าน", "บูโร"].some(k => normalizedInput.includes(k))) return client.replyMessage({ replyToken, messages: [getFinancialFlexCard()] });
+      if (
+        ["ลบ", "ประจาน", "รูป", "ข่าว"].some((k) => normalizedInput.includes(k))
+      )
+        return client.replyMessage({
+          replyToken,
+          messages: [getReputationMenuFlex()],
+        });
+      if (
+        ["กู้", "บ้าน", "เงิน", "สเตทเม้นท์"].some((k) =>
+          normalizedInput.includes(k),
+        )
+      )
+        return client.replyMessage({
+          replyToken,
+          messages: [getFinancialMenuFlex()],
+        });
       return client.replyMessage({ replyToken, messages: [getMainMenuFlex()] });
   }
 }
 
 /**
- * [Design] เมนูหลัก
+ * [Design System] FLEX MESSAGE GENERATORS
  */
+
 function getMainMenuFlex(): any {
   return {
     type: "flex",
-    altText: "เมนูหลัก UNLINK-TH",
+    altText: "UNLINK-GLOBAL | Executive Menu",
     contents: {
       type: "bubble",
-      hero: { type: "image", url: "https://www.unlink-th.com/og/og-main.webp", size: "full", aspectRatio: "20:13", aspectMode: "cover" },
+      styles: {
+        header: { backgroundColor: "#000000" },
+        body: { backgroundColor: "#000000" },
+        footer: { backgroundColor: "#000000" },
+      },
+      header: {
+        type: "box",
+        layout: "vertical",
+        contents: [
+          {
+            type: "text",
+            text: "UNLINK-GLOBAL",
+            weight: "bold",
+            color: "#D4AF37",
+            size: "sm",
+            letterSpacing: "2px",
+          },
+          {
+            type: "text",
+            text: "REPUTATION & FINANCIAL STRATEGY",
+            color: "#aaaaaa",
+            size: "xxs",
+            letterSpacing: "1px",
+          },
+        ],
+      },
+      hero: {
+        type: "image",
+        url: "https://www.unlink-th.com/og/og-main.webp",
+        size: "full",
+        aspectRatio: "20:13",
+        aspectMode: "cover",
+      },
       body: {
         type: "box",
         layout: "vertical",
-        backgroundColor: "#000000",
+        spacing: "md",
         contents: [
-          { type: "text", text: "ยินดีต้อนรับสู่ UNLINK-TH", weight: "bold", color: "#D4AF37", size: "lg" },
-          { type: "box", layout: "vertical", margin: "xl", spacing: "sm", contents: [
-            { type: "button", action: { type: "message", label: "1. ล้างประวัติเน่า / แบล็คลิสต์", text: "1" }, style: "secondary", color: "#222222" },
-            { type: "button", action: { type: "message", label: "2. ปั้นสเตทเม้นท์ / กู้บ้าน", text: "2" }, style: "secondary", color: "#222222" },
-            { type: "button", action: { type: "message", label: "3. ยุทธศาสตร์สาวสายบิน", text: "3" }, style: "secondary", color: "#222222" },
-            { type: "button", action: { type: "message", label: "4. ดูรีวิวความสำเร็จ", text: "4" }, style: "secondary", color: "#222222" },
-            { type: "button", action: { type: "message", label: "5. ติดต่อเจ้าหน้าที่ (ด่วน)", text: "5" }, style: "primary", color: "#D4AF37", margin: "md" }
-          ]}
-        ]
-      }
-    }
+          {
+            type: "text",
+            text: "Welcome to the Vault Protocol",
+            weight: "bold",
+            color: "#ffffff",
+            size: "md",
+          },
+          {
+            type: "text",
+            text: "เลือกบริการที่ท่านต้องการปรึกษาภายใต้ความลับสูงสุด",
+            color: "#888888",
+            size: "xs",
+            wrap: true,
+          },
+          {
+            type: "box",
+            layout: "vertical",
+            spacing: "sm",
+            margin: "lg",
+            contents: [
+              {
+                type: "button",
+                action: {
+                  type: "message",
+                  label: "🛡️ Reputation Shield",
+                  text: "1",
+                },
+                height: "sm",
+                style: "secondary",
+                color: "#1a1a1a",
+              },
+              {
+                type: "button",
+                action: {
+                  type: "message",
+                  label: "🏦 Financial Engineering",
+                  text: "2",
+                },
+                height: "sm",
+                style: "secondary",
+                color: "#1a1a1a",
+              },
+              {
+                type: "button",
+                action: {
+                  type: "message",
+                  label: "✈️ Overseas Operations",
+                  text: "3",
+                },
+                height: "sm",
+                style: "secondary",
+                color: "#1a1a1a",
+              },
+            ],
+          },
+        ],
+      },
+      footer: {
+        type: "box",
+        layout: "vertical",
+        contents: [
+          {
+            type: "button",
+            action: {
+              type: "message",
+              label: "TALK TO SPECIALIST (URGENT)",
+              text: "5",
+            },
+            height: "sm",
+            style: "primary",
+            color: "#D4AF37",
+          },
+        ],
+      },
+    },
   };
 }
 
-function getReputationFlexCard(): any {
+function getOperationalStatusFlex(data: any): any {
+  const progress = data.progress || 0;
   return {
     type: "flex",
-    altText: "ล้างประวัติเน่า - UNLINK-TH",
+    altText: `Status Update: ${data.caseId}`,
     contents: {
       type: "bubble",
+      styles: { body: { backgroundColor: "#000000" } },
       body: {
         type: "box",
         layout: "vertical",
-        backgroundColor: "#000000",
+        spacing: "xl",
         contents: [
-          { type: "text", text: "ล้างประวัติ & ทวงคืนชื่อเสียง", weight: "bold", size: "xl", color: "#D4AF37" },
-          { type: "box", layout: "vertical", margin: "md", spacing: "sm", contents: [
-            { type: "button", action: { type: "message", label: "กด 11 : ลบรูปประจาน/ข่าวเสีย", text: "11" }, style: "secondary", color: "#222222" },
-            { type: "button", action: { type: "message", label: "กด 12 : ล้างชื่อจากเว็บคนโกง", text: "12" }, style: "secondary", color: "#222222" }
-          ]},
-          { type: "text", text: "พิมพ์ '0' กลับสู่เมนูหลัก", size: "xs", color: "#aaaaaa", align: "center", margin: "md" }
-        ]
-      }
-    }
+          {
+            type: "box",
+            layout: "horizontal",
+            contents: [
+              {
+                type: "box",
+                layout: "vertical",
+                flex: 1,
+                contents: [
+                  {
+                    type: "text",
+                    text: "CASE PROTOCOL",
+                    color: "#D4AF37",
+                    size: "xxs",
+                    weight: "bold",
+                    letterSpacing: "1px",
+                  },
+                  {
+                    type: "text",
+                    text: data.caseId,
+                    color: "#ffffff",
+                    size: "xl",
+                    weight: "bold",
+                  },
+                ],
+              },
+              {
+                type: "box",
+                layout: "vertical",
+                contents: [
+                  {
+                    type: "text",
+                    text: "SYSTEM ACTIVE",
+                    color: "#00ff00",
+                    size: "xxs",
+                    align: "end",
+                    weight: "bold",
+                  },
+                  {
+                    type: "text",
+                    text: "●",
+                    color: "#00ff00",
+                    size: "xxs",
+                    align: "end",
+                    weight: "bold",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "box",
+            layout: "vertical",
+            spacing: "sm",
+            contents: [
+              {
+                type: "box",
+                layout: "horizontal",
+                contents: [
+                  {
+                    type: "text",
+                    text: "Phase:",
+                    color: "#888888",
+                    size: "xs",
+                  },
+                  {
+                    type: "text",
+                    text: data.currentPhase.toUpperCase(),
+                    color: "#ffffff",
+                    size: "xs",
+                    align: "end",
+                    weight: "bold",
+                  },
+                ],
+              },
+              {
+                type: "box",
+                layout: "vertical",
+                height: "4px",
+                backgroundColor: "#1a1a1a",
+                margin: "sm",
+                contents: [
+                  {
+                    type: "box",
+                    layout: "vertical",
+                    width: `${progress}%`,
+                    height: "4px",
+                    backgroundColor: "#D4AF37",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "box",
+            layout: "vertical",
+            spacing: "xs",
+            contents: [
+              {
+                type: "text",
+                text: `✓ ${data.step1 || "Step 1"}`,
+                color: data.step1.includes("สำเร็จ") ? "#D4AF37" : "#888888",
+                size: "xs",
+              },
+              {
+                type: "text",
+                text: `↻ ${data.step2 || "Step 2"}`,
+                color: data.step2.includes("ดำเนินการ") ? "#ffffff" : "#444444",
+                size: "xs",
+                weight: data.step2.includes("ดำเนินการ") ? "bold" : "regular",
+              },
+              {
+                type: "text",
+                text: `○ ${data.step3 || "Step 3"}`,
+                color: "#444444",
+                size: "xs",
+              },
+            ],
+          },
+          { type: "separator", color: "#1a1a1a" },
+          {
+            type: "text",
+            text: "Vault Protocol: ปลอดภัยระดับสูงสุด ความลับของคุณคือความสำคัญอันดับหนึ่ง",
+            color: "#666666",
+            size: "xxs",
+            wrap: true,
+            align: "center",
+          },
+          {
+            type: "button",
+            action: { type: "message", label: "CONTACT SPECIALIST", text: "5" },
+            height: "sm",
+            style: "link",
+            color: "#D4AF37",
+          },
+        ],
+      },
+    },
   };
 }
 
-function getFinancialFlexCard(): any {
+function getServiceDetailFlex(
+  id: string,
+  title: string,
+  instruction: string,
+): any {
   return {
     type: "flex",
-    altText: "บริการกู้บ้าน - UNLINK-TH",
+    altText: `Service: ${title}`,
     contents: {
       type: "bubble",
+      styles: { body: { backgroundColor: "#000000" } },
       body: {
         type: "box",
         layout: "vertical",
-        backgroundColor: "#000000",
+        spacing: "md",
         contents: [
-          { type: "text", text: "ฟื้นฟูเครดิต & กู้บ้าน", weight: "bold", size: "xl", color: "#D4AF37" },
-          { type: "box", layout: "vertical", margin: "md", spacing: "sm", contents: [
-            { type: "button", action: { type: "message", label: "กด 21 : แก้บูโร / ประวัติเสีย", text: "21" }, style: "secondary", color: "#222222" },
-            { type: "button", action: { type: "message", label: "กด 22 : ปั้นสเตทเม้นท์", text: "22" }, style: "secondary", color: "#222222" }
-          ]},
-          { type: "text", text: "พิมพ์ '0' กลับสู่เมนูหลัก", size: "xs", color: "#aaaaaa", align: "center", margin: "md" }
-        ]
-      }
-    }
+          {
+            type: "text",
+            text: "SERVICE PROTOCOL",
+            color: "#D4AF37",
+            size: "xxs",
+            weight: "bold",
+            letterSpacing: "2px",
+          },
+          {
+            type: "text",
+            text: title,
+            color: "#ffffff",
+            size: "lg",
+            weight: "bold",
+          },
+          { type: "separator", color: "#1a1a1a" },
+          {
+            type: "text",
+            text: instruction,
+            color: "#bbbbbb",
+            size: "sm",
+            wrap: true,
+          },
+          {
+            type: "box",
+            layout: "vertical",
+            margin: "md",
+            backgroundColor: "#111111",
+            paddingAll: "md",
+            cornerRadius: "sm",
+            contents: [
+              {
+                type: "text",
+                text: "🔒 ข้อมูลของคุณถูกคุ้มครองโดย PDPA & Vault Protocol",
+                color: "#666666",
+                size: "xxs",
+                align: "center",
+              },
+            ],
+          },
+          {
+            type: "button",
+            action: { type: "message", label: "BACK TO MENU", text: "0" },
+            height: "sm",
+            style: "link",
+            color: "#888888",
+          },
+        ],
+      },
+    },
   };
 }
 
-function getOverseasFlexCard(): any {
+function getReputationMenuFlex(): any {
+  return getSubMenuFlex("REPUTATION SHIELD", "การจัดการชื่อเสียงดิจิทัล", [
+    { label: "ลบประจาน / ข่าวเสีย", text: "11" },
+    { label: "ล้างแบล็คลิสต์ออนไลน์", text: "12" },
+  ]);
+}
+
+function getFinancialMenuFlex(): any {
+  return getSubMenuFlex("FINANCIAL ENGINEERING", "วิศวกรรมการเงินและเครดิต", [
+    { label: "ฟื้นฟูเครดิตบูโร", text: "21" },
+    { label: "ปั้นสเตทเม้นท์พรีเมียม", text: "22" },
+  ]);
+}
+
+function getOverseasMenuFlex(): any {
+  return getSubMenuFlex(
+    "OVERSEAS OPERATIONS",
+    "ยุทธศาสตร์สำหรับคนไทยในต่างประเทศ",
+    [
+      { label: "เอกสารกู้บ้านสายบิน", text: "31" },
+      { label: "เคลียร์ประวัติก่อนกลับไทย", text: "34" },
+    ],
+  );
+}
+
+function getSubMenuFlex(
+  id: string,
+  title: string,
+  buttons: { label: string; text: string }[],
+): any {
   return {
     type: "flex",
-    altText: "ยุทธศาสตร์พี่น้องสายบิน - UNLINK-TH",
+    altText: title,
     contents: {
       type: "bubble",
+      styles: {
+        header: { backgroundColor: "#000000" },
+        body: { backgroundColor: "#000000" },
+      },
+      header: {
+        type: "box",
+        layout: "vertical",
+        contents: [
+          {
+            type: "text",
+            text: id,
+            weight: "bold",
+            color: "#D4AF37",
+            size: "xxs",
+            letterSpacing: "2px",
+          },
+          {
+            type: "text",
+            text: title,
+            color: "#ffffff",
+            size: "sm",
+            weight: "bold",
+          },
+        ],
+      },
       body: {
         type: "box",
         layout: "vertical",
-        backgroundColor: "#000000",
-        contents: [
-          { type: "text", text: "ยุทธศาสตร์สาวสายบิน ✈️", weight: "bold", size: "xl", color: "#D4AF37" },
-          { type: "box", layout: "vertical", margin: "md", spacing: "sm", contents: [
-            { type: "button", action: { type: "message", label: "กด 31 : ปั้นเอกสารกู้บ้านในไทย", text: "31" }, style: "secondary", color: "#222222" },
-            { type: "button", action: { type: "message", label: "กด 34 : ล้างประวัติเน่าก่อนกลับไทย", text: "34" }, style: "secondary", color: "#222222" }
-          ]},
-          { type: "button", action: { type: "message", label: "ปรึกษาเคสลับ (ด่วน)", text: "5" }, style: "primary", color: "#D4AF37", margin: "md" },
-          { type: "text", text: "พิมพ์ '0' กลับสู่เมนูหลัก", size: "xs", color: "#aaaaaa", align: "center", margin: "md" }
-        ]
-      }
-    }
+        spacing: "sm",
+        contents: buttons
+          .map((b) => ({
+            type: "button",
+            action: { type: "message", label: b.label, text: b.text },
+            height: "sm",
+            style: "secondary",
+            color: "#1a1a1a",
+          }))
+          .concat([
+            {
+              type: "button",
+              action: { type: "message", label: "BACK TO MENU", text: "0" },
+              height: "sm",
+              style: "link",
+              color: "#888888",
+            },
+          ] as any),
+      },
+    },
   };
 }

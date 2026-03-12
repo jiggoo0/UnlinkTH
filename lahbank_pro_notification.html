@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="th">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lahbank e-Notification: Cheque Clearing Result</title>
+    <style type="text/css">
+      @import url("https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap");
+
+      body {
+        font-family: "Sarabun", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f7f9;
+        -webkit-text-size-adjust: none;
+        -ms-text-size-adjust: none;
+      }
+      table {
+        border-collapse: collapse !important;
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+      }
+      img {
+        border: 0;
+        height: auto;
+        line-height: 100%;
+        outline: none;
+        text-decoration: none;
+        display: block;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 33, 71, 0.08);
+      }
+      .top-bar {
+        background-color: #002147;
+        height: 6px;
+      }
+      .header {
+        padding: 30px 40px;
+        border-bottom: 1px solid #edf2f7;
+        background-color: #ffffff;
+      }
+      .header-meta {
+        font-size: 11px;
+        color: #718096;
+        text-align: right;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .hero-section {
+        padding: 40px;
+        text-align: center;
+        background: linear-gradient(180deg, #ffffff 0%, #fcfdfe 100%);
+      }
+      .amount-card {
+        background-color: #ffffff;
+        border: 2px solid #edf2f7;
+        border-radius: 16px;
+        padding: 25px;
+        display: inline-block;
+        min-width: 250px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+      }
+      .amount-label {
+        font-size: 12px;
+        color: #718096;
+        margin-bottom: 8px;
+        font-weight: 600;
+        letter-spacing: 1px;
+      }
+      .amount-val {
+        font-size: 36px;
+        color: #002147;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1;
+      }
+      .currency {
+        font-size: 18px;
+        color: #002147;
+        font-weight: 400;
+        vertical-align: middle;
+        margin-left: 5px;
+      }
+
+      .status-badge {
+        display: inline-block;
+        background-color: #c6f6d5;
+        color: #22543d;
+        padding: 6px 16px;
+        border-radius: 99px;
+        font-size: 13px;
+        font-weight: 700;
+        margin-top: 15px;
+      }
+
+      .details-section {
+        padding: 0 40px 40px 40px;
+      }
+      .greeting {
+        font-size: 18px;
+        color: #1a202c;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .sub-greeting {
+        font-size: 14px;
+        color: #4a5568;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .data-table {
+        width: 100%;
+        margin-bottom: 30px;
+      }
+      .data-row {
+        border-bottom: 1px solid #edf2f7;
+      }
+      .data-label {
+        padding: 15px 0;
+        font-size: 13px;
+        color: #718096;
+        width: 45%;
+        vertical-align: top;
+      }
+      .data-val {
+        padding: 15px 0;
+        font-size: 14px;
+        color: #1a202c;
+        font-weight: 600;
+        text-align: right;
+      }
+      .data-label span {
+        display: block;
+        font-size: 11px;
+        color: #a0aec0;
+        text-transform: uppercase;
+        margin-top: 2px;
+      }
+
+      .security-banner {
+        background-color: #fffbeb;
+        border: 1px solid #fef3c7;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      .security-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #92400e;
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .security-text {
+        font-size: 12px;
+        color: #b45309;
+        line-height: 1.6;
+      }
+
+      .action-btn {
+        background-color: #002147;
+        color: #ffffff !important;
+        text-decoration: none;
+        padding: 16px 35px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 15px;
+        display: inline-block;
+      }
+
+      .footer {
+        background-color: #f8fafc;
+        padding: 40px;
+        border-top: 1px solid #edf2f7;
+        text-align: center;
+      }
+      .footer-logo {
+        opacity: 0.6;
+        margin: 0 auto 20px auto;
+        filter: grayscale(100%);
+      }
+      .footer-text {
+        font-size: 12px;
+        color: #718096;
+        line-height: 1.8;
+        margin-bottom: 20px;
+      }
+      .contact-info {
+        font-size: 13px;
+        color: #1a202c;
+        font-weight: 600;
+        margin-bottom: 25px;
+      }
+      .social-icons {
+        margin-bottom: 25px;
+      }
+      .social-icons a {
+        margin: 0 8px;
+        text-decoration: none;
+        color: #002147;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .confidential {
+        font-size: 10px;
+        color: #a0aec0;
+        text-align: justify;
+        line-height: 1.5;
+        border-top: 1px solid #edf2f7;
+        padding-top: 20px;
+      }
+      .hash-tag {
+        font-family: "Courier New", monospace;
+        font-size: 9px;
+        color: #cbd5e0;
+        margin-top: 15px;
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="top-bar"></div>
+
+      <!-- Header -->
+      <table width="100%" class="header">
+        <tr>
+          <td width="50%">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYxZEyIfJ-X1Eghqa0epAG7mab4udkBZb3nw&s"
+              alt="lahbank"
+              width="120"
+            />
+          </td>
+          <td class="header-meta">
+            e-Notification<br />
+            Ref: LH-20260312-0942
+          </td>
+        </tr>
+      </table>
+
+      <!-- Hero Amount Section -->
+      <div class="hero-section">
+        <div class="amount-card">
+          <div class="amount-label">ยอดเงินฝากสำเร็จ | TOTAL DEPOSIT</div>
+          <div class="amount-val">1.00<span class="currency">THB</span></div>
+          <div class="status-badge">รายการสำเร็จ | SUCCESSFUL</div>
+        </div>
+      </div>
+
+      <!-- Details Section -->
+      <div class="details-section">
+        <div class="greeting">เรียน คุณ อลงกรณ์ ยมเกิด</div>
+        <div class="sub-greeting">
+          ธนาคาร lahbank ใคร่ขอแจ้งผลการเรียกเก็บเงินตามเช็ค (Cheque Clearing)
+          เพื่อเข้าบัญชีของท่านตามรายละเอียดดังนี้<br />
+          <span style="font-size: 12px; color: #a0aec0"
+            >We would like to inform you of the results of the cheque clearing
+            for your account:</span
+          >
+        </div>
+
+        <table class="data-table">
+          <tr class="data-row">
+            <td class="data-label">เลขที่บัญชี<span>Account Number</span></td>
+            <td class="data-val">098-X-XX123-4</td>
+          </tr>
+          <tr class="data-row">
+            <td class="data-label">
+              เลขที่อ้างอิงธุรกรรม<span>Transaction Reference</span>
+            </td>
+            <td class="data-val">TRX-ORC-260312-00849</td>
+          </tr>
+          <tr class="data-row">
+            <td class="data-label">
+              เลขที่เช็ค / ธนาคารเจ้าของเช็ค<span
+                >Cheque No. / Drawee Bank</span
+              >
+            </td>
+            <td class="data-val">10293847 / (002) BBL</td>
+          </tr>
+          <tr class="data-row">
+            <td class="data-label">
+              วันที่เงินพร้อมใช้งาน<span>Effective Date</span>
+            </td>
+            <td class="data-val">12 มี.ค. 2569 / 12 Mar 2026</td>
+          </tr>
+          <tr class="data-row">
+            <td class="data-label" style="border-bottom: none">
+              ยอดเงินคงเหลือที่ใช้ได้<span>Available Balance</span>
+            </td>
+            <td
+              class="data-val"
+              style="border-bottom: none; color: #002147; font-size: 16px"
+            >
+              100,001.00 THB
+            </td>
+          </tr>
+        </table>
+
+        <div class="security-banner">
+          <div class="security-title">
+            🔒 มาตรการความปลอดภัย (Security Alert)
+          </div>
+          <div class="security-text">
+            ธนาคารไม่มีนโยบายสอบถามรหัสผ่าน, PIN หรือรหัส OTP ผ่านทางอีเมลหรือ
+            SMS ลิงก์ โปรดตรวจสอบให้แน่ใจว่าท่านกำลังทำธุรกรรมผ่านแอปพลิเคชัน
+            lahbank Mobile หรือเว็บไซต์ lahbank.com เท่านั้น
+          </div>
+        </div>
+
+        <center>
+          <a href="https://www.lahbank.com/online" class="btn action-btn"
+            >ตรวจสอบรายการบัญชี (Statement)</a
+          >
+        </center>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYxZEyIfJ-X1Eghqa0epAG7mab4udkBZb3nw&s"
+          alt="lahbank"
+          width="80"
+          class="footer-logo"
+        />
+
+        <div class="contact-info">
+          Contact Center 1588 | ต่างประเทศ +66 2 012 3456
+        </div>
+
+        <div class="social-icons">
+          <a href="#">FACEBOOK</a> | <a href="#">LINE</a> |
+          <a href="#">TWITTER</a> | <a href="#">INSTAGRAM</a>
+        </div>
+
+        <div class="footer-text">
+          นี่เป็นอีเมลอัตโนมัติจากระบบ กรุณาอย่าตอบกลับ (This is an automated
+          email, please do not reply.)<br />
+          สงวนลิขสิทธิ์ © 2026 ธนาคาร lahbank จำกัด (มหาชน)
+        </div>
+
+        <div class="confidential">
+          <b>Confidentiality Notice:</b> This email and any files transmitted
+          with it are confidential and intended solely for the use of the
+          individual or entity to whom they are addressed. If you have received
+          this email in error please notify the system manager. This message
+          contains confidential information and is intended only for the
+          individual named.
+        </div>
+
+        <div class="hash-tag">
+          E-SIGNATURE HASH: 8f2d3a91b2c4e5f6a7b8c9d0e1f2a3b4c5d6e7f8
+          (SECURE_GATEWAY_V3)
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
