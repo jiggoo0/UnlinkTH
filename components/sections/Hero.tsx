@@ -31,6 +31,7 @@ export default function Hero() {
           alt="Technical Methodology"
           fill
           priority
+          fetchPriority="high"
           className="object-cover opacity-[0.07] mix-blend-luminosity grayscale"
         />
 
