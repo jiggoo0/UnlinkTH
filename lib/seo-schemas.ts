@@ -12,6 +12,7 @@ import {
   Service as ServiceSchema,
   Article,
   FAQPage,
+  LocalBusiness,
 } from "schema-dts";
 
 // ------------------------------------------------------------------
@@ -71,6 +72,52 @@ export const getOrganizationSchema = (): WithContext<Organization> => ({
     contactType: "customer service",
     availableLanguage: ["Thai", "English"],
   },
+});
+
+// ------------------------------------------------------------------
+// 🏬 LOCAL BUSINESS SCHEMA (FOR GOOGLE BOT DETAIL)
+// ------------------------------------------------------------------
+export const getLocalBusinessSchema = (): WithContext<LocalBusiness> => ({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${siteConfig.url}/#localbusiness`,
+  name: siteConfig.name,
+  image: `${siteConfig.url}/og/og-main.webp`,
+  telephone: siteConfig.contact.phone,
+  url: siteConfig.url,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Classified",
+    addressLocality: "Bangkok",
+    addressRegion: "Bangkok",
+    postalCode: "10000",
+    addressCountry: "TH",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 13.7563,
+    longitude: 100.5018,
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      opens: "00:00",
+      closes: "23:59",
+    },
+  ],
+  sameAs: [
+    "https://www.facebook.com/share/16jjyWbPyG/",
+    "https://www.linkedin.com/in/alongkorl-aemdevweb",
+  ],
 });
 
 // ------------------------------------------------------------------

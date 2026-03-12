@@ -11,6 +11,7 @@ import {
   getWebSiteSchema,
   getOrganizationSchema,
   getPersonSchema,
+  getLocalBusinessSchema,
 } from "@/lib/seo-schemas";
 
 import { Thing, WithContext } from "schema-dts";
@@ -23,12 +24,13 @@ interface JsonLdProps {
 }
 
 export default function JsonLd({ data }: JsonLdProps) {
-  // [1] Integrity Check: หากไม่มีการส่ง data มา ให้ใช้ชุดข้อมูลพื้นฐาน (WebSite + Organization + Person)
+  // [1] Integrity Check: หากไม่มีการส่ง data มา ให้ใช้ชุดข้อมูลพื้นฐาน (WebSite + Organization + Person + LocalBusiness)
   // วิธีนี้จะทำให้ Google เห็นความสัมพันธ์ระหว่างบุคคล องค์กร และเว็บไซต์ในทุกหน้า
   const defaultSchemas = [
     getWebSiteSchema(),
     getOrganizationSchema(),
     getPersonSchema(),
+    getLocalBusinessSchema(),
   ];
 
   const schemaData = data || defaultSchemas;
