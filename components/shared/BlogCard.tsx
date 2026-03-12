@@ -2,54 +2,112 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Calendar, ChevronRight } from "lucide-react";
+import dynamic from "next/dynamic";
 import { BlogPostFrontmatter } from "@/types";
 import { AnimatedCard } from "@/components/animated-section";
 import { getImageUrl } from "@/lib/utils";
+import { ArrowRight, BookOpen, LucideProps } from "lucide-react";
 
 interface BlogCardProps {
   post: BlogPostFrontmatter;
 }
 
+/**
+ * DynamicIcon Loader Protocol
+ */
+const DynamicIcon = dynamic(
+  () =>
+    import("lucide-react").then((mod) => {
+      return (props: LucideProps & { name: string }) => {
+        const { name, ...rest } = props;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const Icon = (mod as Record<string, any>)[name] || BookOpen;
+        return <Icon {...rest} />;
+      };
+    }),
+  {
+    ssr: true,
+    loading: () => (
+      <div className="h-7 w-7 animate-pulse bg-primary/10 rounded-lg" />
+    ),
+  },
+);
+
 export default function BlogCard({ post }: BlogCardProps) {
   return (
     <Link href={`/blog/${post.slug}`} className="block h-full">
-      <AnimatedCard className="lab-card group border-border/40 bg-muted/5 flex flex-col overflow-hidden transition-all duration-300 active:scale-[0.98] h-full">
-        <div className="bg-muted/20 relative aspect-video overflow-hidden">
+      <AnimatedCard className="group relative flex h-[480px] cursor-pointer flex-col overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#0a0f1d] transition-all duration-500 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 active:scale-[0.98]">
+        {/* 1. Image & Overlay Layer */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
           {post.image && (
             <Image
               src={getImageUrl(post.image)}
               alt={post.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="absolute inset-0 h-full w-full object-cover opacity-60 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
+              className="object-cover opacity-60 saturate-[0.8] transition-all duration-700 group-hover:scale-110 group-hover:opacity-100 group-hover:saturate-100"
             />
           )}
-          <div className="bg-primary/10 absolute inset-0 flex items-center justify-center font-mono text-[10px] tracking-widest uppercase opacity-20 transition-opacity group-hover:opacity-0">
-            Data Stream Active
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1d] via-[#0a0f1d]/40 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.15),transparent)] opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
         </div>
 
-        <div className="flex flex-1 flex-col space-y-4 p-8">
-          <div className="flex items-center gap-4 font-mono text-[10px] tracking-widest uppercase">
-            <span className="text-primary">{post.category}</span>
-            <span className="text-muted-foreground/40 flex items-center gap-1.5">
-              <Calendar className="h-3 w-3" /> {post.date}
-            </span>
+        {/* 2. Content Layer */}
+        <div className="relative z-10 flex h-full flex-col justify-between p-10">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div className="bg-primary/5 border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/40 flex h-14 w-14 items-center justify-center rounded-2xl border backdrop-blur-sm transition-all duration-500">
+                <DynamicIcon
+                  name={post.iconName || "BookOpen"}
+                  className="text-primary glow-gold h-7 w-7"
+                />
+              </div>
+              <div className="text-primary/40 font-mono text-[9px] tracking-[0.3em] uppercase">
+                ID: {post.id || post.slug.toUpperCase()}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="text-2xl font-bold tracking-tighter text-white transition-colors group-hover:text-primary md:text-3xl">
+                {post.title}
+              </h3>
+              <p className="text-muted-foreground line-clamp-2 text-sm leading-relaxed font-light">
+                {post.shortDescription || post.description}
+              </p>
+            </div>
+
+            {/* Core Specs Modules */}
+            {post.features && post.features.length > 0 && (
+              <div className="flex flex-wrap gap-2 pt-2">
+                {post.features.slice(0, 3).map((feature, idx) => (
+                  <span
+                    key={idx}
+                    className="bg-white/5 border-white/10 rounded-full border px-3 py-1 font-mono text-[9px] tracking-wider text-slate-400 uppercase backdrop-blur-md"
+                  >
+                    {feature}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
-          <h3 className="group-hover:text-primary text-xl leading-tight font-bold transition-colors">
-            {post.title}
-          </h3>
+          {/* 3. Footer Action */}
+          <div className="flex items-end justify-between border-t border-white/5 pt-8">
+            <div className="space-y-1">
+              <p className="text-muted-foreground/30 font-mono text-[9px] tracking-[0.3em] uppercase">
+                Intelligence Category
+              </p>
+              <p className="text-primary/60 font-mono text-[10px] font-bold tracking-widest uppercase">
+                {post.category}
+              </p>
+            </div>
 
-          <p className="text-muted-foreground line-clamp-3 text-sm leading-relaxed font-light">
-            {post.description}
-          </p>
-
-          <div className="border-border/5 mt-auto border-t pt-4">
-            <span className="text-primary/60 flex items-center gap-2 font-mono text-[10px] font-bold tracking-widest uppercase">
-              Read Intelligence Report <ChevronRight className="h-3 w-3" />
-            </span>
+            <div className="bg-primary/10 group-hover:bg-primary flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 md:group-hover:w-32 md:group-hover:px-4">
+              <span className="hidden w-0 text-[10px] font-bold tracking-widest text-black uppercase opacity-0 transition-all md:group-hover:block md:group-hover:w-auto md:group-hover:opacity-100">
+                Insights
+              </span>
+              <ArrowRight className="text-primary h-4 w-4 transition-colors group-hover:text-black" />
+            </div>
           </div>
         </div>
       </AnimatedCard>

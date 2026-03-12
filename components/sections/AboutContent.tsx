@@ -26,21 +26,21 @@ interface AboutContentProps {
 export default function AboutContent({ founderName }: AboutContentProps) {
   const values = [
     {
-      title: "Scientific Integrity",
+      title: "Technical Precision",
       description:
-        "การจัดการข้อมูลบนพื้นฐานของกระบวนการเชิงเทคนิค ทุกขั้นตอนสามารถอธิบายผลลัพธ์ได้อย่างแม่นยำ",
+        "เราจัดการข้อมูลด้วยกระบวนการทางวิศวกรรมที่แม่นยำ ไม่ใช่แค่การลบทั่วไป แต่คือการแก้ปัญหาที่ต้นตออย่างมืออาชีพ",
       icon: Cpu,
     },
     {
-      title: "Legal Ethics",
+      title: "Right to be Forgotten",
       description:
-        "ดำเนินการภายใต้ขอบเขตของกฎหมาย PDPA และสิทธิอันชอบธรรมในการถูกลืม (Right to be Forgotten) เพื่อความโปร่งใสสูงสุด",
+        "เรายึดถือสิทธิในการถูกลืม (PDPA) เพื่อคืนความเป็นส่วนตัวและโอกาสในการเริ่มต้นใหม่ให้คุณอย่างสง่างาม",
       icon: Scale,
     },
     {
-      title: "Total Confidentiality",
+      title: "Absolute Zero Trace",
       description:
-        "ความลับคือพันธกิจที่สำคัญที่สุด ข้อมูลลูกค้าจะถูกเข้ารหัสและทำลายทิ้งทันที (Secure Shredding) หลังภารกิจสำเร็จ",
+        "ความลับของคุณคือหัวใจของงานเรา ข้อมูลทุกอย่างจะถูกทำลายทิ้งทันทีหลังจบภารกิจ เพื่อความปลอดภัยสูงสุดของคุณ",
       icon: Lock,
     },
   ];
@@ -63,10 +63,10 @@ export default function AboutContent({ founderName }: AboutContentProps) {
               </span>
             </h1>
             <p className="text-muted-foreground max-w-2xl text-xl leading-relaxed font-light md:text-3xl">
-              &quot;{siteConfig.hero?.leftSide?.headline},{" "}
-              {siteConfig.hero?.rightSide?.headline}&quot; —{siteConfig.name}{" "}
-              คือทีมผู้เชี่ยวชาญด้านการจัดการชื่อเสียงออนไลน์
-              ที่เปลี่ยนจากวิกฤตสู่อนาคตดิจิทัลที่มั่นคงด้วยวิศวกรรมข้อมูล
+              &quot;{siteConfig.name}&quot; ไม่ใช่แค่ทีมรับจ้างลบข้อมูล
+              แต่เราคือผู้วางรากฐานชื่อเสียงใหม่
+              ที่จะช่วยให้คุณทวงคืนตัวตนที่ใสสะอาด
+              และก้าวสู่อนาคตที่มั่นคงได้อีกครั้งอย่างมั่นใจ
             </p>
           </AnimatedSection>
         </div>
@@ -81,10 +81,11 @@ export default function AboutContent({ founderName }: AboutContentProps) {
                 The Architect <br /> Methodology
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed font-light">
-                ในยุคที่อินเทอร์เน็ตมีระบบจดจำที่ซับซ้อน
-                การลบเพียงอย่างเดียวไม่เพียงพอ
-                {siteConfig.name} จึงบูรณาการเทคนิค SEO
-                ขั้นสูงเข้ากับมาตรการทางกฎหมายดิจิทัล
+                ในยุคที่ Google จำทุกอย่างได้แม่นยำกว่าคน การลบเฉยๆ
+                มันไม่เคยพอครับ
+                {siteConfig.name} จึงคิดค้นสูตรลับในการจัดการข้อมูลเชิงลึก
+                ผสานเทคนิควิศวกรรมข้อมูลเข้ากับสิทธิ์ทางกฎหมายดิจิทัล
+                เพื่อคืนความบริสุทธิ์ให้โปรไฟล์ของคุณอย่างแท้จริง
               </p>
             </div>
 
@@ -95,10 +96,10 @@ export default function AboutContent({ founderName }: AboutContentProps) {
                 </div>
                 <div className="space-y-2">
                   <h4 className="text-primary font-mono text-xs tracking-widest uppercase">
-                    Phase 1: Unlink Protocol
+                    Phase 1: Unlink & Clean
                   </h4>
                   <p className="text-foreground text-lg leading-snug font-bold">
-                    Neutralize ข้อมูลเชิงลบออกจากระบบการค้นหาอย่างถาวร
+                    ถอนรากถอนโคนข้อมูลเน่าและประวัติเสียออกจากหน้าค้นหาถาวร
                   </p>
                 </div>
               </div>
@@ -108,10 +109,10 @@ export default function AboutContent({ founderName }: AboutContentProps) {
                 </div>
                 <div className="space-y-2">
                   <h4 className="text-primary font-mono text-xs tracking-widest uppercase">
-                    Phase 2: Architect Protocol
+                    Phase 2: Build & Shield
                   </h4>
                   <p className="text-foreground text-lg leading-snug font-bold">
-                    Construct รากฐานชื่อเสียงใหม่ผ่านโครงสร้าง Digital Authority
+                    วางรากฐานชื่อเสียงใหม่ที่แข็งแกร่งและน่าเชื่อถือให้ธนาคารยอมรับ
                   </p>
                 </div>
               </div>

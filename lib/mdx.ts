@@ -195,19 +195,48 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
       .map((filePath) => {
         const { data } = matter(fs.readFileSync(filePath, "utf8"));
         const slug = path.basename(filePath, ".mdx");
-        const d = data as Record<string, unknown>;
+        const fm = data as unknown as CaseStudy;
 
         return {
+          id: String(fm.id || slug),
           slug,
-          title: String(d.title || "Classified Case"),
-          category: String(d.category || "Operation"),
+          title: String(fm.title || "Classified Case"),
+          category: String(fm.category || "Operation"),
+          shortDescription: String(
+            fm.shortDescription || fm.excerpt || fm.description || "",
+          ),
           thumbnail: resolveImagePath(
-            String(d.image || d.thumbnail || ""),
+            String(fm.image || fm.thumbnail || ""),
             "case-studies",
           ),
-          excerpt: String(d.excerpt || d.description || ""),
-          date: String(d.date || "2026-01-01"),
-          priority: Number(d.priority || 0),
+          image: resolveImagePath(
+            String(fm.image || fm.thumbnail || ""),
+            "case-studies",
+          ),
+          excerpt: String(fm.excerpt || fm.description || ""),
+          date: String(fm.date || "2026-01-01"),
+          priority: Number(fm.priority || 0),
+          client: fm.client,
+          outcome: fm.outcome,
+          iconName: String(fm.iconName || "FileText"),
+          features: Array.isArray(fm.features) ? fm.features : [],
+          priceInfo: {
+            startingAt: String(fm.priceInfo?.startingAt || "0"),
+            unit: String(fm.priceInfo?.unit || "Project"),
+            model: String(fm.priceInfo?.model || "Case Study Record"),
+          },
+          metadata: {
+            defaultTitle: String(fm.metadata?.defaultTitle || fm.title || ""),
+            defaultDescription: String(
+              fm.metadata?.defaultDescription ||
+                fm.excerpt ||
+                fm.description ||
+                "",
+            ),
+            keywords: Array.isArray(fm.metadata?.keywords)
+              ? fm.metadata.keywords
+              : [],
+          },
         } as CaseStudy;
       })
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -228,7 +257,7 @@ export async function getCaseStudyBySlug(slug: string) {
 
   if (filePath) {
     const { content } = matter(fs.readFileSync(filePath, "utf8"));
-    return { slug, frontmatter: found, content };
+    return { ...found, content };
   }
   return null;
 }
@@ -243,11 +272,31 @@ export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
       .map((filePath) => {
         const { data } = matter(fs.readFileSync(filePath, "utf8"));
         const slug = path.basename(filePath, ".mdx");
+        const fm = data as unknown as BlogPostFrontmatter;
+
         return {
           ...data,
+          id: String(fm.id || slug),
           slug,
-          image: resolveImagePath(data.image || data.thumbnail, "blog"),
-          date: data.date || new Date().toISOString(),
+          shortDescription: String(fm.shortDescription || fm.description || ""),
+          image: resolveImagePath(fm.image || fm.thumbnail, "blog"),
+          date: fm.date || new Date().toISOString(),
+          iconName: String(fm.iconName || "BookOpen"),
+          features: Array.isArray(fm.features) ? fm.features : [],
+          priceInfo: {
+            startingAt: String(fm.priceInfo?.startingAt || "0"),
+            unit: String(fm.priceInfo?.unit || "Insight"),
+            model: String(fm.priceInfo?.model || "Educational Protocol"),
+          },
+          metadata: {
+            defaultTitle: String(fm.metadata?.defaultTitle || fm.title || ""),
+            defaultDescription: String(
+              fm.metadata?.defaultDescription || fm.description || "",
+            ),
+            keywords: Array.isArray(fm.metadata?.keywords)
+              ? fm.metadata.keywords
+              : [],
+          },
         } as BlogPostFrontmatter;
       })
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

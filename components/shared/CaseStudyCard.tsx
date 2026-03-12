@@ -1,107 +1,123 @@
-"use client";
+/** @format */
 
-import Image from "next/image";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { ArrowUpRight, ImageOff, ShieldCheck } from "lucide-react";
-import { cn, getImageUrl } from "@/lib/utils";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import { CaseStudy } from "@/types";
+import { getImageUrl } from "@/lib/utils";
+import { ArrowRight, FileText, LucideProps } from "lucide-react";
 import { AnimatedCard } from "@/components/animated-section";
 
 interface CaseStudyCardProps {
   study: CaseStudy;
   priority?: boolean;
-  className?: string;
 }
 
 /**
- * UNLINK-TH | Case Study Operational Card
- * -------------------------------------------------------------------------
- * แสดงผลบันทึกการปฏิบัติการในรูปแบบแฟ้มข้อมูลทางเทคนิค
- * ออกแบบเพื่อสะท้อนถึงผลลัพธ์เชิงประจักษ์ (Verified Outcomes)
+ * DynamicIcon Loader Protocol
  */
-
-const FALLBACK_IMAGE = "/images/cases/default.webp";
+const DynamicIcon = dynamic(
+  () =>
+    import("lucide-react").then((mod) => {
+      return (props: LucideProps & { name: string }) => {
+        const { name, ...rest } = props;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const Icon = (mod as Record<string, any>)[name] || FileText;
+        return <Icon {...rest} />;
+      };
+    }),
+  {
+    ssr: true,
+    loading: () => (
+      <div className="h-7 w-7 animate-pulse bg-primary/10 rounded-lg" />
+    ),
+  },
+);
 
 export default function CaseStudyCard({
   study,
   priority = false,
-  className,
 }: CaseStudyCardProps) {
-  // ตรวจสอบความถูกต้องของเส้นทางรูปภาพ
-  const imageSrc = getImageUrl(study.thumbnail || FALLBACK_IMAGE);
+  if (!study) return null;
 
   return (
-    <AnimatedCard className={cn("h-full", className)}>
-      <Link
-        href={`/case-studies/${study.slug}`}
-        className="group block h-full cursor-pointer transition-transform duration-200 active:scale-[0.98]"
-      >
-        <div className="lab-card border-border/40 group-hover:border-primary/40 group-hover:shadow-primary/5 flex h-full flex-col overflow-hidden transition-all duration-500 group-hover:shadow-2xl">
-          {/* 1. Operational Evidence Header */}
-          <div className="bg-muted/30 border-border/10 relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b">
-            {imageSrc ? (
-              <Image
-                src={imageSrc}
-                alt={`บันทึกการปฏิบัติการ: ${study.title || "Classified Operation"}`}
-                fill
-                priority={priority}
-                className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105 group-hover:opacity-100"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-            ) : (
-              <div className="text-muted-foreground/20 flex flex-col items-center gap-3">
-                <ImageOff className="h-10 w-10" />
-                <span className="font-mono text-[10px] tracking-widest uppercase">
-                  No Signal Detected
-                </span>
+    <Link href={`/case-studies/${study.slug}`} className="block h-full">
+      <AnimatedCard className="group relative flex h-[480px] cursor-pointer flex-col overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#0a0f1d] transition-all duration-500 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 active:scale-[0.98]">
+        {/* 1. Image & Overlay Layer */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {study.image && (
+            <Image
+              src={getImageUrl(study.image)}
+              alt={study.title}
+              fill
+              priority={priority}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover opacity-60 saturate-[0.8] transition-all duration-700 group-hover:scale-110 group-hover:opacity-100 group-hover:saturate-100"
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1d] via-[#0a0f1d]/40 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(16,185,129,0.15),transparent)] opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+        </div>
+
+        {/* 2. Content Layer */}
+        <div className="relative z-10 flex h-full flex-col justify-between p-10">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div className="bg-primary/5 border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/40 flex h-14 w-14 items-center justify-center rounded-2xl border backdrop-blur-sm transition-all duration-500">
+                <DynamicIcon
+                  name={study.iconName || "FileText"}
+                  className="text-primary glow-gold h-7 w-7"
+                />
               </div>
-            )}
-
-            {/* Visual Overlay Control */}
-            <div className="from-background/80 absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-20" />
-
-            {/* Classification Tag */}
-            <div className="absolute top-4 left-4">
-              <Badge className="bg-background/90 text-primary border-primary/20 px-3 py-1 font-mono text-[9px] tracking-[0.2em] uppercase backdrop-blur-md">
-                {study.category}
-              </Badge>
+              <div className="text-primary/40 font-mono text-[9px] tracking-[0.3em] uppercase">
+                ID: {study.id || study.slug.toUpperCase()}
+              </div>
             </div>
-          </div>
 
-          {/* 2. Intelligence Briefing Content */}
-          <div className="flex flex-1 flex-col justify-between space-y-6 p-7">
-            <div className="space-y-4">
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="group-hover:text-primary text-xl leading-tight font-bold tracking-tighter transition-colors duration-300 md:text-2xl">
-                  {study.title || "Classified Operation"}
-                </h3>
-                <div className="bg-primary/5 text-primary shrink-0 -translate-x-2 rounded-full p-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
-                  <ArrowUpRight className="h-4 w-4" />
-                </div>
-              </div>
-
+            <div className="space-y-3">
+              <h3 className="text-2xl font-bold tracking-tighter text-white transition-colors group-hover:text-primary md:text-3xl">
+                {study.title}
+              </h3>
               <p className="text-muted-foreground line-clamp-2 text-sm leading-relaxed font-light">
-                {study.excerpt ||
-                  "รายละเอียดปฏิบัติการถูกจำกัดสิทธิ์การเข้าถึงชั่วคราวตามนโยบายรักษาความลับ"}
+                {study.excerpt || study.shortDescription || study.description}
               </p>
             </div>
 
-            {/* 3. Authentication Footer */}
-            <div className="border-border/10 flex items-center justify-between border-t pt-5">
-              <div className="text-primary/60 flex items-center font-mono text-[9px] tracking-[0.25em] uppercase">
-                <ShieldCheck className="text-primary mr-2 h-3.5 w-3.5 animate-pulse" />
-                Verified Outcome
+            {/* Core Specs Modules */}
+            {study.features && study.features.length > 0 && (
+              <div className="flex flex-wrap gap-2 pt-2">
+                {study.features.slice(0, 3).map((feature, idx) => (
+                  <span
+                    key={idx}
+                    className="bg-white/5 border-white/10 rounded-full border px-3 py-1 font-mono text-[9px] tracking-wider text-slate-400 uppercase backdrop-blur-md"
+                  >
+                    {feature}
+                  </span>
+                ))}
               </div>
-              {study.date && (
-                <span className="text-muted-foreground/30 font-mono text-[9px] tracking-tighter">
-                  ID: {study.date}
-                </span>
-              )}
+            )}
+          </div>
+
+          {/* 3. Footer Action */}
+          <div className="flex items-end justify-between border-t border-white/5 pt-8">
+            <div className="space-y-1">
+              <p className="text-muted-foreground/30 font-mono text-[9px] tracking-[0.3em] uppercase">
+                Operational Outcome
+              </p>
+              <p className="text-primary/60 font-mono text-[10px] font-bold tracking-widest uppercase">
+                {study.category}
+              </p>
+            </div>
+
+            <div className="bg-primary/10 group-hover:bg-primary flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 md:group-hover:w-32 md:group-hover:px-4">
+              <span className="hidden w-0 text-[10px] font-bold tracking-widest text-black uppercase opacity-0 transition-all md:group-hover:block md:group-hover:w-auto md:group-hover:opacity-100">
+                Evidence
+              </span>
+              <ArrowRight className="text-primary h-4 w-4 transition-colors group-hover:text-black" />
             </div>
           </div>
         </div>
-      </Link>
-    </AnimatedCard>
+      </AnimatedCard>
+    </Link>
   );
 }

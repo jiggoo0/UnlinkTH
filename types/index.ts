@@ -200,14 +200,20 @@ export interface Service {
 // ------------------------------------------------------------------
 
 export interface BlogPostFrontmatter {
+  id?: string;
   slug: string;
   title: string;
   description: string;
+  shortDescription?: string;
   date: string;
   author: string;
   category: string;
   thumbnail: string;
   image?: string;
+  iconName?: string;
+  features?: string[];
+  priceInfo?: ServicePrice;
+  metadata?: ServiceMetadata;
 }
 
 export interface BlogPost extends BlogPostFrontmatter {
@@ -220,9 +226,11 @@ export interface BlogPost extends BlogPostFrontmatter {
 // ------------------------------------------------------------------
 
 export interface CaseStudy {
+  id?: string;
   slug: string;
   title: string;
   category: string;
+  shortDescription?: string;
   thumbnail?: string;
   excerpt?: string;
   date: string;
@@ -231,6 +239,10 @@ export interface CaseStudy {
   description?: string;
   outcome?: string;
   image?: string;
+  iconName?: string;
+  features?: string[];
+  priceInfo?: ServicePrice;
+  metadata?: ServiceMetadata;
   frontmatter?: Record<string, unknown>; // รองรับข้อมูลดิบจาก MDX โดยไม่ใช้ any
 }
 
