@@ -8,23 +8,15 @@ import {
   BlogPostFrontmatter,
   ServiceFrontmatter,
 } from "@/types";
-import { getImageUrl } from "./utils";
 
 /**
  * @REBRANDED: UNLINK-GLOBAL Intelligence Engine
- * วางระบบดึงข้อมูลแบบอุตสาหกรรม (Industrial Grade)
  */
 
 const CONTENT_PATH = path.join(process.cwd(), "content");
 
-/**
- * @TYPE_SYSTEM: Discriminated Unions for Industrial Grade Content
- */
 export type ContentCategory = "blog" | "case-studies" | "services";
 
-/**
- * ตัวช่วยจัดการ Path รูปภาพ (Intelligence Layer)
- */
 function resolveImagePath(img: string | undefined, category: string): string {
   if (!img) {
     return category === "services"
@@ -32,35 +24,19 @@ function resolveImagePath(img: string | undefined, category: string): string {
       : "/images/blog/digital-ghost.webp";
   }
 
-  // 1. ถ้าเป็น Path เต็ม (Absolute) หรือ URL ภายนอก ให้คืนค่าทันที
   if (img.startsWith("/") || img.startsWith("http")) return img;
 
-  // 2. ทำความสะอาด Path เบื้องต้น
   const cleanPath = img.replace(/^images\//, "");
 
-  // 3. จัดการกรณีพิเศษ: case-studies ใช้โฟลเดอร์ /public/images/cases
   if (category === "case-studies") {
-    // ถ้าใน MDX ระบุเป็น "cases/filename.webp" ให้เปลี่ยนเป็น "/images/cases/filename.webp"
-    if (cleanPath.startsWith("cases/")) {
-      return `/images/${cleanPath}`;
-    }
-    // ถ้ายังไม่มี cases/ ให้นำหน้าด้วย /images/cases/
+    if (cleanPath.startsWith("cases/")) return `/images/${cleanPath}`;
     return `/images/cases/${cleanPath}`;
   }
 
-  // 4. กรณีทั่วไป (blog, services)
-  // ถ้าใน MDX ระบุเป็น "category/filename.webp" ให้เปลี่ยนเป็น "/images/category/filename.webp"
-  if (cleanPath.startsWith(category + "/")) {
-    return `/images/${cleanPath}`;
-  }
-
-  // ถ้ายังไม่มี category/ ให้นำหน้าด้วย /images/category/
+  if (cleanPath.startsWith(category + "/")) return `/images/${cleanPath}`;
   return `/images/${category}/${cleanPath}`;
 }
 
-/**
- * สแกนไฟล์ Recursive แบบเสถียร
- */
 function getFilesRecursive(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -80,36 +56,43 @@ export async function getAllServices(): Promise<Service[]> {
     const servicesDir = path.join(CONTENT_PATH, "services");
     const files = getFilesRecursive(servicesDir);
 
-    return files.map((filePath) => {
-      const source = fs.readFileSync(filePath, "utf8");
-      const { data } = matter(source);
-      const slug = path.basename(filePath, ".mdx");
-      const fm = data as unknown as ServiceFrontmatter;
+    const services = files.map((filePath) => {
+      try {
+        const source = fs.readFileSync(filePath, "utf8");
+        const { data } = matter(source);
+        const slug = path.basename(filePath, ".mdx");
+        const fm = data as unknown as ServiceFrontmatter;
 
-      return {
-        id: fm.id || slug,
-        slug: slug,
-        title: fm.title || "Untitled Service",
-        shortDescription: fm.shortDescription || fm.description || "",
-        description: fm.description || "",
-        iconName: fm.iconName || "ShieldCheck",
-        image: getImageUrl(
-          resolveImagePath(fm.image || fm.imageUrl || fm.thumbnail, "services"),
-        ),
-        category: fm.category || "General",
-        features: fm.features || [],
-        priceInfo: fm.priceInfo || {
-          startingAt: "0",
-          unit: "ครั้ง",
-          model: "Consultation",
-        },
-        metadata: fm.metadata || {
-          defaultTitle: fm.title || "",
-          defaultDescription: fm.shortDescription || "",
-          keywords: [],
-        },
-      } as Service;
+        // Robust Mapping with Default Values
+        return {
+          id: String(fm.id || slug),
+          slug: slug,
+          title: String(fm.title || "Untitled Service"),
+          shortDescription: String(fm.shortDescription || fm.description || ""),
+          description: String(fm.description || ""),
+          iconName: String(fm.iconName || "ShieldCheck"),
+          image: resolveImagePath(fm.image || fm.imageUrl || fm.thumbnail, "services"),
+          category: String(fm.category || "General").trim(),
+          features: Array.isArray(fm.features) ? fm.features : [],
+          priceInfo: {
+            startingAt: String(fm.priceInfo?.startingAt || "0"),
+            unit: String(fm.priceInfo?.unit || "โปรเจกต์"),
+            model: String(fm.priceInfo?.model || "Operational Standard"),
+          },
+          metadata: {
+            defaultTitle: String(fm.metadata?.defaultTitle || fm.title || ""),
+            defaultDescription: String(fm.metadata?.defaultDescription || fm.shortDescription || ""),
+            keywords: Array.isArray(fm.metadata?.keywords) ? fm.metadata.keywords : [],
+          },
+        } as Service;
+      } catch (err) {
+        console.error(`[MDX] Failed to parse service file: ${filePath}`, err);
+        return null;
+      }
     });
+
+    // Filter out failed mappings
+    return services.filter((s): s is Service => s !== null);
   } catch (error) {
     console.error("[INTELLIGENCE] Failed to fetch services:", error);
     return [];
@@ -122,7 +105,6 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
     const service = services.find((s) => s.slug === slug);
     if (!service) return null;
 
-    // ดึงเนื้อหา MDX จริงๆ สำหรับหน้ารายละเอียด
     const servicesDir = path.join(CONTENT_PATH, "services");
     const files = getFilesRecursive(servicesDir);
     const filePath = files.find((f) => path.basename(f, ".mdx") === slug);
@@ -150,7 +132,6 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
       .map((filePath) => {
         const { data } = matter(fs.readFileSync(filePath, "utf8"));
         const slug = path.basename(filePath, ".mdx");
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const d = data as Record<string, any>;
 
         return {
@@ -225,7 +206,6 @@ export async function getBlogPostBySlug(
   } as BlogPost;
 }
 
-// Support for older implementations
 export async function getAllPosts<T>(category: ContentCategory): Promise<T[]> {
   if (category === "blog") return (await getAllBlogPosts()) as unknown as T[];
   if (category === "services")

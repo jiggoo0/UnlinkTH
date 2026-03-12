@@ -20,7 +20,6 @@ import SectionHeader from "@/components/shared/SectionHeader";
 
 /**
  * UNLINK-GLOBAL | Service Protocols (Pure SSG)
- * ดึงข้อมูลและฝังลงใน HTML ตั้งแต่ตอน Build
  */
 
 export const metadata: Metadata = {
@@ -33,12 +32,13 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  // ดึงข้อมูลบริการ (จะทำงานเฉพาะตอน Build หรือ Revalidation)
   const allServices = await getAllServices();
 
-  // จัดกลุ่มบริการตาม Category (แบบ Case-insensitive)
   const filterServices = (cats: string[]) =>
-    allServices.filter((s) => cats.includes((s.category || "").toLowerCase()));
+    allServices.filter((s) => {
+      const category = (s.category || "").toLowerCase().trim();
+      return cats.some(c => category === c.toLowerCase().trim());
+    });
 
   const categories = [
     {
@@ -75,9 +75,7 @@ export default async function ServicesPage() {
     { name: "Services", item: "/services" },
   ];
 
-  const methodologyAbstractUrl = getImageUrl(
-    "common/methodology-abstract.webp",
-  );
+  const methodologyAbstractUrl = getImageUrl("common/methodology-abstract.webp");
 
   return (
     <div className="pb-32 bg-[#050810]">
