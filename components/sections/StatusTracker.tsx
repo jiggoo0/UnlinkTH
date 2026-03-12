@@ -10,9 +10,24 @@ import { Search, Trash2, Globe, CheckCircle2 } from "lucide-react";
  */
 export default function StatusTracker() {
   const statusItems = [
-    { label: "วิเคราะห์โครงสร้างข้อมูล", icon: Search, status: "สำเร็จ", sub: "Data Integrity Verified" },
-    { label: "ปฏิบัติการระงับการเข้าถึง", icon: Globe, status: "กำลังดำเนินการ", sub: "De-indexing Active" },
-    { label: "ถอนรากถอนโคนเนื้อหาเสีย", icon: Trash2, status: "รอเข้าคิว", sub: "Cleanup Sequence" },
+    {
+      label: "วิเคราะห์โครงสร้างข้อมูล",
+      icon: Search,
+      status: "สำเร็จ",
+      sub: "Data Integrity Verified",
+    },
+    {
+      label: "ปฏิบัติการระงับการเข้าถึง",
+      icon: Globe,
+      status: "กำลังดำเนินการ",
+      sub: "De-indexing Active",
+    },
+    {
+      label: "ถอนรากถอนโคนเนื้อหาเสีย",
+      icon: Trash2,
+      status: "รอเข้าคิว",
+      sub: "Cleanup Sequence",
+    },
   ];
 
   return (
@@ -24,13 +39,18 @@ export default function StatusTracker() {
         </h3>
         <div className="flex items-center gap-2">
           <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-          <span className="font-mono text-[9px] text-primary/60 tracking-widest uppercase">System Active</span>
+          <span className="font-mono text-[9px] text-primary/60 tracking-widest uppercase">
+            System Active
+          </span>
         </div>
       </div>
       <div className="p-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {statusItems.map((item, index) => (
-            <div key={index} className="relative flex flex-col items-center md:items-start gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+            <div
+              key={index}
+              className="relative flex flex-col items-center md:items-start gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5"
+            >
               <div
                 className={`flex h-12 w-12 items-center justify-center rounded-xl border ${
                   item.status === "สำเร็จ"
@@ -43,8 +63,12 @@ export default function StatusTracker() {
                 <item.icon size={24} />
               </div>
               <div className="space-y-1 text-center md:text-left">
-                <p className="text-xs font-bold text-white uppercase">{item.label}</p>
-                <p className="font-mono text-[8px] text-slate-500 tracking-widest uppercase">{item.sub}</p>
+                <p className="text-xs font-bold text-white uppercase">
+                  {item.label}
+                </p>
+                <p className="font-mono text-[8px] text-slate-500 tracking-widest uppercase">
+                  {item.sub}
+                </p>
                 <Badge
                   variant={item.status === "สำเร็จ" ? "default" : "outline"}
                   className="mt-2 h-5 text-[9px] tracking-widest uppercase font-black italic"

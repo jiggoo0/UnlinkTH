@@ -32,7 +32,7 @@ export default function Hero() {
           fill
           priority
           fetchPriority="high"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="100vw"
           className="object-cover opacity-[0.07] mix-blend-luminosity grayscale"
         />
 
@@ -122,7 +122,11 @@ export default function Hero() {
             className="border-white/5 grid w-full max-w-5xl grid-cols-2 gap-12 border-t pt-24 md:grid-cols-4"
           >
             {[
-              { label: "เงินทุนที่ปลดล็อกได้", value: "฿500M+", icon: Database },
+              {
+                label: "เงินทุนที่ปลดล็อกได้",
+                value: "฿500M+",
+                icon: Database,
+              },
               { label: "ปิดจบเคสประวัติเสีย", value: "1,200+", icon: Zap },
               {
                 label: "ความเร็วการดำเนินการ",

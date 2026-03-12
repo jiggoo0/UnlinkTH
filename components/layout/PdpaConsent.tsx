@@ -16,7 +16,7 @@ export default function PdpaConsent() {
 
   useEffect(() => {
     setMounted(true);
-    
+
     let timer: NodeJS.Timeout;
     try {
       const consent = localStorage.getItem("unlink-pdpa-consent");
@@ -51,9 +51,11 @@ export default function PdpaConsent() {
   if (!mounted) return null;
 
   return (
-    <div 
+    <div
       className={`fixed bottom-6 left-1/2 z-50 w-[90%] max-w-2xl -translate-x-1/2 transition-all duration-700 ease-in-out ${
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0 pointer-events-none"
+        isVisible
+          ? "translate-y-0 opacity-100"
+          : "translate-y-20 opacity-0 pointer-events-none"
       }`}
     >
       <div className="lab-card flex flex-col items-center gap-4 p-6 md:flex-row md:justify-between shadow-2xl">
@@ -71,18 +73,22 @@ export default function PdpaConsent() {
           </div>
         </div>
         <div className="flex w-full items-center gap-3 md:w-auto">
-          <Button onClick={handleAccept} size="sm" className="h-10 w-full px-8 italic md:w-auto font-bold">
+          <Button
+            onClick={handleAccept}
+            size="sm"
+            className="h-10 w-full px-8 italic md:w-auto font-bold"
+          >
             ยอมรับ
           </Button>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="border-white/10 h-10 w-full px-6 text-xs md:w-auto" 
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-white/10 h-10 w-full px-6 text-xs md:w-auto"
             asChild
           >
             <Link href="/privacy">นโยบาย</Link>
           </Button>
-          <button 
+          <button
             onClick={closeConsent}
             className="text-muted-foreground hover:text-white p-2"
             aria-label="ปิด"

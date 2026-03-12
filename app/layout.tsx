@@ -102,7 +102,7 @@ export const metadata: Metadata = {
   },
 };
 
-import { GoogleAnalytics } from "@next/third-parties/google";
+import SafeAnalytics from "@/components/layout/SafeAnalytics";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export default function RootLayout({
@@ -144,7 +144,7 @@ export default function RootLayout({
 
           <Analytics />
           <Suspense fallback={null}>
-            <GoogleAnalytics gaId="G-VRLM7ZEH9X" />
+            <SafeAnalytics gaId="G-VRLM7ZEH9X" />
           </Suspense>
         </ThemeProvider>
       </body>
