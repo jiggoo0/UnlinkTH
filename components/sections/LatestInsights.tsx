@@ -27,7 +27,6 @@ export default async function LatestInsights() {
               src={post.image || "/images/blog/default-insight.webp"}
               alt={post.title}
               fill
-              priority={index === 0}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-700 group-hover:scale-110"
             />

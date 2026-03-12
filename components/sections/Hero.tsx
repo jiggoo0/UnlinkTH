@@ -32,6 +32,7 @@ export default function Hero() {
           fill
           priority
           fetchPriority="high"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover opacity-[0.07] mix-blend-luminosity grayscale"
         />
 
