@@ -178,19 +178,19 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
               <div className="space-y-4">
                 <div className="text-primary/60 flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] uppercase">
                   <Terminal className="h-3 w-3" />
-                  <span>Initiate Protocol</span>
+                  <span>Consultation Protocol</span>
                 </div>
                 <h3 className="text-2xl font-bold tracking-tight">
-                  Technical Request
+                  Expert Liaison
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed font-light">
-                  ส่งรายละเอียดข้อมูลเชิงลึกเพื่อให้ระบบประเมินภายใต้มาตรฐานความปลอดภัยระดับสูง
+                  ปรึกษาผู้เชี่ยวชาญเพื่อประเมินแนวทางการจัดการข้อมูลเชิงลึกภายใต้มาตรฐานความปลอดภัยสูงสุด
                 </p>
               </div>
 
               <div className="space-y-4 pt-6">
                 <p className="text-primary/60 font-mono text-[10px] tracking-widest uppercase">
-                  Included Specifications
+                  Service Specifications
                 </p>
                 <ul className="space-y-4">
                   {service.features?.map((feature: string, i: number) => (
@@ -210,33 +210,21 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
                   asChild
                   className="w-full h-14 bg-primary hover:bg-primary/90 text-black font-bold text-sm tracking-widest uppercase group"
                 >
-                  <Link href={`/services/${slug}/book`}>
-                    Book Protocol Now
+                  <Link href="https://line.me/ti/p/@unlinkth" target="_blank">
+                    Contact Specialist
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
                 <p className="text-[10px] text-muted-foreground text-center mt-4 font-mono uppercase tracking-widest">
-                  Secure Automated Execution
+                  Secure Private Channel
                 </p>
               </div>
 
               <div className="border-border/10 space-y-6 border-t pt-8 text-center">
-                <div className="space-y-1">
-                  <p className="text-muted-foreground/40 font-mono text-[10px] tracking-tighter uppercase">
-                    Resource Allocation
-                  </p>
-                  <div className="text-4xl font-bold tracking-tighter">
-                    ฿{service.priceInfo?.startingAt || "TBD"}
-                    <span className="text-muted-foreground ml-2 font-mono text-xs font-normal lowercase">
-                      / {service.priceInfo?.unit || "unit"}
-                    </span>
-                  </div>
+                <div className="text-muted-foreground/60 text-[10px] leading-relaxed font-mono uppercase tracking-[0.2em]">
+                  End-to-End Encryption <br />
+                  Data Privacy Verified
                 </div>
-
-                <button className="group bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/90 flex h-14 w-full items-center justify-center gap-2 rounded-full text-sm font-bold tracking-widest uppercase shadow-lg transition-all">
-                  Contact Liaison
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1.5" />
-                </button>
               </div>
             </div>
           </div>

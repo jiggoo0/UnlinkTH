@@ -31,19 +31,30 @@ function resolveImagePath(img: string | undefined, category: string): string {
       ? "/images/services/default.webp"
       : "/images/blog/digital-ghost.webp";
   }
+
+  // 1. ถ้าเป็น Path เต็ม (Absolute) หรือ URL ภายนอก ให้คืนค่าทันที
   if (img.startsWith("/") || img.startsWith("http")) return img;
 
-  // ตรวจสอบโครงสร้างโฟลเดอร์
+  // 2. ทำความสะอาด Path เบื้องต้น
   const cleanPath = img.replace(/^images\//, "");
+
+  // 3. จัดการกรณีพิเศษ: case-studies ใช้โฟลเดอร์ /public/images/cases
+  if (category === "case-studies") {
+    // ถ้าใน MDX ระบุเป็น "cases/filename.webp" ให้เปลี่ยนเป็น "/images/cases/filename.webp"
+    if (cleanPath.startsWith("cases/")) {
+      return `/images/${cleanPath}`;
+    }
+    // ถ้ายังไม่มี cases/ ให้นำหน้าด้วย /images/cases/
+    return `/images/cases/${cleanPath}`;
+  }
+
+  // 4. กรณีทั่วไป (blog, services)
+  // ถ้าใน MDX ระบุเป็น "category/filename.webp" ให้เปลี่ยนเป็น "/images/category/filename.webp"
   if (cleanPath.startsWith(category + "/")) {
     return `/images/${cleanPath}`;
   }
 
-  // พิเศษสำหรับ Case Studies ที่โฟลเดอร์ใน public คือ cases
-  if (category === "case-studies") {
-    return `/images/cases/${cleanPath}`;
-  }
-
+  // ถ้ายังไม่มี category/ ให้นำหน้าด้วย /images/category/
   return `/images/${category}/${cleanPath}`;
 }
 

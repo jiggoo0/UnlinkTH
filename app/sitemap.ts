@@ -2,62 +2,61 @@
 
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/constants/site-config";
-import { getAllServices } from "@/lib/mdx";
-import { getAllCaseStudies } from "@/lib/mdx";
-import { getAllBlogPosts } from "@/lib/mdx";
-
-export const dynamic = "force-static";
+import { getAllServices, getAllCaseStudies, getAllBlogPosts } from "@/lib/mdx";
 
 /**
- * UNLINK-TH | SEO Sitemap Engine (2026)
+ * UNLINK-TH | Dynamic Sitemap Generation (2026 Strategy)
  * -------------------------------------------------------------------------
- * หน้าที่: สร้างแผนผังเว็บไซต์แบบ Dynamic เพื่อให้ Google Index ข้อมูลได้ครบถ้วน
- * มุ่งเน้นการส่งสัญญาณด้าน Trust & Authority (E-E-A-T) ผ่านหน้า Identity ต่างๆ
+ * ภารกิจ: สร้างแผนผังเว็บไซต์ที่มีคุณภาพสูง (High-Signal Sitemap)
+ * เพื่อบอก Google ว่าเว็บไซต์เรามีความน่าเชื่อถือ (Trust) และมีหลักฐานเชิงประจักษ์ (Evidence)
+ * รองรับมาตรฐาน Next.js App Router (Static Site Generation)
  */
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url;
-  const servicesData = await getAllServices();
 
-  // [1] ดึงข้อมูล Dynamic Case Studies (Social Proof / Evidence)
-  const allCases = await getAllCaseStudies();
-  const caseEntries: MetadataRoute.Sitemap = allCases.map((item) => ({
-    url: `${baseUrl}/case-studies/${item.slug}`,
-    lastModified: new Date(item.date || new Date()),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  // 1. ดึงข้อมูลจากเนื้อหา MDX ทั้งหมด
+  const [servicesData, caseStudiesData, blogPostsData] = await Promise.all([
+    getAllServices(),
+    getAllCaseStudies(),
+    getAllBlogPosts(),
+  ]);
 
-  // [2] ดึงข้อมูล Service Protocols (Main Conversion Pages)
+  // 1.1 จัดเตรียม URL สำหรับ Services (Core Offerings)
   const serviceEntries: MetadataRoute.Sitemap = servicesData.map((service) => ({
     url: `${baseUrl}/services/${service.slug}`,
-    lastModified: new Date(),
+    lastModified: new Date(), // บริการมักจะมีการปรับปรุงอยู่เสมอ
     changeFrequency: "weekly" as const,
     priority: 0.9,
   }));
 
-  // [3] ดึงข้อมูล Blog Posts (Educational / Intent Capture)
-  const allBlogs = await getAllBlogPosts();
-  const blogEntries: MetadataRoute.Sitemap = allBlogs.map((post) => ({
+  // 1.2 จัดเตรียม URL สำหรับ Case Studies (Social Proof / Evidence)
+  const caseEntries: MetadataRoute.Sitemap = caseStudiesData.map((item) => ({
+    url: `${baseUrl}/case-studies/${item.slug}`,
+    lastModified: new Date(item.date || new Date()),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
+  // 1.3 จัดเตรียม URL สำหรับ Blog Posts (Top-of-Funnel / Education)
+  const blogEntries: MetadataRoute.Sitemap = blogPostsData.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.date || new Date()),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
 
-  // [4] หน้าหลักและหน้าที่สร้างความน่าเชื่อถือ (Trust & Identity Signals)
+  // 2. หน้าหลักและโครงสร้างความน่าเชื่อถือ (Static Identity Pages)
   const staticRoutes = [
-    { path: "", priority: 1.0, changeFreq: "daily" as const }, // Home
-    { path: "/about", priority: 0.8, changeFreq: "weekly" as const }, // Identity & Founder
-    {
-      path: "/editorial-policy",
-      priority: 0.8,
-      changeFreq: "monthly" as const,
-    },
-    { path: "/services", priority: 0.8, changeFreq: "weekly" as const },
-    { path: "/case-studies", priority: 0.8, changeFreq: "weekly" as const },
-    { path: "/faq", priority: 0.6, changeFreq: "weekly" as const },
+    { path: "/", priority: 1.0, changeFreq: "daily" as const }, // หน้าแรกสำคัญที่สุด
+    { path: "/about", priority: 0.8, changeFreq: "weekly" as const }, // ข้อมูลผู้ก่อตั้งและวิสัยทัศน์
+    { path: "/services", priority: 0.8, changeFreq: "daily" as const }, // หน้ารวมโปรโตคอล
+    { path: "/case-studies", priority: 0.8, changeFreq: "daily" as const }, // หน้ารวมผลลัพธ์
+    { path: "/blog", priority: 0.7, changeFreq: "daily" as const }, // หน้ารวมบทความ
+    { path: "/faq", priority: 0.7, changeFreq: "weekly" as const }, // คำถามที่พบบ่อย (Rich Result Signal)
     { path: "/contact", priority: 0.7, changeFreq: "monthly" as const },
     { path: "/privacy", priority: 0.5, changeFreq: "monthly" as const },
+    { path: "/editorial-policy", priority: 0.6, changeFreq: "monthly" as const },
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
@@ -67,5 +66,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route.priority,
   }));
 
+  // 3. รวมทุกเส้นทางเข้าด้วยกันและส่งออกเป็น Sitemap XML
   return [...staticEntries, ...serviceEntries, ...caseEntries, ...blogEntries];
 }

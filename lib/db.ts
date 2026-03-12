@@ -25,33 +25,6 @@ export async function initDb() {
   `);
 
   await db.execute(`
-    CREATE TABLE IF NOT EXISTS tickets (
-      id TEXT PRIMARY KEY,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      ticket_number TEXT UNIQUE NOT NULL,
-      passenger_name TEXT NOT NULL,
-      id_card_last_4 TEXT NOT NULL,
-      origin TEXT NOT NULL,
-      destination TEXT NOT NULL,
-      departure_time TEXT NOT NULL,
-      seat_number TEXT NOT NULL,
-      status TEXT DEFAULT 'confirmed'
-    )
-  `);
-
-  await db.execute(`
-    CREATE TABLE IF NOT EXISTS payments (
-      id TEXT PRIMARY KEY,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      ticket_id TEXT,
-      amount REAL,
-      ref_number TEXT UNIQUE,
-      status TEXT,
-      FOREIGN KEY (ticket_id) REFERENCES tickets (id)
-    )
-  `);
-
-  await db.execute(`
     CREATE TABLE IF NOT EXISTS system_logs (
       id TEXT PRIMARY KEY,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
