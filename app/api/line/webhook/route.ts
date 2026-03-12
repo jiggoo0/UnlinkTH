@@ -3,13 +3,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as line from "@line/bot-sdk";
 
-// 📍 ใส่รหัสตรงนี้โดยตรงเพื่อให้ระบบทำงานได้ทันที
-const LINE_SECRET = "cb0172ee3d842d5e250c35b13da23b18";
-const LINE_TOKEN = "BgmQagMZBMPi+FSrt2eXy1Ujw3j+M40bjE5T00pzT2vRTOmKLcbr+mFq6r97hwydTq9REosBk4yXDePckiX+uXQ0KXKiU0MDy3AQrgQz8bnVCQ09m5vUsHUae0FBUL+43He2CSgxIuv6XCXIboHJIQdB04t89/1O/w1cDnyilFU=";
-
-// 1. ตั้งค่า LINE Client
+// 1. ตั้งค่า LINE Client ผ่าน Environment Variables (ปลอดภัยที่สุด)
 const client = new line.messagingApi.MessagingApiClient({
-  channelAccessToken: LINE_TOKEN,
+  channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN || "",
 });
 
 /**
