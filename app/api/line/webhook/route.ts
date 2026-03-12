@@ -699,7 +699,7 @@ function getSubMenuFlex(
               style: "link",
               color: "#bbbbbb",
             },
-          ] as any),
+          ] as line.messagingApi.FlexButton[]),
       },
     },
   };
