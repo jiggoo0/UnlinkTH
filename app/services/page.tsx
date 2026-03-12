@@ -18,8 +18,8 @@ import JsonLd from "@/components/shared/JsonLd";
 import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
 /**
- * UNLINK-GLOBAL | Service Protocols (SSG Mode)
- * ข้อมูลบริการทั้งหมดจะถูกฝังลงใน HTML ตั้งแต่ตอน Build
+ * UNLINK-GLOBAL | Service Protocols (Pure SSG)
+ * ดึงข้อมูลและฝังลงใน HTML ตั้งแต่ตอน Build
  */
 
 export const metadata: Metadata = {
@@ -32,10 +32,11 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
+  // ดึงข้อมูลบริการ (จะทำงานเฉพาะตอน Build หรือ Revalidation)
   const allServices = await getAllServices();
 
   // จัดกลุ่มบริการตาม Category (แบบ Case-insensitive)
-  const filterServices = (cats: string[]) => 
+  const filterServices = (cats: string[]) =>
     allServices.filter((s) => cats.includes((s.category || "").toLowerCase()));
 
   const categories = [
@@ -44,7 +45,13 @@ export default async function ServicesPage() {
       name: "Reputation Management",
       description: "ปฏิบัติการกู้คืนชื่อเสียงและระงับข้อมูลเชิงลบออนไลน์",
       icon: ShieldCheck,
-      services: filterServices(["reputation", "extreme", "business", "personal", "legal"]),
+      services: filterServices([
+        "reputation",
+        "extreme",
+        "business",
+        "personal",
+        "legal",
+      ]),
     },
     {
       id: "financial",
@@ -105,47 +112,48 @@ export default async function ServicesPage() {
       {/* 2. Grouped Services Section */}
       <div className="container space-y-40">
         {allServices.length === 0 ? (
-          <div className="py-20 text-center">
+          <div className="py-20 text-center border border-dashed border-white/5 rounded-[3rem] bg-white/[0.02]">
             <ShieldAlert className="text-primary/20 w-16 h-16 mx-auto mb-6" />
             <p className="text-slate-500 font-mono text-xs tracking-widest uppercase">
-              No Active Modules Found in Matrix
+              Operational Matrix: Offline or Empty
             </p>
           </div>
         ) : (
-          categories.map((cat, catIdx) => (
-            cat.services.length > 0 && (
-              <section key={cat.id} id={cat.id} className="scroll-mt-24">
-                <div className="mb-16 flex flex-col items-start justify-between gap-8 border-b border-white/5 pb-12 md:flex-row md:items-end">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4 text-primary">
-                      <cat.icon className="h-8 w-8" />
-                      <span className="font-mono text-xs tracking-[0.4em] uppercase">
-                        Phase 0{catIdx + 1}
+          categories.map(
+            (cat, catIdx) =>
+              cat.services.length > 0 && (
+                <section key={cat.id} id={cat.id} className="scroll-mt-24">
+                  <div className="mb-16 flex flex-col items-start justify-between gap-8 border-b border-white/5 pb-12 md:flex-row md:items-end">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-4 text-primary">
+                        <cat.icon className="h-8 w-8" />
+                        <span className="font-mono text-xs tracking-[0.4em] uppercase">
+                          Phase 0{catIdx + 1}
+                        </span>
+                      </div>
+                      <h2 className="text-4xl font-bold tracking-tighter text-white md:text-6xl uppercase">
+                        {cat.name}
+                      </h2>
+                      <p className="text-slate-500 text-lg font-light">
+                        {cat.description}
+                      </p>
+                    </div>
+                    <div className="text-slate-600 font-mono text-[10px] tracking-[0.2em] uppercase text-right">
+                      Active Modules: {cat.services.length} <br />
+                      <span className="text-primary/40 text-[8px]">
+                        {siteConfig.name} Unit
                       </span>
                     </div>
-                    <h2 className="text-4xl font-bold tracking-tighter text-white md:text-6xl uppercase">
-                      {cat.name}
-                    </h2>
-                    <p className="text-slate-500 text-lg font-light">
-                      {cat.description}
-                    </p>
                   </div>
-                  <div className="text-slate-600 font-mono text-[10px] tracking-[0.2em] uppercase text-right">
-                    Active Modules: {cat.services.length} <br />
-                    <span className="text-primary/40 text-[8px]">
-                      {siteConfig.name} Unit
-                    </span>
-                  </div>
-                </div>
 
-                <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-                  {cat.services.map((service) => (
-                    <ServiceCard key={service.id} service={service} />
-                  ))}
-                </div>
-              </section>
-            )
-          ))
+                  <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                    {cat.services.map((service) => (
+                      <ServiceCard key={service.id} service={service} />
+                    ))}
+                  </div>
+                </section>
+              ),
+          )
         )}
       </div>
 

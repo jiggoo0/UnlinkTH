@@ -5,7 +5,7 @@ import type { NextRequest } from "next/server";
  * UNLINK-GLOBAL Security Middleware
  * ทำหน้าที่เป็น "ยามเฝ้าประตู" ตรวจสอบสิทธิ์ก่อนเข้าหน้าจัดการระบบ (Admin)
  */
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const session = request.cookies.get("ul_admin_session");
   const { pathname } = request.nextUrl;
 

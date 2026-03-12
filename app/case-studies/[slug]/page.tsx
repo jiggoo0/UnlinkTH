@@ -52,7 +52,7 @@ export default async function SingleCasePage({ params }: CasePageProps) {
 
   if (!study || !study.frontmatter) notFound();
 
-  const frontmatter = study.frontmatter as Record<string, string>;
+  const frontmatter = study.frontmatter as unknown as Record<string, string>;
   const { content } = study;
 
   const breadcrumbs = [
