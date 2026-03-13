@@ -4,7 +4,7 @@
 
 import { motion } from "framer-motion";
 import { siteConfig } from "@/constants/site-config";
-import { ShieldCheck, ArrowRight, Lock, Zap } from "lucide-react";
+import { ShieldCheck, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { getImageUrl } from "@/lib/utils";
@@ -114,7 +114,7 @@ export default function Hero() {
             </Link>
           </motion.div>
 
-          {/* Core Verification Nodes */}
+          {/* Core Operational Metrics (High-Signal) */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -123,34 +123,34 @@ export default function Hero() {
           >
             {[
               {
-                label: "มาตรฐานการทำงาน",
-                value: "แม่นยำ 100%",
-                icon: Zap,
+                label: "Assets Protected",
+                value: "฿500M+",
+                sub: "มูลค่าทรัพย์สินที่ดูแลสำเร็จ",
               },
               {
-                label: "ระยะเวลาดำเนินการ",
-                value: "รวดเร็วทันใจ",
-                icon: ShieldCheck,
+                label: "Cases Cleared",
+                value: "1,200+",
+                sub: "ประวัติออนไลน์ที่กู้คืนได้จริง",
               },
               {
-                label: "นโยบายข้อมูล",
-                value: "ความลับสูงสุด",
-                icon: Lock,
+                label: "Success Rate",
+                value: "99.8%",
+                sub: "ความสำเร็จในเชิงยุทธศาสตร์",
               },
             ].map((stat, i) => (
               <div
                 key={i}
-                className="group flex flex-col items-center md:items-start space-y-4"
+                className="group flex flex-col items-center md:items-start space-y-2"
               >
-                <div className="bg-primary/5 group-hover:bg-primary/10 rounded-2xl p-4 transition-all duration-500 border border-primary/10 group-hover:border-primary/40">
-                  <stat.icon className="text-primary/30 group-hover:text-primary h-5 w-5 transition-colors duration-500" />
-                </div>
                 <div className="space-y-1 text-center md:text-left">
-                  <span className="text-slate-600 block font-mono text-[9px] tracking-[0.4em] uppercase">
+                  <span className="text-primary block font-mono text-[9px] tracking-[0.4em] uppercase font-black">
                     {stat.label}
                   </span>
-                  <span className="text-white text-lg font-black tracking-tighter uppercase">
+                  <div className="text-white text-4xl md:text-5xl font-black tracking-tighter uppercase italic">
                     {stat.value}
+                  </div>
+                  <span className="text-slate-500 block text-[10px] font-medium tracking-wide">
+                    {stat.sub}
                   </span>
                 </div>
               </div>

@@ -44,28 +44,6 @@ export default function HomePage() {
       {/* 1. Hero Section: First Impression & Primary CTA */}
       <Hero />
 
-      {/* 1.5 Authority Signal Bar: Numerical Evidence (Verified Records) */}
-      <section className="border-y border-white/5 bg-[#0a0f1d]/50 py-10 backdrop-blur-xl">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {[
-              { label: "มูลค่าทรัพย์สินที่ดูแลสำเร็จ", value: "฿500M+" },
-              { label: "ประวัติและชื่อเสียงที่กู้คืน", value: "1,200+ เคส" },
-              { label: "ความสำเร็จในการดำเนินการ", value: "99.8%" },
-            ].map((stat, i) => (
-              <div key={i} className="text-center md:text-left space-y-1">
-                <div className="text-2xl md:text-5xl font-black tracking-tighter text-primary italic">
-                  {stat.value}
-                </div>
-                <div className="text-[10px] font-mono tracking-[0.2em] text-slate-500 uppercase">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* 2. Protocol Matrix: Operational Workflow */}
       <section className="container scroll-mt-24" id="protocol">
         <SectionHeader

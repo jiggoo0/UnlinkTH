@@ -25,7 +25,6 @@ import {
   Target,
 } from "lucide-react";
 import { siteConfig } from "@/constants/site-config";
-import { PricingSection } from "@/components/sections/Pricing";
 
 /**
  * UNLINK-GLOBAL | Root MDX Architecture
@@ -40,7 +39,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h1: ({ className, ...props }: React.ComponentPropsWithoutRef<"h1">) => (
       <h1
         className={cn(
-          "mt-12 mb-8 text-4xl font-black tracking-tighter text-white uppercase md:text-6xl flex items-center flex-wrap gap-4",
+          "mt-16 mb-10 text-3xl font-black tracking-tighter text-white uppercase md:text-5xl flex items-center flex-wrap gap-4",
           className,
         )}
         {...props}
@@ -49,7 +48,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h2: ({ className, ...props }: React.ComponentPropsWithoutRef<"h2">) => (
       <h2
         className={cn(
-          "mt-16 mb-8 border-b border-white/5 pb-6 text-3xl font-bold tracking-tight text-white uppercase md:text-4xl flex items-center flex-wrap gap-3",
+          "mt-20 mb-10 border-b border-white/5 pb-8 text-2xl font-bold tracking-tight text-white uppercase md:text-3xl flex items-center flex-wrap gap-3",
           className,
         )}
         {...props}
@@ -58,7 +57,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h3: ({ className, ...props }: React.ComponentPropsWithoutRef<"h3">) => (
       <h3
         className={cn(
-          "text-primary mt-12 mb-6 text-xl font-bold tracking-widest uppercase flex items-center flex-wrap gap-2",
+          "text-primary mt-14 mb-8 text-lg font-bold tracking-widest uppercase flex items-center flex-wrap gap-2",
           className,
         )}
         {...props}
@@ -67,7 +66,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     p: ({ className, ...props }: React.ComponentPropsWithoutRef<"p">) => (
       <p
         className={cn(
-          "mb-10 text-base leading-relaxed font-light tracking-wide text-slate-300 md:text-xl/9",
+          "mb-12 text-sm leading-[1.8] font-light tracking-wide text-zinc-400 md:text-lg/9",
           className,
         )}
         {...props}
@@ -78,14 +77,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       ...props
     }: React.ComponentPropsWithoutRef<"strong">) => (
       <strong
-        className={cn("font-bold text-primary italic", className)}
+        className={cn("font-bold text-white italic", className)}
         {...props}
       />
     ),
     a: ({ className, ...props }: React.ComponentPropsWithoutRef<"a">) => (
       <a
         className={cn(
-          "text-primary underline decoration-primary/30 underline-offset-8 transition-all hover:decoration-primary hover:text-white font-medium",
+          "text-primary underline decoration-primary/20 underline-offset-[12px] transition-all hover:decoration-primary hover:text-white font-medium",
           className,
         )}
         {...props}
@@ -93,14 +92,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     ul: ({ className, ...props }: React.ComponentPropsWithoutRef<"ul">) => (
       <ul
-        className={cn("my-10 ml-2 list-none space-y-6", className)}
+        className={cn("my-12 ml-4 list-none space-y-8", className)}
         {...props}
       />
     ),
     ol: ({ className, ...props }: React.ComponentPropsWithoutRef<"ol">) => (
       <ol
         className={cn(
-          "my-10 ml-2 list-none space-y-6 counter-reset-item",
+          "my-12 ml-4 list-none space-y-8 counter-reset-item",
           className,
         )}
         {...props}
@@ -114,11 +113,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return (
         <li
           className={cn(
-            "relative pl-12 font-light tracking-wide text-slate-200 md:text-lg",
+            "relative pl-10 font-light tracking-wide text-zinc-300 md:text-base",
             "before:absolute before:left-0 before:flex before:h-8 before:w-8 before:items-center before:justify-center before:rounded-full before:text-[10px] before:font-bold before:transition-all",
             "hover:before:scale-110",
             !isOrdered &&
-              "before:content-[''] before:top-2 before:h-2 before:w-2 before:bg-primary before:shadow-[0_0_15px_rgba(16,185,129,0.5)]",
+              "before:content-[''] before:top-2.5 before:h-1.5 before:w-1.5 before:bg-primary/60 before:rounded-full",
             className,
           )}
           {...props}
@@ -131,7 +130,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     }: React.ComponentPropsWithoutRef<"blockquote">) => (
       <blockquote
         className={cn(
-          "border-primary/50 bg-primary/5 my-12 rounded-sm border-l-2 p-10 text-xl font-light text-slate-200 italic backdrop-blur-sm",
+          "border-primary/30 bg-white/[0.02] my-16 rounded-2xl border-l-4 p-12 text-lg font-light text-zinc-300 italic backdrop-blur-sm leading-loose",
           className,
         )}
         {...props}
@@ -140,41 +139,43 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     code: ({ className, ...props }: React.ComponentPropsWithoutRef<"code">) => (
       <code
         className={cn(
-          "text-primary rounded-sm border border-slate-800 bg-slate-900 px-2 py-1 font-mono text-sm",
+          "text-primary rounded-md border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-xs",
           className,
         )}
         {...props}
       />
     ),
     hr: ({ className, ...props }: React.ComponentPropsWithoutRef<"hr">) => (
-      <hr className={cn("my-16 border-slate-900", className)} {...props} />
+      <hr className={cn("my-20 border-white/5", className)} {...props} />
     ),
 
     // 2. Custom Intelligence Components
     img: (props) => (
-      <Image
-        sizes="100vw"
-        style={{ width: "100%", height: "auto" }}
-        {...(props as ImageProps)}
-      />
+      <div className="mx-auto my-16 max-w-4xl overflow-hidden rounded-3xl border border-white/5 shadow-2xl">
+        <Image
+          sizes="100vw"
+          style={{ width: "100%", height: "auto" }}
+          {...(props as ImageProps)}
+        />
+      </div>
     ),
     Image: (props: React.ComponentPropsWithoutRef<typeof Image>) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { width: _width, height: _height, src, alt, ...rest } = props;
       return (
-        <figure className="my-16">
-          <div className="group relative aspect-video overflow-hidden rounded-sm border border-slate-900 bg-[#0c1122] p-3 shadow-2xl">
+        <figure className="mx-auto my-20 max-w-4xl">
+          <div className="group relative aspect-video overflow-hidden rounded-[2rem] border border-white/10 bg-[#0c1122] shadow-2xl">
             <Image
               src={src || ""}
               alt={alt || "Strategic Document Image"}
               fill
               sizes="(max-width: 768px) 100vw, 800px"
-              className="scale-[1.01] object-cover opacity-80 transition-all duration-1000 group-hover:scale-100 group-hover:opacity-100"
+              className="scale-[1.01] object-cover opacity-90 transition-all duration-1000 group-hover:scale-100 group-hover:opacity-100"
               {...rest}
             />
           </div>
           {alt && (
-            <figcaption className="mt-6 text-center text-[10px] font-black tracking-[0.5em] text-slate-600 uppercase">
+            <figcaption className="mt-8 text-center text-[9px] font-bold tracking-[0.6em] text-zinc-600 uppercase">
               {alt}
             </figcaption>
           )}
@@ -233,7 +234,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </div>
       );
     },
-    PricingSection,
 
     // 3. Operational Icons
     Target: (props: React.ComponentProps<"svg">) => (

@@ -49,37 +49,37 @@
    ========================================================= */
 
 :root {
-  /* Midnight Navy Base */
-  --background: oklch(0.18 0.02 250);
-  --foreground: oklch(0.98 0 0);
+  /* Soft Midnight Navy (Premium & Clean) */
+  --background: oklch(0.2 0.02 250);
+  --foreground: oklch(0.95 0.01 250);
 
-  --card: oklch(0.22 0.02 250);
-  --card-foreground: oklch(0.98 0 0);
+  --card: oklch(0.24 0.02 250);
+  --card-foreground: oklch(0.95 0.01 250);
 
-  --popover: oklch(0.18 0.02 250);
-  --popover-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.2 0.02 250);
+  --popover-foreground: oklch(0.95 0.01 250);
 
-  /* Premium Gold Accent */
-  --primary: oklch(0.75 0.15 85);
-  --primary-foreground: oklch(0.15 0.05 85);
+  /* Refined Gold (Less Piercing, More Elegant) */
+  --primary: oklch(0.78 0.12 85);
+  --primary-foreground: oklch(0.18 0.02 85);
 
-  --secondary: oklch(0.25 0.02 250);
-  --secondary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.28 0.02 250);
+  --secondary-foreground: oklch(0.95 0.01 250);
 
-  --muted: oklch(0.25 0.02 250);
-  --muted-foreground: oklch(0.7 0.02 250);
+  --muted: oklch(0.28 0.02 250);
+  --muted-foreground: oklch(0.65 0.02 250);
 
-  --accent: oklch(0.75 0.15 85 / 0.1);
-  --accent-foreground: oklch(0.75 0.15 85);
+  --accent: oklch(0.78 0.12 85 / 0.08);
+  --accent-foreground: oklch(0.78 0.12 85);
 
-  --destructive: oklch(0.6 0.2 25);
+  --destructive: oklch(0.55 0.18 25);
   --destructive-foreground: oklch(0.98 0 0);
 
-  --border: oklch(0.25 0.02 250 / 0.5);
-  --input: oklch(0.25 0.02 250 / 0.5);
-  --ring: oklch(0.75 0.15 85 / 0.5);
+  --border: oklch(0.3 0.02 250 / 0.4);
+  --input: oklch(0.3 0.02 250 / 0.4);
+  --ring: oklch(0.78 0.12 85 / 0.4);
 
-  --radius: 0.75rem;
+  --radius: 1rem;
 }
 
 /* Base Layer Protocols */
@@ -101,7 +101,8 @@
     color: var(--foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    line-height: 1.65;
+    line-height: 1.8; /* Increased for readability */
+    letter-spacing: 0.015em;
   }
 }
 
