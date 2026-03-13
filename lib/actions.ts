@@ -6,6 +6,8 @@ import { db } from "./db";
 import { sendTicketEmail } from "./email";
 import { revalidatePath } from "next/cache";
 
+import { put } from "@vercel/blob";
+
 /**
  * ⚡ UNLINK-GLOBAL: LIAISON SERVER ACTIONS
  * -------------------------------------------------------------------------
@@ -19,7 +21,44 @@ export interface LiaisonCase {
   amount: number;
   status: string;
   email_sent: number;
+  file_url?: string;
   created_at?: string;
+}
+
+/**
+ * 📂 UPLOAD FILE & ATTACH TO CASE
+ */
+export async function uploadFileAction(caseId: string, formData: FormData) {
+  try {
+    const file = formData.get("file") as File;
+    if (!file) {
+      throw new Error("No file selected");
+    }
+
+    if (file.type !== "application/pdf") {
+      throw new Error("Only PDF documents are permitted for security");
+    }
+
+    // Upload to Vercel Blob
+    const blob = await put(`liaison/${caseId}-${file.name}`, file, {
+      access: "public",
+      addRandomSuffix: true,
+    });
+
+    // Update Database with File URL
+    await db.execute({
+      sql: "UPDATE cases SET file_url = ? WHERE id = ?",
+      args: [blob.url, caseId],
+    });
+
+    revalidatePath("/admin/liaison");
+    return { success: true, url: blob.url };
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "File upload failed";
+    console.error("🚨 [UPLOAD ERROR]:", message);
+    return { success: false, error: message };
+  }
 }
 
 /**

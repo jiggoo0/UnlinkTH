@@ -2,7 +2,6 @@
 
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import {
   ShieldCheck,
   Download,
@@ -10,9 +9,10 @@ import {
   CheckCircle2,
   ArrowRight,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Suspense } from "react";
+
+import { db } from "@/lib/db";
 
 /**
  * 🔒 UNLINK-GLOBAL: SECURE DOCUMENT VAULT (V1.0)
@@ -20,10 +20,27 @@ import { Suspense } from "react";
  * หน้าสำหรับดาวน์โหลดตั๋วและเอกสารที่ได้รับอนุมัติแล้ว
  */
 
-function VaultContent() {
-  const searchParams = useSearchParams();
-  const caseId = searchParams.get("caseId") || "UK-PENDING";
-  const customerName = searchParams.get("name") || "Valued Client";
+async function VaultContent({
+  searchParams,
+}: {
+  searchParams: { caseId?: string; name?: string };
+}) {
+  const caseId = searchParams.caseId || "UK-PENDING";
+  const customerName = searchParams.name || "Valued Client";
+
+  // Fetch File URL from Database
+  let fileUrl = null;
+  try {
+    const result = await db.execute({
+      sql: "SELECT file_url FROM cases WHERE id = ?",
+      args: [caseId],
+    });
+    if (result.rows.length > 0) {
+      fileUrl = result.rows[0].file_url;
+    }
+  } catch (error) {
+    console.error("🚨 [VAULT FETCH ERROR]:", error);
+  }
 
   return (
     <div className="min-h-screen bg-[#050810] text-white flex items-center justify-center p-6">
@@ -90,17 +107,21 @@ function VaultContent() {
             เอกสารของคุณได้รับการอนุมัติแล้วครับ
           </p>
 
-          <Button
-            className="w-full h-20 rounded-2xl bg-primary text-black hover:bg-primary/90 font-black text-xl tracking-[0.1em] uppercase transition-all hover:scale-[1.02] flex items-center justify-center gap-3"
-            onClick={() =>
-              alert(
-                "ระบบกำลังดึงไฟล์เอกสาร (PDF) จากฐานข้อมูล... กรุณารอสักครู่ครับ",
-              )
-            }
-          >
-            <Download className="h-6 w-6" />
-            DOWNLOAD NOW
-          </Button>
+          {fileUrl ? (
+            <a
+              href={fileUrl as string}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full h-20 rounded-2xl bg-primary text-black hover:bg-primary/90 font-black text-xl tracking-[0.1em] uppercase transition-all hover:scale-[1.02] flex items-center justify-center gap-3 no-underline"
+            >
+              <Download className="h-6 w-6" />
+              DOWNLOAD NOW
+            </a>
+          ) : (
+            <div className="w-full h-20 rounded-2xl bg-white/5 text-zinc-500 font-bold text-xs flex items-center justify-center gap-3 border border-dashed border-white/10">
+              <Lock className="h-4 w-4" /> เอกสารกำลังถูกเตรียมเข้าระบบ...
+            </div>
+          )}
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/5 text-center">
@@ -116,16 +137,21 @@ function VaultContent() {
   );
 }
 
-export default function DownloadVaultPage() {
+export default async function DownloadVaultPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ caseId?: string; name?: string }>;
+}) {
+  const params = await searchParams;
   return (
     <Suspense
       fallback={
         <div className="min-h-screen bg-black flex items-center justify-center text-white">
-          ACCESSING...
+          ACCESSING SECURE VAULT...
         </div>
       }
     >
-      <VaultContent />
+      <VaultContent searchParams={params} />
     </Suspense>
   );
 }

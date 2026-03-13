@@ -1,7 +1,11 @@
 import { db, initDatabase } from "@/lib/db";
 import { isAuthenticated, logoutAdmin } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { approveCaseAction, type LiaisonCase } from "@/lib/actions";
+import {
+  approveCaseAction,
+  uploadFileAction,
+  type LiaisonCase,
+} from "@/lib/actions";
 import {
   ShieldCheck,
   Send,
@@ -9,6 +13,8 @@ import {
   Clock,
   CheckCircle2,
   LogOut,
+  FileUp,
+  FileCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -127,6 +133,48 @@ export default async function AdminLiaisonPage() {
                     <p className="text-xs font-bold uppercase tracking-tighter">
                       {item.service}
                     </p>
+                  </div>
+
+                  {/* 📂 File Upload Section */}
+                  <div className="flex items-center gap-4">
+                    {item.file_url ? (
+                      <div className="flex items-center gap-2 text-emerald-500 bg-emerald-500/10 px-4 py-2 rounded-xl border border-emerald-500/20">
+                        <FileCheck className="h-4 w-4" />
+                        <span className="text-[9px] font-black uppercase tracking-widest">
+                          Document Attached
+                        </span>
+                      </div>
+                    ) : (
+                      <form
+                        className="flex items-center gap-2"
+                        action={async (formData) => {
+                          "use server";
+                          await uploadFileAction(item.id, formData);
+                        }}
+                      >
+                        <input
+                          type="file"
+                          name="file"
+                          accept="application/pdf"
+                          className="hidden"
+                          id={`file-${item.id}`}
+                          required
+                        />
+                        <label
+                          htmlFor={`file-${item.id}`}
+                          className="h-10 px-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 text-[9px] font-bold uppercase tracking-widest flex items-center gap-2 cursor-pointer transition-all"
+                        >
+                          <FileUp className="h-3 w-3" /> Select PDF
+                        </label>
+                        <Button
+                          type="submit"
+                          size="sm"
+                          className="h-10 rounded-xl bg-primary/20 text-primary border border-primary/20 hover:bg-primary hover:text-black font-bold text-[9px] uppercase tracking-widest transition-all"
+                        >
+                          Upload
+                        </Button>
+                      </form>
+                    )}
                   </div>
 
                   {item.status !== "approved" ? (
