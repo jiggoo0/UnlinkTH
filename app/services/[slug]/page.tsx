@@ -179,19 +179,19 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
               <div className="space-y-4">
                 <div className="text-primary/60 flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] uppercase">
                   <Terminal className="h-3 w-3" />
-                  <span>Consultation Protocol</span>
+                  <span>ขั้นตอนการเริ่มงานของเรา</span>
                 </div>
                 <h3 className="text-2xl font-bold tracking-tight">
-                  Expert Liaison
+                  คุยกับที่ปรึกษาส่วนตัว
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed font-light">
-                  ปรึกษาผู้เชี่ยวชาญเพื่อประเมินแนวทางการจัดการข้อมูลเชิงลึกภายใต้มาตรฐานความปลอดภัยสูงสุด
+                  ปรึกษาแผนการทำงานจริงกับเรา เพื่อหาแนวทางที่ดีที่สุดในพื้นที่ปลอดภัยและความลับสูงสุด
                 </p>
               </div>
 
               <div className="space-y-4 pt-6">
                 <p className="text-primary/60 font-mono text-[10px] tracking-widest uppercase">
-                  Service Specifications
+                  เราจะช่วยคุณเรื่องอะไรบ้าง?
                 </p>
                 <ul className="space-y-4">
                   {service.features?.map((feature: string, i: number) => (
@@ -212,19 +212,18 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
                   className="w-full h-14 bg-primary hover:bg-primary/90 text-black font-bold text-sm tracking-widest uppercase group"
                 >
                   <Link href={siteConfig.contact.lineUrl} target="_blank">
-                    Contact Specialist
+                    ทักมาคุยกับเราสิครับ
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
                 <p className="text-[10px] text-muted-foreground text-center mt-4 font-mono uppercase tracking-widest">
-                  Secure Private Channel
+                  ความลับของคุณคือหัวใจของเรา
                 </p>
               </div>
 
               <div className="border-border/10 space-y-6 border-t pt-8 text-center">
                 <div className="text-muted-foreground/60 text-[10px] leading-relaxed font-mono uppercase tracking-[0.2em]">
-                  End-to-End Encryption <br />
-                  Data Privacy Verified
+                  ปลอดภัย มั่นใจได้ 100%
                 </div>
               </div>
             </div>
