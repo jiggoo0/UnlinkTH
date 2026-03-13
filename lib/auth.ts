@@ -1,6 +1,8 @@
 /** @format */
 
 import { cookies } from "next/headers";
+import fs from "fs";
+import path from "path";
 
 /**
  * 🔒 UNLINK-GLOBAL: ADMIN AUTHENTICATION (v1.1)
@@ -10,12 +12,31 @@ import { cookies } from "next/headers";
 
 const ADMIN_SESSION_KEY = "unlink_admin_session";
 
+/**
+ * 🛡️ VAULT LOADER
+ * ดึงความลับจาก AI Vault หากไม่มีใน Environment (สำหรับ Local/Termux)
+ */
+function getVaultCredentials() {
+  try {
+    const vaultPath = path.join(process.cwd(), ".gemini/secrets/admin.json");
+    if (fs.existsSync(vaultPath)) {
+      const data = fs.readFileSync(vaultPath, "utf-8");
+      return JSON.parse(data);
+    }
+  } catch (error) {
+    console.warn("⚠️ [AUTH]: Could not read AI Vault credentials.");
+  }
+  return {};
+}
+
 export async function loginAdmin(username: string, password: string) {
-  const secretUsername = process.env.ADMIN_USERNAME || "admin";
-  const secretPassword = process.env.ADMIN_PASSWORD;
+  const vault = getVaultCredentials();
+  
+  const secretUsername = process.env.ADMIN_USERNAME || vault.ADMIN_USERNAME || "admin";
+  const secretPassword = process.env.ADMIN_PASSWORD || vault.ADMIN_PASSWORD;
 
   if (!secretPassword) {
-    console.error("🚨 ADMIN_PASSWORD is not set in environment variables.");
+    console.error("🚨 ADMIN_PASSWORD is not set in environment or AI Vault.");
     return { success: false, error: "System Configuration Error" };
   }
 
