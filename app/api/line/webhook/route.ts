@@ -87,7 +87,7 @@ async function handleTextEvent(event: line.webhook.MessageEvent) {
     }
   }
 
-  // 2. ระบบขอความช่วยเหลือด่วน
+  // 2. ระบบติดต่อที่ปรึกษาเร่งด่วน
   if (
     ["5", "ด่วน", "แอดมิน", "ADMIN", "HELP", "คุยกับคน"].some((k) =>
       normalizedInput.includes(k),
