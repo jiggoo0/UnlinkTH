@@ -430,7 +430,16 @@ function getMainMenuFlex(): line.messagingApi.FlexMessage {
   };
 }
 
-function getOperationalStatusFlex(data: any): line.messagingApi.FlexMessage {
+interface OperationalStatusData {
+  progress?: number;
+  caseId: string;
+  currentPhase: string;
+  step1?: string;
+}
+
+function getOperationalStatusFlex(
+  data: OperationalStatusData,
+): line.messagingApi.FlexMessage {
   const progress = data.progress || 0;
   return {
     type: "flex",
@@ -544,7 +553,10 @@ function getOperationalStatusFlex(data: any): line.messagingApi.FlexMessage {
               {
                 type: "text",
                 text: `✓ ${data.step1 || "Step 1"}`,
-                color: data.step1?.includes("สำเร็จ") ? "#D4AF37" : "#aaaaaa",
+                color:
+                  data.step1 && data.step1.includes("สำเร็จ")
+                    ? "#D4AF37"
+                    : "#aaaaaa",
                 size: "xs",
               },
             ],
@@ -595,16 +607,21 @@ function getDocMenuFlex(): line.messagingApi.FlexMessage {
   ]);
 }
 
+interface FlexButtonData {
+  label: string;
+  text: string;
+}
+
 function getSubMenuFlex(
   id: string,
   title: string,
-  buttons: any[],
+  buttons: FlexButtonData[],
 ): line.messagingApi.FlexMessage {
-  const flexButtons: any[] = buttons.map((b) => ({
-    type: "button",
-    action: { type: "message", label: b.label, text: b.text },
-    height: "sm",
-    style: "secondary",
+  const flexButtons = buttons.map((b) => ({
+    type: "button" as const,
+    action: { type: "message" as const, label: b.label, text: b.text },
+    height: "sm" as const,
+    style: "secondary" as const,
     color: "#333333",
   }));
 

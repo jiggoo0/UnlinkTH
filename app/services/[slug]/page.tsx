@@ -185,7 +185,8 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
                   คุยกับที่ปรึกษาส่วนตัว
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed font-light">
-                  ปรึกษาแผนการทำงานจริงกับเรา เพื่อหาแนวทางที่ดีที่สุดในพื้นที่ปลอดภัยและความลับสูงสุด
+                  ปรึกษาแผนการทำงานจริงกับเรา
+                  เพื่อหาแนวทางที่ดีที่สุดในพื้นที่ปลอดภัยและความลับสูงสุด
                 </p>
               </div>
 

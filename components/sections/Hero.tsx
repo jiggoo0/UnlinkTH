@@ -4,7 +4,7 @@
 
 import { motion } from "framer-motion";
 import { siteConfig } from "@/constants/site-config";
-import { ShieldCheck, ArrowRight, Lock, Database, Zap } from "lucide-react";
+import { ShieldCheck, ArrowRight, Lock, Zap } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { getImageUrl } from "@/lib/utils";
@@ -119,25 +119,24 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.5, delay: 0.8 }}
-            className="border-white/5 grid w-full max-w-5xl grid-cols-2 gap-12 border-t pt-24 md:grid-cols-4"
+            className="border-white/5 grid w-full max-w-4xl grid-cols-1 gap-12 border-t pt-24 md:grid-cols-3"
           >
             {[
               {
-                label: "Global Coverage",
-                value: "15+ Countries",
-                icon: Database,
-              },
-              {
-                label: "Operational Precision",
-                value: "Zero-Error",
+                label: "มาตรฐานการทำงาน",
+                value: "แม่นยำ 100%",
                 icon: Zap,
               },
               {
-                label: "Action Protocol",
-                value: "Fast-Action",
+                label: "ระยะเวลาดำเนินการ",
+                value: "รวดเร็วทันใจ",
                 icon: ShieldCheck,
               },
-              { label: "Identity Protection", value: "Vault-S", icon: Lock },
+              {
+                label: "นโยบายข้อมูล",
+                value: "ความลับสูงสุด",
+                icon: Lock,
+              },
             ].map((stat, i) => (
               <div
                 key={i}

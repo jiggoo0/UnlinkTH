@@ -1,15 +1,92 @@
+/** @format */
+
 "use server";
 
-import { getCaseStatus } from "./google-sheets";
+import { db } from "./db";
+import { sendTicketEmail } from "./email";
+import { revalidatePath } from "next/cache";
 
 /**
- * 🕵️ ACTION: SEARCH CASE STATUS
- * รับ CaseID จากหน้าบ้าน และดึงผลลัพธ์จาก Google Sheets
+ * ⚡ UNLINK-GLOBAL: LIAISON SERVER ACTIONS
+ * -------------------------------------------------------------------------
  */
-export async function searchCaseAction(formData: FormData) {
-  const caseId = formData.get("caseId") as string;
-  if (!caseId) return { error: "กรุณาระบุหมายเลขเคส" };
 
-  const data = await getCaseStatus(caseId);
-  return data;
+export interface LiaisonCase {
+  id: string;
+  customer_name: string;
+  email: string;
+  service: string;
+  amount: number;
+  status: string;
+  email_sent: number;
+  created_at?: string;
 }
+
+/**
+ * 💎 APPROVE CASE & SEND EMAIL
+ */
+export async function approveCaseAction(caseId: string) {
+  try {
+    const result = await db.execute({
+      sql: "SELECT * FROM cases WHERE id = ?",
+      args: [caseId],
+    });
+
+    if (result.rows.length === 0) {
+      return { success: false, error: "Case not found" };
+    }
+
+    const caseData = result.rows[0] as unknown as LiaisonCase;
+
+    const emailResult = await sendTicketEmail(caseData.email, {
+      customerName: caseData.customer_name,
+      caseId: caseData.id,
+      amount: caseData.amount,
+      serviceTitle: caseData.service,
+      ticketUrl: `https://www.unlink-th.com/download-vault?caseId=${caseData.id}&name=${encodeURIComponent(caseData.customer_name)}`,
+    });
+
+    if (!emailResult.success) {
+      throw new Error(`Email dispatch failed: ${emailResult.error}`);
+    }
+
+    await db.execute({
+      sql: "UPDATE cases SET status = 'approved', email_sent = 1 WHERE id = ?",
+      args: [caseId],
+    });
+
+    revalidatePath("/admin/liaison");
+    return { success: true, message: "Liaison dispatched successfully" };
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Unknown error occurred";
+    console.error("🚨 [ACTION ERROR]:", message);
+    return { success: false, error: message };
+  }
+}
+/**
+ * 🛠️ CREATE CASE ACTION (SPARE PART)
+ * สำหรับการสร้างเคสใหม่ผ่าน API หรือ Admin UI ในอนาคต
+ */
+/*
+export async function createCaseAction(data: LiaisonCase) {
+  try {
+    await db.execute({
+      sql: "INSERT INTO cases (id, customer_name, email, service, amount) VALUES (?, ?, ?, ?, ?)",
+      args: [
+        data.id,
+        data.customer_name,
+        data.email,
+        data.service,
+        data.amount,
+      ],
+    });
+    revalidatePath("/admin/liaison");
+    return { success: true };
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Unknown error occurred";
+    return { success: false, error: message };
+  }
+}
+*/

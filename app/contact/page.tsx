@@ -1,7 +1,7 @@
 /** @format */
 
 import { Metadata } from "next";
-import ContactContent from "@/components/sections/ContactContent";
+import { ContactGateway } from "@/components/sections/ContactGateway";
 import JsonLd from "@/components/shared/JsonLd";
 import { getBreadcrumbSchema } from "@/lib/seo-schemas";
 
@@ -9,6 +9,7 @@ import { getBreadcrumbSchema } from "@/lib/seo-schemas";
  * UNLINK-TH | Secure Liaison Access
  * -------------------------------------------------------------------------
  * ช่องทางการติดต่อประสานงานที่ปลอดภัย (Server Component for SEO)
+ * ปรับปรุงใหม่: เน้นความโปร่งใส สบายตา และความเชื่อมั่น (Human-Connect)
  */
 
 export const metadata: Metadata = {
@@ -27,9 +28,9 @@ export default function ContactPage() {
   ];
 
   return (
-    <>
+    <div className="pt-20">
       <JsonLd data={getBreadcrumbSchema(breadcrumbs)} />
-      <ContactContent />
-    </>
+      <ContactGateway />
+    </div>
   );
 }
