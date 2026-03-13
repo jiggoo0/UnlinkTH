@@ -6,11 +6,9 @@ import { getServiceBySlug, getAllServices } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { useMDXComponents } from "@/mdx-components";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ShieldCheck, Lock, ArrowRight, Terminal } from "lucide-react";
+import { ShieldCheck, Lock, Terminal } from "lucide-react";
 import { SecureChannel } from "@/components/sections/SecureChannel";
 import { getImageUrl } from "@/lib/utils";
-import { siteConfig } from "@/constants/site-config";
 import JsonLd from "@/components/shared/JsonLd";
 import { getServiceSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 
@@ -175,56 +173,46 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
         {/* 3. Secure Side Interface */}
         <aside className="lg:col-span-4">
           <div className="sticky top-28 space-y-8">
-            <div className="lab-card border-primary/10 bg-muted/5 shadow-primary/5 border p-10 shadow-2xl">
-              <div className="space-y-4">
-                <div className="text-primary/60 flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] uppercase">
+            <div className="lab-card border-white/5 bg-white/[0.02] border p-8 shadow-2xl">
+              <div className="space-y-6">
+                <div className="text-primary/60 flex items-center gap-2 font-mono text-[9px] tracking-[0.3em] uppercase">
                   <Terminal className="h-3 w-3" />
-                  <span>ขั้นตอนการเริ่มงานของเรา</span>
+                  <span>Service Specification</span>
                 </div>
-                <h3 className="text-2xl font-bold tracking-tight">
-                  คุยกับที่ปรึกษาส่วนตัว
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed font-light">
-                  ปรึกษาแผนการทำงานจริงกับเรา
-                  เพื่อหาแนวทางที่ดีที่สุดในพื้นที่ปลอดภัยและความลับสูงสุด
-                </p>
-              </div>
 
-              <div className="space-y-4 pt-6">
-                <p className="text-primary/60 font-mono text-[10px] tracking-widest uppercase">
-                  เราจะช่วยคุณเรื่องอะไรบ้าง?
-                </p>
-                <ul className="space-y-4">
-                  {service.features?.map((feature: string, i: number) => (
-                    <li
-                      key={i}
-                      className="group text-muted-foreground flex items-start gap-3 text-xs leading-relaxed"
-                    >
-                      <ShieldCheck className="text-primary/40 group-hover:text-primary mt-0.5 h-4 w-4 shrink-0 transition-colors" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center border-b border-white/5 pb-3">
+                    <span className="text-[10px] text-zinc-500 uppercase tracking-widest">
+                      Protocol ID
+                    </span>
+                    <span className="text-xs font-mono font-bold text-white">
+                      {service.id}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-white/5 pb-3">
+                    <span className="text-[10px] text-zinc-500 uppercase tracking-widest">
+                      Classification
+                    </span>
+                    <span className="text-xs font-bold text-white uppercase">
+                      {service.category}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] text-zinc-500 uppercase tracking-widest">
+                      Availability
+                    </span>
+                    <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-tighter flex items-center gap-1">
+                      <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      Active / Secure
+                    </span>
+                  </div>
+                </div>
 
-              <div className="pt-10">
-                <Button
-                  asChild
-                  className="w-full h-14 bg-primary hover:bg-primary/90 text-black font-bold text-sm tracking-widest uppercase group"
-                >
-                  <Link href={siteConfig.contact.lineUrl} target="_blank">
-                    ทักมาคุยกับเราสิครับ
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-                <p className="text-[10px] text-muted-foreground text-center mt-4 font-mono uppercase tracking-widest">
-                  ความลับของคุณคือหัวใจของเรา
-                </p>
-              </div>
-
-              <div className="border-border/10 space-y-6 border-t pt-8 text-center">
-                <div className="text-muted-foreground/60 text-[10px] leading-relaxed font-mono uppercase tracking-[0.2em]">
-                  ปลอดภัย มั่นใจได้ 100%
+                <div className="pt-4">
+                  <p className="text-[9px] text-zinc-500 leading-relaxed font-light italic">
+                    * ทุกการดำเนินงานภายใต้ Protocol
+                    นี้จะถูกเก็บเป็นความลับสูงสุดและทำลายข้อมูลทันทีหลังปิดเคส
+                  </p>
                 </div>
               </div>
             </div>

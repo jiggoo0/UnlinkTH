@@ -44,6 +44,32 @@ export default function HomePage() {
       {/* 1. Hero Section: First Impression & Primary CTA */}
       <Hero />
 
+      {/* 1.5 Strategic Compliance Bar: High-Trust Signals (E-E-A-T) */}
+      <section className="border-y border-white/5 bg-[#0a0f1d]/30 py-6 backdrop-blur-xl">
+        <div className="container">
+          <div className="flex flex-wrap justify-center md:justify-between items-center gap-8 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700">
+            {[
+              { label: "Data Encryption", value: "AES-256 SECURE" },
+              { label: "Privacy Protocol", value: "PDPA COMPLIANT" },
+              { label: "Case Handling", value: "NON-DISCLOSURE" },
+              { label: "Operation", value: "24/7 ACTIVE" },
+            ].map((signal, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="h-1.5 w-1.5 rounded-full bg-primary/50" />
+                <div className="flex flex-col">
+                  <span className="text-[8px] font-mono tracking-[0.3em] text-slate-500 uppercase">
+                    {signal.label}
+                  </span>
+                  <span className="text-[10px] font-black tracking-widest text-white uppercase">
+                    {signal.value}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 2. Protocol Matrix: Operational Workflow */}
       <section className="container scroll-mt-24" id="protocol">
         <SectionHeader
