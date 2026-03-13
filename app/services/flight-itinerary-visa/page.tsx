@@ -4,14 +4,10 @@ import React, { useState } from "react";
 import Image from "next/image";
 import {
   PlaneTakeoff,
-  ShieldCheck,
-  Mail,
   QrCode,
   Lock,
   RefreshCw,
-  FileText,
   CheckCircle2,
-  Clock,
   Globe,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";

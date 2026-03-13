@@ -4,14 +4,11 @@ import React, { useState } from "react";
 import Image from "next/image";
 import {
   BusFront,
-  ShieldCheck,
-  Mail,
   QrCode,
   Lock,
   RefreshCw,
   Receipt,
   CheckCircle2,
-  MapPin,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
