@@ -133,36 +133,139 @@ export default async function SingleCasePage({ params }: CasePageProps) {
               </div>
             </div>
 
-            <h1 className="text-5xl leading-[1.1] font-bold tracking-tighter text-balance md:text-7xl lg:text-8xl text-white">
+            <h1 className="text-4xl leading-[1.2] font-bold tracking-tight text-white md:text-6xl">
               {study.title}
             </h1>
 
-            <div className="border-border/10 grid gap-8 border-t pt-8 md:grid-cols-3">
-              <div className="flex items-center gap-3">
-                <div className="bg-primary/5 rounded-lg p-2">
-                  <ShieldCheck className="text-primary/70 h-5 w-5" />
-                </div>
-                <span className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
-                  Operational Success
+            <div className="border-border/10 grid gap-6 border-t pt-8 md:grid-cols-4">
+              <div className="flex flex-col gap-1">
+                <span className="text-muted-foreground/50 font-sans text-[10px] font-bold tracking-wider uppercase">
+                  Service Category
+                </span>
+                <span className="text-primary font-medium text-sm">
+                  {study.category}
                 </span>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="bg-primary/5 rounded-lg p-2">
-                  <Lock className="text-primary/70 h-5 w-5" />
-                </div>
-                <span className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
-                  {study.priceInfo?.model || "Case Study Record"}
+
+              <div className="flex flex-col gap-1">
+                <span className="text-muted-foreground/50 font-sans text-[10px] font-bold tracking-wider uppercase">
+                  Execution Date
                 </span>
+                <span className="text-white/90 font-medium text-sm">
+                  {study.date}
+                </span>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <span className="text-muted-foreground/50 font-sans text-[10px] font-bold tracking-wider uppercase">
+                  Primary Platform
+                </span>
+                <span className="text-white/90 font-medium text-sm">
+                  {study.metadata?.keywords?.[0] || "Verified Systems"}
+                </span>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <span className="text-muted-foreground/50 font-sans text-[10px] font-bold tracking-wider uppercase">
+                  Verification
+                </span>
+                <div className="flex items-center gap-1.5 text-primary">
+                  <ShieldCheck className="h-4 w-4" />
+                  <span className="text-[11px] font-bold uppercase tracking-widest">
+                    Confirmed Result
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* 2. Technical Briefing Area */}
-      <div className="container grid gap-20 lg:grid-cols-12">
+      {/* 2. Professional Evidence Area */}
+      <div className="container grid gap-16 lg:grid-cols-12">
         <main className="lg:col-span-8">
-          <div className="prose prose-invert prose-headings:tracking-tighter prose-p:leading-relaxed prose-p:text-muted-foreground/90 prose-strong:text-primary max-w-none">
+          {/* Tangible Proof Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div className="bg-muted/5 border border-primary/10 p-8 rounded-xl flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <div className="bg-primary/10 rounded-full p-2">
+                  <ShieldCheck className="text-primary h-5 w-5" />
+                </div>
+                <h4 className="text-sm font-bold text-white uppercase tracking-wider">
+                  Operational Audit Log
+                </h4>
+              </div>
+              <div className="space-y-4">
+                {study.auditLog && study.auditLog.length > 0 ? (
+                  study.auditLog.map((log, i) => (
+                    <div
+                      key={i}
+                      className="flex gap-4 items-start border-l-2 border-primary/20 pl-4 py-1"
+                    >
+                      <span className="text-[10px] font-mono text-primary/60 whitespace-nowrap">
+                        {log.date}
+                      </span>
+                      <span className="text-[11px] text-muted-foreground leading-tight">
+                        {log.action}
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-muted-foreground text-xs italic">
+                    Confidential operational record.
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="bg-muted/5 border border-white/5 p-8 rounded-xl flex flex-col gap-6">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/5 rounded-full p-2">
+                    <Lock className="text-white/40 h-5 w-5" />
+                  </div>
+                  <h4 className="text-sm font-bold text-white uppercase tracking-wider">
+                    Verification Guide
+                  </h4>
+                </div>
+                <ul className="space-y-3">
+                  {study.verificationSteps &&
+                  study.verificationSteps.length > 0 ? (
+                    study.verificationSteps.map((step, i) => (
+                      <li
+                        key={i}
+                        className="flex items-start gap-3 text-xs text-muted-foreground leading-relaxed"
+                      >
+                        <span className="bg-primary/10 text-primary w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold shrink-0">
+                          {i + 1}
+                        </span>
+                        <span>{step}</span>
+                      </li>
+                    ))
+                  ) : (
+                    <li className="text-xs text-muted-foreground italic">
+                      Consult private channel for verification.
+                    </li>
+                  )}
+                </ul>
+              </div>
+
+              {study.legalReference && (
+                <div className="pt-6 border-t border-white/5">
+                  <span className="text-[10px] text-muted-foreground/40 font-bold uppercase tracking-widest block mb-2">
+                    Legal/Regulatory Reference
+                  </span>
+                  <div className="bg-white/5 p-3 rounded-lg border border-white/5">
+                    <span className="text-[11px] text-primary/80 font-medium italic">
+                      {study.legalReference}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="prose prose-invert prose-headings:tracking-tight prose-p:leading-relaxed prose-p:text-muted-foreground/90 prose-strong:text-primary prose-blockquote:border-primary/50 max-w-none">
             <MDXRemote source={study.content} components={mdxComponents} />
           </div>
         </main>

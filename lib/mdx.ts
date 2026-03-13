@@ -220,6 +220,12 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
           outcome: fm.outcome,
           iconName: String(fm.iconName || "FileText"),
           features: Array.isArray(fm.features) ? fm.features : [],
+          legalReference: String(fm.legalReference || ""),
+          platform: String(fm.platform || ""),
+          verificationSteps: Array.isArray(fm.verificationSteps)
+            ? fm.verificationSteps
+            : [],
+          auditLog: Array.isArray(fm.auditLog) ? fm.auditLog : [],
           priceInfo: {
             startingAt: String(fm.priceInfo?.startingAt || "0"),
             unit: String(fm.priceInfo?.unit || "Project"),

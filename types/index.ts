@@ -243,7 +243,12 @@ export interface CaseStudy {
   features?: string[];
   priceInfo?: ServicePrice;
   metadata?: ServiceMetadata;
-  frontmatter?: Record<string, unknown>; // รองรับข้อมูลดิบจาก MDX โดยไม่ใช้ any
+  // --- Tangible Proof Fields (Added 2026) ---
+  legalReference?: string; // อ้างอิงข้อกฎหมายหรือระเบียบที่ใช้ (เช่น PDPA มาตรา 33)
+  platform?: string; // แพลตฟอร์มที่เกี่ยวข้อง (เช่น Google Search, Blacklistseller)
+  verificationSteps?: string[]; // ขั้นตอนที่ลูกค้าใช้ตรวจสอบผลลัพธ์ด้วยตนเอง
+  auditLog?: Array<{ date: string; action: string }>; // บันทึกปฏิบัติการย่อย
+  frontmatter?: Record<string, unknown>;
 }
 
 // ------------------------------------------------------------------

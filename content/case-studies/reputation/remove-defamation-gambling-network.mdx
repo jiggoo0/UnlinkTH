@@ -19,7 +19,19 @@ id: CASE-remove-defamation-gambling-network
 shortDescription: >-
   บันทึกการระงับเหตุวิกฤต กรณีผู้บริหารโดนใส่ร้ายพัวพันเว็บพนันเพื่อเรียกเงิน
   จัดการด้วยมาตรการแทรกแซงเชิงเทคนิคระดับสูง
-iconName: FileText
+iconName: ShieldCheck
+legalReference: พ.ร.บ. ว่าด้วยการกระทำความผิดเกี่ยวกับคอมพิวเตอร์ (ฉบับที่ 2) พ.ศ. 2560 มาตรา 14 และ 16
+platform: Google Legal Support (Content Removal) & Forensic Audit Tools
+verificationSteps:
+  - ค้นหาด้วยคำสำคัญที่เกี่ยวข้องใน Google (โหมดส่วนตัว) เพื่อยืนยันว่าลิงก์ข่าวปลอมถูกลบออก (De-indexed)
+  - ตรวจสอบประวัติการแจ้งลบข้อมูล (Removal Request Status) ผ่านระบบการรายงานเนื้อหาที่ผิดกฎหมาย
+auditLog:
+  - date: "2026-03-02"
+    action: พิสูจน์หลักฐานดิจิทัล (Digital Forensic) เพื่อระบุความเท็จของข้อมูลและเชื่อมโยงเครือข่ายมิจฉาชีพ
+  - date: "2026-03-05"
+    action: ยื่นเรื่องผ่านระบบ Google Legal Removal เพื่อระงับการเข้าถึงเนื้อหาที่หมิ่นประมาทและพัวพันเว็บพนัน
+  - date: "2026-03-09"
+    action: ระบบค้นหาหลักของ Google ยืนยันการถอดลิงก์ออกจากฐานข้อมูลทั่วโลก (Global Removal SUCCESS)
 features:
   - การวิเคราะห์ปัญหาและแนวทางแก้ไขเฉพาะเคส
   - บันทึกขั้นตอนการปฏิบัติงานโดยผู้เชี่ยวชาญ
