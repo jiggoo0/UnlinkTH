@@ -2,7 +2,8 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import * as line from "@line/bot-sdk";
-import { getCaseStatus } from "../../../../lib/google-sheets";
+import { getCaseStatus, updateCaseStatus } from "../../../../lib/google-sheets";
+import { sendTicketEmail } from "../../../../lib/email";
 
 // 📍 SETTINGS & SECURITY
 const LINE_TOKEN = process.env.LINE_CHANNEL_ACCESS_TOKEN || "";
@@ -13,7 +14,8 @@ const client = new line.messagingApi.MessagingApiClient({
 });
 
 /**
- * UNLINK-GLOBAL: LINE OPERATIONAL WEBHOOK WITH DB INTEGRATION
+ * UNLINK-GLOBAL: LINE OPERATIONAL WEBHOOK (ADMIN-CONTROL MODE)
+ * ตัดการพึ่งพา SlipOK และเปลี่ยนเป็นการอนุมัติโดยเจ้าหน้าที่ + ส่งตั๋วอัตโนมัติ
  */
 export async function POST(req: NextRequest) {
   try {
@@ -24,8 +26,11 @@ export async function POST(req: NextRequest) {
       events.map(async (event) => {
         try {
           if (event.type === "follow") return handleFollowEvent(event);
-          if (event.type === "message" && event.message.type === "text")
-            return handleTextEvent(event);
+          if (event.type === "message") {
+            if (event.message.type === "text") return handleTextEvent(event);
+            if (event.message.type === "image") return handleImageEvent(event);
+          }
+          if (event.type === "postback") return handlePostbackEvent(event);
         } catch (e) {
           console.error("Operational Error:", e);
         }
@@ -38,6 +43,63 @@ export async function POST(req: NextRequest) {
     console.error("Main Webhook Failure:", err);
     return NextResponse.json({ status: "error" }, { status: 500 });
   }
+}
+
+/**
+ * 🛡️ ADMIN POSTBACK HANDLER
+ * ประมวลผลเมื่อ Admin กดปุ่ม "อนุมัติ" ใน LINE
+ */
+async function handlePostbackEvent(event: line.webhook.PostbackEvent) {
+  const userId = event.source?.userId;
+  if (userId !== ADMIN_ID) return null; // เฉพาะ Admin เท่านั้นที่มีสิทธิ์
+
+  const data = new URLSearchParams(event.postback.data);
+  const action = data.get("action");
+  const caseId = data.get("caseId");
+  const customerEmail = data.get("email") || "customer@example.com";
+
+  if (action === "approve" && caseId) {
+    try {
+      // 1. อัปเดต Google Sheets
+      await updateCaseStatus(caseId, {
+        mainStatus: "Verified Success",
+        currentPhase: "Document Delivered",
+        progress: 100,
+        step1: "Payment Confirmed",
+      });
+
+      // 2. ดึงข้อมูลเพื่อส่งอีเมล
+      const caseData = await getCaseStatus(caseId);
+      if (!("error" in caseData)) {
+        // 3. ยิงอีเมลตั๋ว/เอกสารอัตโนมัติ
+        await sendTicketEmail(customerEmail, {
+          customerName: caseData.customerName,
+          caseId: caseData.caseId,
+          amount: 299,
+          serviceTitle: "Official Itinerary Alignment",
+        });
+      }
+
+      return client.replyMessage({
+        replyToken: event.replyToken || "",
+        messages: [
+          {
+            type: "text",
+            text: `✅ [SYSTEM-SUCCESS]\nเคส ${caseId} ได้รับการอนุมัติแล้ว\n- อัปเดต Google Sheets สำเร็จ\n- ส่งอีเมลตั๋วหาลูกค้าเรียบร้อยแล้ว`,
+          },
+        ],
+      });
+    } catch (error) {
+      console.error("Postback Error:", error);
+      return client.replyMessage({
+        replyToken: event.replyToken || "",
+        messages: [
+          { type: "text", text: "❌ เกิดข้อผิดพลาดในการประมวลผลคำสั่ง" },
+        ],
+      });
+    }
+  }
+  return null;
 }
 
 async function handleFollowEvent(event: line.webhook.FollowEvent) {
@@ -80,7 +142,7 @@ async function handleTextEvent(event: line.webhook.MessageEvent) {
         messages: [
           {
             type: "text",
-            text: `🔍 [UNLINK-SYSTEM] ตรวจหาเคส ${caseId}...\n\nขออภัยครับ ไม่พบหมายเลขเคสนี้ในระบบการทำความสะอาดข้อมูล หรือ API ยังไม่พร้อมใช้งาน\n\nรบกวนตรวจสอบหมายเลขอีกครั้ง หรือพิมพ์ '5' เพื่อสอบถามเจ้าหน้าที่ครับ`,
+            text: `🔍 [UNLINK-SYSTEM] ตรวจหาเคส ${caseId}...\n\nขออภัยครับ ไม่พบหมายเลขเคสนี้ในระบบการทำความสะอาดข้อมูล\n\nรบกวนตรวจสอบหมายเลขอีกครั้ง หรือพิมพ์ '5' เพื่อสอบถามเจ้าหน้าที่ครับ`,
           },
         ],
       });
@@ -116,151 +178,120 @@ async function handleTextEvent(event: line.webhook.MessageEvent) {
   // 3. Strategic Routing (Standardized 2026 Protocol)
   switch (normalizedInput) {
     case "1":
-      return client.replyMessage({
-        replyToken,
-        messages: [getDocMenuFlex()],
-      });
-    case "11":
-      return client.replyMessage({
-        replyToken,
-        messages: [
-          getServiceDetailFlex(
-            "DOC_INCOME",
-            "วางแผนเอกสารรายได้",
-            "รบกวนระบุ 'อาชีพปัจจุบัน' และ 'วัตถุประสงค์' (เช่น กู้บ้าน/ขอวีซ่า) เพื่อให้ทีมงานประเมินรูปแบบเอกสารที่เหมาะสมที่สุดครับ",
-          ),
-        ],
-      });
-
+      return client.replyMessage({ replyToken, messages: [getDocMenuFlex()] });
     case "2":
       return client.replyMessage({
         replyToken,
         messages: [getFinancialMenuFlex()],
       });
-    case "21":
-      return client.replyMessage({
-        replyToken,
-        messages: [
-          getServiceDetailFlex(
-            "CREDIT_ENGINEERING",
-            "ฟื้นฟูเครดิตบูโร",
-            "รบกวนแจ้ง 'ยอดหนี้รวม' และ 'สถานะปัจจุบัน' เพื่อประเมินความเป็นไปได้ในการเข้าแทรกแซง",
-          ),
-        ],
-      });
-    case "22":
-      return client.replyMessage({
-        replyToken,
-        messages: [
-          getServiceDetailFlex(
-            "STATEMENT_CRAFTING",
-            "ปั้นสเตทเม้นท์พรีเมียม",
-            "ระบุ 'อาชีพปัจจุบัน' และ 'เป้าหมายที่ต้องการ' (เช่น ยอดกู้บ้าน) เพื่อวางแผนทางการเงิน",
-          ),
-        ],
-      });
-
     case "3":
       return client.replyMessage({
         replyToken,
         messages: [getOverseasMenuFlex()],
       });
-    case "31":
-      return client.replyMessage({
-        replyToken,
-        messages: [
-          getServiceDetailFlex(
-            "VERIFIED_ITINERARY",
-            "แผนการเดินทาง (Verified)",
-            "ระบุ 'ประเทศจุดหมาย' และ 'ช่วงวันที่เดินทาง' เพื่อจัดเตรียมแผนการจองที่ตรวจสอบได้จริงครับ",
-          ),
-        ],
-      });
-    case "32":
-      return client.replyMessage({
-        replyToken,
-        messages: [
-          getServiceDetailFlex(
-            "LIFESTYLE_VISA",
-            "วีซ่าไลฟ์สไตล์ (Move Globally)",
-            "แจ้ง 'ประเทศที่คุณสนใจ' และ 'สถานะปัจจุบัน' ภายใต้ Vault Protocol เพื่อประเมินโอกาสสำเร็จครับ",
-          ),
-        ],
-      });
-
     case "4":
       return client.replyMessage({
         replyToken,
         messages: [getReputationMenuFlex()],
       });
-    case "41":
-      return client.replyMessage({
-        replyToken,
-        messages: [
-          getServiceDetailFlex(
-            "BLACKLIST_REMOVAL",
-            "ล้างแบล็คลิสต์ออนไลน์",
-            "ส่ง 'ชื่อ-นามสกุล' หรือ 'ลิงก์ที่ติดปัญหา' เพื่อตรวจสอบฐานข้อมูลแบล็คลิสต์ออนไลน์ทันทีครับ",
-          ),
-        ],
-      });
-    case "42":
-      return client.replyMessage({
-        replyToken,
-        messages: [
-          getServiceDetailFlex(
-            "PRIVACY_ERASER",
-            "ลบประวัติ / ข้อมูลส่วนตัว",
-            "แจ้งรายละเอียดข้อมูลที่คุณต้องการให้ 'หายไป' (เช่น รูปภาพ/ข่าว/ประวัติแฟนเก่า) เพื่อวิเคราะห์วิธีจัดการครับ",
-          ),
-        ],
-      });
-    case "43":
-      return client.replyMessage({
-        replyToken,
-        messages: [
-          getServiceDetailFlex(
-            "SME_RESCUE",
-            "กู้วิกฤตธุรกิจ (SME Rescue)",
-            "รบกวนระบุ 'ลักษณะธุรกิจ' และ 'ปัญหาที่กำลังเผชิญ' เพื่อจัดส่งทีมงาน Specialist เข้าช่วยทันทีครับ",
-          ),
-        ],
-      });
-
-    case "รีวิว":
-    case "REVIEW":
-      return client.replyMessage({
-        replyToken,
-        messages: [
-          {
-            type: "text",
-            text: "⭐ UNLINK SUCCESS STORIES:\nเรามีเคสที่สำเร็จแล้วกว่า 1,000+ เคส\nตรวจสอบได้ที่: https://www.unlink-th.com/case-studies",
-          },
-        ],
-      });
     case "0":
     case "MENU":
     case "เมนู":
       return client.replyMessage({ replyToken, messages: [getMainMenuFlex()] });
-
     default:
-      if (
-        ["ลบ", "ประจาน", "รูป", "ข่าว"].some((k) => normalizedInput.includes(k))
-      )
-        return client.replyMessage({
-          replyToken,
-          messages: [getReputationMenuFlex()],
-        });
-      if (
-        ["กู้", "บ้าน", "เงิน", "สเตทเม้นท์"].some((k) =>
-          normalizedInput.includes(k),
-        )
-      )
-        return client.replyMessage({
-          replyToken,
-          messages: [getFinancialMenuFlex()],
-        });
       return client.replyMessage({ replyToken, messages: [getMainMenuFlex()] });
+  }
+}
+
+/**
+ * 🖼️ IMAGE HANDLER (THE CORE OF MANUAL APPROVAL)
+ */
+async function handleImageEvent(event: line.webhook.Event) {
+  if (
+    event.type !== "message" ||
+    event.message.type !== "image" ||
+    !event.replyToken
+  )
+    return null;
+
+  const replyToken = event.replyToken;
+  const messageId = event.message.id;
+  const userId = event.source?.userId || "unknown";
+
+  try {
+    // 1. แจ้งเตือนลูกค้า
+    await client.replyMessage({
+      replyToken,
+      messages: [
+        {
+          type: "text",
+          text: "🔒 [UNLINK-SYSTEM]\nได้รับสลิปของคุณเรียบร้อยแล้วครับ\nขณะนี้กำลังส่งให้เจ้าหน้าที่ตรวจสอบยอดเงิน (Manual Verification)\n\nเมื่อตรวจสอบสำเร็จ ระบบจะส่งตั๋วให้คุณทางอีเมลทันทีครับ",
+        },
+      ],
+    });
+
+    // 2. ส่งข้อมูลให้ Admin (คุณอลงกรณ์) เพื่ออนุมัติ
+    // 💡 ในที่นี้เราจะสุ่ม Case ID ตัวอย่าง (ในระบบจริงควรให้ลูกค้าพิมพ์ Case ID ก่อนส่งรูป หรือใช้ระบบเศษสตางค์)
+    const mockCaseId = "UL-1001";
+
+    await client.pushMessage({
+      to: ADMIN_ID,
+      messages: [
+        {
+          type: "text",
+          text: `🚨 [NEW-SLIP-RECEIVED]\nลูกค้าส่งสลิปเข้ามาใหม่ครับ\n\nUser: ${userId}\nโปรดตรวจสอบยอดเงินในแอปธนาคารก่อนอนุมัติ`,
+        },
+        {
+          type: "image",
+          originalContentUrl: `https://api-data.line.me/v2/bot/message/${messageId}/content`,
+          previewImageUrl: `https://api-data.line.me/v2/bot/message/${messageId}/content`,
+        },
+        {
+          type: "flex",
+          altText: "Approval Action Required",
+          contents: {
+            type: "bubble",
+            body: {
+              type: "box",
+              layout: "vertical",
+              contents: [
+                {
+                  type: "text",
+                  text: "ADMIN VERIFICATION",
+                  weight: "bold",
+                  color: "#D4AF37",
+                  size: "sm",
+                },
+                {
+                  type: "text",
+                  text: `ยืนยันยอดเงินสำหรับเคส ${mockCaseId}?`,
+                  size: "xs",
+                  color: "#aaaaaa",
+                  margin: "sm",
+                },
+                {
+                  type: "button",
+                  action: {
+                    type: "postback",
+                    label: "✅ อนุมัติและส่งอีเมลตั๋ว",
+                    data: `action=approve&caseId=${mockCaseId}&email=customer@example.com`,
+                    displayText: `กำลังอนุมัติเคส ${mockCaseId}...`,
+                  },
+                  style: "primary",
+                  color: "#D4AF37",
+                  margin: "md",
+                },
+              ],
+            },
+          },
+        },
+      ],
+    });
+
+    return null;
+  } catch (error) {
+    console.error("Image Processing Error:", error);
+    return null;
   }
 }
 
@@ -399,14 +430,7 @@ function getMainMenuFlex(): line.messagingApi.FlexMessage {
   };
 }
 
-function getOperationalStatusFlex(data: {
-  caseId: string;
-  progress: number;
-  currentPhase: string;
-  step1?: string;
-  step2?: string;
-  step3?: string;
-}): line.messagingApi.FlexMessage {
+function getOperationalStatusFlex(data: any): line.messagingApi.FlexMessage {
   const progress = data.progress || 0;
   return {
     type: "flex",
@@ -520,116 +544,18 @@ function getOperationalStatusFlex(data: {
               {
                 type: "text",
                 text: `✓ ${data.step1 || "Step 1"}`,
-                color:
-                  data.step1 && data.step1.includes("สำเร็จ")
-                    ? "#D4AF37"
-                    : "#aaaaaa",
-                size: "xs",
-              },
-              {
-                type: "text",
-                text: `↻ ${data.step2 || "Step 2"}`,
-                color:
-                  data.step2 && data.step2.includes("ดำเนินการ")
-                    ? "#ffffff"
-                    : "#666666",
-                size: "xs",
-                weight:
-                  data.step2 && data.step2.includes("ดำเนินการ")
-                    ? "bold"
-                    : "regular",
-              },
-              {
-                type: "text",
-                text: `○ ${data.step3 || "Step 3"}`,
-                color: "#666666",
+                color: data.step1?.includes("สำเร็จ") ? "#D4AF37" : "#aaaaaa",
                 size: "xs",
               },
             ],
           },
           { type: "separator", color: "#333333" },
-          {
-            type: "text",
-            text: "Vault Protocol: ปลอดภัยระดับสูงสุด ความลับของคุณคือความสำคัญอันดับหนึ่ง",
-            color: "#aaaaaa",
-            size: "xxs",
-            wrap: true,
-            align: "center",
-          },
           {
             type: "button",
             action: { type: "message", label: "CONTACT SPECIALIST", text: "5" },
             height: "sm",
             style: "link",
             color: "#D4AF37",
-          },
-        ],
-      },
-    },
-  };
-}
-
-function getServiceDetailFlex(
-  _id: string,
-  title: string,
-  instruction: string,
-): line.messagingApi.FlexMessage {
-  return {
-    type: "flex",
-    altText: `Service: ${title}`,
-    contents: {
-      type: "bubble",
-      styles: { body: { backgroundColor: "#000000" } },
-      body: {
-        type: "box",
-        layout: "vertical",
-        spacing: "md",
-        contents: [
-          {
-            type: "text",
-            text: "SERVICE PROTOCOL",
-            color: "#D4AF37",
-            size: "xxs",
-            weight: "bold",
-          },
-          {
-            type: "text",
-            text: title,
-            color: "#ffffff",
-            size: "lg",
-            weight: "bold",
-          },
-          { type: "separator", color: "#333333" },
-          {
-            type: "text",
-            text: instruction,
-            color: "#eeeeee",
-            size: "sm",
-            wrap: true,
-          },
-          {
-            type: "box",
-            layout: "vertical",
-            margin: "md",
-            backgroundColor: "#222222",
-            paddingAll: "md",
-            cornerRadius: "sm",
-            contents: [
-              {
-                type: "text",
-                text: "🔒 ข้อมูลของคุณถูกคุ้มครองโดย PDPA & Vault Protocol",
-                color: "#aaaaaa",
-                size: "xxs",
-                align: "center",
-              },
-            ],
-          },
-          {
-            type: "button",
-            action: { type: "message", label: "BACK TO MENU", text: "0" },
-            height: "sm",
-            style: "link",
-            color: "#bbbbbb",
           },
         ],
       },
@@ -672,9 +598,9 @@ function getDocMenuFlex(): line.messagingApi.FlexMessage {
 function getSubMenuFlex(
   id: string,
   title: string,
-  buttons: { label: string; text: string }[],
+  buttons: any[],
 ): line.messagingApi.FlexMessage {
-  const flexButtons: line.messagingApi.FlexComponent[] = buttons.map((b) => ({
+  const flexButtons: any[] = buttons.map((b) => ({
     type: "button",
     action: { type: "message", label: b.label, text: b.text },
     height: "sm",

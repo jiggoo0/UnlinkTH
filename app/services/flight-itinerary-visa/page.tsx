@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   PlaneTakeoff,
-  QrCode,
   Lock,
   RefreshCw,
   CheckCircle2,
@@ -12,6 +11,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { getPaymentConfig, calculateSafeAmount } from "@/lib/utils";
 
 /**
  * 🛫 OFFICIAL ITINERARY ALIGNMENT v1.0
@@ -35,6 +35,15 @@ export default function FlightItineraryGenerator() {
     "form",
   );
   const [isGenerating, setIsGenerating] = useState(false);
+  const [exactAmount, setExactAmount] = useState<number>(299);
+
+  useEffect(() => {
+    if (step === "payment") {
+      setExactAmount(calculateSafeAmount(299));
+    }
+  }, [step]);
+
+  const paymentData = getPaymentConfig(exactAmount);
 
   const airlines: Record<string, { name: string; logo: string; code: string }> =
     {
@@ -241,8 +250,8 @@ export default function FlightItineraryGenerator() {
             </div>
           </div>
 
-          {/* High-Fidelity Preview */}
-          <div className="lg:col-span-8">
+          {/* High-Fidelity Preview / Payment / Success */}
+          <div className="lg:col-span-8 space-y-6">
             {step === "form" && (
               <div className="h-full min-h-[600px] flex flex-col items-center justify-center p-12 border border-white/5 rounded-[3rem] bg-zinc-950/30 text-center relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
@@ -451,20 +460,38 @@ export default function FlightItineraryGenerator() {
             {step === "payment" && (
               <div className="h-full bg-zinc-900/50 border border-primary/20 rounded-[3rem] p-12 flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-right-12 duration-700 backdrop-blur-xl">
                 <div className="bg-white p-6 rounded-[2.5rem] mb-10 shadow-[0_0_50px_rgba(255,255,255,0.1)]">
-                  <div className="w-56 h-56 bg-zinc-100 rounded-3xl flex items-center justify-center flex-col gap-4 border-2 border-zinc-200 border-dashed">
-                    <QrCode className="w-16 h-16 text-black" />
-                    <span className="text-black font-black tracking-widest text-xs uppercase">
-                      Thai QR Payment
+                  <div className="w-56 h-56 bg-zinc-100 rounded-3xl flex items-center justify-center flex-col gap-2 border-2 border-zinc-200 border-dashed overflow-hidden relative">
+                    <img
+                      src={paymentData.qrUrl}
+                      alt="Thai QR Payment"
+                      className="w-full h-full object-contain p-2"
+                      onError={(e) => {
+                        // Fallback if image not uploaded yet
+                        e.currentTarget.src =
+                          "https://placehold.co/400x400/000000/FFFFFF/png?text=UPLOAD+QR+HERE";
+                      }}
+                    />
+                  </div>
+                  <div className="mt-4 flex flex-col items-center justify-center gap-1">
+                    <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">
+                      ยอดที่ต้องโอนให้ตรง
+                    </span>
+                    <span className="text-3xl text-black font-black tracking-tighter italic">
+                      ฿{exactAmount.toFixed(2)}
                     </span>
                   </div>
                 </div>
                 <h3 className="text-3xl font-black mb-4 uppercase tracking-tighter italic">
-                  Secure Checkout
+                  Transfer Exact Amount
                 </h3>
                 <p className="text-zinc-500 text-sm mb-12 max-w-sm font-light leading-relaxed">
-                  ระบบ SlipOK จะตรวจสอบการชำระเงินอัตโนมัติภายใน 5 วินาที
-                  เพื่อปลดล็อกเอกสารฉบับเต็มสู่{" "}
-                  <span className="text-white font-bold">{formData.email}</span>
+                  รบกวนโอนให้ตรงเศษสตางค์{" "}
+                  <span className="text-white font-bold text-lg">
+                    ฿{exactAmount.toFixed(2)}
+                  </span>
+                  <br />
+                  ยอดเงินที่มีเศษสตางค์จะช่วยให้เจัาหน้าที่ของเรายืนยันและออกตั๋วให้คุณได้ทันทีผ่านระบบ{" "}
+                  <span className="text-primary font-bold">UNLINK-SECURE</span>
                 </p>
 
                 <div className="flex gap-4 w-full max-w-sm">
