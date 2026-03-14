@@ -191,40 +191,31 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
     const dir = path.join(CONTENT_PATH, "case-studies");
     const files = getFilesRecursive(dir);
 
-    return files
-      .map((filePath) => {
-        const { data } = matter(fs.readFileSync(filePath, "utf8"));
+    const studies = files.map((filePath) => {
+      try {
+        const source = fs.readFileSync(filePath, "utf8");
+        const { data } = matter(source);
         const slug = path.basename(filePath, ".mdx");
-        const fm = data as unknown as CaseStudy;
+        const fm = data as any;
 
         return {
           id: String(fm.id || slug),
           slug,
           title: String(fm.title || "Classified Case"),
           category: String(fm.category || "Operation"),
-          shortDescription: String(
-            fm.shortDescription || fm.excerpt || fm.description || "",
-          ),
-          thumbnail: resolveImagePath(
-            String(fm.image || fm.thumbnail || ""),
-            "case-studies",
-          ),
-          image: resolveImagePath(
-            String(fm.image || fm.thumbnail || ""),
-            "case-studies",
-          ),
+          shortDescription: String(fm.shortDescription || fm.excerpt || fm.description || ""),
+          thumbnail: resolveImagePath(fm.image || fm.thumbnail, "case-studies"),
+          image: resolveImagePath(fm.image || fm.thumbnail, "case-studies"),
           excerpt: String(fm.excerpt || fm.description || ""),
           date: String(fm.date || "2026-01-01"),
           priority: Number(fm.priority || 0),
-          client: fm.client,
-          outcome: fm.outcome,
+          client: String(fm.client || "VIP Client"),
+          outcome: String(fm.outcome || "CLEANSED"),
           iconName: String(fm.iconName || "FileText"),
           features: Array.isArray(fm.features) ? fm.features : [],
           legalReference: String(fm.legalReference || ""),
           platform: String(fm.platform || ""),
-          verificationSteps: Array.isArray(fm.verificationSteps)
-            ? fm.verificationSteps
-            : [],
+          verificationSteps: Array.isArray(fm.verificationSteps) ? fm.verificationSteps : [],
           auditLog: Array.isArray(fm.auditLog) ? fm.auditLog : [],
           priceInfo: {
             startingAt: String(fm.priceInfo?.startingAt || "0"),
@@ -233,39 +224,44 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
           },
           metadata: {
             defaultTitle: String(fm.metadata?.defaultTitle || fm.title || ""),
-            defaultDescription: String(
-              fm.metadata?.defaultDescription ||
-                fm.excerpt ||
-                fm.description ||
-                "",
-            ),
-            keywords: Array.isArray(fm.metadata?.keywords)
-              ? fm.metadata.keywords
-              : [],
+            defaultDescription: String(fm.metadata?.defaultDescription || fm.excerpt || fm.description || ""),
+            keywords: Array.isArray(fm.metadata?.keywords) ? fm.metadata.keywords : [],
           },
         } as CaseStudy;
-      })
+      } catch (err) {
+        console.error(`[MDX] Failed to parse Case Study: ${filePath}`, err);
+        return null;
+      }
+    });
+
+    return studies
+      .filter((s): s is CaseStudy => s !== null)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  } catch {
+  } catch (error) {
+    console.error("[MDX] getAllCaseStudies Error:", error);
     return [];
   }
 }
 
 export async function getCaseStudyBySlug(slug: string) {
-  const all = await getAllCaseStudies();
-  const found = all.find((c) => c.slug === slug);
-  if (!found) return null;
+  try {
+    const all = await getAllCaseStudies();
+    const found = all.find((c) => c.slug === slug);
+    if (!found) return null;
 
-  const CONTENT_PATH = getContentPath();
-  const dir = path.join(CONTENT_PATH, "case-studies");
-  const files = getFilesRecursive(dir);
-  const filePath = files.find((f) => path.basename(f, ".mdx") === slug);
+    const CONTENT_PATH = getContentPath();
+    const dir = path.join(CONTENT_PATH, "case-studies");
+    const files = getFilesRecursive(dir);
+    const filePath = files.find((f) => path.basename(f, ".mdx") === slug);
 
-  if (filePath) {
-    const { content } = matter(fs.readFileSync(filePath, "utf8"));
-    return { ...found, content };
+    if (filePath) {
+      const { content } = matter(fs.readFileSync(filePath, "utf8"));
+      return { ...found, content };
+    }
+    return found;
+  } catch {
+    return null;
   }
-  return null;
 }
 
 export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
@@ -274,19 +270,22 @@ export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
     const dir = path.join(CONTENT_PATH, "blog");
     const files = getFilesRecursive(dir);
 
-    return files
-      .map((filePath) => {
-        const { data } = matter(fs.readFileSync(filePath, "utf8"));
+    const posts = files.map((filePath) => {
+      try {
+        const source = fs.readFileSync(filePath, "utf8");
+        const { data } = matter(source);
         const slug = path.basename(filePath, ".mdx");
-        const fm = data as unknown as BlogPostFrontmatter;
+        const fm = data as any;
 
         return {
-          ...data,
+          ...fm,
           id: String(fm.id || slug),
           slug,
+          title: String(fm.title || "Intelligence Insight"),
+          category: String(fm.category || "Strategy"),
           shortDescription: String(fm.shortDescription || fm.description || ""),
           image: resolveImagePath(fm.image || fm.thumbnail, "blog"),
-          date: fm.date || new Date().toISOString(),
+          date: String(fm.date || new Date().toISOString()),
           iconName: String(fm.iconName || "BookOpen"),
           features: Array.isArray(fm.features) ? fm.features : [],
           priceInfo: {
@@ -296,17 +295,21 @@ export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
           },
           metadata: {
             defaultTitle: String(fm.metadata?.defaultTitle || fm.title || ""),
-            defaultDescription: String(
-              fm.metadata?.defaultDescription || fm.description || "",
-            ),
-            keywords: Array.isArray(fm.metadata?.keywords)
-              ? fm.metadata.keywords
-              : [],
+            defaultDescription: String(fm.metadata?.defaultDescription || fm.description || ""),
+            keywords: Array.isArray(fm.metadata?.keywords) ? fm.metadata.keywords : [],
           },
         } as BlogPostFrontmatter;
-      })
+      } catch (err) {
+        console.error(`[MDX] Failed to parse Blog Post: ${filePath}`, err);
+        return null;
+      }
+    });
+
+    return posts
+      .filter((p): p is BlogPostFrontmatter => p !== null)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  } catch {
+  } catch (error) {
+    console.error("[MDX] getAllBlogPosts Error:", error);
     return [];
   }
 }
