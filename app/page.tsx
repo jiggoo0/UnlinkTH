@@ -150,7 +150,7 @@ export default function HomePage() {
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="h-[400px] bg-white/[0.02] border border-white/5 rounded-2xl animate-pulse"
+                  className="h-[480px] bg-white/[0.02] border border-white/5 rounded-2xl animate-pulse"
                 />
               ))}
             </div>
@@ -189,7 +189,7 @@ export default function HomePage() {
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="h-[350px] bg-white/[0.02] border border-white/5 rounded-3xl animate-pulse"
+                  className="h-[420px] bg-white/[0.02] border border-white/5 rounded-3xl animate-pulse"
                 />
               ))}
             </div>

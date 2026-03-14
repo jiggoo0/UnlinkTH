@@ -50,7 +50,7 @@ async function ensureAdminExists() {
     const result = await db.execute("SELECT COUNT(*) as count FROM admins");
     const count = Number(result.rows[0]?.count) || 0;
 
-    if (count === 0) {
+    if (count === 0 || process.env.NODE_ENV === "development") {
       const vault = getVaultCredentials();
       const initialUsername =
         process.env.ADMIN_USERNAME || vault.ADMIN_USERNAME || "admin";
@@ -58,15 +58,13 @@ async function ensureAdminExists() {
         process.env.ADMIN_PASSWORD || vault.ADMIN_PASSWORD;
 
       if (initialPassword) {
+        const hashed = hashPassword(initialPassword);
+        // ตรวจสอบว่ามี Admin คนเดิมอยู่หรือไม่ ถ้ามีให้ Update ถ้าไม่มีให้ Insert
         await db.execute({
-          sql: "INSERT INTO admins (id, username, password) VALUES (?, ?, ?)",
-          args: [
-            crypto.randomUUID(),
-            initialUsername,
-            hashPassword(initialPassword),
-          ],
+          sql: "INSERT OR REPLACE INTO admins (id, username, password) VALUES ((SELECT id FROM admins WHERE username = ?), ?, ?)",
+          args: [initialUsername, initialUsername, hashed],
         });
-        console.log("✅ [AUTH]: System seeded with initial credentials.");
+        console.log("✅ [AUTH]: System credentials synchronized.");
       }
     }
   } catch (error) {
