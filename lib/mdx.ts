@@ -198,20 +198,24 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
         const slug = path.basename(filePath, ".mdx");
         const fm = data as any;
 
+        if (!fm.title) {
+          console.warn(`[MDX-WARNING] Missing title in: ${filePath}`);
+        }
+
         return {
           id: String(fm.id || slug),
           slug,
-          title: String(fm.title || "Classified Case"),
+          title: String(fm.title || "Classified Case Record"),
           category: String(fm.category || "Operation"),
-          shortDescription: String(fm.shortDescription || fm.excerpt || fm.description || ""),
+          shortDescription: String(fm.shortDescription || fm.excerpt || fm.description || "Classified intelligence record."),
           thumbnail: resolveImagePath(fm.image || fm.thumbnail, "case-studies"),
           image: resolveImagePath(fm.image || fm.thumbnail, "case-studies"),
           excerpt: String(fm.excerpt || fm.description || ""),
-          date: String(fm.date || "2026-01-01"),
-          priority: Number(fm.priority || 0),
-          client: String(fm.client || "VIP Client"),
-          outcome: String(fm.outcome || "CLEANSED"),
-          iconName: String(fm.iconName || "FileText"),
+          date: String(fm.date || "2026-03-14"),
+          priority: fm.priority ? 1 : 0,
+          client: String(fm.client || "VIP Liaison"),
+          outcome: String(fm.outcome || "COMPLETED"),
+          iconName: String(fm.iconName || "ShieldCheck"),
           features: Array.isArray(fm.features) ? fm.features : [],
           legalReference: String(fm.legalReference || ""),
           platform: String(fm.platform || ""),
@@ -220,16 +224,16 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
           priceInfo: {
             startingAt: String(fm.priceInfo?.startingAt || "0"),
             unit: String(fm.priceInfo?.unit || "Project"),
-            model: String(fm.priceInfo?.model || "Case Study Record"),
+            model: String(fm.priceInfo?.model || "Success Record"),
           },
           metadata: {
             defaultTitle: String(fm.metadata?.defaultTitle || fm.title || ""),
-            defaultDescription: String(fm.metadata?.defaultDescription || fm.excerpt || fm.description || ""),
+            defaultDescription: String(fm.metadata?.defaultDescription || fm.shortDescription || ""),
             keywords: Array.isArray(fm.metadata?.keywords) ? fm.metadata.keywords : [],
           },
         } as CaseStudy;
       } catch (err) {
-        console.error(`[MDX] Failed to parse Case Study: ${filePath}`, err);
+        console.error(`[MDX-CRITICAL] Failed to parse Case Study: ${filePath}`, err);
         return null;
       }
     });

@@ -84,7 +84,7 @@ export default function CaseStudyCard({
             </div>
 
             {/* Core Specs Modules */}
-            {study.features && study.features.length > 0 && (
+            {study.features && Array.isArray(study.features) && study.features.length > 0 && (
               <div className="flex flex-wrap gap-2 pt-2">
                 {study.features.slice(0, 3).map((feature, idx) => (
                   <span
