@@ -1,81 +1,62 @@
 /** @format */
 
 import { cookies } from "next/headers";
-import fs from "fs";
-import path from "path";
 import { db, initDatabase } from "@/lib/db";
 import crypto from "crypto";
 
 /**
- * 🔒 UNLINK-GLOBAL: ADMIN AUTHENTICATION (v2.1 - Enhanced Resilience)
+ * 🔒 UNLINK-GLOBAL: ADMIN AUTHENTICATION (v2.2 - Decoupled Architecture)
  * -------------------------------------------------------------------------
- * ระบบตรวจสอบสิทธิ์ที่ออกแบบมาเพื่อกู้คืนตัวเองจากปัญหาฐานข้อมูล
+ * มาตรฐานความปลอดภัยระดับ Elite: แยกส่วนกระบวนการ Setup ออกจาก Runtime Login
  */
 
 const ADMIN_SESSION_KEY = "unlink_admin_session";
 
 /**
- * 🛠️ PASSWORD UTILITY
+ * 🛠️ UTILITIES
  */
 function hashPassword(password: string) {
   return crypto.createHash("sha256").update(password).digest("hex");
 }
 
 /**
- * 🛡️ VAULT LOADER
+ * 🏗️ SYSTEM BOOTSTRAP: ENSURE ADMIN
+ * ใช้สำหรับครั้งแรกที่ระบบสตาร์ท หรือเมื่อมีการอัปเดต Credentials
  */
-function getVaultCredentials() {
+export async function syncAdminCredentials() {
   try {
-    const vaultPath = path.join(process.cwd(), ".gemini/secrets/admin.json");
-    if (fs.existsSync(vaultPath)) {
-      const data = fs.readFileSync(vaultPath, "utf-8");
-      return JSON.parse(data);
+    await initDatabase();
+
+    const username = process.env.ADMIN_USERNAME || "Admin";
+    const password = process.env.ADMIN_PASSWORD;
+
+    if (!password) {
+      console.warn("⚠️ [AUTH]: ADMIN_PASSWORD missing. Skip credentials sync.");
+      return;
     }
-  } catch {
-    /* Silent fail */
+
+    const hashed = hashPassword(password);
+
+    // Sync ข้อมูลลงใน ID '1' เสมอเพื่อความเป็นระเบียบ
+    await db.execute({
+      sql: "INSERT OR REPLACE INTO admins (id, username, password) VALUES ('1', ?, ?)",
+      args: [username, hashed],
+    });
+
+    console.log(`✅ [AUTH]: Credentials synchronized for: ${username}`);
+  } catch (error) {
+    console.error("❌ [AUTH]: Credentials Sync Failed:", error);
   }
-  return {};
 }
 
 /**
- * 🏗️ SYSTEM BOOTSTRAP: ENSURE ADMIN
- * บังคับ Init ฐานข้อมูลก่อนตรวจสอบเสมอเพื่อป้องกัน Database Error
+ * 🔑 CORE LOGIN LOGIC (Read-only for high resilience)
  */
-async function ensureAdminExists() {
-  try {
-    // 🛡️ ขั้นตอนที่ 1: มั่นใจว่าตาราง admins มีอยู่จริง
-    await initDatabase();
-
-    // 🛡️ ขั้นตอนที่ 2: ตรวจสอบและ Sync Admin ข้อมูลล่าสุด
-    const vault = getVaultCredentials();
-    const currentUsername =
-      process.env.ADMIN_USERNAME || vault.ADMIN_USERNAME || "Admin";
-    const currentPassword = process.env.ADMIN_PASSWORD || vault.ADMIN_PASSWORD;
-
-    if (currentPassword) {
-      const hashed = hashPassword(currentPassword);
-
-      // Update the primary admin account (always ID 1) to match the latest credentials
-      await db.execute({
-        sql: "INSERT OR REPLACE INTO admins (id, username, password) VALUES ('1', ?, ?)",
-        args: [currentUsername, hashed],
-      });
-      console.log(
-        `✅ [AUTH]: Operational Credentials synchronized for: ${currentUsername}`,
-      );
-    }
-  } catch (error: unknown) {
-    console.error("❌ [AUTH]: Security Bootstrap failed:", error);
-    throw new Error("DATABASE_INIT_FAILURE", { cause: error });
-  }
-}
-
 export async function loginAdmin(username: string, password: string) {
   try {
-    // รันการตรวจสอบและสร้างตารางก่อนเริ่ม Login
-    await ensureAdminExists();
-
     const hashedPassword = hashPassword(password);
+
+    // ตรวจสอบข้อมูลจาก DB โดยตรง (No write operations here)
     const result = await db.execute({
       sql: "SELECT * FROM admins WHERE username = ? AND password = ?",
       args: [username, hashedPassword],
@@ -88,17 +69,28 @@ export async function loginAdmin(username: string, password: string) {
         secure: process.env.NODE_ENV === "production",
         maxAge: 60 * 60 * 24, // 24 Hours session
         path: "/",
+        sameSite: "lax",
       });
       return { success: true };
     }
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Unknown error";
-    console.error("🚨 [AUTH]: Login System Error:", message);
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error("🚨 [AUTH]: Authentication System Critical Error:", errorMsg);
 
-    const errorMsg = message.includes("DATABASE_INIT_FAILURE")
-      ? `DB_CONNECT_FAILED: ${message}`
-      : "AUTH_SYSTEM_ERROR";
-    return { success: false, error: `Critical System Error: ${errorMsg}` };
+    // หากเกิด Error เพราะตารางยังไม่มี ให้ลองรัน Sync ครั้งเดียว
+    if (errorMsg.includes("no such table")) {
+      console.log("🔄 [AUTH]: Attempting emergency recovery...");
+      await syncAdminCredentials();
+      return {
+        success: false,
+        error: "System initializing. Please try again.",
+      };
+    }
+
+    return {
+      success: false,
+      error: "Database Connection Failure. Please try again in 30s.",
+    };
   }
 
   return { success: false, error: "Invalid Operational Credentials" };

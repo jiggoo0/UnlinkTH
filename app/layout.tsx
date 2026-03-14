@@ -12,10 +12,12 @@ import JsonLd from "@/components/shared/JsonLd";
 import ReputationShield from "@/components/layout/ReputationShield";
 import PdpaConsent from "@/components/layout/PdpaConsent";
 import { Toaster } from "@/components/ui/sonner";
+import { Providers } from "./providers";
+import SafeAnalytics from "@/components/layout/SafeAnalytics";
 import "./globals.css";
 
 /**
- * Advanced Font Architectures (PageSpeed Optimized)
+ * 🎨 ADVANCED FONT ARCHITECTURES (PageSpeed Optimized)
  */
 const inter = Inter({
   subsets: ["latin"],
@@ -44,7 +46,7 @@ export const viewport: Viewport = {
 };
 
 /**
- * 🛡️ UNLINK-GLOBAL | Supreme Semantic Metadata
+ * 🛡️ SEMANTIC METADATA ARCHITECTURE
  */
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -54,19 +56,10 @@ export const metadata: Metadata = {
   },
   description: siteConfig.seo.defaultDescription,
   keywords: siteConfig.seo.keywords,
-  authors: [
-    { name: "9mzm", url: "https://www.aemdevweb.com" },
-    { name: "9mzm", url: "https://me.aemdevweb.com" },
-  ],
-  creator: "9mzm",
+  authors: [{ name: "AEMDEVWEB", url: "https://www.aemdevweb.com" }],
+  creator: "UNLINK-GLOBAL UNIT",
   publisher: "AemDevWeb Studio",
   formatDetection: { email: false, address: false, telephone: false },
-  other: {
-    designer: "9mzm",
-    owner: "9mzm",
-    copyright: "9mzm | AemDevWeb",
-    signature: "9mzm-core-infra-2026",
-  },
 
   openGraph: {
     type: "website",
@@ -84,12 +77,14 @@ export const metadata: Metadata = {
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
     title: siteConfig.seo.defaultTitle,
     description: siteConfig.seo.defaultDescription,
     images: [siteConfig.ogImage],
   },
+
   robots: {
     index: true,
     follow: true,
@@ -102,42 +97,26 @@ export const metadata: Metadata = {
   },
 };
 
-import SafeAnalytics from "@/components/layout/SafeAnalytics";
-import { ThemeProvider } from "@/components/theme-provider";
-
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html
       lang={siteConfig.language}
       className={`${inter.variable} ${notoThai.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-      </head>
       <body className="bg-[#050810] text-foreground selection:bg-primary/20 selection:text-primary relative flex min-h-screen flex-col font-sans antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           <NextTopLoader
             color="oklch(var(--color-primary))"
             showSpinner={false}
             shadow="0 0 10px oklch(var(--color-primary) / 0.5)"
           />
 
-          {/* Global Authority Signals */}
+          {/* Global Excellence Signals */}
           <JsonLd />
           <ReputationShield />
           <PdpaConsent />
@@ -154,7 +133,7 @@ export default function RootLayout({
           <Suspense fallback={null}>
             <SafeAnalytics gaId="G-VRLM7ZEH9X" />
           </Suspense>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
