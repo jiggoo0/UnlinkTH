@@ -9,6 +9,7 @@ import { revalidatePath } from "next/cache";
 import { updateCaseStatus } from "./google-sheets";
 
 import { put } from "@vercel/blob";
+import { verifySlip } from "./payment";
 
 /**
  * ⚡ UNLINK-GLOBAL: LIAISON SERVER ACTIONS
@@ -114,6 +115,13 @@ export async function submitSlipAction(caseId: string, formData: FormData) {
       sql: "UPDATE cases SET slip_url = ?, status = 'pending_verification' WHERE id = ?",
       args: [blob.url, caseId],
     });
+
+    // [AUTOMATED-PAYMENT]: Verify Slip via SlipOK API
+    try {
+      await verifySlip({ data: blob.url });
+    } catch (payErr) {
+      console.warn("⚠️ [PAYMENT-VERIFY-ERROR]:", payErr);
+    }
 
     // 4. [ADMIN-NOTIFICATION]: Notify admin about new slip
     try {

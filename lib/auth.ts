@@ -5,58 +5,65 @@ import { db, initDatabase } from "@/lib/db";
 import crypto from "crypto";
 
 /**
- * 🔒 UNLINK-GLOBAL: ADMIN AUTHENTICATION (v2.2 - Decoupled Architecture)
+ * 🔒 UNLINK-GLOBAL: ADMIN AUTHENTICATION (v2.4 - Production Ready)
  * -------------------------------------------------------------------------
- * มาตรฐานความปลอดภัยระดับ Elite: แยกส่วนกระบวนการ Setup ออกจาก Runtime Login
+ * ระบบตรวจสอบสิทธิ์ที่เน้นความโปร่งใสของข้อผิดพลาดและการกู้คืนเชิงรุก
  */
 
 const ADMIN_SESSION_KEY = "unlink_admin_session";
 
-/**
- * 🛠️ UTILITIES
- */
 function hashPassword(password: string) {
   return crypto.createHash("sha256").update(password).digest("hex");
 }
 
 /**
- * 🏗️ SYSTEM BOOTSTRAP: ENSURE ADMIN
- * ใช้สำหรับครั้งแรกที่ระบบสตาร์ท หรือเมื่อมีการอัปเดต Credentials
+ * 🏗️ SYSTEM BOOTSTRAP
  */
 export async function syncAdminCredentials() {
+  const username = process.env.ADMIN_USERNAME || "Admin";
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (!password) {
+    console.error(
+      "🚨 [AUTH_FATAL]: ADMIN_PASSWORD environment variable is missing.",
+    );
+    return;
+  }
+
   try {
     await initDatabase();
-
-    const username = process.env.ADMIN_USERNAME || "Admin";
-    const password = process.env.ADMIN_PASSWORD;
-
-    if (!password) {
-      console.warn("⚠️ [AUTH]: ADMIN_PASSWORD missing. Skip credentials sync.");
-      return;
-    }
-
     const hashed = hashPassword(password);
 
-    // Sync ข้อมูลลงใน ID '1' เสมอเพื่อความเป็นระเบียบ
     await db.execute({
       sql: "INSERT OR REPLACE INTO admins (id, username, password) VALUES ('1', ?, ?)",
       args: [username, hashed],
     });
 
-    console.log(`✅ [AUTH]: Credentials synchronized for: ${username}`);
-  } catch (error) {
-    console.error("❌ [AUTH]: Credentials Sync Failed:", error);
+    console.log(
+      `✅ [AUTH]: System Credentials successfully synced for ${username}`,
+    );
+  } catch (error: unknown) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error("❌ [AUTH]: Sync failed:", errorMsg);
   }
 }
 
 /**
- * 🔑 CORE LOGIN LOGIC (Read-only for high resilience)
+ * 🔑 LOGIN OPERATION
  */
 export async function loginAdmin(username: string, password: string) {
+  // 1. ตรวจสอบ Config เบื้องต้น
+  if (!process.env.TURSO_DATABASE_URL || !process.env.TURSO_AUTH_TOKEN) {
+    return {
+      success: false,
+      error: "Database configuration is not established.",
+    };
+  }
+
   try {
     const hashedPassword = hashPassword(password);
 
-    // ตรวจสอบข้อมูลจาก DB โดยตรง (No write operations here)
+    // 2. ตรวจสอบข้อมูลแบบ Read-only
     const result = await db.execute({
       sql: "SELECT * FROM admins WHERE username = ? AND password = ?",
       args: [username, hashedPassword],
@@ -66,8 +73,8 @@ export async function loginAdmin(username: string, password: string) {
       const cookieStore = await cookies();
       cookieStore.set(ADMIN_SESSION_KEY, "authenticated", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        maxAge: 60 * 60 * 24, // 24 Hours session
+        secure: true,
+        maxAge: 60 * 60 * 24, // 24 Hours
         path: "/",
         sameSite: "lax",
       });
@@ -75,21 +82,24 @@ export async function loginAdmin(username: string, password: string) {
     }
   } catch (error: unknown) {
     const errorMsg = error instanceof Error ? error.message : String(error);
-    console.error("🚨 [AUTH]: Authentication System Critical Error:", errorMsg);
+    console.error("🚨 [AUTH_RUNTIME_ERROR]:", errorMsg);
 
-    // หากเกิด Error เพราะตารางยังไม่มี ให้ลองรัน Sync ครั้งเดียว
+    // จัดการ Error แยกตามกรณี
     if (errorMsg.includes("no such table")) {
-      console.log("🔄 [AUTH]: Attempting emergency recovery...");
       await syncAdminCredentials();
       return {
         success: false,
-        error: "System initializing. Please try again.",
+        error: "Database initializing. Please retry in 5s.",
       };
+    }
+
+    if (errorMsg.includes("401") || errorMsg.includes("auth")) {
+      return { success: false, error: "Infrastructure Authentication Error." };
     }
 
     return {
       success: false,
-      error: "Database Connection Failure. Please try again in 30s.",
+      error: `System Connection Failure: ${errorMsg.substring(0, 30)}...`,
     };
   }
 

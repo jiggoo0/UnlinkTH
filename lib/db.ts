@@ -3,15 +3,19 @@
 import { createClient, Client } from "@libsql/client";
 
 /**
- * 🗄️ UNLINK-GLOBAL: TURSO DATABASE CONNECTOR (v1.2 - Singleton Edition)
+ * 🗄️ UNLINK-GLOBAL: TURSO DATABASE CONNECTOR (v1.3 - Hybrid Resilience)
  * -------------------------------------------------------------------------
- * มาตรฐานการเชื่อมต่อระดับ Elite: ลด Latency และป้องกัน Connection Exhaustion
+ * มาตรฐานสูงสุด: ป้องกันความผิดพลาดจากการตั้งค่า Env และจัดการ Timeout แบบไดนามิก
  */
 
-const url = process.env.TURSO_DATABASE_URL?.trim();
-const authToken = process.env.TURSO_AUTH_TOKEN?.trim();
+// ดึงค่าอย่างปลอดภัยและลดความเสี่ยงจาก Whitespace
+const rawUrl = process.env.TURSO_DATABASE_URL || "";
+const rawToken = process.env.TURSO_AUTH_TOKEN || "";
 
-// ใช้ Global Variable เพื่อทำ Singleton ในสภาพแวดล้อม Next.js (HMR Friendly)
+const url = rawUrl.trim();
+const authToken = rawToken.trim();
+
+// Singleton Pattern เพื่อป้องกัน Connection Exhaustion
 const globalForDb = global as unknown as { db: Client | undefined };
 
 export const db =
@@ -25,27 +29,19 @@ if (process.env.NODE_ENV !== "production") globalForDb.db = db;
 
 /**
  * 🏗️ DATABASE INITIALIZATION
- * ตรวจสอบและสร้างตาราง (รันเพียงครั้งเดียวเมื่อจำเป็น)
+ * ตรวจสอบความพร้อมของโครงสร้างพื้นฐาน
  */
 export async function initDatabase() {
-  try {
-    // 🛡️ Step 1: Silent Health Check
-    if (url && authToken) {
-      try {
-        // ใช้เวลา Timeout ที่นานขึ้นเล็กน้อยสำหรับ Cold Start ของ Turso
-        await Promise.race([
-          db.execute("SELECT 1"),
-          new Promise((_, reject) =>
-            setTimeout(() => reject(new Error("DB_TIMEOUT")), 10000),
-          ),
-        ]);
-      } catch {
-        console.warn("⚠️ [DB]: Initial connection slow, but continuing...");
-      }
-    }
+  // หากไม่มี Config พื้นฐาน ให้หยุดทำงานทันทีเพื่อไม่ให้ระบบวนลูป Error
+  if (!url || !authToken) {
+    const missing = !url ? "URL" : "TOKEN";
+    console.error(`❌ [DB_FATAL]: TURSO_${missing} is missing in environment.`);
+    return;
+  }
 
-    // 🛡️ Step 2: Schema Verification (Optimized)
-    // สร้างตาราง cases และ admins เฉพาะเมื่อยังไม่มีเท่านั้น
+  try {
+    // 🛡️ Step 1: Schema Verification & Emergency Setup
+    // ใช้ Batch เพื่อความเร็วและลด Latency
     await db.batch(
       [
         `CREATE TABLE IF NOT EXISTS cases (
@@ -71,10 +67,14 @@ export async function initDatabase() {
       "write",
     );
 
-    console.log("✅ [DB]: Infrastructure verified.");
+    console.log("✅ [DB]: Infrastructure and Schema verified.");
   } catch (error: unknown) {
     const errorMsg = error instanceof Error ? error.message : String(error);
-    console.error("❌ [DB]: Initialization Error:", errorMsg);
-    // ไม่ Throw Error เพื่อให้แอปยังรันต่อได้ในโหมด Read-only หากจำเป็น
+    console.error("❌ [DB]: Schema sync failed:", errorMsg);
+
+    // แจ้งเตือนกรณี Token ผิดพลาด (Unauthorized)
+    if (errorMsg.includes("401") || errorMsg.toLowerCase().includes("auth")) {
+      console.error("🚨 [DB_AUTH_ERROR]: Please verify TURSO_AUTH_TOKEN.");
+    }
   }
 }
