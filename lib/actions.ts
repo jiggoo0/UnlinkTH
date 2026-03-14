@@ -62,6 +62,43 @@ export async function uploadFileAction(caseId: string, formData: FormData) {
 }
 
 /**
+ * 🧾 SUBMIT PAYMENT SLIP (CUSTOMER SIDE)
+ */
+export async function submitSlipAction(caseId: string, formData: FormData) {
+  try {
+    const file = formData.get("file") as File;
+    if (!file) {
+      throw new Error("กรุณาเลือกไฟล์สลิปเพื่อยืนยันการโอนเงินครับ");
+    }
+
+    const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
+    if (!allowedTypes.includes(file.type)) {
+      throw new Error("ระบบรองรับเฉพาะไฟล์รูปภาพ (JPG, PNG) หรือ PDF เท่านั้นครับ");
+    }
+
+    // Upload to Vercel Blob (slips folder)
+    const blob = await put(`slips/${caseId}-${Date.now()}-${file.name}`, file, {
+      access: "public",
+      addRandomSuffix: true,
+    });
+
+    // Update Database with Slip URL
+    await db.execute({
+      sql: "UPDATE cases SET slip_url = ?, status = 'pending_verification' WHERE id = ?",
+      args: [blob.url, caseId],
+    });
+
+    revalidatePath("/admin/liaison");
+    revalidatePath("/payment-verify");
+    return { success: true, url: blob.url };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "การอัปโหลดสลิปล้มเหลว";
+    console.error("🚨 [SLIP UPLOAD ERROR]:", message);
+    return { success: false, error: message };
+  }
+}
+
+/**
  * 💎 APPROVE CASE & SEND EMAIL
  */
 export async function approveCaseAction(caseId: string) {

@@ -39,6 +39,7 @@ export async function initDatabase() {
         status TEXT DEFAULT 'pending',
         email_sent INTEGER DEFAULT 0,
         file_url TEXT,
+        slip_url TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
     `);

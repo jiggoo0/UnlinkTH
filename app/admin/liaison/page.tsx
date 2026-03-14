@@ -187,6 +187,30 @@ export default async function AdminLiaisonPage() {
                     </p>
                   </div>
 
+                  {/* 🧾 Payment Slip Section */}
+                  <div className="flex items-center gap-4">
+                    {item.slip_url ? (
+                      <a
+                        href={item.slip_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-primary bg-primary/10 px-4 py-2 rounded-xl border border-primary/20 hover:bg-primary hover:text-black transition-all"
+                      >
+                        <FileCheck className="h-4 w-4" />
+                        <span className="text-[9px] font-black uppercase tracking-widest">
+                          View Slip
+                        </span>
+                      </a>
+                    ) : (
+                      <div className="flex items-center gap-2 text-zinc-600 bg-white/5 px-4 py-2 rounded-xl border border-white/5">
+                        <Clock className="h-4 w-4" />
+                        <span className="text-[9px] font-black uppercase tracking-widest">
+                          Waiting Slip
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
                   {/* 📂 File Upload Section */}
                   <div className="flex items-center gap-4">
                     {item.file_url ? (

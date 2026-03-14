@@ -36,10 +36,10 @@ export default function FlightItineraryGenerator() {
     "form",
   );
   const [isGenerating, setIsGenerating] = useState(false);
-  const [exactAmount, setExactAmount] = useState<number>(1590);
+  const [exactAmount, setExactAmount] = useState<number>(490);
 
   useEffect(() => {
-    const basePrice = formData.priority === "express" ? 2490 : 1590;
+    const basePrice = formData.priority === "express" ? 890 : 490;
     if (step === "payment") {
       setExactAmount(calculateSafeAmount(basePrice));
     }
@@ -300,7 +300,7 @@ export default function FlightItineraryGenerator() {
                         Protocol Fee
                       </span>
                       <span className="text-primary font-black text-3xl">
-                        ฿199
+                        ฿{formData.priority === "express" ? "890" : "490"}
                       </span>
                     </div>
 
