@@ -3,18 +3,27 @@
 import { cookies } from "next/headers";
 import fs from "fs";
 import path from "path";
+import { db } from "@/lib/db";
+import crypto from "crypto";
 
 /**
- * 🔒 UNLINK-GLOBAL: ADMIN AUTHENTICATION (v1.1)
+ * 🔒 UNLINK-GLOBAL: ADMIN AUTHENTICATION (v2.0 - Turso Driven)
  * -------------------------------------------------------------------------
- * ระบบตรวจสอบสิทธิ์เข้าถึงหน้าควบคุมการปฏิบัติการ (Username & Password)
+ * ระบบตรวจสอบสิทธิ์ผ่านฐานข้อมูล Turso เพื่อความยืดหยุ่นในการจัดการ
  */
 
 const ADMIN_SESSION_KEY = "unlink_admin_session";
 
 /**
- * 🛡️ VAULT LOADER
- * ดึงความลับจาก AI Vault หากไม่มีใน Environment (สำหรับ Local/Termux)
+ * 🛠️ PASSWORD UTILITY
+ * ใช้ SHA-256 ในการเก็บรหัสผ่านเพื่อความปลอดภัยเบื้องต้น
+ */
+function hashPassword(password: string) {
+  return crypto.createHash("sha256").update(password).digest("hex");
+}
+
+/**
+ * 🛡️ VAULT LOADER (Legacy Support for Initialization)
  */
 function getVaultCredentials() {
   try {
@@ -23,32 +32,69 @@ function getVaultCredentials() {
       const data = fs.readFileSync(vaultPath, "utf-8");
       return JSON.parse(data);
     }
-  } catch (error) {
-    console.warn("⚠️ [AUTH]: Could not read AI Vault credentials.");
+  } catch {
+    // Fail silently, fallback to env
   }
   return {};
 }
 
-export async function loginAdmin(username: string, password: string) {
-  const vault = getVaultCredentials();
-  
-  const secretUsername = process.env.ADMIN_USERNAME || vault.ADMIN_USERNAME || "admin";
-  const secretPassword = process.env.ADMIN_PASSWORD || vault.ADMIN_PASSWORD;
+/**
+ * 🏗️ SYSTEM BOOTSTRAP: ENSURE ADMIN
+ * ตรวจสอบและสร้าง Admin คนแรกหากฐานข้อมูลยังว่างอยู่
+ */
+async function ensureAdminExists() {
+  try {
+    const result = await db.execute("SELECT COUNT(*) as count FROM admins");
+    const count = Number(result.rows[0]?.count) || 0;
 
-  if (!secretPassword) {
-    console.error("🚨 ADMIN_PASSWORD is not set in environment or AI Vault.");
-    return { success: false, error: "System Configuration Error" };
+    if (count === 0) {
+      const vault = getVaultCredentials();
+      const initialUsername =
+        process.env.ADMIN_USERNAME || vault.ADMIN_USERNAME || "admin";
+      const initialPassword =
+        process.env.ADMIN_PASSWORD || vault.ADMIN_PASSWORD;
+
+      if (initialPassword) {
+        await db.execute({
+          sql: "INSERT INTO admins (id, username, password) VALUES (?, ?, ?)",
+          args: [
+            crypto.randomUUID(),
+            initialUsername,
+            hashPassword(initialPassword),
+          ],
+        });
+        console.log("✅ [AUTH]: Initial Admin created in Turso.");
+      }
+    }
+  } catch (error) {
+    console.error("❌ [AUTH]: Bootstrap failed:", error);
   }
+}
 
-  if (username === secretUsername && password === secretPassword) {
-    const cookieStore = await cookies();
-    cookieStore.set(ADMIN_SESSION_KEY, "authenticated", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60 * 2, // 2 Hours session
-      path: "/",
+export async function loginAdmin(username: string, password: string) {
+  // มั่นใจว่ามี Admin ในระบบก่อนเริ่ม
+  await ensureAdminExists();
+
+  try {
+    const hashedPassword = hashPassword(password);
+    const result = await db.execute({
+      sql: "SELECT * FROM admins WHERE username = ? AND password = ?",
+      args: [username, hashedPassword],
     });
-    return { success: true };
+
+    if (result.rows.length > 0) {
+      const cookieStore = await cookies();
+      cookieStore.set(ADMIN_SESSION_KEY, "authenticated", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 60 * 60 * 24, // 24 Hours session for better UX
+        path: "/",
+      });
+      return { success: true };
+    }
+  } catch (error) {
+    console.error("❌ [AUTH]: Login error:", error);
+    return { success: false, error: "Database Error" };
   }
 
   return { success: false, error: "Invalid Credentials" };

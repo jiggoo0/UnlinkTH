@@ -50,30 +50,36 @@ export async function sendTicketEmail(to: string, data: TicketEmailData) {
                 ขณะนี้ขั้นตอนการตรวจสอบและจัดเตรียมเอกสารเสร็จสมบูรณ์แล้ว คุณสามารถตรวจสอบและรับเอกสารฉบับจริงได้ผ่านระบบจัดการข้อมูลส่วนบุคคล (Secure Access) ตามรายละเอียดด้านล่างนี้ครับ
               </p>
               
-              <div style="background: #f8fafc; border: 1px solid #edf2f7; border-radius: 10px; padding: 20px; margin: 25px 0;">
-                <table style="width: 100%; font-size: 13px; color: #4a5568;">
-                  <tr>
-                    <td style="padding-bottom: 8px;">รหัสอ้างอิงเคส:</td>
-                    <td style="text-align: right; font-weight: bold; color: #1a202c;">${data.caseId}</td>
+              <div style="background: #f8fafc; border: 1px solid #edf2f7; border-radius: 10px; padding: 25px; margin: 25px 0;">
+                <h4 style="margin: 0 0 15px 0; color: #1a202c; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px;">Operational Details</h4>
+                <table style="width: 100%; font-size: 13px; color: #4a5568; border-collapse: collapse;">
+                  <tr style="border-bottom: 1px solid #edf2f7;">
+                    <td style="padding: 10px 0;">รหัสอ้างอิงเคส (Case Reference):</td>
+                    <td style="text-align: right; font-weight: bold; color: #1a202c; padding: 10px 0;">${data.caseId}</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #edf2f7;">
+                    <td style="padding: 10px 0;">สถานะการดำเนินการ:</td>
+                    <td style="text-align: right; color: #10B981; font-weight: bold; padding: 10px 0;">VERIFIED / DISPATCHED</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #edf2f7;">
+                    <td style="padding: 10px 0;">ยอดชำระที่ยืนยันแล้ว:</td>
+                    <td style="text-align: right; font-weight: bold; color: #1a202c; padding: 10px 0;">฿${data.amount.toLocaleString()}</td>
                   </tr>
                   <tr>
-                    <td style="padding-bottom: 8px;">สถานะการดำเนินการ:</td>
-                    <td style="text-align: right; color: #10B981; font-weight: bold;">สมบูรณ์ (Verified)</td>
-                  </tr>
-                  <tr>
-                    <td>บริการ:</td>
-                    <td style="text-align: right; font-weight: bold;">${data.serviceTitle}</td>
+                    <td style="padding: 10px 0;">บริการ (Liaison Service):</td>
+                    <td style="text-align: right; font-weight: bold; padding: 10px 0;">${data.serviceTitle}</td>
                   </tr>
                 </table>
               </div>
               
-              <div style="text-align: center; margin: 35px 0;">
-                <a href="https://www.unlink-th.com/download-vault?caseId=${data.caseId}&name=${encodeURIComponent(data.customerName)}" style="background: #10B981; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block;">รับเอกสารของคุณได้ที่นี่</a>
+              <div style="text-align: center; margin: 40px 0;">
+                <p style="font-size: 12px; color: #718096; margin-bottom: 20px;">คลิกปุ่มด้านล่างเพื่อเข้าสู่ระบบดาวน์โหลดเอกสารความลับของคุณ</p>
+                <a href="https://www.unlink-th.com/download-vault?caseId=${data.caseId}" style="background: #020617; color: #ffffff; padding: 18px 40px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 15px; display: inline-block; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">ACCESS SECURE VAULT</a>
               </div>
               
-              <p style="font-size: 11px; color: #a0aec0; text-align: center; margin-top: 30px; line-height: 1.5;">
-                อีเมลฉบับนี้เป็นการแจ้งเตือนอัตโนมัติจากระบบรักษาความปลอดภัย <br>
-                หากท่านมีข้อสงสัยเพิ่มเติม สามารถปรึกษาเจ้าหน้าที่ผ่านช่องทาง LINE OA ได้ตลอดเวลาครับ
+              <p style="font-size: 11px; color: #a0aec0; text-align: center; margin-top: 35px; line-height: 1.8; font-style: italic;">
+                * ข้อมูลนี้ถูกส่งโดยระบบอัตโนมัติภายใต้มาตรฐานการรักษาความลับสูงสุดของ UNLINK-GLOBAL <br>
+                เอกสารจะถูกเก็บรักษาไว้ในระบบเพียงระยะเวลาสั้นๆ โปรดดำเนินการดาวน์โหลดและจัดเก็บในที่ปลอดภัยทันทีครับ
               </p>
             </div>
             

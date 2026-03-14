@@ -6,21 +6,13 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { useMDXComponents } from "@/mdx-components";
 import { SecureChannel } from "@/components/sections/SecureChannel";
-import {
-  Calendar,
-  ShieldCheck,
-  Lock,
-  ArrowRight,
-  Terminal,
-} from "lucide-react";
+import { Calendar, ShieldCheck, Lock, Terminal } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import JsonLd from "@/components/shared/JsonLd";
 import { getCaseStudySchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 import { getImageUrl } from "@/lib/utils";
-import { siteConfig } from "@/constants/site-config";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -184,6 +176,21 @@ export default async function SingleCasePage({ params }: CasePageProps) {
       {/* 2. Professional Evidence Area */}
       <div className="container grid gap-16 lg:grid-cols-12">
         <main className="lg:col-span-8">
+          {/* 2.1 Case Summary Header */}
+          <section className="mb-16 rounded-2xl border border-primary/10 bg-primary/5 p-8 backdrop-blur-sm">
+            <div className="mb-6 flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Terminal className="h-4 w-4" />
+              </div>
+              <h2 className="font-mono text-sm font-bold uppercase tracking-[0.2em] text-white">
+                Operational Case Summary
+              </h2>
+            </div>
+            <p className="mb-0 text-sm leading-relaxed text-muted-foreground/90 italic border-l-2 border-primary/30 pl-4">
+              {study.excerpt}
+            </p>
+          </section>
+
           {/* Tangible Proof Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             <div className="bg-muted/5 border border-primary/10 p-8 rounded-xl flex flex-col gap-4">
@@ -273,90 +280,57 @@ export default async function SingleCasePage({ params }: CasePageProps) {
         {/* 3. Secure Side Interface */}
         <aside className="lg:col-span-4">
           <div className="sticky top-28 space-y-8">
-            <div className="lab-card border-primary/10 bg-muted/5 shadow-primary/5 border p-10 shadow-2xl">
-              <div className="space-y-4">
-                <div className="text-primary/60 flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] uppercase">
+            <div className="lab-card border-white/5 bg-white/[0.02] border p-8 shadow-2xl">
+              <div className="space-y-6">
+                <div className="text-primary/60 flex items-center gap-2 font-mono text-[9px] tracking-[0.3em] uppercase">
                   <Terminal className="h-3 w-3" />
                   <span>Audit Metadata</span>
                 </div>
-                <h3 className="text-2xl font-bold tracking-tight">
-                  Mission Briefing
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed font-light">
-                  {study.excerpt || study.shortDescription || study.description}
-                </p>
-              </div>
 
-              {/* Client & Outcome info if available */}
-              {(study.client || study.outcome) && (
-                <div className="space-y-4 pt-6 border-t border-border/10">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center border-b border-white/5 pb-3">
+                    <span className="text-[10px] text-zinc-500 uppercase tracking-widest">
+                      Case Protocol
+                    </span>
+                    <span className="text-xs font-mono font-bold text-white">
+                      {study.id || "CLASSIFIED"}
+                    </span>
+                  </div>
                   {study.client && (
-                    <div className="flex flex-col gap-1">
-                      <span className="text-muted-foreground/40 font-mono text-[9px] tracking-widest uppercase">
+                    <div className="flex justify-between items-center border-b border-white/5 pb-3">
+                      <span className="text-[10px] text-zinc-500 uppercase tracking-widest">
                         Client
                       </span>
-                      <span className="text-foreground text-sm font-medium">
+                      <span className="text-xs font-bold text-white uppercase">
                         {study.client}
                       </span>
                     </div>
                   )}
-                  {study.outcome && (
-                    <div className="flex flex-col gap-1">
-                      <span className="text-muted-foreground/40 font-mono text-[9px] tracking-widest uppercase">
-                        Final Outcome
-                      </span>
-                      <span className="text-primary text-sm font-bold tracking-tight">
-                        {study.outcome}
-                      </span>
-                    </div>
-                  )}
+                  <div className="flex justify-between items-center border-b border-white/5 pb-3">
+                    <span className="text-[10px] text-zinc-500 uppercase tracking-widest">
+                      Outcome
+                    </span>
+                    <span className="text-[10px] font-bold text-emerald-500 uppercase">
+                      SUCCESSFUL
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] text-zinc-500 uppercase tracking-widest">
+                      Privacy Tier
+                    </span>
+                    <span className="text-[10px] font-bold text-amber-500 uppercase tracking-tighter flex items-center gap-1">
+                      <Lock className="h-2 w-2" />
+                      Level 4 NDA
+                    </span>
+                  </div>
                 </div>
-              )}
 
-              <div className="space-y-4 pt-6">
-                <p className="text-primary/60 font-mono text-[10px] tracking-widest uppercase">
-                  Execution Highlights
-                </p>
-                <ul className="space-y-4">
-                  {(study.features?.length ?? 0) > 0 ? (
-                    study.features?.map((feature: string, i: number) => (
-                      <li
-                        key={i}
-                        className="group text-muted-foreground flex items-start gap-3 text-xs leading-relaxed"
-                      >
-                        <ShieldCheck className="text-primary/40 group-hover:text-primary mt-0.5 h-4 w-4 shrink-0 transition-colors" />
-                        <span>{feature}</span>
-                      </li>
-                    ))
-                  ) : (
-                    <li className="group text-muted-foreground flex items-start gap-3 text-xs leading-relaxed">
-                      <ShieldCheck className="text-primary/40 group-hover:text-primary mt-0.5 h-4 w-4 shrink-0 transition-colors" />
-                      <span>Confidential Operational Protocol</span>
-                    </li>
-                  )}
-                </ul>
-              </div>
-
-              <div className="pt-10">
-                <Button
-                  asChild
-                  className="w-full h-14 bg-primary hover:bg-primary/90 text-black font-bold text-sm tracking-widest uppercase group"
-                >
-                  <Link href={siteConfig.contact.lineUrl} target="_blank">
-                    Contact Specialist
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-                <p className="text-[10px] text-muted-foreground text-center mt-4 font-mono uppercase tracking-widest">
-                  Secure Private Channel
-                </p>
-              </div>
-
-              <div className="border-border/10 space-y-6 border-t pt-8 text-center">
-                <div className="text-muted-foreground/60 text-[10px] leading-relaxed font-mono uppercase tracking-[0.2em]">
-                  Operational Status:{" "}
-                  <span className="text-primary">SUCCESS</span> <br />
-                  Data Privacy Tier: LEVEL 4 NDA
+                <div className="pt-4">
+                  <p className="text-[9px] text-zinc-500 leading-relaxed font-light italic">
+                    *
+                    บันทึกปฏิบัติการนี้ได้รับการปกปิดตัวตนเพื่อความปลอดภัยสูงสุด
+                    ข้อมูลทางเทคนิคถูกตรวจสอบความถูกต้องแล้ว 100%
+                  </p>
                 </div>
               </div>
             </div>

@@ -6,14 +6,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { useMDXComponents } from "@/mdx-components";
 import { SecureChannel } from "@/components/sections/SecureChannel";
-import {
-  Calendar,
-  Clock,
-  ShieldCheck,
-  Lock,
-  ArrowRight,
-  Terminal,
-} from "lucide-react";
+import { Calendar, Clock, ShieldCheck, Lock, Terminal } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import JsonLd from "@/components/shared/JsonLd";
@@ -21,7 +14,6 @@ import { getBlogPostingSchema, getBreadcrumbSchema } from "@/lib/seo-schemas";
 import { getImageUrl } from "@/lib/utils";
 import { siteConfig } from "@/constants/site-config";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -163,71 +155,109 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
       {/* 2. Technical Execution Area */}
       <div className="container grid gap-20 lg:grid-cols-12">
         <main className="lg:col-span-8">
+          {/* 2.1 Auto-Generated Intelligence Summary (Key Insights) */}
+          <section className="mb-16 rounded-2xl border border-primary/10 bg-primary/5 p-8 backdrop-blur-sm">
+            <div className="mb-6 flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Terminal className="h-4 w-4" />
+              </div>
+              <h2 className="font-mono text-sm font-bold uppercase tracking-[0.2em] text-white">
+                Intelligence Summary & Key Insights
+              </h2>
+            </div>
+            <p className="mb-8 text-sm leading-relaxed text-muted-foreground/90 italic border-l-2 border-primary/30 pl-4">
+              {post.description}
+            </p>
+
+            {post.features && post.features.length > 0 && (
+              <div className="grid gap-4 md:grid-cols-2">
+                {post.features.map((feature: string, idx: number) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <ShieldCheck className="mt-1 h-3.5 w-3.5 text-primary/60 shrink-0" />
+                    <span className="text-[13px] text-zinc-300">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+
           <div className="prose prose-invert prose-headings:tracking-tighter prose-p:leading-relaxed prose-p:text-muted-foreground/90 prose-strong:text-primary max-w-none">
             <MDXRemote source={post.content} components={mdxComponents} />
           </div>
+
+          {/* 2.2 Takeaways & Strategic Actions */}
+          <section className="mt-20 rounded-xl border border-white/5 bg-white/[0.02] p-8">
+            <div className="mb-6 flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-primary/70">
+              <div className="h-1 w-4 bg-primary/40" />
+              Strategic Takeaways
+            </div>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-4 text-sm text-zinc-400">
+                <span className="text-primary font-mono">[01]</span>
+                <span>
+                  ดำเนินการประเมินความเสี่ยงและจัดเตรียมเอกสารตามเกณฑ์มาตรฐานล่าสุด
+                </span>
+              </li>
+              <li className="flex items-start gap-4 text-sm text-zinc-400">
+                <span className="text-primary font-mono">[02]</span>
+                <span>
+                  ตรวจสอบความถูกต้องของรายการเดินบัญชีและที่มาของรายได้ให้ชัดเจน
+                </span>
+              </li>
+              <li className="flex items-start gap-4 text-sm text-zinc-400">
+                <span className="text-primary font-mono">[03]</span>
+                <span>
+                  ปรึกษาผู้เชี่ยวชาญผ่านช่องทางที่ปลอดภัยเพื่อลดความเสี่ยงในการถูกปฏิเสธ
+                </span>
+              </li>
+            </ul>
+          </section>
         </main>
 
         {/* 3. Secure Side Interface */}
         <aside className="lg:col-span-4">
           <div className="sticky top-28 space-y-8">
-            <div className="lab-card border-primary/10 bg-muted/5 shadow-primary/5 border p-10 shadow-2xl">
-              <div className="space-y-4">
-                <div className="text-primary/60 flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] uppercase">
+            <div className="lab-card border-white/5 bg-white/[0.02] border p-8 shadow-2xl">
+              <div className="space-y-6">
+                <div className="text-primary/60 flex items-center gap-2 font-mono text-[9px] tracking-[0.3em] uppercase">
                   <Terminal className="h-3 w-3" />
                   <span>Intelligence Summary</span>
                 </div>
-                <h3 className="text-2xl font-bold tracking-tight">
-                  Key Insights
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed font-light">
-                  {post.shortDescription || post.description}
-                </p>
-              </div>
 
-              <div className="space-y-4 pt-6">
-                <p className="text-primary/60 font-mono text-[10px] tracking-widest uppercase">
-                  Takeaways & Actions
-                </p>
-                <ul className="space-y-4">
-                  {(post.features?.length ?? 0) > 0 ? (
-                    post.features?.map((feature: string, i: number) => (
-                      <li
-                        key={i}
-                        className="group text-muted-foreground flex items-start gap-3 text-xs leading-relaxed"
-                      >
-                        <ShieldCheck className="text-primary/40 group-hover:text-primary mt-0.5 h-4 w-4 shrink-0 transition-colors" />
-                        <span>{feature}</span>
-                      </li>
-                    ))
-                  ) : (
-                    <li className="group text-muted-foreground flex items-start gap-3 text-xs leading-relaxed">
-                      <ShieldCheck className="text-primary/40 group-hover:text-primary mt-0.5 h-4 w-4 shrink-0 transition-colors" />
-                      <span>Contact us for personalized consultation</span>
-                    </li>
-                  )}
-                </ul>
-              </div>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center border-b border-white/5 pb-3">
+                    <span className="text-[10px] text-zinc-500 uppercase tracking-widest">
+                      Article ID
+                    </span>
+                    <span className="text-xs font-mono font-bold text-white">
+                      {post.id || "N/A"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-white/5 pb-3">
+                    <span className="text-[10px] text-zinc-500 uppercase tracking-widest">
+                      Classification
+                    </span>
+                    <span className="text-xs font-bold text-white uppercase">
+                      {post.category}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] text-zinc-500 uppercase tracking-widest">
+                      Status
+                    </span>
+                    <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-tighter flex items-center gap-1">
+                      <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      Verified Source
+                    </span>
+                  </div>
+                </div>
 
-              <div className="pt-10">
-                <Button
-                  asChild
-                  className="w-full h-14 bg-primary hover:bg-primary/90 text-black font-bold text-sm tracking-widest uppercase group"
-                >
-                  <Link href={siteConfig.contact.lineUrl} target="_blank">
-                    Contact Specialist
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-                <p className="text-[10px] text-muted-foreground text-center mt-4 font-mono uppercase tracking-widest">
-                  Secure Private Channel
-                </p>
-              </div>
-
-              <div className="border-border/10 space-y-6 border-t pt-8 text-center">
-                <div className="text-muted-foreground/60 text-[10px] leading-relaxed font-mono uppercase tracking-[0.2em]">
-                  End-to-End Encryption <br />
-                  Data Privacy Verified
+                <div className="pt-4">
+                  <p className="text-[9px] text-zinc-500 leading-relaxed font-light italic">
+                    *
+                    ข้อมูลนี้จัดทำขึ้นเพื่อการศึกษาและการวางแผนเชิงกลยุทธ์ภายใต้มาตรฐานความปลอดภัยระดับสูงของ{" "}
+                    {siteConfig.name}
+                  </p>
                 </div>
               </div>
             </div>

@@ -26,13 +26,19 @@ export default async function AdminLiaisonPage() {
   // 2. Database Init (Ensure schema exists)
   await initDatabase();
 
-  // 3. Fetch Cases from Turso (With Build Safety)
+  // 3. Fetch Cases & Analytics from Turso
   let cases: LiaisonCase[] = [];
+  let totalRevenue = 0;
+  let approvedCount = 0;
   try {
     const result = await db.execute(
       "SELECT * FROM cases ORDER BY created_at DESC",
     );
     cases = result.rows as unknown as LiaisonCase[];
+
+    // Calculate Analytics
+    totalRevenue = cases.reduce((acc, curr) => acc + (curr.amount || 0), 0);
+    approvedCount = cases.filter((c) => c.status === "approved").length;
   } catch {
     console.warn("⚠️ [DB]: Skipping fetch during build or connection failure.");
   }
@@ -83,6 +89,52 @@ export default async function AdminLiaisonPage() {
       </header>
 
       <main className="max-w-6xl mx-auto">
+        {/* 📊 Revenue & Metrics Overview */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 hover:border-primary/20 transition-all">
+            <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-4">
+              Total Revenue Generated
+            </p>
+            <div className="flex items-end gap-2">
+              <span className="text-4xl font-black text-primary italic">
+                ฿{totalRevenue.toLocaleString()}
+              </span>
+              <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">
+                Net Profit
+              </span>
+            </div>
+          </div>
+          <div className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 hover:border-primary/20 transition-all">
+            <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-4">
+              Active Operations
+            </p>
+            <div className="flex items-end gap-2">
+              <span className="text-4xl font-black text-white italic">
+                {cases.length}
+              </span>
+              <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">
+                Total Cases
+              </span>
+            </div>
+          </div>
+          <div className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 hover:border-primary/20 transition-all">
+            <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-4">
+              Success Delivery Rate
+            </p>
+            <div className="flex items-end gap-2">
+              <span className="text-4xl font-black text-emerald-500 italic">
+                {cases.length > 0
+                  ? Math.round((approvedCount / cases.length) * 100)
+                  : 0}
+                %
+              </span>
+              <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">
+                Efficiency
+              </span>
+            </div>
+          </div>
+        </section>
+
         {cases.length === 0 ? (
           <div className="text-center py-20 bg-[#0a0f1d] border border-white/5 rounded-[2rem]">
             <Users className="h-12 w-12 text-zinc-700 mx-auto mb-4" />

@@ -162,12 +162,66 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
       {/* 2. Technical Execution Area */}
       <div className="container grid gap-20 lg:grid-cols-12">
         <main className="lg:col-span-8">
+          {/* 2.1 Auto-Generated Intelligence Summary (Key Insights) */}
+          <section className="mb-16 rounded-2xl border border-primary/10 bg-primary/5 p-8 backdrop-blur-sm">
+            <div className="mb-6 flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <Terminal className="h-4 w-4" />
+              </div>
+              <h2 className="font-mono text-sm font-bold uppercase tracking-[0.2em] text-white">
+                Intelligence Summary & Service Scope
+              </h2>
+            </div>
+            <p className="mb-8 text-sm leading-relaxed text-muted-foreground/90 italic border-l-2 border-primary/30 pl-4">
+              {service.shortDescription}
+            </p>
+
+            {service.features && service.features.length > 0 && (
+              <div className="grid gap-4 md:grid-cols-2">
+                {service.features.map((feature: string, idx: number) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <ShieldCheck className="mt-1 h-3.5 w-3.5 text-primary/60 shrink-0" />
+                    <span className="text-[13px] text-zinc-300">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+
           <div className="prose prose-invert prose-headings:tracking-tighter prose-p:leading-relaxed prose-p:text-muted-foreground/90 prose-strong:text-primary max-w-none">
             <MDXRemote
               source={service.description || ""}
               components={mdxComponents}
             />
           </div>
+
+          {/* 2.2 Takeaways & Strategic Actions */}
+          <section className="mt-20 rounded-xl border border-white/5 bg-white/[0.02] p-8">
+            <div className="mb-6 flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-primary/70">
+              <div className="h-1 w-4 bg-primary/40" />
+              Strategic Takeaways
+            </div>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-4 text-sm text-zinc-400">
+                <span className="text-primary font-mono">[01]</span>
+                <span>
+                  ตรวจสอบเงื่อนไขและเตรียมความพร้อมด้านข้อมูลภายใต้การดูแลของผู้เชี่ยวชาญ
+                </span>
+              </li>
+              <li className="flex items-start gap-4 text-sm text-zinc-400">
+                <span className="text-primary font-mono">[02]</span>
+                <span>
+                  ดำเนินการตามขั้นตอนความปลอดภัยสูงสุดเพื่อปกป้องข้อมูลและความเป็นส่วนตัว
+                </span>
+              </li>
+              <li className="flex items-start gap-4 text-sm text-zinc-400">
+                <span className="text-primary font-mono">[03]</span>
+                <span>
+                  ยืนยันความถูกต้องของแผนงานก่อนเริ่มดำเนินการจริงผ่านช่องทางลับที่กำหนด
+                </span>
+              </li>
+            </ul>
+          </section>
         </main>
 
         {/* 3. Secure Side Interface */}

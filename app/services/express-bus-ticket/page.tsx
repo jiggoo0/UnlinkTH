@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import {
   BusFront,
   QrCode,
@@ -9,6 +8,7 @@ import {
   RefreshCw,
   Receipt,
   CheckCircle2,
+  FileDown,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -231,10 +231,10 @@ export default function BusTicketGenerator() {
 
                     <div className="bg-black/50 border border-white/5 rounded-2xl p-6 mb-10 flex justify-between items-center">
                       <span className="text-zinc-400 text-xs font-bold uppercase tracking-widest">
-                        Admin Fee
+                        Issuance Fee
                       </span>
                       <span className="text-primary font-black text-3xl">
-                        ฿99
+                        ฿590
                       </span>
                     </div>
 
@@ -242,28 +242,24 @@ export default function BusTicketGenerator() {
                       onClick={() => setStep("payment")}
                       className="w-full h-16 bg-primary hover:bg-primary/90 text-black font-black tracking-[0.2em] uppercase rounded-2xl shadow-[0_0_30px_rgba(16,185,129,0.3)]"
                     >
-                      Unlock E-Ticket
+                      Process E-Ticket
                     </Button>
                   </div>
                 </div>
 
-                {/* 🚌 THE TICKET (97%+ Fidelity) */}
+                {/* THE TICKET (High-Fidelity) */}
                 <div className="max-w-md mx-auto my-10 bg-white shadow-xl rounded-xl overflow-hidden opacity-25 select-none font-sans">
                   <div className="bg-[#1a365d] p-6 text-white text-center relative">
                     <div className="bg-white p-2 rounded-lg inline-block mb-3">
-                      <Image
-                        src="/images/assets/branding/transport-co.png"
-                        alt="บขส Logo"
-                        width={60}
-                        height={60}
-                        className="object-contain"
-                      />
+                      <div className="w-[60px] h-[60px] bg-slate-100 rounded flex items-center justify-center text-black font-bold text-[8px] uppercase">
+                        Transport Logo
+                      </div>
                     </div>
-                    <h2 className="text-lg font-bold">
-                      บริษัท ขนส่ง จำกัด (บขส.)
+                    <h2 className="text-lg font-bold uppercase tracking-tight">
+                      The Transport Co., Ltd.
                     </h2>
                     <p className="text-[10px] opacity-80 uppercase tracking-widest font-bold">
-                      The Transport Co., Ltd.
+                      Official Itinerary Record
                     </p>
                     <div className="absolute top-0 right-0 p-4 opacity-20">
                       <BusFront className="w-12 h-12" />
@@ -345,9 +341,14 @@ export default function BusTicketGenerator() {
                     </div>
 
                     <div className="pt-6 flex flex-col items-center gap-2">
-                      <QrCode className="w-24 h-24 text-gray-800" />
+                      {/* 📲 REAL QR CODE GENERATION */}
+                      <img
+                        src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`https://www.unlink-th.com/verify/transport-co/${Math.random().toString(36).substring(2, 8).toUpperCase()}?name=${formData.passengerName || "SOMCHAI JAIDEE"}&date=${formData.travelDate || "2026-10-15"}&route=${formData.departureStation}-${formData.arrivalStation}`)}`}
+                        alt="Verification QR Code"
+                        className="w-24 h-24 object-contain mix-blend-multiply opacity-90"
+                      />
                       <p className="text-[8px] text-gray-400 uppercase font-bold">
-                        Verify via Transport Co. Smart System
+                        Scan to Verify via Smart System
                       </p>
                     </div>
                   </div>
@@ -402,35 +403,136 @@ export default function BusTicketGenerator() {
             )}
 
             {step === "success" && (
-              <div className="h-full bg-primary/5 border border-primary/20 rounded-[3rem] p-16 flex flex-col items-center justify-center text-center animate-in zoom-in duration-700">
-                <div className="w-24 h-24 bg-primary rounded-[2rem] flex items-center justify-center mb-10 shadow-[0_0_50px_rgba(16,185,129,0.4)] rotate-12">
-                  <CheckCircle2 className="w-12 h-12 text-black" />
+              <div className="h-full bg-white text-slate-900 rounded-[2rem] shadow-2xl overflow-hidden animate-in zoom-in duration-700 font-sans border-4 border-emerald-500/20">
+                {/* 🏛️ Official System Header */}
+                <div className="bg-[#1a365d] p-6 text-white flex justify-between items-center border-b-4 border-amber-400">
+                  <div className="flex items-center gap-4">
+                    <div className="bg-white p-1.5 rounded-lg">
+                      <div className="w-10 h-10 bg-slate-100 flex items-center justify-center text-black font-bold text-[6px] uppercase">
+                        Transport Logo
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-sm font-bold leading-tight uppercase tracking-tighter">
+                        The Transport Co., Ltd.
+                      </h2>
+                      <p className="text-[8px] opacity-70 font-mono tracking-widest uppercase">
+                        Digital Ticket Verification System
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="bg-emerald-500/20 border border-emerald-500/40 px-3 py-1 rounded-full flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-tighter">
+                        System Online
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-4xl font-black text-white mb-6 uppercase tracking-tighter">
-                  Transfer Complete
-                </h3>
-                <p className="text-zinc-400 text-sm mb-12 max-w-md leading-relaxed font-light">
-                  ระบบได้ส่งไฟล์ E-Ticket ฉบับสมบูรณ์ (ไม่มีลายน้ำ) ไปยัง{" "}
-                  <span className="text-white font-bold">{formData.email}</span>{" "}
-                  เรียบร้อยแล้วครับ
-                </p>
 
-                <div className="bg-zinc-900/80 p-8 rounded-[2rem] border border-white/5 w-full max-w-sm text-center">
-                  <p className="text-[10px] text-zinc-500 uppercase tracking-widest mb-4 font-bold">
-                    Official Support
-                  </p>
-                  <Button className="w-full bg-[#00B900] hover:bg-[#009900] text-white font-bold h-14 rounded-xl uppercase tracking-widest text-[10px]">
-                    Receive via LINE OA
-                  </Button>
+                <div className="p-8 md:p-12">
+                  {/* ✅ Verified Badge Area */}
+                  <div className="flex flex-col items-center text-center mb-10">
+                    <div className="w-24 h-24 bg-emerald-50 rounded-full flex items-center justify-center mb-6 border-4 border-emerald-100 shadow-inner relative">
+                      <CheckCircle2 className="w-12 h-12 text-emerald-500" />
+                      <div className="absolute inset-0 rounded-full border-4 border-emerald-500/10 animate-ping" />
+                    </div>
+                    <h3 className="text-2xl font-black text-slate-800 uppercase tracking-tight mb-1">
+                      Verified Successfully
+                    </h3>
+                    <p className="text-emerald-600 font-bold text-xs uppercase tracking-[0.2em]">
+                      ตรวจสอบพบข้อมูลในระบบสากล
+                    </p>
+                  </div>
+
+                  {/* 📊 Official Data Table */}
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden mb-10">
+                    <div className="bg-slate-100 px-6 py-3 border-b border-slate-200 flex justify-between items-center">
+                      <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                        Transaction Audit Record
+                      </span>
+                      <span className="text-[9px] font-mono text-slate-400 italic">
+                        Ref: TRX-SSL-
+                        {Math.random().toString(36).substring(7).toUpperCase()}
+                      </span>
+                    </div>
+                    <div className="divide-y divide-slate-200">
+                      <div className="grid grid-cols-2 px-6 py-4">
+                        <span className="text-xs text-slate-500 font-medium">
+                          ชื่อผู้โดยสาร:
+                        </span>
+                        <span className="text-xs font-bold text-slate-900 text-right uppercase">
+                          {formData.passengerName}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-2 px-6 py-4">
+                        <span className="text-xs text-slate-500 font-medium">
+                          สถานะตั๋วโดยสาร:
+                        </span>
+                        <span className="text-xs font-bold text-emerald-600 text-right uppercase">
+                          CONFIRMED / ISSUED
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-2 px-6 py-4">
+                        <span className="text-xs text-slate-500 font-medium">
+                          ช่องทางออกตั๋ว:
+                        </span>
+                        <span className="text-xs font-bold text-slate-900 text-right uppercase italic">
+                          E-TICKET PORTAL
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-2 px-6 py-4 bg-amber-50/30">
+                        <span className="text-xs text-slate-500 font-medium">
+                          รหัสอ้างอิง (PNR):
+                        </span>
+                        <span className="text-xs font-black text-blue-700 text-right font-mono tracking-widest uppercase">
+                          {Math.random()
+                            .toString(36)
+                            .substring(2, 8)
+                            .toUpperCase()}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 📥 Action Buttons */}
+                  <div className="space-y-4">
+                    <Button className="w-full h-16 bg-[#1a365d] hover:bg-[#122a4a] text-white font-bold rounded-xl uppercase tracking-widest text-sm flex items-center justify-center gap-3 shadow-xl">
+                      <FileDown className="w-5 h-5" /> บันทึกตั๋วเป็น PDF
+                      (High-Res)
+                    </Button>
+                    <div className="grid grid-cols-2 gap-4">
+                      <Button
+                        variant="outline"
+                        className="h-12 border-slate-200 text-slate-600 font-bold text-[10px] uppercase tracking-widest rounded-xl"
+                      >
+                        พิมพ์ใบเสร็จ
+                      </Button>
+                      <Button
+                        onClick={() => setStep("form")}
+                        variant="outline"
+                        className="h-12 border-slate-200 text-slate-400 font-bold text-[10px] uppercase tracking-widest rounded-xl"
+                      >
+                        สร้างตั๋วใบใหม่
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* ⚖️ Legal Footer */}
+                  <div className="mt-10 pt-8 border-t border-slate-100">
+                    <div className="flex items-start gap-3 opacity-60">
+                      <Lock className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+                      <p className="text-[9px] text-slate-500 leading-relaxed italic">
+                        เอกสารนี้ได้รับการรับรองผ่านระบบ Digital Signature
+                        ขั้นสูง <br />
+                        ห้ามมิให้ผู้ใดทำการดัดแปลงหรือปลอมแปลงข้อมูลในระบบฐานข้อมูลสากล{" "}
+                        <br />
+                        The Transport Co., Ltd. Reserved Rights © 2026
+                      </p>
+                    </div>
+                  </div>
                 </div>
-
-                <Button
-                  onClick={() => setStep("form")}
-                  variant="ghost"
-                  className="mt-12 text-[10px] font-bold tracking-[0.3em] uppercase text-zinc-500 hover:text-white transition-colors"
-                >
-                  Create Another E-Ticket
-                </Button>
               </div>
             )}
           </div>

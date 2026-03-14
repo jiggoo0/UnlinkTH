@@ -23,9 +23,10 @@ export default function FlightItineraryGenerator() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    airline: "MAS", // MAS or THAI
+    airline: "THAI",
+    priority: "standard", // standard or express
     departureCity: "BANGKOK (BKK)",
-    arrivalCity: "KUALA LUMPUR (KUL)",
+    arrivalCity: "LONDON (LHR)",
     departureDate: "",
     returnDate: "",
     email: "",
@@ -35,27 +36,38 @@ export default function FlightItineraryGenerator() {
     "form",
   );
   const [isGenerating, setIsGenerating] = useState(false);
-  const [exactAmount, setExactAmount] = useState<number>(299);
+  const [exactAmount, setExactAmount] = useState<number>(1590);
 
   useEffect(() => {
+    const basePrice = formData.priority === "express" ? 2490 : 1590;
     if (step === "payment") {
-      setExactAmount(calculateSafeAmount(299));
+      setExactAmount(calculateSafeAmount(basePrice));
     }
-  }, [step]);
+  }, [step, formData.priority]);
 
   const paymentData = getPaymentConfig(exactAmount);
 
   const airlines: Record<string, { name: string; logo: string; code: string }> =
     {
-      MAS: {
-        name: "Malaysia Airlines",
-        logo: "/images/assets/branding/malaysia-airlines.png",
-        code: "MH",
-      },
       THAI: {
-        name: "Thai Airways",
+        name: "Thai Airways International",
         logo: "/images/assets/branding/thai-airways.png",
         code: "TG",
+      },
+      EMIRATES: {
+        name: "Emirates",
+        logo: "https://logos-world.net/wp-content/uploads/2020/03/Emirates-Logo.png",
+        code: "EK",
+      },
+      QATAR: {
+        name: "Qatar Airways",
+        logo: "https://logos-world.net/wp-content/uploads/2023/03/Qatar-Airways-Logo.png",
+        code: "QR",
+      },
+      LUFTHANSA: {
+        name: "Lufthansa",
+        logo: "https://logos-world.net/wp-content/uploads/2020/11/Lufthansa-Logo.png",
+        code: "LH",
       },
     };
 
@@ -513,53 +525,109 @@ export default function FlightItineraryGenerator() {
             )}
 
             {step === "success" && (
-              <div className="h-full bg-primary/5 border border-primary/20 rounded-[3rem] p-16 flex flex-col items-center justify-center text-center animate-in zoom-in duration-700">
-                <div className="w-24 h-24 bg-primary rounded-[2rem] flex items-center justify-center mb-10 shadow-[0_0_50px_rgba(16,185,129,0.4)] rotate-12">
-                  <CheckCircle2 className="w-12 h-12 text-black" />
-                </div>
-                <h3 className="text-4xl font-black text-white mb-6 uppercase tracking-tighter">
-                  Mission Accomplished
-                </h3>
-                <p className="text-zinc-400 text-sm mb-12 max-w-md leading-relaxed font-light">
-                  ระบบได้ดำเนินการจัดส่งไฟล์เอกสาร (PDF/High-Res) เรียบร้อยแล้ว
-                  <br />
-                  โปรดตรวจสอบในกล่องข้อความของ{" "}
-                  <span className="text-white font-bold">
-                    {formData.email}
-                  </span>{" "}
-                  ภายใน 1-2 นาทีนี้ครับ
-                </p>
-
-                <div className="grid md:grid-cols-2 gap-4 w-full max-w-md">
-                  <div className="bg-zinc-900/80 p-6 rounded-2xl border border-white/5">
-                    <p className="text-[10px] text-zinc-500 uppercase tracking-widest mb-2 font-bold">
-                      Booking Ref
-                    </p>
-                    <p className="text-2xl font-mono text-primary font-black">
-                      X7K92P
-                    </p>
+              <div className="h-full bg-white text-slate-900 rounded-[2rem] shadow-2xl overflow-hidden animate-in zoom-in duration-700 font-sans border-4 border-emerald-500/20">
+                {/* 🏛️ Official System Header */}
+                <div className="bg-[#1a365d] p-6 text-white flex justify-between items-center border-b-4 border-amber-400">
+                  <div className="flex items-center gap-4">
+                    <div className="bg-white p-1.5 rounded-lg">
+                      <div className="w-10 h-10 bg-slate-100 flex items-center justify-center text-black font-bold text-[6px] uppercase">
+                        GDS Logo
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-sm font-bold leading-tight uppercase tracking-tighter">
+                        Global Distribution System
+                      </h2>
+                      <p className="text-[8px] opacity-70 font-mono tracking-widest uppercase">
+                        Airline Reservation & Itinerary Verification
+                      </p>
+                    </div>
                   </div>
-                  <div className="bg-zinc-900/80 p-6 rounded-2xl border border-white/5 flex flex-col justify-center items-center gap-2">
-                    <Image
-                      src="/branding/icon.webp"
-                      alt="Logo"
-                      width={24}
-                      height={24}
-                      className="opacity-50"
-                    />
-                    <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest italic">
-                      UNLINK-TH Verified
-                    </span>
+                  <div className="text-right">
+                    <div className="bg-emerald-500/20 border border-emerald-500/40 px-3 py-1 rounded-full flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-tighter">
+                        Verified Status
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                <Button
-                  onClick={() => setStep("form")}
-                  variant="ghost"
-                  className="mt-12 text-[10px] font-bold tracking-[0.3em] uppercase text-zinc-500 hover:text-white transition-colors"
-                >
-                  Create Another Document
-                </Button>
+                <div className="p-8 md:p-12">
+                  {/* ✅ Verified Badge Area */}
+                  <div className="flex flex-col items-center text-center mb-10">
+                    <div className="w-24 h-24 bg-emerald-50 rounded-full flex items-center justify-center mb-6 border-4 border-emerald-100 shadow-inner relative">
+                      <CheckCircle2 className="w-12 h-12 text-emerald-500" />
+                      <div className="absolute inset-0 rounded-full border-4 border-emerald-500/10 animate-ping" />
+                    </div>
+                    <h3 className="text-2xl font-black text-slate-800 uppercase tracking-tight mb-1">
+                      Itinerary Confirmed
+                    </h3>
+                    <p className="text-emerald-600 font-bold text-xs uppercase tracking-[0.2em]">
+                      ยืนยันตัวตนและสถานะตั๋วเรียบร้อย
+                    </p>
+                  </div>
+
+                  {/* 📊 Official Data Table */}
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden mb-10">
+                    <div className="bg-slate-100 px-6 py-3 border-b border-slate-200 flex justify-between items-center">
+                      <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                        Electronic Ticket Receipt
+                      </span>
+                      <span className="text-[9px] font-mono text-slate-400 italic">
+                        Node: GDS-INTEGRITY-2026
+                      </span>
+                    </div>
+                    <div className="divide-y divide-slate-200">
+                      <div className="grid grid-cols-2 px-6 py-4">
+                        <span className="text-xs text-slate-500 font-medium">
+                          Passenger:
+                        </span>
+                        <span className="text-xs font-bold text-slate-900 text-right uppercase">
+                          {formData.lastName} / {formData.firstName}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-2 px-6 py-4 bg-amber-50/30">
+                        <span className="text-xs text-slate-500 font-medium italic">
+                          Booking Reference (PNR):
+                        </span>
+                        <span className="text-xs font-black text-blue-700 text-right font-mono tracking-widest uppercase">
+                          X7K92P
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-2 px-6 py-4">
+                        <span className="text-xs text-slate-500 font-medium">
+                          Flight Status:
+                        </span>
+                        <span className="text-xs font-bold text-emerald-600 text-right uppercase">
+                          OPEN / ISSUED
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 📥 Action Buttons */}
+                  <div className="space-y-4">
+                    <Button className="w-full h-16 bg-[#1a365d] hover:bg-[#122a4a] text-white font-bold rounded-xl uppercase tracking-widest text-sm flex items-center justify-center gap-3 shadow-xl">
+                      <CheckCircle2 className="w-5 h-5" /> รับไฟล์ PDF
+                      ผ่านช่องทางความปลอดภัย
+                    </Button>
+
+                    <div className="bg-zinc-100 p-6 rounded-2xl text-center border border-dashed border-slate-300">
+                      <p className="text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-4">
+                        Official VIP Support
+                      </p>
+                      <Button className="w-full bg-[#00B900] hover:bg-[#009900] text-white font-bold h-12 rounded-xl uppercase tracking-widest text-[10px]">
+                        Liaison via LINE OA
+                      </Button>
+                      <p className="mt-4 text-[9px] text-slate-400 leading-relaxed italic">
+                        * หากท่านต้องการเส้นทางพิเศษ
+                        หรือบริการที่ไม่มีระบุในหน้านี้ <br />
+                        โปรดติดต่อเจ้าหน้าที่โดยตรง รับรองไม่ผิดหวัง
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </div>

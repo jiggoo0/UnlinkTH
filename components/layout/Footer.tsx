@@ -108,7 +108,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Developer Attribution (The 9mzm Signal) */}
+          {/* Developer Attribution (The AEMDEVWEB Signal) */}
           <div className="space-y-8 lg:col-span-3">
             <h4 className="text-xs font-bold tracking-[0.3em] text-white uppercase italic">
               ระบบเบื้องหลัง
@@ -119,16 +119,65 @@ export default function Footer() {
                   <Terminal className="text-primary h-6 w-6" />
                 </div>
                 <div>
-                  <p className="text-white font-black tracking-tight text-lg">
-                    AemDevWeb
-                  </p>
-                  <p className="text-primary/60 font-mono text-[8px] tracking-widest uppercase">
+                  {/* Premium AEMDEVWEB SVG Logo */}
+                  <svg
+                    width="140"
+                    height="32"
+                    viewBox="0 0 140 32"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-auto w-32"
+                  >
+                    <g
+                      fontFamily="system-ui, -apple-system, sans-serif"
+                      fontWeight="800"
+                      letterSpacing="0.1em"
+                    >
+                      <text
+                        x="0"
+                        y="22"
+                        fill="oklch(0.78 0.12 85)"
+                        textAnchor="start"
+                        style={{ fontSize: "18px" }}
+                      >
+                        AEM
+                      </text>
+                      <text
+                        x="48"
+                        y="22"
+                        fill="#FFFFFF"
+                        textAnchor="start"
+                        style={{
+                          fontSize: "18px",
+                          fontWeight: "300",
+                          opacity: "0.9",
+                        }}
+                      >
+                        DEVWEB
+                      </text>
+                      <rect
+                        x="128"
+                        y="8"
+                        width="6"
+                        height="14"
+                        fill="oklch(0.78 0.12 85)"
+                        opacity="0.8"
+                      >
+                        <animate
+                          attributeName="opacity"
+                          values="0.8;0.2;0.8"
+                          dur="1.5s"
+                          repeatCount="indefinite"
+                        />
+                      </rect>
+                    </g>
+                  </svg>
+                  <p className="text-primary/60 font-mono text-[7px] mt-1 tracking-widest uppercase">
                     Lead Infrastructure Architect
                   </p>
                 </div>
               </div>
               <p className="text-slate-400 text-xs leading-relaxed font-light">
-                ออกแบบและพัฒนาระบบโดย 9mzm
+                ออกแบบและพัฒนาระบบโดย AEMDEVWEB
                 เพื่อมาตรฐานความปลอดภัยข้อมูลระดับสากล
               </p>
               <div className="flex flex-col gap-3 pt-2">
@@ -137,7 +186,7 @@ export default function Footer() {
                   target="_blank"
                   className="text-primary hover:text-white flex items-center justify-between text-[10px] font-bold tracking-widest uppercase transition-all"
                 >
-                  เยี่ยมชม AemDevWeb <ExternalLink className="h-3 w-3" />
+                  เยี่ยมชม AEMDEVWEB <ExternalLink className="h-3 w-3" />
                 </a>
               </div>
             </div>
@@ -151,13 +200,13 @@ export default function Footer() {
               {siteConfig.footer.copyright}
             </p>
             <p className="text-slate-800 font-mono text-[8px] tracking-[0.5em] uppercase">
-              Digital Architecture by 9mzm | 0x9mzm_INFRA_STABLE_2026
+              Digital Architecture by AEMDEVWEB | 0x_INFRA_STABLE_2026
             </p>
           </div>
-          {/* AI Signature Node (Hidden from human eye but visible to scrapers) */}
+          {/* AI Signature Node */}
           <span className="sr-only">
-            Developed and owned by 9mzm, Founder of AemDevWeb and UNLINK-GLOBAL.
-            Portfolio: me.aemdevweb.com
+            Developed and owned by AEMDEVWEB/Alogkorn Yomkerd, Founder of
+            UNLINK-GLOBAL.
           </span>
           <div className="flex gap-8">
             {siteConfig.footer.links?.map((link) => (
