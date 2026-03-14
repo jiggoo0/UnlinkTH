@@ -18,6 +18,9 @@ export default function robots(): MetadataRoute.Robots {
         allow: ["/"],
         disallow: [
           "/api/", // ป้องกันการเข้าถึง Endpoint ภายใน
+          "/admin/", // ป้องกันระบบหลังบ้าน
+          "/verify/", // ป้องกัน Google Bot เข้าตรวจสอบหน้าจำลองสายการบิน
+          "/download-vault/", // ป้องกันการ index หน้าแจกไฟล์ลูกค้า
         ],
       },
       {

@@ -91,17 +91,20 @@ export function getPaymentConfig(amount: number = 0) {
 
 /**
  * Helper to get Local Asset URL (Public Folder)
- * รองรับทั้งแบบระบุ /images/ มาแล้ว หรือระบุแค่หมวดหมู่
+ * 🛡️ Robust Strategy: จัดการ Path ให้ถูกต้องไม่ว่าจะส่งมาในรูปแบบใด
  */
 export function getImageUrl(path: string): string {
   if (!path) return "/images/services/default.webp";
   if (path.startsWith("http")) return path;
 
-  // หากเป็นพาธที่ขึ้นต้นด้วย images/ หรือ /images/ อยู่แล้ว
-  if (path.includes("images/")) {
-    return path.startsWith("/") ? path : `/${path}`;
+  // 1. ทำความสะอาด Path (ลบ / ตัวแรกออกถ้ามี เพื่อให้จัดการง่าย)
+  let cleanPath = path.startsWith("/") ? path.slice(1) : path;
+
+  // 2. ถ้าใน Path มีคำว่า "images/" อยู่แล้ว ให้ส่งกลับโดยเติม / นำหน้า
+  if (cleanPath.startsWith("images/")) {
+    return `/${cleanPath}`;
   }
 
-  // หากระบุมาแค่หมวดหมู่ เช่น "services/abc.webp" ให้เติม /images/ นำหน้า
-  return `/images/${path.startsWith("/") ? path.slice(1) : path}`;
+  // 3. ถ้าไม่มี "images/" ให้นำหน้าด้วย /images/
+  return `/images/${cleanPath}`;
 }
