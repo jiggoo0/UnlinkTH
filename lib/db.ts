@@ -27,22 +27,20 @@ export const db = createClient({
  * สร้างตาราง cases และ admins หากยังไม่มี
  */
 export async function initDatabase() {
-  // 🛡️ Resilience Check: ถ้าไม่มีค่า Env ให้ข้ามการ Init ที่จะทำให้ระบบพัง
-  if (!url || url.includes("undefined") || !authToken) {
-    console.warn(
-      "⚠️ [DB_RESILIENCE]: Operating without cloud database. Using local/fallback mode.",
-    );
-    return;
-  }
-
   try {
-    // Check connection first with a timeout pattern
-    await Promise.race([
-      db.execute("SELECT 1"),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error("CONNECTION_TIMEOUT")), 5000),
-      ),
-    ]);
+    if (url && !url.includes("undefined") && authToken) {
+      // Check connection first with a timeout pattern for remote DB
+      await Promise.race([
+        db.execute("SELECT 1"),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("CONNECTION_TIMEOUT")), 5000),
+        ),
+      ]);
+    } else {
+      console.warn(
+        "⚠️ [DB_RESILIENCE]: Operating without cloud database. Using local/fallback mode.",
+      );
+    }
 
     await db.execute(`
       CREATE TABLE IF NOT EXISTS cases (
