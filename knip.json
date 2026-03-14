@@ -23,5 +23,6 @@
     "tailwindcss",
     "tailwindcss-animate",
     "sharp"
-  ]
+  ],
+  "ignore": ["scripts/remove_emojis.mjs"]
 }

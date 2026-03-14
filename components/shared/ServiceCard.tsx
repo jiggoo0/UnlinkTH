@@ -5,7 +5,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Service } from "@/types";
 import { getImageUrl } from "@/lib/utils";
-import { ArrowRight, ShieldCheck, LucideProps } from "lucide-react";
+import { ArrowRight, ShieldCheck, LucideProps, LucideIcon } from "lucide-react";
 
 interface ServiceCardProps {
   service: Service;
@@ -21,8 +21,8 @@ const DynamicIcon = dynamic(
     import("lucide-react").then((mod) => {
       return (props: LucideProps & { name: string }) => {
         const { name, ...rest } = props;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const Icon = (mod as Record<string, any>)[name] || ShieldCheck;
+        const Icon =
+          (mod as unknown as Record<string, LucideIcon>)[name] || ShieldCheck;
         return <Icon {...rest} />;
       };
     }),
@@ -60,15 +60,23 @@ export default function ServiceCard({ service }: ServiceCardProps) {
         {/* 2. Content Layer */}
         <div className="relative z-10 flex h-full flex-col justify-between p-10">
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-start justify-between">
               <div className="bg-primary/5 border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/40 flex h-14 w-14 items-center justify-center rounded-2xl border backdrop-blur-sm transition-all duration-500">
                 <DynamicIcon
                   name={service.iconName}
                   className="text-primary glow-gold h-7 w-7"
                 />
               </div>
-              <div className="text-primary/40 font-mono text-[9px] tracking-[0.3em] uppercase">
-                ID: {service.id}
+              <div className="flex flex-col items-end gap-2">
+                <div className="text-primary/40 font-mono text-[9px] tracking-[0.3em] uppercase">
+                  ID: {service.id}
+                </div>
+                {service.priceInfo?.startingAt &&
+                  service.priceInfo.startingAt !== "0" && (
+                    <div className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-md text-[10px] font-black tracking-widest uppercase shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                      ฿{service.priceInfo.startingAt} / {service.priceInfo.unit}
+                    </div>
+                  )}
               </div>
             </div>
 

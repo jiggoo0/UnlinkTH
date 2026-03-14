@@ -13,6 +13,7 @@ export interface CaseStatus {
   step1: string;
   step2: string;
   step3: string;
+  slipUrl?: string;
 }
 
 export interface CaseStatusError {
@@ -122,7 +123,7 @@ export async function updateCaseStatus(
 
     const sheetRowIndex = rowIndex + 1; // 1-based index
 
-    // 2. Prepare updates (Mapping: A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7)
+    // 2. Prepare updates (Mapping: A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7, I=8)
     // We only update columns that are provided in 'updates'
     const updatePromises = [];
 
@@ -166,6 +167,17 @@ export async function updateCaseStatus(
           range: `${sheetName}!F${sheetRowIndex}`,
           valueInputOption: "RAW",
           requestBody: { values: [[updates.step1]] },
+        }),
+      );
+    }
+
+    if (updates.slipUrl) {
+      updatePromises.push(
+        sheets.spreadsheets.values.update({
+          spreadsheetId: SPREADSHEET_ID,
+          range: `${sheetName}!I${sheetRowIndex}`,
+          valueInputOption: "RAW",
+          requestBody: { values: [[updates.slipUrl]] },
         }),
       );
     }

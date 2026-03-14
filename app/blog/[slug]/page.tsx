@@ -126,7 +126,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
               </span>
             </div>
 
-            <h1 className="text-5xl leading-[1.1] font-bold tracking-tighter text-balance md:text-7xl text-white">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl leading-[1.1] font-bold tracking-tighter text-balance text-white break-words overflow-wrap-anywhere">
               {post.title}
             </h1>
 
@@ -135,7 +135,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
                 <div className="bg-primary/5 rounded-lg p-2">
                   <ShieldCheck className="text-primary/70 h-5 w-5" />
                 </div>
-                <span className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
+                <span className="text-muted-foreground font-mono text-[10px] tracking-widest uppercase">
                   Verified Intelligence
                 </span>
               </div>
@@ -143,7 +143,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
                 <div className="bg-primary/5 rounded-lg p-2">
                   <Lock className="text-primary/70 h-5 w-5" />
                 </div>
-                <span className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
+                <span className="text-muted-foreground font-mono text-[10px] tracking-widest uppercase">
                   {post.priceInfo?.model || "Educational Protocol"}
                 </span>
               </div>
@@ -156,32 +156,34 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
       <div className="container grid gap-20 lg:grid-cols-12">
         <main className="lg:col-span-8">
           {/* 2.1 Auto-Generated Intelligence Summary (Key Insights) */}
-          <section className="mb-16 rounded-2xl border border-primary/10 bg-primary/5 p-8 backdrop-blur-sm">
+          <section className="mb-16 rounded-2xl border border-primary/10 bg-primary/5 p-10 backdrop-blur-sm shadow-2xl shadow-primary/5">
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <Terminal className="h-4 w-4" />
               </div>
-              <h2 className="font-mono text-sm font-bold uppercase tracking-[0.2em] text-white">
-                Intelligence Summary & Key Insights
+              <h2 className="font-mono text-[11px] font-bold uppercase tracking-[0.3em] text-white">
+                Intelligence Summary & Strategic Analysis
               </h2>
             </div>
-            <p className="mb-8 text-sm leading-relaxed text-muted-foreground/90 italic border-l-2 border-primary/30 pl-4">
+            <p className="mb-8 text-[15px] leading-relaxed text-muted-foreground/90 italic border-l-2 border-primary/30 pl-6 py-1">
               {post.description}
             </p>
 
             {post.features && post.features.length > 0 && (
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-6 md:grid-cols-2">
                 {post.features.map((feature: string, idx: number) => (
                   <div key={idx} className="flex items-start gap-3">
                     <ShieldCheck className="mt-1 h-3.5 w-3.5 text-primary/60 shrink-0" />
-                    <span className="text-[13px] text-zinc-300">{feature}</span>
+                    <span className="text-[13px] leading-snug text-zinc-300">
+                      {feature}
+                    </span>
                   </div>
                 ))}
               </div>
             )}
           </section>
 
-          <div className="prose prose-invert prose-headings:tracking-tighter prose-p:leading-relaxed prose-p:text-muted-foreground/90 prose-strong:text-primary max-w-none">
+          <div className="prose prose-invert prose-headings:tracking-tighter prose-p:leading-relaxed prose-p:text-muted-foreground/90 prose-strong:text-primary prose-a:text-primary prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-primary/80 prose-img:rounded-[2rem] prose-img:shadow-2xl prose-img:border prose-img:border-white/5 max-w-none w-full break-words">
             <MDXRemote source={post.content || ""} components={mdxComponents} />
           </div>
 

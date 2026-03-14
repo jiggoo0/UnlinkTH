@@ -133,7 +133,7 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
               </span>
             </div>
 
-            <h1 className="text-5xl leading-[1.1] font-bold tracking-tighter text-balance md:text-7xl text-white">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl leading-[1.1] font-bold tracking-tighter text-balance text-white break-words hyphens-auto overflow-wrap-anywhere">
               {service.title}
             </h1>
 
@@ -188,7 +188,7 @@ export default async function SingleServicePage({ params }: ServicePageProps) {
             )}
           </section>
 
-          <div className="prose prose-invert prose-headings:tracking-tighter prose-p:leading-relaxed prose-p:text-muted-foreground/90 prose-strong:text-primary max-w-none">
+          <div className="prose prose-invert prose-headings:tracking-tighter prose-p:leading-relaxed prose-p:text-muted-foreground/90 prose-strong:text-primary prose-a:text-primary prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-primary/80 prose-img:rounded-2xl max-w-4xl mx-auto w-full break-words">
             <MDXRemote
               source={service.description || ""}
               components={mdxComponents}

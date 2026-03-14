@@ -3,8 +3,9 @@
 "use server";
 
 import { db } from "./db";
-import { sendTicketEmail } from "./email";
+import { sendTicketEmail, sendAdminAlertEmail } from "./email";
 import { revalidatePath } from "next/cache";
+import { updateCaseStatus } from "./google-sheets";
 
 import { put } from "@vercel/blob";
 
@@ -52,6 +53,17 @@ export async function uploadFileAction(caseId: string, formData: FormData) {
       args: [blob.url, caseId],
     });
 
+    // [AUTOMATED-SYNC]: Update Google Sheets Status (Step 2)
+    try {
+      await updateCaseStatus(caseId, {
+        step2: "Document Prepared",
+        currentPhase: "Finalizing Document",
+        progress: 85,
+      });
+    } catch (sheetError) {
+      console.warn("⚠️ [SHEETS-SYNC-ERROR]:", sheetError);
+    }
+
     revalidatePath("/admin/liaison");
     return { success: true, url: blob.url };
   } catch (error: unknown) {
@@ -79,17 +91,53 @@ export async function submitSlipAction(caseId: string, formData: FormData) {
       );
     }
 
-    // Upload to Vercel Blob (slips folder)
+    // 1. Fetch current case data for notification context
+    const caseResult = await db.execute({
+      sql: "SELECT * FROM cases WHERE id = ?",
+      args: [caseId],
+    });
+
+    if (caseResult.rows.length === 0) {
+      throw new Error("ไม่พบข้อมูลเคสที่ระบุครับ");
+    }
+    const caseData = caseResult.rows[0] as unknown as LiaisonCase;
+
+    // 2. Upload to Vercel Blob (slips folder)
     const blob = await put(`slips/${caseId}-${Date.now()}-${file.name}`, file, {
       access: "public",
       addRandomSuffix: true,
     });
 
-    // Update Database with Slip URL
+    // 3. Update Database with Slip URL
     await db.execute({
       sql: "UPDATE cases SET slip_url = ?, status = 'pending_verification' WHERE id = ?",
       args: [blob.url, caseId],
     });
+
+    // 4. [ADMIN-NOTIFICATION]: Notify admin about new slip
+    try {
+      await sendAdminAlertEmail({
+        customerName: caseData.customer_name,
+        caseId: caseData.id,
+        amount: caseData.amount,
+        serviceTitle: caseData.service,
+        slipUrl: blob.url,
+      });
+    } catch (notifError) {
+      console.warn("⚠️ [ADMIN-NOTIF-ERROR]:", notifError);
+    }
+
+    // 5. [AUTOMATED-SYNC]: Update Google Sheets Status (Step 1 + Slip URL)
+    try {
+      await updateCaseStatus(caseId, {
+        step1: "Verifying Payment",
+        mainStatus: "Pending Verification",
+        progress: 40,
+        slipUrl: blob.url,
+      });
+    } catch (sheetError) {
+      console.warn("⚠️ [SHEETS-SYNC-ERROR]:", sheetError);
+    }
 
     revalidatePath("/admin/liaison");
     revalidatePath("/payment-verify");
@@ -128,6 +176,18 @@ export async function approveCaseAction(caseId: string) {
 
     if (!emailResult.success) {
       throw new Error(`Email dispatch failed: ${emailResult.error}`);
+    }
+
+    // [AUTOMATED-SYNC]: Update Google Sheets Status
+    try {
+      await updateCaseStatus(caseId, {
+        step1: "Payment Confirmed",
+        mainStatus: "Dispatched / Complete",
+        progress: 100,
+      });
+    } catch (sheetError) {
+      console.warn("⚠️ [SHEETS-SYNC-ERROR]:", sheetError);
+      // We don't throw here to avoid failing the whole action if sheets fail
     }
 
     await db.execute({

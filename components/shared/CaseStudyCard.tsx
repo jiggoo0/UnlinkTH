@@ -5,7 +5,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { CaseStudy } from "@/types";
 import { getImageUrl } from "@/lib/utils";
-import { ArrowRight, FileText, LucideProps } from "lucide-react";
+import { ArrowRight, FileText, LucideProps, LucideIcon } from "lucide-react";
 import { AnimatedCard } from "@/components/animated-section";
 
 interface CaseStudyCardProps {
@@ -21,8 +21,8 @@ const DynamicIcon = dynamic(
     import("lucide-react").then((mod) => {
       return (props: LucideProps & { name: string }) => {
         const { name, ...rest } = props;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const Icon = (mod as Record<string, any>)[name] || FileText;
+        const Icon =
+          (mod as unknown as Record<string, LucideIcon>)[name] || FileText;
         return <Icon {...rest} />;
       };
     }),

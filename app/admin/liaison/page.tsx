@@ -30,6 +30,8 @@ export default async function AdminLiaisonPage() {
   let cases: LiaisonCase[] = [];
   let totalRevenue = 0;
   let approvedCount = 0;
+  let dailyRevenue: { day: string; amount: number }[] = [];
+
   try {
     const result = await db.execute(
       "SELECT * FROM cases ORDER BY created_at DESC",
@@ -39,6 +41,20 @@ export default async function AdminLiaisonPage() {
     // Calculate Analytics
     totalRevenue = cases.reduce((acc, curr) => acc + (curr.amount || 0), 0);
     approvedCount = cases.filter((c) => c.status === "approved").length;
+
+    // Fetch Daily Revenue for Chart
+    const dailyResult = await db.execute(`
+      SELECT strftime('%Y-%m-%d', created_at) as day, SUM(amount) as amount
+      FROM cases
+      WHERE status = 'approved'
+      GROUP BY day
+      ORDER BY day ASC
+      LIMIT 7
+    `);
+    dailyRevenue = dailyResult.rows as unknown as {
+      day: string;
+      amount: number;
+    }[];
   } catch {
     console.warn("⚠️ [DB]: Skipping fetch during build or connection failure.");
   }
@@ -91,46 +107,148 @@ export default async function AdminLiaisonPage() {
       <main className="max-w-6xl mx-auto">
         {/* 📊 Revenue & Metrics Overview */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 hover:border-primary/20 transition-all">
-            <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-4">
-              Total Revenue Generated
-            </p>
-            <div className="flex items-end gap-2">
-              <span className="text-4xl font-black text-primary italic">
-                ฿{totalRevenue.toLocaleString()}
-              </span>
-              <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">
-                Net Profit
-              </span>
+          <div className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 hover:border-primary/20 transition-all flex flex-col justify-between">
+            <div>
+              <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-4">
+                Total Revenue Generated
+              </p>
+              <div className="flex items-end gap-2">
+                <span className="text-4xl font-black text-primary italic">
+                  ฿{totalRevenue.toLocaleString()}
+                </span>
+                <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">
+                  Net Profit
+                </span>
+              </div>
             </div>
           </div>
-          <div className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 hover:border-primary/20 transition-all">
-            <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-4">
-              Active Operations
-            </p>
-            <div className="flex items-end gap-2">
-              <span className="text-4xl font-black text-white italic">
-                {cases.length}
-              </span>
-              <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">
-                Total Cases
-              </span>
+          <div className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 hover:border-primary/20 transition-all flex flex-col justify-between">
+            <div>
+              <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-4">
+                Active Operations
+              </p>
+              <div className="flex items-end gap-2">
+                <span className="text-4xl font-black text-white italic">
+                  {cases.length}
+                </span>
+                <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">
+                  Total Cases
+                </span>
+              </div>
             </div>
           </div>
-          <div className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 hover:border-primary/20 transition-all">
-            <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-4">
-              Success Delivery Rate
-            </p>
-            <div className="flex items-end gap-2">
-              <span className="text-4xl font-black text-emerald-500 italic">
-                {cases.length > 0
-                  ? Math.round((approvedCount / cases.length) * 100)
-                  : 0}
-                %
-              </span>
-              <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">
-                Efficiency
-              </span>
+          <div className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 hover:border-primary/20 transition-all flex flex-col justify-between">
+            <div>
+              <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-4">
+                Success Delivery Rate
+              </p>
+              <div className="flex items-end gap-2">
+                <span className="text-4xl font-black text-emerald-500 italic">
+                  {cases.length > 0
+                    ? Math.round((approvedCount / cases.length) * 100)
+                    : 0}
+                  %
+                </span>
+                <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">
+                  Efficiency
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 📈 Daily Revenue Chart (New Analytics Section) */}
+        <section className="mb-12">
+          <div className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 md:p-12 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+              <ShieldCheck className="w-32 h-32 text-primary" />
+            </div>
+
+            <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-12">
+              <div className="flex-1">
+                <h2 className="text-2xl font-black tracking-tighter uppercase italic mb-2">
+                  Daily <span className="text-primary">Revenue</span> Analytics
+                </h2>
+                <p className="text-zinc-500 text-[9px] font-mono tracking-widest uppercase mb-12">
+                  Operational yield monitoring • Last 7 Days
+                </p>
+
+                <div className="flex items-end gap-4 h-48 md:h-64">
+                  {dailyRevenue.length === 0 ? (
+                    <div className="flex-1 flex items-center justify-center text-zinc-700 font-mono text-[10px] border border-white/5 rounded-2xl border-dashed">
+                      NO ANALYTICS DATA RECORDED
+                    </div>
+                  ) : (
+                    dailyRevenue.map((item) => {
+                      const maxAmount = Math.max(
+                        ...dailyRevenue.map((r) => r.amount),
+                        1,
+                      );
+                      const heightPercent = (item.amount / maxAmount) * 100;
+                      const date = new Date(item.day);
+                      const dayLabel = date.toLocaleDateString("en-US", {
+                        weekday: "short",
+                      });
+
+                      return (
+                        <div
+                          key={item.day}
+                          className="flex-1 flex flex-col items-center group/bar"
+                        >
+                          <div className="relative w-full flex-1 flex flex-col justify-end">
+                            {/* Bar Tooltip */}
+                            <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] font-black py-1 px-3 rounded-full opacity-0 group-hover/bar:opacity-100 transition-all pointer-events-none whitespace-nowrap z-20">
+                              ฿{item.amount.toLocaleString()}
+                            </div>
+
+                            {/* Bar Column */}
+                            <div
+                              className="w-full bg-primary/20 group-hover/bar:bg-primary border-x border-t border-primary/20 transition-all rounded-t-xl"
+                              style={{ height: `${heightPercent}%` }}
+                            />
+                          </div>
+                          <p className="mt-4 text-[9px] font-mono text-zinc-600 group-hover/bar:text-primary transition-colors uppercase">
+                            {dayLabel}
+                          </p>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+
+              <div className="w-full md:w-64 bg-[#050810] border border-white/5 rounded-2xl p-6">
+                <p className="text-zinc-600 font-mono text-[8px] uppercase tracking-widest mb-4">
+                  Intelligence Summary
+                </p>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-[10px] text-zinc-400 font-medium">
+                      Peak Revenue
+                    </p>
+                    <p className="text-lg font-black italic">
+                      ฿
+                      {Math.max(
+                        ...dailyRevenue.map((r) => r.amount),
+                        0,
+                      ).toLocaleString()}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-zinc-400 font-medium">
+                      Avg Daily Yield
+                    </p>
+                    <p className="text-lg font-black italic text-primary">
+                      ฿
+                      {dailyRevenue.length > 0
+                        ? Math.round(
+                            totalRevenue / approvedCount || 0,
+                          ).toLocaleString()
+                        : "0"}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>

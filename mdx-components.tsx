@@ -84,7 +84,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     a: ({ className, ...props }: React.ComponentPropsWithoutRef<"a">) => (
       <a
         className={cn(
-          "text-primary underline decoration-primary/20 underline-offset-[12px] transition-all hover:decoration-primary hover:text-white font-medium",
+          "text-primary bg-primary/5 px-1 py-0.5 rounded underline decoration-primary/40 underline-offset-[4px] transition-all hover:decoration-primary hover:bg-primary/20 hover:text-white font-bold inline-flex items-center",
           className,
         )}
         {...props}

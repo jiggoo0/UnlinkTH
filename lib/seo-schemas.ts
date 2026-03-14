@@ -13,6 +13,7 @@ import {
   Article,
   FAQPage,
   LocalBusiness,
+  SearchAction,
 } from "schema-dts";
 
 // ------------------------------------------------------------------
@@ -134,8 +135,7 @@ export const getWebSiteSchema = (): WithContext<WebSite> => ({
     "@type": "SearchAction",
     target: `${siteConfig.url}/search?q={search_term_string}`,
     "query-input": "required name=search_term_string",
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } as any,
+  } as SearchAction,
 });
 
 // ------------------------------------------------------------------

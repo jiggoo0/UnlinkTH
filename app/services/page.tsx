@@ -42,6 +42,14 @@ export default async function ServicesPage() {
 
   const categories = [
     {
+      id: "automated",
+      name: "Automated Express Systems",
+      description:
+        "บริการด่วนพิเศษพร้อมระบบยืนยันชำระเงินและรับเอกสารอัตโนมัติ",
+      icon: Cpu,
+      services: filterServices(["express-bus-ticket", "flight-itinerary-visa"]),
+    },
+    {
       id: "reputation",
       name: "Reputation Management",
       description: "ปฏิบัติการกู้คืนชื่อเสียงและระงับข้อมูลเชิงลบออนไลน์",

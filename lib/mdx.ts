@@ -119,6 +119,12 @@ export async function getAllServices(): Promise<Service[]> {
         const slug = path.basename(filePath, ".mdx");
         const fm = data as unknown as ServiceFrontmatter;
 
+        // Extract first image from content if frontmatter image is missing
+        const firstImageMatch =
+          source.match(/<Image[^>]+src=["']([^"']+)["']/i) ||
+          source.match(/!\[.*?\]\((.*?)\)/);
+        const contentImage = firstImageMatch ? firstImageMatch[1] : undefined;
+
         return {
           id: String(fm.id || slug),
           slug: slug,
@@ -127,7 +133,7 @@ export async function getAllServices(): Promise<Service[]> {
           description: String(fm.description || ""),
           iconName: String(fm.iconName || "ShieldCheck"),
           image: resolveImagePath(
-            fm.image || fm.imageUrl || fm.thumbnail,
+            fm.image || fm.imageUrl || fm.thumbnail || contentImage,
             "services",
           ),
           category: String(fm.category || "General").trim(),
@@ -202,6 +208,12 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
           | undefined;
         const metadata = fm["metadata"] as Record<string, unknown> | undefined;
 
+        // Extract first image from content
+        const firstImageMatch =
+          source.match(/<Image[^>]+src=["']([^"']+)["']/i) ||
+          source.match(/!\[.*?\]\((.*?)\)/);
+        const contentImage = firstImageMatch ? firstImageMatch[1] : undefined;
+
         // 🛡️ EXPLICIT MAPPING (No Spread Overwrites)
         return {
           id: String(fm["id"] || slug),
@@ -213,11 +225,11 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
           ),
           excerpt: String(fm["excerpt"] || fm["description"] || ""),
           image: resolveImagePath(
-            fm["image"] as string | undefined,
+            (fm["image"] as string | undefined) || contentImage,
             "case-studies",
           ),
           thumbnail: resolveImagePath(
-            fm["image"] as string | undefined,
+            (fm["image"] as string | undefined) || contentImage,
             "case-studies",
           ),
           date: String(fm["date"] || "2026-03-14"),
@@ -283,6 +295,12 @@ export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
           | undefined;
         const metadata = fm["metadata"] as Record<string, unknown> | undefined;
 
+        // Extract first image from content
+        const firstImageMatch =
+          source.match(/<Image[^>]+src=["']([^"']+)["']/i) ||
+          source.match(/!\[.*?\]\((.*?)\)/);
+        const contentImage = firstImageMatch ? firstImageMatch[1] : undefined;
+
         // 🛡️ EXPLICIT MAPPING (No Spread Overwrites)
         return {
           id: String(fm["id"] || slug),
@@ -293,7 +311,10 @@ export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
             fm["shortDescription"] || fm["description"] || "",
           ),
           description: String(fm["description"] || ""),
-          image: resolveImagePath(fm["image"] as string | undefined, "blog"),
+          image: resolveImagePath(
+            (fm["image"] as string | undefined) || contentImage,
+            "blog",
+          ),
           date: String(fm["date"] || "2026-03-14"),
           author: String(fm["author"] || "UNLINK-TH"),
           iconName: String(fm["iconName"] || "BookOpen"),

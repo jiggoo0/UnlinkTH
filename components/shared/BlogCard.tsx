@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import { BlogPostFrontmatter } from "@/types";
 import { AnimatedCard } from "@/components/animated-section";
 import { getImageUrl } from "@/lib/utils";
-import { ArrowRight, BookOpen, LucideProps } from "lucide-react";
+import { ArrowRight, BookOpen, LucideProps, LucideIcon } from "lucide-react";
 
 interface BlogCardProps {
   post: BlogPostFrontmatter;
@@ -20,8 +20,8 @@ const DynamicIcon = dynamic(
     import("lucide-react").then((mod) => {
       return (props: LucideProps & { name: string }) => {
         const { name, ...rest } = props;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const Icon = (mod as Record<string, any>)[name] || BookOpen;
+        const Icon =
+          (mod as unknown as Record<string, LucideIcon>)[name] || BookOpen;
         return <Icon {...rest} />;
       };
     }),

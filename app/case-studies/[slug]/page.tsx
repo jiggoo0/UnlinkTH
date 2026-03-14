@@ -125,45 +125,45 @@ export default async function SingleCasePage({ params }: CasePageProps) {
               </div>
             </div>
 
-            <h1 className="text-4xl leading-[1.2] font-bold tracking-tight text-white md:text-6xl">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl leading-[1.2] font-bold tracking-tight text-white break-words overflow-wrap-anywhere">
               {study.title}
             </h1>
 
             <div className="border-border/10 grid gap-6 border-t pt-8 md:grid-cols-4">
               <div className="flex flex-col gap-1">
-                <span className="text-muted-foreground/50 font-sans text-[10px] font-bold tracking-wider uppercase">
+                <span className="text-muted-foreground/50 font-sans text-[9px] font-bold tracking-wider uppercase">
                   Service Category
                 </span>
-                <span className="text-primary font-medium text-sm">
+                <span className="text-primary font-medium text-xs">
                   {study.category}
                 </span>
               </div>
 
               <div className="flex flex-col gap-1">
-                <span className="text-muted-foreground/50 font-sans text-[10px] font-bold tracking-wider uppercase">
+                <span className="text-muted-foreground/50 font-sans text-[9px] font-bold tracking-wider uppercase">
                   Execution Date
                 </span>
-                <span className="text-white/90 font-medium text-sm">
+                <span className="text-white/90 font-medium text-xs">
                   {study.date}
                 </span>
               </div>
 
               <div className="flex flex-col gap-1">
-                <span className="text-muted-foreground/50 font-sans text-[10px] font-bold tracking-wider uppercase">
+                <span className="text-muted-foreground/50 font-sans text-[9px] font-bold tracking-wider uppercase">
                   Primary Platform
                 </span>
-                <span className="text-white/90 font-medium text-sm">
+                <span className="text-white/90 font-medium text-xs">
                   {study.metadata?.keywords?.[0] || "Verified Systems"}
                 </span>
               </div>
 
               <div className="flex flex-col gap-1">
-                <span className="text-muted-foreground/50 font-sans text-[10px] font-bold tracking-wider uppercase">
+                <span className="text-muted-foreground/50 font-sans text-[9px] font-bold tracking-wider uppercase">
                   Verification
                 </span>
                 <div className="flex items-center gap-1.5 text-primary">
-                  <ShieldCheck className="h-4 w-4" />
-                  <span className="text-[11px] font-bold uppercase tracking-widest">
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest">
                     Confirmed Result
                   </span>
                 </div>
@@ -177,16 +177,16 @@ export default async function SingleCasePage({ params }: CasePageProps) {
       <div className="container grid gap-16 lg:grid-cols-12">
         <main className="lg:col-span-8">
           {/* 2.1 Case Summary Header */}
-          <section className="mb-16 rounded-2xl border border-primary/10 bg-primary/5 p-8 backdrop-blur-sm">
+          <section className="mb-16 rounded-2xl border border-primary/10 bg-primary/5 p-10 backdrop-blur-sm shadow-2xl shadow-primary/5">
             <div className="mb-6 flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <Terminal className="h-4 w-4" />
               </div>
-              <h2 className="font-mono text-sm font-bold uppercase tracking-[0.2em] text-white">
-                Operational Case Summary
+              <h2 className="font-mono text-[11px] font-bold uppercase tracking-[0.3em] text-white">
+                Operational Case Summary & Strategy
               </h2>
             </div>
-            <p className="mb-0 text-sm leading-relaxed text-muted-foreground/90 italic border-l-2 border-primary/30 pl-4">
+            <p className="mb-0 text-[15px] leading-relaxed text-muted-foreground/90 italic border-l-2 border-primary/30 pl-6 py-1">
               {study.excerpt}
             </p>
           </section>
@@ -274,7 +274,7 @@ export default async function SingleCasePage({ params }: CasePageProps) {
             </div>
           </div>
 
-          <div className="prose prose-invert prose-headings:tracking-tight prose-p:leading-relaxed prose-p:text-muted-foreground/90 prose-strong:text-primary prose-blockquote:border-primary/50 max-w-none">
+          <div className="prose prose-invert prose-headings:tracking-tight prose-p:leading-relaxed prose-p:text-muted-foreground/90 prose-strong:text-primary prose-blockquote:border-primary/50 prose-a:text-primary prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-primary/80 prose-img:rounded-[2rem] prose-img:shadow-2xl prose-img:border prose-img:border-white/5 max-w-none w-full break-words">
             <MDXRemote
               source={study.content || ""}
               components={mdxComponents}
