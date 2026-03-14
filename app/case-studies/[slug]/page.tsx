@@ -204,7 +204,7 @@ export default async function SingleCasePage({ params }: CasePageProps) {
               </div>
               <div className="space-y-4">
                 {study.auditLog && study.auditLog.length > 0 ? (
-                  study.auditLog.map((log, i) => (
+                  study.auditLog.map((log: { date: string; action: string }, i: number) => (
                     <div
                       key={i}
                       className="flex gap-4 items-start border-l-2 border-primary/20 pl-4 py-1"
@@ -238,7 +238,7 @@ export default async function SingleCasePage({ params }: CasePageProps) {
                 <ul className="space-y-3">
                   {study.verificationSteps &&
                   study.verificationSteps.length > 0 ? (
-                    study.verificationSteps.map((step, i) => (
+                    study.verificationSteps.map((step: string, i: number) => (
                       <li
                         key={i}
                         className="flex items-start gap-3 text-xs text-muted-foreground leading-relaxed"

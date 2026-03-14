@@ -8,7 +8,7 @@ import { submitSlipAction } from "@/lib/actions";
 import { toast } from "sonner";
 
 export default function PaymentVerifyPage() {
-  const [testAmount, setTestAmount] = useState<number>(299.0);
+  const [testAmount] = useState<number>(299.0);
   const [caseId, setCaseId] = useState<string>("");
   const [isUploading, setIsUploading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);

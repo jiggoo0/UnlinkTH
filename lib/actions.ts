@@ -22,6 +22,7 @@ export interface LiaisonCase {
   status: string;
   email_sent: number;
   file_url?: string;
+  slip_url?: string;
   created_at?: string;
 }
 

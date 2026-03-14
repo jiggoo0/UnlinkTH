@@ -311,6 +311,25 @@ export async function getBlogPostBySlug(
   } as BlogPost;
 }
 
+export async function getCaseStudyBySlug(
+  slug: string,
+): Promise<CaseStudy | null> {
+  const CONTENT_PATH = getContentPath();
+  const dir = path.join(CONTENT_PATH, "case-studies");
+  const files = getFilesRecursive(dir);
+  const filePath = files.find((f) => path.basename(f, ".mdx") === slug);
+
+  if (!filePath) return null;
+
+  const { data, content } = matter(fs.readFileSync(filePath, "utf8"));
+  return {
+    ...data,
+    slug,
+    content, // สำหรับ MDX Body
+    image: resolveImagePath(data.image || data.thumbnail, "case-studies"),
+  } as CaseStudy;
+}
+
 export async function getAllPosts<T>(category: ContentCategory): Promise<T[]> {
   if (category === "blog") return (await getAllBlogPosts()) as unknown as T[];
   if (category === "services")
