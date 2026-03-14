@@ -237,6 +237,7 @@ export interface CaseStudy {
   priority?: boolean | number;
   client?: string;
   description?: string;
+  content?: string; // เพิ่มฟิลด์นี้เพื่อรองรับ MDX Body
   outcome?: string;
   image?: string;
   iconName?: string;
