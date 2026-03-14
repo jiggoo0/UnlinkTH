@@ -40,7 +40,7 @@ export async function generateMetadata({
     description: study.metadata?.defaultDescription || study.excerpt,
     keywords: study.metadata?.keywords,
     alternates: {
-      canonical: `/case-studies/${slug}/`,
+      canonical: `/case-studies/${slug}`,
     },
   };
 }
