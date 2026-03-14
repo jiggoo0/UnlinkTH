@@ -57,14 +57,14 @@ async function ensureAdminExists() {
 
       // Update the primary admin account (always ID 1) to match the latest credentials
       await db.execute({
-        sql: "INSERT OR REPLACE INTO admins (id, username, password) VALUES (1, ?, ?)",
+        sql: "INSERT OR REPLACE INTO admins (id, username, password) VALUES ('1', ?, ?)",
         args: [currentUsername, hashed],
       });
       console.log(
         `✅ [AUTH]: Operational Credentials synchronized for: ${currentUsername}`,
       );
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("❌ [AUTH]: Security Bootstrap failed:", error);
     throw new Error("DATABASE_INIT_FAILURE", { cause: error });
   }
@@ -94,10 +94,10 @@ export async function loginAdmin(username: string, password: string) {
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Unknown error";
     console.error("🚨 [AUTH]: Login System Error:", message);
-    const errorMsg =
-      message === "DATABASE_INIT_FAILURE"
-        ? "DB_CONNECT_FAILED"
-        : "AUTH_SYSTEM_ERROR";
+
+    const errorMsg = message.includes("DATABASE_INIT_FAILURE")
+      ? `DB_CONNECT_FAILED: ${message}`
+      : "AUTH_SYSTEM_ERROR";
     return { success: false, error: `Critical System Error: ${errorMsg}` };
   }
 

@@ -1,7 +1,0 @@
---- STDOUT ---
-
-> www.unlink-th.com@1.0.0 check /data/data/com.termux/files/home/www.unlink-th.com
-> tsc --noEmit
-
-
---- STDERR ---

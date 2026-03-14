@@ -25,10 +25,13 @@ export const db = createClient({
 
 /**
  * 🏗️ DATABASE INITIALIZATION
- * สร้างตาราง cases หากยังไม่มี
+ * สร้างตาราง cases และ admins หากยังไม่มี
  */
 export async function initDatabase() {
   try {
+    // Check connection first
+    await db.execute("SELECT 1");
+
     await db.execute(`
       CREATE TABLE IF NOT EXISTS cases (
         id TEXT PRIMARY KEY,
@@ -55,5 +58,6 @@ export async function initDatabase() {
     console.log("✅ [DB]: Tables initialized successfully.");
   } catch (error) {
     console.error("❌ [DB]: Initialization failed:", error);
+    throw new Error("DATABASE_INIT_FAILURE", { cause: error });
   }
 }
