@@ -204,19 +204,21 @@ export default async function SingleCasePage({ params }: CasePageProps) {
               </div>
               <div className="space-y-4">
                 {study.auditLog && study.auditLog.length > 0 ? (
-                  study.auditLog.map((log: { date: string; action: string }, i: number) => (
-                    <div
-                      key={i}
-                      className="flex gap-4 items-start border-l-2 border-primary/20 pl-4 py-1"
-                    >
-                      <span className="text-[10px] font-mono text-primary/60 whitespace-nowrap">
-                        {log.date}
-                      </span>
-                      <span className="text-[11px] text-muted-foreground leading-tight">
-                        {log.action}
-                      </span>
-                    </div>
-                  ))
+                  study.auditLog.map(
+                    (log: { date: string; action: string }, i: number) => (
+                      <div
+                        key={i}
+                        className="flex gap-4 items-start border-l-2 border-primary/20 pl-4 py-1"
+                      >
+                        <span className="text-[10px] font-mono text-primary/60 whitespace-nowrap">
+                          {log.date}
+                        </span>
+                        <span className="text-[11px] text-muted-foreground leading-tight">
+                          {log.action}
+                        </span>
+                      </div>
+                    ),
+                  )
                 ) : (
                   <p className="text-muted-foreground text-xs italic">
                     Confidential operational record.
@@ -273,7 +275,10 @@ export default async function SingleCasePage({ params }: CasePageProps) {
           </div>
 
           <div className="prose prose-invert prose-headings:tracking-tight prose-p:leading-relaxed prose-p:text-muted-foreground/90 prose-strong:text-primary prose-blockquote:border-primary/50 max-w-none">
-            <MDXRemote source={study.content || ""} components={mdxComponents} />
+            <MDXRemote
+              source={study.content || ""}
+              components={mdxComponents}
+            />
           </div>
         </main>
 

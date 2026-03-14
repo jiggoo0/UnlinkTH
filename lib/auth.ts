@@ -54,7 +54,8 @@ async function ensureAdminExists() {
       const vault = getVaultCredentials();
       const initialUsername =
         process.env.ADMIN_USERNAME || vault.ADMIN_USERNAME || "admin";
-      const initialPassword = process.env.ADMIN_PASSWORD || vault.ADMIN_PASSWORD;
+      const initialPassword =
+        process.env.ADMIN_PASSWORD || vault.ADMIN_PASSWORD;
 
       if (initialPassword) {
         await db.execute({
@@ -70,7 +71,7 @@ async function ensureAdminExists() {
     }
   } catch (error) {
     console.error("❌ [AUTH]: Security Bootstrap failed:", error);
-    throw new Error("DATABASE_INIT_FAILURE");
+    throw new Error("DATABASE_INIT_FAILURE", { cause: error });
   }
 }
 
@@ -95,10 +96,11 @@ export async function loginAdmin(username: string, password: string) {
       });
       return { success: true };
     }
-  } catch (error: any) {
-    console.error("🚨 [AUTH]: Login System Error:", error.message);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.error("🚨 [AUTH]: Login System Error:", message);
     const errorMsg =
-      error.message === "DATABASE_INIT_FAILURE"
+      message === "DATABASE_INIT_FAILURE"
         ? "DB_CONNECT_FAILED"
         : "AUTH_SYSTEM_ERROR";
     return { success: false, error: `Critical System Error: ${errorMsg}` };

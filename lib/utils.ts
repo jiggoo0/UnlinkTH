@@ -98,7 +98,7 @@ export function getImageUrl(path: string): string {
   if (path.startsWith("http")) return path;
 
   // 1. ทำความสะอาด Path (ลบ / ตัวแรกออกถ้ามี เพื่อให้จัดการง่าย)
-  let cleanPath = path.startsWith("/") ? path.slice(1) : path;
+  const cleanPath = path.startsWith("/") ? path.slice(1) : path;
 
   // 2. ถ้าใน Path มีคำว่า "images/" อยู่แล้ว ให้ส่งกลับโดยเติม / นำหน้า
   if (cleanPath.startsWith("images/")) {

@@ -84,18 +84,20 @@ export default function CaseStudyCard({
             </div>
 
             {/* Core Specs Modules */}
-            {study.features && Array.isArray(study.features) && study.features.length > 0 && (
-              <div className="flex flex-wrap gap-2 pt-2">
-                {study.features.slice(0, 3).map((feature, idx) => (
-                  <span
-                    key={idx}
-                    className="bg-white/5 border-white/10 rounded-full border px-3 py-1 font-mono text-[9px] tracking-wider text-slate-400 uppercase backdrop-blur-md"
-                  >
-                    {feature}
-                  </span>
-                ))}
-              </div>
-            )}
+            {study.features &&
+              Array.isArray(study.features) &&
+              study.features.length > 0 && (
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {study.features.slice(0, 3).map((feature, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-white/5 border-white/10 rounded-full border px-3 py-1 font-mono text-[9px] tracking-wider text-slate-400 uppercase backdrop-blur-md"
+                    >
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+              )}
           </div>
 
           {/* 3. Footer Action */}

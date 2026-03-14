@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 import { generatePromptPayQR } from "@/lib/utils";
-import { ShieldCheck, Landmark, FileUp, CheckCircle2, Loader2 } from "lucide-react";
+import {
+  ShieldCheck,
+  Landmark,
+  FileUp,
+  CheckCircle2,
+  Loader2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { submitSlipAction } from "@/lib/actions";
 import { toast } from "sonner";
@@ -25,16 +31,19 @@ export default function PaymentVerifyPage() {
 
     setIsUploading(true);
     const formData = new FormData(e.currentTarget);
-    
+
     try {
       const result = await submitSlipAction(caseId, formData);
       if (result.success) {
         setIsSuccess(true);
-        toast.success("อัปโหลดสลิปเรียบร้อยแล้วครับ ระบบจะตรวจสอบภายใน 15-30 นาที");
+        toast.success(
+          "อัปโหลดสลิปเรียบร้อยแล้วครับ ระบบจะตรวจสอบภายใน 15-30 นาที",
+        );
       } else {
         toast.error(result.error || "เกิดข้อผิดพลาดในการอัปโหลด");
       }
     } catch (error) {
+      console.error("🚨 [UPLOAD_CLIENT_ERROR]:", error);
       toast.error("ระบบขัดข้อง กรุณาลองใหม่อีกครั้งครับ");
     } finally {
       setIsUploading(false);
@@ -68,11 +77,11 @@ export default function PaymentVerifyPage() {
             </div>
             <h2 className="text-xl font-bold mb-2">ส่งสลิปสำเร็จ!</h2>
             <p className="text-zinc-500 text-sm leading-relaxed px-4">
-              เจ้าหน้าที่กำลังตรวจสอบข้อมูลการโอนเงินของท่าน 
+              เจ้าหน้าที่กำลังตรวจสอบข้อมูลการโอนเงินของท่าน
               เราจะส่งอีเมลแจ้งเตือนเมื่อดำเนินการเสร็จสิ้นครับ
             </p>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="mt-8 rounded-2xl border-white/5 hover:bg-white/10"
               onClick={() => setIsSuccess(false)}
             >

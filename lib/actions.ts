@@ -74,7 +74,9 @@ export async function submitSlipAction(caseId: string, formData: FormData) {
 
     const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
     if (!allowedTypes.includes(file.type)) {
-      throw new Error("ระบบรองรับเฉพาะไฟล์รูปภาพ (JPG, PNG) หรือ PDF เท่านั้นครับ");
+      throw new Error(
+        "ระบบรองรับเฉพาะไฟล์รูปภาพ (JPG, PNG) หรือ PDF เท่านั้นครับ",
+      );
     }
 
     // Upload to Vercel Blob (slips folder)
@@ -93,7 +95,8 @@ export async function submitSlipAction(caseId: string, formData: FormData) {
     revalidatePath("/payment-verify");
     return { success: true, url: blob.url };
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "การอัปโหลดสลิปล้มเหลว";
+    const message =
+      error instanceof Error ? error.message : "การอัปโหลดสลิปล้มเหลว";
     console.error("🚨 [SLIP UPLOAD ERROR]:", message);
     return { success: false, error: message };
   }

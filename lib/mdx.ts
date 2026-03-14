@@ -196,40 +196,64 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
         const source = fs.readFileSync(filePath, "utf8");
         const { data } = matter(source);
         const slug = path.basename(filePath, ".mdx");
-        const fm = data as any;
+        const fm = data as Record<string, unknown>;
+        const priceInfo = fm["priceInfo"] as
+          | Record<string, unknown>
+          | undefined;
+        const metadata = fm["metadata"] as Record<string, unknown> | undefined;
 
         // 🛡️ EXPLICIT MAPPING (No Spread Overwrites)
         return {
-          id: String(fm.id || slug),
+          id: String(fm["id"] || slug),
           slug: slug,
-          title: String(fm.title || "Classified Operation"),
-          category: String(fm.category || "Field Record"),
-          shortDescription: String(fm.shortDescription || fm.excerpt || fm.description || ""),
-          excerpt: String(fm.excerpt || fm.description || ""),
-          image: resolveImagePath(fm.image, "case-studies"),
-          thumbnail: resolveImagePath(fm.image, "case-studies"),
-          date: String(fm.date || "2026-03-14"),
-          priority: fm.priority ? 1 : 0,
-          client: String(fm.client || "VIP"),
-          outcome: String(fm.outcome || "CLEANSED"),
-          iconName: String(fm.iconName || "Shield"),
-          features: Array.isArray(fm.features) ? fm.features : [],
-          legalReference: String(fm.legalReference || ""),
-          platform: String(fm.platform || ""),
-          verificationSteps: Array.isArray(fm.verificationSteps) ? fm.verificationSteps : [],
-          auditLog: Array.isArray(fm.auditLog) ? fm.auditLog : [],
+          title: String(fm["title"] || "Classified Operation"),
+          category: String(fm["category"] || "Field Record"),
+          shortDescription: String(
+            fm["shortDescription"] || fm["excerpt"] || fm["description"] || "",
+          ),
+          excerpt: String(fm["excerpt"] || fm["description"] || ""),
+          image: resolveImagePath(
+            fm["image"] as string | undefined,
+            "case-studies",
+          ),
+          thumbnail: resolveImagePath(
+            fm["image"] as string | undefined,
+            "case-studies",
+          ),
+          date: String(fm["date"] || "2026-03-14"),
+          priority: fm["priority"] ? 1 : 0,
+          client: String(fm["client"] || "VIP"),
+          outcome: String(fm["outcome"] || "CLEANSED"),
+          iconName: String(fm["iconName"] || "Shield"),
+          features: Array.isArray(fm["features"])
+            ? (fm["features"] as string[])
+            : [],
+          legalReference: String(fm["legalReference"] || ""),
+          platform: String(fm["platform"] || ""),
+          verificationSteps: Array.isArray(fm["verificationSteps"])
+            ? (fm["verificationSteps"] as string[])
+            : [],
+          auditLog: Array.isArray(fm["auditLog"])
+            ? (fm["auditLog"] as Array<{ date: string; action: string }>)
+            : [],
           priceInfo: {
-            startingAt: String(fm.priceInfo?.startingAt || "0"),
-            unit: String(fm.priceInfo?.unit || "Project"),
-            model: String(fm.priceInfo?.model || "Success-Based"),
+            startingAt: String(priceInfo?.["startingAt"] || "0"),
+            unit: String(priceInfo?.["unit"] || "Project"),
+            model: String(priceInfo?.["model"] || "Success-Based"),
           },
           metadata: {
-            defaultTitle: String(fm.metadata?.defaultTitle || fm.title || ""),
-            defaultDescription: String(fm.metadata?.defaultDescription || fm.description || ""),
-            keywords: Array.isArray(fm.metadata?.keywords) ? fm.metadata.keywords : [],
+            defaultTitle: String(
+              metadata?.["defaultTitle"] || fm["title"] || "",
+            ),
+            defaultDescription: String(
+              metadata?.["defaultDescription"] || fm["description"] || "",
+            ),
+            keywords: Array.isArray(metadata?.["keywords"])
+              ? (metadata["keywords"] as string[])
+              : [],
           },
         } as CaseStudy;
-      } catch (err) {
+      } catch {
         return null;
       }
     });
@@ -237,7 +261,7 @@ export async function getAllCaseStudies(): Promise<CaseStudy[]> {
     return studies
       .filter((s): s is CaseStudy => s !== null)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  } catch (error) {
+  } catch {
     return [];
   }
 }
@@ -253,33 +277,47 @@ export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
         const source = fs.readFileSync(filePath, "utf8");
         const { data } = matter(source);
         const slug = path.basename(filePath, ".mdx");
-        const fm = data as any;
+        const fm = data as Record<string, unknown>;
+        const priceInfo = fm["priceInfo"] as
+          | Record<string, unknown>
+          | undefined;
+        const metadata = fm["metadata"] as Record<string, unknown> | undefined;
 
         // 🛡️ EXPLICIT MAPPING (No Spread Overwrites)
         return {
-          id: String(fm.id || slug),
+          id: String(fm["id"] || slug),
           slug: slug,
-          title: String(fm.title || "Strategic Intelligence"),
-          category: String(fm.category || "Protocol"),
-          shortDescription: String(fm.shortDescription || fm.description || ""),
-          description: String(fm.description || ""),
-          image: resolveImagePath(fm.image, "blog"),
-          date: String(fm.date || "2026-03-14"),
-          author: String(fm.author || "UNLINK-TH"),
-          iconName: String(fm.iconName || "BookOpen"),
-          features: Array.isArray(fm.features) ? fm.features : [],
+          title: String(fm["title"] || "Strategic Intelligence"),
+          category: String(fm["category"] || "Protocol"),
+          shortDescription: String(
+            fm["shortDescription"] || fm["description"] || "",
+          ),
+          description: String(fm["description"] || ""),
+          image: resolveImagePath(fm["image"] as string | undefined, "blog"),
+          date: String(fm["date"] || "2026-03-14"),
+          author: String(fm["author"] || "UNLINK-TH"),
+          iconName: String(fm["iconName"] || "BookOpen"),
+          features: Array.isArray(fm["features"])
+            ? (fm["features"] as string[])
+            : [],
           priceInfo: {
-            startingAt: String(fm.priceInfo?.startingAt || "0"),
-            unit: String(fm.priceInfo?.unit || "Insight"),
-            model: String(fm.priceInfo?.model || "Standard"),
+            startingAt: String(priceInfo?.["startingAt"] || "0"),
+            unit: String(priceInfo?.["unit"] || "Insight"),
+            model: String(priceInfo?.["model"] || "Standard"),
           },
           metadata: {
-            defaultTitle: String(fm.metadata?.defaultTitle || fm.title || ""),
-            defaultDescription: String(fm.metadata?.defaultDescription || fm.description || ""),
-            keywords: Array.isArray(fm.metadata?.keywords) ? fm.metadata.keywords : [],
+            defaultTitle: String(
+              metadata?.["defaultTitle"] || fm["title"] || "",
+            ),
+            defaultDescription: String(
+              metadata?.["defaultDescription"] || fm["description"] || "",
+            ),
+            keywords: Array.isArray(metadata?.["keywords"])
+              ? (metadata["keywords"] as string[])
+              : [],
           },
         } as BlogPostFrontmatter;
-      } catch (err) {
+      } catch {
         return null;
       }
     });
@@ -287,7 +325,7 @@ export async function getAllBlogPosts(): Promise<BlogPostFrontmatter[]> {
     return posts
       .filter((p): p is BlogPostFrontmatter => p !== null)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  } catch (error) {
+  } catch {
     return [];
   }
 }
@@ -302,12 +340,16 @@ export async function getBlogPostBySlug(
 
   if (!filePath) return null;
 
-  const { data, content } = matter(fs.readFileSync(filePath, "utf8"));
+  const { data: rawData, content } = matter(fs.readFileSync(filePath, "utf8"));
+  const data = rawData as Record<string, unknown>;
   return {
-    ...data,
+    ...(data as unknown as BlogPostFrontmatter),
     content,
     slug,
-    image: resolveImagePath(data.image || data.thumbnail, "blog"),
+    image: resolveImagePath(
+      (data["image"] || data["thumbnail"]) as string | undefined,
+      "blog",
+    ),
   } as BlogPost;
 }
 
@@ -321,12 +363,16 @@ export async function getCaseStudyBySlug(
 
   if (!filePath) return null;
 
-  const { data, content } = matter(fs.readFileSync(filePath, "utf8"));
+  const { data: rawData, content } = matter(fs.readFileSync(filePath, "utf8"));
+  const data = rawData as Record<string, unknown>;
   return {
-    ...data,
+    ...(data as unknown as CaseStudy),
     slug,
     content, // สำหรับ MDX Body
-    image: resolveImagePath(data.image || data.thumbnail, "case-studies"),
+    image: resolveImagePath(
+      (data["image"] || data["thumbnail"]) as string | undefined,
+      "case-studies",
+    ),
   } as CaseStudy;
 }
 
