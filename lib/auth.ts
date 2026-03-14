@@ -3,27 +3,26 @@
 import { cookies } from "next/headers";
 import fs from "fs";
 import path from "path";
-import { db } from "@/lib/db";
+import { db, initDatabase } from "@/lib/db";
 import crypto from "crypto";
 
 /**
- * 🔒 UNLINK-GLOBAL: ADMIN AUTHENTICATION (v2.0 - Turso Driven)
+ * 🔒 UNLINK-GLOBAL: ADMIN AUTHENTICATION (v2.1 - Enhanced Resilience)
  * -------------------------------------------------------------------------
- * ระบบตรวจสอบสิทธิ์ผ่านฐานข้อมูล Turso เพื่อความยืดหยุ่นในการจัดการ
+ * ระบบตรวจสอบสิทธิ์ที่ออกแบบมาเพื่อกู้คืนตัวเองจากปัญหาฐานข้อมูล
  */
 
 const ADMIN_SESSION_KEY = "unlink_admin_session";
 
 /**
  * 🛠️ PASSWORD UTILITY
- * ใช้ SHA-256 ในการเก็บรหัสผ่านเพื่อความปลอดภัยเบื้องต้น
  */
 function hashPassword(password: string) {
   return crypto.createHash("sha256").update(password).digest("hex");
 }
 
 /**
- * 🛡️ VAULT LOADER (Legacy Support for Initialization)
+ * 🛡️ VAULT LOADER
  */
 function getVaultCredentials() {
   try {
@@ -33,17 +32,21 @@ function getVaultCredentials() {
       return JSON.parse(data);
     }
   } catch {
-    // Fail silently, fallback to env
+    /* Silent fail */
   }
   return {};
 }
 
 /**
  * 🏗️ SYSTEM BOOTSTRAP: ENSURE ADMIN
- * ตรวจสอบและสร้าง Admin คนแรกหากฐานข้อมูลยังว่างอยู่
+ * บังคับ Init ฐานข้อมูลก่อนตรวจสอบเสมอเพื่อป้องกัน Database Error
  */
 async function ensureAdminExists() {
   try {
+    // 🛡️ ขั้นตอนที่ 1: มั่นใจว่าตาราง admins มีอยู่จริง
+    await initDatabase();
+
+    // 🛡️ ขั้นตอนที่ 2: ตรวจสอบจำนวน Admin
     const result = await db.execute("SELECT COUNT(*) as count FROM admins");
     const count = Number(result.rows[0]?.count) || 0;
 
@@ -51,8 +54,7 @@ async function ensureAdminExists() {
       const vault = getVaultCredentials();
       const initialUsername =
         process.env.ADMIN_USERNAME || vault.ADMIN_USERNAME || "admin";
-      const initialPassword =
-        process.env.ADMIN_PASSWORD || vault.ADMIN_PASSWORD;
+      const initialPassword = process.env.ADMIN_PASSWORD || vault.ADMIN_PASSWORD;
 
       if (initialPassword) {
         await db.execute({
@@ -63,19 +65,20 @@ async function ensureAdminExists() {
             hashPassword(initialPassword),
           ],
         });
-        console.log("✅ [AUTH]: Initial Admin created in Turso.");
+        console.log("✅ [AUTH]: System seeded with initial credentials.");
       }
     }
   } catch (error) {
-    console.error("❌ [AUTH]: Bootstrap failed:", error);
+    console.error("❌ [AUTH]: Security Bootstrap failed:", error);
+    throw new Error("DATABASE_INIT_FAILURE");
   }
 }
 
 export async function loginAdmin(username: string, password: string) {
-  // มั่นใจว่ามี Admin ในระบบก่อนเริ่ม
-  await ensureAdminExists();
-
   try {
+    // รันการตรวจสอบและสร้างตารางก่อนเริ่ม Login
+    await ensureAdminExists();
+
     const hashedPassword = hashPassword(password);
     const result = await db.execute({
       sql: "SELECT * FROM admins WHERE username = ? AND password = ?",
@@ -87,17 +90,21 @@ export async function loginAdmin(username: string, password: string) {
       cookieStore.set(ADMIN_SESSION_KEY, "authenticated", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        maxAge: 60 * 60 * 24, // 24 Hours session for better UX
+        maxAge: 60 * 60 * 24, // 24 Hours session
         path: "/",
       });
       return { success: true };
     }
-  } catch (error) {
-    console.error("❌ [AUTH]: Login error:", error);
-    return { success: false, error: "Database Error" };
+  } catch (error: any) {
+    console.error("🚨 [AUTH]: Login System Error:", error.message);
+    const errorMsg =
+      error.message === "DATABASE_INIT_FAILURE"
+        ? "DB_CONNECT_FAILED"
+        : "AUTH_SYSTEM_ERROR";
+    return { success: false, error: `Critical System Error: ${errorMsg}` };
   }
 
-  return { success: false, error: "Invalid Credentials" };
+  return { success: false, error: "Invalid Operational Credentials" };
 }
 
 export async function logoutAdmin() {
