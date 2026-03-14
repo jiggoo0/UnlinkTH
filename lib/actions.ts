@@ -4,6 +4,7 @@
 
 import { db } from "./db";
 import { sendTicketEmail, sendAdminAlertEmail } from "./email";
+import { sendAdminLineNotification } from "./line";
 import { revalidatePath } from "next/cache";
 import { updateCaseStatus } from "./google-sheets";
 
@@ -116,7 +117,17 @@ export async function submitSlipAction(caseId: string, formData: FormData) {
 
     // 4. [ADMIN-NOTIFICATION]: Notify admin about new slip
     try {
+      // Send Email Notification
       await sendAdminAlertEmail({
+        customerName: caseData.customer_name,
+        caseId: caseData.id,
+        amount: caseData.amount,
+        serviceTitle: caseData.service,
+        slipUrl: blob.url,
+      });
+
+      // Send LINE Notification (Flex Message)
+      await sendAdminLineNotification({
         customerName: caseData.customer_name,
         caseId: caseData.id,
         amount: caseData.amount,

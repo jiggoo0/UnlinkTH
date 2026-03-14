@@ -1,7 +1,8 @@
 /** @format */
 
 import { NextResponse } from "next/server";
-import { sendTicketEmail } from "@/lib/email";
+import { sendTicketEmail, sendAdminAlertEmail } from "@/lib/email";
+import { sendAdminLineNotification } from "@/lib/line";
 import { db } from "@/lib/db";
 import crypto from "crypto";
 
@@ -47,6 +48,27 @@ export async function POST(req: Request) {
         serviceTitle: service,
         ticketUrl: `https://www.unlink-th.com/download-vault?caseId=${caseId}`,
       });
+
+      // 🚨 3. แจ้งเตือน Admin (Admin Automation)
+      try {
+        await sendAdminAlertEmail({
+          customerName: customerName,
+          caseId: caseId,
+          amount: amount,
+          serviceTitle: service,
+          slipUrl: "", // Webhook อัตโนมัติอาจไม่มี Slip URL แต่มีข้อมูลยอดเงิน
+        });
+
+        await sendAdminLineNotification({
+          customerName: customerName,
+          caseId: caseId,
+          amount: amount,
+          serviceTitle: service,
+          isAutomatic: true,
+        });
+      } catch (adminNotifError) {
+        console.warn("⚠️ [ADMIN-WEBHOOK-NOTIF-ERROR]:", adminNotifError);
+      }
 
       console.log(`✅ Revenue Captured: ${caseId} | Amount: ${amount}`);
 
