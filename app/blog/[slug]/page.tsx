@@ -182,7 +182,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
           </section>
 
           <div className="prose prose-invert prose-headings:tracking-tighter prose-p:leading-relaxed prose-p:text-muted-foreground/90 prose-strong:text-primary max-w-none">
-            <MDXRemote source={post.content} components={mdxComponents} />
+            <MDXRemote source={post.content || ""} components={mdxComponents} />
           </div>
 
           {/* 2.2 Takeaways & Strategic Actions */}

@@ -273,7 +273,7 @@ export default async function SingleCasePage({ params }: CasePageProps) {
           </div>
 
           <div className="prose prose-invert prose-headings:tracking-tight prose-p:leading-relaxed prose-p:text-muted-foreground/90 prose-strong:text-primary prose-blockquote:border-primary/50 max-w-none">
-            <MDXRemote source={study.content} components={mdxComponents} />
+            <MDXRemote source={study.content || ""} components={mdxComponents} />
           </div>
         </main>
 
