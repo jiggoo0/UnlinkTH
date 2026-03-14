@@ -46,26 +46,23 @@ async function ensureAdminExists() {
     // 🛡️ ขั้นตอนที่ 1: มั่นใจว่าตาราง admins มีอยู่จริง
     await initDatabase();
 
-    // 🛡️ ขั้นตอนที่ 2: ตรวจสอบจำนวน Admin
-    const result = await db.execute("SELECT COUNT(*) as count FROM admins");
-    const count = Number(result.rows[0]?.count) || 0;
+    // 🛡️ ขั้นตอนที่ 2: ตรวจสอบและ Sync Admin ข้อมูลล่าสุด
+    const vault = getVaultCredentials();
+    const currentUsername =
+      process.env.ADMIN_USERNAME || vault.ADMIN_USERNAME || "Admin";
+    const currentPassword = process.env.ADMIN_PASSWORD || vault.ADMIN_PASSWORD;
 
-    if (count === 0 || process.env.NODE_ENV === "development") {
-      const vault = getVaultCredentials();
-      const initialUsername =
-        process.env.ADMIN_USERNAME || vault.ADMIN_USERNAME || "admin";
-      const initialPassword =
-        process.env.ADMIN_PASSWORD || vault.ADMIN_PASSWORD;
+    if (currentPassword) {
+      const hashed = hashPassword(currentPassword);
 
-      if (initialPassword) {
-        const hashed = hashPassword(initialPassword);
-        // ตรวจสอบว่ามี Admin คนเดิมอยู่หรือไม่ ถ้ามีให้ Update ถ้าไม่มีให้ Insert
-        await db.execute({
-          sql: "INSERT OR REPLACE INTO admins (id, username, password) VALUES ((SELECT id FROM admins WHERE username = ?), ?, ?)",
-          args: [initialUsername, initialUsername, hashed],
-        });
-        console.log("✅ [AUTH]: System credentials synchronized.");
-      }
+      // Update the primary admin account (always ID 1) to match the latest credentials
+      await db.execute({
+        sql: "INSERT OR REPLACE INTO admins (id, username, password) VALUES (1, ?, ?)",
+        args: [currentUsername, hashed],
+      });
+      console.log(
+        `✅ [AUTH]: Operational Credentials synchronized for: ${currentUsername}`,
+      );
     }
   } catch (error) {
     console.error("❌ [AUTH]: Security Bootstrap failed:", error);
