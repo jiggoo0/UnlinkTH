@@ -12,9 +12,8 @@ const url = process.env.TURSO_DATABASE_URL?.trim();
 const authToken = process.env.TURSO_AUTH_TOKEN?.trim();
 
 if (!url || !authToken) {
-  // สำหรับการทดสอบเบื้องต้น (Mock mode) หากยังไม่มีค่า Env
-  console.warn(
-    "⚠️ TURSO CONFIG MISSING: Database will run in local mode or fail.",
+  console.error(
+    "❌ [DB_CONFIG_ERROR]: TURSO_DATABASE_URL or TURSO_AUTH_TOKEN is missing.",
   );
 }
 
@@ -28,9 +27,22 @@ export const db = createClient({
  * สร้างตาราง cases และ admins หากยังไม่มี
  */
 export async function initDatabase() {
+  // 🛡️ Resilience Check: ถ้าไม่มีค่า Env ให้ข้ามการ Init ที่จะทำให้ระบบพัง
+  if (!url || url.includes("undefined") || !authToken) {
+    console.warn(
+      "⚠️ [DB_RESILIENCE]: Operating without cloud database. Using local/fallback mode.",
+    );
+    return;
+  }
+
   try {
-    // Check connection first
-    await db.execute("SELECT 1");
+    // Check connection first with a timeout pattern
+    await Promise.race([
+      db.execute("SELECT 1"),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("CONNECTION_TIMEOUT")), 5000),
+      ),
+    ]);
 
     await db.execute(`
       CREATE TABLE IF NOT EXISTS cases (

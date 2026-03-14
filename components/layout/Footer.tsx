@@ -21,14 +21,14 @@ export default function Footer() {
                     {siteConfig.name}
                   </span>
                   <span className="text-primary/60 font-mono text-[9px] tracking-[0.4em] uppercase">
-                    Trusted Reputation Advisor
+                    Premium Reputation & Finance Advisor
                   </span>
                 </div>
               </Link>
               <p className="text-slate-400 max-w-sm text-lg leading-relaxed font-light">
-                ผู้เชี่ยวชาญด้านการจัดการข้อมูลและกู้คืนชื่อเสียงออนไลน์
-                ช่วยคุณเริ่มต้นชีวิตใหม่ด้วยโอกาสทางการเงินที่มั่นคง
-                ภายใต้การดูแลของทีมงานมืออาชีพ
+                ผู้เชี่ยวชาญด้านการจัดการวิกฤตชื่อเสียงและวางโครงสร้างการเงินระดับพรีเมียม
+                ช่วยคุณทวงคืนศักดิ์ศรีและอนาคตใหม่ด้วยโอกาสทางการเงินที่มั่นคง
+                ภายใต้การดูแลของทีมงานมืออาชีพมาตรฐานสากล
               </p>
             </div>
 

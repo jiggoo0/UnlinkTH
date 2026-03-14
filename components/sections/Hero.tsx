@@ -27,13 +27,13 @@ export default function Hero() {
 
         {/* Strategic Visual Anchor */}
         <Image
-          src={getImageUrl("common/methodology-abstract.webp")}
-          alt="Technical Methodology"
+          src={getImageUrl("common/hero-main.webp")}
+          alt="UNLINK-GLOBAL Gateway to Success"
           fill
           priority
           fetchPriority="high"
           sizes="100vw"
-          className="object-cover opacity-[0.07] mix-blend-luminosity grayscale"
+          className="object-cover opacity-[0.15] mix-blend-screen grayscale-0 brightness-110"
         />
 
         {/* Animated Scanner Effect: สื่อถึงการตรวจสอบและ Intervene ข้อมูล */}
@@ -41,10 +41,10 @@ export default function Hero() {
           initial={{ top: "-10%" }}
           animate={{ top: "110%" }}
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          className="absolute left-0 h-[2px] w-full bg-gradient-to-r from-transparent via-primary/20 to-transparent blur-sm z-10"
+          className="absolute left-0 h-[2px] w-full bg-gradient-to-r from-transparent via-primary/30 to-transparent blur-sm z-10"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050810]/40 to-[#050810]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050810]/60 to-[#050810]" />
       </div>
 
       <div className="relative z-20 container mx-auto px-6">
@@ -53,10 +53,10 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-primary/5 border-primary/20 text-primary inline-flex items-center gap-3 rounded-full border px-6 py-2 font-mono text-[10px] font-black tracking-[0.4em] uppercase backdrop-blur-xl shadow-[0_0_20px_rgba(16,185,129,0.1)]"
+            className="bg-primary/10 border-primary/30 text-primary inline-flex items-center gap-3 rounded-full border px-6 py-2 font-mono text-[10px] font-black tracking-[0.4em] uppercase backdrop-blur-2xl shadow-[0_0_30px_rgba(16,185,129,0.2)]"
           >
             <ShieldCheck className="h-3 w-3" />
-            <span>ความลับสูงสุด • ปลอดภัย 100% • ปรึกษาฟรี</span>
+            <span>EXECUTIVE CLEARANCE • HIGH-SECURE • UNLINK-PROTOCOL</span>
           </motion.div>
 
           {/* Strategic Narrative Hierarchy */}
@@ -65,11 +65,11 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="text-5xl leading-[0.85] font-black tracking-tighter text-white sm:text-7xl md:text-[8.5rem] uppercase"
+              className="text-5xl leading-[0.9] font-black tracking-tighter text-white sm:text-7xl md:text-[9rem] uppercase"
             >
-              ปลดล็อกอดีต <br />
-              <span className="text-primary italic font-light lowercase opacity-90">
-                ทวงคืนอนาคต
+              ยุติฝันร้าย <br />
+              <span className="text-primary italic font-light lowercase opacity-95">
+                ทวงคืนศักดิ์ศรี
               </span>
             </motion.h1>
 
@@ -77,15 +77,18 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-slate-400 mx-auto max-w-3xl text-lg leading-relaxed font-light md:text-2xl"
+              className="text-slate-400 mx-auto max-w-4xl text-lg leading-relaxed font-light md:text-2xl"
             >
-              ทางออกสุดท้ายของคนที่{" "}
+              ตัวจริงด้านการจัดการวิกฤตที่{" "}
               <span className="text-white font-medium italic">
-                "ยื่นกู้ไม่ผ่าน"
+                "ทุกชนชั้นไว้วางใจ"
               </span>{" "}
-              เพราะติดบูโร หรือโดนประจานจนเสียชื่อ... เราช่วยล้างประวัติเน่าใน
-              Google และฟื้นฟูตัวตนให้คุณกลับมาเริ่มชีวิตใหม่ได้ทันที
-              (เห็นผลจริง 100% ความลับระดับสูงสุด)
+              ไม่ว่าคุณจะต้องการแก้ประวัติเพื่อ{" "}
+              <span className="text-primary font-bold">กู้บ้าน</span>{" "}
+              หรือปกป้องภาพลักษณ์ระดับ{" "}
+              <span className="text-primary font-bold">VIP</span>{" "}
+              เราช่วยล้างชื่อเสียจาก Google และฟื้นฟูตัวตนให้ขาวสะอาด 100%
+              (จบเงียบ ปลอดภัย มาตรฐานสากล)
             </motion.p>
           </div>
 
