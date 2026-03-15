@@ -1,10 +1,7 @@
-/** @format */
+"use client";
 
-import { db, initDatabase } from "@/lib/db";
-import { isAuthenticated, logoutAdmin } from "@/lib/auth";
-import { redirect } from "next/navigation";
-import fs from "fs";
-import path from "path";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
   approveCaseAction,
   uploadFileAction,
@@ -19,110 +16,181 @@ import {
   LogOut,
   FileUp,
   FileCheck,
+  RefreshCw,
+  TrendingUp,
+  Search,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
-export default async function AdminLiaisonPage() {
-  // 1. Security Check
-  const auth = await isAuthenticated();
-  if (!auth) redirect("/admin/login");
+/**
+ * 👑 ADMIN LIAISON DASHBOARD (v2.0 - Stable Client)
+ * ---------------------------------------------------------
+ * ปรับปรุงใหม่เพื่อแก้ปัญหา Connection Failure บน Edge Runtime
+ * โดยการใช้ Client-side fetching และ Dynamic UI
+ */
 
-  // 2. Fetch Admin Identity
-  let adminUsername = "Admin";
-  try {
-    const vaultPath = path.join(process.cwd(), ".gemini/secrets/admin.json");
-    if (fs.existsSync(vaultPath)) {
-      const vaultData = fs.readFileSync(vaultPath, "utf-8");
-      const vault = JSON.parse(vaultData);
-      adminUsername =
-        process.env.ADMIN_USERNAME || vault.ADMIN_USERNAME || "Admin";
+export default function AdminLiaisonPage() {
+  const router = useRouter();
+  const [cases, setCases] = useState<LiaisonCase[]>([]);
+  const [adminUsername, setAdminUsername] = useState("Admin");
+  const [analytics, setAnalytics] = useState({
+    totalRevenue: 0,
+    approvedCount: 0,
+    efficiency: 0,
+  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const fetchDashboardData = async () => {
+    setIsRefreshing(true);
+    try {
+      const res = await fetch("/api/admin/liaison/data");
+      if (res.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
+      
+      const data = await res.json();
+      if (data.success) {
+        setCases(data.cases);
+        setAdminUsername(data.adminUsername);
+        setAnalytics(data.analytics);
+      } else {
+        toast.error(data.error || "Failed to fetch data");
+      }
+    } catch (err) {
+      toast.error("Database connection failure. Please retry.");
+    } finally {
+      setIsLoading(false);
+      setIsRefreshing(false);
     }
-  } catch {
-    /* Default fallback */
-  }
+  };
 
-  // 3. Database Init (Ensure schema exists)
-  await initDatabase();
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/admin/logout", { method: "POST" });
+      router.push("/admin/login");
+    } catch (err) {
+      toast.error("Logout failed");
+    }
+  };
 
-  // 4. Fetch Cases & Analytics from Turso
-  let cases: LiaisonCase[] = [];
-  let totalRevenue = 0;
-  let approvedCount = 0;
+  const handleApprove = async (caseId: string) => {
+    const confirmApprove = window.confirm("Confirm dispatch for case " + caseId + "?");
+    if (!confirmApprove) return;
 
-  try {
-    const result = await db.execute(
-      "SELECT * FROM cases ORDER BY created_at DESC",
+    try {
+      const result = await approveCaseAction(caseId);
+      if (result.success) {
+        toast.success("Case dispatched successfully");
+        fetchDashboardData();
+      } else {
+        toast.error(result.error || "Approval failed");
+      }
+    } catch (err) {
+      toast.error("Operational failure");
+    }
+  };
+
+  const handleFileUpload = async (caseId: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      toast.info("Uploading high-resolution document...");
+      const result = await uploadFileAction(caseId, formData);
+      if (result.success) {
+        toast.success("Document attached to case");
+        fetchDashboardData();
+      } else {
+        toast.error(result.error || "Upload failed");
+      }
+    } catch (err) {
+      toast.error("Network upload error");
+    }
+  };
+
+  const filteredCases = cases.filter(c => 
+    c.customer_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    c.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    c.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#050810] text-white flex flex-col items-center justify-center space-y-6">
+        <RefreshCw className="h-12 w-12 text-primary animate-spin" />
+        <p className="text-xs font-mono uppercase tracking-[0.4em] text-primary/60">Establishing Secure Sync...</p>
+      </div>
     );
-    cases = result.rows as unknown as LiaisonCase[];
-
-    // Calculate Analytics
-    totalRevenue = cases.reduce((acc, curr) => acc + (curr.amount || 0), 0);
-    approvedCount = cases.filter((c) => c.status === "approved").length;
-  } catch {
-    console.warn("⚠️ [DB]: Skipping fetch during build or connection failure.");
   }
 
   return (
-    <div className="min-h-screen bg-[#050810] text-white p-8">
-      <header className="max-w-6xl mx-auto mb-12 flex justify-between items-center">
+    <div className="min-h-screen bg-[#050810] text-white p-8 font-sans">
+      <header className="max-w-6xl mx-auto mb-12 flex flex-col md:flex-row justify-between items-center gap-8">
         <div>
           <h1 className="text-3xl font-black tracking-tighter uppercase italic">
-            Liaison{" "}
-            <span className="text-primary italic font-light lowercase">
-              Dashboard
-            </span>
+            Liaison <span className="text-primary italic font-light lowercase">Dashboard</span>
           </h1>
           <p className="text-zinc-500 text-[10px] font-mono tracking-[0.4em] uppercase">
-            Operational Authority:{" "}
-            <span className="text-primary">{adminUsername}</span>
+            Operational Authority: <span className="text-primary">{adminUsername}</span>
           </p>
         </div>
-        <div className="flex items-center gap-6">
-          <div className="text-right hidden sm:block">
-            <p className="text-[10px] font-mono text-emerald-500 uppercase tracking-widest">
-              System Status
-            </p>
-            <p className="text-xs font-bold uppercase tracking-tighter">
-              Operational Hub Active
-            </p>
+        
+        <div className="flex items-center gap-4 w-full md:w-auto">
+          <div className="relative flex-1 md:w-64">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+            <input 
+              type="text"
+              placeholder="Search cases..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full bg-[#0a0f1d] border border-white/5 rounded-xl pl-12 pr-4 py-3 text-xs focus:outline-none focus:border-primary/40 transition-all"
+            />
           </div>
-          <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20">
-            <ShieldCheck className="text-primary h-6 w-6" />
-          </div>
-
-          <form
-            action={async () => {
-              "use server";
-              await logoutAdmin();
-              redirect("/admin/login");
-            }}
+          
+          <Button
+            onClick={fetchDashboardData}
+            variant="ghost"
+            disabled={isRefreshing}
+            className="h-12 w-12 rounded-xl border border-white/5 hover:bg-white/5 text-zinc-500"
           >
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-12 w-12 rounded-xl border border-white/5 hover:bg-red-500/10 hover:border-red-500/20 text-zinc-500 hover:text-red-500 transition-all"
-            >
-              <LogOut className="h-5 w-5" />
-            </Button>
-          </form>
+            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+          </Button>
+
+          <Button
+            onClick={handleLogout}
+            variant="ghost"
+            size="icon"
+            className="h-12 w-12 rounded-xl border border-white/5 hover:bg-red-500/10 hover:border-red-500/20 text-zinc-500 hover:text-red-500 transition-all"
+          >
+            <LogOut className="h-5 w-5" />
+          </Button>
         </div>
       </header>
 
       <main className="max-w-6xl mx-auto">
         {/* 📊 Metrics Section */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 hover:border-primary/20 transition-all flex flex-col justify-between">
+          <div className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 hover:border-primary/20 transition-all flex flex-col justify-between group">
             <div>
-              <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-4">
+              <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-4 group-hover:text-primary transition-colors">
                 Total Revenue
               </p>
               <div className="flex items-end gap-2">
                 <span className="text-4xl font-black text-primary italic">
-                  ฿{totalRevenue.toLocaleString()}
+                  ฿{analytics.totalRevenue.toLocaleString()}
                 </span>
-                <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">
-                  Net Yield
-                </span>
+                <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">Net Yield</span>
               </div>
             </div>
           </div>
@@ -135,9 +203,7 @@ export default async function AdminLiaisonPage() {
                 <span className="text-4xl font-black text-white italic">
                   {cases.length}
                 </span>
-                <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">
-                  Units
-                </span>
+                <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">Units</span>
               </div>
             </div>
           </div>
@@ -148,42 +214,45 @@ export default async function AdminLiaisonPage() {
               </p>
               <div className="flex items-end gap-2">
                 <span className="text-4xl font-black text-emerald-500 italic">
-                  {cases.length > 0
-                    ? Math.round((approvedCount / cases.length) * 100)
-                    : 0}
-                  %
+                  {analytics.efficiency}%
                 </span>
-                <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">
-                  Success
-                </span>
+                <span className="text-zinc-600 text-xs mb-1 font-mono uppercase">Success</span>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 📈 Charts & Data Table */}
-        {cases.length === 0 ? (
+        {/* 📈 Data Table */}
+        {filteredCases.length === 0 ? (
           <div className="text-center py-20 bg-[#0a0f1d] border border-white/5 rounded-[2rem]">
             <Users className="h-12 w-12 text-zinc-700 mx-auto mb-4" />
             <p className="text-zinc-500 font-mono text-xs uppercase tracking-widest">
-              No active operational data.
+              {searchTerm ? "No cases match your search." : "No active operational data."}
             </p>
           </div>
         ) : (
           <div className="grid gap-6">
-            {cases.map((item) => (
+            {filteredCases.map((item) => (
               <div
                 key={item.id}
-                className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-8 hover:border-white/10 transition-all group"
+                className="bg-[#0a0f1d] border border-white/5 rounded-3xl p-8 flex flex-col lg:flex-row items-center justify-between gap-8 hover:border-white/10 transition-all group relative overflow-hidden"
               >
-                <div className="flex items-center gap-6 w-full md:w-auto">
+                {item.status === 'approved' && (
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-[50px] -mr-16 -mt-16 pointer-events-none" />
+                )}
+                
+                <div className="flex items-center gap-6 w-full lg:w-auto">
                   <div
-                    className={`h-14 w-14 rounded-2xl flex items-center justify-center border ${item.status === "approved" ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-500" : "bg-amber-500/10 border-amber-500/20 text-amber-500"}`}
+                    className={`h-14 w-14 rounded-2xl flex items-center justify-center border transition-all duration-500 ${
+                      item.status === "approved" || item.status === "CONFIRMED"
+                        ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-500" 
+                        : "bg-amber-500/10 border-amber-500/20 text-amber-500"
+                    }`}
                   >
-                    {item.status === "approved" ? (
-                      <CheckCircle2 />
+                    {item.status === "approved" || item.status === "CONFIRMED" ? (
+                      <CheckCircle2 className="h-6 w-6" />
                     ) : (
-                      <Clock className="animate-pulse" />
+                      <Clock className="h-6 w-6 animate-pulse" />
                     )}
                   </div>
                   <div>
@@ -192,7 +261,11 @@ export default async function AdminLiaisonPage() {
                         {item.id}
                       </span>
                       <span
-                        className={`px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-widest ${item.status === "approved" ? "bg-emerald-500/20 text-emerald-500" : "bg-amber-500/20 text-amber-500"}`}
+                        className={`px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-widest ${
+                          item.status === "approved" || item.status === "CONFIRMED"
+                            ? "bg-emerald-500/20 text-emerald-500" 
+                            : "bg-amber-500/20 text-amber-500"
+                        }`}
                       >
                         {item.status}
                       </span>
@@ -204,12 +277,12 @@ export default async function AdminLiaisonPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-12 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-white/5 pt-6 md:pt-0">
-                  <div className="text-right hidden sm:block">
+                <div className="flex flex-wrap items-center gap-8 w-full lg:w-auto justify-between lg:justify-end border-t lg:border-t-0 border-white/5 pt-6 lg:pt-0">
+                  <div className="text-right hidden sm:block min-w-[120px]">
                     <p className="text-[9px] font-mono text-zinc-600 uppercase tracking-widest mb-1">
-                      Service
+                      Service Protocol
                     </p>
-                    <p className="text-xs font-bold uppercase tracking-tighter">
+                    <p className="text-xs font-bold uppercase tracking-tighter text-primary/80">
                       {item.service}
                     </p>
                   </div>
@@ -221,19 +294,15 @@ export default async function AdminLiaisonPage() {
                         href={item.slip_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-primary bg-primary/10 px-4 py-2 rounded-xl border border-primary/20 hover:bg-primary hover:text-black transition-all"
+                        className="flex items-center gap-2 text-primary bg-primary/10 px-4 py-2 rounded-xl border border-primary/20 hover:bg-primary hover:text-black transition-all group/btn"
                       >
                         <FileCheck className="h-4 w-4" />
-                        <span className="text-[9px] font-black uppercase tracking-widest">
-                          Slip
-                        </span>
+                        <span className="text-[9px] font-black uppercase tracking-widest">Slip</span>
                       </a>
                     ) : (
                       <div className="flex items-center gap-2 text-zinc-600 bg-white/5 px-4 py-2 rounded-xl border border-white/5">
                         <Clock className="h-4 w-4" />
-                        <span className="text-[9px] font-black uppercase tracking-widest">
-                          Pending
-                        </span>
+                        <span className="text-[9px] font-black uppercase tracking-widest">Pending</span>
                       </div>
                     )}
                   </div>
@@ -241,56 +310,41 @@ export default async function AdminLiaisonPage() {
                   {/* PDF Dispatch */}
                   <div className="flex items-center gap-4">
                     {item.file_url ? (
-                      <div className="flex items-center gap-2 text-emerald-500 bg-emerald-500/10 px-4 py-2 rounded-xl border border-emerald-500/20">
-                        <FileCheck className="h-4 w-4" />
-                        <span className="text-[9px] font-black uppercase tracking-widest">
-                          Sent
-                        </span>
-                      </div>
-                    ) : (
-                      <form
-                        className="flex items-center gap-2"
-                        action={async (formData) => {
-                          "use server";
-                          await uploadFileAction(item.id, formData);
-                        }}
+                      <a 
+                        href={item.file_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-emerald-500 bg-emerald-500/10 px-4 py-2 rounded-xl border border-emerald-500/20 hover:bg-emerald-500 hover:text-white transition-all"
                       >
+                        <FileCheck className="h-4 w-4" />
+                        <span className="text-[9px] font-black uppercase tracking-widest">Dispatched</span>
+                      </a>
+                    ) : (
+                      <div className="flex items-center gap-2">
                         <input
                           type="file"
-                          name="file"
                           accept="application/pdf"
                           className="hidden"
                           id={`file-${item.id}`}
-                          required
+                          onChange={(e) => handleFileUpload(item.id, e)}
                         />
                         <label
                           htmlFor={`file-${item.id}`}
                           className="h-10 px-4 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 text-[9px] font-bold uppercase tracking-widest flex items-center gap-2 cursor-pointer transition-all"
                         >
-                          <FileUp className="h-3 w-3" /> PDF
+                          <FileUp className="h-3 w-3" /> UPLOAD PDF
                         </label>
-                        <Button
-                          type="submit"
-                          size="sm"
-                          className="h-10 rounded-xl bg-primary/20 text-primary border border-primary/20 hover:bg-primary hover:text-black font-bold text-[9px] uppercase tracking-widest transition-all"
-                        >
-                          Upload
-                        </Button>
-                      </form>
+                      </div>
                     )}
                   </div>
 
-                  {item.status !== "approved" ? (
-                    <form
-                      action={async () => {
-                        "use server";
-                        await approveCaseAction(item.id);
-                      }}
+                  {item.status !== "approved" && item.status !== "CONFIRMED" ? (
+                    <Button 
+                      onClick={() => handleApprove(item.id)}
+                      className="h-14 px-8 rounded-2xl bg-white text-black hover:bg-primary hover:text-black font-black text-xs tracking-widest uppercase transition-all flex items-center gap-3 shadow-xl"
                     >
-                      <Button className="h-14 px-8 rounded-2xl bg-white text-black hover:bg-primary hover:text-black font-black text-xs tracking-widest uppercase transition-all flex items-center gap-3">
-                        Dispatch <Send className="h-4 w-4" />
-                      </Button>
-                    </form>
+                      Dispatch <Send className="h-4 w-4" />
+                    </Button>
                   ) : (
                     <div className="flex items-center gap-3 text-emerald-500 px-6 py-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20">
                       <CheckCircle2 className="h-4 w-4" />

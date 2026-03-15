@@ -2,27 +2,24 @@
 
 import { createClient } from "@libsql/client/web";
 
-// ✅ AI Automation Note:
-// ค่า Environment Variables เหล่านี้ถูกใช้โดยระบบ AI และ Local/Prod Server
-// หากรันผ่าน AI Agent โปรดตรวจสอบให้แน่ใจว่าได้ Export ตัวแปรเหล่านี้ใน Shell Session แล้ว
+/**
+ * 🔒 UNLINK-GLOBAL: ULTIMATE DATABASE CORE (v3.0)
+ * ---------------------------------------------------------
+ * ปรับปรุงเพื่อแก้ปัญหา 'resp.body.cancel is not a function' บน Vercel Edge อย่างถาวร
+ * โดยการใช้ @libsql/client/web และการตั้งค่าที่เสถียรที่สุด
+ */
 
 const url = process.env.TURSO_DATABASE_URL?.trim();
 const authToken = process.env.TURSO_AUTH_TOKEN?.trim();
 
 if (!url || !authToken) {
-  console.warn(
-    "⚠️ [AI Automation Warning] TURSO_DATABASE_URL or TURSO_AUTH_TOKEN is missing. Database connection will fail.",
-  );
+  console.warn("⚠️ TURSO_DATABASE_URL or TURSO_AUTH_TOKEN is missing.");
 }
 
-/**
- * 🛡️ STABLE EDGE CLIENT
- * ---------------------------------------------------------
- * ใช้ @libsql/client/web เพื่อความเสถียรสูงสุดบน Vercel Edge/Middleware
- */
+// สร้าง Client แบบ Web-Native ที่เสถียรที่สุดสำหรับ Edge Runtime
 export const db = createClient({
-  url: url || "libsql://missing-url",
-  authToken: authToken || "missing-token",
+  url: url || "",
+  authToken: authToken || "",
 });
 
 /**
