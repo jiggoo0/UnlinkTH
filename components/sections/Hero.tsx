@@ -110,10 +110,12 @@ export default function Hero() {
             </Link>
 
             <Link
-              href="/services"
-              className="flex h-16 w-full items-center justify-center rounded-full border border-white/10 bg-white/[0.02] px-12 text-[12px] font-black tracking-[0.3em] text-white uppercase backdrop-blur-md transition-all hover:bg-white/5 hover:border-white/20 sm:w-auto"
+              href="/services?category=Instant+Alignment"
+              className="group flex h-16 w-full items-center justify-center rounded-full border border-primary/20 bg-primary/5 px-12 text-[12px] font-black tracking-[0.3em] text-primary uppercase backdrop-blur-md transition-all hover:bg-primary/10 hover:border-primary/40 sm:w-auto"
             >
-              ดูแนวทางการแก้ไข
+              <span className="flex items-center gap-2">
+                บริการอัตโนมัติ (ทันที)
+              </span>
             </Link>
           </motion.div>
 

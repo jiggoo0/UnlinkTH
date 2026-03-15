@@ -97,14 +97,14 @@ export function getImageUrl(path: string): string {
   if (!path) return "/images/services/default.webp";
   if (path.startsWith("http")) return path;
 
-  // 1. ทำความสะอาด Path (ลบ / ตัวแรกออกถ้ามี เพื่อให้จัดการง่าย)
-  const cleanPath = path.startsWith("/") ? path.slice(1) : path;
+  // 1. กำจัด / ตัวหน้าออกทั้งหมดก่อนเพื่อเริ่มใหม่
+  let cleanPath = path.replace(/^\/+/, "");
 
-  // 2. ถ้าใน Path มีคำว่า "images/" อยู่แล้ว ให้ส่งกลับโดยเติม / นำหน้า
+  // 2. ถ้าใน Path มีคำว่า "images/" อยู่แล้ว ให้ใช้ตามนั้น
   if (cleanPath.startsWith("images/")) {
     return `/${cleanPath}`;
   }
 
-  // 3. ถ้าไม่มี "images/" ให้นำหน้าด้วย /images/
+  // 3. ถ้าไม่มี "images/" ให้เติมเข้าไป
   return `/images/${cleanPath}`;
 }

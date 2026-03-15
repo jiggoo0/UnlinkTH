@@ -44,14 +44,24 @@ export default async function ServicesPage() {
 
   const categories = [
     {
+      id: "popular",
+      name: "Most Popular (Instant)",
+      description:
+        "บริการยอดนิยมที่ได้รับผลลัพธ์ทันที ระบบออกเอกสารอัตโนมัติมาตรฐานสากล 100%",
+      icon: Cpu,
+      // ดึง 3 บริการหลักที่ทำเงินเร็ว
+      services: allServices.filter((s) =>
+        ["SRV-IMM-01", "SRV-IMM-05", "SRV-IMM-02"].includes(s.id),
+      ),
+    },
+    {
       id: "booking",
       name: "Travel & Itinerary Systems",
       description:
         "ระบบออกเอกสารยืนยันแผนการเดินทางมาตรฐานสากล ตรวจสอบได้จริงในระบบ GDS",
       icon: Plane,
-      // กรองเฉพาะบริการที่เกี่ยวกับตั๋วและการเดินทาง
       services: allServices.filter((s) =>
-        ["SRV-IMM-01", "SRV-IMM-02", "SRV-IMM-03"].includes(s.id),
+        ["SRV-IMM-01", "SRV-IMM-02", "SRV-IMM-03", "SRV-IMM-05"].includes(s.id),
       ),
     },
     {
