@@ -1,7 +1,7 @@
 /** @format */
 
 import { Metadata } from "next";
-import { getAllServices } from "@/lib/mdx";
+import { SERVICES } from "@/constants/services-registry";
 import ServiceCard from "@/components/shared/ServiceCard";
 import { siteConfig } from "@/constants/site-config";
 import { getImageUrl } from "@/lib/utils";
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  const allServices = await getAllServices();
+  const allServices = SERVICES;
 
   const filterServices = (cats: string[]) =>
     allServices.filter((s) => {
@@ -51,7 +51,7 @@ export default async function ServicesPage() {
       icon: Plane,
       // กรองเฉพาะบริการที่เกี่ยวกับตั๋วและการเดินทาง
       services: allServices.filter((s) =>
-        ["srv-flight-itinerary-visa", "SRV-IMM-03"].includes(s.id),
+        ["SRV-IMM-01", "SRV-IMM-02", "SRV-IMM-03"].includes(s.id),
       ),
     },
     {

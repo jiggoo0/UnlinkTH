@@ -24,9 +24,12 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts.gemini/
+# gemini context (excluding internal state)
+.gemini/*
+!.gemini/conductor/
+!.gemini/bin/
 .geminiignore
-.gemini/
+.gemini_security/
 commands/
 skills/
 MISSION.md

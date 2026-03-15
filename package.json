@@ -17,6 +17,8 @@
     "analyze": "ANALYZE=true next build",
     "audit:seo": "echo 'Checking JSON-LD & Metadata Integrity...' && grep -r 'JsonLd' app components && echo 'Structure verification complete.'",
     "audit:perf": "echo Performance Verified",
+    "db:ping": "tsx scripts/db/ping.ts",
+    "db:migrate": "tsx scripts/db/migrate.ts",
     "aipc": "bash .gemini/bin/aipc.sh"
   },
   "dependencies": {
@@ -34,6 +36,8 @@
     "framer-motion": "^12.34.2",
     "googleapis": "^171.4.0",
     "gray-matter": "^4.0.3",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.0",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",
     "next-mdx-remote": "^6.0.0",

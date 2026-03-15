@@ -1,6 +1,6 @@
 /** @format */
 
-import { createClient } from "@libsql/client";
+import { createClient } from "@libsql/client/http";
 
 // ✅ AI Automation Note:
 // ค่า Environment Variables เหล่านี้ถูกใช้โดยระบบ AI และ Local/Prod Server
@@ -57,6 +57,23 @@ export const initDatabase = async () => {
           id TEXT PRIMARY KEY,
           token TEXT NOT NULL UNIQUE,
           expires_at DATETIME NOT NULL,
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    await db.execute(`
+      CREATE TABLE IF NOT EXISTS cases (
+          id TEXT PRIMARY KEY,
+          customer_name TEXT NOT NULL,
+          email TEXT NOT NULL,
+          service TEXT NOT NULL,
+          amount REAL NOT NULL,
+          status TEXT NOT NULL DEFAULT 'pending',
+          file_url TEXT,
+          slip_url TEXT,
+          email_sent INTEGER DEFAULT 0,
+          provider TEXT,
+          metadata TEXT,
           created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       );
     `);
