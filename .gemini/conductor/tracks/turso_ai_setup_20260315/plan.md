@@ -1,20 +1,20 @@
 # Implementation Plan: วางโครงสร้างระบบฐานข้อมูล Turso และฟังก์ชัน AI Automation ขั้นพื้นฐาน
 
-## Phase 1: Turso Integration
+## Phase 1: Turso Integration [checkpoint: d74cce5]
 
 - [x] Task: ตั้งค่าการเชื่อมต่อฐานข้อมูล Turso ในโปรเจกต์
   - [x] ทบทวนไฟล์ `.env` สำหรับเก็บ Database URL และ Auth Token (ห้าม Commit)
   - [x] เขียนฟังก์ชัน `lib/db.ts` เพื่อเชื่อมต่อผ่าน `@libsql/client`
 - [x] Task: ทดสอบการเชื่อมต่อฐานข้อมูล
   - [x] สร้าง Script ทดสอบการเชื่อมต่อเบื้องต้น (Ping)
-- [~] Task: Conductor - User Manual Verification 'Phase 1: Turso Integration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Turso Integration' (d74cce5)
 
-## Phase 2: Schema Foundation
+## Phase 2: Schema Foundation [checkpoint: d74cce5]
 
 - [x] Task: ออกแบบและสร้างโครงสร้างตารางหลัก (Schema)
   - [x] สร้างไฟล์ Schema สำหรับจัดเก็บข้อมูลรูปแบบบริการและสเตตัสงาน (ไม่ใช่ข้อมูลส่วนตัว)
   - [x] รัน Migration เบื้องต้น
-- [~] Task: Conductor - User Manual Verification 'Phase 2: Schema Foundation' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Schema Foundation' (d74cce5)
 
 ## Phase 3: AI Automation Readiness
 
