@@ -47,10 +47,12 @@ export default async function DownloadVaultPage({
       if (result.rows.length > 0) {
         caseData = result.rows[0] as unknown as CaseData;
       } else {
-        error = "ไม่พบรหัสเคสนี้ในระบบฐานข้อมูล";
+        error = `ไม่พบรหัสเคส "${caseId}" ในระบบฐานข้อมูล (รหัสนี้อาจหมดอายุแล้ว)`;
       }
-    } catch {
-      error = "เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูลความลับ";
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error("🚨 [VAULT_DB_ERROR]:", msg);
+      error = `เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล: ${msg.substring(0, 50)}...`;
     }
   }
 

@@ -1,6 +1,6 @@
 /** @format */
 
-import { createClient } from "@libsql/client";
+import { createClient } from "@libsql/client/web";
 
 // ✅ AI Automation Note:
 // ค่า Environment Variables เหล่านี้ถูกใช้โดยระบบ AI และ Local/Prod Server
@@ -15,7 +15,11 @@ if (!url || !authToken) {
   );
 }
 
-// สร้าง Client เชื่อมต่อ Edge Database (Turso / LibSQL)
+/**
+ * 🛡️ STABLE EDGE CLIENT
+ * ---------------------------------------------------------
+ * ใช้ @libsql/client/web เพื่อความเสถียรสูงสุดบน Vercel Edge/Middleware
+ */
 export const db = createClient({
   url: url || "libsql://missing-url",
   authToken: authToken || "missing-token",
