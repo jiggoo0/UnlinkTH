@@ -1,13 +1,13 @@
 /** @format */
 
-import { createClient } from "@libsql/client/http";
+import { createClient } from "@libsql/client";
 
 // ✅ AI Automation Note:
 // ค่า Environment Variables เหล่านี้ถูกใช้โดยระบบ AI และ Local/Prod Server
 // หากรันผ่าน AI Agent โปรดตรวจสอบให้แน่ใจว่าได้ Export ตัวแปรเหล่านี้ใน Shell Session แล้ว
 
-const url = process.env.TURSO_DATABASE_URL;
-const authToken = process.env.TURSO_AUTH_TOKEN;
+const url = process.env.TURSO_DATABASE_URL?.trim();
+const authToken = process.env.TURSO_AUTH_TOKEN?.trim();
 
 if (!url || !authToken) {
   console.warn(
