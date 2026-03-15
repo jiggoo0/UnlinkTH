@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [~] **Track: วางโครงสร้างระบบฐานข้อมูล Turso และฟังก์ชัน AI Automation ขั้นพื้นฐาน**
+- [x] **Track: วางโครงสร้างระบบฐานข้อมูล Turso และฟังก์ชัน AI Automation ขั้นพื้นฐาน**
       _Link: [./tracks/turso_ai_setup_20260315/](./tracks/turso_ai_setup_20260315/)_
