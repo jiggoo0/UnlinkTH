@@ -1,80 +1,82 @@
 /** @format */
 
-import { createClient, Client } from "@libsql/client";
+import { createClient } from "@libsql/client";
 
-/**
- * 🗄️ UNLINK-GLOBAL: TURSO DATABASE CONNECTOR (v1.3 - Hybrid Resilience)
- * -------------------------------------------------------------------------
- * มาตรฐานสูงสุด: ป้องกันความผิดพลาดจากการตั้งค่า Env และจัดการ Timeout แบบไดนามิก
- */
+// ✅ AI Automation Note:
+// ค่า Environment Variables เหล่านี้ถูกใช้โดยระบบ AI และ Local/Prod Server
+// หากรันผ่าน AI Agent โปรดตรวจสอบให้แน่ใจว่าได้ Export ตัวแปรเหล่านี้ใน Shell Session แล้ว
 
-// ดึงค่าอย่างปลอดภัยและลดความเสี่ยงจาก Whitespace
-const rawUrl = process.env.TURSO_DATABASE_URL || "";
-const rawToken = process.env.TURSO_AUTH_TOKEN || "";
+const url = process.env.TURSO_DATABASE_URL;
+const authToken = process.env.TURSO_AUTH_TOKEN;
 
-const url = rawUrl.trim();
-const authToken = rawToken.trim();
-
-// Singleton Pattern เพื่อป้องกัน Connection Exhaustion
-const globalForDb = global as unknown as { db: Client | undefined };
-
-export const db =
-  globalForDb.db ||
-  createClient({
-    url: url || "file:local.db",
-    authToken: authToken,
-  });
-
-if (process.env.NODE_ENV !== "production") globalForDb.db = db;
-
-/**
- * 🏗️ DATABASE INITIALIZATION
- * ตรวจสอบความพร้อมของโครงสร้างพื้นฐาน
- */
-export async function initDatabase() {
-  // หากไม่มี Config พื้นฐาน ให้หยุดทำงานทันทีเพื่อไม่ให้ระบบวนลูป Error
-  if (!url || !authToken) {
-    const missing = !url ? "URL" : "TOKEN";
-    console.error(`❌ [DB_FATAL]: TURSO_${missing} is missing in environment.`);
-    return;
-  }
-
-  try {
-    // 🛡️ Step 1: Schema Verification & Emergency Setup
-    // ใช้ Batch เพื่อความเร็วและลด Latency
-    await db.batch(
-      [
-        `CREATE TABLE IF NOT EXISTS cases (
-        id TEXT PRIMARY KEY,
-        customer_name TEXT NOT NULL,
-        email TEXT NOT NULL,
-        service TEXT,
-        amount REAL,
-        status TEXT DEFAULT 'pending',
-        email_sent INTEGER DEFAULT 0,
-        file_url TEXT,
-        slip_url TEXT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-      )`,
-        `CREATE TABLE IF NOT EXISTS admins (
-        id TEXT PRIMARY KEY,
-        username TEXT UNIQUE NOT NULL,
-        password TEXT NOT NULL,
-        role TEXT DEFAULT 'admin',
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-      )`,
-      ],
-      "write",
-    );
-
-    console.log("✅ [DB]: Infrastructure and Schema verified.");
-  } catch (error: unknown) {
-    const errorMsg = error instanceof Error ? error.message : String(error);
-    console.error("❌ [DB]: Schema sync failed:", errorMsg);
-
-    // แจ้งเตือนกรณี Token ผิดพลาด (Unauthorized)
-    if (errorMsg.includes("401") || errorMsg.toLowerCase().includes("auth")) {
-      console.error("🚨 [DB_AUTH_ERROR]: Please verify TURSO_AUTH_TOKEN.");
-    }
-  }
+if (!url || !authToken) {
+  console.warn(
+    "⚠️ [AI Automation Warning] TURSO_DATABASE_URL or TURSO_AUTH_TOKEN is missing. Database connection will fail.",
+  );
 }
+
+// สร้าง Client เชื่อมต่อ Edge Database (Turso / LibSQL)
+export const db = createClient({
+  url: url || "libsql://missing-url",
+  authToken: authToken || "missing-token",
+});
+
+/**
+ * 🛠️ [AI Automation] Initial Database Setup
+ * ฟังก์ชันนี้ใช้สำหรับสร้างตารางพื้นฐานหากยังไม่มีอยู่ในระบบ
+ */
+export const initDatabase = async () => {
+  try {
+    console.log("🛠️ [AI] Initializing database schema...");
+
+    // สร้างตารางเบื้องต้นที่จำเป็นสำหรับ Liaison และ Auth
+    await db.execute(`
+      CREATE TABLE IF NOT EXISTS service_requests (
+          id TEXT PRIMARY KEY,
+          service_type TEXT NOT NULL,
+          status TEXT NOT NULL DEFAULT 'pending',
+          metadata TEXT,
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+          updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    await db.execute(`
+      CREATE TABLE IF NOT EXISTS mock_tickets (
+          id TEXT PRIMARY KEY,
+          ticket_type TEXT NOT NULL,
+          reference_code TEXT NOT NULL UNIQUE,
+          status TEXT NOT NULL DEFAULT 'active',
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    // ตารางสำหรับ Admin Auth (อ้างอิงจากความต้องการของ lib/auth.ts)
+    await db.execute(`
+      CREATE TABLE IF NOT EXISTS admin_sessions (
+          id TEXT PRIMARY KEY,
+          token TEXT NOT NULL UNIQUE,
+          expires_at DATETIME NOT NULL,
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    console.log("✅ [AI] Database schema initialized successfully.");
+    return true;
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.error("❌ [AI] Database initialization failed:", message);
+    return false;
+  }
+};
+
+// Helper function สำหรับให้ AI เรียกใช้ตรวจสอบ Connection แบบด่วน
+export const checkDbConnection = async () => {
+  try {
+    const rs = await db.execute("SELECT 1 AS status");
+    return { success: true, data: rs.rows[0] };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return { success: false, error: message };
+  }
+};

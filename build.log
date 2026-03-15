@@ -1,0 +1,21 @@
+
+> www.unlink-th.com@1.0.0 build /data/data/com.termux/files/home/www.unlink-th.com
+> next build --webpack
+
+  Downloading swc package @next/swc-wasm-nodejs... to /data/data/com.termux/files/home/.cache/next-swc
+npm warn Unknown env config "arch". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown env config "gyp-defines". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown env config "verify-deps-before-run". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown env config "npm-globalconfig". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown env config "_jsr-registry". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "arch". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+npm warn Unknown project config "GYP_DEFINES". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+  Skipping creating a lockfile at /data/data/com.termux/files/home/www.unlink-th.com/.next/lock because we're using WASM bindings
+▲ Next.js 16.1.6 (webpack)
+- Environments: .env
+- Experiments (use with caution):
+  · optimizePackageImports
+  · serverActions
+
+  Creating an optimized production build ...
+ ELIFECYCLE  Command failed with exit code 143.
