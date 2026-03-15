@@ -7,7 +7,7 @@ import { sendTicketEmail } from "@/lib/email";
  * ทดสอบการส่งอีเมล 3 บริการหลักเข้าอีเมลที่กำหนด
  */
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   const testEmail = "jiggoo217@gmail.com";
   
   const tests = [
